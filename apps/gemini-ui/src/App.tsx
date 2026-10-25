@@ -28,7 +28,7 @@ import { setAiSession } from './lib/ai-session';
 
 import './studio/styles/studio.css';
 import './studio/styles/command-center.css';
-import './applications-ref02.css';
+import './applications.css';
 import './files.css';
 import './storage.css';
 import './cleanup.css';

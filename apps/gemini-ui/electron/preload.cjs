@@ -54,6 +54,17 @@ const CHANNELS = Object.freeze({
   scanStatus: 'knoux:scan:v1:status',
   scanHistory: 'knoux:scan:v1:history',
   scanEvent: 'knoux:scan:v1:event',
+  appsCapabilities: 'knoux:apps:v1:capabilities',
+  appsInventory: 'knoux:apps:v1:inventory',
+  appsSignature: 'knoux:apps:v1:signature',
+  appsAssociations: 'knoux:apps:v1:associations',
+  appsSizes: 'knoux:apps:v1:sizes',
+  appsSizesCancel: 'knoux:apps:v1:sizes-cancel',
+  appsLeftovers: 'knoux:apps:v1:leftovers',
+  appsUpdates: 'knoux:apps:v1:updates',
+  appsPlan: 'knoux:apps:v1:plan',
+  appsPackages: 'knoux:apps:v1:packages',
+  appsOpenSettings: 'knoux:apps:v1:open-settings',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -159,5 +170,26 @@ contextBridge.exposeInMainWorld(
       ipcRenderer.on(CHANNELS.scanEvent, listener);
       return () => ipcRenderer.removeListener(CHANNELS.scanEvent, listener);
     },
+  })
+);
+
+/* Applications v1 exposes only the measured software services and fixed,
+   read-only operations. There is no uninstall, install, update, association
+   write or generic invoke channel. */
+contextBridge.exposeInMainWorld(
+  'knouxAppsV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.appsCapabilities),
+    inventory: () => ipcRenderer.invoke(CHANNELS.appsInventory),
+    signature: (appId) => ipcRenderer.invoke(CHANNELS.appsSignature, { appId }),
+    associations: () => ipcRenderer.invoke(CHANNELS.appsAssociations),
+    sizes: (request) => ipcRenderer.invoke(CHANNELS.appsSizes, request),
+    cancelSizes: (operationId) => ipcRenderer.invoke(CHANNELS.appsSizesCancel, { operationId }),
+    leftovers: () => ipcRenderer.invoke(CHANNELS.appsLeftovers),
+    updates: (request) => ipcRenderer.invoke(CHANNELS.appsUpdates, request),
+    plan: (request) => ipcRenderer.invoke(CHANNELS.appsPlan, request),
+    packages: (request) => ipcRenderer.invoke(CHANNELS.appsPackages, request),
+    openSettings: (target) => ipcRenderer.invoke(CHANNELS.appsOpenSettings, { target }),
   })
 );

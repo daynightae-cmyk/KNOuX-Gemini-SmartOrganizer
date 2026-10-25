@@ -15,6 +15,8 @@ const preload = read('electron/preload.cjs');
 const main = read('electron/main.cjs');
 const security = read('electron/native/security.cjs');
 const provider = require('../electron/native/provider-bridge.cjs');
+const appBridge = require('../electron/native/app-bridge.cjs');
+const appBridgeSource = read('electron/native/app-bridge.cjs');
 const pkg = JSON.parse(read('package.json'));
 
 const failures = [];
@@ -44,6 +46,18 @@ const shellBlock = preload.slice(preload.indexOf("'knouxShell'"), preload.indexO
 assert(!shellBlock.includes('onEvent') && !shellBlock.includes('ipcRenderer.on'), 'platform v1 exposes no event stream');
 assert(!preload.includes('ipcRenderer.invoke(CHANNELS.studioEvent'), 'studio events are receive-only');
 assert(!preload.includes('ipcRenderer.invoke(CHANNELS.scanEvent'), 'scan events are receive-only');
+assert(/exposeInMainWorld\(\s*'knouxAppsV1'/.test(preload), 'preload exposes the Applications bridge');
+assert(!preload.includes('ipcRenderer.on(CHANNELS.apps'), 'Applications exposes no event stream');
+assert(contract.channels.appsInventory === 'knoux:apps:v1:inventory', 'Applications inventory channel is fixed');
+assert(contract.capabilities['apps.settings.open'].mode === 'user-initiated', 'settings handoff is the only user-initiated Applications capability');
+assert(appBridge.SERVICE_DEFINITIONS.length === 12, 'Applications keeps all twelve canonical services');
+assert(appBridge.GATED_OPERATIONS.every((operation) => operation.id && operation.mission), 'Applications gates name their owning mission');
+for (const forbidden of ['unlink(', 'rm(', 'rename(', 'writeFile(', 'rmdir(', 'registrySet(', 'uninstallApp(']) {
+  assert(!appBridgeSource.includes(forbidden), `Applications bridge has no mutation call: ${forbidden}`);
+}
+assert(!appBridgeSource.includes('shell.openExternal'), 'the Applications bridge does not open anything itself');
+assert(!appBridgeSource.includes('accept-source-agreements'), 'WinGet source agreements are never accepted automatically');
+assert(!appBridgeSource.includes('exec('), 'Applications bridge never uses a shell command evaluator');
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');
 assert(main.includes('sandbox: true'), 'main enables sandbox');

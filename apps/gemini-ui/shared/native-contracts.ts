@@ -983,3 +983,329 @@ export interface ScanShellApi {
   history: () => Promise<NativeEnvelope<ScanSummary[]>>;
   onEvent: (callback: (event: ScanProgressEvent) => void) => () => void;
 }
+
+/* ------------------------------------------------------------------------- *
+ * Applications / Software Command Center v1 (Mission 05)
+ *
+ * The bridge reads one measured software inventory (uninstall registry across
+ * the three hives/views plus Appx/MSIX) and derives all twelve services from
+ * that evidence. Signature, size, association, leftover, package and WinGet
+ * reads are explicit, bounded, read-only operations. There is no uninstall,
+ * install, update or settings-write channel: every mutation surfaces a gate.
+ * ------------------------------------------------------------------------- */
+
+export type AppSourceKind = 'uninstall-registry' | 'appx-msix';
+export type AppScopeKind = 'per-user' | 'per-machine' | 'packaged';
+export type AppSignatureState = 'unchecked' | 'valid' | 'invalid' | 'unsigned' | 'unknown' | 'unavailable';
+export type AppRemovalMethod = 'msi' | 'uninstall-string' | 'appx-package' | null;
+
+export interface AppStartupEvidence {
+  linked: boolean;
+  entryCount: number;
+  sources: string[];
+}
+
+export interface AppSizeEvidence {
+  reportedBytes: number | null;
+  measuredBytes: number | null;
+  measuredAt: string | null;
+  source: 'reported' | 'measured' | 'unknown';
+  partial: boolean | null;
+  filesMeasured: number | null;
+}
+
+export interface AppSignatureSummary {
+  status: AppSignatureState;
+  signer: string | null;
+  thumbprint: string | null;
+  checkedAt: string | null;
+}
+
+export interface AppRecord {
+  id: string;
+  name: string;
+  publisher: string | null;
+  version: string | null;
+  scope: AppScopeKind;
+  architecture: string | null;
+  source: AppSourceKind;
+  registryRoot: string | null;
+  registryView: '32-bit' | '64-bit' | null;
+  productCode: string | null;
+  installDate: string | null;
+  installLocation: string | null;
+  installLocationExists: boolean | null;
+  installSource: string | null;
+  uninstallMethod: AppRemovalMethod;
+  uninstallCommandExposed: false;
+  displayIcon: string | null;
+  estimatedSizeBytes: number | null;
+  isFramework: boolean;
+  isSystemComponent: boolean;
+  nonRemovable: boolean;
+  protected: boolean;
+  startup: AppStartupEvidence;
+  size: AppSizeEvidence;
+  signature: AppSignatureSummary;
+  lastSeen: string;
+  evidence: {
+    registryKeyRedacted: string | null;
+    packageFullName: string | null;
+    provider: string;
+  };
+}
+
+export interface AppCoverage {
+  registryItems: number;
+  appxItems: number;
+  returned: number;
+  sourceFailures: number | null;
+  entryFailures: number | null;
+  startupEntries: number;
+  existenceChecked: number;
+  existenceMissing: number;
+  truncated: boolean;
+}
+
+export interface AppKpis {
+  installed: number;
+  publishers: number;
+  packaged: number;
+  protectedCount: number;
+  startupLinked: number;
+  startupEntries: number;
+  staleRegistrations: number;
+  reportedFootprintBytes: number | null;
+  measuredFootprintBytes: number | null;
+  measuredFootprintApps: number;
+  updatesAvailable: number | null;
+}
+
+export interface AppStartupEntry {
+  id: string;
+  name: string;
+  source: string;
+  location: string | null;
+  executable: string | null;
+  linkedAppId: string | null;
+  linkedAppName: string | null;
+  writable: boolean;
+  bootSeconds: null;
+  commandExposed: false;
+}
+
+export interface AppsInventory {
+  contract: 'apps.v1';
+  readOnly: true;
+  mutation: 'none';
+  observedAt: string;
+  durationMs: number;
+  apps: AppRecord[];
+  kpis: AppKpis;
+  coverage: AppCoverage;
+  startup: AppStartupEntry[];
+  warnings: string[];
+}
+
+export interface AppCapabilityService {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  provider: string;
+  noteEn: string;
+  noteAr: string;
+}
+
+export interface AppGatedOperation {
+  id: string;
+  mission: string;
+  title: string;
+  reason: string;
+}
+
+export interface AppsCapabilities {
+  engine: string;
+  contract: 'apps.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  services: AppCapabilityService[];
+  gatedOperations: AppGatedOperation[];
+  nativeOnly: string[];
+}
+
+export interface AppSignatureChainElement {
+  subject: string;
+  issuer: string;
+  thumbprint: string;
+  notBefore: string | null;
+  notAfter: string | null;
+}
+
+export interface AppSignatureResult {
+  appId: string;
+  executable: string | null;
+  status: AppSignatureState;
+  message: string | null;
+  signer: string | null;
+  issuer: string | null;
+  thumbprint: string | null;
+  notBefore: string | null;
+  notAfter: string | null;
+  chain: AppSignatureChainElement[];
+  checkedAt: string;
+  provider: string;
+  note: string;
+}
+
+export interface AppAssociationEntry {
+  key: string;
+  kind: 'extension' | 'protocol';
+  progId: string | null;
+  handlerName: string | null;
+  userChoice: string | null;
+  commandExe: string | null;
+  conflict: boolean;
+}
+
+export interface AppAssociations {
+  observedAt: string;
+  extensions: AppAssociationEntry[];
+  protocols: AppAssociationEntry[];
+  sources: string[];
+  truncated: boolean;
+  warnings: string[];
+}
+
+export interface AppFolderContribution {
+  name: string;
+  bytes: number;
+}
+
+export interface AppSizeResult {
+  appId: string;
+  measuredBytes: number | null;
+  reportedBytes: number | null;
+  files: number;
+  folders: number;
+  partial: boolean;
+  reason: string | null;
+  topFolders: AppFolderContribution[];
+  appData: { path: string; bytes: number; confidence: 'name-match' } | null;
+  durationMs: number;
+}
+
+export interface AppSizesResult {
+  observedAt: string;
+  results: AppSizeResult[];
+  requested: number;
+  measured: number;
+  truncated: boolean;
+  warnings: string[];
+}
+
+export interface AppLeftoverCandidate {
+  id: string;
+  kind: 'stale-registration' | 'appdata-folder';
+  label: string;
+  path: string;
+  confidence: 'low' | 'medium';
+  reason: string;
+  appId: string | null;
+  sizeBytes: null;
+}
+
+export interface AppLeftoversResult {
+  observedAt: string;
+  candidates: AppLeftoverCandidate[];
+  scannedRoots: Array<{ root: string; entries: number; truncated: boolean }>;
+  staleCount: number;
+  candidateCount: number;
+  truncated: boolean;
+  mutation: 'none';
+  warnings: string[];
+}
+
+export interface AppUpdateItem {
+  name: string;
+  id: string;
+  current: string | null;
+  available: string | null;
+  source: string | null;
+}
+
+export interface AppUpdatesResult {
+  observedAt: string;
+  adapter: 'winget';
+  installed: boolean;
+  version: string | null;
+  status: 'not-checked' | 'available' | 'unavailable' | 'failed' | 'unsupported';
+  items: AppUpdateItem[];
+  note: string;
+  rawLines: number | null;
+}
+
+export interface AppPlanItem {
+  appId: string;
+  name: string;
+  publisher: string | null;
+  method: AppRemovalMethod;
+  risk: 'blocked' | 'high' | 'review';
+  reasons: string[];
+  reclaimBytes: number | null;
+  reclaimSource: 'measured' | 'reported' | 'unknown';
+  reversible: false;
+}
+
+export interface AppPlan {
+  planId: string;
+  contract: 'apps.v1';
+  createdAt: string;
+  mode: 'uninstall';
+  items: AppPlanItem[];
+  totals: {
+    count: number;
+    blocked: number;
+    reclaimBytes: number | null;
+    reclaimSource: 'measured' | 'reported' | 'mixed' | 'unknown';
+  };
+  restorePoint: { status: 'not-checked'; reason: string };
+  execution: { available: false; gate: string; reason: string };
+  immutable: true;
+  mutation: 'none';
+}
+
+export interface AppPackageEntry {
+  name: string;
+  id: string;
+  version: string | null;
+  source: string | null;
+}
+
+export interface AppPackagesResult {
+  observedAt: string;
+  tab: 'installed' | 'discover';
+  adapter: 'winget';
+  installed: boolean;
+  version: string | null;
+  status: 'complete' | 'unavailable' | 'blocked' | 'failed' | 'unsupported';
+  packages: AppPackageEntry[];
+  note: string;
+  rawLines: number | null;
+}
+
+export interface AppsShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;
+  inventory: () => Promise<NativeEnvelope<AppsInventory>>;
+  signature: (appId: string) => Promise<NativeEnvelope<AppSignatureResult>>;
+  associations: () => Promise<NativeEnvelope<AppAssociations>>;
+  sizes: (request: { appIds: string[]; operationId: string }) => Promise<NativeEnvelope<AppSizesResult>>;
+  cancelSizes: (operationId: string) => Promise<NativeEnvelope<{ cancelled: boolean; operationId: string }>>;
+  leftovers: () => Promise<NativeEnvelope<AppLeftoversResult>>;
+  updates: (request: { check: boolean }) => Promise<NativeEnvelope<AppUpdatesResult>>;
+  plan: (request: { appIds: string[] }) => Promise<NativeEnvelope<AppPlan>>;
+  packages: (request: { tab: 'installed' | 'discover'; query?: string }) => Promise<NativeEnvelope<AppPackagesResult>>;
+  openSettings: (target: 'defaultapps' | 'appsfeatures') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+}

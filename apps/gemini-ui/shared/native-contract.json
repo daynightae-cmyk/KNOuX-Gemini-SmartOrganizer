@@ -42,7 +42,18 @@
     "scanCancel": "knoux:scan:v1:cancel",
     "scanStatus": "knoux:scan:v1:status",
     "scanHistory": "knoux:scan:v1:history",
-    "scanEvent": "knoux:scan:v1:event"
+    "scanEvent": "knoux:scan:v1:event",
+    "appsCapabilities": "knoux:apps:v1:capabilities",
+    "appsInventory": "knoux:apps:v1:inventory",
+    "appsSignature": "knoux:apps:v1:signature",
+    "appsAssociations": "knoux:apps:v1:associations",
+    "appsSizes": "knoux:apps:v1:sizes",
+    "appsSizesCancel": "knoux:apps:v1:sizes-cancel",
+    "appsLeftovers": "knoux:apps:v1:leftovers",
+    "appsUpdates": "knoux:apps:v1:updates",
+    "appsPlan": "knoux:apps:v1:plan",
+    "appsPackages": "knoux:apps:v1:packages",
+    "appsOpenSettings": "knoux:apps:v1:open-settings"
   },
   "capabilities": {
     "bridge.status": {
@@ -272,6 +283,72 @@
       "title": "Persisted Smart Scan history",
       "mode": "read-only",
       "channel": "knoux:scan:v1:history"
+    },
+    "apps.capabilities": {
+      "id": "apps.capabilities",
+      "title": "Read-only application services and gates",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:capabilities"
+    },
+    "apps.inventory": {
+      "id": "apps.inventory",
+      "title": "Measured installed-software inventory",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:inventory"
+    },
+    "apps.signature": {
+      "id": "apps.signature",
+      "title": "Authenticode verification for one application",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:signature"
+    },
+    "apps.associations": {
+      "id": "apps.associations",
+      "title": "Bounded file and protocol association sample",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:associations"
+    },
+    "apps.sizes": {
+      "id": "apps.sizes",
+      "title": "Bounded install-location footprint measurement",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:sizes"
+    },
+    "apps.sizes.cancel": {
+      "id": "apps.sizes.cancel",
+      "title": "Cancel a bounded footprint measurement",
+      "mode": "user-initiated",
+      "channel": "knoux:apps:v1:sizes-cancel"
+    },
+    "apps.leftovers": {
+      "id": "apps.leftovers",
+      "title": "Name-match leftover candidates and stale registrations",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:leftovers"
+    },
+    "apps.updates": {
+      "id": "apps.updates",
+      "title": "Read-only WinGet upgrade query",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:updates"
+    },
+    "apps.plan": {
+      "id": "apps.plan",
+      "title": "Immutable uninstall review plan",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:plan"
+    },
+    "apps.packages": {
+      "id": "apps.packages",
+      "title": "Measured packages and optional WinGet discovery",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:packages"
+    },
+    "apps.settings.open": {
+      "id": "apps.settings.open",
+      "title": "Open a fixed Windows Settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:apps:v1:open-settings"
     }
   },
   "windowActions": [

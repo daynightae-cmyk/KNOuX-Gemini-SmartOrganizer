@@ -27,6 +27,7 @@ const { StudioBridge } = require('./native/studio-bridge.cjs');
 const { FilesBridge } = require('./native/files-bridge.cjs');
 const { StorageBridge } = require('./native/storage-bridge.cjs');
 const { ScanBridge } = require('./native/scan-bridge.cjs');
+const { AppBridge } = require('./native/app-bridge.cjs');
 const {
   ok,
   fail,
@@ -85,6 +86,7 @@ let studioBridge = null;
 let filesBridge = null;
 let storageBridge = null;
 let scanBridge = null;
+let appBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -537,6 +539,146 @@ function registerIpc() {
     })
   );
 
+  const APP_ID = /^[a-f0-9]{20}$/;
+  const APP_OPERATION_ID = /^[A-Za-z0-9_-]{8,64}$/;
+  const appsGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!appBridge) {
+        throw Object.assign(new Error('The read-only Applications coordinator is not initialized.'), { code: 'APPS_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Applications read-only coordinator',
+        permission,
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Applications read-only coordinator',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'APPS_FAILURE',
+          message: String(error?.message || 'Applications request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const appsRequest = (args, code = 'APPS_INPUT_INVALID') => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured Applications request is required.'), { code });
+    }
+    return args[0];
+  };
+  const appIdsFrom = (request, code) => {
+    const ids = Array.isArray(request.appIds) ? request.appIds : null;
+    if (!ids || ids.length < 1 || ids.length > 50 || !ids.every((id) => typeof id === 'string' && APP_ID.test(id))) {
+      throw Object.assign(new Error('Between 1 and 50 measured application identifiers are required.'), { code });
+    }
+    return ids;
+  };
+
+  ipcMain.handle(contract.channels.appsCapabilities, (event, ...args) =>
+    appsGuard(event, 'apps.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.appsCapabilities);
+      return appBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.appsInventory, (event, ...args) =>
+    appsGuard(event, 'apps.inventory', 'read-only', () => {
+      assertNoArguments(args, contract.channels.appsInventory);
+      return appBridge.inventory();
+    })
+  );
+  ipcMain.handle(contract.channels.appsSignature, (event, ...args) =>
+    appsGuard(event, 'apps.signature', 'read-only', () => {
+      const request = appsRequest(args);
+      if (typeof request.appId !== 'string' || !APP_ID.test(request.appId)) {
+        throw Object.assign(new Error('A valid application identifier is required.'), { code: 'APP_ID_INVALID' });
+      }
+      return appBridge.signature(request.appId);
+    })
+  );
+  ipcMain.handle(contract.channels.appsAssociations, (event, ...args) =>
+    appsGuard(event, 'apps.associations', 'read-only', () => {
+      assertNoArguments(args, contract.channels.appsAssociations);
+      return appBridge.associations();
+    })
+  );
+  ipcMain.handle(contract.channels.appsSizes, (event, ...args) =>
+    appsGuard(event, 'apps.sizes', 'read-only', () => {
+      const request = appsRequest(args);
+      const appIds = appIdsFrom(request, 'APP_SIZE_SELECTION_INVALID').slice(0, 40);
+      if (typeof request.operationId !== 'string' || !APP_OPERATION_ID.test(request.operationId)) {
+        throw Object.assign(new Error('A valid operation identifier is required.'), { code: 'APP_OPERATION_INVALID' });
+      }
+      return appBridge.sizes({ appIds, operationId: request.operationId });
+    })
+  );
+  ipcMain.handle(contract.channels.appsSizesCancel, (event, ...args) =>
+    appsGuard(event, 'apps.sizes.cancel', 'user-initiated', () => {
+      const request = appsRequest(args);
+      if (typeof request.operationId !== 'string' || !APP_OPERATION_ID.test(request.operationId)) {
+        throw Object.assign(new Error('A valid operation identifier is required.'), { code: 'APP_OPERATION_INVALID' });
+      }
+      return appBridge.cancelSizes(request.operationId);
+    })
+  );
+  ipcMain.handle(contract.channels.appsLeftovers, (event, ...args) =>
+    appsGuard(event, 'apps.leftovers', 'read-only', () => {
+      assertNoArguments(args, contract.channels.appsLeftovers);
+      return appBridge.leftovers();
+    })
+  );
+  ipcMain.handle(contract.channels.appsUpdates, (event, ...args) =>
+    appsGuard(event, 'apps.updates', 'read-only', () => {
+      const request = appsRequest(args);
+      if (typeof request.check !== 'boolean') {
+        throw Object.assign(new Error('A boolean check flag is required.'), { code: 'APP_UPDATES_INPUT_INVALID' });
+      }
+      return appBridge.updates({ check: request.check });
+    })
+  );
+  ipcMain.handle(contract.channels.appsPlan, (event, ...args) =>
+    appsGuard(event, 'apps.plan', 'read-only', () => {
+      const request = appsRequest(args);
+      return appBridge.plan({ appIds: appIdsFrom(request, 'APP_PLAN_INPUT_INVALID') });
+    })
+  );
+  ipcMain.handle(contract.channels.appsPackages, (event, ...args) =>
+    appsGuard(event, 'apps.packages', 'read-only', () => {
+      const request = appsRequest(args);
+      if (request.tab !== 'installed' && request.tab !== 'discover') {
+        throw Object.assign(new Error('The package tab must be installed or discover.'), { code: 'APP_PACKAGES_INPUT_INVALID' });
+      }
+      let query;
+      if (request.tab === 'discover') {
+        query = typeof request.query === 'string' ? request.query.trim() : '';
+        if (!/^[\w .+@/-]{1,60}$/.test(query)) {
+          throw Object.assign(new Error('A package query of 1–60 letters, digits or . + @ / - is required.'), { code: 'APP_PACKAGE_QUERY_INVALID' });
+        }
+      }
+      return appBridge.packages({ tab: request.tab, query });
+    })
+  );
+  ipcMain.handle(contract.channels.appsOpenSettings, (event, ...args) =>
+    appsGuard(event, 'apps.settings.open', 'user-initiated', async () => {
+      const request = appsRequest(args);
+      if (request.target !== 'defaultapps' && request.target !== 'appsfeatures') {
+        throw Object.assign(new Error('The requested Windows Settings page is not allowlisted.'), { code: 'APP_SETTINGS_TARGET_INVALID' });
+      }
+      const target = appBridge.settingsTarget(request.target);
+      await shell.openExternal(target.uri);
+      return { opened: true, target: target.target };
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -739,6 +881,89 @@ async function runSmoke(win) {
           }
           scan = { bridgePresent: true, capabilities, sources, started, session, history };
         }
+        const appsApi = window.knouxAppsV1;
+        let apps = null;
+        if (appsApi) {
+          const capabilities = await appsApi.capabilities();
+          const inventory = await appsApi.inventory();
+          const rows = inventory?.data?.apps || [];
+          const firstApp = rows[0] || null;
+          const signature = firstApp ? await appsApi.signature(firstApp.id) : null;
+          const associations = await appsApi.associations();
+          const leftovers = await appsApi.leftovers();
+          const updates = await appsApi.updates({ check: false });
+          const plan = firstApp ? await appsApi.plan({ appIds: [firstApp.id] }) : null;
+          const summary = (envelope, transform) => envelope
+            ? {
+                status: envelope.status,
+                capability: envelope.capability,
+                permission: envelope.permission,
+                data: envelope.data ? transform(envelope.data) : null,
+                error: envelope.error ? { code: envelope.error.code } : null,
+              }
+            : null;
+          apps = {
+            bridgePresent: true,
+            capabilities: summary(capabilities, (data) => ({
+              engine: data.engine,
+              contract: data.contract,
+              readOnly: data.readOnly,
+              mutation: data.mutation,
+              fixtureFallback: data.fixtureFallback,
+              serviceCount: data.services?.length ?? 0,
+              gatedCount: data.gatedOperations?.length ?? 0,
+            })),
+            inventory: summary(inventory, (data) => ({
+              contract: data.contract,
+              readOnly: data.readOnly,
+              mutation: data.mutation,
+              observedAt: data.observedAt,
+              durationMs: data.durationMs,
+              appCount: data.apps?.length ?? 0,
+              firstAppId: data.apps?.[0]?.id ?? null,
+              kpis: data.kpis,
+              coverage: data.coverage,
+              warningCount: data.warnings?.length ?? 0,
+            })),
+            signature: summary(signature, (data) => ({
+              appId: data.appId,
+              status: data.status,
+              hasSigner: Boolean(data.signer),
+              thumbprintLength: data.thumbprint?.length ?? 0,
+              chainLength: data.chain?.length ?? 0,
+            })),
+            associations: summary(associations, (data) => ({
+              extensions: data.extensions?.length ?? 0,
+              protocols: data.protocols?.length ?? 0,
+              truncated: data.truncated,
+              warningCount: data.warnings?.length ?? 0,
+            })),
+            leftovers: summary(leftovers, (data) => ({
+              candidateCount: data.candidateCount,
+              staleCount: data.staleCount,
+              truncated: data.truncated,
+              mutation: data.mutation,
+              warningCount: data.warnings?.length ?? 0,
+            })),
+            updates: summary(updates, (data) => ({
+              adapter: data.adapter,
+              installed: data.installed,
+              version: data.version,
+              status: data.status,
+              itemCount: data.items?.length ?? 0,
+              note: data.note,
+            })),
+            plan: summary(plan, (data) => ({
+              contract: data.contract,
+              mode: data.mode,
+              itemCount: data.items?.length ?? 0,
+              totals: data.totals,
+              execution: data.execution,
+              immutable: data.immutable,
+              mutation: data.mutation,
+            })),
+          };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -748,6 +973,7 @@ async function runSmoke(win) {
           filesBridgePresent: Boolean(filesApi),
           storageBridgePresent: Boolean(storageApi),
           scanBridgePresent: Boolean(scanApi),
+          appsBridgePresent: Boolean(appsApi),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -758,6 +984,7 @@ async function runSmoke(win) {
           files,
           storage,
           scan,
+          apps,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -1173,6 +1400,143 @@ async function runSmoke(win) {
         receipt.smartScan1920ScreenshotBytes = (await fsp.stat(smartScan1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Measured Applications route: inventory, signature, associations,
+        // leftovers, plan and updates were already probed through the real
+        // preload bridge. Load the route and prove those measured values reach
+        // the rendered register, then capture responsive, light and RTL states.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'applications'; return true; })()`,
+          true
+        );
+        const appsDeadline = Date.now() + 45000;
+        let appsUiReady = false;
+        while (Date.now() < appsDeadline) {
+          await sleep(500);
+          appsUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="apps-workspace"]');
+               const banner = document.querySelector('[data-testid="apps-native-banner"]');
+               const required = document.querySelector('[data-testid="apps-native-required"]');
+               const installed = document.querySelector('[data-testid="apps-kpi-installed-value"]')?.textContent?.trim() || '';
+               const publishers = document.querySelector('[data-testid="apps-kpi-publishers-value"]')?.textContent?.trim() || '';
+               const rows = document.querySelectorAll('[data-testid="apps-register-row"]').length;
+               const dossier = document.querySelector('[data-testid="apps-dossier"]');
+               const services = document.querySelector('[data-testid="apps-services"]');
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 installed !== '' && installed !== '—' &&
+                 publishers !== '' && publishers !== '—' &&
+                 rows >= 1 && Boolean(dossier) && Boolean(services) &&
+                 /Measured native inventory|جرد أصلي مقيس/.test(bannerText);
+             })()`,
+            true
+          );
+          if (appsUiReady) break;
+        }
+        await sleep(1200);
+        const appsShotPath = smokeShotPath.replace(/native-bridge/i, 'applications-measured');
+        const appsImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsShotPath, appsImage.toPNG());
+        receipt.applicationsScreenshot = appsShotPath;
+        receipt.applicationsScreenshotBytes = (await fsp.stat(appsShotPath)).size;
+        receipt.applicationsUiReady = appsUiReady;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[aria-pressed]')?.click()`,
+          true
+        );
+        await sleep(900);
+        const appsLightPath = appsShotPath.replace(/\.png$/i, '-light.png');
+        const appsLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsLightPath, appsLightImage.toPNG());
+        receipt.applicationsLightScreenshot = appsLightPath;
+        receipt.applicationsLightScreenshotBytes = (await fsp.stat(appsLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1000);
+        const appsArabicPath = appsShotPath.replace(/\.png$/i, '-ar-light.png');
+        const appsArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsArabicPath, appsArabicImage.toPNG());
+        receipt.applicationsArabicScreenshot = appsArabicPath;
+        receipt.applicationsArabicScreenshotBytes = (await fsp.stat(appsArabicPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `(() => {
+             document.querySelector('button[title="Toggle Arabic / English"]')?.click();
+             document.querySelector('button[aria-pressed]')?.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(900);
+        win.setContentSize(1366, 768);
+        await sleep(900);
+        const apps1366Path = appsShotPath.replace(/\.png$/i, '-1366.png');
+        const apps1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(apps1366Path, apps1366Image.toPNG());
+        receipt.applications1366Screenshot = apps1366Path;
+        receipt.applications1366ScreenshotBytes = (await fsp.stat(apps1366Path)).size;
+
+        const apps1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="apps-workspace"]');
+             const register = document.querySelector('[data-testid="apps-register"]');
+             const dossier = document.querySelector('[data-testid="apps-dossier"]');
+             const banner = document.querySelector('[data-testid="apps-native-banner"]');
+             if (!main || !register || !dossier || !banner) return { ok: false, reason: 'applications panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const registerRect = register.getBoundingClientRect();
+             const dossierRect = dossier.getBoundingClientRect();
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const withinWidth = (rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             const sideBySide = Math.abs(registerRect.top - dossierRect.top) <= 2
+               && registerRect.right <= dossierRect.left + 1;
+             const registerFit = withinWidth(registerRect) && registerRect.bottom <= mainRect.bottom + 1;
+             const dossierFit = withinWidth(dossierRect) && dossierRect.bottom <= mainRect.bottom + 1;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             return {
+               ok: sideBySide && registerFit && dossierFit && !horizontalOverflow && scrollWorked,
+               horizontalOverflow,
+               scrollWorked,
+               sideBySide,
+               registerFit,
+               dossierFit,
+               registerWidth: Math.round(registerRect.width),
+               dossierWidth: Math.round(dossierRect.width),
+               registerTop: Math.round(registerRect.top),
+               dossierTop: Math.round(dossierRect.top),
+               mainBottom: Math.round(mainRect.bottom),
+               viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.applications1366Layout = apps1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="apps-workspace"]');
+             if (main) main.scrollTop = 0;
+             return true;
+           })()`,
+          true
+        );
+        await sleep(300);
+
+        win.setContentSize(1920, 1080);
+        await sleep(900);
+        const apps1920Path = appsShotPath.replace(/\.png$/i, '-1920.png');
+        const apps1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(apps1920Path, apps1920Image.toPNG());
+        receipt.applications1920Screenshot = apps1920Path;
+        receipt.applications1920ScreenshotBytes = (await fsp.stat(apps1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -1277,6 +1641,47 @@ async function runSmoke(win) {
       && receipt.smartScan1366Layout?.horizontalOverflow === false
       && receipt.smartScanWideLayout?.ok === true
       && receipt.smartScanWideLayout?.horizontalOverflow === false;
+    const appsData = renderer.apps;
+    const appsInventory = appsData?.inventory?.data || null;
+    const appsPlan = appsData?.plan?.data || null;
+    const appsOk = Boolean(
+      appsData?.bridgePresent &&
+      renderer.appsBridgePresent === true &&
+      appsData?.capabilities?.status === 'complete' &&
+      appsData.capabilities.data?.readOnly === true &&
+      appsData.capabilities.data?.mutation === 'none' &&
+      appsData.capabilities.data?.fixtureFallback === false &&
+      appsData.capabilities.data?.serviceCount === 12 &&
+      appsData.capabilities.data?.gatedCount >= 1 &&
+      appsData?.inventory?.status === 'complete' &&
+      appsInventory?.contract === 'apps.v1' &&
+      appsInventory?.readOnly === true &&
+      appsInventory?.mutation === 'none' &&
+      appsInventory?.appCount >= 1 &&
+      appsInventory?.kpis?.installed === appsInventory.appCount &&
+      appsInventory?.coverage?.returned === appsInventory.appCount &&
+      typeof appsInventory?.warningCount === 'number' &&
+      appsData?.signature?.status === 'complete' &&
+      appsData.signature.data?.appId === appsInventory.firstAppId &&
+      ['unchecked', 'valid', 'invalid', 'unsigned', 'unknown', 'unavailable'].includes(appsData.signature.data?.status) &&
+      appsData?.associations?.status === 'complete' &&
+      typeof appsData.associations.data?.extensions === 'number' &&
+      typeof appsData.associations.data?.protocols === 'number' &&
+      appsData?.leftovers?.status === 'complete' &&
+      appsData.leftovers.data?.mutation === 'none' &&
+      typeof appsData.leftovers.data?.candidateCount === 'number' &&
+      appsData?.updates?.status === 'complete' &&
+      ['not-checked', 'available', 'unavailable', 'failed', 'unsupported'].includes(appsData.updates.data?.status) &&
+      appsData?.plan?.status === 'complete' &&
+      appsPlan?.contract === 'apps.v1' &&
+      appsPlan?.mutation === 'none' &&
+      appsPlan?.immutable === true &&
+      appsPlan?.execution?.available === false &&
+      appsPlan?.execution?.gate &&
+      appsPlan?.itemCount === 1
+    );
+    const appsLayoutOk = receipt.applications1366Layout?.ok === true
+      && receipt.applications1366Layout?.horizontalOverflow === false;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -1297,10 +1702,16 @@ async function runSmoke(win) {
       receipt.smartScan1366ScreenshotBytes > 20000 &&
       receipt.smartScan1366BottomScreenshotBytes > 20000 &&
       receipt.smartScan1920ScreenshotBytes > 20000 &&
-      receipt.smartScanUiReady === true
+      receipt.smartScanUiReady === true &&
+      receipt.applicationsScreenshotBytes > 20000 &&
+      receipt.applicationsLightScreenshotBytes > 20000 &&
+      receipt.applicationsArabicScreenshotBytes > 20000 &&
+      receipt.applications1366ScreenshotBytes > 20000 &&
+      receipt.applications1920ScreenshotBytes > 20000 &&
+      receipt.applicationsUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -1382,6 +1793,16 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Smart Scan coordinator unavailable:', error?.message || error);
       scanBridge = null;
     }
+    try {
+      appBridge = new AppBridge({
+        loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+      });
+      trace('applications bridge initialized');
+    } catch (error) {
+      trace(`applications bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Applications coordinator unavailable:', error?.message || error);
+      appBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -1409,6 +1830,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  appBridge?.dispose();
   scanBridge?.dispose();
   void filesBridge?.dispose();
   void studioBridge?.dispose();

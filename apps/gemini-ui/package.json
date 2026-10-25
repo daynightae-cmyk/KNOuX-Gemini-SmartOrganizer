@@ -23,7 +23,8 @@
     "test:studio": "node scripts/studio-native-test.cjs",
     "test:files": "node scripts/files-native-test.cjs",
     "test:storage": "node scripts/storage-native-test.cjs",
-    "test:scan": "node scripts/scan-native-test.cjs"
+    "test:scan": "node scripts/scan-native-test.cjs",
+    "test:apps": "node scripts/apps-native-test.cjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
