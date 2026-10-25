@@ -1,9 +1,12 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- * 
- * KNOuX SmartOrganizer — Smart Scan Types Specification
+ * KNOuX SmartOrganizer — measured Smart Scan view models.
+ *
+ * These types describe what the renderer can render from a real ScanSession.
+ * There is no fixture shape: every value below is either measured, explicitly
+ * unavailable, or an honest presentation of measured evidence.
  */
+
+import type { ScanSessionStatus, ScanStageStatus } from '../../shared/native-contracts';
 
 export type ScanCategory = 'junk' | 'duplicates' | 'large' | 'system' | 'privacy' | 'other';
 
@@ -16,6 +19,7 @@ export interface KpiMetric {
   subtextAr: string;
   accentColor: 'cyan' | 'blue' | 'red' | 'purple' | 'teal' | 'green';
   indicatorType: 'ring' | 'stack' | 'alert' | 'disk' | 'shield' | 'sparkline';
+  provenance: 'measured' | 'partial' | 'unavailable';
 }
 
 export interface ScanServiceMeta {
@@ -27,6 +31,11 @@ export interface ScanServiceMeta {
   iconName: string;
   accentGradient: string;
   badge?: string;
+  state: 'available' | 'partial' | 'gated';
+  requiresSource: boolean;
+  stages: string[];
+  noteEn: string;
+  noteAr: string;
   targetWorkspace?: string;
 }
 
@@ -34,7 +43,6 @@ export interface PathPreviewItem {
   id: string;
   path: string;
   sizeDisplay: string;
-  selected: boolean;
 }
 
 export interface ScanResultItem {
@@ -47,44 +55,59 @@ export interface ScanResultItem {
   categoryLabelEn: string;
   categoryLabelAr: string;
   itemCount: number;
-  sizeGB: number;
+  bytes: number;
   impactLevel: 'high' | 'medium' | 'low';
-  status: 'safe' | 'review' | 'attention';
+  status: 'info' | 'review' | 'attention';
   statusLabelEn: string;
   statusLabelAr: string;
-  selected: boolean;
+  provenanceLabelEn: string;
+  provenanceLabelAr: string;
   pathsPreview: PathPreviewItem[];
   detailedDescriptionEn: string;
   detailedDescriptionAr: string;
-  estimatedImpactDisplay: string;
-  safetyLevelDisplay: string;
+  evidence: string;
 }
 
 export interface BreakdownCategory {
   id: ScanCategory;
   labelEn: string;
   labelAr: string;
-  sizeGB: number;
+  count: number;
+  bytes: number;
   percentage: number;
   colorHex: string;
 }
 
 export interface RecentScanRecord {
   id: string;
-  titleEn: string;
-  titleAr: string;
-  itemCount: number;
-  sizeGB: number;
+  mode: 'quick' | 'deep' | 'service' | 'custom';
+  sourceLabel: string | null;
+  status: ScanSessionStatus;
+  filesIndexed: number | null;
+  findingsCount: number;
+  finishedAt: string | null;
   timeDisplayEn: string;
   timeDisplayAr: string;
-  status: 'completed' | 'in_progress' | 'failed';
 }
 
-export interface ActiveScanServiceState {
-  serviceId: string;
-  serviceTitleEn: string;
-  serviceTitleAr: string;
+export interface ScanStageView {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  provider: string;
+  status: ScanStageStatus;
+  detail: string | null;
+  durationMs: number | null;
+  errorCode: string | null;
+}
+
+export interface ActiveScanView {
+  sessionId: string;
+  mode: string;
+  sourceLabel: string | null;
+  scope: string;
   progressPercent: number;
-  isScanning: boolean;
-  activePhase: string;
+  status: ScanSessionStatus | 'starting';
+  stages: ScanStageView[];
+  startedAt: string;
 }

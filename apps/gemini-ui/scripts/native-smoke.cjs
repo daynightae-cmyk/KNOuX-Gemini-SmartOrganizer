@@ -140,6 +140,7 @@ async function main() {
 
   const shotExists = fs.existsSync(shotPath);
   const shotBytes = shotExists ? (await fsp.stat(shotPath)).size : 0;
+  const smartScanBase = receipt?.smartScanScreenshot || shotPath.replace(/native-bridge/i, 'smart-scan-measured');
   const summary = {
     startedAt,
     finishedAt: new Date().toISOString(),
@@ -157,6 +158,12 @@ async function main() {
     studioHistoryShotPath: shotPath.replace(/native-bridge/i, 'studio-history'),
     filesShotPath: shotPath.replace(/native-bridge/i, 'files-measured'),
     storageShotPath: shotPath.replace(/native-bridge/i, 'storage-measured'),
+    smartScanShotPath: smartScanBase,
+    smartScanLightShotPath: receipt?.smartScanLightScreenshot || smartScanBase.replace(/\.png$/i, '-light.png'),
+    smartScanArabicShotPath: receipt?.smartScanArabicScreenshot || smartScanBase.replace(/\.png$/i, '-ar-light.png'),
+    smartScan1366ShotPath: receipt?.smartScan1366Screenshot || smartScanBase.replace(/\.png$/i, '-1366.png'),
+    smartScan1366BottomShotPath: receipt?.smartScan1366BottomScreenshot || smartScanBase.replace(/\.png$/i, '-1366-bottom.png'),
+    smartScan1920ShotPath: receipt?.smartScan1920Screenshot || smartScanBase.replace(/\.png$/i, '-1920.png'),
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -164,6 +171,12 @@ async function main() {
     studioHistoryShotBytes: receipt?.studioHistoryScreenshotBytes || 0,
     filesShotBytes: receipt?.filesScreenshotBytes || 0,
     storageShotBytes: receipt?.storageScreenshotBytes || 0,
+    smartScanShotBytes: receipt?.smartScanScreenshotBytes || 0,
+    smartScanLightShotBytes: receipt?.smartScanLightScreenshotBytes || 0,
+    smartScanArabicShotBytes: receipt?.smartScanArabicScreenshotBytes || 0,
+    smartScan1366ShotBytes: receipt?.smartScan1366ScreenshotBytes || 0,
+    smartScan1366BottomShotBytes: receipt?.smartScan1366BottomScreenshotBytes || 0,
+    smartScan1920ShotBytes: receipt?.smartScan1920ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -174,8 +187,22 @@ async function main() {
 
   await fsp.rm(profilePath, { recursive: true, force: true }).catch(() => {});
 
-  console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotBytes > 20000 && summary.lightShotBytes > 20000 && summary.arabicShotBytes > 20000 && summary.studioPlanShotBytes > 20000 && summary.studioHistoryShotBytes > 20000 && summary.filesShotBytes > 20000 && summary.storageShotBytes > 20000, ...safeSummary }, null, 2));
-  if (!summary.receiptOk || exitCode !== 0 || shotBytes <= 20000 || summary.lightShotBytes <= 20000 || summary.arabicShotBytes <= 20000 || summary.studioShotBytes <= 20000 || summary.studioPlanShotBytes <= 20000 || summary.studioHistoryShotBytes <= 20000 || summary.filesShotBytes <= 20000 || summary.storageShotBytes <= 20000) {
+  const shotsOk = shotBytes > 20000 &&
+    summary.lightShotBytes > 20000 &&
+    summary.arabicShotBytes > 20000 &&
+    summary.studioShotBytes > 20000 &&
+    summary.studioPlanShotBytes > 20000 &&
+    summary.studioHistoryShotBytes > 20000 &&
+    summary.filesShotBytes > 20000 &&
+    summary.storageShotBytes > 20000 &&
+    summary.smartScanShotBytes > 20000 &&
+    summary.smartScanLightShotBytes > 20000 &&
+    summary.smartScanArabicShotBytes > 20000 &&
+    summary.smartScan1366ShotBytes > 20000 &&
+    summary.smartScan1366BottomShotBytes > 20000 &&
+    summary.smartScan1920ShotBytes > 20000;
+  console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
+  if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');
     process.exit(1);
   }

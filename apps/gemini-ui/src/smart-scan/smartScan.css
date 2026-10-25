@@ -71,9 +71,11 @@
 
 @media (max-height: 960px) {
   .scan-main {
-    gap: 10px !important;
+    gap: 8px !important;
     padding: 10px !important;
   }
+
+
 
   .scan-hero {
     padding: 10px 14px !important;
@@ -207,6 +209,28 @@
   .scan-results-head {
     align-items: stretch;
     flex-direction: column;
+  }
+}
+
+/* 1366-class desktops keep six KPI cards and five service tiles, but the
+   secondary type is reduced so measured provenance is not ellipsized. */
+@media (max-width: 1535px) {
+  .scan-metric-label {
+    font-size: 10px !important;
+  }
+
+  .scan-metric-sub {
+    font-size: 9px !important;
+    letter-spacing: -0.1px;
+  }
+
+  .scan-service-card .text-xs {
+    font-size: 10px !important;
+  }
+
+  .scan-service-card {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
   }
 }
 

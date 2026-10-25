@@ -21,10 +21,12 @@ const {
   readServicesSummary,
   chooseFolder,
   fixturesEnabled,
+  loadProvider,
 } = require('./native/provider-bridge.cjs');
 const { StudioBridge } = require('./native/studio-bridge.cjs');
 const { FilesBridge } = require('./native/files-bridge.cjs');
 const { StorageBridge } = require('./native/storage-bridge.cjs');
+const { ScanBridge } = require('./native/scan-bridge.cjs');
 const {
   ok,
   fail,
@@ -82,6 +84,7 @@ let ipcRegistered = false;
 let studioBridge = null;
 let filesBridge = null;
 let storageBridge = null;
+let scanBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -457,6 +460,83 @@ function registerIpc() {
     storageGuard(event, 'storage.duplicates.verify', 'read-only', () => storageBridge.verifyDuplicates(storageArg(args).sourceId))
   );
 
+
+  const scanGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!scanBridge) {
+        throw Object.assign(new Error('The read-only Smart Scan coordinator is not initialized.'), { code: 'SCAN_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Smart Scan read-only coordinator',
+        permission,
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Smart Scan read-only coordinator',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'SCAN_FAILURE',
+          message: String(error?.message || 'Smart Scan request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: false,
+        },
+      });
+    }
+  };
+  const scanArg = (args) => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured Smart Scan request is required.'), { code: 'SCAN_INPUT_INVALID' });
+    }
+    return args[0];
+  };
+
+  ipcMain.handle(contract.channels.scanCapabilities, (event, ...args) =>
+    scanGuard(event, 'scan.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.scanCapabilities);
+      return scanBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.scanSources, (event, ...args) =>
+    scanGuard(event, 'scan.sources', 'read-only', () => {
+      assertNoArguments(args, contract.channels.scanSources);
+      return scanBridge.listSources();
+    })
+  );
+  ipcMain.handle(contract.channels.scanSourceChoose, (event, ...args) =>
+    scanGuard(event, 'scan.source.choose', 'user-initiated', () => {
+      assertNoArguments(args, contract.channels.scanSourceChoose);
+      return scanBridge.chooseSource();
+    })
+  );
+  ipcMain.handle(contract.channels.scanSourceIndex, (event, ...args) =>
+    scanGuard(event, 'scan.source.index', 'read-only', () => {
+      const request = scanArg(args);
+      return scanBridge.indexSource(request.sourceId);
+    })
+  );
+  ipcMain.handle(contract.channels.scanStart, (event, ...args) =>
+    scanGuard(event, 'scan.start', 'read-only', () => scanBridge.start(scanArg(args)))
+  );
+  ipcMain.handle(contract.channels.scanCancel, (event, ...args) =>
+    scanGuard(event, 'scan.cancel', 'user-initiated', () => scanBridge.cancel(scanArg(args).sessionId))
+  );
+  ipcMain.handle(contract.channels.scanStatus, (event, ...args) =>
+    scanGuard(event, 'scan.status', 'read-only', () => scanBridge.status(scanArg(args).sessionId))
+  );
+  ipcMain.handle(contract.channels.scanHistory, (event, ...args) =>
+    scanGuard(event, 'scan.history', 'read-only', () => {
+      assertNoArguments(args, contract.channels.scanHistory);
+      return scanBridge.history();
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -629,6 +709,36 @@ async function runSmoke(win) {
           const duplicates = sourceId ? await storageApi.verifyDuplicates(sourceId) : null;
           storage = { bridgePresent: true, volumes, history, analysis, duplicates };
         }
+        const scanApi = window.knouxScanV1;
+        let scan = null;
+        if (scanApi) {
+          const capabilities = await scanApi.capabilities();
+          const sources = await scanApi.listSources();
+          let sourceId = sources?.data?.[0]?.id || null;
+          if (sourceId && sources.data[0].status !== 'ready') {
+            await scanApi.indexSource(sourceId);
+            const refreshed = await scanApi.listSources();
+            sourceId = refreshed?.data?.[0]?.id || sourceId;
+          }
+          let started = null;
+          let session = null;
+          let history = null;
+          if (sourceId) {
+            started = await scanApi.start({ mode: 'quick', sourceId });
+            const sessionId = started?.data?.sessionId || null;
+            if (sessionId) {
+              const scanDeadline = Date.now() + 90000;
+              while (Date.now() < scanDeadline) {
+                session = await scanApi.status(sessionId);
+                const status = session?.data?.status;
+                if (['complete', 'partial', 'cancelled', 'failed'].includes(status)) break;
+                await new Promise((resolve) => setTimeout(resolve, 500));
+              }
+            }
+            history = await scanApi.history();
+          }
+          scan = { bridgePresent: true, capabilities, sources, started, session, history };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -637,6 +747,7 @@ async function runSmoke(win) {
           studioBridgePresent: Boolean(studioApi),
           filesBridgePresent: Boolean(filesApi),
           storageBridgePresent: Boolean(storageApi),
+          scanBridgePresent: Boolean(scanApi),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -646,6 +757,7 @@ async function runSmoke(win) {
           studio,
           files,
           storage,
+          scan,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -699,7 +811,7 @@ async function runSmoke(win) {
         // toggle is the same real control used by the user.
         const lightShotPath = smokeShotPath.replace(/\.png$/i, '-light.png');
         await win.webContents.executeJavaScript(
-          `document.querySelector('button[aria-label="Switch to light theme"]')?.click()`,
+          `document.querySelector('button[aria-pressed]')?.click()`,
           true
         );
         await sleep(800);
@@ -885,6 +997,182 @@ async function runSmoke(win) {
         receipt.storageScreenshot = storageShotPath;
         receipt.storageScreenshotBytes = (await fsp.stat(storageShotPath)).size;
         receipt.storageUiReady = storageUiReady;
+
+        // Measured Smart Scan route: the probe above ran a real quick scan on
+        // the controlled source. Load the route, wait for the persisted
+        // session to render, then capture responsive and RTL/theme variants.
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const theme = document.documentElement.getAttribute('data-theme');
+             if (theme === 'light') document.querySelector('button[aria-pressed]')?.click();
+             if (document.documentElement.getAttribute('dir') === 'rtl') {
+               document.querySelector('button[title="Toggle Arabic / English"]')?.click();
+             }
+             location.hash = 'smart_scan';
+             return true;
+           })()`,
+          true
+        );
+        const scanDeadline = Date.now() + 30000;
+        let smartScanUiReady = false;
+        while (Date.now() < scanDeadline) {
+          await sleep(500);
+          smartScanUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="scan-workspace"]');
+               const sourceSelect = document.querySelector('[data-testid="scan-source-select"]');
+               const filesValue = document.querySelector('[data-testid="scan-kpi-files-value"]')?.textContent?.trim() || '';
+               const findingsValue = document.querySelector('[data-testid="scan-kpi-issues-value"]')?.textContent?.trim() || '';
+               const stageText = document.querySelector('[data-testid="scan-stage-console"]')?.innerText || '';
+               const commandText = document.querySelector('[data-testid="scan-command-bar"]')?.innerText || '';
+               return Boolean(workspace) && Boolean(sourceSelect) &&
+                 filesValue !== '' && filesValue !== '—' &&
+                 findingsValue !== '' && findingsValue !== '—' &&
+                 /Quick Scan|فحص سريع/.test(commandText) &&
+                 /Measured stage console|سجل المراحل المقيسة/.test(stageText);
+             })()`,
+            true
+          );
+          if (smartScanUiReady) break;
+        }
+        await sleep(1200);
+        const smartScanShotPath = smokeShotPath.replace(/native-bridge/i, 'smart-scan-measured');
+        const smartScanImage = await win.webContents.capturePage();
+        await fsp.writeFile(smartScanShotPath, smartScanImage.toPNG());
+        receipt.smartScanScreenshot = smartScanShotPath;
+        receipt.smartScanScreenshotBytes = (await fsp.stat(smartScanShotPath)).size;
+        receipt.smartScanUiReady = smartScanUiReady;
+
+        const wideLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="scan-workspace"]');
+             const inspector = document.querySelector('[data-testid="scan-review-inspector"]');
+             const results = document.querySelector('[data-testid="scan-results"]');
+             if (!main || !inspector || !results) return { ok: false, reason: 'scan panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const inspectorRect = inspector.getBoundingClientRect();
+             const resultsRect = results.getBoundingClientRect();
+             return {
+               ok: inspectorRect.right <= mainRect.right + 1
+                 && inspectorRect.bottom <= mainRect.bottom + 1
+                 && resultsRect.bottom <= mainRect.bottom + 1,
+               horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth,
+               verticalOverflow: main.scrollHeight > main.clientHeight + 2,
+               inspectorBottom: Math.round(inspectorRect.bottom),
+               resultsBottom: Math.round(resultsRect.bottom),
+               mainBottom: Math.round(mainRect.bottom),
+             };
+           })()`,
+          true
+        );
+        receipt.smartScanWideLayout = wideLayout;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[aria-pressed]')?.click()`,
+          true
+        );
+        await sleep(800);
+        const smartScanLightPath = smartScanShotPath.replace(/\.png$/i, '-light.png');
+        const smartScanLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(smartScanLightPath, smartScanLightImage.toPNG());
+        receipt.smartScanLightScreenshot = smartScanLightPath;
+        receipt.smartScanLightScreenshotBytes = (await fsp.stat(smartScanLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1000);
+        const smartScanArabicPath = smartScanShotPath.replace(/\.png$/i, '-ar-light.png');
+        const smartScanArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(smartScanArabicPath, smartScanArabicImage.toPNG());
+        receipt.smartScanArabicScreenshot = smartScanArabicPath;
+        receipt.smartScanArabicScreenshotBytes = (await fsp.stat(smartScanArabicPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `(() => {
+             document.querySelector('button[title="Toggle Arabic / English"]')?.click();
+             document.querySelector('button[aria-pressed]')?.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(900);
+        win.setContentSize(1366, 768);
+        await sleep(900);
+        const smartScan1366Path = smartScanShotPath.replace(/\.png$/i, '-1366.png');
+        const smartScan1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(smartScan1366Path, smartScan1366Image.toPNG());
+        receipt.smartScan1366Screenshot = smartScan1366Path;
+        receipt.smartScan1366ScreenshotBytes = (await fsp.stat(smartScan1366Path)).size;
+
+        const layout1366 = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="scan-workspace"]');
+             const inspector = document.querySelector('[data-testid="scan-review-inspector"]');
+             const results = document.querySelector('[data-testid="scan-results"]');
+             if (!main || !inspector || !results) return { ok: false, reason: 'scan panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const resultsRect = results.getBoundingClientRect();
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const scrollable = main.scrollHeight > main.clientHeight + 2;
+             const withinWidth = (rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             const resultsFit = withinWidth(resultsRect) && resultsRect.bottom <= mainRect.bottom + 1;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop;
+             const inspectorRect = inspector.getBoundingClientRect();
+             const inspectorFit = withinWidth(inspectorRect)
+               && inspectorRect.top >= mainRect.top - 1
+               && inspectorRect.bottom <= mainRect.bottom + 1;
+             return {
+               ok: resultsFit && inspectorFit && (!scrollable || scrollWorked),
+               horizontalOverflow,
+               scrollable,
+               scrollWorked,
+               resultsFit,
+               inspectorFit,
+               resultsTop: Math.round(resultsRect.top),
+               resultsBottom: Math.round(resultsRect.bottom),
+               resultsHeight: Math.round(resultsRect.height),
+               mainTop: Math.round(mainRect.top),
+               inspectorRight: Math.round(inspectorRect.right),
+               mainRight: Math.round(mainRect.right),
+               inspectorTop: Math.round(inspectorRect.top),
+               inspectorBottom: Math.round(inspectorRect.bottom),
+               mainBottom: Math.round(mainRect.bottom),
+               mainScrollHeight: main.scrollHeight,
+               mainClientHeight: main.clientHeight,
+             };
+           })()`,
+          true
+        );
+        receipt.smartScan1366Layout = layout1366;
+        await sleep(300);
+        const smartScan1366BottomPath = smartScan1366Path.replace(/\.png$/i, '-bottom.png');
+        const smartScan1366BottomImage = await win.webContents.capturePage();
+        await fsp.writeFile(smartScan1366BottomPath, smartScan1366BottomImage.toPNG());
+        receipt.smartScan1366BottomScreenshot = smartScan1366BottomPath;
+        receipt.smartScan1366BottomScreenshotBytes = (await fsp.stat(smartScan1366BottomPath)).size;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="scan-workspace"]');
+             if (main) main.scrollTop = 0;
+             return true;
+           })()`,
+          true
+        );
+        await sleep(200);
+
+        win.setContentSize(1920, 1080);
+        await sleep(900);
+        const smartScan1920Path = smartScanShotPath.replace(/\.png$/i, '-1920.png');
+        const smartScan1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(smartScan1920Path, smartScan1920Image.toPNG());
+        receipt.smartScan1920Screenshot = smartScan1920Path;
+        receipt.smartScan1920ScreenshotBytes = (await fsp.stat(smartScan1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -965,6 +1253,30 @@ async function runSmoke(win) {
       storageData.duplicates.data?.mutation === 'none' &&
       storageData.duplicates.data?.permission === 'read-only'
     );
+    const scanData = renderer.scan;
+    const scanSession = scanData?.session?.data || null;
+    const scanOk = Boolean(
+      scanData?.bridgePresent &&
+      scanData?.capabilities?.status === 'complete' &&
+      scanData.capabilities.data?.readOnly === true &&
+      scanData.capabilities.data?.mutation === 'none' &&
+      scanData.capabilities.data?.fixtureFallback === false &&
+      scanData.capabilities.data?.services?.length === 10 &&
+      scanData?.sources?.data?.length >= 1 &&
+      scanSession &&
+      ['complete', 'partial'].includes(scanSession.status) &&
+      scanSession.summary?.filesIndexed >= 4 &&
+      scanSession.summary?.stagesCompleted >= 4 &&
+      scanSession.services?.length >= 1 &&
+      scanSession.services.every((service) => service.permission === 'read-only' && service.mutation === 'none') &&
+      scanSession.findings?.length >= 1 &&
+      Array.isArray(scanData?.history?.data) &&
+      scanData.history.data.length >= 1
+    );
+    const smartScanLayoutOk = receipt.smartScan1366Layout?.ok === true
+      && receipt.smartScan1366Layout?.horizontalOverflow === false
+      && receipt.smartScanWideLayout?.ok === true
+      && receipt.smartScanWideLayout?.horizontalOverflow === false;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -978,10 +1290,17 @@ async function runSmoke(win) {
       receipt.filesScreenshotBytes > 20000 &&
       receipt.filesUiReady === true &&
       receipt.storageScreenshotBytes > 20000 &&
-      receipt.storageUiReady === true
+      receipt.storageUiReady === true &&
+      receipt.smartScanScreenshotBytes > 20000 &&
+      receipt.smartScanLightScreenshotBytes > 20000 &&
+      receipt.smartScanArabicScreenshotBytes > 20000 &&
+      receipt.smartScan1366ScreenshotBytes > 20000 &&
+      receipt.smartScan1366BottomScreenshotBytes > 20000 &&
+      receipt.smartScan1920ScreenshotBytes > 20000 &&
+      receipt.smartScanUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -1041,6 +1360,28 @@ app.whenReady().then(async () => {
       userDataPath: app.getPath('userData'),
     });
     await storageBridge.init();
+    try {
+      scanBridge = new ScanBridge({
+        studio: studioBridge,
+        files: filesBridge,
+        storage: storageBridge,
+        readSystemSummary: () => readSystemSummary({ isPackaged: app.isPackaged, env: process.env }),
+        readServicesSummary: () => readServicesSummary({ isPackaged: app.isPackaged, env: process.env }),
+        loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+        userDataPath: app.getPath('userData'),
+        emit: (payload) => {
+          if (mainWindow && !mainWindow.isDestroyed()) {
+            mainWindow.webContents.send(contract.channels.scanEvent, payload);
+          }
+        },
+      });
+      await scanBridge.init();
+      trace('scan bridge initialized');
+    } catch (error) {
+      trace(`scan bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Smart Scan coordinator unavailable:', error?.message || error);
+      scanBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -1068,6 +1409,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  scanBridge?.dispose();
   void filesBridge?.dispose();
   void studioBridge?.dispose();
 });

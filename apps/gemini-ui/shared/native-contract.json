@@ -33,7 +33,16 @@
     "storageVolumes": "knoux:storage:v1:volumes",
     "storageHistory": "knoux:storage:v1:history",
     "storageAnalysis": "knoux:storage:v1:analysis",
-    "storageDuplicates": "knoux:storage:v1:duplicates"
+    "storageDuplicates": "knoux:storage:v1:duplicates",
+    "scanCapabilities": "knoux:scan:v1:capabilities",
+    "scanSources": "knoux:scan:v1:sources",
+    "scanSourceChoose": "knoux:scan:v1:source-choose",
+    "scanSourceIndex": "knoux:scan:v1:source-index",
+    "scanStart": "knoux:scan:v1:start",
+    "scanCancel": "knoux:scan:v1:cancel",
+    "scanStatus": "knoux:scan:v1:status",
+    "scanHistory": "knoux:scan:v1:history",
+    "scanEvent": "knoux:scan:v1:event"
   },
   "capabilities": {
     "bridge.status": {
@@ -215,6 +224,54 @@
       "title": "Bounded byte-exact duplicate verification",
       "mode": "read-only",
       "channel": "knoux:storage:v1:duplicates"
+    },
+    "scan.capabilities": {
+      "id": "scan.capabilities",
+      "title": "Read-only Smart Scan services and gated operations",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:capabilities"
+    },
+    "scan.sources": {
+      "id": "scan.sources",
+      "title": "Authorized sources available to Smart Scan",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:sources"
+    },
+    "scan.source.choose": {
+      "id": "scan.source.choose",
+      "title": "Choose and authorize a Smart Scan source",
+      "mode": "user-initiated",
+      "channel": "knoux:scan:v1:source-choose"
+    },
+    "scan.source.index": {
+      "id": "scan.source.index",
+      "title": "Index a Smart Scan source read-only",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:source-index"
+    },
+    "scan.start": {
+      "id": "scan.start",
+      "title": "Run a measured read-only Smart Scan",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:start"
+    },
+    "scan.cancel": {
+      "id": "scan.cancel",
+      "title": "Cancel a running Smart Scan",
+      "mode": "user-initiated",
+      "channel": "knoux:scan:v1:cancel"
+    },
+    "scan.status": {
+      "id": "scan.status",
+      "title": "Measured Smart Scan session",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:status"
+    },
+    "scan.history": {
+      "id": "scan.history",
+      "title": "Persisted Smart Scan history",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:history"
     }
   },
   "windowActions": [

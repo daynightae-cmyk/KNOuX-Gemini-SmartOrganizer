@@ -45,6 +45,15 @@ const CHANNELS = Object.freeze({
   storageHistory: 'knoux:storage:v1:history',
   storageAnalysis: 'knoux:storage:v1:analysis',
   storageDuplicates: 'knoux:storage:v1:duplicates',
+  scanCapabilities: 'knoux:scan:v1:capabilities',
+  scanSources: 'knoux:scan:v1:sources',
+  scanSourceChoose: 'knoux:scan:v1:source-choose',
+  scanSourceIndex: 'knoux:scan:v1:source-index',
+  scanStart: 'knoux:scan:v1:start',
+  scanCancel: 'knoux:scan:v1:cancel',
+  scanStatus: 'knoux:scan:v1:status',
+  scanHistory: 'knoux:scan:v1:history',
+  scanEvent: 'knoux:scan:v1:event',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -127,5 +136,28 @@ contextBridge.exposeInMainWorld(
     history: () => ipcRenderer.invoke(CHANNELS.storageHistory),
     analysis: (sourceId) => ipcRenderer.invoke(CHANNELS.storageAnalysis, { sourceId }),
     verifyDuplicates: (sourceId) => ipcRenderer.invoke(CHANNELS.storageDuplicates, { sourceId }),
+  })
+);
+
+/* Smart Scan v1 is a read-only coordinator over the measured Studio, Files,
+   Storage and Windows providers. It exposes no delete, move, clean, service,
+   startup or registry mutation and no generic invoke. */
+contextBridge.exposeInMainWorld(
+  'knouxScanV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.scanCapabilities),
+    listSources: () => ipcRenderer.invoke(CHANNELS.scanSources),
+    chooseSource: () => ipcRenderer.invoke(CHANNELS.scanSourceChoose),
+    indexSource: (sourceId) => ipcRenderer.invoke(CHANNELS.scanSourceIndex, { sourceId }),
+    start: (request) => ipcRenderer.invoke(CHANNELS.scanStart, request),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.scanCancel, { sessionId }),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.scanStatus, { sessionId }),
+    history: () => ipcRenderer.invoke(CHANNELS.scanHistory),
+    onEvent: (callback) => {
+      const listener = (_event, payload) => callback(payload);
+      ipcRenderer.on(CHANNELS.scanEvent, listener);
+      return () => ipcRenderer.removeListener(CHANNELS.scanEvent, listener);
+    },
   })
 );

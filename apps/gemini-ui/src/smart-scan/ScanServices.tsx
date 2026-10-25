@@ -1,12 +1,41 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- * 
- * KNOuX SmartOrganizer — Scan Services Command Deck (10 Service Tiles)
+ * KNOuX SmartOrganizer — measured service command deck.
+ *
+ * The ten services are the real capability list reported by the native
+ * coordinator. A tile opens the service workspace; it never implies that the
+ * service has already run.
  */
-
 import React from 'react';
 import {
+  Activity,
+  ChevronRight,
+  Copy,
+  Grid,
+  HardDrive,
+  Layers,
+  Lightbulb,
+  Rocket,
+  Search,
+  Settings,
+  Shield,
+  Trash2,
+  Zap,
+} from 'lucide-react';
+import type { ScanServiceResult } from '../../shared/native-contracts';
+import type { ScanServiceMeta } from './smartScan.types';
+import { sessionStatusLabel } from './model';
+
+export interface ScanServicesProps {
+  services: ScanServiceMeta[];
+  results?: ScanServiceResult[];
+  activeServiceId?: string | null;
+  onSelectService: (service: ScanServiceMeta) => void;
+  onOpenCustomScan: () => void;
+  isArabic?: boolean;
+  nativeAvailable?: boolean;
+}
+
+const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Zap,
   Search,
   Copy,
@@ -17,122 +46,97 @@ import {
   Grid,
   Activity,
   Lightbulb,
-  Settings,
-  ChevronRight,
-  Layers,
-} from 'lucide-react';
-import { ScanServiceMeta } from './smartScan.types';
-
-export interface ScanServicesProps {
-  services: ScanServiceMeta[];
-  activeServiceId?: string | null;
-  onSelectService: (service: ScanServiceMeta) => void;
-  onOpenCustomScan: () => void;
-  isArabic?: boolean;
-}
+};
 
 export const ScanServices: React.FC<ScanServicesProps> = ({
   services,
+  results = [],
   activeServiceId,
   onSelectService,
   onOpenCustomScan,
   isArabic = false,
+  nativeAvailable = true,
 }) => {
-  const getIcon = (name: string) => {
-    switch (name) {
-      case 'Zap':
-        return Zap;
-      case 'Search':
-        return Search;
-      case 'Copy':
-        return Copy;
-      case 'HardDrive':
-        return HardDrive;
-      case 'Trash2':
-        return Trash2;
-      case 'Shield':
-        return Shield;
-      case 'Rocket':
-        return Rocket;
-      case 'Grid':
-        return Grid;
-      case 'Activity':
-        return Activity;
-      case 'Lightbulb':
-      default:
-        return Lightbulb;
-    }
-  };
+  const resultById = new Map(results.map((result) => [result.serviceId, result]));
 
   return (
-    <section className="scan-services bg-[#071329]/80 border border-[#11294a] rounded-2xl p-3.5 sm:p-4 flex flex-col gap-3 shadow-lg shrink-0">
-      <div className="scan-services-head flex items-center justify-between">
+    <section data-testid="scan-services" className="scan-services bg-[#071329]/80 border border-[#11294a] rounded-2xl p-3.5 sm:p-4 flex flex-col gap-3 shadow-lg shrink-0">
+      <div className="scan-services-head flex items-center justify-between gap-2">
         <div>
           <h2 className="text-sm font-extrabold text-white flex items-center gap-2">
             <Layers className="w-4 h-4 text-cyan-400" />
-            {isArabic ? 'خدمات الفحص' : 'Scan Services'}
+            {isArabic ? 'خدمات الفحص المقيسة' : 'Measured Scan Services'}
           </h2>
           <p className="scan-services-copy text-[11px] text-slate-300 mt-0.5 font-medium">
             {isArabic
-              ? 'اختر نوع الفحص أو شغل تحليلاً كاملاً. كل خدمة تستهدف منطقة محددة في نظامك.'
-              : 'Choose a scan type or run a complete analysis. Each service targets a specific area of your system.'}
+              ? 'كل خدمة تعرض ما قاسته فعليًا؛ النطاقات غير المدعومة معلنة وليست مخفية.'
+              : 'Each service shows what it actually measured; unsupported scope is disclosed, not hidden.'}
           </p>
         </div>
 
         <button
+          type="button"
           onClick={onOpenCustomScan}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0e213d] hover:bg-[#163158] border border-cyan-500/30 text-xs text-cyan-300 font-bold transition cursor-pointer shadow-sm shrink-0"
+          disabled={!nativeAvailable || !services.length}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0e213d] hover:bg-[#163158] border border-cyan-500/30 text-xs text-cyan-300 font-bold transition cursor-pointer shadow-sm shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <Settings className="w-3.5 h-3.5 text-cyan-400" />
           <span>{isArabic ? 'فحص مخصص' : 'Custom Scan'}</span>
         </button>
       </div>
 
-      {/* 10 Service Cards Grid (2 rows x 5 cols on lg screens) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
-        {services.map((srv) => {
-          const IconComp = getIcon(srv.iconName);
-          const isSelected = activeServiceId === srv.id;
-          const title = isArabic ? srv.titleAr : srv.titleEn;
-          const sub = isArabic ? srv.subtextAr : srv.subtextEn;
-
-          return (
-            <div
-              key={srv.id}
-              onClick={() => onSelectService(srv)}
-              className={`scan-service-card group relative bg-[#091a38]/80 hover:bg-[#0f2852] border rounded-xl p-2.5 flex items-center justify-between gap-2 transition-all duration-200 cursor-pointer shadow-sm ${
-                isSelected
-                  ? 'border-cyan-400/80 bg-[#0e2850] shadow-[0_0_15px_rgba(38,198,218,0.3)]'
-                  : 'border-[#14325a] hover:border-cyan-400/60 hover:shadow-[0_0_12px_rgba(38,198,218,0.2)]'
-              }`}
-            >
-              <div className="flex items-center gap-2.5 overflow-hidden">
-                <div
-                  className={`w-8 h-8 rounded-lg bg-gradient-to-br ${srv.accentGradient} flex items-center justify-center shrink-0 shadow-md text-white border border-white/20 group-hover:scale-105 transition-transform`}
-                >
-                  <IconComp className="w-4 h-4 text-white" />
-                </div>
-                <div className="truncate">
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs font-bold text-white truncate group-hover:text-cyan-200">
-                      {title}
-                    </span>
-                    {srv.badge && (
-                      <span className="px-1 py-0.2 rounded bg-cyan-400/20 text-[9px] font-bold text-cyan-300 border border-cyan-400/40">
-                        {srv.badge}
-                      </span>
-                    )}
+      {services.length ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
+          {services.map((service) => {
+            const IconComp = ICONS[service.iconName] || Lightbulb;
+            const isSelected = activeServiceId === service.id;
+            const result = resultById.get(service.id);
+            return (
+              <button
+                type="button"
+                key={service.id}
+                onClick={() => onSelectService(service)}
+                className={`scan-service-card group relative bg-[#091a38]/80 hover:bg-[#0f2852] border rounded-xl p-2.5 flex items-center justify-between gap-2 transition-all duration-200 cursor-pointer shadow-sm text-start ${
+                  isSelected
+                    ? 'border-cyan-400/80 bg-[#0e2850] shadow-[0_0_15px_rgba(38,198,218,0.3)]'
+                    : 'border-[#14325a] hover:border-cyan-400/60 hover:shadow-[0_0_12px_rgba(38,198,218,0.2)]'
+                }`}
+              >
+                <div className="flex items-center gap-2.5 overflow-hidden min-w-0">
+                  <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${service.accentGradient} flex items-center justify-center shrink-0 shadow-md text-white border border-white/20 group-hover:scale-105 transition-transform`}>
+                    <IconComp className="w-4 h-4 text-white" />
                   </div>
-                  <span className="scan-service-sub text-[10px] text-slate-400 truncate block">
-                    {sub}
-                  </span>
+                  <div className="truncate min-w-0">
+                    <div className="flex items-center gap-1">
+                      <span className="text-xs font-bold text-white truncate group-hover:text-cyan-200">{isArabic ? service.titleAr : service.titleEn}</span>
+                      {service.badge ? (
+                        <span className={`px-1 py-0.2 rounded text-[8px] font-bold border shrink-0 ${service.state === 'gated' ? 'bg-rose-400/15 text-rose-300 border-rose-400/40' : 'bg-amber-400/15 text-amber-300 border-amber-400/40'}`}>
+                          {service.badge}
+                        </span>
+                      ) : null}
+                    </div>
+                    <span className="scan-service-sub text-[10px] text-slate-400 truncate block">
+                      {isArabic ? service.subtextAr : service.subtextEn}
+                    </span>
+                    {result ? (
+                      <span className="text-[8px] font-mono text-emerald-400/90 truncate block">
+                        {isArabic ? 'آخر نتيجة' : 'last result'}: {sessionStatusLabel(result.status === 'unsupported' ? 'partial' : result.status, isArabic)}
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-              <ChevronRight className={`w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 transition-transform ${isArabic ? 'rotate-180' : ''}`} />
-            </div>
-          );
-        })}
-      </div>
+                <ChevronRight className={`w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 transition-transform shrink-0 ${isArabic ? 'rotate-180' : ''}`} />
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="rounded-xl border border-dashed border-[#1b3a63] bg-[#071731] p-3 text-center text-[11px] text-slate-400">
+          {nativeAvailable
+            ? (isArabic ? 'جارٍ تحميل قدرات الفحص من الجسر الأصلي...' : 'Loading measured capabilities from the native bridge...')
+            : (isArabic ? 'قدرات الفحص تتطلب تطبيق Electron الأصلي؛ لا تُعرض خدمات تجريبية في المعاينة.' : 'Scan capabilities require the native Electron app; no design services are shown in a browser preview.')}
+        </div>
+      )}
     </section>
   );
 };

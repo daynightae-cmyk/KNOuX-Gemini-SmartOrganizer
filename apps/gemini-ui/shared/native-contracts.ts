@@ -590,3 +590,396 @@ export interface StorageShellApi {
   analysis: (sourceId: string) => Promise<NativeEnvelope<StorageAnalysis>>;
   verifyDuplicates: (sourceId: string) => Promise<NativeEnvelope<StorageDuplicateResult>>;
 }
+
+/* ------------------------------------------------------------------------- */
+/* Smart Scan v1 — read-only coordinator over the measured providers.        */
+/* ------------------------------------------------------------------------- */
+
+export type ScanStageStatus =
+  | 'pending'
+  | 'running'
+  | 'complete'
+  | 'partial'
+  | 'failed'
+  | 'skipped'
+  | 'unsupported'
+  | 'cancelled';
+
+export type ScanSessionStatus = 'running' | 'complete' | 'partial' | 'cancelled' | 'failed';
+export type ScanSeverity = 'high' | 'medium' | 'low' | 'info';
+export type ScanRisk = 'review' | 'attention' | 'info';
+
+export interface ScanFindingProvenance {
+  provider: string;
+  mode: 'measured';
+  scope: string;
+}
+
+export interface ScanFinding {
+  stableId: string;
+  kind:
+    | 'large-file'
+    | 'duplicate-verified'
+    | 'duplicate-candidate'
+    | 'low-space'
+    | 'startup-item'
+    | 'privacy-origin'
+    | 'empty-folder'
+    | 'memory-pressure'
+    | 'cpu-load'
+    | string;
+  serviceId: string;
+  titleEn: string;
+  titleAr: string;
+  evidence: string;
+  bytes: number;
+  itemCount: number;
+  severity: ScanSeverity;
+  risk: ScanRisk;
+  scope: string;
+  provenance: ScanFindingProvenance;
+  pathPreview: string[];
+}
+
+export interface ScanRecommendation {
+  id: string;
+  titleEn: string;
+  titleAr: string;
+  detailEn: string;
+  detailAr: string;
+  evidence: string;
+  serviceId: string;
+  confidence: 'measured' | 'derived';
+  risk: ScanRisk;
+  target: string;
+}
+
+export interface ScanStage {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  provider: string;
+  weight: number;
+  status: ScanStageStatus;
+  startedAt: string | null;
+  finishedAt: string | null;
+  durationMs: number | null;
+  detail: string | null;
+  error: NativeError | null;
+}
+
+export interface ScanBreakdownGroup {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  colorHex: string;
+  count: number;
+  bytes: number;
+  percentage: number;
+}
+
+export interface ScanKpi {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  value: string;
+  subtextEn: string;
+  subtextAr: string;
+  accentColor: 'cyan' | 'blue' | 'red' | 'purple' | 'teal' | 'green';
+  indicatorType: 'ring' | 'stack' | 'alert' | 'disk' | 'shield' | 'sparkline';
+  provenance: 'measured' | 'partial' | 'unavailable';
+}
+
+export interface ScanSystemSnapshot {
+  platform?: string;
+  osCaption?: string | null;
+  osVersion?: string | null;
+  osBuild?: string | null;
+  uptimeSeconds?: number | null;
+  uptimeSource?: string;
+  cpuModel?: string | null;
+  cpuCores?: number | null;
+  cpuLogicalProcessors?: number | null;
+  cpuLoadPercent?: number | null;
+  cpuLoadSource?: string;
+  memoryTotalBytes?: number | null;
+  memoryFreeBytes?: number | null;
+  memoryUsedPercent?: number | null;
+  systemDrive?: string | null;
+  systemDriveFreeBytes?: number | null;
+  systemDriveTotalBytes?: number | null;
+  degraded?: boolean;
+  degradationReason?: string | null;
+  basis?: string[];
+}
+
+export interface ScanStartupItem {
+  name: string;
+  source: string;
+  location: string;
+  writable: boolean;
+  managedBySmartOrganizer: boolean;
+  provider: string;
+}
+
+export interface ScanPrivacySample {
+  fileId: number;
+  relative: string;
+  name: string;
+  zoneId: number | null;
+  zoneAvailable: boolean;
+  host: string | null;
+  referrer: string | null;
+}
+
+export interface ScanServiceData {
+  scope?: string;
+  sourceLabel?: string | null;
+  stageCount?: number;
+  readOnly?: true;
+  totals?: {
+    files: number;
+    bytes: number;
+    folders: number;
+    categories: number;
+    partial: boolean;
+    analyzedBytes?: number;
+  } | null;
+  coverage?: StorageAnalysis['coverage'] | null;
+  volumes?: StorageVolume[];
+  system?: ScanSystemSnapshot | null;
+  services?: ServicesSummaryData | null;
+  findings?: number;
+  duplicateSummary?: StorageDuplicateResult['summary'] | null;
+  startupCount?: number | null;
+  appCount?: number | null;
+  privacySample?: { sampled: number; withZone: number } | null;
+  emptyFolders?: {
+    items: Array<{ relative: string }>;
+    summary: FilesEmptyFoldersResult['summary'];
+    partial: boolean;
+    mutation?: 'none';
+  } | null;
+  options?: { verifyDuplicates: boolean; includeSlowProviders: boolean };
+  candidates?: StorageDuplicateCandidate[];
+  candidatePolicy?: StorageAnalysis['duplicatePolicy'] | null;
+  verified?: {
+    groups: StorageDuplicateGroup[];
+    summary: StorageDuplicateResult['summary'];
+    errors: StorageDuplicateResult['errors'];
+  } | null;
+  minimumBytes?: number | null;
+  thresholdBytes?: number;
+  files?: FilesItem[];
+  totalBytes?: number;
+  count?: number;
+  cleanupAvailable?: boolean;
+  gatedMission?: string;
+  unsupported?: string[];
+  sample?: {
+    sampled: number;
+    withZone: number;
+    hosts: string[];
+    samples: ScanPrivacySample[];
+    errors: number;
+    sampleLimit: number;
+    browserHistoryRead: false;
+    cookiesRead: false;
+    clipboardRead: false;
+  } | null;
+  browserHistoryRead?: false;
+  cookiesRead?: false;
+  clipboardRead?: false;
+  items?: ScanStartupItem[];
+  bySource?: Record<string, number>;
+  writableCount?: number | null;
+  bootTimeMeasured?: false;
+  mutationAvailable?: false;
+  total?: number | null;
+  publishers?: Array<{ publisher: string; count: number }>;
+  apps?: Array<{ name: string; version: string | null; publisher: string | null }>;
+  unusedClassification?: false;
+  uninstallAvailable?: false;
+  healthScore?: number | null;
+  basis?: string[];
+  recommendations?: ScanRecommendation[];
+  aiProviderUsed?: false;
+  method?: string;
+}
+
+export interface ScanServiceResult {
+  serviceId: string;
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  status: ScanSessionStatus | 'unsupported';
+  permission: 'read-only';
+  mutation: 'none';
+  source: string;
+  startedAt: string;
+  finishedAt: string | null;
+  stages: Array<{ id: string; labelEn: string; labelAr: string; status: ScanStageStatus }>;
+  data: ScanServiceData;
+  warnings: string[];
+  limitations: string[];
+}
+
+export interface ScanSummary {
+  id: string;
+  mode: 'quick' | 'deep' | 'service' | 'custom';
+  status: ScanSessionStatus;
+  sourceId: string | null;
+  sourceLabel: string | null;
+  scope: 'authorized-folder' | 'system-providers-only';
+  startedAt: string;
+  finishedAt: string | null;
+  progressPercent: number;
+  progressDeterminate: boolean;
+  stagesTotal: number;
+  stagesCompleted: number;
+  stagesFailed: number;
+  findingsCount: number;
+  highSeverityCount: number;
+  filesIndexed: number | null;
+  bytesIndexed: number | null;
+  verifiedReclaimableBytes: number;
+  verifiedDuplicateGroups: number;
+  privacySignalCount: number | null;
+  healthScore: number | null;
+  healthBasis: string[];
+  warnings: string[];
+  limitations: string[];
+  requestedServices: string[];
+}
+
+export interface ScanSession {
+  id: string;
+  mode: 'quick' | 'deep' | 'service' | 'custom';
+  requestedServices: string[];
+  sourceId: string | null;
+  sourceLabel: string | null;
+  scope: 'authorized-folder' | 'system-providers-only';
+  status: ScanSessionStatus;
+  startedAt: string;
+  finishedAt: string | null;
+  cancelRequested: boolean;
+  progressPercent: number;
+  progressDeterminate: boolean;
+  stages: ScanStage[];
+  services: ScanServiceResult[];
+  findings: ScanFinding[];
+  recommendations: ScanRecommendation[];
+  breakdown: ScanBreakdownGroup[];
+  kpis: ScanKpi[];
+  summary: ScanSummary;
+  warnings: string[];
+  limitations: string[];
+  error: NativeError | null;
+}
+
+export interface ScanCapabilityStage {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  provider: string;
+  requiresSource: boolean;
+}
+
+export interface ScanCapabilityService {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  requiresSource: boolean;
+  stages: string[];
+  noteEn: string;
+  noteAr: string;
+}
+
+export interface ScanGatedOperation {
+  id: string;
+  mission: string;
+  title: string;
+  reason: string;
+}
+
+export interface ScanCapabilities {
+  engine: string;
+  contract: 'scan.v1';
+  readOnly: true;
+  mutation: 'none';
+  wholeVolumeAnalysis: false;
+  fixtureFallback: false;
+  sourceScope: 'authorized-folder';
+  stages: ScanCapabilityStage[];
+  services: ScanCapabilityService[];
+  gatedOperations: ScanGatedOperation[];
+}
+
+export interface ScanStartRequest {
+  mode: 'quick' | 'deep' | 'service' | 'custom';
+  services?: string[];
+  sourceId?: string | null;
+  options?: {
+    verifyDuplicates?: boolean;
+    includeSlowProviders?: boolean;
+  };
+}
+
+export interface ScanStarted {
+  sessionId: string;
+  status: ScanSessionStatus;
+  mode: ScanSession['mode'];
+  stages: ScanStage[];
+  startedAt: string;
+  sourceLabel: string | null;
+  scope: ScanSession['scope'];
+}
+
+export interface ScanCancelResult {
+  cancelled: boolean;
+  sessionId: string;
+  note: string;
+}
+
+export interface ScanIndexResult {
+  id: string;
+  label: string;
+  fileCount: number;
+  folderCount: number;
+  totalBytes: number;
+  status: StudioSource['status'];
+  partial: boolean;
+}
+
+export interface ScanProgressEvent {
+  type:
+    | 'scan-started'
+    | 'scan-stage'
+    | 'scan-complete'
+    | 'scan-cancelled'
+    | 'scan-failed'
+    | 'scan-cancelled-requested';
+  sessionId: string;
+  at: string;
+  stage?: ScanStage;
+  progressPercent?: number;
+  summary?: ScanSummary;
+  error?: NativeError;
+  mode?: ScanSession['mode'];
+  services?: string[];
+  stageCount?: number;
+}
+
+export interface ScanShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<ScanCapabilities>>;
+  listSources: () => Promise<NativeEnvelope<StudioSource[]>>;
+  chooseSource: () => Promise<NativeEnvelope<StudioSource | null>>;
+  indexSource: (sourceId: string) => Promise<NativeEnvelope<StudioSource>>;
+  start: (request: ScanStartRequest) => Promise<NativeEnvelope<ScanStarted>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<ScanCancelResult>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<ScanSession>>;
+  history: () => Promise<NativeEnvelope<ScanSummary[]>>;
+  onEvent: (callback: (event: ScanProgressEvent) => void) => () => void;
+}
