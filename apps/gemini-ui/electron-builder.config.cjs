@@ -7,7 +7,7 @@
  */
 module.exports = {
   appId: 'com.knoux.smartorganizer.gemini',
-  productName: 'KNOuX Gemini Preview',
+  productName: 'KNOuX Smart Gemini Preview',
   copyright: 'Copyright © 2026 Knoux Technologies',
   asar: true,
   electronVersion: '43.4.1',

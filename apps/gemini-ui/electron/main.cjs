@@ -496,7 +496,7 @@ function createWindow() {
     frame: false,
     show: false,
     backgroundColor: '#040a16',
-    title: 'KNOuX SmartOrganizer',
+    title: 'KNOuX Smart Gemini',
     webPreferences: {
       preload: preloadPath,
       contextIsolation: true,
