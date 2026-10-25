@@ -1,0 +1,19 @@
+name: KNOuX Gemini Standalone
+on: [push, pull_request]
+jobs:
+  native-contract:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/gemini-ui/package-lock.json
+      - run: npm ci --prefix apps/gemini-ui
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test:native
+      - run: npm run test:studio
+      - run: npm run test:files
+      - run: npm run test:storage

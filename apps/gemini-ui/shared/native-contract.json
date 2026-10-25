@@ -1,0 +1,225 @@
+{
+  "contractVersion": 1,
+  "namespace": "knouxShell",
+  "channels": {
+    "status": "knoux:native:v1:status",
+    "systemSummary": "knoux:native:v1:system-summary",
+    "servicesSummary": "knoux:native:v1:services-summary",
+    "chooseFolder": "knoux:native:v1:choose-folder",
+    "windowControl": "knoux:window:v1:control",
+    "studioSources": "knoux:studio:v1:sources",
+    "studioSourceChoose": "knoux:studio:v1:source-choose",
+    "studioSourceRemove": "knoux:studio:v1:source-remove",
+    "studioInventoryScan": "knoux:studio:v1:inventory-scan",
+    "studioInventoryCancel": "knoux:studio:v1:inventory-cancel",
+    "studioInventoryQuery": "knoux:studio:v1:inventory-query",
+    "studioThumbnails": "knoux:studio:v1:thumbnails",
+    "studioDestinationChoose": "knoux:studio:v1:destination-choose",
+    "studioPlanPreview": "knoux:studio:v1:plan-preview",
+    "studioPreviewHistory": "knoux:studio:v1:preview-history",
+    "studioEvent": "knoux:studio:v1:event",
+    "filesSources": "knoux:files:v1:sources",
+    "filesSourceChoose": "knoux:files:v1:source-choose",
+    "filesInventoryScan": "knoux:files:v1:inventory-scan",
+    "filesInventoryCancel": "knoux:files:v1:inventory-cancel",
+    "filesInventoryQuery": "knoux:files:v1:inventory-query",
+    "filesThumbnails": "knoux:files:v1:thumbnails",
+    "filesOverview": "knoux:files:v1:overview",
+    "filesMetadata": "knoux:files:v1:metadata",
+    "filesHash": "knoux:files:v1:hash",
+    "filesEmptyFolders": "knoux:files:v1:empty-folders",
+    "filesOpen": "knoux:files:v1:open",
+    "filesReveal": "knoux:files:v1:reveal",
+    "storageVolumes": "knoux:storage:v1:volumes",
+    "storageHistory": "knoux:storage:v1:history",
+    "storageAnalysis": "knoux:storage:v1:analysis",
+    "storageDuplicates": "knoux:storage:v1:duplicates"
+  },
+  "capabilities": {
+    "bridge.status": {
+      "id": "bridge.status",
+      "title": "Bridge handshake",
+      "mode": "read-only",
+      "channel": "knoux:native:v1:status"
+    },
+    "system.summary": {
+      "id": "system.summary",
+      "title": "Machine summary",
+      "mode": "read-only",
+      "channel": "knoux:native:v1:system-summary"
+    },
+    "services.summary": {
+      "id": "services.summary",
+      "title": "Windows service summary",
+      "mode": "read-only",
+      "channel": "knoux:native:v1:services-summary"
+    },
+    "folder.choose": {
+      "id": "folder.choose",
+      "title": "Choose a folder",
+      "mode": "user-initiated",
+      "channel": "knoux:native:v1:choose-folder"
+    },
+    "studio.sources": {
+      "id": "studio.sources",
+      "title": "Studio authorized sources",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:sources"
+    },
+    "studio.source.choose": {
+      "id": "studio.source.choose",
+      "title": "Choose and authorize a source folder",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:source-choose"
+    },
+    "studio.source.remove": {
+      "id": "studio.source.remove",
+      "title": "Revoke a source grant",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:source-remove"
+    },
+    "studio.inventory.scan": {
+      "id": "studio.inventory.scan",
+      "title": "Read-only source inventory",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:inventory-scan"
+    },
+    "studio.inventory.cancel": {
+      "id": "studio.inventory.cancel",
+      "title": "Cancel an inventory scan",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:inventory-cancel"
+    },
+    "studio.inventory.query": {
+      "id": "studio.inventory.query",
+      "title": "Query measured inventory",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:inventory-query"
+    },
+    "studio.thumbnails": {
+      "id": "studio.thumbnails",
+      "title": "Bounded native thumbnails",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:thumbnails"
+    },
+    "studio.destination.choose": {
+      "id": "studio.destination.choose",
+      "title": "Choose an output destination",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:destination-choose"
+    },
+    "studio.plan.preview": {
+      "id": "studio.plan.preview",
+      "title": "Immutable organization plan preview",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:plan-preview"
+    },
+    "studio.preview.history": {
+      "id": "studio.preview.history",
+      "title": "Plan preview receipts",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:preview-history"
+    },
+    "files.sources": {
+      "id": "files.sources",
+      "title": "Files authorized sources",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:sources"
+    },
+    "files.source.choose": {
+      "id": "files.source.choose",
+      "title": "Choose and authorize a Files source",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:source-choose"
+    },
+    "files.inventory.scan": {
+      "id": "files.inventory.scan",
+      "title": "Read-only Files inventory",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:inventory-scan"
+    },
+    "files.inventory.cancel": {
+      "id": "files.inventory.cancel",
+      "title": "Cancel a Files inventory scan",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:inventory-cancel"
+    },
+    "files.inventory.query": {
+      "id": "files.inventory.query",
+      "title": "Query the measured Files inventory",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:inventory-query"
+    },
+    "files.thumbnails": {
+      "id": "files.thumbnails",
+      "title": "Bounded Files thumbnails",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:thumbnails"
+    },
+    "files.overview": {
+      "id": "files.overview",
+      "title": "Measured file distributions and rankings",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:overview"
+    },
+    "files.metadata": {
+      "id": "files.metadata",
+      "title": "Measured file metadata dossier",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:metadata"
+    },
+    "files.hash": {
+      "id": "files.hash",
+      "title": "Bounded read-only file hash",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:hash"
+    },
+    "files.emptyFolders": {
+      "id": "files.emptyFolders",
+      "title": "Bounded empty-folder discovery",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:empty-folders"
+    },
+    "files.open": {
+      "id": "files.open",
+      "title": "Open an indexed file with the Windows shell",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:open"
+    },
+    "files.reveal": {
+      "id": "files.reveal",
+      "title": "Reveal an indexed file in Explorer",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:reveal"
+    },
+    "storage.volumes": {
+      "id": "storage.volumes",
+      "title": "Measured mounted volumes and capacity snapshots",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:volumes"
+    },
+    "storage.history": {
+      "id": "storage.history",
+      "title": "Measured capacity history",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:history"
+    },
+    "storage.analysis": {
+      "id": "storage.analysis",
+      "title": "Measured folder tree and storage intelligence",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:analysis"
+    },
+    "storage.duplicates.verify": {
+      "id": "storage.duplicates.verify",
+      "title": "Bounded byte-exact duplicate verification",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:duplicates"
+    }
+  },
+  "windowActions": [
+    "minimize",
+    "maximize",
+    "close"
+  ]
+}
