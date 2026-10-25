@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 02 Smart Scan. Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 05 Applications (02 Smart Scan accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-25 (single-agent foreground run)
+Updated: 2026-10-26 (single-agent autonomous run; Mission 02 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -13,7 +13,7 @@ Updated: 2026-10-25 (single-agent foreground run)
 | 03 — Organization Studio | ACCEPTED_WITH_EVIDENCE (read-only; execution/undo blocked pending approval) | 5cb5d61, a4f8085 | a4f8085 | docs/STUDIO_ORGANIZATION_AUDIT.md, visual-evidence/mission-03/ (12 viewport/theme/RTL captures + 9/9 interactions), platform-00 Studio measured/plan/history receipts (dev + packaged), test:native + test:studio PASS, Gemini Platform CI success (run 40211475733) | 06 |
 | 06 — Files | ACCEPTED_WITH_EVIDENCE (read-only; apply/undo/execution journal blocked) | 054fe99 | 054fe99 | docs/FILES_INSTANT_FIND_AUDIT.md, visual-evidence/mission-06/ (12 viewport/theme/RTL captures + 12/12 interactions), platform-00 files measured dev + packaged screenshots and receipts, test:native + test:files + test:studio PASS, 100K synthetic query 73 ms / overview 49 ms, Gemini Platform CI success (run 40214208033) | 07 |
 | 07 — Storage | ACCEPTED_WITH_EVIDENCE (read-only; SMART/defrag/removable unsupported, cleanup blocked) | 1feea22 | 1feea22 | docs/STORAGE_VOLUME_ATLAS_AUDIT.md, visual-evidence/mission-07/ (12 viewport/theme/RTL captures + 10/10 interactions + contrast 0), platform-00 storage measured dev + packaged screenshots and receipts, test:storage PASS, Gemini Platform CI success (run 40219756939) | 02 |
-| 02 — Smart Scan | PENDING | — | — | — | — |
+| 02 — Smart Scan | ACCEPTED_WITH_EVIDENCE (measured read-only; cleanup/startup/app mutation blocked to 08/09/05) | 1d0e559, 4af1f02 (CI fix) | 4af1f02 | docs (this snapshot), visual-evidence/platform-00/smart-scan-measured-dev{,-light,-ar-light,-1366,-1366-bottom,-1920}.png, test:scan PASS, native smoke PASS, Gemini Platform CI success (run 40240780808) | 05 |
 | 05 — Applications | PENDING | — | — | — | — |
 | 08 — Cleanup | PENDING | — | — | — | — |
 | 09 — Startup | PENDING | — | — | — | — |
@@ -65,9 +65,21 @@ Updated: 2026-10-25 (single-agent foreground run)
 - Runtime: Electron dev + packaged smoke PASS with Storage API probes and measured Storage route; 10/10 browser interactions PASS; 12 viewport/theme/RTL captures with no document overflow or covered controls; contrast 0 below 3:1 in both themes.
 - Root CI: Source verification PASS (run 40219756912); Windows packaged runtime verification was still in progress at ledger update. The previous root packaged run failed only in its own visual-smoke temp cleanup with EBUSY; Gemini Platform CI is green.
 
+## Mission 02 verification snapshot
+
+- Coordinator: `electron/native/scan-bridge.cjs` composes one measured session over the existing Studio, Files, Storage, system/service summary and installed-app providers; no second scanner and no duplicate engine.
+- Modes: quick (`inventory, capacity, system, services, analyze`), deep (all 10 read-only stages), service subsets bound to each capability's `requiresSource`, and custom stage unions. Progress is weighted completed-stage progress; `cancel` returns `cancelled:false` for already-terminal sessions.
+- Measured evidence: findings and recommendations derive from provider data only; unmeasured groups show `—`/`unavailable` instead of zero, health carries provenance and a PARTIAL badge, and the simulated `LiveProcessInspector` plus `smartScan.fixtures.ts` were deleted.
+- Persistence: full sessions under `gemini-scan/sessions` (10 kept) and summary history under `gemini-scan/history.json` (20 kept); export writes the measured `scan.v1` session with `readOnly: true`, `mutation: none`.
+- Blocked by requirement: Junk Cleaner execution (Mission 08 approval gate modal only), Privacy is a bounded Zone.Identifier sample, Startup is read-only (Mission 09), App Health is read-only (Mission 05). No delete/move/uninstall/service/startup/registry write was executed.
+- Tests: `test:scan` PASS (10 services/stages, quick 6 files/4 findings, deep 8 findings, 6 privacy indicators with 1 sampled, health 72, history 20, sessions 10; cancellation, provider-failure and no-mutation assertions); `test:native`/`test:studio`/`test:files`/`test:storage` regressions PASS; lint and build PASS.
+- Runtime: `desktop:smoke` PASS with measured scan probes, `scanOk`, `smartScanLayoutOk`, `smartScanWideLayout`, `smartScan1366Layout`, `screenshotOk`; 1366 stacked layout and 1672/1920 dense layout verified without horizontal overflow.
+- Visual: dark EN 1672, light EN, Arabic light RTL, 1366 top+bottom and 1920 captures reviewed; KPI/service/breakdown truncation fixed at 1366.
+- Root CI: the first run (40240618421) exposed a missing root `test:scan` forwarding script; fixed in `4af1f02`, Gemini Platform CI run 40240780808 SUCCESS, and remote `main` fast-forwarded to the verified commit 4af1f02.
+
 ## Boundary / next
 
-- Next mission file: `02_SMART_SCAN_FULLSTACK_MISSION.md`.
+- Next mission file: `05_APPLICATIONS_FULLSTACK_MISSION.md` (then 08, 09, 10, 11, 12, 13, 04, 14, 01).
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
