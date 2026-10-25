@@ -9,3 +9,8 @@
 **/.cache/
 **/visual-evidence/**/audit/
 *.zip
+
+# Original historical runtime receipts and complete evidence release artifact
+/migration-history/pre-split-platform-00/
+/migration-history/*.zip
+/migration-history/*.tmp
