@@ -10,6 +10,7 @@
     "test:studio": "npm run test:studio --prefix apps/gemini-ui",
     "test:files": "npm run test:files --prefix apps/gemini-ui",
     "test:storage": "npm run test:storage --prefix apps/gemini-ui",
+    "test:scan": "npm run test:scan --prefix apps/gemini-ui",
     "desktop:smoke": "npm run desktop:smoke --prefix apps/gemini-ui",
     "desktop:pack": "npm run desktop:pack --prefix apps/gemini-ui",
     "dev": "npm run dev --prefix apps/gemini-ui",
