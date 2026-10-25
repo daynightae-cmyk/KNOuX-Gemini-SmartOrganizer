@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 05 Applications (02 Smart Scan accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 08 Cleanup (02 Smart Scan and 05 Applications accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Mission 02 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02 and 05 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -14,7 +14,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Mission 02 accepted)
 | 06 — Files | ACCEPTED_WITH_EVIDENCE (read-only; apply/undo/execution journal blocked) | 054fe99 | 054fe99 | docs/FILES_INSTANT_FIND_AUDIT.md, visual-evidence/mission-06/ (12 viewport/theme/RTL captures + 12/12 interactions), platform-00 files measured dev + packaged screenshots and receipts, test:native + test:files + test:studio PASS, 100K synthetic query 73 ms / overview 49 ms, Gemini Platform CI success (run 40214208033) | 07 |
 | 07 — Storage | ACCEPTED_WITH_EVIDENCE (read-only; SMART/defrag/removable unsupported, cleanup blocked) | 1feea22 | 1feea22 | docs/STORAGE_VOLUME_ATLAS_AUDIT.md, visual-evidence/mission-07/ (12 viewport/theme/RTL captures + 10/10 interactions + contrast 0), platform-00 storage measured dev + packaged screenshots and receipts, test:storage PASS, Gemini Platform CI success (run 40219756939) | 02 |
 | 02 — Smart Scan | ACCEPTED_WITH_EVIDENCE (measured read-only; cleanup/startup/app mutation blocked to 08/09/05) | 1d0e559, 4af1f02 (CI fix) | 4af1f02 | docs (this snapshot), visual-evidence/platform-00/smart-scan-measured-dev{,-light,-ar-light,-1366,-1366-bottom,-1920}.png, test:scan PASS, native smoke PASS, Gemini Platform CI success (run 40240780808) | 05 |
-| 05 — Applications | PENDING | — | — | — | — |
+| 05 - Applications | ACCEPTED_WITH_EVIDENCE (measured read-only; uninstall/update/association/startup writes gated to 08/11/14/09) | b52c7e4 | b52c7e4 | docs (this snapshot), visual-evidence/platform-00/applications-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:apps PASS, native smoke appsOk/appsLayoutOk, Gemini Platform CI success (run 40244766892) | 08 |
 | 08 — Cleanup | PENDING | — | — | — | — |
 | 09 — Startup | PENDING | — | — | — | — |
 | 10 — System | PENDING | — | — | — | — |
@@ -77,9 +77,19 @@ Updated: 2026-10-26 (single-agent autonomous run; Mission 02 accepted)
 - Visual: dark EN 1672, light EN, Arabic light RTL, 1366 top+bottom and 1920 captures reviewed; KPI/service/breakdown truncation fixed at 1366.
 - Root CI: the first run (40240618421) exposed a missing root `test:scan` forwarding script; fixed in `4af1f02`, Gemini Platform CI run 40240780808 SUCCESS, and remote `main` fast-forwarded to the verified commit 4af1f02.
 
+## Mission 05 verification snapshot
+
+- Coordinator: `electron/native/app-bridge.cjs` is the single read-only Applications bridge over the uninstall registry (HKLM 64-bit, HKLM WOW6432Node, HKCU), Appx/MSIX packages and `Win32_StartupCommand`; all 12 application services compose it and no fixture inventory remains in the renderer.
+- Measured: 147 installed applications, 23 publishers, 95 packaged entries, 60 protected, 2 startup-linked, 9 startup entries, 4 warnings; signature via `Get-AuthenticodeSignature` with a fixed `PSModulePath` (thumbprint/chain returned, unsigned detected); associations 200 extensions/10 protocols with truncation; leftovers 60 name-match candidates (explicitly not proof of orphanhood); WinGet 1.29.380 present but feeds only queried on demand; immutable uninstall plan reports 5.9 MB and an execution gate.
+- Bounded: sizes are a Node directory walk with time/entry budgets, reparse points skipped and shared roots rejected; associations are a bounded HKCR/UserChoice sample; no whole-volume scan.
+- Blocked by requirement: every uninstall/update/association/startup mutation returns a mission-owned gate (Mission 08/11/14/09); no mutation IPC, no `shell.openExternal`, no automatic WinGet source agreement, no user application changed.
+- Tests: `test:apps` PASS (5-app controlled registry fixture, 12 services, signature, associations, 10000-byte measured walk, leftovers, WinGet update parse, blocked plan, PowerShell module-path regression); `test:native`/`test:scan`/`test:studio`/`test:files`/`test:storage` regressions PASS; lint and build PASS.
+- Runtime: `desktop:smoke` PASS with `appsOk`, `appsLayoutOk`, measured Applications route and 1366/1672/1920 assertions (side-by-side register/dossier, no horizontal overflow, working inner scroll); dark/light/AR-light screenshots reviewed and 1366 compression fixed.
+- Root CI: Gemini Platform CI run 40244766892 SUCCESS; remote `main` fast-forwarded to verified b52c7e4.
+
 ## Boundary / next
 
-- Next mission file: `05_APPLICATIONS_FULLSTACK_MISSION.md` (then 08, 09, 10, 11, 12, 13, 04, 14, 01).
+- Next mission file: `08_CLEANUP_FULLSTACK_MISSION.md` (then 09, 10, 11, 12, 13, 04, 14, 01).
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
