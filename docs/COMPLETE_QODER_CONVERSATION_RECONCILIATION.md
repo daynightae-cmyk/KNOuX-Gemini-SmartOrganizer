@@ -274,9 +274,13 @@ Existing successful standalone CI on the accepted source baseline:
 
 A duplicate successful run for the same SHA was also observed.
 
-This reconciliation report is a documentation-only change on
-`feat/gemini-missions`; its own standalone CI run is checked after push and
-before the final fast-forward.
+The reconciliation report/manifest commit was independently validated:
+
+- feature CI: run **40234761671**, SHA `09d36b6`, conclusion **success**;
+- main CI: run **40234872462**, SHA `09d36b6`, conclusion **success**.
+
+This report revision is a docs-only addendum after that verified merge. No
+product source changed.
 
 The retired Root `CI` workflow and Root visual acceptance are not part of this
 project and were not run.
@@ -303,16 +307,23 @@ performed.
 - Accepted source on `feat/gemini-missions`: `7714f07`.
 - Accepted source on `origin/main`: `7714f07` (already synchronized).
 - The accepted source merge is therefore complete, with no old Root history.
-- The reconciliation report and manifest are a docs-only commit on
-  `feat/gemini-missions`; after its CI passes they are fast-forwarded to `main`.
-  Because `main` is not protected and both branches share the same history, no
-  force, rebase or unrelated-history merge is required or permitted.
-- The report commit SHA and post-merge `main` SHA are recorded by Git and the
-  final execution handoff; the pre-merge feature SHA is the one that will be
-  fast-forwarded.
+- The reconciliation report and manifest were committed as `09d36b6` and
+  fast-forwarded from `7714f07` to `main` after standalone CI passed. Both
+  remote branches verified at `09d36b6`.
+- This document revision is a docs-only addendum after the verified merge; no
+  product code changed.
 
-The local `main` branch may lag until the final fast-forward; the authoritative
-remote is verified independently.
+- Reconciliation report commit: `09d36b61dda98327e4c8ae8adc21da393990507f`.
+- Feature CI for that commit: **40234761671**, success.
+- Normal fast-forward: `7714f07..09d36b6`.
+- `origin/feat/gemini-missions` = `origin/main` = `09d36b6`.
+- Main-branch CI: **40234872462**, success.
+- This document revision is a docs-only addendum after that verified merge;
+  no product source changed and no force/rebase/unrelated-history merge was used.
+
+- The local `main` branch and feature branch are both at `09d36b6`; this
+  addendum is fast-forwarded under the same docs-only policy.
+
 
 ---
 
