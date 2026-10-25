@@ -1,3 +1,15 @@
+# CANONICAL WORKSPACE POLICY — ABSOLUTE PRIORITY
+ONE ACTIVE PROJECT DIRECTORY: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer
+ONE ACTIVE GITHUB REMOTE: https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer
+ONE ACTIVE MISSION FOLDER: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\missions
+Before any write, execute python scripts/verify-workspace.py from the canonical repository root. If it does not PASS, STOP.
+DO NOT work from D:\KNOUX-Workspace\KNOuX-Gemini-UI, old Root GitHub, K: worktrees, temporary extracts or new clones.
+Old paths in historical progress/evidence are for provenance only. All new source, tasks, screenshots, tests, packages, commits and pushes belong to this canonical Git repo.
+Completed: 00V, 00P, 03 Studio, 06 Files, 07 Storage. NEXT: 02 Smart Scan.
+No worktrees, extra repos, Root CI or old Electron launcher. No destructive real-user operations without separate approval.
+
+---
+
 # KNOuX GEMINI — NEW INDEPENDENT REPOSITORY, AUTHORIZED CONTINUATION
 
 ## ACTIVE PROJECT (THIS OVERRIDES ALL PRE-MIGRATION PATHS AND BRANCH ASSERTIONS)

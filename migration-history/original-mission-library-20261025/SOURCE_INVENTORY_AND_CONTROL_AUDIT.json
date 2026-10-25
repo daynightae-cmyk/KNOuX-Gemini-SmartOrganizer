@@ -1,0 +1,4944 @@
+{
+  "generatedUTC": "2026-10-25T08:15:30.847652+00:00",
+  "repo": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI",
+  "headAtAudit": "c0bf2ee6066faabaf3d683f57ad3c11cb212bec2",
+  "branchAtAudit": "feat/gemini-ui-foundation-20261025",
+  "dirtyAtAudit": [
+    "M apps/gemini-ui/src/App.tsx",
+    " M apps/gemini-ui/src/components/chat/ApiKeySetupModal.tsx",
+    " M apps/gemini-ui/src/components/shell/KNOuXShellComponents.tsx",
+    " M apps/gemini-ui/src/components/workspace/GoogleWorkspaceHub.tsx",
+    " M apps/gemini-ui/src/context/NavigationContext.tsx",
+    " M apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+    " M apps/gemini-ui/src/pages/AutomationPage.tsx",
+    " M apps/gemini-ui/src/pages/CleanupPage.tsx",
+    " M apps/gemini-ui/src/pages/FilesPage.tsx",
+    " M apps/gemini-ui/src/pages/HomePage.tsx",
+    " M apps/gemini-ui/src/pages/RepairPage.tsx",
+    " M apps/gemini-ui/src/pages/ServicesPage.tsx",
+    " M apps/gemini-ui/src/pages/SettingsPage.tsx",
+    " M apps/gemini-ui/src/pages/StartupPage.tsx",
+    " M apps/gemini-ui/src/pages/StoragePage.tsx",
+    " M apps/gemini-ui/src/pages/SystemPage.tsx",
+    " M apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+    " M apps/gemini-ui/src/studio/parts.tsx",
+    "?? apps/gemini-ui/screenshot_applications.png",
+    "?? apps/gemini-ui/screenshot_cleanup.png",
+    "?? apps/gemini-ui/screenshot_home.png",
+    "?? apps/gemini-ui/screenshot_services.png",
+    "?? apps/gemini-ui/screenshot_settings.png",
+    "?? apps/gemini-ui/screenshot_smart_scan.png",
+    "?? apps/gemini-ui/screenshot_storage.png",
+    "?? apps/gemini-ui/screenshot_workspace.png",
+    "?? apps/gemini-ui/test_screenshot.png"
+  ],
+  "serviceRegistryCount": 132,
+  "serviceWorldCounts": {
+    "applications": 12,
+    "files": 12,
+    "storage": 12,
+    "cleanup": 12,
+    "startup": 12,
+    "system": 12,
+    "repair": 12,
+    "services": 12,
+    "network": 12,
+    "hardware": 12,
+    "automation": 12
+  },
+  "nativeEvidence": {
+    "electron/preload.cjs": {
+      "exists": true,
+      "bytes": 5807,
+      "ipcHandlers": [],
+      "ipcCalls": [
+        "knoux:app-info",
+        "knoux:tools-list",
+        "knoux:settings-get",
+        "knoux:settings-update",
+        "knoux:settings-export",
+        "knoux:settings-import",
+        "knoux:settings-reset-section",
+        "knoux:settings-reset",
+        "knoux:history-list",
+        "knoux:history-export",
+        "knoux:automation-list",
+        "knoux:automation-create",
+        "knoux:automation-remove",
+        "knoux:automation-set-enabled",
+        "knoux:automation-run",
+        "knoux:folder-choose",
+        "knoux:file-choose",
+        "knoux:tool-run",
+        "knoux:operation-cancel",
+        "knoux:open-path",
+        "knoux:diagnostics-export",
+        "knoux:code-signing",
+        "knoux:app-icons",
+        "knoux:clipboard-status",
+        "knoux:clipboard-list",
+        "knoux:clipboard-get",
+        "knoux:clipboard-pin",
+        "knoux:clipboard-delete",
+        "knoux:clipboard-clear",
+        "knoux:clipboard-copy-back",
+        "knoux:clipboard-open-source"
+      ],
+      "contextBridge": true
+    },
+    "electron/main.cjs": {
+      "exists": true,
+      "bytes": 189034,
+      "ipcHandlers": [
+        "knoux:app-info",
+        "knoux:tools-list",
+        "knoux:settings-get",
+        "knoux:settings-update",
+        "knoux:settings-export",
+        "knoux:settings-import",
+        "knoux:settings-reset-section",
+        "knoux:settings-reset",
+        "knoux:history-list",
+        "knoux:history-export",
+        "knoux:automation-list",
+        "knoux:automation-create",
+        "knoux:automation-remove",
+        "knoux:automation-set-enabled",
+        "knoux:automation-run",
+        "knoux:folder-choose",
+        "knoux:file-choose",
+        "knoux:tool-run",
+        "knoux:operation-cancel",
+        "knoux:open-path",
+        "knoux:diagnostics-export",
+        "knoux:code-signing",
+        "knoux:app-icons",
+        "knoux:clipboard-status",
+        "knoux:clipboard-list",
+        "knoux:clipboard-get",
+        "knoux:clipboard-pin",
+        "knoux:clipboard-delete",
+        "knoux:clipboard-clear",
+        "knoux:clipboard-copy-back",
+        "knoux:clipboard-open-source"
+      ],
+      "ipcCalls": [],
+      "contextBridge": false
+    },
+    "electron/windows-providers.cjs": {
+      "exists": true,
+      "bytes": 49517,
+      "ipcHandlers": [],
+      "ipcCalls": [],
+      "contextBridge": false
+    },
+    "electron/studio/register-studio-ipc.cjs": {
+      "exists": true,
+      "bytes": 22479,
+      "ipcHandlers": [],
+      "ipcCalls": [],
+      "contextBridge": false
+    },
+    "electron/privileged-runner.cjs": {
+      "exists": true,
+      "bytes": 16541,
+      "ipcHandlers": [],
+      "ipcCalls": [],
+      "contextBridge": false
+    },
+    "electron/automation.cjs": {
+      "exists": true,
+      "bytes": 6294,
+      "ipcHandlers": [],
+      "ipcCalls": [],
+      "contextBridge": false
+    },
+    "electron/settings.cjs": {
+      "exists": true,
+      "bytes": 9555,
+      "ipcHandlers": [],
+      "ipcCalls": [],
+      "contextBridge": false
+    },
+    "shared/contracts.ts": {
+      "exists": true,
+      "bytes": 5546,
+      "ipcHandlers": [],
+      "ipcCalls": [],
+      "contextBridge": false
+    }
+  },
+  "sections": {
+    "HOME": {
+      "sources": [
+        {
+          "path": "pages/HomePage.tsx",
+          "lines": 344,
+          "bytes": 14410,
+          "imports": [
+            "react",
+            "../components/home/HomeCommandCenter",
+            "../components/home/HomeDashboardPanels",
+            "../lib/home-ui",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents"
+          ],
+          "exports": [
+            "HomePage"
+          ],
+          "useStateCalls": 6,
+          "mockSignals": []
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "lines": 504,
+          "bytes": 25299,
+          "imports": [
+            "react",
+            "./EarthHorizonScene"
+          ],
+          "exports": [
+            "HomeCommandDeckProps",
+            "HomeCommandDeck",
+            "HomeCommandCenterProps",
+            "HomeCommandCenter"
+          ],
+          "useStateCalls": 4,
+          "mockSignals": [
+            "INITIAL_DECK_TILES",
+            "INITIAL_KPIS"
+          ]
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "lines": 1103,
+          "bytes": 51593,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "HomeDashboardPanelsProps",
+            "HomeDashboardPanels"
+          ],
+          "useStateCalls": 14,
+          "mockSignals": [
+            "INITIAL_ACTIVITIES",
+            "INITIAL_INSIGHT",
+            "INITIAL_QUICK_ACCESS",
+            "INITIAL_SAFE_ACTIONS",
+            "INITIAL_STORAGE_VOLUMES"
+          ]
+        },
+        {
+          "path": "components/home/EarthHorizonScene.tsx",
+          "lines": 300,
+          "bytes": 12508,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "EarthHorizonSceneProps",
+            "EarthHorizonScene"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "lib/home-ui.ts",
+          "lines": 561,
+          "bytes": 15276,
+          "imports": [],
+          "exports": [
+            "PageId",
+            "DeckTile",
+            "KpiMetric",
+            "KnouxInsightData",
+            "HomeActivityItem",
+            "QuickAccessItem",
+            "StorageVolumeSnapshot",
+            "PendingSafeAction",
+            "INITIAL_DECK_TILES",
+            "INITIAL_KPIS",
+            "INITIAL_INSIGHT",
+            "INITIAL_ACTIVITIES",
+            "INITIAL_QUICK_ACCESS",
+            "INITIAL_STORAGE_VOLUMES",
+            "INITIAL_SAFE_ACTIONS"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_ACTIVITIES",
+            "INITIAL_DECK_TILES",
+            "INITIAL_INSIGHT",
+            "INITIAL_KPIS",
+            "INITIAL_QUICK_ACCESS",
+            "INITIAL_SAFE_ACTIONS",
+            "INITIAL_STORAGE_VOLUMES"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "button": 41,
+        "OTHER_INTERACTIVE": 25,
+        "input": 3
+      },
+      "controls": [
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 217,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 249,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   key={tile.id}                   "
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 282,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div className=\"knx-modal-backdrop\" "
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 285,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div             className=\"knx-modal-card max-w-md\"             "
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 296,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 319,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": ""
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 333,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 340,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 404,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div           "
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 408,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeCommandCenter.tsx",
+          "line": 432,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div               key={kpi.id}               "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 232,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 242,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 252,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 262,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 280,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                 className=\"flex flex-col items-center justify-center shrink-0 cu"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 444,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 457,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 491,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 513,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 546,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 559,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 569,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 579,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 591,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 605,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   key={file.id}                   "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 626,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 661,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 689,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 696,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 718,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 732,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                 key={act.id}                 "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 739,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                     "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 789,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 818,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 837,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 843,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 858,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 874,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 898,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div className=\"knx-modal-backdrop\" "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 901,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div             className=\"knx-modal-card max-w-md\"             "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 912,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 949,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 955,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 971,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div className=\"knx-modal-backdrop\" "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 974,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div             className=\"knx-modal-card max-w-md\"             "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 985,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1002,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1008,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1026,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div className=\"knx-modal-backdrop\" "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1029,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div             className=\"knx-modal-card max-w-md\"             "
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1040,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1080,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/home/HomeDashboardPanels.tsx",
+          "line": 1086,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 153,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div className=\"knx-modal-backdrop\" "
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 156,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div             className=\"knx-modal-card max-w-lg\"             "
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 162,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 174,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 191,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                     key={sec.id}                     "
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 214,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div className=\"knx-modal-backdrop\" "
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 217,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div             className=\"knx-modal-card max-w-md\"             "
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 228,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 242,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 252,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 270,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 280,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 295,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 310,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div           className=\"fixed top-12 right-12 z-50 w-80 bg-[#081224] border border-"
+        },
+        {
+          "path": "pages/HomePage.tsx",
+          "line": 319,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": []
+    },
+    "SMART_SCAN": {
+      "sources": [
+        {
+          "path": "pages/SmartScanPage.tsx",
+          "lines": 9,
+          "bytes": 260,
+          "imports": [],
+          "exports": [],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/SmartScanPage.tsx",
+          "lines": 334,
+          "bytes": 14334,
+          "imports": [
+            "react",
+            "lucide-react",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents",
+            "../components/common/LiveProcessInspector",
+            "./SmartScanHero",
+            "./ScanMetrics",
+            "./ScanServices",
+            "./ScanResults",
+            "./FindingsBreakdown",
+            "./RecentScans",
+            "./ScanReviewInspector",
+            "./ScanCommandBar",
+            "./ScanServiceWorkspace",
+            "./smartScan.types"
+          ],
+          "exports": [
+            "SmartScanPageProps",
+            "SmartScanPage"
+          ],
+          "useStateCalls": 10,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/ScanResults.tsx",
+          "lines": 194,
+          "bytes": 9000,
+          "imports": [
+            "react",
+            "lucide-react",
+            "./smartScan.types"
+          ],
+          "exports": [
+            "ScanResultsProps",
+            "ScanResults"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/ScanReviewInspector.tsx",
+          "lines": 114,
+          "bytes": 5422,
+          "imports": [
+            "react",
+            "lucide-react",
+            "./smartScan.types"
+          ],
+          "exports": [
+            "ScanReviewInspectorProps",
+            "ScanReviewInspector"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/ScanServiceWorkspace.tsx",
+          "lines": 96,
+          "bytes": 4273,
+          "imports": [
+            "react",
+            "lucide-react",
+            "./smartScan.types",
+            "./service-renderers/QuickScanRenderer",
+            "./service-renderers/DeepScanRenderer",
+            "./service-renderers/DuplicateFinderRenderer",
+            "./service-renderers/LargeFilesRenderer",
+            "./service-renderers/JunkCleanerRenderer",
+            "./service-renderers/PrivacyTraceRenderer",
+            "./service-renderers/StartupImpactRenderer",
+            "./service-renderers/AppHealthRenderer",
+            "./service-renderers/SystemHealthPulseRenderer",
+            "./service-renderers/SmartRecommendationsRenderer"
+          ],
+          "exports": [
+            "ScanServiceWorkspaceProps",
+            "ScanServiceWorkspace"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/smartScan.types.ts",
+          "lines": 90,
+          "bytes": 2000,
+          "imports": [],
+          "exports": [
+            "ScanCategory",
+            "KpiMetric",
+            "ScanServiceMeta",
+            "PathPreviewItem",
+            "ScanResultItem",
+            "BreakdownCategory",
+            "RecentScanRecord",
+            "ActiveScanServiceState"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/smartScan.fixtures.ts",
+          "lines": 436,
+          "bytes": 17197,
+          "imports": [],
+          "exports": [
+            "KPI_METRICS_FIXTURE",
+            "SCAN_SERVICES_FIXTURE",
+            "SCAN_RESULTS_FIXTURE",
+            "BREAKDOWN_CATEGORIES_FIXTURE",
+            "RECENT_SCANS_FIXTURE"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/AppHealthRenderer.tsx",
+          "lines": 52,
+          "bytes": 2152,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "AppHealthRendererProps",
+            "AppHealthRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/DeepScanRenderer.tsx",
+          "lines": 59,
+          "bytes": 2398,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "DeepScanRendererProps",
+            "DeepScanRenderer"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/DuplicateFinderRenderer.tsx",
+          "lines": 58,
+          "bytes": 2352,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "DuplicateFinderRendererProps",
+            "DuplicateFinderRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/JunkCleanerRenderer.tsx",
+          "lines": 52,
+          "bytes": 2149,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "JunkCleanerRendererProps",
+            "JunkCleanerRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/LargeFilesRenderer.tsx",
+          "lines": 52,
+          "bytes": 2142,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "LargeFilesRendererProps",
+            "LargeFilesRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/PrivacyTraceRenderer.tsx",
+          "lines": 39,
+          "bytes": 1554,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "PrivacyTraceRendererProps",
+            "PrivacyTraceRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/QuickScanRenderer.tsx",
+          "lines": 122,
+          "bytes": 4900,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "QuickScanRendererProps",
+            "QuickScanRenderer"
+          ],
+          "useStateCalls": 3,
+          "mockSignals": [
+            "FIXTURE"
+          ]
+        },
+        {
+          "path": "smart-scan/service-renderers/SmartRecommendationsRenderer.tsx",
+          "lines": 44,
+          "bytes": 1924,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "SmartRecommendationsRendererProps",
+            "SmartRecommendationsRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/StartupImpactRenderer.tsx",
+          "lines": 52,
+          "bytes": 2195,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "StartupImpactRendererProps",
+            "StartupImpactRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "smart-scan/service-renderers/SystemHealthPulseRenderer.tsx",
+          "lines": 55,
+          "bytes": 2190,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "SystemHealthPulseRendererProps",
+            "SystemHealthPulseRenderer"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        }
+      ],
+      "controlCounts": {
+        "button": 15,
+        "input": 4,
+        "OTHER_INTERACTIVE": 2
+      },
+      "controls": [
+        {
+          "path": "smart-scan/ScanResults.tsx",
+          "line": 61,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/ScanResults.tsx",
+          "line": 82,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/ScanResults.tsx",
+          "line": 103,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<tr                     key={row.id}                     "
+        },
+        {
+          "path": "smart-scan/ScanResults.tsx",
+          "line": 108,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<td className=\"p-2 text-center\" "
+        },
+        {
+          "path": "smart-scan/ScanResults.tsx",
+          "line": 109,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/ScanReviewInspector.tsx",
+          "line": 34,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/ScanReviewInspector.tsx",
+          "line": 98,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/ScanServiceWorkspace.tsx",
+          "line": 70,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/ScanServiceWorkspace.tsx",
+          "line": 86,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/SmartScanPage.tsx",
+          "line": 259,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/SmartScanPage.tsx",
+          "line": 273,
+          "tag": "input",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/SmartScanPage.tsx",
+          "line": 278,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Done"
+        },
+        {
+          "path": "smart-scan/SmartScanPage.tsx",
+          "line": 321,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/AppHealthRenderer.tsx",
+          "line": 34,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/DeepScanRenderer.tsx",
+          "line": 35,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/DuplicateFinderRenderer.tsx",
+          "line": 37,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/JunkCleanerRenderer.tsx",
+          "line": 34,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/LargeFilesRenderer.tsx",
+          "line": 34,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/QuickScanRenderer.tsx",
+          "line": 64,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/StartupImpactRenderer.tsx",
+          "line": 34,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "smart-scan/service-renderers/SystemHealthPulseRenderer.tsx",
+          "line": 37,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": []
+    },
+    "ORGANIZATION_STUDIO": {
+      "sources": [
+        {
+          "path": "studio/StudioPage.tsx",
+          "lines": 130,
+          "bytes": 4508,
+          "imports": [
+            "react",
+            "./context",
+            "./modals",
+            "./StudioCommandCenter",
+            "./workspaces/SourceGrantWorkspace",
+            "./workspaces/VisualLibraryWorkspace",
+            "./workspaces/CollectionComposer",
+            "./workspaces/OrganizationRuleBuilder",
+            "./workspaces/DestinationInspector",
+            "./workspaces/PlanReviewWorkspace",
+            "./workspaces/ExecutionMonitor",
+            "./workspaces/HistoryUndoInspector",
+            "./workspaces/SuggestionsReview"
+          ],
+          "exports": [
+            "StudioPage"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/context.tsx",
+          "lines": 364,
+          "bytes": 10721,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "ActiveModalType",
+            "StudioContextValue",
+            "StudioProvider",
+            "useStudio"
+          ],
+          "useStateCalls": 19,
+          "mockSignals": [
+            "INITIAL_AUTHORIZED_FOLDERS",
+            "INITIAL_COLLECTIONS",
+            "INITIAL_CONFLICTS",
+            "INITIAL_HISTORY_JOURNAL",
+            "INITIAL_INVENTORY",
+            "INITIAL_STAGES",
+            "INITIAL_SUGGESTIONS",
+            "mockData"
+          ]
+        },
+        {
+          "path": "studio/modals.tsx",
+          "lines": 303,
+          "bytes": 12296,
+          "imports": [
+            "react",
+            "./context"
+          ],
+          "exports": [
+            "StudioModals"
+          ],
+          "useStateCalls": 2,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/panels.tsx",
+          "lines": 704,
+          "bytes": 32382,
+          "imports": [
+            "react",
+            "./context",
+            "./parts",
+            "./types"
+          ],
+          "exports": [
+            "AuthorizedSourcesPanel",
+            "CenterCategoriesAndGallery",
+            "OrganizationInspectorPanel"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/parts.tsx",
+          "lines": 442,
+          "bytes": 17349,
+          "imports": [
+            "react",
+            "./context",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents",
+            "./types"
+          ],
+          "exports": [
+            "renderCategoryIcon",
+            "WindowsTitleBar",
+            "GlobalSidebar",
+            "CinematicHeader",
+            "TelemetryStrip",
+            "HorizontalStagesBar",
+            "StickyFooter"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/types.ts",
+          "lines": 164,
+          "bytes": 3831,
+          "imports": [],
+          "exports": [
+            "StudioStageId",
+            "StudioStage",
+            "CategoryKey",
+            "CategoryInfo",
+            "AuthorizedFolder",
+            "InventoryStats",
+            "StudioFileItem",
+            "OperationMode",
+            "NamingRule",
+            "GroupingRule",
+            "PotentialConflict",
+            "StudioCollection",
+            "OrganizationPlanItem",
+            "HistoryJournalEntry",
+            "StudioSuggestion"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "lines": 163,
+          "bytes": 7634,
+          "imports": [
+            "react",
+            "../context",
+            "../types"
+          ],
+          "exports": [
+            "CollectionComposer"
+          ],
+          "useStateCalls": 3,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/DestinationInspector.tsx",
+          "lines": 216,
+          "bytes": 8637,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "DestinationInspector"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/ExecutionMonitor.tsx",
+          "lines": 133,
+          "bytes": 5722,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "ExecutionMonitor"
+          ],
+          "useStateCalls": 4,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/HistoryUndoInspector.tsx",
+          "lines": 136,
+          "bytes": 5952,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "HistoryUndoInspector"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "lines": 198,
+          "bytes": 8865,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "OrganizationRuleBuilder"
+          ],
+          "useStateCalls": 2,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/PlanReviewWorkspace.tsx",
+          "lines": 151,
+          "bytes": 6586,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "PlanReviewWorkspace"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "lines": 178,
+          "bytes": 8072,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "SourceGrantWorkspace"
+          ],
+          "useStateCalls": 2,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/SuggestionsReview.tsx",
+          "lines": 127,
+          "bytes": 6319,
+          "imports": [
+            "react",
+            "../context"
+          ],
+          "exports": [
+            "SuggestionsReview"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "studio/workspaces/VisualLibraryWorkspace.tsx",
+          "lines": 26,
+          "bytes": 726,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "VisualLibraryWorkspace"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        }
+      ],
+      "controlCounts": {
+        "button": 66,
+        "input": 11,
+        "select": 3,
+        "OTHER_INTERACTIVE": 5
+      },
+      "controls": [
+        {
+          "path": "studio/StudioPage.tsx",
+          "line": 117,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 51,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 60,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 71,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 77,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 100,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 109,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 118,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 124,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 145,
+          "tag": "button",
+          "event": "onClick",
+          "label": "("
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 173,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 191,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 216,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 234,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 244,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 257,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 268,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 279,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/modals.tsx",
+          "line": 292,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 94,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 106,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 116,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 137,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 145,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 238,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 299,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 310,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 325,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 339,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 364,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                     key={file.id}                     "
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 429,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                     key={file.id}                     "
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 529,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 548,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 568,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 589,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 601,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 613,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/panels.tsx",
+          "line": 644,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 120,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 131,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 139,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Reset directly to the exact screenshot state"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 150,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 153,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 156,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 294,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 322,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 404,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 412,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 420,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/parts.tsx",
+          "line": 432,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 66,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 82,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onSubmit",
+          "label": "<form "
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 83,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 90,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 100,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 143,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/CollectionComposer.tsx",
+          "line": 149,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/DestinationInspector.tsx",
+          "line": 74,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/DestinationInspector.tsx",
+          "line": 91,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/DestinationInspector.tsx",
+          "line": 107,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/DestinationInspector.tsx",
+          "line": 191,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                 key={mode.id}                 "
+        },
+        {
+          "path": "studio/workspaces/DestinationInspector.tsx",
+          "line": 199,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/ExecutionMonitor.tsx",
+          "line": 70,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/ExecutionMonitor.tsx",
+          "line": 87,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/HistoryUndoInspector.tsx",
+          "line": 51,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/HistoryUndoInspector.tsx",
+          "line": 118,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "line": 65,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "line": 86,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "line": 101,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "line": 118,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "line": 146,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/OrganizationRuleBuilder.tsx",
+          "line": 163,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/PlanReviewWorkspace.tsx",
+          "line": 51,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/PlanReviewWorkspace.tsx",
+          "line": 96,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/PlanReviewWorkspace.tsx",
+          "line": 106,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 75,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onSubmit",
+          "label": "<form "
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 76,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 83,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 98,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 119,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 156,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SourceGrantWorkspace.tsx",
+          "line": 163,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SuggestionsReview.tsx",
+          "line": 40,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SuggestionsReview.tsx",
+          "line": 102,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "studio/workspaces/SuggestionsReview.tsx",
+          "line": 110,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": []
+    },
+    "GOOGLE_WORKSPACE": {
+      "sources": [
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "lines": 558,
+          "bytes": 28251,
+          "imports": [
+            "react",
+            "../shell/KNOuXShellComponents",
+            "../../context/NavigationContext"
+          ],
+          "exports": [
+            "GoogleWorkspaceHub"
+          ],
+          "useStateCalls": 15,
+          "mockSignals": []
+        }
+      ],
+      "controlCounts": {
+        "button": 18,
+        "input": 1
+      },
+      "controls": [
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 175,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 207,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 234,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 249,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 266,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 296,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 308,
+          "tag": "input",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 326,
+          "tag": "button",
+          "event": "onClick",
+          "label": "New Survey Form"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 337,
+          "tag": "button",
+          "event": "onClick",
+          "label": "View Form"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 354,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Sync Address Book"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 379,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Schedule Event"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 404,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Launch Google Drive Picker"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 422,
+          "tag": "button",
+          "event": "onClick",
+          "label": "New Presentation Deck"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 433,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Open Slides"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 450,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Send Chat Notification"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 475,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Sync Courses & Submissions"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 508,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 529,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/workspace/GoogleWorkspaceHub.tsx",
+          "line": 544,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": []
+    },
+    "APPLICATIONS": {
+      "sources": [
+        {
+          "path": "pages/ApplicationsPage.tsx",
+          "lines": 413,
+          "bytes": 19292,
+          "imports": [
+            "react",
+            "../components/app/ApplicationCommandSurface",
+            "../components/app/ApplicationDossier",
+            "../components/app/ServiceWorkspaces",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents"
+          ],
+          "exports": [
+            "ApplicationsPage"
+          ],
+          "useStateCalls": 4,
+          "mockSignals": [
+            "INITIAL_METRICS"
+          ]
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "lines": 434,
+          "bytes": 18640,
+          "imports": [
+            "react",
+            "../../lib/app-inventory",
+            "./AppIcon"
+          ],
+          "exports": [
+            "ApplicationCommandSurface"
+          ],
+          "useStateCalls": 5,
+          "mockSignals": []
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "lines": 284,
+          "bytes": 12632,
+          "imports": [
+            "react",
+            "../../lib/app-inventory",
+            "./AppIcon"
+          ],
+          "exports": [
+            "ApplicationDossier"
+          ],
+          "useStateCalls": 1,
+          "mockSignals": []
+        },
+        {
+          "path": "lib/app-inventory.ts",
+          "lines": 593,
+          "bytes": 17305,
+          "imports": [],
+          "exports": [
+            "AppInstallScope",
+            "AppSourceType",
+            "DigitalSignatureStatus",
+            "AppCategory",
+            "TabFilter",
+            "InstalledAppItem",
+            "SoftwareCommandMetrics",
+            "DomainServiceKey",
+            "DomainServiceMeta",
+            "DOMAIN_SERVICES_META",
+            "INITIAL_METRICS",
+            "INSTALLED_APPLICATIONS_FIXTURE"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_METRICS"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "button": 31,
+        "input": 1,
+        "select": 2,
+        "OTHER_INTERACTIVE": 4
+      },
+      "controls": [
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 111,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 122,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 133,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 150,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 163,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 182,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 198,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 207,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 216,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 232,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 241,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 250,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 259,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 268,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 277,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 286,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 296,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 314,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div               "
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 346,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                 key={app.id}                 "
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 356,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   className=\"w-8 shrink-0 flex items-center\"                   "
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 403,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   className=\"w-24 flex items-center justify-center gap-1\"       "
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 405,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 412,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationCommandSurface.tsx",
+          "line": 419,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 52,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 118,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 130,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 138,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 149,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 157,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 165,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 173,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/app/ApplicationDossier.tsx",
+          "line": 189,
+          "tag": "button",
+          "event": "onClick",
+          "label": "View All"
+        },
+        {
+          "path": "pages/ApplicationsPage.tsx",
+          "line": 334,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ApplicationsPage.tsx",
+          "line": 381,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ApplicationsPage.tsx",
+          "line": 387,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ApplicationsPage.tsx",
+          "line": 393,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ApplicationsPage.tsx",
+          "line": 399,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "app-inventory",
+        "app-identity",
+        "app-search",
+        "app-publisher",
+        "app-recent",
+        "app-uninstall-queue",
+        "app-leftovers",
+        "app-updates",
+        "app-size",
+        "app-store-packages",
+        "app-associations",
+        "app-startup-impact"
+      ]
+    },
+    "FILES": {
+      "sources": [
+        {
+          "path": "pages/FilesPage.tsx",
+          "lines": 784,
+          "bytes": 39245,
+          "imports": [
+            "react",
+            "../components/files/FileIcon",
+            "../components/files/FileWorkspaces",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents"
+          ],
+          "exports": [
+            "FilesPage"
+          ],
+          "useStateCalls": 10,
+          "mockSignals": []
+        },
+        {
+          "path": "lib/file-inventory.ts",
+          "lines": 374,
+          "bytes": 13021,
+          "imports": [],
+          "exports": [
+            "FileCategoryFilter",
+            "FileResultItem",
+            "FileDistributionStat",
+            "FilesServiceKey",
+            "FilesServiceMeta",
+            "FILES_DOMAIN_SERVICES",
+            "FILE_TYPES_DISTRIBUTION",
+            "MODIFICATION_AGE_DISTRIBUTION",
+            "FILES_INSTANT_FIND_FIXTURE"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        },
+        {
+          "path": "components/files/FileIcon.tsx",
+          "lines": 116,
+          "bytes": 3419,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "FileIcon"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": []
+        }
+      ],
+      "controlCounts": {
+        "input": 1,
+        "button": 13,
+        "select": 5,
+        "OTHER_INTERACTIVE": 6
+      },
+      "controls": [
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 225,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 269,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 294,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 309,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 324,
+          "tag": "select",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "Date Modified: Any time"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 335,
+          "tag": "select",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "Location: All locations"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 348,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 361,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 369,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 449,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                     "
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 478,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       key={file.id}                       "
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 488,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         className=\"w-8 shrink-0 flex items-center\"              "
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 548,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         className=\"w-10 flex items-center justify-center text-sl"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 574,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 575,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 576,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 638,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 646,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 656,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 664,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 674,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 705,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   "
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 728,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 750,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                 "
+        },
+        {
+          "path": "pages/FilesPage.tsx",
+          "line": 768,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "file-downloads-inventory",
+        "file-organize-preview",
+        "file-organize-apply",
+        "file-organize-undo",
+        "file-empty-folders",
+        "file-hash",
+        "file-search",
+        "file-type-map",
+        "file-recents",
+        "file-largest",
+        "file-metadata",
+        "file-provenance"
+      ]
+    },
+    "STORAGE": {
+      "sources": [
+        {
+          "path": "pages/StoragePage.tsx",
+          "lines": 838,
+          "bytes": 44306,
+          "imports": [
+            "react",
+            "../components/storage/StorageWorkspaces",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents"
+          ],
+          "exports": [
+            "StoragePage"
+          ],
+          "useStateCalls": 6,
+          "mockSignals": [
+            "INITIAL_LARGEST_ITEMS",
+            "INITIAL_STORAGE_METRICS",
+            "INITIAL_TREEMAP_DATA",
+            "INITIAL_VOLUMES"
+          ]
+        },
+        {
+          "path": "lib/storage-inventory.ts",
+          "lines": 470,
+          "bytes": 12612,
+          "imports": [],
+          "exports": [
+            "VolumeItem",
+            "MetricCard",
+            "TreemapNode",
+            "LargestFileItem",
+            "StorageServiceMeta",
+            "INITIAL_STORAGE_METRICS",
+            "INITIAL_VOLUMES",
+            "INITIAL_TREEMAP_DATA",
+            "INITIAL_LARGEST_ITEMS",
+            "STORAGE_SERVICES_CATALOG"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_LARGEST_ITEMS",
+            "INITIAL_STORAGE_METRICS",
+            "INITIAL_TREEMAP_DATA",
+            "INITIAL_VOLUMES"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "OTHER_INTERACTIVE": 11,
+        "button": 18
+      },
+      "controls": [
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 206,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   key={vol.id}                   "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 260,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 275,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 286,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 309,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 320,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 330,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 340,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 350,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 364,
+          "tag": "button",
+          "event": "title",
+          "label": "Zoom in"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 367,
+          "tag": "button",
+          "event": "title",
+          "label": "Zoom out"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 370,
+          "tag": "button",
+          "event": "title",
+          "label": "Back"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 373,
+          "tag": "button",
+          "event": "title",
+          "label": "Forward"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 376,
+          "tag": "button",
+          "event": "title",
+          "label": "Parent folder"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 394,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 409,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 429,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 441,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 450,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 460,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                           "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 467,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                           "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 474,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                           "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 515,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<tr                             key={item.id}                             className=\""
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 708,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   key={srv.id}                   "
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 746,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 754,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 762,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 770,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StoragePage.tsx",
+          "line": 778,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "storage-disks",
+        "storage-large-files",
+        "storage-duplicates",
+        "storage-treemap",
+        "storage-top-folders",
+        "storage-filetypes",
+        "storage-scan-overview",
+        "storage-fragmentation",
+        "storage-smart",
+        "storage-reclaim",
+        "storage-history",
+        "storage-removable"
+      ]
+    },
+    "CLEANUP": {
+      "sources": [
+        {
+          "path": "pages/CleanupPage.tsx",
+          "lines": 802,
+          "bytes": 38838,
+          "imports": [
+            "react",
+            "../components/cleanup/CleanupWorkspaces",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents"
+          ],
+          "exports": [
+            "CleanupPage"
+          ],
+          "useStateCalls": 4,
+          "mockSignals": [
+            "INITIAL_CLEANUP_METRICS"
+          ]
+        },
+        {
+          "path": "lib/cleanup-inventory.ts",
+          "lines": 362,
+          "bytes": 9705,
+          "imports": [],
+          "exports": [
+            "SafetyLevel",
+            "CleanupCandidate",
+            "CleanupMetric",
+            "BreakdownSegment",
+            "CleanupServiceMeta",
+            "INITIAL_CLEANUP_METRICS",
+            "CATEGORY_BREAKDOWN_BAR",
+            "CLEANUP_CANDIDATES_FIXTURE",
+            "CLEANUP_SERVICES_CATALOG"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_CLEANUP_METRICS"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "button": 14,
+        "input": 2,
+        "OTHER_INTERACTIVE": 3
+      },
+      "controls": [
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 244,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 256,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 268,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 280,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 292,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 304,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 316,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 360,
+          "tag": "input",
+          "event": "onChange",
+          "label": "Name / Path"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 382,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<tr                             key={cand.id}                             "
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 389,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<td className=\"px-3 py-3\" "
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 390,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 424,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 434,
+          "tag": "button",
+          "event": "title",
+          "label": "Options"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 465,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       key={srv.id}                       "
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 661,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "▶ Execute Cleanup (Preview Only)"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 690,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 698,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 706,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/CleanupPage.tsx",
+          "line": 714,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "cleanup-temp-preview",
+        "cleanup-temp-quarantine",
+        "cleanup-temp-undo",
+        "cleanup-quarantine-list",
+        "cleanup-estimate",
+        "cleanup-recycle",
+        "cleanup-unused",
+        "cleanup-update-cache",
+        "cleanup-browser-cache",
+        "cleanup-logs",
+        "cleanup-schedule",
+        "cleanup-reports"
+      ]
+    },
+    "STARTUP": {
+      "sources": [
+        {
+          "path": "pages/StartupPage.tsx",
+          "lines": 1009,
+          "bytes": 49699,
+          "imports": [
+            "react",
+            "../components/startup/StartupIcon",
+            "../components/startup/StartupWorkspaces",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents",
+            "../components/common/LiveProcessInspector"
+          ],
+          "exports": [
+            "StartupPage"
+          ],
+          "useStateCalls": 12,
+          "mockSignals": [
+            "INITIAL_BOOT_METRICS"
+          ]
+        },
+        {
+          "path": "lib/startup-inventory.ts",
+          "lines": 705,
+          "bytes": 22792,
+          "imports": [],
+          "exports": [
+            "StartupImpactLevel",
+            "StartupSourceType",
+            "StartupItemStatus",
+            "SignatureStatus",
+            "RecommendationType",
+            "StartupItem",
+            "BootMetric",
+            "BootStage",
+            "StartupSourceSummary",
+            "JournalEntry",
+            "StartupServiceMeta",
+            "INITIAL_BOOT_METRICS",
+            "BOOT_STAGES_BREAKDOWN",
+            "STARTUP_SOURCES_SUMMARY",
+            "STARTUP_ITEMS_FIXTURE",
+            "INITIAL_JOURNAL_LOG",
+            "STARTUP_SERVICES_CATALOG"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_BOOT_METRICS",
+            "INITIAL_JOURNAL_LOG"
+          ]
+        },
+        {
+          "path": "components/common/LiveProcessInspector.tsx",
+          "lines": 252,
+          "bytes": 11058,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "ProcessLogEntry",
+            "LiveProcessInspectorProps",
+            "LiveProcessInspector"
+          ],
+          "useStateCalls": 6,
+          "mockSignals": []
+        }
+      ],
+      "controlCounts": {
+        "button": 21,
+        "OTHER_INTERACTIVE": 7,
+        "select": 2,
+        "input": 2
+      },
+      "controls": [
+        {
+          "path": "components/common/LiveProcessInspector.tsx",
+          "line": 108,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/common/LiveProcessInspector.tsx",
+          "line": 145,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/common/LiveProcessInspector.tsx",
+          "line": 152,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 345,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 401,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 418,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": ""
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 428,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   key={stg.id}                   "
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 451,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 470,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 478,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 494,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 511,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 528,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 539,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 560,
+          "tag": "input",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 583,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<tr                           key={item.id}                           "
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 595,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<td                             className=\"p-3 text-center shrink-0\"                 "
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 600,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 654,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<td className=\"p-3 whitespace-nowrap\" "
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 661,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 682,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<td className=\"p-3 text-center whitespace-nowrap\" "
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 684,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 706,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 781,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 795,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 826,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 842,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 896,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                   key={svc.id}                   "
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 961,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 971,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 979,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/StartupPage.tsx",
+          "line": 987,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "startup-overview",
+        "startup-disable",
+        "startup-restore",
+        "startup-sources",
+        "startup-journal",
+        "startup-filter",
+        "startup-impact",
+        "startup-services",
+        "startup-tasks",
+        "startup-delay",
+        "startup-batch",
+        "startup-undo-all"
+      ]
+    },
+    "SYSTEM": {
+      "sources": [
+        {
+          "path": "pages/SystemPage.tsx",
+          "lines": 871,
+          "bytes": 42331,
+          "imports": [
+            "react",
+            "../components/system/SystemWorkspaces",
+            "../context/NavigationContext",
+            "../components/shell/KNOuXShellComponents"
+          ],
+          "exports": [
+            "SystemPage"
+          ],
+          "useStateCalls": 13,
+          "mockSignals": [
+            "INITIAL_INSTRUMENT_METRICS",
+            "INITIAL_SERVICES_CATALOG",
+            "INITIAL_SYSTEM_INFO",
+            "INITIAL_TELEMETRY_SOURCE",
+            "SAMPLE_PROCESS_FIXTURES",
+            "SAMPLE_SYSTEM_INFO_ACTIVE"
+          ]
+        },
+        {
+          "path": "lib/system-inventory.ts",
+          "lines": 410,
+          "bytes": 13273,
+          "imports": [],
+          "exports": [
+            "TelemetrySourceMeta",
+            "InstrumentMetric",
+            "SystemInfoData",
+            "RunningProcessItem",
+            "SystemServiceMeta",
+            "NetworkServiceMeta",
+            "HardwareServiceMeta",
+            "INITIAL_TELEMETRY_SOURCE",
+            "INITIAL_INSTRUMENT_METRICS",
+            "INITIAL_SYSTEM_INFO",
+            "SAMPLE_SYSTEM_INFO_ACTIVE",
+            "INITIAL_SERVICES_CATALOG",
+            "NETWORK_SERVICES_CATALOG",
+            "HARDWARE_SERVICES_CATALOG",
+            "SAMPLE_PROCESS_FIXTURES"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_INSTRUMENT_METRICS",
+            "INITIAL_SERVICES_CATALOG",
+            "INITIAL_SYSTEM_INFO",
+            "INITIAL_TELEMETRY_SOURCE",
+            "SAMPLE_PROCESS_FIXTURES",
+            "SAMPLE_SYSTEM_INFO_ACTIVE"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "OTHER_INTERACTIVE": 3,
+        "button": 10,
+        "select": 6,
+        "input": 2
+      },
+      "controls": [
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 286,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div               "
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 322,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                 key={inst.id}                 "
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 413,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 427,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 468,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 563,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 577,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 596,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 618,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 638,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 674,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 688,
+          "tag": "input",
+          "event": "onChange",
+          "label": "Search processes..."
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 695,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 704,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 752,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 789,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                     key={svc.id}                     "
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 816,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 828,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 841,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 849,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SystemPage.tsx",
+          "line": 859,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "system-health-check",
+        "system-events",
+        "system-processes",
+        "system-signatures",
+        "system-uptime",
+        "system-perf",
+        "system-drivers",
+        "system-logs",
+        "system-resources",
+        "system-autostart",
+        "system-services-map",
+        "system-timeline",
+        "network-interfaces",
+        "network-dns-config",
+        "network-adapters",
+        "network-connectivity",
+        "network-throughput",
+        "network-traceroute",
+        "network-topology",
+        "network-ports",
+        "network-wifi",
+        "network-hosts",
+        "network-proxies",
+        "network-repair-link",
+        "hardware-inventory",
+        "hardware-battery",
+        "hardware-cpu",
+        "hardware-gpu",
+        "hardware-memory",
+        "hardware-cycles",
+        "hardware-thermal",
+        "hardware-disks",
+        "hardware-usb",
+        "hardware-display",
+        "hardware-audio",
+        "hardware-health-report"
+      ]
+    },
+    "REPAIR": {
+      "sources": [
+        {
+          "path": "pages/RepairPage.tsx",
+          "lines": 751,
+          "bytes": 37362,
+          "imports": [
+            "react",
+            "../components/repair/RepairWorkspaces",
+            "../components/shell/KNOuXShellComponents",
+            "../context/NavigationContext"
+          ],
+          "exports": [
+            "RepairPage"
+          ],
+          "useStateCalls": 8,
+          "mockSignals": [
+            "INITIAL_DIAGNOSTIC_STRIP"
+          ]
+        },
+        {
+          "path": "lib/repair-inventory.ts",
+          "lines": 740,
+          "bytes": 27078,
+          "imports": [],
+          "exports": [
+            "RiskLevel",
+            "ToolStatus",
+            "RepairCategory",
+            "RepairToolMeta",
+            "RepairDiagnosticStripItem",
+            "RepairHistoryItem",
+            "GuidedRepairStep",
+            "INITIAL_DIAGNOSTIC_STRIP",
+            "GUIDED_REPAIR_STEPS",
+            "REPAIR_TOOLS_CATALOG"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_DIAGNOSTIC_STRIP"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "select": 1,
+        "OTHER_INTERACTIVE": 1,
+        "button": 8
+      },
+      "controls": [
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 297,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 318,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       key={tool.id}                       "
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 359,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 399,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 534,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 655,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 672,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 689,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 709,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/RepairPage.tsx",
+          "line": 721,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "repair-component-check",
+        "repair-component-scan",
+        "repair-component-restore",
+        "repair-files-verify",
+        "repair-files-repair",
+        "repair-dns-flush",
+        "repair-winsock-reset",
+        "repair-tcpip-reset",
+        "repair-history",
+        "repair-troubleshooters",
+        "repair-restore-point",
+        "repair-update-reset"
+      ]
+    },
+    "SERVICES": {
+      "sources": [
+        {
+          "path": "pages/ServicesPage.tsx",
+          "lines": 941,
+          "bytes": 47756,
+          "imports": [
+            "react",
+            "../components/services/ServicesWorkspaces",
+            "../components/shell/KNOuXShellComponents",
+            "../context/NavigationContext"
+          ],
+          "exports": [
+            "ServicesPage"
+          ],
+          "useStateCalls": 9,
+          "mockSignals": [
+            "INITIAL_ACTIVITY_LOGS",
+            "INITIAL_DEPENDENCY_GRAPH_NODES",
+            "INITIAL_SERVICES_REGISTER"
+          ]
+        },
+        {
+          "path": "lib/services-inventory.ts",
+          "lines": 514,
+          "bytes": 16643,
+          "imports": [],
+          "exports": [
+            "ServiceStatus",
+            "StartupType",
+            "ServiceAccount",
+            "WindowsServiceItem",
+            "ServiceCommanderMetric",
+            "ServiceNavigationCard",
+            "RecentServiceActivityRecord",
+            "DependencyGraphNode",
+            "SERVICE_COMMANDER_METRICS",
+            "SERVICE_NAVIGATION_CARDS",
+            "INITIAL_SERVICES_REGISTER",
+            "INITIAL_ACTIVITY_LOGS",
+            "INITIAL_DEPENDENCY_GRAPH_NODES"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_ACTIVITY_LOGS",
+            "INITIAL_DEPENDENCY_GRAPH_NODES",
+            "INITIAL_SERVICES_REGISTER"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "button": 21,
+        "OTHER_INTERACTIVE": 1,
+        "input": 1
+      },
+      "controls": [
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 271,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 311,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 323,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 335,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 347,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 359,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 371,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 383,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 417,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<tr                             key={service.name}                             "
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 472,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 480,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 489,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 498,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 511,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 536,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 577,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 635,
+          "tag": "input",
+          "event": "onChange",
+          "label": "Search services (name or display name)..."
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 858,
+          "tag": "button",
+          "event": "disabled",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 874,
+          "tag": "button",
+          "event": "disabled",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 890,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 901,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 912,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/ServicesPage.tsx",
+          "line": 919,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "services-inventory",
+        "services-control",
+        "services-undo",
+        "services-dependencies",
+        "services-protected",
+        "services-search",
+        "services-startup-report",
+        "services-state-history",
+        "services-dependents",
+        "services-diagnose",
+        "services-config",
+        "services-perf"
+      ]
+    },
+    "AUTOMATION": {
+      "sources": [
+        {
+          "path": "pages/AutomationPage.tsx",
+          "lines": 997,
+          "bytes": 48922,
+          "imports": [
+            "react",
+            "../components/automation/AutomationWorkspaces",
+            "../components/shell/KNOuXShellComponents",
+            "../context/NavigationContext"
+          ],
+          "exports": [
+            "AutomationPage"
+          ],
+          "useStateCalls": 10,
+          "mockSignals": [
+            "INITIAL_FLOW_NODES",
+            "INITIAL_OPERATION_STAGES"
+          ]
+        },
+        {
+          "path": "lib/automation-inventory.ts",
+          "lines": 391,
+          "bytes": 10039,
+          "imports": [],
+          "exports": [
+            "NodeAccentColor",
+            "NodeStatusType",
+            "FlowNodeItem",
+            "AutomationServiceCard",
+            "OperationPreviewStage",
+            "SavedWorkflowItem",
+            "WorkflowTemplateItem",
+            "AUTOMATION_SERVICE_CARDS",
+            "INITIAL_FLOW_NODES",
+            "INITIAL_OPERATION_STAGES",
+            "SAVED_WORKFLOWS_CATALOG",
+            "TEMPLATES_CATALOG",
+            "WORKFLOW_CATEGORIES"
+          ],
+          "useStateCalls": 0,
+          "mockSignals": [
+            "INITIAL_FLOW_NODES",
+            "INITIAL_OPERATION_STAGES"
+          ]
+        }
+      ],
+      "controlCounts": {
+        "button": 31,
+        "input": 3,
+        "OTHER_INTERACTIVE": 4,
+        "select": 2
+      },
+      "controls": [
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 212,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 220,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 231,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 242,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 250,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 274,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 283,
+          "tag": "input",
+          "event": "onChange",
+          "label": "Search workflows, templates..."
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 291,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 299,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 349,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       key={wf.id}                       "
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 386,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       key={tpl.id}                       "
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 422,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 432,
+          "tag": "button",
+          "event": "title",
+          "label": "Undo"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 435,
+          "tag": "button",
+          "event": "title",
+          "label": "Redo"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 438,
+          "tag": "button",
+          "event": "title",
+          "label": "Fit to Screen"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 442,
+          "tag": "button",
+          "event": "onClick",
+          "label": "−"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 449,
+          "tag": "button",
+          "event": "onClick",
+          "label": "+"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 456,
+          "tag": "button",
+          "event": "title",
+          "label": "Minimap"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 510,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         key={node.id}                         "
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 600,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 645,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 653,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 661,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 669,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 680,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 754,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 778,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 790,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 810,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 816,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 835,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 845,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 866,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 874,
+          "tag": "select",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "Matches any of"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 888,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<X                             "
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 904,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 910,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 930,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 953,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/AutomationPage.tsx",
+          "line": 974,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": [
+        "auto-smart-scan",
+        "auto-schedule-manager",
+        "auto-run-history",
+        "auto-templates",
+        "auto-schedule-plan",
+        "auto-cleanup-plan",
+        "auto-notify",
+        "auto-quiet-hours",
+        "auto-battery-policy",
+        "auto-retention",
+        "auto-export",
+        "auto-backup-plan"
+      ]
+    },
+    "SETTINGS_ASSISTANT": {
+      "sources": [
+        {
+          "path": "pages/SettingsPage.tsx",
+          "lines": 638,
+          "bytes": 33888,
+          "imports": [
+            "react",
+            "../components/shell/KNOuXShellComponents",
+            "../components/common/LiveProcessInspector",
+            "../context/NavigationContext"
+          ],
+          "exports": [
+            "SettingsPageProps",
+            "SettingsPage"
+          ],
+          "useStateCalls": 18,
+          "mockSignals": []
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "lines": 458,
+          "bytes": 20137,
+          "imports": [
+            "react"
+          ],
+          "exports": [
+            "KNOuXAssistantChat"
+          ],
+          "useStateCalls": 8,
+          "mockSignals": []
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "lines": 284,
+          "bytes": 12224,
+          "imports": [
+            "react",
+            "lucide-react"
+          ],
+          "exports": [
+            "ApiKeySetupModal"
+          ],
+          "useStateCalls": 5,
+          "mockSignals": []
+        }
+      ],
+      "controlCounts": {
+        "button": 28,
+        "OTHER_INTERACTIVE": 5,
+        "input": 6,
+        "select": 1
+      },
+      "controls": [
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 136,
+          "tag": "button",
+          "event": "onClick",
+          "label": "Skip for now"
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 146,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onSubmit",
+          "label": "<form "
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 161,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 172,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 183,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 202,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 251,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/ApiKeySetupModal.tsx",
+          "line": 259,
+          "tag": "button",
+          "event": "disabled",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 214,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 256,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 263,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 281,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 289,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onSubmit",
+          "label": "<form "
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 295,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 306,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 324,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 337,
+          "tag": "button",
+          "event": "onClick",
+          "label": ") : ("
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 349,
+          "tag": "button",
+          "event": "NO_DIRECT_EVENT_IN_OPENING_TAG",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 412,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 418,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 424,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 434,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onSubmit",
+          "label": "<form             "
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 437,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "components/chat/KNOuXAssistantChat.tsx",
+          "line": 444,
+          "tag": "button",
+          "event": "disabled",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 206,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 232,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 275,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                       key={mode.id}                       "
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 306,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 329,
+          "tag": "select",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 371,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 392,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 399,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 411,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 418,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 507,
+          "tag": "input",
+          "event": "onChange",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 542,
+          "tag": "OTHER_INTERACTIVE",
+          "event": "onClick",
+          "label": "<div                         key={theme.id}                         "
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 570,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 581,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 607,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        },
+        {
+          "path": "pages/SettingsPage.tsx",
+          "line": 614,
+          "tag": "button",
+          "event": "onClick",
+          "label": "[inspect source]"
+        }
+      ],
+      "serviceIds": []
+    }
+  }
+}

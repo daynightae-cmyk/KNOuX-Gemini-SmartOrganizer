@@ -70,3 +70,22 @@ Updated: 2026-10-25 (single-agent foreground run)
 - Next mission file: `02_SMART_SCAN_FULLSTACK_MISSION.md`.
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
+
+
+---
+
+## CANONICAL SINGLE-WORKSPACE RECONCILIATION — 2026-10-26
+
+**ONE executable source checkout:** D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer
+**ONE repository:** https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer
+**ONE active task library:** D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\missions
+**One next task:** 02_SMART_SCAN_FULLSTACK_MISSION.md
+**Working branch:** feat/gemini-missions (new repo only).
+
+Independent Git blob audit of Qoder-authored changes: all 381 tracked Gemini app files imported, all 9 required native Windows engine modules imported byte-identically. Only deliberate Gemini standalone Electron naming and regenerated smoke receipts differ. From the original mixed-repo extraction SHA e3d612e to historical branch HEAD 98a9ec5, NO tracked Gemini app or required engine changes occurred, only old Root CI changes. The 816 originally gitignored historical Gemini evidence files were transferred and verified byte-for-byte; 23 older native evidence variants remain preserved independently.
+
+The formerly active external mission library at D:\KNOUX-Workspace\KNOuX-Gemini-FullStack-Missions-20261025 was verified byte-for-byte (38 files), archived inside THIS repo under migration-history/original-mission-library-20261025, and its 24 runnable Markdown/text files changed to safe forwarding notices pointing here. Windows ACL denied relocating/deleting the original external directory itself; it is DEPRECATED and NOT ANOTHER WORKSPACE. Never stage, compile, develop or push from it.
+
+Do not import historic old Root CI fixes, run old smoke:visual or open the mixed Root app. Two previous old Vite preview processes (PIDs 14300 and 10276) were safely stopped. Every new agent must first run python scripts/verify-workspace.py in the NEW root. Root AGENTS.md is mandatory.
+
+Completed scope: 00V, 00P, 03, 06, 07; all integrated. This migration is workspace governance, not an implementation of the pending 02 Smart Scan.

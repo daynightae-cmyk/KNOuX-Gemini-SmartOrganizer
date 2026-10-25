@@ -14,3 +14,7 @@
 /migration-history/pre-split-platform-00/
 /migration-history/*.zip
 /migration-history/*.tmp
+
+# Local-only, already-executed workspace consolidation utilities
+/scripts/consolidate-workspace-once.py
+/scripts/safe-legacy-tasks-redirect.py
