@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 11 Repair (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup and 10 System accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 12 Services (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System and 11 Repair accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09 and 10 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10 and 11 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -18,7 +18,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09 and 10
 | 08 — Cleanup | ACCEPTED_WITH_EVIDENCE (measured read-only; delete/quarantine/recycle-empty/DISM/task/restore mutations gated) | 1359162 | 1359162 | docs (this snapshot), visual-evidence/platform-00/cleanup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:cleanup PASS, native smoke cleanupOk/cleanupLayoutOk + 12/12 service workbenches, Gemini Platform CI success (run 40252357944) | 09 |
 | 09 - Startup | ACCEPTED_WITH_EVIDENCE (measured read-only; enable/disable/delay/restore/journal/registry/task/service mutations gated pending approval) | 11d4b6e | 11d4b6e | docs (this snapshot), visual-evidence/platform-00/startup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:startup PASS (12 services/5 stages/9 entries/3 tasks/3 services/3 protected/4 plan items/2 conflicts), native smoke startupOk/startupLayoutOk/screenshotOk + 12/12 service workbenches, Gemini Platform CI success (run 40257321044) | 10 |
 | 10 — System | ACCEPTED_WITH_EVIDENCE (measured read-only; 36 services/9 stages/8 mutation gates; process/service/driver/hosts/proxy/adapter/repair/power writes gated) | aebffc2, 62096a7 (CI fix) | 62096a7 | docs/SYSTEM_LIVE_PULSE_AUDIT.md, visual-evidence/platform-00/system-measured-dev{,-light,-ar-light,-1366,-1920}.png + system-workbench-dev.png + packaged equivalents, test:system PASS (36 services/9 stages/8 gates), native smoke systemOk/systemLayoutOk + 36/36 workbenches + 36/36 controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40349680254) | 11 |
-| 11 — Repair | PENDING | — | — | — | — |
+| 11 — Repair | ACCEPTED_WITH_EVIDENCE (measured read-only; 12 tools/6 stages/10 command previews/8 gates; DISM/SFC/DNS/Winsock/TCPIP/restore/update servicing execution gated) | 2594400 | pending push verification | docs/REPAIR_RECOVERY_LAB_AUDIT.md, visual-evidence/platform-00/repair-measured-dev{,-light,-ar-light,-1366,-1920}.png + repair-workbench-dev.png + packaged equivalents, test:repair PASS, native smoke repairOk/repairLayoutOk + 12/12 workbenches/controls + keyboard/RTL, packaged smoke PASS | 12 |
 | 12 — Services | PENDING | — | — | — | — |
 | 13 — Automation | PENDING | — | — | — | — |
 | 04 — Google Workspace | PENDING | — | — | — | — |
@@ -119,9 +119,21 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09 and 10
 - Runtime: development and packaged `desktop:*smoke` PASS with `systemOk`, `systemLayoutOk`, 36/36 workbenches, 36/36 controls, keyboard/Escape, RTL and 1366 layout; dark EN, light EN, Arabic light RTL, 1366, 1920 and a privacy-safe CPU workbench capture reviewed.
 - Root CI: the first run (40349387645) exposed a missing root `test:system` forwarding script; fixed in `62096a7`. Gemini Platform CI run 40349680254 SUCCESS; remote `main` fast-forwarded to verified 62096a7.
 
+## Mission 11 verification snapshot
+
+- Coordinator: `electron/native/repair-bridge.cjs` is the single read-only Recovery Lab bridge behind nine fixed `knoux:repair:v1:*` channels. Six bounded stages measure privilege/tool identity, servicing log and component-store metadata, adapters/DNS cache count/Winsock catalog, update services/cache metadata, restore-point access and the local preview journal.
+- Measured: session complete 100%; 4 adapters, 5 IPv4 addresses, 46 DNS cache record names (domains never displayed/persisted), 28 Winsock provider entries, 5 update services, 25 SoftwareDistribution download items, standard user, DISM/SFC present, no pending reboot, restore access denied with zero points invented, 1 warning, 16 source groups. Snapshot receipt `repair:42954d54fb421a9b867b8509`.
+- Honest state: 10 fixed command previews and 8 explicit mutation gates. DISM CheckHealth/ScanHealth/RestoreHealth, SFC VerifyOnly/ScanNow, DNS flush, Winsock/TCPIP reset, restore apply and update servicing reset have **no execution channel**. Plans are immutable with `execution.available:false`; the journal records previews only and shows **0 executed repairs**.
+- Renderer: the fixture inventory and generic modal were deleted. The page now renders a measured hero, four KPIs, a 12-tool grid, a selected-tool brief with guided seven-step sequence and fixed command preview, measured prerequisites, staged plan receipt, recent history and a pinned action footer. Twelve specialised workbenches are mapped explicitly and opened in a focus-trapped sheet.
+- Interactions: smoke opened all 12 workbenches, switched and restored controls, filtered tools, staged a DNS preview with a journal row and plan receipt, proved focus-on-close + Escape, and proved Arabic RTL numbers/order with no horizontal overflow. At 1366×768 the 12 tools, four KPIs, history, actions and footer are reachable without clipping.
+- Tests: `test:repair` PASS (controlled discovery, plan/journal immutability, refusal, cancellation, provider failure, no-execution source scan, renderer parity); all prior native regressions PASS; lint and build PASS.
+- Runtime: development and packaged smokes PASS with `repairOk`, `repairLayoutOk`, 12/12 workbenches and keyboard/RTL checks; dark EN, light EN, Arabic light RTL, 1366, 1920 and a privacy-safe DISM CheckHealth sheet reviewed.
+- CI note: the smoke's Smart Scan history read was made bounded-retry after reproducing a pre-existing persistence race; no product assertion was weakened.
+- Root CI: pending push verification for `2594400`; main integration pending that green run.
+
 ## Boundary / next
 
-- Next mission file: `11_REPAIR_FULLSTACK_MISSION.md` (then 12, 13, 04, 14, 01).
+- Next mission file: `12_SERVICES_FULLSTACK_MISSION.md` (then 13, 04, 14, 01).
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
