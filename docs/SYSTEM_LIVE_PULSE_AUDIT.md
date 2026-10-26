@@ -167,7 +167,9 @@ horizontal clipping is present.
 
 ## 9. Release record
 
-The implementation is committed on `feat/gemini-missions`, pushed to the only
-authorized remote, and integrated into `main` only after GitHub Actions for the
-exact commit is green. Remote SHA, CI run URL and main integration are recorded
-in `missions/MISSION_SEQUENCE_PROGRESS.md`.
+The implementation is committed on `feat/gemini-missions` (`aebffc2`), pushed
+to the only authorized remote, and integrated into `main` after GitHub Actions
+for `62096a7` (run 40349680254) was green. The first CI run (40349387645)
+correctly failed because the repository root lacked a `test:system` forwarding
+script; the root package now forwards to the Gemini suite. Remote SHA, CI run
+URL and main integration are recorded in `missions/MISSION_SEQUENCE_PROGRESS.md`.
