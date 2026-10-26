@@ -78,7 +78,22 @@
     "startupSessions": "knoux:startup:v1:sessions",
     "startupPlan": "knoux:startup:v1:plan",
     "startupReport": "knoux:startup:v1:report",
-    "startupOpenSettings": "knoux:startup:v1:open-settings"
+    "startupOpenSettings": "knoux:startup:v1:open-settings",
+    "systemCapabilities": "knoux:system:v1:capabilities",
+    "systemStart": "knoux:system:v1:start",
+    "systemStatus": "knoux:system:v1:status",
+    "systemCancel": "knoux:system:v1:cancel",
+    "systemSnapshot": "knoux:system:v1:snapshot",
+    "systemSample": "knoux:system:v1:sample",
+    "systemProcesses": "knoux:system:v1:processes",
+    "systemEvents": "knoux:system:v1:events",
+    "systemSignatures": "knoux:system:v1:signatures",
+    "systemDiagnostics": "knoux:system:v1:diagnostics",
+    "systemTraceroute": "knoux:system:v1:traceroute",
+    "systemHosts": "knoux:system:v1:hosts",
+    "systemHostsPlan": "knoux:system:v1:hosts-plan",
+    "systemReport": "knoux:system:v1:report",
+    "systemOpenSettings": "knoux:system:v1:open-settings"
   },
   "capabilities": {
     "bridge.status": {
@@ -524,6 +539,96 @@
       "title": "Open the fixed Windows Startup Apps settings page",
       "mode": "user-initiated",
       "channel": "knoux:startup:v1:open-settings"
+    },
+    "system.capabilities": {
+      "id": "system.capabilities",
+      "title": "System, network and hardware capability discovery",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:capabilities"
+    },
+    "system.start": {
+      "id": "system.start",
+      "title": "Start a bounded measured observatory scan",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:start"
+    },
+    "system.status": {
+      "id": "system.status",
+      "title": "Poll measured observatory scan progress",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:status"
+    },
+    "system.cancel": {
+      "id": "system.cancel",
+      "title": "Cancel a running observatory scan",
+      "mode": "user-initiated",
+      "channel": "knoux:system:v1:cancel"
+    },
+    "system.snapshot": {
+      "id": "system.snapshot",
+      "title": "Read the last measured system, network and hardware snapshot",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:snapshot"
+    },
+    "system.sample": {
+      "id": "system.sample",
+      "title": "Read a timestamped performance counter sample",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:sample"
+    },
+    "system.processes": {
+      "id": "system.processes",
+      "title": "Read the measured process register",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:processes"
+    },
+    "system.events": {
+      "id": "system.events",
+      "title": "Query measured Windows event records",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:events"
+    },
+    "system.signatures": {
+      "id": "system.signatures",
+      "title": "Verify Authenticode signatures for measured binaries",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:signatures"
+    },
+    "system.diagnostics": {
+      "id": "system.diagnostics",
+      "title": "Run bounded DNS, TCP and HTTP diagnostics against one validated target",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:diagnostics"
+    },
+    "system.traceroute": {
+      "id": "system.traceroute",
+      "title": "Run a bounded hop trace against one validated target",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:traceroute"
+    },
+    "system.hosts": {
+      "id": "system.hosts",
+      "title": "Read the Windows hosts file without writing it",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:hosts"
+    },
+    "system.hosts.plan": {
+      "id": "system.hosts.plan",
+      "title": "Stage an immutable hosts edit review",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:hosts-plan"
+    },
+    "system.report": {
+      "id": "system.report",
+      "title": "Build a measured read-only diagnostics report",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:report"
+    },
+    "system.settings.open": {
+      "id": "system.settings.open",
+      "title": "Open a fixed Windows diagnostics settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:system:v1:open-settings"
     }
   },
   "windowActions": [

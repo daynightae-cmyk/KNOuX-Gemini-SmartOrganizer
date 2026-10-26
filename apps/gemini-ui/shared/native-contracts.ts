@@ -1830,6 +1830,793 @@ export interface StartupShellApi {
   openSettings: (target: 'startupapps') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
 }
 
+/* ------------------------------------------------------------------------- */
+/* Mission 10 - Live Pulse observatory (system + network + hardware)          */
+/* ------------------------------------------------------------------------- */
+
+export type SystemWorld = 'system' | 'network' | 'hardware';
+
+export type SystemStageKey =
+  | 'system'
+  | 'processes'
+  | 'services'
+  | 'events'
+  | 'drivers'
+  | 'network'
+  | 'sockets'
+  | 'hardware'
+  | 'timeline';
+
+export interface SystemStage {
+  key: SystemStageKey;
+  labelEn: string;
+  labelAr: string;
+  status: 'pending' | 'running' | 'complete' | 'partial' | 'failed' | 'cancelled';
+  provider: string;
+  startedAt: string | null;
+  completedAt: string | null;
+  durationMs: number | null;
+  items: number | null;
+  warning: string | null;
+}
+
+export interface SystemSession {
+  contract: 'system.v1';
+  id: string;
+  status: 'running' | 'complete' | 'partial' | 'cancelled' | 'failed';
+  startedAt: string;
+  completedAt: string | null;
+  progress: number;
+  stages: SystemStage[];
+  warnings: string[];
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface SystemIdentity {
+  osName: string | null;
+  osVersion: string | null;
+  osBuild: string | null;
+  osEdition: string | null;
+  architecture: string | null;
+  manufacturer: string | null;
+  model: string | null;
+  processor: string | null;
+  installedRamBytes: number | null;
+  installDate: string | null;
+  bootTime: string | null;
+  uptimeSeconds: number | null;
+  fastStartupEnabled: boolean | null;
+  fastStartupAvailable: boolean;
+  timeZone: string | null;
+  locale: string | null;
+}
+
+export interface SystemMetrics {
+  timestamp: string;
+  cpuPercent: number | null;
+  cpuFrequencyMHz: number | null;
+  memoryPercent: number | null;
+  memoryUsedBytes: number | null;
+  memoryTotalBytes: number | null;
+  memoryCommittedBytes: number | null;
+  diskReadBytesPerSec: number | null;
+  diskWriteBytesPerSec: number | null;
+  diskLatencyMs: number | null;
+  networkInBytesPerSec: number | null;
+  networkOutBytesPerSec: number | null;
+  processCount: number | null;
+  threadCount: number | null;
+  handleCount: number | null;
+  source: string;
+}
+
+export interface SystemSeries {
+  contract: 'system.v1';
+  samples: SystemMetrics[];
+  intervalMs: number;
+  maxSamples: number;
+  source: string;
+  readOnly: true;
+}
+
+export interface SystemProcess {
+  id: string;
+  pid: number;
+  parentPid: number | null;
+  name: string;
+  executablePath: string | null;
+  commandLine: string | null;
+  owner: string | null;
+  ownerAvailable: boolean;
+  cpuPercent: number | null;
+  cpuSeconds: number | null;
+  workingSetBytes: number | null;
+  privateBytes: number | null;
+  threads: number | null;
+  handles: number | null;
+  startedAt: string | null;
+  company: string | null;
+  description: string | null;
+  signatureStatus: string | null;
+  signatureAvailable: boolean;
+  protected: boolean;
+  source: string;
+}
+
+export interface SystemProcessResult {
+  contract: 'system.v1';
+  processes: SystemProcess[];
+  total: number;
+  truncated: boolean;
+  observedAt: string;
+}
+
+export interface SystemDriver {
+  id: string;
+  deviceName: string;
+  provider: string | null;
+  version: string | null;
+  driverDate: string | null;
+  infName: string | null;
+  signed: boolean | null;
+  signer: string | null;
+  whqlStatus: 'signed' | 'unsigned' | 'unknown';
+  deviceId: string | null;
+  hardwareIds: string[];
+  deviceClass: string | null;
+  source: string;
+}
+
+export interface SystemServiceNode {
+  id: string;
+  name: string;
+  displayName: string;
+  state: string | null;
+  startMode: string | null;
+  delayedAutoStart: boolean | null;
+  processId: number | null;
+  executablePath: string | null;
+  description: string | null;
+  protected: boolean;
+  source: string;
+}
+
+export interface SystemServiceEdge {
+  from: string;
+  to: string;
+  relation: 'depends-on' | 'required-by';
+}
+
+export interface SystemStartupLink {
+  id: string;
+  name: string;
+  command: string;
+  source: string;
+  location: string;
+  scope: string;
+  processId: number | null;
+  serviceName: string | null;
+  appName: string | null;
+  linkType: 'process-match' | 'service-match' | 'app-match' | 'unlinked';
+  confidence: 'measured' | 'inferred';
+  evidence: string;
+}
+
+export interface SystemEventRecord {
+  id: string;
+  channel: string;
+  recordId: number | null;
+  eventId: number | null;
+  provider: string;
+  level: number | null;
+  levelName: string | null;
+  timeCreated: string | null;
+  message: string;
+  userSid: string | null;
+  activityId: string | null;
+  source: string;
+}
+
+export interface SystemEventChannelInfo {
+  name: string;
+  recordCount: number | null;
+  fileSizeBytes: number | null;
+  enabled: boolean | null;
+  retention: string | null;
+  logFilePath: string | null;
+  lastWriteTime: string | null;
+  source: string;
+}
+
+export interface SystemBootEvent {
+  timeCreated: string | null;
+  eventId: number | null;
+  provider: string;
+  message: string;
+}
+
+export interface SystemBootEvidence {
+  lastBootTime: string | null;
+  uptimeSeconds: number | null;
+  fastStartupEnabled: boolean | null;
+  fastStartupAvailable: boolean;
+  shutdownReason: 'unknown';
+  events: SystemBootEvent[];
+  note: string;
+}
+
+export interface SystemTimelineEvent {
+  id: string;
+  at: string | null;
+  lane: 'knoux' | 'windows' | 'observation';
+  kind: string;
+  title: string;
+  detail: string;
+  source: string;
+  severity: 'info' | 'warning' | 'error' | 'critical';
+  recordId: string | null;
+}
+
+export interface SystemCoverageStage {
+  key: SystemStageKey;
+  status: 'complete' | 'partial' | 'unavailable' | 'cancelled';
+  provider: string;
+  durationMs: number | null;
+  items: number | null;
+  note: string | null;
+}
+
+export interface NetworkAddress {
+  address: string;
+  prefixLength: number | null;
+  family: 'IPv4' | 'IPv6';
+  origin: string | null;
+  state: string | null;
+}
+
+export interface NetworkInterfaceInfo {
+  id: string;
+  name: string;
+  description: string;
+  status: string | null;
+  mac: string | null;
+  linkSpeed: string | null;
+  speedBps: number | null;
+  mediaType: string | null;
+  interfaceIndex: number | null;
+  interfaceType: string | null;
+  connectionState: string | null;
+  dhcp: string | null;
+  mtu: number | null;
+  ipv4: NetworkAddress[];
+  ipv6: NetworkAddress[];
+  dnsServers: string[];
+  gateway: string | null;
+  dnsSuffix: string | null;
+  virtual: boolean | null;
+  source: string;
+}
+
+export interface NetworkRoute {
+  id: string;
+  destination: string;
+  nextHop: string;
+  metric: number | null;
+  interfaceAlias: string | null;
+  source: string;
+}
+
+export interface NetworkNeighbor {
+  id: string;
+  ip: string;
+  mac: string | null;
+  state: string | null;
+  interfaceAlias: string | null;
+  family: 'IPv4' | 'IPv6' | null;
+  inferred: boolean;
+  vendor: string | null;
+  source: string;
+}
+
+export interface NetworkSocket {
+  id: string;
+  protocol: 'TCP' | 'UDP';
+  localAddress: string;
+  localPort: number | null;
+  remoteAddress: string | null;
+  remotePort: number | null;
+  state: string | null;
+  pid: number | null;
+  processName: string | null;
+  processPath: string | null;
+  createdAt: string | null;
+  source: string;
+}
+
+export interface NetworkWifiProfile {
+  name: string;
+  connectionMode: string | null;
+  authentication: string | null;
+  encryption: string | null;
+}
+
+export interface NetworkWifi {
+  available: boolean;
+  state: 'connected' | 'disconnected' | 'unsupported' | 'unavailable';
+  adapterName: string | null;
+  ssid: string | null;
+  bssid: string | null;
+  signalPercent: number | null;
+  rssiDbm: number | null;
+  radioType: string | null;
+  band: string | null;
+  channel: number | null;
+  receiveRateMbps: number | null;
+  transmitRateMbps: number | null;
+  cipher: string | null;
+  authentication: string | null;
+  profiles: NetworkWifiProfile[];
+  reason: string | null;
+  source: string;
+}
+
+export interface HostsEntry {
+  lineNumber: number;
+  ip: string | null;
+  hostnames: string[];
+  comment: string | null;
+  active: boolean;
+  raw: string;
+}
+
+export interface HostsFileInfo {
+  path: string;
+  exists: boolean;
+  readable: boolean;
+  totalLines: number;
+  activeMappings: number;
+  entries: HostsEntry[];
+  sha256: string | null;
+  lastWriteTime: string | null;
+  readOnly: true;
+  reason: string | null;
+}
+
+export type HostsDraftMode = 'comment' | 'uncomment' | 'replace' | 'add';
+
+export interface HostsDraft {
+  mode: HostsDraftMode;
+  lineNumber?: number;
+  ip?: string;
+  hostnames?: string[];
+  note?: string;
+}
+
+export interface HostsPlan {
+  contract: 'system.v1';
+  immutable: true;
+  readOnly: true;
+  mutation: 'none';
+  targetPath: string;
+  draft: HostsDraft;
+  allowed: boolean;
+  before: string[];
+  after: string[];
+  addedLines: number;
+  removedLines: number;
+  warnings: string[];
+  execution: { available: false; reason: string };
+  stagedAt: string;
+  receipt: string;
+}
+
+export interface NetworkProxyLane {
+  lane: 'WinINET' | 'WinHTTP' | 'WPAD';
+  enabled: boolean | null;
+  proxyServer: string | null;
+  bypassList: string | null;
+  autoConfigUrl: string | null;
+  autoDetect: boolean | null;
+  source: string;
+  provenance: string;
+}
+
+export interface NetworkProxyInfo {
+  lanes: NetworkProxyLane[];
+  effective: 'direct' | 'manual' | 'pac' | 'auto-detect' | 'unknown';
+  warnings: string[];
+  readOnly: true;
+}
+
+export interface SystemCpuInfo {
+  id: string;
+  name: string;
+  vendor: string | null;
+  cores: number | null;
+  logicalProcessors: number | null;
+  maxClockMHz: number | null;
+  socket: string | null;
+  architecture: string | null;
+  l2CacheBytes: number | null;
+  l3CacheBytes: number | null;
+  virtualizationFirmwareEnabled: boolean | null;
+  vmMonitorModeExtensions: boolean | null;
+  processorId: string | null;
+  source: string;
+}
+
+export interface SystemGpuInfo {
+  id: string;
+  name: string;
+  vendor: string | null;
+  adapterRamBytes: number | null;
+  driverVersion: string | null;
+  driverDate: string | null;
+  videoProcessor: string | null;
+  status: string | null;
+  pnpDeviceId: string | null;
+  videoMode: string | null;
+  source: string;
+}
+
+export interface SystemMemoryModule {
+  id: string;
+  manufacturer: string | null;
+  partNumber: string | null;
+  capacityBytes: number | null;
+  speedMHz: number | null;
+  configuredSpeedMHz: number | null;
+  formFactor: string | null;
+  locator: string | null;
+  bankLabel: string | null;
+  memoryType: string | null;
+  source: string;
+}
+
+export interface SystemDiskInfo {
+  id: string;
+  deviceId: string | null;
+  model: string;
+  serial: string | null;
+  mediaType: string | null;
+  busType: string | null;
+  sizeBytes: number | null;
+  healthStatus: string | null;
+  operationalStatus: string[];
+  partitionCount: number | null;
+  smartStatus: string | null;
+  powerOnHours: number | null;
+  temperatureCelsius: number | null;
+  wearPercent: number | null;
+  source: string;
+}
+
+export interface SystemBatteryInfo {
+  id: string;
+  name: string;
+  deviceId: string | null;
+  chargePercent: number | null;
+  status: string | null;
+  designCapacityMilliWattHours: number | null;
+  fullChargeCapacityMilliWattHours: number | null;
+  estimatedRunTimeMinutes: number | null;
+  powerOnline: boolean | null;
+  charging: boolean | null;
+  discharging: boolean | null;
+  cycleCount: number | null;
+  cycleCountAvailable: boolean;
+  voltageMillivolts: number | null;
+  manufacturer: string | null;
+  chemistry: string | null;
+  healthPercent: number | null;
+  source: string;
+}
+
+export interface SystemUsbNode {
+  id: string;
+  parentId: string | null;
+  name: string;
+  deviceClass: string | null;
+  manufacturer: string | null;
+  status: string | null;
+  vendorId: string | null;
+  productId: string | null;
+  busSpeed: string | null;
+  powerMilliAmps: number | null;
+  pnpDeviceId: string | null;
+  nodeType: 'controller' | 'hub' | 'device';
+  source: string;
+}
+
+export interface SystemMonitorInfo {
+  id: string;
+  name: string;
+  manufacturer: string | null;
+  year: number | null;
+  week: number | null;
+  width: number | null;
+  height: number | null;
+  refreshHz: number | null;
+  primary: boolean;
+  hdrAvailable: boolean | null;
+  hdrEnabled: boolean | null;
+  bitsPerPixel: number | null;
+  connection: string | null;
+  pnpDeviceId: string | null;
+  source: string;
+}
+
+export interface SystemAudioEndpoint {
+  id: string;
+  name: string;
+  manufacturer: string | null;
+  status: string | null;
+  kind: 'output' | 'input';
+  isDefault: boolean | null;
+  driver: string | null;
+  formats: string[];
+  pnpDeviceId: string | null;
+  source: string;
+}
+
+export interface SystemThermalZone {
+  id: string;
+  name: string;
+  celsius: number | null;
+  warningCelsius: number | null;
+  source: string;
+}
+
+export interface SystemThermalInfo {
+  available: boolean;
+  provider: string | null;
+  celsius: number | null;
+  zones: SystemThermalZone[];
+  throttling: boolean | null;
+  reason: string;
+  readOnly: true;
+}
+
+export interface SystemHardwareSnapshot {
+  system: {
+    manufacturer: string | null;
+    model: string | null;
+    baseboardManufacturer: string | null;
+    baseboardProduct: string | null;
+    biosVendor: string | null;
+    biosVersion: string | null;
+    biosDate: string | null;
+  };
+  cpu: SystemCpuInfo[];
+  gpu: SystemGpuInfo[];
+  memory: SystemMemoryModule[];
+  disks: SystemDiskInfo[];
+  batteries: SystemBatteryInfo[];
+  usb: SystemUsbNode[];
+  monitors: SystemMonitorInfo[];
+  audio: SystemAudioEndpoint[];
+  thermal: SystemThermalInfo;
+  problemDevices: Array<{ id: string; name: string; problemCode: number | null; manufacturer: string | null; pnpDeviceId: string | null }>;
+  totals: {
+    cores: number | null;
+    logicalProcessors: number | null;
+    memoryBytes: number | null;
+    diskBytes: number | null;
+    monitors: number;
+    usbDevices: number;
+    audioEndpoints: number;
+    batteries: number;
+  };
+  availability: {
+    cpu: boolean;
+    gpu: boolean;
+    memory: boolean;
+    disks: boolean;
+    batteries: boolean;
+    usb: boolean;
+    monitors: boolean;
+    audio: boolean;
+    thermal: boolean;
+    smart: boolean;
+  };
+}
+
+export interface SystemSnapshot {
+  contract: 'system.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  identity: SystemIdentity;
+  metrics: SystemMetrics;
+  processes: SystemProcess[];
+  processCount: number;
+  drivers: SystemDriver[];
+  services: SystemServiceNode[];
+  serviceEdges: SystemServiceEdge[];
+  startupLinks: SystemStartupLink[];
+  events: SystemEventRecord[];
+  eventChannels: SystemEventChannelInfo[];
+  boot: SystemBootEvidence;
+  interfaces: NetworkInterfaceInfo[];
+  routes: NetworkRoute[];
+  neighbors: NetworkNeighbor[];
+  sockets: NetworkSocket[];
+  wifi: NetworkWifi;
+  hosts: HostsFileInfo;
+  proxies: NetworkProxyInfo;
+  hardware: SystemHardwareSnapshot;
+  timeline: SystemTimelineEvent[];
+  coverage: SystemCoverageStage[];
+  warnings: string[];
+  receipt: string;
+  sources: string[];
+}
+
+export interface SystemEventQuery {
+  channel?: string;
+  levels?: number[];
+  sinceHours?: number;
+  search?: string;
+  limit?: number;
+}
+
+export interface SystemEventsResult {
+  contract: 'system.v1';
+  events: SystemEventRecord[];
+  total: number;
+  truncated: boolean;
+  query: SystemEventQuery;
+  channels: SystemEventChannelInfo[];
+  observedAt: string;
+}
+
+export interface SystemSignature {
+  path: string;
+  signatureStatus: string | null;
+  signatureAvailable: boolean;
+  signerSubject: string | null;
+  signerThumbprint: string | null;
+  signerNotBefore: string | null;
+  signerNotAfter: string | null;
+  rootSubject: string | null;
+  rootTrusted: boolean | null;
+  message: string | null;
+  source: string;
+}
+
+export interface SystemSignatureResult {
+  contract: 'system.v1';
+  signatures: SystemSignature[];
+  requested: number;
+  verified: number;
+  truncated: boolean;
+  observedAt: string;
+}
+
+export type SystemDiagnosticType = 'dns' | 'tcp' | 'http' | 'ping';
+
+export interface SystemDiagnosticStage {
+  stage: 'dns' | 'tcp' | 'http' | 'ping' | 'summary';
+  label: string;
+  status: 'passed' | 'failed' | 'skipped' | 'timeout';
+  latencyMs: number | null;
+  detail: string;
+  evidence: string[];
+}
+
+export interface SystemDiagnosticResult {
+  contract: 'system.v1';
+  type: SystemDiagnosticType;
+  target: string;
+  port: number | null;
+  ok: boolean;
+  startedAt: string;
+  durationMs: number;
+  stages: SystemDiagnosticStage[];
+  receipt: string;
+  readOnly: true;
+}
+
+export interface SystemTracerouteHop {
+  hop: number;
+  address: string | null;
+  latencyMs: number[];
+  timedOut: boolean;
+  asn: string | null;
+}
+
+export interface SystemTracerouteResult {
+  contract: 'system.v1';
+  target: string;
+  maxHops: number;
+  hops: SystemTracerouteHop[];
+  reached: boolean;
+  startedAt: string;
+  durationMs: number;
+  receipt: string;
+  readOnly: true;
+}
+
+export interface SystemReportSection {
+  id: string;
+  titleEn: string;
+  titleAr: string;
+  status: 'validated' | 'partial' | 'unavailable';
+  measured: number;
+  unknown: number;
+  items: Array<{ label: string; value: string; status: 'measured' | 'unknown' | 'warning' }>;
+}
+
+export interface SystemReport {
+  contract: 'system.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  redacted: boolean;
+  summary: string;
+  sections: SystemReportSection[];
+  warnings: string[];
+  receipt: string;
+}
+
+export interface SystemCapabilityService {
+  id: string;
+  world: SystemWorld;
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  provider: string;
+  noteEn: string;
+  noteAr: string;
+}
+
+export interface SystemCapabilities {
+  engine: string;
+  contract: 'system.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  serviceCount: 36;
+  worldCount: 3;
+  services: SystemCapabilityService[];
+  gatedOperations: Array<{ id: string; mission: string; title: string; reason: string }>;
+  sources: string[];
+  limits: {
+    processes: number;
+    drivers: number;
+    services: number;
+    events: number;
+    channels: number;
+    sockets: number;
+    neighbors: number;
+    signaturePaths: number;
+    traceHops: number;
+    scanTimeoutMs: number;
+  };
+  nativeOnly: string[];
+}
+
+export interface SystemShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<SystemCapabilities>>;
+  start: () => Promise<NativeEnvelope<SystemSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<SystemSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  snapshot: () => Promise<NativeEnvelope<SystemSnapshot>>;
+  sample: () => Promise<NativeEnvelope<SystemMetrics>>;
+  processes: () => Promise<NativeEnvelope<SystemProcessResult>>;
+  events: (query: SystemEventQuery) => Promise<NativeEnvelope<SystemEventsResult>>;
+  signatures: (paths: string[]) => Promise<NativeEnvelope<SystemSignatureResult>>;
+  diagnostics: (request: { type: SystemDiagnosticType; target: string; port?: number }) => Promise<NativeEnvelope<SystemDiagnosticResult>>;
+  traceroute: (request: { target: string; maxHops?: number }) => Promise<NativeEnvelope<SystemTracerouteResult>>;
+  hosts: () => Promise<NativeEnvelope<HostsFileInfo>>;
+  hostsPlan: (draft: HostsDraft) => Promise<NativeEnvelope<HostsPlan>>;
+  report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<SystemReport>>;
+  openSettings: (target: 'display' | 'network' | 'wifi' | 'sound') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+}
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

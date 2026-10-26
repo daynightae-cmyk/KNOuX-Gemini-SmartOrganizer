@@ -26,7 +26,8 @@
     "test:scan": "node scripts/scan-native-test.cjs",
     "test:apps": "node scripts/apps-native-test.cjs",
     "test:cleanup": "node scripts/cleanup-native-test.cjs",
-    "test:startup": "node scripts/startup-native-test.cjs"
+    "test:startup": "node scripts/startup-native-test.cjs",
+    "test:system": "node scripts/system-native-test.cjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

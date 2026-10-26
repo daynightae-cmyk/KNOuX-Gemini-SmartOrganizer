@@ -1,17 +1,35 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * KNOuX Live Pulse - deterministic renderer contract checks (Mission 10).
+ *
+ * These checks never call Windows. They prove that the 36-service catalog and
+ * the 36-workbench map stay aligned, that gated services are declared gated,
+ * and that missing readings render as unknown instead of zero.
  */
-
 import {
-  INITIAL_TELEMETRY_SOURCE,
-  INITIAL_INSTRUMENT_METRICS,
-  INITIAL_SYSTEM_INFO,
-  INITIAL_SERVICES_CATALOG,
-  NETWORK_SERVICES_CATALOG,
-  HARDWARE_SERVICES_CATALOG,
-  SAMPLE_PROCESS_FIXTURES
-} from '../../lib/system-inventory';
+  SERVICE_CATALOG,
+  SERVICE_IDS,
+  WORLD_SERVICES,
+  WORLDS,
+  SERVICE_BY_ID,
+} from '../../system/catalog';
+import { SYSTEM_WORKBENCH_IDS } from '../../system/SystemServiceWorkspaces';
+import {
+  averageOf,
+  eventLevelMeta,
+  formatBytes,
+  formatClock,
+  formatDuration,
+  formatMHz,
+  formatPercent,
+  formatRate,
+  latestOf,
+  maxOf,
+  metricValues,
+  sparkGeometry,
+  signatureMeta,
+  sortProcesses,
+  t,
+} from '../../system/model';
 
 export interface SystemTestResult {
   name: string;
@@ -19,146 +37,121 @@ export interface SystemTestResult {
   message?: string;
 }
 
+const EXPECTED_IDS = [
+  'system-health-check', 'system-events', 'system-processes', 'system-signatures',
+  'system-uptime', 'system-perf', 'system-drivers', 'system-logs', 'system-resources',
+  'system-autostart', 'system-services-map', 'system-timeline',
+  'network-interfaces', 'network-dns-config', 'network-adapters', 'network-connectivity',
+  'network-throughput', 'network-traceroute', 'network-topology', 'network-ports',
+  'network-wifi', 'network-hosts', 'network-proxies', 'network-repair-link',
+  'hardware-inventory', 'hardware-battery', 'hardware-cpu', 'hardware-gpu',
+  'hardware-memory', 'hardware-cycles', 'hardware-thermal', 'hardware-disks',
+  'hardware-usb', 'hardware-display', 'hardware-audio', 'hardware-health-report',
+];
+
+function check(name: string, run: () => boolean | string): SystemTestResult {
+  try {
+    const result = run();
+    if (typeof result === 'string') return { name, passed: false, message: result };
+    return { name, passed: result };
+  } catch (error) {
+    return { name, passed: false, message: String(error) };
+  }
+}
+
 export function runSystemVerificationSuite(): SystemTestResult[] {
   const results: SystemTestResult[] = [];
 
-  // Test 1: Verify all 4 top dashboard instruments have honest awaiting-sample baseline
-  try {
-    const cpu = INITIAL_INSTRUMENT_METRICS.find((m) => m.id === 'cpu');
-    const memory = INITIAL_INSTRUMENT_METRICS.find((m) => m.id === 'memory');
-    const disk = INITIAL_INSTRUMENT_METRICS.find((m) => m.id === 'disk');
-    const network = INITIAL_INSTRUMENT_METRICS.find((m) => m.id === 'network');
+  results.push(check('36 unique service descriptors across three worlds', () => {
+    if (SERVICE_CATALOG.length !== 36) return `expected 36, received ${SERVICE_CATALOG.length}`;
+    if (new Set(SERVICE_IDS).size !== 36) return 'duplicate service id';
+    if (SERVICE_IDS.join('|') !== EXPECTED_IDS.join('|')) return 'catalog order or ids changed';
+    if (WORLDS.length !== 3) return 'world count is not three';
+    for (const world of WORLDS) {
+      if (WORLD_SERVICES[world].length !== 12) return `${world} has ${WORLD_SERVICES[world].length} services`;
+    }
+    return true;
+  }));
 
-    const passed =
-      INITIAL_INSTRUMENT_METRICS.length === 4 &&
-      cpu?.gaugeValue === '--%' &&
-      cpu?.gaugeStatus === 'Awaiting sample' &&
-      memory?.gaugeValue === '--%' &&
-      memory?.gaugeStatus === 'Awaiting sample' &&
-      disk?.gaugeValue === '--%' &&
-      disk?.gaugeStatus === 'Awaiting sample' &&
-      network?.gaugeValue === '--%' &&
-      network?.gaugeStatus === 'Awaiting sample';
+  results.push(check('every descriptor resolves to one specialised workbench', () => {
+    if (SYSTEM_WORKBENCH_IDS.length !== 36) return `workbench map has ${SYSTEM_WORKBENCH_IDS.length}`;
+    const missing = SERVICE_IDS.filter((id) => !SYSTEM_WORKBENCH_IDS.includes(id));
+    if (missing.length) return `missing workbenches: ${missing.join(', ')}`;
+    const extra = SYSTEM_WORKBENCH_IDS.filter((id) => !SERVICE_BY_ID[id]);
+    if (extra.length) return `unregistered workbenches: ${extra.join(', ')}`;
+    return true;
+  }));
 
-    results.push({
-      name: 'Dashboard Instruments Verification (CPU, Memory, Disk, Network Awaiting Samples)',
-      passed,
-      message: passed ? 'All 4 instrument meters present honest un-fabricated baseline (--%)' : 'Instruments mismatch'
-    });
-  } catch (err) {
-    results.push({ name: 'Dashboard Instruments Verification', passed: false, message: String(err) });
-  }
+  results.push(check('mutation-capable services remain explicitly gated', () => {
+    const gated = SERVICE_CATALOG.filter((entry) => entry.state === 'gated').map((entry) => entry.id);
+    return gated.length === 2 && gated.includes('network-hosts') && gated.includes('network-repair-link')
+      ? true
+      : `unexpected gated set: ${gated.join(', ')}`;
+  }));
 
-  // Test 2: Verify System Information card metadata slots
-  try {
-    const passed =
-      INITIAL_SYSTEM_INFO.windowsVersion === 'Windows 11 Pro' &&
-      INITIAL_SYSTEM_INFO.versionBuild === '-- (Build ----)' &&
-      INITIAL_SYSTEM_INFO.systemManufacturer === '--' &&
-      INITIAL_SYSTEM_INFO.systemModel === '--' &&
-      INITIAL_SYSTEM_INFO.processor === '--' &&
-      INITIAL_SYSTEM_INFO.installedRam === '-- GB' &&
-      INITIAL_SYSTEM_INFO.uptime === '--:--:--';
-
-    results.push({
-      name: 'System Information Card Slots Verification',
-      passed,
-      message: passed ? 'System Information displays accurate Windows 11 Pro placeholders without false hardware claims' : 'System info schema mismatch'
-    });
-  } catch (err) {
-    results.push({ name: 'System Information Card Slots Verification', passed: false, message: String(err) });
-  }
-
-  // Test 3: Verify all 12 System Services & Diagnostics catalog entries
-  try {
-    const requiredKeys = [
-      'system-health-check',
-      'system-events',
-      'system-processes',
-      'system-signatures',
-      'system-uptime',
-      'system-perf',
-      'system-drivers',
-      'system-logs',
-      'system-resources',
-      'system-autostart',
-      'system-services-map',
-      'system-timeline'
+  results.push(check('missing readings stay unknown, never zero', () => {
+    const values = [
+      formatBytes(null),
+      formatPercent(null),
+      formatRate(null),
+      formatMHz(null),
+      formatDuration(null),
+      formatClock(null),
     ];
+    if (values.some((value) => value !== '-')) return `expected six dashes, received ${values.join('|')}`;
+    if (formatClock(null) !== '--:--:--') return 'clock placeholder changed';
+    if (formatBytes(0) !== '0 B') return 'a measured zero must render as zero';
+    return true;
+  }));
 
-    const presentKeys = new Set(INITIAL_SERVICES_CATALOG.map((s) => s.serviceKey));
-    const allPresent = requiredKeys.every((k) => presentKeys.has(k));
+  results.push(check('sparkline geometry preserves gaps and refuses invented points', () => {
+    const single = sparkGeometry([42]);
+    if (single.line || single.points.length) return 'a single sample must not draw a line';
+    const empty = sparkGeometry([]);
+    if (empty.line) return 'empty series drew a line';
+    const gapped = sparkGeometry([10, null, 20, 30]);
+    if (!gapped.line || gapped.points.length !== 3) return 'gapped series geometry is wrong';
+    return true;
+  }));
 
-    results.push({
-      name: 'Twelve System Services & Diagnostics Catalog Verification',
-      passed: allPresent && INITIAL_SERVICES_CATALOG.length === 12,
-      message: allPresent ? 'All 12 required system service keys registered and mapped' : 'Missing required service keys'
-    });
-  } catch (err) {
-    results.push({ name: 'Twelve System Services & Diagnostics Catalog Verification', passed: false, message: String(err) });
-  }
+  results.push(check('series statistics ignore unknown samples', () => {
+    if (maxOf([null, 4, 9, null]) !== 9) return 'peak mismatch';
+    if (latestOf([4, null, 7, null]) !== 7) return 'latest mismatch';
+    if (averageOf([null, 2, 4, null]) !== 3) return 'average mismatch';
+    const metrics = metricValues([{ cpuPercent: 5 } as never, { cpuPercent: null } as never], 'cpuPercent');
+    if (metrics[0] !== 5 || metrics[1] !== null) return 'metric projection mismatch';
+    return true;
+  }));
 
-  // Test 4: Verify Network & Hardware service catalogs (12 network + 12 hardware)
-  try {
-    const networkKeys = [
-      'network-interfaces',
-      'network-dns-config',
-      'network-adapters',
-      'network-connectivity',
-      'network-throughput',
-      'network-traceroute',
-      'network-topology',
-      'network-ports',
-      'network-wifi',
-      'network-hosts',
-      'network-proxies',
-      'network-repair-link'
-    ];
+  results.push(check('process sorting is deterministic and direction-aware', () => {
+    const rows = [
+      { pid: 2, name: 'beta', cpuPercent: 20, workingSetBytes: 10, threads: 2 },
+      { pid: 1, name: 'alpha', cpuPercent: 5, workingSetBytes: 20, threads: 1 },
+      { pid: 3, name: 'gamma', cpuPercent: 10, workingSetBytes: 5, threads: 3 },
+    ] as never[];
+    const byCpu = sortProcesses(rows, 'cpu', 'desc').map((row) => row.pid);
+    if (byCpu.join(',') !== '2,3,1') return `cpu sort ${byCpu.join(',')}`;
+    const byName = sortProcesses(rows, 'name', 'asc').map((row) => row.pid);
+    if (byName.join(',') !== '1,2,3') return `name sort ${byName.join(',')}`;
+    return true;
+  }));
 
-    const hardwareKeys = [
-      'hardware-inventory',
-      'hardware-battery',
-      'hardware-cpu',
-      'hardware-gpu',
-      'hardware-memory',
-      'hardware-cycles',
-      'hardware-thermal',
-      'hardware-disks',
-      'hardware-usb',
-      'hardware-display',
-      'hardware-audio',
-      'hardware-health-report'
-    ];
+  results.push(check('severity and signature vocabulary stays honest', () => {
+    if (eventLevelMeta(null).short !== 'UNK') return 'unknown severity is not UNK';
+    if (eventLevelMeta(2).short !== 'ERR') return 'error severity changed';
+    if (signatureMeta(null).tone !== 'muted') return 'unknown signature is not muted';
+    if (signatureMeta('NotSigned').tone !== 'bad') return 'unsigned signature is not bad';
+    return true;
+  }));
 
-    const presentNet = new Set(NETWORK_SERVICES_CATALOG.map((s) => s.serviceKey));
-    const presentHw = new Set(HARDWARE_SERVICES_CATALOG.map((s) => s.serviceKey));
-
-    const allNet = networkKeys.every((k) => presentNet.has(k)) && NETWORK_SERVICES_CATALOG.length === 12;
-    const allHw = hardwareKeys.every((k) => presentHw.has(k)) && HARDWARE_SERVICES_CATALOG.length === 12;
-
-    results.push({
-      name: 'Related Network & Hardware Sub-Services Catalog Verification (24 services)',
-      passed: allNet && allHw,
-      message: allNet && allHw ? 'All 12 Network and 12 Hardware sub-services properly registered' : 'Network/Hardware catalogs incomplete'
-    });
-  } catch (err) {
-    results.push({ name: 'Related Network & Hardware Sub-Services Catalog Verification', passed: false, message: String(err) });
-  }
-
-  // Test 5: Verify process ledger fixtures and safe non-destructive contracts
-  try {
-    const passed =
-      SAMPLE_PROCESS_FIXTURES.length >= 8 &&
-      SAMPLE_PROCESS_FIXTURES.every((p) => p.pid > 0 && Boolean(p.name) && Boolean(p.status));
-
-    results.push({
-      name: 'Process Ledger Schema & Sample Integrity Verification',
-      passed,
-      message: passed ? 'Process ledger fixtures conform to authentic Windows process structures' : 'Process schema invalid'
-    });
-  } catch (err) {
-    results.push({ name: 'Process Ledger Schema & Sample Integrity Verification', passed: false, message: String(err) });
-  }
+  results.push(check('Arabic and English labels are both present', () => {
+    for (const entry of SERVICE_CATALOG) {
+      if (!entry.en || !entry.ar || !entry.shortEn || !entry.shortAr) return `${entry.id} lacks a bilingual label`;
+    }
+    if (t('ar', 'Measured', 'مقيس') !== 'مقيس') return 'Arabic translation failed';
+    if (t('en', 'Measured', 'مقيس') !== 'Measured') return 'English translation failed';
+    return true;
+  }));
 
   return results;
 }

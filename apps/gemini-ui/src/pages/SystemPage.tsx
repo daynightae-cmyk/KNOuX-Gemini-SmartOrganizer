@@ -1,944 +1,954 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * KNOuX SmartOrganizer — System Live Pulse (Mission 10).
+ *
+ * Browser previews render an explicit native-required state. In Electron every
+ * instrument, timeline sample, process, event, driver, socket, adapter, hosts
+ * line, hardware field and coverage badge comes from the read-only SystemBridge
+ * scan. No design fixture is imported and no process, service, driver, proxy,
+ * hosts, adapter, repair or power mutation is exposed here.
  */
-
-import React, { useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Activity,
-  Search,
-  Bell,
-  Minus,
-  Square,
-  X,
-  Languages,
-  Home,
-  LayoutGrid,
-  CheckSquare,
-  Zap,
-  Folder,
-  Shield,
-  Wifi,
-  Palette,
-  Wrench,
-  Settings,
-  HelpCircle,
-  Cpu,
-  HardDrive,
-  RefreshCw,
-  BarChart2,
-  Monitor,
-  Heart,
   AlertTriangle,
-  ListFilter,
-  ShieldCheck,
-  Clock,
-  BarChart3,
-  Cog,
-  FileText,
-  PieChart,
-  PlayCircle,
-  Network,
-  RotateCcw,
-  Upload,
   CheckCircle2,
-  ChevronDown,
+  Clock,
+  Cpu,
+  Database,
+  Download,
+  Gauge,
+  HardDrive,
   Layers,
-  ChevronRight,
-  Sparkles
+  ListFilter,
+  Loader2,
+  Lock,
+  MemoryStick,
+  Monitor,
+  Network,
+  Pause,
+  Play,
+  RefreshCw,
+  ShieldCheck,
+  Sparkles,
+  X,
+  Zap,
+  type LucideIcon,
 } from 'lucide-react';
-
-import {
-  INITIAL_TELEMETRY_SOURCE,
-  INITIAL_INSTRUMENT_METRICS,
-  INITIAL_SYSTEM_INFO,
-  SAMPLE_SYSTEM_INFO_ACTIVE,
-  INITIAL_SERVICES_CATALOG,
-  SAMPLE_PROCESS_FIXTURES,
-  TelemetrySourceMeta,
-  InstrumentMetric,
-  SystemInfoData,
-  RunningProcessItem,
-  SystemServiceMeta
-} from '../lib/system-inventory';
-import { SystemWorkspaces } from '../components/system/SystemWorkspaces';
+import type { SystemCoverageStage, SystemMetrics } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
-import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
+import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
+import {
+  SERVICE_CATALOG,
+  WORLD_META,
+  WORLD_SERVICES,
+  WORLDS,
+  isSystemServiceId,
+  serviceLabel,
+  shortServiceLabel,
+  type SystemLocale,
+  type SystemServiceState,
+  type SystemWorld,
+} from '../system/catalog';
+import {
+  averageOf,
+  formatBytes,
+  formatClock,
+  formatCount,
+  formatDuration,
+  formatMHz,
+  formatMs,
+  formatPercent,
+  formatRate,
+  formatTimestamp,
+  latestOf,
+  maxOf,
+  metricValues,
+  percentageTone,
+  t,
+} from '../system/model';
+import {
+  Chip,
+  ExportButton,
+  Field,
+  InfoNote,
+  KeyValueGrid,
+  LoadingLine,
+  MeterBar,
+  Panel,
+  SearchBox,
+  Seg,
+  Sparkline,
+  cx,
+  downloadJson,
+} from '../system/ui';
+import { useSystem } from '../system/useSystem';
+import { SystemServiceWorkspace, hasSystemWorkbench } from '../system/SystemServiceWorkspaces';
 import '../system.css';
 
-interface SystemPageProps {
+export interface SystemPageProps {
   onNavigateSection?: (section: string) => void;
 }
 
-export function SystemPage({ onNavigateSection }: SystemPageProps) {
-  const { navigateTo, isActive, isArabic, toggleLocale } = useNavigation();
-  // UI states
-  const [activeWorkspaceKey, setActiveWorkspaceKey] = useState<string | null>(null);
-  const [notificationMsg, setNotificationMsg] = useState<string | null>(null);
+type TimelineMetric = 'cpuPercent' | 'memoryPercent' | 'disk' | 'network';
+type IntervalOption = 1000 | 5000 | 15000;
 
-  // Telemetry simulation toggle (Awaiting live sample vs Sample streaming preview)
-  const [isStreamingSample, setIsStreamingSample] = useState<boolean>(false);
+const AR = 'ar';
 
-  // Performance timeline selected resource tab & interval
-  const [timelineTab, setTimelineTab] = useState<'CPU' | 'Memory' | 'Disk' | 'Network'>('CPU');
-  const [timelineInterval, setTimelineInterval] = useState<string>('60 seconds');
+function serviceStateTone(state: SystemServiceState) {
+  if (state === 'available') return 'good' as const;
+  if (state === 'partial') return 'warn' as const;
+  return 'bad' as const;
+}
 
-  // Live Service Preview Config
-  const [selectedService, setSelectedService] = useState<string>('Windows Update (wuauserv)');
-  const [selectedDataSource, setSelectedDataSource] = useState<string>('Windows Service Controller');
-  const [samplingInterval, setSamplingInterval] = useState<string>('10 seconds');
-  const [visibleMetrics, setVisibleMetrics] = useState<Record<string, boolean>>({
-    serviceStatus: true,
-    cpuUsage: true,
-    memoryUsage: true,
-    diskActivity: true,
-    networkActivity: true
+function coverageTone(status: SystemCoverageStage['status']) {
+  if (status === 'complete') return 'good' as const;
+  if (status === 'partial') return 'warn' as const;
+  if (status === 'cancelled') return 'muted' as const;
+  return 'bad' as const;
+}
+
+function combinedSeries(series: SystemMetrics[], first: keyof SystemMetrics, second: keyof SystemMetrics): Array<number | null> {
+  return series.map((sample) => {
+    const left = sample[first];
+    const right = sample[second];
+    if ((left == null || typeof left !== 'number') && (right == null || typeof right !== 'number')) return null;
+    return (typeof left === 'number' ? left : 0) + (typeof right === 'number' ? right : 0);
   });
-  const [isServiceCollecting, setIsServiceCollecting] = useState<boolean>(false);
+}
 
-  // Process Ledger Filter & Display
-  const [processSearch, setProcessSearch] = useState<string>('');
-  const [processStatusFilter, setProcessStatusFilter] = useState<string>('All');
-  const [processUserFilter, setProcessUserFilter] = useState<string>('All');
-  const [showProcessSampleList, setShowProcessSampleList] = useState<boolean>(false);
+function ratioOf(value: number | null | undefined, peak: number | null | undefined): number | null {
+  if (value == null || peak == null || !Number.isFinite(value) || !Number.isFinite(peak) || peak <= 0) return null;
+  return Math.max(0, Math.min(100, (value / peak) * 100));
+}
 
-  const showToast = (msg: string) => {
-    setNotificationMsg(msg);
-    setTimeout(() => setNotificationMsg(null), 3000);
-  };
-
-  const handleToggleMetric = (key: string) => {
-    setVisibleMetrics((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  // Instruments data based on live preview state
-  const instrumentMetrics = useMemo<InstrumentMetric[]>(() => {
-    if (!isStreamingSample) {
-      return INITIAL_INSTRUMENT_METRICS;
-    }
-    return [
-      {
-        ...INITIAL_INSTRUMENT_METRICS[0],
-        gaugeValue: '18%',
-        gaugeStatus: 'Streaming sample',
-        footerStats: [
-          { label: 'Base Speed', value: '3.00 GHz' },
-          { label: 'Cores', value: '24' },
-          { label: 'Logical', value: '32' }
-        ]
-      },
-      {
-        ...INITIAL_INSTRUMENT_METRICS[1],
-        gaugeValue: '38%',
-        gaugeStatus: 'Streaming sample',
-        footerStats: [
-          { label: 'Total', value: '64.0 GB' },
-          { label: 'In Use', value: '24.3 GB' },
-          { label: 'Available', value: '39.7 GB' }
-        ]
-      },
-      {
-        ...INITIAL_INSTRUMENT_METRICS[2],
-        gaugeValue: '4%',
-        gaugeStatus: 'Streaming sample',
-        footerStats: [
-          { label: 'Read Rate', value: '14.2 MB/s' },
-          { label: 'Write Rate', value: '8.6 MB/s' },
-          { label: 'Active Time', value: '6%' }
-        ]
-      },
-      {
-        ...INITIAL_INSTRUMENT_METRICS[3],
-        gaugeValue: '12%',
-        gaugeStatus: 'Streaming sample',
-        footerStats: [
-          { label: 'Download', value: '42.8 Mbps' },
-          { label: 'Upload', value: '6.4 Mbps' },
-          { label: 'Total', value: '1.8 GB' }
-        ]
-      }
-    ];
-  }, [isStreamingSample]);
-
-  // System info data based on live preview state
-  const systemInfo = isStreamingSample ? SAMPLE_SYSTEM_INFO_ACTIVE : INITIAL_SYSTEM_INFO;
-
-  // Filtered processes
-  const filteredProcesses = useMemo(() => {
-    if (!showProcessSampleList) return [];
-    return SAMPLE_PROCESS_FIXTURES.filter((p) => {
-      if (processStatusFilter !== 'All' && p.status !== processStatusFilter) return false;
-      if (processUserFilter !== 'All' && !p.user.includes(processUserFilter)) return false;
-      if (processSearch.trim()) {
-        const q = processSearch.toLowerCase();
-        return p.name.toLowerCase().includes(q) || String(p.pid).includes(q) || p.user.toLowerCase().includes(q);
-      }
-      return true;
-    });
-  }, [showProcessSampleList, processStatusFilter, processUserFilter, processSearch]);
-
-  const renderServiceIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Heart': return <Heart className="w-4 h-4 text-rose-400" />;
-      case 'AlertTriangle': return <AlertTriangle className="w-4 h-4 text-amber-400" />;
-      case 'ListFilter': return <ListFilter className="w-4 h-4 text-cyan-400" />;
-      case 'ShieldCheck': return <ShieldCheck className="w-4 h-4 text-emerald-400" />;
-      case 'Clock': return <Clock className="w-4 h-4 text-purple-400" />;
-      case 'BarChart3': return <BarChart3 className="w-4 h-4 text-amber-400" />;
-      case 'Cog': return <Cog className="w-4 h-4 text-cyan-400" />;
-      case 'FileText': return <FileText className="w-4 h-4 text-blue-400" />;
-      case 'PieChart': return <PieChart className="w-4 h-4 text-teal-400" />;
-      case 'PlayCircle': return <PlayCircle className="w-4 h-4 text-emerald-400" />;
-      case 'Network': return <Network className="w-4 h-4 text-purple-400" />;
-      case 'Activity': return <Activity className="w-4 h-4 text-cyan-400" />;
-      default: return <Activity className="w-4 h-4 text-cyan-400" />;
-    }
-  };
-
+function InstrumentDial({ ratio, color, children }: { ratio: number | null; color: string; children: React.ReactNode }) {
+  const radius = 32;
+  const circumference = 2 * Math.PI * radius;
+  const dash = ratio == null ? 0 : (ratio / 100) * circumference;
   return (
-    <div
-      dir={isArabic ? 'rtl' : 'ltr'}
-      className="system-viewport bg-[#040a16] text-slate-100 flex flex-col h-screen select-none relative overflow-hidden"
-    >
-      {/* 1. Window Frame & Titlebar Chrome */}
-      <KNOuXTitleBar
-        sectionName={isArabic ? "نبض النظام" : "System"}
-        sectionSubtitle={isArabic ? "المؤشرات الحية" : "Live Pulse"}
-        onNavigateHome={() => (onNavigateSection ? onNavigateSection("home") : navigateTo("home"))}
-        searchPlaceholder={isArabic ? "البحث عن ميزات، عمليات، أو إعدادات... (Ctrl+K)" : "Search features, processes, or settings... (Ctrl+K)"}
-        isArabic={isArabic}
-        onToggleArabic={toggleLocale}
-      />
-
-      {/* Main Workspace Body */}
-      <div className="flex-1 flex overflow-hidden relative">
-
-        {/* 2. Left Global Navigation Sidebar */}
-        <KNOuXSidebar
-          activeSection="system"
-          onNavigate={(sec) => (onNavigateSection ? onNavigateSection(sec) : navigateTo(sec))}
-          isArabic={isArabic}
+    <div className="sys-instrument-dial">
+      <svg viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r={radius} stroke="currentColor" strokeWidth="6" fill="none" className="sys-instrument-track" />
+        <circle
+          cx="40"
+          cy="40"
+          r={radius}
+          stroke={color}
+          strokeWidth="6"
+          strokeLinecap="round"
+          fill="none"
+          strokeDasharray={`${dash} ${circumference}`}
+          transform="rotate(-90 40 40)"
         />
-
-        {/* 3. Main Center Canvas */}
-        <div className="flex-1 flex flex-col min-w-0 min-h-0">
-        <main className="flex-1 flex flex-col min-h-0 overflow-y-auto system-custom-scrollbar p-4 gap-2.5">
-          
-          {/* Toast Notification */}
-          {notificationMsg && (
-            <div className="fixed top-12 right-6 z-40 bg-gradient-to-r from-purple-900 via-indigo-900 to-cyan-900 border border-cyan-500/50 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 animate-fadeIn">
-              <CheckCircle2 className="w-4 h-4 text-cyan-300" />
-              <span>{notificationMsg}</span>
-            </div>
-          )}
-
-          {/* Hero Header Section */}
-          <div className="system-hero relative flex flex-col md:flex-row md:items-center justify-between gap-3 pt-0.5 pb-1">
-            
-            {/* Cybernetic Waveform Background Graphic in Hero */}
-            <svg className="system-observatory-wave" viewBox="0 0 580 110" fill="none">
-              <path
-                d="M10 60 C80 15, 140 105, 220 50 C300 -5, 360 95, 440 45 C500 10, 550 70, 580 50"
-                stroke="url(#hero-wave-grad)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-              <path
-                d="M10 50 C70 85, 150 15, 230 75 C310 135, 380 25, 460 70 C520 105, 560 30, 580 55"
-                stroke="url(#hero-wave-grad-2)"
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-                opacity="0.6"
-              />
-              <defs>
-                <linearGradient id="hero-wave-grad" x1="0" y1="0" x2="580" y2="0" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#a855f7" />
-                  <stop offset="0.5" stopColor="#06b6d4" />
-                  <stop offset="1" stopColor="#3b82f6" />
-                </linearGradient>
-                <linearGradient id="hero-wave-grad-2" x1="0" y1="0" x2="580" y2="0" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#3b82f6" />
-                  <stop offset="0.5" stopColor="#a855f7" />
-                  <stop offset="1" stopColor="#06b6d4" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            {/* Left: Titles */}
-            <div className="relative z-10">
-              <div className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase font-semibold">
-                SYSTEM OBSERVATORY
-              </div>
-              <h1 className="text-2xl font-black text-white tracking-tight mt-0.5 flex items-baseline gap-2">
-                <span>Live</span>
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Pulse
-                </span>
-              </h1>
-              <p className="text-[11px] text-slate-300 mt-0.5 max-w-xl">
-                {isArabic
-                  ? 'بيئة ويندوز الخاصة بك، مرصودة ومراقبة بذكاء فائق ودقة متناهية.'
-                  : 'Your Windows environment, intelligently observed.'}
-              </p>
-            </div>
-
-            {/* Right: Telemetry Source Status Card */}
-            <div
-              onClick={() => {
-                setIsStreamingSample(!isStreamingSample);
-                showToast(
-                  !isStreamingSample
-                    ? 'Sample telemetry connected: Windows Performance Counters streaming'
-                    : 'Awaiting live sample state restored (honest empty baseline)'
-                );
-              }}
-              className="relative z-10 px-4 py-2.5 rounded-xl bg-[#061226]/90 border border-cyan-500/30 hover:border-cyan-400 cursor-pointer transition shadow-lg flex items-center gap-3.5 group"
-              title="Click to toggle sample data stream vs honest awaiting state"
-            >
-              <div className="relative w-8 h-8 rounded-full border border-cyan-500/40 flex items-center justify-center shrink-0">
-                <div className="radar-sweep-reticle absolute inset-0 rounded-full border-t border-cyan-400" />
-                <div className={`w-2 h-2 rounded-full ${isStreamingSample ? 'bg-emerald-400 animate-pulse' : 'bg-cyan-400'}`} />
-              </div>
-
-              <div>
-                <div className="text-[9px] font-mono text-slate-400 uppercase tracking-wider">
-                  Telemetry Source
-                </div>
-                <div className="text-xs font-semibold text-white flex items-center gap-1.5 mt-0.5">
-                  <span className={`w-1.5 h-1.5 rounded-full ${isStreamingSample ? 'bg-emerald-400' : 'bg-emerald-500'}`} />
-                  <span>Windows Performance Counters</span>
-                </div>
-                <div className="text-[10px] text-cyan-300 font-mono">
-                  {isStreamingSample ? 'Status: Active Streaming' : 'Status: Awaiting data...'}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. Upper Main Area: Four Large Dashboard Instruments */}
-          <div className="system-instrument-grid grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {instrumentMetrics.map((inst) => (
-              <div
-                key={inst.id}
-                onClick={() => setActiveWorkspaceKey(`system-perf`)}
-                className="system-instrument-card p-3 rounded-2xl bg-[#071329] border border-slate-800/90 hover:border-cyan-500/40 cursor-pointer transition shadow-md flex flex-col justify-between group"
-              >
-                {/* Header */}
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#0c1f3f] border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
-                    {inst.id === 'cpu' && <Cpu className="w-4 h-4" />}
-                    {inst.id === 'memory' && <Layers className="w-4 h-4 text-purple-400" />}
-                    {inst.id === 'disk' && <HardDrive className="w-4 h-4 text-emerald-400" />}
-                    {inst.id === 'network' && <Wifi className="w-4 h-4 text-cyan-400" />}
-                  </div>
-                  <div>
-                    <div className="font-bold text-xs text-white group-hover:text-cyan-300 transition">{inst.title}</div>
-                    <div className="text-[10px] text-slate-400">{inst.subtitle}</div>
-                  </div>
-                </div>
-
-                {/* Circular Gauge + Sparkline + Inline Footer Stats (REF-07 proportions) */}
-                <div className="flex items-center gap-3">
-                  {/* Circular Radial Gauge */}
-                  <div className="system-gauge relative w-[74px] h-[74px] flex items-center justify-center shrink-0">
-                    <svg className="system-gauge-svg w-[74px] h-[74px]" viewBox="0 0 80 80">
-                      <circle cx="40" cy="40" r="32" stroke="#0e2347" strokeWidth="6" fill="none" />
-                      <circle
-                        cx="40"
-                        cy="40"
-                        r="32"
-                        stroke={inst.sparklineColor}
-                        strokeWidth="6"
-                        strokeLinecap="round"
-                        fill="none"
-                        strokeDasharray="201"
-                        strokeDashoffset={isStreamingSample ? '135' : '190'}
-                        className="gauge-svg-circle"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                      <span className="font-mono font-black text-sm text-white">{inst.gaugeValue}</span>
-                      <span className="text-[8px] text-slate-400 font-sans leading-tight">
-                        {isStreamingSample ? 'Active' : 'Awaiting\nsample'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Mini Sparkline Waveform + Footer Measurement Stats */}
-                  <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-                    <div className="h-10 flex items-end">
-                      <svg className="w-full h-10" viewBox="0 0 100 40" preserveAspectRatio="none">
-                        <path
-                          d={`M 0 35 ${inst.sparklinePoints.map((p, idx) => `L ${(idx / (inst.sparklinePoints.length - 1)) * 100} ${40 - (p / 80) * 35}`).join(' ')}`}
-                          stroke={inst.sparklineColor}
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          fill="none"
-                        />
-                      </svg>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-1 text-[10px] font-mono">
-                      {inst.footerStats.map((st, i) => (
-                        <div key={i} className="text-center">
-                          <div className="text-slate-500 text-[9px]">{st.label}</div>
-                          <div className="text-slate-300 font-semibold">{st.value}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-{/* 5. Reference Grid (REF-07): Timeline (6) | System Information (3) | Live Service Preview (3, rows 1-2) | Ledger + 12 Diagnostics (9, row 2) */}
-          <div className="system-workspace-grid grid grid-cols-1 xl:grid-cols-12 xl:grid-rows-[auto_1fr] gap-3 flex-1 min-h-0">
-
-            {/* 5.1 Performance Timeline — cols 1-6, row 1 */}
-            <section className="system-timeline-panel xl:col-span-6 xl:self-stretch p-4 rounded-2xl bg-[#071329] border border-slate-800 shadow-md flex flex-col min-h-0">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                <div className="flex items-center gap-2">
-                  <BarChart2 className="w-4 h-4 text-cyan-400" />
-                  <div>
-                    <h3 className="font-bold text-xs text-white">Performance Timeline</h3>
-                    <div className="text-[10px] text-slate-400">Live system resource usage over time.</div>
-                  </div>
-                </div>
-
-                {/* Tabs & Interval */}
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center bg-[#050e1f] p-0.5 rounded-lg border border-slate-800 text-[10px] font-mono">
-                    {(['CPU', 'Memory', 'Disk', 'Network'] as const).map((tab) => (
-                      <button
-                        key={tab}
-                        type="button"
-                        onClick={() => setTimelineTab(tab)}
-                        className={`px-2 py-0.5 rounded transition ${
-                          timelineTab === tab
-                            ? 'bg-purple-600 text-white font-bold'
-                            : 'text-slate-400 hover:text-slate-200'
-                        }`}
-                      >
-                        {tab}
-                      </button>
-                    ))}
-                  </div>
-
-                  <select
-                    value={timelineInterval}
-                    onChange={(e) => setTimelineInterval(e.target.value)}
-                    aria-label="Timeline sampling interval"
-                    className="bg-[#050e1f] border border-slate-800 rounded px-1.5 py-0.5 text-[10px] font-mono text-slate-300"
-                  >
-                    <option value="30 seconds">30 seconds</option>
-                    <option value="60 seconds">60 seconds</option>
-                    <option value="5 minutes">5 minutes</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Timeline Chart Grid Canvas */}
-              <div className="system-timeline-canvas flex-1 min-h-[136px] w-full bg-[#050e1f] rounded-xl border border-slate-800/80 p-3 relative flex flex-col justify-between overflow-hidden">
-                {/* Calibrated Y-axis lines */}
-                {[100, 75, 50, 25, 0].map((val) => (
-                  <div key={val} className="w-full flex items-center text-[9px] font-mono text-slate-600">
-                    <span className="w-6 shrink-0">{val}%</span>
-                    <div className="flex-1 border-b border-dashed border-slate-800 ms-1" />
-                  </div>
-                ))}
-
-                {/* Center Awaiting State or Live Curve */}
-                {isStreamingSample ? (
-                  <div className="absolute inset-0 pt-4 px-10 pb-6 flex items-center">
-                    <svg className="w-full h-full" viewBox="0 0 300 100" preserveAspectRatio="none">
-                      <path
-                        d="M0 80 Q50 30, 100 65 T200 40 T300 60"
-                        stroke="#a855f7"
-                        strokeWidth="2"
-                        fill="none"
-                      />
-                    </svg>
-                  </div>
-                ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                    <BarChart3 className="w-6 h-6 text-slate-600 mb-1" />
-                    <div className="text-xs font-semibold text-slate-300">Awaiting performance data...</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">
-                      System data will appear here once collection begins.
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsStreamingSample(true);
-                        showToast('Sample performance stream active');
-                      }}
-                      className="mt-2 px-2.5 py-1 rounded bg-[#091833] hover:bg-slate-800 text-[10px] font-mono text-cyan-300 border border-slate-700"
-                    >
-                      Initiate Sample Collection
-                    </button>
-                  </div>
-                )}
-
-                {/* X-axis Timestamps */}
-                <div className="w-full flex items-center justify-between text-[9px] font-mono text-slate-600 pt-1 border-t border-slate-800">
-                  <span>15:27</span>
-                  <span>15:28</span>
-                  <span>15:29</span>
-                  <span>15:30</span>
-                  <span>15:31</span>
-                  <span>15:32</span>
-                </div>
-              </div>
-            </section>
-
-            {/* 5.2 System Information — cols 7-9, row 1 */}
-            <section className="system-info-panel xl:col-span-3 p-3 rounded-2xl bg-[#071329] border border-slate-800 shadow-md flex flex-col min-h-0">
-              <div className="flex items-center gap-2 mb-2">
-                <Monitor className="w-4 h-4 text-cyan-400" />
-                <div>
-                  <h3 className="font-bold text-xs text-white">System Information</h3>
-                  <div className="text-[10px] text-slate-400">Key details about your Windows environment.</div>
-                </div>
-              </div>
-
-              {/* Key-Value List */}
-              <div className="space-y-0 text-[11px] font-mono">
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <Monitor className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Windows Version</span>
-                  </span>
-                  <span className="font-semibold text-slate-100 text-end truncate">{systemInfo.windowsVersion}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <ChevronDown className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Version / Build</span>
-                  </span>
-                  <span className="text-cyan-300 text-end truncate">{systemInfo.versionBuild}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <HardDrive className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">System Manufacturer</span>
-                  </span>
-                  <span className="text-slate-300 text-end truncate">{systemInfo.systemManufacturer}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <Cpu className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">System Model</span>
-                  </span>
-                  <span className="text-slate-300 text-end truncate">{systemInfo.systemModel}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <Zap className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Processor</span>
-                  </span>
-                  <span className="text-slate-300 text-end truncate" title={systemInfo.processor}>
-                    {systemInfo.processor}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <Layers className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Installed RAM</span>
-                  </span>
-                  <span className="text-slate-100 text-end truncate">{systemInfo.installedRam}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <Clock className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Uptime</span>
-                  </span>
-                  <span className="text-emerald-400 font-bold text-end truncate">{systemInfo.uptime}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-[1px] border-b border-slate-800/60">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <ListFilter className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Process Count</span>
-                  </span>
-                  <span className="text-slate-200 text-end truncate">{systemInfo.processCount}</span>
-                </div>
-                <div className="flex items-center justify-between gap-2 py-0.5">
-                  <span className="flex items-center gap-1.5 text-slate-400 font-sans min-w-0">
-                    <Activity className="w-3 h-3 text-slate-600 shrink-0" />
-                    <span className="truncate">Last Read</span>
-                  </span>
-                  <span className="text-slate-400 text-[10px] text-end truncate">{systemInfo.lastRead}</span>
-                </div>
-              </div>
-            </section>
-
-            {/* 5.3 Live Service Preview Inspector — cols 10-12, rows 1-2 (full-height rail) */}
-            <section className="system-live-panel xl:col-span-3 xl:row-span-2 xl:self-stretch p-4 rounded-2xl bg-[#071329] border border-cyan-500/25 shadow-md flex flex-col gap-2 min-h-0 overflow-hidden">
-              <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-purple-400" />
-                <div>
-                  <h3 className="font-bold text-xs text-white">Live Service Preview</h3>
-                  <div className="text-[10px] text-slate-400">Inspect a Windows service in real time.</div>
-                </div>
-              </div>
-
-              {/* Form Selectors */}
-              <div className="space-y-1.5 text-xs">
-                <div>
-                  <label className="text-[10px] text-slate-400 block mb-0.5" htmlFor="sys-svc-select">Service</label>
-                  <select
-                    id="sys-svc-select"
-                    value={selectedService}
-                    onChange={(e) => setSelectedService(e.target.value)}
-                    className="w-full bg-[#050e1f] border border-slate-700/80 rounded-lg p-1 text-[11px] text-slate-200"
-                  >
-                    <option value="Windows Update (wuauserv)">Windows Update (wuauserv)</option>
-                    <option value="DCOM Server (DcomLaunch)">DCOM Server (DcomLaunch)</option>
-                    <option value="Windows Defender (WinDefend)">Windows Defender (WinDefend)</option>
-                    <option value="Background Transfer (BITS)">Background Transfer (BITS)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-[10px] text-slate-400 block mb-0.5" htmlFor="sys-src-select">Data Source</label>
-                  <select
-                    id="sys-src-select"
-                    value={selectedDataSource}
-                    onChange={(e) => setSelectedDataSource(e.target.value)}
-                    className="w-full bg-[#050e1f] border border-slate-700/80 rounded-lg p-1 text-[11px] text-slate-200"
-                  >
-                    <option value="Windows Service Controller">Windows Service Controller</option>
-                    <option value="ETW Kernel Trace Provider">ETW Kernel Trace Provider</option>
-                  </select>
-                </div>
-
-                <div className="flex items-center justify-between gap-2 text-[11px]">
-                  <span className="text-slate-400">Permissions:</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-950/80 text-emerald-300 border border-emerald-800 flex items-center gap-1 font-mono shrink-0">
-                    <Shield className="w-3 h-3" /> Standard User (Limited)
-                  </span>
-                </div>
-
-                <div>
-                  <label className="text-[10px] text-slate-400 block mb-0.5" htmlFor="sys-int-select">Sampling Interval</label>
-                  <select
-                    id="sys-int-select"
-                    value={samplingInterval}
-                    onChange={(e) => setSamplingInterval(e.target.value)}
-                    className="w-full bg-[#050e1f] border border-slate-700/80 rounded-lg p-1 text-[11px] text-slate-200"
-                  >
-                    <option value="5 seconds">5 seconds</option>
-                    <option value="10 seconds">10 seconds</option>
-                    <option value="30 seconds">30 seconds</option>
-                  </select>
-                </div>
-
-                {/* Visible Metrics Checkboxes */}
-                <div className="pt-1.5 border-t border-slate-800 space-y-0.5">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase font-semibold block">Visible Metrics</span>
-                  {[
-                    { key: 'serviceStatus', label: 'Service Status' },
-                    { key: 'cpuUsage', label: 'CPU Usage' },
-                    { key: 'memoryUsage', label: 'Memory Usage' },
-                    { key: 'diskActivity', label: 'Disk Activity' },
-                    { key: 'networkActivity', label: 'Network Activity' }
-                  ].map((m) => (
-                    <label key={m.key} className="flex items-center gap-2 text-[11px] text-slate-300 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={visibleMetrics[m.key]}
-                        onChange={() => handleToggleMetric(m.key)}
-                        className="w-3.5 h-3.5 rounded accent-purple-500"
-                      />
-                      <span>{m.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Preview Container: Awaiting Telemetry State / Honest Sample Fixture */}
-              <div className="p-2.5 rounded-xl bg-[#050e1f] border border-slate-800/80 text-center flex-1 flex flex-col justify-center min-h-0">
-                {isServiceCollecting ? (
-                  <>
-                    <div className="flex items-center justify-center gap-1.5 mb-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300">Sample fixture active</span>
-                    </div>
-                    <div className="text-[11px] font-semibold text-slate-200">{selectedService}</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">
-                      {samplingInterval} sampling · {selectedDataSource}
-                    </div>
-                    <div className="mt-1.5 flex flex-wrap justify-center gap-1">
-                      {[
-                        { key: 'serviceStatus', label: 'Status' },
-                        { key: 'cpuUsage', label: 'CPU' },
-                        { key: 'memoryUsage', label: 'Memory' },
-                        { key: 'diskActivity', label: 'Disk' },
-                        { key: 'networkActivity', label: 'Network' }
-                      ].filter((m) => visibleMetrics[m.key]).map((m) => (
-                        <span key={m.key} className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-[#091833] border border-slate-800 text-slate-400">
-                          {m.label}: --
-                        </span>
-                      ))}
-                    </div>
-                    <div className="text-[9px] text-slate-600 mt-1.5">
-                      Design fixture — no native Windows counters are connected in this phase.
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <BarChart3 className="w-4 h-4 text-slate-600 mx-auto mb-0.5" />
-                    <div className="text-[11px] font-semibold text-slate-300">Awaiting Windows telemetry...</div>
-                    <div className="text-[10px] text-slate-500 mt-0.5">
-                      Select a service and start data collection to view live metrics here.
-                    </div>
-                  </>
-                )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsServiceCollecting(!isServiceCollecting);
-                    showToast(
-                      !isServiceCollecting
-                        ? `Live metric observation begun for ${selectedService}`
-                        : `Service data collection paused`
-                    );
-                  }}
-                  className={`mt-2 w-full py-1 rounded text-xs font-semibold transition ${
-                    isServiceCollecting
-                      ? 'bg-rose-600/80 hover:bg-rose-600 text-white'
-                      : 'bg-purple-600 hover:bg-purple-500 text-white'
-                  }`}
-                >
-                  {isServiceCollecting ? 'Stop Collection' : 'Start Collection (Safe Preview)'}
-                </button>
-              </div>
-            </section>
-
-            {/* 5.4 Lower region — cols 1-9, row 2 */}
-            <div className="xl:col-span-9 min-w-0 min-h-0 flex flex-col gap-3">
-
-              {/* Process Ledger */}
-              <section className="system-ledger-panel p-3.5 rounded-2xl bg-[#071329] border border-slate-800 shadow-md flex flex-col flex-1 min-h-[118px] overflow-hidden">
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <div className="flex items-center gap-2">
-                    <ListFilter className="w-4 h-4 text-cyan-400" />
-                    <div>
-                      <h3 className="font-bold text-xs text-white">Process Ledger</h3>
-                      <div className="text-[10px] text-slate-400">Live list of running processes and resource usage.</div>
-                    </div>
-                  </div>
-
-                  {/* Filters toolbar (inline with header, REF-07) */}
-                  <div className="flex items-center gap-2 text-xs">
-                    <input
-                      type="text"
-                      placeholder="Search processes..."
-                      aria-label="Search processes"
-                      value={processSearch}
-                      onChange={(e) => setProcessSearch(e.target.value)}
-                      className="w-[132px] bg-[#050e1f] border border-slate-800 rounded px-2 py-1 text-[11px] text-slate-200 placeholder-slate-500"
-                    />
-                    <select
-                      value={processStatusFilter}
-                      aria-label="Filter processes by status"
-                      onChange={(e) => setProcessStatusFilter(e.target.value)}
-                      className="bg-[#050e1f] border border-slate-800 rounded px-1.5 py-1 text-[10px] font-mono text-slate-300"
-                    >
-                      <option value="All">Status: All</option>
-                      <option value="Running">Running</option>
-                      <option value="Suspended">Suspended</option>
-                    </select>
-                    <select
-                      value={processUserFilter}
-                      aria-label="Filter processes by user"
-                      onChange={(e) => setProcessUserFilter(e.target.value)}
-                      className="bg-[#050e1f] border border-slate-800 rounded px-1.5 py-1 text-[10px] font-mono text-slate-300"
-                    >
-                      <option value="All">User: All</option>
-                      <option value="SYSTEM">SYSTEM</option>
-                      <option value="User">User</option>
-                    </select>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowProcessSampleList(!showProcessSampleList);
-                        showToast(!showProcessSampleList ? 'Process sample ledger loaded' : 'Process ledger cleared to honest awaiting state');
-                      }}
-                      className="p-1.5 rounded hover:bg-slate-800 text-slate-400 hover:text-cyan-300 transition shrink-0"
-                      title="Refresh process list"
-                      aria-label="Refresh process list"
-                    >
-                      <RefreshCw className={`w-3.5 h-3.5 ${showProcessSampleList ? 'text-cyan-400' : ''}`} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Table Ledger or Awaiting State (bounded internal scroller) */}
-                <div className="border border-slate-800/80 rounded-xl overflow-hidden bg-[#050e1f] flex-1 min-h-[44px] max-h-[260px] overflow-y-auto knx-custom-scrollbar">
-                  <table className="w-full text-left text-xs">
-                    <thead className="bg-[#071329] text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800 sticky top-0 z-10">
-                      <tr>
-                        <th className="p-2.5">Process Name</th>
-                        <th className="p-2.5">PID</th>
-                        <th className="p-2.5">CPU</th>
-                        <th className="p-2.5">Memory</th>
-                        <th className="p-2.5">User</th>
-                        <th className="p-2.5 text-right">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {showProcessSampleList ? (
-                        filteredProcesses.map((p) => (
-                          <tr key={p.pid} className="border-b border-slate-800/40 hover:bg-[#0c1f40] transition text-[11px] font-mono">
-                            <td className="p-2.5 font-sans font-medium text-slate-200">{p.name}</td>
-                            <td className="p-2.5 text-cyan-300">{p.pid}</td>
-                            <td className="p-2.5 text-slate-300">{p.cpu}</td>
-                            <td className="p-2.5 text-slate-300">{p.memory}</td>
-                            <td className="p-2.5 text-slate-400 text-[10px]">{p.user}</td>
-                            <td className="p-2.5 text-right">
-                              <span className="px-1.5 py-0.2 rounded text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-800">
-                                {p.status}
-                              </span>
-                            </td>
-                          </tr>
-                        ))
-                      ) : (
-                        <tr>
-                          <td colSpan={6} className="p-2.5 text-center">
-                            <div className="flex flex-wrap items-center justify-center gap-2">
-                              <Cog className="w-4 h-4 text-slate-600 animate-spin-slow shrink-0" />
-                              <span className="text-[11px] font-semibold text-slate-300">Awaiting process data...</span>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setShowProcessSampleList(true);
-                                  showToast('Sample process inventory loaded');
-                                }}
-                                className="px-2.5 py-1 rounded bg-[#091833] hover:bg-slate-800 text-[10px] text-cyan-300 border border-slate-700"
-                              >
-                                Inspect Process Sample (Safe)
-                              </button>
-                            </div>
-                            <div className="text-[10px] text-slate-500 mt-1">
-                              Process information will appear here once collection begins.
-                            </div>
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              {/* System Services & Diagnostics (12 Domain Tools) */}
-              <section className="system-diagnostics-panel p-3.5 rounded-2xl bg-[#071329] border border-slate-800 shadow-md flex flex-col shrink-0">
-                <div className="flex items-center justify-between gap-2 mb-1.5">
-                  <div className="flex items-center gap-2">
-                    <LayoutGrid className="w-4 h-4 text-cyan-400" />
-                    <div>
-                      <h3 className="font-bold text-xs text-white">System Services &amp; Diagnostics</h3>
-                      <div className="text-[10px] text-slate-400">Explore system health, events, services, and more.</div>
-                    </div>
-                  </div>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-800 shrink-0">
-                    12 tools available
-                  </span>
-                </div>
-
-                {/* 12 Service Cards (4 cols x 3 rows) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1.5">
-                  {INITIAL_SERVICES_CATALOG.map((svc) => (
-                    <button
-                      key={svc.id}
-                      type="button"
-                      onClick={() => setActiveWorkspaceKey(svc.serviceKey)}
-                      className="flex items-center gap-2 text-start py-1 px-1.5 rounded-xl bg-[#050e1f] border border-slate-800/90 hover:border-cyan-500/50 hover:bg-[#091833] cursor-pointer transition group"
-                    >
-                      <div className="w-6 h-6 rounded-lg bg-[#071329] border border-slate-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
-                        {renderServiceIcon(svc.iconName)}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="font-semibold text-[11px] leading-tight text-slate-200 group-hover:text-cyan-300 transition truncate">
-                          {svc.name}
-                        </div>
-                        <div className="system-tool-sub text-[10px] leading-tight text-slate-400 truncate">
-                          {svc.subtitle}
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </section>
-            </div>
-
-          </div>
-        </main>
-
-          {/* 7. Bottom Command Rail (REF-07 — pinned at the bottom of the content column, never outside the viewport) */}
-          <div className="flex items-center justify-end gap-2 shrink-0 px-4 pb-3 pt-1 bg-gradient-to-t from-[#030710] via-[#030710]/80 to-transparent">
-            <button
-              onClick={() => {
-                setIsStreamingSample(true);
-                setShowProcessSampleList(true);
-                showToast('Refreshed all Windows performance and process telemetry.');
-              }}
-              className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-purple-950/60 transition"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Refresh Data</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setShowProcessSampleList(true);
-                setActiveWorkspaceKey('system-processes');
-              }}
-              className="px-3.5 py-1.5 rounded-xl bg-[#091833] hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition"
-            >
-              <Search className="w-3.5 h-3.5 text-slate-400" />
-              <span>Inspect Processes</span>
-            </button>
-
-            <button
-              onClick={() => setActiveWorkspaceKey('system-events')}
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#091833] hover:bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>View Events</span>
-            </button>
-
-            <button
-              onClick={() => {
-                showToast('Exported system live telemetry diagnostics package: KNOuX_Pulse_20261024.json');
-              }}
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#091833] hover:bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition"
-            >
-              <Upload className="w-3.5 h-3.5" />
-              <span>Export Diagnostics</span>
-            </button>
-
-            <button
-              onClick={() => setActiveWorkspaceKey('system-perf')}
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#091833] hover:bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition"
-            >
-              <Settings className="w-3.5 h-3.5" />
-              <span>Settings</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 8. Service Workspace Overlay (12 diagnostics tools + KPI instruments) */}
-      {activeWorkspaceKey && (
-        <SystemWorkspaces
-          serviceKey={activeWorkspaceKey}
-          onClose={() => setActiveWorkspaceKey(null)}
-          isArabic={isArabic}
-        />
-      )}
-
+      </svg>
+      <div className="sys-instrument-dial-center">{children}</div>
     </div>
   );
 }
+
+interface InstrumentProps {
+  id: string;
+  locale: SystemLocale;
+  icon: LucideIcon;
+  color: string;
+  title: string;
+  sub: string;
+  value: string;
+  ratio: number | null;
+  state: string;
+  values: Array<number | null>;
+  stats: Array<{ label: string; value: string }>;
+  sampleCount: number;
+  onOpen: () => void;
+}
+
+const INSTRUMENT_COLORS: Record<string, string> = {
+  cpu: '#22d3ee',
+  memory: '#a78bfa',
+  disk: '#fbbf24',
+  network: '#34d399',
+};
+
+function InstrumentCard({ id, locale, icon: Icon, color, title, sub, value, ratio, state, values, stats, sampleCount, onOpen }: InstrumentProps) {
+  return (
+    <button
+      type="button"
+      className="sys-instrument"
+      data-testid={`system-kpi-${id}`}
+      onClick={onOpen}
+      style={{ '--sys-instrument-accent': color } as React.CSSProperties}
+    >
+      <span className="sys-instrument-head">
+        <span className="sys-instrument-icon" aria-hidden="true">
+          <Icon />
+        </span>
+        <span className="sys-instrument-copy">
+          <strong>{title}</strong>
+          <em>{sub}</em>
+        </span>
+        <span className={cx('sys-instrument-state', state === 'measured' ? 'is-measured' : 'is-idle')}>{state}</span>
+      </span>
+      <span className="sys-instrument-body">
+        <InstrumentDial ratio={ratio} color={color}>
+          <strong data-testid={`system-kpi-${id}-value`}>{value}</strong>
+          <em>{sampleCount > 1 ? `${formatCount(sampleCount)} ${t(locale, 'samples', 'عينات')}` : t(locale, 'Awaiting sample', 'بانتظار عينة')}</em>
+        </InstrumentDial>
+        <span className="sys-instrument-spark">
+          <Sparkline values={values} color={color} height={40} label={title} />
+        </span>
+      </span>
+      <span className="sys-instrument-stats">
+        {stats.map((stat) => (
+          <span key={stat.label}>
+            <em>{stat.label}</em>
+            <strong>{stat.value}</strong>
+          </span>
+        ))}
+      </span>
+    </button>
+  );
+}
+
+function processSearchMatches(entry: { name: string; pid: number; owner: string | null; company: string | null }, query: string) {
+  const needle = query.trim().toLowerCase();
+  if (!needle) return true;
+  return [entry.name, String(entry.pid), entry.owner, entry.company]
+    .filter(Boolean)
+    .some((value) => String(value).toLowerCase().includes(needle));
+}
+
+export function SystemPage({ onNavigateSection }: SystemPageProps) {
+  const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const [localLocale, setLocalLocale] = useState<SystemLocale | null>(null);
+  const locale: SystemLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
+  const controller = useSystem();
+  const snapshot = controller.snapshot;
+
+  const [activeService, setActiveService] = useState<string | null>(null);
+  const [world, setWorld] = useState<SystemWorld>('system');
+  const [serviceQuery, setServiceQuery] = useState('');
+  const [processQuery, setProcessQuery] = useState('');
+  const [timelineMetric, setTimelineMetric] = useState<TimelineMetric>('cpuPercent');
+  const triggerRef = useRef<HTMLElement | null>(null);
+
+  const series = controller.series;
+  const metrics = snapshot?.metrics ?? null;
+  const sampleCount = series.length;
+
+  const capabilitiesById = useMemo(() => {
+    const map = new Map<string, NonNullable<typeof controller.capabilities>['services'][number]>();
+    for (const service of controller.capabilities?.services || []) map.set(service.id, service);
+    return map;
+  }, [controller.capabilities]);
+
+  const cpuSeries = useMemo(() => metricValues(series, 'cpuPercent'), [series]);
+  const memorySeries = useMemo(() => metricValues(series, 'memoryPercent'), [series]);
+  const diskSeries = useMemo(() => combinedSeries(series, 'diskReadBytesPerSec', 'diskWriteBytesPerSec'), [series]);
+  const networkSeries = useMemo(() => combinedSeries(series, 'networkInBytesPerSec', 'networkOutBytesPerSec'), [series]);
+
+  const diskNow = metrics ? (metrics.diskReadBytesPerSec ?? 0) + (metrics.diskWriteBytesPerSec ?? 0) : null;
+  const networkNow = metrics ? (metrics.networkInBytesPerSec ?? 0) + (metrics.networkOutBytesPerSec ?? 0) : null;
+  const diskPeak = maxOf(diskSeries);
+  const networkPeak = maxOf(networkSeries);
+
+  const processMatches = useMemo(() => {
+    if (!snapshot) return [];
+    return snapshot.processes.filter((entry) => processSearchMatches(entry, processQuery));
+  }, [snapshot, processQuery]);
+
+  const topProcesses = useMemo(
+    () => [...processMatches].sort((left, right) => (right.cpuPercent ?? -1) - (left.cpuPercent ?? -1)).slice(0, 8),
+    [processMatches],
+  );
+
+  const visibleServices = useMemo(() => {
+    const needle = serviceQuery.trim().toLowerCase();
+    if (!needle) return WORLD_SERVICES[world];
+    return SERVICE_CATALOG.filter((entry) =>
+      [entry.id, entry.en, entry.ar, entry.shortEn, entry.shortAr, entry.blurbEn, entry.blurbAr]
+        .join(' ')
+        .toLowerCase()
+        .includes(needle),
+    );
+  }, [serviceQuery, world]);
+
+  useEffect(() => {
+    if (activeService && !snapshot) setActiveService(null);
+  }, [activeService, snapshot]);
+
+  const openService = useCallback(
+    (id: string) => {
+      if (!isSystemServiceId(id) || !hasSystemWorkbench(id)) {
+        controller.showNotice(t(locale, 'That service is not registered in the measured contract.', 'هذه الخدمة غير مسجلة في العقد المقيس.'));
+        return;
+      }
+      if (!controller.snapshot) {
+        controller.showNotice(
+          t(
+            locale,
+            'Run the measured observatory scan before opening a service workspace.',
+            'شغّل مسح المرصد المقيس قبل فتح مساحة عمل الخدمة.',
+          ),
+        );
+        return;
+      }
+      triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setActiveService(id);
+    },
+    [controller, locale],
+  );
+
+  const closeService = useCallback(() => {
+    setActiveService(null);
+    window.setTimeout(() => triggerRef.current?.focus(), 30);
+  }, []);
+
+  const timelineSeries = useMemo(() => {
+    if (timelineMetric === 'cpuPercent') return cpuSeries;
+    if (timelineMetric === 'memoryPercent') return memorySeries;
+    if (timelineMetric === 'disk') return diskSeries;
+    return networkSeries;
+  }, [cpuSeries, diskSeries, memorySeries, networkSeries, timelineMetric]);
+
+  const timelineLatest = latestOf(timelineSeries);
+  const timelinePeak = maxOf(timelineSeries);
+  const timelineAverage = averageOf(timelineSeries);
+  const timelineFormatter = timelineMetric === 'cpuPercent' || timelineMetric === 'memoryPercent'
+    ? (value: number | null) => formatPercent(value, 1)
+    : (value: number | null) => formatRate(value);
+
+  const navigate = (section: string) => {
+    if (onNavigateSection) onNavigateSection(section);
+    else navigateTo(section);
+  };
+
+  const summary = snapshot
+    ? `${formatCount(snapshot.processes.length)} ${t(locale, 'processes', 'عملية')} · ${formatCount(snapshot.services.length)} ${t(locale, 'services', 'خدمة')} · ${formatCount(snapshot.events.length)} ${t(locale, 'events', 'حدث')} · ${formatCount(snapshot.interfaces.length)} ${t(locale, 'interfaces', 'واجهة')}`
+    : t(locale, 'No measured snapshot yet.', 'لا توجد لقطة مقيسة بعد.');
+
+  const scanStatus = controller.scanning
+    ? t(locale, 'Scanning measured providers', 'جارٍ مسح المزودات المقيسة')
+    : snapshot
+      ? t(locale, 'Measured snapshot ready', 'اللقطة المقيسة جاهزة')
+      : controller.nativeAvailable
+        ? t(locale, 'Awaiting measured scan', 'بانتظار المسح المقيس')
+        : t(locale, 'Native measurement required', 'القياس الأصلي مطلوب');
+
+  const renderServiceCard = (entry: (typeof SERVICE_CATALOG)[number]) => {
+    const capability = capabilitiesById.get(entry.id);
+    const state = capability?.state || entry.state;
+    const live = Boolean(snapshot);
+    const Icon = entry.icon;
+    return (
+      <button
+        key={entry.id}
+        type="button"
+        className="sys-service-card"
+        data-testid={`system-service-${entry.id}`}
+        onClick={() => openService(entry.id)}
+        title={`${entry.id} · ${live ? capability?.provider || entry.blurbEn : t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}`}
+      >
+        <span className="sys-service-index">{String(entry.index).padStart(2, '0')}</span>
+        <span className="sys-service-icon" style={{ color: entry.accent }} aria-hidden="true">
+          <Icon />
+        </span>
+        <span className="sys-service-copy">
+          <strong>{shortServiceLabel(entry.id, locale)}</strong>
+          <em>{live ? capability?.provider || serviceLabel(entry.id, locale) : t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}</em>
+        </span>
+        <span className={cx('sys-service-state', `is-${live ? serviceStateTone(state) : 'muted'}`)}>
+          {!live
+            ? t(locale, 'Native', 'أصلي')
+            : state === 'available'
+              ? t(locale, 'Measured', 'مقيس')
+              : state === 'partial'
+                ? t(locale, 'Partial', 'جزئي')
+                : t(locale, 'Gated', 'محمي')}
+        </span>
+      </button>
+    );
+  };
+
+  const renderCoverage = () => {
+    const coverage = snapshot?.coverage || [];
+    return (
+      <Panel
+        title={t(locale, 'Measured coverage', 'التغطية المقيسة')}
+        sub={`${formatCount(coverage.length)} ${t(locale, 'stages', 'مرحلة')} · ${formatCount(snapshot?.sources.length || 0)} ${t(locale, 'source groups', 'مجموعة مصدر')}`}
+        icon={ShieldCheck}
+        bodyClassName="sys-panel-body-flush"
+      >
+        <div className="sys-coverage-list" data-testid="system-coverage">
+          {coverage.map((stage) => (
+            <div className="sys-coverage-row" key={stage.key}>
+              <span className={cx('sys-coverage-dot', `is-${coverageTone(stage.status)}`)} aria-hidden="true" />
+              <span className="sys-coverage-copy">
+                <strong>{stage.provider}</strong>
+                <em>{stage.items == null ? t(locale, 'No item count reported', 'لم يُبلَّغ عن عدد عناصر') : `${formatCount(stage.items)} ${t(locale, 'items', 'عنصر')}`}</em>
+              </span>
+              <span className={cx('sys-coverage-status', `is-${coverageTone(stage.status)}`)}>
+                {stage.status === 'complete' ? t(locale, 'Complete', 'مكتمل') : stage.status === 'partial' ? t(locale, 'Partial', 'جزئي') : stage.status === 'cancelled' ? t(locale, 'Cancelled', 'ملغى') : t(locale, 'Unavailable', 'غير متاح')}
+              </span>
+            </div>
+          ))}
+          {!coverage.length ? (
+            <div className="sys-coverage-empty">
+              {controller.scanning ? t(locale, 'Measured stages are running…', 'المراحل المقيسة قيد التنفيذ…') : t(locale, 'No stage coverage was published.', 'لم تُنشر تغطية المراحل.')}
+            </div>
+          ) : null}
+        </div>
+        {snapshot?.warnings.length ? (
+          <div className="sys-coverage-warnings" data-testid="system-warnings">
+            <InfoNote tone="warn">
+              <strong>{formatCount(snapshot.warnings.length)}</strong> {t(locale, 'measured warning(s)', 'تحذير مقيس')}
+            </InfoNote>
+          </div>
+        ) : null}
+      </Panel>
+    );
+  };
+
+  const sessionStages = controller.session?.stages || [];
+  const scanProgress = controller.session?.progress || 0;
+
+  return (
+    <div className={cx('sys-viewport', locale === AR && 'is-rtl')} dir={locale === AR ? 'rtl' : 'ltr'}>
+      <KNOuXTitleBar
+        sectionName={t(locale, 'System', 'النظام')}
+        sectionSubtitle={t(locale, 'Measured Live Pulse', 'النبض الحيوي المقيس')}
+        onNavigateHome={() => navigate('home')}
+        searchPlaceholder={t(locale, 'Search measured services… (Ctrl+K)', 'ابحث في الخدمات المقيسة… (Ctrl+K)')}
+        isArabic={locale === AR}
+        onToggleArabic={() => {
+          toggleLocale();
+          setLocalLocale(locale === AR ? 'en' : 'ar');
+        }}
+        onOpenSettings={() => navigate('settings')}
+      />
+
+      {controller.notice ? (
+        <div className="sys-toast sys-toast-good" role="status">
+          <CheckCircle2 aria-hidden="true" />
+          <span>{controller.notice}</span>
+          <button type="button" onClick={controller.clearNotice} aria-label={t(locale, 'Dismiss', 'إغلاق')}>
+            <X aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
+
+      {controller.actionError ? (
+        <div className="sys-toast sys-toast-bad" role="alert">
+          <AlertTriangle aria-hidden="true" />
+          <div>
+            <strong>{controller.actionError.code}</strong>
+            <span>{controller.actionError.message}</span>
+          </div>
+          <button type="button" onClick={controller.clearError} aria-label={t(locale, 'Dismiss', 'إغلاق')}>
+            <X aria-hidden="true" />
+          </button>
+        </div>
+      ) : null}
+
+      <div className="sys-shell">
+        <KNOuXSidebar activeSection="system" onNavigate={navigate} isArabic={locale === AR} />
+
+        <div className="sys-shell-main">
+          <main className="sys-main knx-custom-scrollbar" data-testid="system-workspace">
+            <section className="sys-hero" data-testid="system-hero">
+              <div className="sys-hero-arc" aria-hidden="true">
+                <svg viewBox="0 0 620 120" fill="none">
+                  <defs>
+                    <linearGradient id="sys-hero-wave" x1="0" y1="0" x2="620" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#a855f7" />
+                      <stop offset="0.5" stopColor="#22d3ee" />
+                      <stop offset="1" stopColor="#3b82f6" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M8 62 C88 16, 150 108, 236 52 C322 -4, 386 100, 470 46 C534 6, 580 72, 616 52" stroke="url(#sys-hero-wave)" strokeWidth="2.4" strokeLinecap="round" />
+                  <path d="M8 52 C76 88, 156 16, 240 78 C324 136, 400 24, 486 72 C548 108, 592 28, 616 56" stroke="url(#sys-hero-wave)" strokeWidth="1.4" strokeDasharray="4 5" opacity="0.55" />
+                </svg>
+              </div>
+
+              <div className="sys-hero-copy">
+                <span className="sys-hero-eyebrow">{t(locale, 'SYSTEM OBSERVATORY · READ-ONLY', 'مرصد النظام · للقراءة فقط')}</span>
+                <h1>{t(locale, 'Live', 'النبض')} <span>{t(locale, 'Pulse', 'الحي')}</span></h1>
+                <p>
+                  {t(
+                    locale,
+                    'Your Windows environment, measured by bounded native providers. Every reading carries its source, and unavailable sensors stay unknown.',
+                    'بيئة Windows الخاصة بك، مقيسة عبر مزودات أصلية محدودة. كل قراءة تحمل مصدرها، والمستشعرات غير المتاحة تبقى مجهولة.',
+                  )}
+                </p>
+                <div className="sys-hero-chips">
+                  <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Activity}>
+                    {scanStatus}
+                  </Chip>
+                  <Chip tone="info" icon={Layers}>{formatCount(SERVICE_CATALOG.length)} {t(locale, 'services', 'خدمة')}</Chip>
+                  <Chip tone="muted" icon={Lock}>{t(locale, 'Mutation', 'التغيير')}: none</Chip>
+                  {snapshot ? <Chip tone="violet" icon={Database}>{t(locale, 'receipt', 'إيصال')} {snapshot.receipt.slice(0, 10)}</Chip> : null}
+                </div>
+                <div className="sys-hero-actions">
+                  <button
+                    type="button"
+                    className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')}
+                    onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())}
+                    disabled={!controller.nativeAvailable || controller.cancelling}
+                  >
+                    {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
+                    {controller.scanning
+                      ? t(locale, 'Cancel scan', 'إلغاء المسح')
+                      : snapshot
+                        ? t(locale, 'Re-scan', 'إعادة المسح')
+                        : t(locale, 'Start measured scan', 'بدء المسح المقيس')}
+                  </button>
+                  <button
+                    type="button"
+                    className="sys-btn sys-btn-ghost"
+                    onClick={() => void controller.refreshSnapshot(true)}
+                    disabled={!snapshot || controller.refreshing || controller.scanning}
+                  >
+                    <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />
+                    {t(locale, 'Refresh snapshot', 'تحديث اللقطة')}
+                  </button>
+                  <button
+                    type="button"
+                    className="sys-btn sys-btn-ghost"
+                    onClick={() => void controller.sampleNow()}
+                    disabled={!snapshot || controller.sampling}
+                  >
+                    {controller.sampling ? <Loader2 aria-hidden="true" className="sys-spin" /> : <Zap aria-hidden="true" />}
+                    {t(locale, 'Sample now', 'قياس الآن')}
+                  </button>
+                  <button
+                    type="button"
+                    className="sys-btn sys-btn-quiet"
+                    onClick={() => {
+                      if (!snapshot) return;
+                      const ok = downloadJson('knoux-live-pulse-snapshot.json', snapshot);
+                      controller.showNotice(ok
+                        ? t(locale, 'Measured snapshot exported as JSON.', 'صُدّرت اللقطة المقيسة بصيغة JSON.')
+                        : t(locale, 'The snapshot export could not start.', 'تعذّر بدء تصدير اللقطة.'));
+                    }}
+                    disabled={!snapshot}
+                  >
+                    <Download aria-hidden="true" />
+                    {t(locale, 'Export snapshot', 'تصدير اللقطة')}
+                  </button>
+                </div>
+              </div>
+
+              <aside className="sys-source-card" data-testid="system-source-card">
+                <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true">
+                  <span />
+                </span>
+                <div className="sys-source-copy">
+                  <span>{t(locale, 'Telemetry source', 'مصدر القياس')}</span>
+                  <strong>{snapshot ? snapshot.metrics.source : controller.capabilities?.engine || 'KNOuX SystemBridge v1'}</strong>
+                  <em>{scanStatus}</em>
+                  <em>{snapshot ? formatTimestamp(snapshot.generatedAt, locale) : controller.nativeAvailable ? t(locale, 'Bounded native scan', 'مسح أصلي محدود') : t(locale, 'Browser preview', 'معاينة متصفح')}</em>
+                </div>
+                <div className="sys-source-badges">
+                  <span className="sys-source-badge">{t(locale, 'Read-only', 'للقراءة فقط')}</span>
+                  <span className="sys-source-badge">{t(locale, 'No fixtures', 'بلا بيانات تجريبية')}</span>
+                </div>
+              </aside>
+            </section>
+
+            {!controller.nativeAvailable ? (
+              <div className="sys-banner is-required" data-testid="system-native-required">
+                <Lock aria-hidden="true" />
+                <div>
+                  <strong>{t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}</strong>
+                  <p>
+                    {t(
+                      locale,
+                      'This is a browser preview. The read-only SystemBridge is unavailable, so no gauge, process, event, driver, socket, adapter, hosts line or hardware field is substituted. Open the native Electron app to measure this device.',
+                      'هذه معاينة متصفح. جسر SystemBridge للقراءة فقط غير متاح، لذلك لا تُستبدل أي أداة قياس أو عملية أو حدث أو برنامج تشغيل أو مقبس أو محول أو سطر hosts أو حقل عتاد. افتح تطبيق Electron الأصلي لقياس هذا الجهاز.',
+                    )}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="sys-banner is-measured" data-testid="system-native-banner">
+                <ShieldCheck aria-hidden="true" />
+                <div>
+                  <strong>{t(locale, 'Measured observatory', 'المرصد المقيس')}</strong>
+                  <p>{snapshot ? `${summary} · ${formatTimestamp(snapshot.generatedAt, locale)}` : scanStatus}</p>
+                </div>
+                <span className="sys-banner-chip">{snapshot ? t(locale, 'MEASURED', 'مقيس') : t(locale, 'MEASURING', 'جارٍ القياس')}</span>
+              </div>
+            )}
+
+            {controller.scanning ? (
+              <div className="sys-scan-progress" data-testid="system-scan-progress">
+                <div className="sys-scan-progress-head">
+                  <span><Loader2 aria-hidden="true" className="sys-spin" /> {t(locale, 'Bounded scan in progress', 'مسح محدود قيد التنفيذ')}</span>
+                  <em>{formatCount(scanProgress)}%</em>
+                </div>
+                <div className="sys-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={scanProgress}>
+                  <span style={{ width: `${Math.max(2, Math.min(100, scanProgress))}%` }} />
+                </div>
+                <div className="sys-scan-stages">
+                  {sessionStages.map((stage) => (
+                    <span key={stage.key} className={cx('sys-scan-stage', `is-${stage.status}`)} title={stage.provider}>
+                      {locale === AR ? stage.labelAr : stage.labelEn}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {snapshot ? (
+              <>
+                <div className="sys-kpi-row" data-testid="system-kpi-row">
+                  <InstrumentCard
+                    id="cpu"
+                    locale={locale}
+                    icon={Cpu}
+                    color={INSTRUMENT_COLORS.cpu}
+                    title={t(locale, 'CPU load', 'حمل المعالج')}
+                    sub={t(locale, 'Processor activity', 'نشاط المعالج')}
+                    value={formatPercent(metrics?.cpuPercent ?? null, 1)}
+                    ratio={metrics?.cpuPercent ?? null}
+                    state={metrics?.cpuPercent == null ? t(locale, 'Unavailable', 'غير متاح') : 'measured'}
+                    values={cpuSeries}
+                    stats={[
+                      { label: t(locale, 'Frequency', 'التردد'), value: formatMHz(metrics?.cpuFrequencyMHz) },
+                      { label: t(locale, 'Processes', 'العمليات'), value: formatCount(metrics?.processCount) },
+                      { label: t(locale, 'Threads', 'الخيوط'), value: formatCount(metrics?.threadCount) },
+                    ]}
+                    sampleCount={sampleCount}
+                    onOpen={() => openService('system-health-check')}
+                  />
+                  <InstrumentCard
+                    id="memory"
+                    locale={locale}
+                    icon={MemoryStick}
+                    color={INSTRUMENT_COLORS.memory}
+                    title={t(locale, 'Memory', 'الذاكرة')}
+                    sub={t(locale, 'Physical memory usage', 'استخدام الذاكرة الفعلية')}
+                    value={formatPercent(metrics?.memoryPercent ?? null, 1)}
+                    ratio={metrics?.memoryPercent ?? null}
+                    state={metrics?.memoryPercent == null ? t(locale, 'Unavailable', 'غير متاح') : 'measured'}
+                    values={memorySeries}
+                    stats={[
+                      { label: t(locale, 'In use', 'المستخدم'), value: formatBytes(metrics?.memoryUsedBytes) },
+                      { label: t(locale, 'Total', 'الإجمالي'), value: formatBytes(metrics?.memoryTotalBytes) },
+                      { label: t(locale, 'Committed', 'المُلتزم'), value: formatBytes(metrics?.memoryCommittedBytes) },
+                    ]}
+                    sampleCount={sampleCount}
+                    onOpen={() => openService('system-health-check')}
+                  />
+                  <InstrumentCard
+                    id="disk"
+                    locale={locale}
+                    icon={HardDrive}
+                    color={INSTRUMENT_COLORS.disk}
+                    title={t(locale, 'Disk I/O', 'إدخال/إخراج القرص')}
+                    sub={t(locale, 'Read + write activity', 'نشاط القراءة والكتابة')}
+                    value={formatRate(diskNow)}
+                    ratio={ratioOf(diskNow, diskPeak)}
+                    state={diskNow == null ? t(locale, 'Unavailable', 'غير متاح') : 'measured'}
+                    values={diskSeries}
+                    stats={[
+                      { label: t(locale, 'Read', 'قراءة'), value: formatRate(metrics?.diskReadBytesPerSec) },
+                      { label: t(locale, 'Write', 'كتابة'), value: formatRate(metrics?.diskWriteBytesPerSec) },
+                      { label: t(locale, 'Latency', 'الكمون'), value: formatMs(metrics?.diskLatencyMs) },
+                    ]}
+                    sampleCount={sampleCount}
+                    onOpen={() => openService('system-health-check')}
+                  />
+                  <InstrumentCard
+                    id="network"
+                    locale={locale}
+                    icon={Network}
+                    color={INSTRUMENT_COLORS.network}
+                    title={t(locale, 'Network', 'الشبكة')}
+                    sub={t(locale, 'Inbound / outbound traffic', 'حركة الوارد والصادر')}
+                    value={formatRate(networkNow)}
+                    ratio={ratioOf(networkNow, networkPeak)}
+                    state={networkNow == null ? t(locale, 'Unavailable', 'غير متاح') : 'measured'}
+                    values={networkSeries}
+                    stats={[
+                      { label: t(locale, 'Download', 'تنزيل'), value: formatRate(metrics?.networkInBytesPerSec) },
+                      { label: t(locale, 'Upload', 'رفع'), value: formatRate(metrics?.networkOutBytesPerSec) },
+                      { label: t(locale, 'Interfaces', 'الواجهات'), value: formatCount(snapshot.interfaces.length) },
+                    ]}
+                    sampleCount={sampleCount}
+                    onOpen={() => openService('system-health-check')}
+                  />
+                </div>
+
+                <div className="sys-overview-grid">
+                  <Panel
+                    className="sys-timeline-panel"
+                    title={t(locale, 'Performance timeline', 'الخط الزمني للأداء')}
+                    sub={`${t(locale, 'Latest', 'الأحدث')}: ${timelineFormatter(timelineLatest)} · ${t(locale, 'Peak', 'الذروة')}: ${timelineFormatter(timelinePeak)} · ${t(locale, 'Average', 'المتوسط')}: ${timelineFormatter(timelineAverage)}`}
+                    icon={Activity}
+                    actions={
+                      <>
+                        <Seg<TimelineMetric>
+                          value={timelineMetric}
+                          onChange={setTimelineMetric}
+                          ariaLabel={t(locale, 'Select metric tab', 'اختر تبويب المقياس')}
+                          compact
+                          options={[
+                            { value: 'cpuPercent', label: 'CPU' },
+                            { value: 'memoryPercent', label: t(locale, 'Memory', 'الذاكرة') },
+                            { value: 'disk', label: t(locale, 'Disk', 'القرص') },
+                            { value: 'network', label: t(locale, 'Network', 'الشبكة') },
+                          ]}
+                        />
+                        <Seg<IntervalOption>
+                          value={(controller.sampleIntervalMs as IntervalOption)}
+                          onChange={controller.setSampleInterval}
+                          ariaLabel={t(locale, 'Sample interval', 'فاصل القياس')}
+                          compact
+                          options={[
+                            { value: 1000, label: '1s' },
+                            { value: 5000, label: '5s' },
+                            { value: 15000, label: '15s' },
+                          ]}
+                        />
+                        <button
+                          type="button"
+                          className={cx('sys-btn sys-btn-quiet', controller.samplingPaused && 'is-active')}
+                          onClick={() => controller.setSamplingPaused(!controller.samplingPaused)}
+                          aria-pressed={controller.samplingPaused}
+                        >
+                          {controller.samplingPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+                          {controller.samplingPaused ? t(locale, 'Resume', 'استئناف') : t(locale, 'Pause', 'إيقاف')}
+                        </button>
+                      </>
+                    }
+                  >
+                    <div className="sys-timeline-chart">
+                      <Sparkline values={timelineSeries} color={timelineMetric === 'memoryPercent' ? '#a78bfa' : timelineMetric === 'disk' ? '#fbbf24' : timelineMetric === 'network' ? '#34d399' : '#22d3ee'} height={132} showArea label={t(locale, 'Measured performance series', 'سلسلة أداء مقيسة')} />
+                      <div className="sys-timeline-axis">
+                        <span>{series.length ? formatTimestamp(series[0].timestamp, locale) : '—'}</span>
+                        <span>{sampleCount} {t(locale, 'samples', 'عينة')}</span>
+                        <span>{series.length ? formatTimestamp(series[series.length - 1].timestamp, locale) : '—'}</span>
+                      </div>
+                    </div>
+                    <div className="sys-timeline-foot">
+                      <span><Database aria-hidden="true" />{metrics?.source || '—'}</span>
+                      <span><Clock aria-hidden="true" />{t(locale, 'Uptime', 'مدة التشغيل')}: {formatClock(snapshot.identity.uptimeSeconds)}</span>
+                      <span><ShieldCheck aria-hidden="true" />{t(locale, 'Sampling', 'القياس')}: {controller.samplingPaused ? t(locale, 'paused', 'متوقف') : `${Math.round(controller.sampleIntervalMs / 1000)}s`}</span>
+                    </div>
+                  </Panel>
+
+                  <Panel
+                    className="sys-facts-panel"
+                    title={t(locale, 'System information', 'معلومات النظام')}
+                    sub={t(locale, 'Measured Windows identity, never inferred.', 'هوية Windows المقيسة، بلا استنتاج.')}
+                    icon={MonitorIcon}
+                  >
+                    <KeyValueGrid columns={2}>
+                      <Field label={t(locale, 'Operating system', 'نظام التشغيل')} value={snapshot.identity.osName || '—'} hint={snapshot.identity.osEdition || undefined} />
+                      <Field label={t(locale, 'Version / build', 'الإصدار / البناء')} value={snapshot.identity.osBuild ? `${snapshot.identity.osVersion || ''} (${snapshot.identity.osBuild})` : snapshot.identity.osVersion || '—'} />
+                      <Field label={t(locale, 'Manufacturer', 'المصنّع')} value={snapshot.identity.manufacturer || '—'} />
+                      <Field label={t(locale, 'Model', 'الطراز')} value={snapshot.identity.model || '—'} />
+                      <Field label={t(locale, 'Processor', 'المعالج')} value={snapshot.identity.processor || '—'} />
+                      <Field label={t(locale, 'Installed RAM', 'الذاكرة المثبتة')} value={formatBytes(snapshot.identity.installedRamBytes)} />
+                      <Field label={t(locale, 'Last boot', 'آخر إقلاع')} value={formatTimestamp(snapshot.identity.bootTime, locale)} />
+                      <Field label={t(locale, 'Uptime', 'مدة التشغيل')} value={`${formatClock(snapshot.identity.uptimeSeconds)} · ${formatDuration(snapshot.identity.uptimeSeconds)}`} tone="good" />
+                    </KeyValueGrid>
+                    <div className="sys-facts-meta">
+                      <span><Clock aria-hidden="true" />{t(locale, 'Time zone', 'المنطقة الزمنية')}: {snapshot.identity.timeZone || '—'}</span>
+                      <span><Layers aria-hidden="true" />{t(locale, 'Architecture', 'البنية')}: {snapshot.identity.architecture || '—'}</span>
+                      <span><Lock aria-hidden="true" />{t(locale, 'Fast Startup', 'بدء التشغيل السريع')}: {snapshot.identity.fastStartupEnabled == null ? t(locale, 'unknown', 'مجهول') : snapshot.identity.fastStartupEnabled ? t(locale, 'enabled', 'مفعّل') : t(locale, 'disabled', 'معطّل')}</span>
+                    </div>
+                  </Panel>
+                </div>
+
+                <div className="sys-overview-lower">
+                  <Panel
+                    className="sys-ledger-panel"
+                    title={t(locale, 'Process ledger', 'سجل العمليات')}
+                    sub={`${formatCount(processMatches.length)} ${t(locale, 'measured processes', 'عملية مقيسة')} · ${t(locale, 'top CPU share', 'أعلى حصة معالج')}`}
+                    icon={ListFilter}
+                    actions={
+                      <>
+                        <SearchBox
+                          value={processQuery}
+                          onChange={setProcessQuery}
+                          placeholder={t(locale, 'Search processes…', 'ابحث في العمليات…')}
+                          ariaLabel={t(locale, 'Search processes', 'بحث في العمليات')}
+                        />
+                        <button type="button" className="sys-btn sys-btn-quiet" onClick={() => openService('system-processes')}>
+                          {t(locale, 'Full register', 'السجل الكامل')}
+                        </button>
+                      </>
+                    }
+                    bodyClassName="sys-panel-body-flush"
+                  >
+                    <div className="sys-ledger-head">
+                      <span>{t(locale, 'Process', 'العملية')}</span>
+                      <span>PID</span>
+                      <span>CPU</span>
+                      <span>{t(locale, 'Memory', 'الذاكرة')}</span>
+                      <span>{t(locale, 'Threads', 'الخيوط')}</span>
+                    </div>
+                    <div className="sys-ledger-body knx-custom-scrollbar">
+                      {topProcesses.map((process) => (
+                        <button
+                          key={process.id}
+                          type="button"
+                          className="sys-ledger-row"
+                          data-testid="system-process-row"
+                          onClick={() => openService('system-processes')}
+                          title={process.executablePath || process.name}
+                        >
+                          <span className="sys-ledger-name">
+                            <strong>{process.name}</strong>
+                            <em>{process.owner || t(locale, 'owner unknown', 'المالك مجهول')}</em>
+                          </span>
+                          <span className="sys-mono">{process.pid}</span>
+                          <span className="sys-ledger-cpu">
+                            <MeterBar value={process.cpuPercent} tone={percentageTone(process.cpuPercent)} height={4} />
+                            <em>{formatPercent(process.cpuPercent, 1)}</em>
+                          </span>
+                          <span className="sys-mono">{formatBytes(process.workingSetBytes)}</span>
+                          <span className="sys-mono">{formatCount(process.threads)}</span>
+                        </button>
+                      ))}
+                      {!topProcesses.length ? (
+                        <div className="sys-ledger-empty">
+                          {t(locale, 'No measured process matches that search.', 'لا توجد عملية مقيسة تطابق هذا البحث.')}
+                        </div>
+                      ) : null}
+                    </div>
+                  </Panel>
+
+                  {renderCoverage()}
+                </div>
+
+                <section className="sys-services-panel" aria-labelledby="sys-services-title">
+                  <div className="sys-services-head">
+                    <div className="sys-services-title">
+                      <Layers aria-hidden="true" />
+                      <div>
+                        <h2 id="sys-services-title">{t(locale, 'Service workbenches', 'مساحات عمل الخدمات')}</h2>
+                        <p>{t(locale, 'Thirty-six measured services across system, network and hardware. No generic modal is used.', 'ست وثلاثون خدمة مقيسة عبر النظام والشبكة والعتاد. لا يُستخدم نافذة عامة.')}</p>
+                      </div>
+                    </div>
+                    <div className="sys-services-tools">
+                      <SearchBox
+                        value={serviceQuery}
+                        onChange={setServiceQuery}
+                        placeholder={t(locale, 'Find a service…', 'ابحث عن خدمة…')}
+                        ariaLabel={t(locale, 'Find a service', 'بحث عن خدمة')}
+                      />
+                      <div className="sys-world-tabs" data-testid="system-world-tabs">
+                        <Seg<SystemWorld>
+                          value={world}
+                          onChange={(next) => {
+                            setWorld(next);
+                            setServiceQuery('');
+                          }}
+                          ariaLabel={t(locale, 'Service world', 'عالم الخدمة')}
+                          compact
+                          options={WORLDS.map((entry) => ({ value: entry, label: `${WORLD_META[entry][locale === AR ? 'ar' : 'en']} · ${WORLD_SERVICES[entry].length}` }))}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="sys-service-grid" data-testid="system-service-grid">
+                    {visibleServices.map(renderServiceCard)}
+                  </div>
+                  {!visibleServices.length ? (
+                    <div className="sys-service-empty">{t(locale, 'No service matches that search.', 'لا توجد خدمة تطابق هذا البحث.')}</div>
+                  ) : null}
+                </section>
+
+                {controller.capabilities?.gatedOperations.length ? (
+                  <div className="sys-gated-strip">
+                    <Lock aria-hidden="true" />
+                    <div>
+                      <strong>{formatCount(controller.capabilities.gatedOperations.length)} {t(locale, 'gated operation(s)', 'عملية محمية')}</strong>
+                      <span>
+                        {controller.capabilities.gatedOperations.slice(0, 4).map((operation) => `${operation.title} (${t(locale, 'Mission', 'المهمة')} ${operation.mission})`).join(' · ')}
+                      </span>
+                    </div>
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              <div className="sys-loading-grid" data-testid="system-loading">
+                <Panel title={t(locale, 'Awaiting measured snapshot', 'بانتظار اللقطة المقيسة')} icon={Activity}>
+                  <LoadingLine
+                    label={
+                      controller.scanning
+                        ? t(locale, 'Running the bounded native scan…', 'جارٍ تشغيل المسح الأصلي المحدود…')
+                        : controller.nativeAvailable
+                          ? t(locale, 'No measured snapshot yet. Start a scan or review the reported error.', 'لا توجد لقطة مقيسة بعد. ابدأ مسحًا أو راجع الخطأ المُبلَّغ.')
+                          : t(locale, 'Native Electron measurement is required.', 'القياس عبر Electron الأصلي مطلوب.')
+                    }
+                  />
+                  <div className="sys-loading-copy">
+                    {t(
+                      locale,
+                      'The nine measured stages read system identity, processes, services, events, drivers, network, sockets, hardware and the timeline. Until they answer, this page shows no numbers.',
+                      'تقرأ المراحل التسع المقيسة هوية النظام والعمليات والخدمات والأحداث وبرامج التشغيل والشبكة والمقابس والعتاد والخط الزمني. حتى تجيب، لا تعرض هذه الصفحة أي أرقام.',
+                    )}
+                  </div>
+                </Panel>
+                <Panel title={t(locale, 'Service catalog', 'دليل الخدمات')} icon={Layers}>
+                  <div className="sys-service-grid is-loading">{SERVICE_CATALOG.slice(0, 12).map(renderServiceCard)}</div>
+                </Panel>
+              </div>
+            )}
+
+            <div className="sys-foot-strip">
+              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: {t(locale, 'CIM, performance counters, event log, Authenticode, Net* and bounded DNS/TCP probes', 'CIM وعدادات الأداء وسجل الأحداث وAuthenticode وNet* وفحوص DNS/TCP المحدودة')}</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'No process, service, driver, hosts, proxy, adapter, repair or power write exists in Mission 10.', 'لا توجد كتابة للعمليات أو الخدمات أو برامج التشغيل أو hosts أو الوكيل أو المحول أو الإصلاح أو الطاقة في المهمة 10.')}</span>
+              {controller.lastSampleAt ? <span><Clock aria-hidden="true" />{t(locale, 'Last sample', 'آخر عينة')}: {formatTimestamp(controller.lastSampleAt, locale)}</span> : null}
+            </div>
+          </main>
+
+          <footer className="sys-actionbar" data-testid="system-actionbar">
+            <div className="sys-actionbar-summary">
+              <strong>{scanStatus}</strong>
+              <span className="sys-mono">{summary}</span>
+              {snapshot?.warnings.length ? (
+                <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span>
+              ) : null}
+              {sampleCount ? <span className="sys-chip sys-chip-good">{formatCount(sampleCount)} {t(locale, 'live samples', 'عينة حية')}</span> : null}
+            </div>
+            <div className="sys-actionbar-actions">
+              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openService('hardware-health-report')} disabled={!snapshot}>
+                <ShieldCheck aria-hidden="true" />
+                {t(locale, 'Hardware report', 'تقرير العتاد')}
+              </button>
+              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openService('system-health-check')} disabled={!snapshot}>
+                <Gauge aria-hidden="true" />
+                {t(locale, 'Full pulse', 'النبض الكامل')}
+              </button>
+              <button
+                type="button"
+                className="sys-btn sys-btn-primary"
+                onClick={() => void controller.refreshSnapshot(true)}
+                disabled={!snapshot || controller.refreshing || controller.scanning}
+              >
+                <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />
+                {t(locale, 'Refresh data', 'تحديث البيانات')}
+              </button>
+            </div>
+          </footer>
+        </div>
+      </div>
+
+      {activeService && snapshot ? (
+        <SystemServiceWorkspace
+          serviceId={activeService}
+          locale={locale}
+          controller={controller}
+          onOpenService={openService}
+          onClose={closeService}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+const MonitorIcon = Monitor;

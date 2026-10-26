@@ -30,6 +30,7 @@ const { ScanBridge } = require('./native/scan-bridge.cjs');
 const { AppBridge } = require('./native/app-bridge.cjs');
 const { CleanupBridge } = require('./native/cleanup-bridge.cjs');
 const { StartupBridge } = require('./native/startup-bridge.cjs');
+const { SystemBridge } = require('./native/system-bridge.cjs');
 const {
   ok,
   fail,
@@ -91,6 +92,7 @@ let scanBridge = null;
 let appBridge = null;
 let cleanupBridge = null;
 let startupBridge = null;
+let systemBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -1011,6 +1013,243 @@ function registerIpc() {
     })
   );
 
+  const SYSTEM_SESSION = /^[a-f0-9-]{8,64}$/i;
+  const SYSTEM_READABLE = (value, max) => typeof value === 'string'
+    && value.length <= max
+    && !/[\r\n\0]/.test(value);
+  const systemGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!systemBridge) {
+        throw Object.assign(new Error('The read-only Live Pulse observatory is not initialized.'), { code: 'SYSTEM_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Live Pulse read-only observatory',
+        permission,
+        provenance: { mode: 'measured', mutation: 'none' },
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Live Pulse read-only observatory',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'SYSTEM_FAILURE',
+          message: String(error?.message || 'System request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const systemRequest = (args, code = 'SYSTEM_INPUT_INVALID') => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured observatory request is required.'), { code });
+    }
+    return args[0];
+  };
+
+  ipcMain.handle(contract.channels.systemCapabilities, (event, ...args) =>
+    systemGuard(event, 'system.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.systemCapabilities);
+      return systemBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.systemStart, (event, ...args) =>
+    systemGuard(event, 'system.start', 'read-only', () => {
+      assertNoArguments(args, contract.channels.systemStart);
+      return systemBridge.start();
+    })
+  );
+  ipcMain.handle(contract.channels.systemStatus, (event, ...args) =>
+    systemGuard(event, 'system.status', 'read-only', () => {
+      const request = systemRequest(args);
+      if (typeof request.sessionId !== 'string' || !SYSTEM_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid observatory session identifier is required.'), { code: 'SYSTEM_SESSION_INVALID' });
+      }
+      return systemBridge.status(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.systemCancel, (event, ...args) =>
+    systemGuard(event, 'system.cancel', 'user-initiated', () => {
+      const request = systemRequest(args);
+      if (typeof request.sessionId !== 'string' || !SYSTEM_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid observatory session identifier is required.'), { code: 'SYSTEM_SESSION_INVALID' });
+      }
+      return systemBridge.cancel(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.systemSnapshot, (event, ...args) =>
+    systemGuard(event, 'system.snapshot', 'read-only', () => {
+      assertNoArguments(args, contract.channels.systemSnapshot);
+      return systemBridge.snapshot();
+    })
+  );
+  ipcMain.handle(contract.channels.systemSample, (event, ...args) =>
+    systemGuard(event, 'system.sample', 'read-only', () => {
+      assertNoArguments(args, contract.channels.systemSample);
+      return systemBridge.sample();
+    })
+  );
+  ipcMain.handle(contract.channels.systemProcesses, (event, ...args) =>
+    systemGuard(event, 'system.processes', 'read-only', () => {
+      assertNoArguments(args, contract.channels.systemProcesses);
+      return systemBridge.processes();
+    })
+  );
+  ipcMain.handle(contract.channels.systemEvents, (event, ...args) =>
+    systemGuard(event, 'system.events', 'read-only', () => {
+      const request = systemRequest(args);
+      const query = {};
+      if (request.channel != null) {
+        if (!SYSTEM_READABLE(request.channel, 200)) {
+          throw Object.assign(new Error('The event channel filter is not valid.'), { code: 'SYSTEM_EVENT_QUERY_INVALID' });
+        }
+        if (request.channel.trim()) query.channel = request.channel.trim();
+      }
+      if (request.levels != null) {
+        if (!Array.isArray(request.levels) || request.levels.length > 5
+          || !request.levels.every((level) => Number.isInteger(level) && level >= 1 && level <= 5)) {
+          throw Object.assign(new Error('Event levels must be integers from 1 to 5.'), { code: 'SYSTEM_EVENT_QUERY_INVALID' });
+        }
+        if (request.levels.length) query.levels = [...new Set(request.levels)];
+      }
+      if (request.sinceHours != null) {
+        if (typeof request.sinceHours !== 'number' || !Number.isFinite(request.sinceHours)
+          || request.sinceHours < 1 || request.sinceHours > 720) {
+          throw Object.assign(new Error('The event window must be between 1 and 720 hours.'), { code: 'SYSTEM_EVENT_QUERY_INVALID' });
+        }
+        query.sinceHours = Math.floor(request.sinceHours);
+      }
+      if (request.search != null) {
+        if (!SYSTEM_READABLE(request.search, 120)) {
+          throw Object.assign(new Error('The event search text is not valid.'), { code: 'SYSTEM_EVENT_QUERY_INVALID' });
+        }
+        if (request.search.trim()) query.search = request.search.trim();
+      }
+      if (request.limit != null) {
+        if (!Number.isInteger(request.limit) || request.limit < 1 || request.limit > 200) {
+          throw Object.assign(new Error('The event limit must be an integer from 1 to 200.'), { code: 'SYSTEM_EVENT_QUERY_INVALID' });
+        }
+        query.limit = request.limit;
+      }
+      return systemBridge.events(query);
+    })
+  );
+  ipcMain.handle(contract.channels.systemSignatures, (event, ...args) =>
+    systemGuard(event, 'system.signatures', 'read-only', () => {
+      const request = systemRequest(args);
+      const paths = request.paths;
+      if (!Array.isArray(paths) || paths.length < 1 || paths.length > 24) {
+        throw Object.assign(new Error('Between 1 and 24 executable paths are required.'), { code: 'SYSTEM_SIGNATURE_INPUT_INVALID' });
+      }
+      if (!paths.every((entry) => typeof entry === 'string'
+        && entry.length <= 520
+        && /^[a-zA-Z]:\\/.test(entry.trim())
+        && !/[\r\n\0]/.test(entry))) {
+        throw Object.assign(new Error('Every signature path must be an absolute Windows path.'), { code: 'SYSTEM_SIGNATURE_INPUT_INVALID' });
+      }
+      return systemBridge.signatures([...new Set(paths.map((entry) => entry.trim()))]);
+    })
+  );
+  ipcMain.handle(contract.channels.systemDiagnostics, (event, ...args) =>
+    systemGuard(event, 'system.diagnostics', 'read-only', () => {
+      const request = systemRequest(args);
+      if (!['dns', 'tcp', 'http', 'ping'].includes(request.type)) {
+        throw Object.assign(new Error('The diagnostic type must be dns, tcp, http or ping.'), { code: 'SYSTEM_DIAGNOSTIC_TYPE_INVALID' });
+      }
+      if (request.target == null) {
+        throw Object.assign(new Error('A diagnostic target is required.'), { code: 'SYSTEM_TARGET_INVALID' });
+      }
+      if (request.port != null && (!Number.isInteger(request.port) || request.port < 1 || request.port > 65535)) {
+        throw Object.assign(new Error('The TCP port must be an integer from 1 to 65535.'), { code: 'SYSTEM_PORT_INVALID' });
+      }
+      return systemBridge.diagnostics({
+        type: request.type,
+        target: request.target,
+        ...(request.port == null ? {} : { port: request.port }),
+      });
+    })
+  );
+  ipcMain.handle(contract.channels.systemTraceroute, (event, ...args) =>
+    systemGuard(event, 'system.traceroute', 'read-only', () => {
+      const request = systemRequest(args);
+      if (request.target == null) {
+        throw Object.assign(new Error('A trace target is required.'), { code: 'SYSTEM_TARGET_INVALID' });
+      }
+      if (request.maxHops != null && (!Number.isInteger(request.maxHops) || request.maxHops < 1 || request.maxHops > 15)) {
+        throw Object.assign(new Error('The hop limit must be an integer from 1 to 15.'), { code: 'SYSTEM_TRACE_INPUT_INVALID' });
+      }
+      return systemBridge.traceroute({
+        target: request.target,
+        ...(request.maxHops == null ? {} : { maxHops: request.maxHops }),
+      });
+    })
+  );
+  ipcMain.handle(contract.channels.systemHosts, (event, ...args) =>
+    systemGuard(event, 'system.hosts', 'read-only', () => {
+      assertNoArguments(args, contract.channels.systemHosts);
+      return systemBridge.hosts();
+    })
+  );
+  ipcMain.handle(contract.channels.systemHostsPlan, (event, ...args) =>
+    systemGuard(event, 'system.hosts.plan', 'read-only', () => {
+      const draft = systemRequest(args, 'SYSTEM_HOSTS_DRAFT_INVALID');
+      if (!['comment', 'uncomment', 'replace', 'add'].includes(draft.mode)) {
+        throw Object.assign(new Error('The hosts draft mode is not allowlisted.'), { code: 'SYSTEM_HOSTS_DRAFT_INVALID' });
+      }
+      if (draft.lineNumber != null && (!Number.isInteger(draft.lineNumber) || draft.lineNumber < 1 || draft.lineNumber > 5000)) {
+        throw Object.assign(new Error('The hosts draft line number is not valid.'), { code: 'SYSTEM_HOSTS_DRAFT_INVALID' });
+      }
+      if (draft.ip != null && (typeof draft.ip !== 'string' || draft.ip.length > 64)) {
+        throw Object.assign(new Error('The hosts draft address is not valid.'), { code: 'SYSTEM_HOSTS_DRAFT_INVALID' });
+      }
+      if (draft.hostnames != null && (!Array.isArray(draft.hostnames) || draft.hostnames.length > 12
+        || !draft.hostnames.every((hostname) => SYSTEM_READABLE(hostname, 253)))) {
+        throw Object.assign(new Error('The hosts draft hostnames are not valid.'), { code: 'SYSTEM_HOSTS_DRAFT_INVALID' });
+      }
+      if (draft.note != null && !SYSTEM_READABLE(draft.note, 240)) {
+        throw Object.assign(new Error('The hosts draft note is not valid.'), { code: 'SYSTEM_HOSTS_DRAFT_INVALID' });
+      }
+      return systemBridge.hostsPlan({
+        mode: draft.mode,
+        ...(draft.lineNumber == null ? {} : { lineNumber: draft.lineNumber }),
+        ...(draft.ip == null ? {} : { ip: draft.ip }),
+        ...(draft.hostnames == null ? {} : { hostnames: draft.hostnames }),
+        ...(draft.note == null ? {} : { note: draft.note }),
+      });
+    })
+  );
+  ipcMain.handle(contract.channels.systemReport, (event, ...args) =>
+    systemGuard(event, 'system.report', 'read-only', () => {
+      let redact = true;
+      if (args.length) {
+        const request = systemRequest(args);
+        if (request.redact != null && typeof request.redact !== 'boolean') {
+          throw Object.assign(new Error('The report redaction switch must be a boolean.'), { code: 'SYSTEM_REPORT_INPUT_INVALID' });
+        }
+        redact = request.redact !== false;
+      }
+      return systemBridge.report({ redact });
+    })
+  );
+  ipcMain.handle(contract.channels.systemOpenSettings, (event, ...args) =>
+    systemGuard(event, 'system.settings.open', 'user-initiated', async () => {
+      const request = systemRequest(args);
+      if (!['display', 'network', 'wifi', 'sound'].includes(request.target)) {
+        throw Object.assign(new Error('The requested Windows Settings page is not allowlisted.'), { code: 'SYSTEM_SETTINGS_TARGET_INVALID' });
+      }
+      const target = systemBridge.settingsTarget(request.target);
+      await shell.openExternal(target.uri);
+      return { opened: true, target: target.target };
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -1531,6 +1770,24 @@ async function runSmoke(win) {
             };
           }
         }
+        // Mission 10: prove the versioned Live Pulse bridge from the renderer,
+        // then warm the bounded read-only scan. start() is idempotent, so the
+        // System route later joins this same session instead of rescanning.
+        const systemV1Api = window.knouxSystemV1;
+        let systemV1 = null;
+        if (systemV1Api) {
+          const capabilities = await systemV1Api.capabilities();
+          const started = await systemV1Api.start();
+          const session = started?.data?.id ? await systemV1Api.status(started.data.id) : null;
+          const snapshot = await systemV1Api.snapshot().catch(() => null);
+          systemV1 = {
+            bridgePresent: true,
+            capabilities,
+            started,
+            session,
+            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'system.v1',
+          };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -1543,6 +1800,7 @@ async function runSmoke(win) {
           appsBridgePresent: Boolean(appsApi),
           cleanupBridgePresent: Boolean(cleanupApi),
           startupBridgePresent: Boolean(startupApi),
+          systemV1BridgePresent: Boolean(systemV1Api),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -1556,6 +1814,7 @@ async function runSmoke(win) {
           apps,
           cleanup,
           startup,
+          systemV1,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -2472,6 +2731,371 @@ async function runSmoke(win) {
         receipt.startup1920ScreenshotBytes = (await fsp.stat(startup1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Measured Live Pulse route: run the real bounded observatory scan,
+        // prove measured instruments, nine-stage coverage and all 36
+        // specialised workbenches, then capture theme, RTL and size variants.
+        // Nothing is mutated by Mission 10.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'system'; return true; })()`,
+          true
+        );
+        const systemDeadline = Date.now() + 170000;
+        let systemUiReady = false;
+        while (Date.now() < systemDeadline) {
+          await sleep(1000);
+          systemUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="system-workspace"]');
+               const banner = document.querySelector('[data-testid="system-native-banner"]');
+               const required = document.querySelector('[data-testid="system-native-required"]');
+               const cpu = document.querySelector('[data-testid="system-kpi-cpu-value"]')?.textContent?.trim() || '';
+               const worldTabs = document.querySelectorAll('[data-testid="system-world-tabs"] button').length;
+               const cards = document.querySelectorAll('[data-testid="system-service-grid"] button[data-testid^="system-service-"]').length;
+               const coverage = document.querySelectorAll('[data-testid="system-coverage"] .sys-coverage-row').length;
+               const rows = document.querySelectorAll('[data-testid="system-process-row"]').length;
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 cpu !== '' && cpu !== '—' && cpu !== '-' &&
+                 worldTabs === 3 && cards === 12 && coverage >= 1 && rows >= 1 &&
+                 /Measured observatory|المرصد المقيس/.test(bannerText);
+             })()`,
+            true
+          );
+          if (systemUiReady) break;
+        }
+        const systemControlProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const main = document.querySelector('[data-testid="system-workspace"]');
+             if (!main) return { ok: false, failures: ['workspace-missing'] };
+             const groups = Array.from(main.querySelectorAll('.sys-timeline-panel .sys-seg'));
+             for (let index = 0; index < groups.length; index += 1) {
+               const buttons = Array.from(groups[index].querySelectorAll('button'));
+               if (buttons.length < 2) { failures.push('group-' + index + ':short'); continue; }
+               buttons[1].click();
+               await wait(60);
+               if (!buttons[1].classList.contains('is-active')) failures.push('group-' + index + ':inactive');
+               if (buttons[0]) buttons[0].click();
+               await wait(30);
+             }
+             const pause = Array.from(main.querySelectorAll('.sys-timeline-panel button')).find((button) => /Pause|إيقاف/.test(button.textContent || ''));
+             if (!pause) failures.push('pause:missing');
+             else {
+               pause.click();
+               await wait(70);
+               if (pause.getAttribute('aria-pressed') !== 'true') failures.push('pause:not-pressed');
+               pause.click();
+               await wait(50);
+               if (pause.getAttribute('aria-pressed') !== 'false') failures.push('pause:not-released');
+             }
+             const search = main.querySelector('input[aria-label="Find a service"], input[aria-label="بحث عن خدمة"]');
+             if (!search) failures.push('search:missing');
+             else {
+               const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+               setter.call(search, 'log');
+               search.dispatchEvent(new Event('input', { bubbles: true }));
+               await wait(140);
+               const filtered = main.querySelectorAll('[data-testid="system-service-grid"] button[data-testid^="system-service-"]').length;
+               if (filtered === 0 || filtered >= 12) failures.push('search:filter-' + filtered);
+               setter.call(search, '');
+               search.dispatchEvent(new Event('input', { bubbles: true }));
+               await wait(140);
+             }
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.systemControlProbe = systemControlProbe;
+        const systemServiceProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const seen = new Set();
+             const tabs = Array.from(document.querySelectorAll('[data-testid="system-world-tabs"] button'));
+             if (tabs.length !== 3) return { ok: false, checked: 0, failures: ['world-tabs:' + tabs.length] };
+             for (let tabIndex = 0; tabIndex < tabs.length; tabIndex += 1) {
+               tabs[tabIndex].click();
+               await wait(240);
+               const cards = Array.from(document.querySelectorAll('[data-testid="system-service-grid"] button[data-testid^="system-service-"]'));
+               if (cards.length !== 12) failures.push('world-' + tabIndex + ':cards-' + cards.length);
+               for (const card of cards) {
+                 const id = (card.getAttribute('data-testid') || '').replace('system-service-', '');
+                 if (!id) continue;
+                 seen.add(id);
+                 card.click();
+                 await wait(260);
+                 const workbench = document.querySelector('[data-testid="sys-service-workspace-' + id + '"]');
+                 const shell = document.querySelector('[data-testid="sys-service-shell-' + id + '"]');
+                 const body = workbench ? workbench.querySelector('.sys-wb-body') : null;
+                 const text = workbench ? String(workbench.innerText || '').trim() : '';
+                 if (!workbench || !shell || !body || text.length < 30) failures.push(id + ':render');
+                 else {
+                   const segGroups = Array.from(workbench.querySelectorAll('.sys-seg'));
+                   for (let groupIndex = 0; groupIndex < Math.min(segGroups.length, 4); groupIndex += 1) {
+                     const options = Array.from(segGroups[groupIndex].querySelectorAll('button'));
+                     if (options.length < 2) continue;
+                     options[1].click();
+                     await wait(45);
+                     if (!options[1].classList.contains('is-active')) failures.push(id + ':seg-' + groupIndex);
+                     options[0].click();
+                     await wait(25);
+                   }
+                   const row = workbench.querySelector('tbody tr');
+                   if (row) { row.click(); await wait(45); }
+                 }
+                 const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+                 if (!close) failures.push(id + ':close-missing');
+                 else close.click();
+                 await wait(150);
+                 if (document.querySelector('[data-testid="sys-service-shell-' + id + '"]')) failures.push(id + ':close-failed');
+               }
+             }
+             tabs[0].click();
+             await wait(220);
+             return { ok: failures.length === 0 && seen.size === 36, checked: seen.size, failures };
+           })()`,
+          true
+        );
+        receipt.systemServiceProbe = systemServiceProbe;
+        const systemKeyboardProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="system-service-system-health-check"]');
+             if (!card) return { ok: false, reason: 'card-missing' };
+             card.focus();
+             card.click();
+             await wait(450);
+             const shellSelector = '[data-testid="sys-service-shell-system-health-check"]';
+             const shell = document.querySelector(shellSelector);
+             const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+             const focused = Boolean(close) && document.activeElement === close;
+             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+             await wait(320);
+             return { ok: focused && !document.querySelector(shellSelector), focused };
+           })()`,
+          true
+        );
+        receipt.systemKeyboardProbe = systemKeyboardProbe;
+        try {
+          const finalSession = systemBridge?.status?.(renderer.systemV1?.session?.data?.id);
+          if (finalSession) {
+            receipt.systemFinalSession = {
+              id: finalSession.id,
+              status: finalSession.status,
+              progress: finalSession.progress,
+              readOnly: finalSession.readOnly,
+              mutation: finalSession.mutation,
+              warnings: finalSession.warnings.length,
+              stages: finalSession.stages.map((stage) => ({
+                key: stage.key,
+                status: stage.status,
+                items: stage.items,
+                durationMs: stage.durationMs,
+              })),
+            };
+          }
+          const measured = await systemBridge?.snapshot?.();
+          if (measured) {
+            receipt.systemMeasured = {
+              generatedAt: measured.generatedAt,
+              receipt: measured.receipt,
+              processCount: measured.processCount,
+              processRows: measured.processes.length,
+              serviceRows: measured.services.length,
+              driverRows: measured.drivers.length,
+              eventRows: measured.events.length,
+              channelRows: measured.eventChannels.length,
+              interfaceRows: measured.interfaces.length,
+              routeRows: measured.routes.length,
+              neighborRows: measured.neighbors.length,
+              socketRows: measured.sockets.length,
+              startupLinkRows: measured.startupLinks.length,
+              hardware: {
+                cpu: measured.hardware.cpu.length,
+                gpu: measured.hardware.gpu.length,
+                memory: measured.hardware.memory.length,
+                disks: measured.hardware.disks.length,
+                batteries: measured.hardware.batteries.length,
+                usb: measured.hardware.usb.length,
+                monitors: measured.hardware.monitors.length,
+                audio: measured.hardware.audio.length,
+                thermalZones: measured.hardware.thermal.zones.length,
+                availability: measured.hardware.availability,
+              },
+              coverage: measured.coverage.map((stage) => ({ key: stage.key, status: stage.status, items: stage.items })),
+              warnings: measured.warnings.length,
+              sources: measured.sources.length,
+              metrics: measured.metrics,
+            };
+          }
+        } catch (error) {
+          receipt.systemFinalError = redactError(error);
+        }
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="system-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(600);
+        const systemShotPath = smokeShotPath.replace(/native-bridge/i, 'system-measured');
+        const systemImage = await win.webContents.capturePage();
+        await fsp.writeFile(systemShotPath, systemImage.toPNG());
+        receipt.systemScreenshot = systemShotPath;
+        receipt.systemScreenshotBytes = (await fsp.stat(systemShotPath)).size;
+        receipt.systemUiReady = systemUiReady;
+
+        // Capture one measured workbench sheet as visual evidence for the
+        // specialised service layout. Hardware identity is used deliberately:
+        // process dossiers can contain user-profile paths, which must never
+        // reach committed screenshots.
+        await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const tabs = Array.from(document.querySelectorAll('[data-testid="system-world-tabs"] button'));
+             if (tabs[2]) tabs[2].click();
+             await wait(320);
+             const card = document.querySelector('[data-testid="system-service-hardware-cpu"]');
+             if (card) card.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(800);
+        const systemWorkbenchPath = systemShotPath.replace(/system-measured/i, 'system-workbench');
+        const systemWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(systemWorkbenchPath, systemWorkbenchImage.toPNG());
+        receipt.systemWorkbenchScreenshot = systemWorkbenchPath;
+        receipt.systemWorkbenchScreenshotBytes = (await fsp.stat(systemWorkbenchPath)).size;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const close = document.querySelector('[data-testid="sys-service-shell-hardware-cpu"] button[aria-label="Close service"], [data-testid="sys-service-shell-hardware-cpu"] button[aria-label="إغلاق الخدمة"]');
+             if (close) close.click();
+             const tabs = Array.from(document.querySelectorAll('[data-testid="system-world-tabs"] button'));
+             if (tabs[0]) tabs[0].click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(500);
+
+        await win.webContents.executeJavaScript(
+          `(() => { document.querySelector('button[title="Switch to light theme"], button[title="Switch to dark theme"]')?.click(); return true; })()`,
+          true
+        );
+        await sleep(900);
+        const systemLightPath = systemShotPath.replace(/\.png$/i, '-light.png');
+        const systemLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(systemLightPath, systemLightImage.toPNG());
+        receipt.systemLightScreenshot = systemLightPath;
+        receipt.systemLightScreenshotBytes = (await fsp.stat(systemLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1000);
+        const systemArabicPath = systemShotPath.replace(/\.png$/i, '-ar-light.png');
+        const systemArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(systemArabicPath, systemArabicImage.toPNG());
+        receipt.systemArabicScreenshot = systemArabicPath;
+        receipt.systemArabicScreenshotBytes = (await fsp.stat(systemArabicPath)).size;
+
+        const systemRtlLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="system-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.sys-instrument'));
+             if (!main || kpis.length !== 4) return { ok: false, reason: 'rtl panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const withinWidth = kpis.every((node) => {
+               const rect = node.getBoundingClientRect();
+               return rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             });
+             const direction = getComputedStyle(main).direction;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth
+               || main.scrollWidth > main.clientWidth + 1;
+             return { ok: direction === 'rtl' && withinWidth && !horizontalOverflow, direction, withinWidth, horizontalOverflow };
+           })()`,
+          true
+        );
+        receipt.systemRtlLayout = systemRtlLayout;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(600);
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const theme = document.querySelector('button[title="Switch to dark theme"], button[title="التبديل إلى الوضع الداكن"]');
+             if (theme) theme.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(900);
+        win.setContentSize(1366, 768);
+        await sleep(1000);
+        const system1366Path = systemShotPath.replace(/\.png$/i, '-1366.png');
+        const system1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(system1366Path, system1366Image.toPNG());
+        receipt.system1366Screenshot = system1366Path;
+        receipt.system1366ScreenshotBytes = (await fsp.stat(system1366Path)).size;
+
+        const system1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="system-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.sys-instrument'));
+             const timeline = document.querySelector('.sys-timeline-panel');
+             const facts = document.querySelector('.sys-facts-panel');
+             if (!main || kpis.length !== 4 || !timeline || !facts) return { ok: false, reason: 'system panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const rects = kpis.map((node) => node.getBoundingClientRect());
+             const withinWidth = rects.every((rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1);
+             const sameRow = Math.abs(rects[0].top - rects[1].top) <= 2
+               && Math.abs(rects[0].top - rects[2].top) <= 2
+               && Math.abs(rects[0].top - rects[3].top) <= 2;
+             const timelineRect = timeline.getBoundingClientRect();
+             const factsRect = facts.getBoundingClientRect();
+             const sideBySide = Math.abs(timelineRect.top - factsRect.top) <= 4
+               && timelineRect.right <= factsRect.left + 1;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             const cards = document.querySelectorAll('[data-testid="system-service-grid"] button[data-testid^="system-service-"]').length;
+             const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+             return {
+               ok: sameRow && withinWidth && sideBySide && !horizontalOverflow && scrollWorked && cards === 12 && theme === 'dark',
+               horizontalOverflow,
+               scrollWorked,
+               sameRow,
+               sideBySide,
+               withinWidth,
+               cards,
+               theme,
+               mainBottom: Math.round(mainRect.bottom),
+               viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.system1366Layout = system1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="system-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(400);
+
+        win.setContentSize(1920, 1080);
+        await sleep(1000);
+        const system1920Path = systemShotPath.replace(/\.png$/i, '-1920.png');
+        const system1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(system1920Path, system1920Image.toPNG());
+        receipt.system1920Screenshot = system1920Path;
+        receipt.system1920ScreenshotBytes = (await fsp.stat(system1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -2716,6 +3340,44 @@ async function runSmoke(win) {
     );
     const startupLayoutOk = receipt.startup1366Layout?.ok === true
       && receipt.startup1366Layout?.horizontalOverflow === false;
+    const systemV1Data = renderer.systemV1;
+    const systemOk = Boolean(
+      renderer.systemV1BridgePresent === true &&
+      systemV1Data?.capabilities?.status === 'complete' &&
+      systemV1Data.capabilities.capability === 'system.capabilities' &&
+      systemV1Data.capabilities.data?.readOnly === true &&
+      systemV1Data.capabilities.data?.mutation === 'none' &&
+      systemV1Data.capabilities.data?.fixtureFallback === false &&
+      systemV1Data.capabilities.data?.serviceCount === 36 &&
+      systemV1Data.capabilities.data?.worldCount === 3 &&
+      systemV1Data.capabilities.data?.gatedOperations?.length >= 1 &&
+      systemV1Data?.started?.status === 'complete' &&
+      systemV1Data.started.data?.contract === 'system.v1' &&
+      systemV1Data.started.data?.readOnly === true &&
+      systemV1Data.started.data?.mutation === 'none' &&
+      systemV1Data?.session?.status === 'complete' &&
+      systemV1Data.session.data?.contract === 'system.v1' &&
+      systemV1Data.session.data?.stages?.length === 9 &&
+      systemV1Data.session.data?.readOnly === true &&
+      receipt.systemServiceProbe?.ok === true &&
+      receipt.systemServiceProbe?.checked === 36 &&
+      receipt.systemControlProbe?.ok === true &&
+      receipt.systemKeyboardProbe?.ok === true &&
+      receipt.systemRtlLayout?.ok === true &&
+      receipt.systemUiReady === true &&
+      ['complete', 'partial'].includes(receipt.systemFinalSession?.status) &&
+      receipt.systemFinalSession?.progress === 100 &&
+      receipt.systemFinalSession?.readOnly === true &&
+      receipt.systemFinalSession?.mutation === 'none' &&
+      receipt.systemFinalSession?.stages?.length === 9 &&
+      receipt.systemMeasured?.processCount > 0 &&
+      receipt.systemMeasured?.serviceRows > 0 &&
+      receipt.systemMeasured?.metrics?.source &&
+      receipt.systemMeasured?.coverage?.length === 9
+    );
+    const systemLayoutOk = receipt.system1366Layout?.ok === true
+      && receipt.system1366Layout?.horizontalOverflow === false
+      && receipt.systemRtlLayout?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -2754,10 +3416,17 @@ async function runSmoke(win) {
       receipt.startupArabicScreenshotBytes > 20000 &&
       receipt.startup1366ScreenshotBytes > 20000 &&
       receipt.startup1920ScreenshotBytes > 20000 &&
-      receipt.startupUiReady === true
+      receipt.startupUiReady === true &&
+      receipt.systemScreenshotBytes > 20000 &&
+      receipt.systemWorkbenchScreenshotBytes > 20000 &&
+      receipt.systemLightScreenshotBytes > 20000 &&
+      receipt.systemArabicScreenshotBytes > 20000 &&
+      receipt.system1366ScreenshotBytes > 20000 &&
+      receipt.system1920ScreenshotBytes > 20000 &&
+      receipt.systemUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -2870,6 +3539,16 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Boot Control coordinator unavailable:', error?.message || error);
       startupBridge = null;
     }
+    try {
+      systemBridge = new SystemBridge({
+        loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+      });
+      trace('system bridge initialized');
+    } catch (error) {
+      trace(`system bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Live Pulse observatory unavailable:', error?.message || error);
+      systemBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -2897,6 +3576,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  void systemBridge?.close?.();
   startupBridge?.dispose();
   cleanupBridge?.dispose();
   appBridge?.dispose();

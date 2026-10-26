@@ -21,6 +21,10 @@ const cleanupBridge = require('../electron/native/cleanup-bridge.cjs');
 const cleanupBridgeSource = read('electron/native/cleanup-bridge.cjs');
 const startupBridge = require('../electron/native/startup-bridge.cjs');
 const startupBridgeSource = read('electron/native/startup-bridge.cjs');
+const systemBridge = require('../electron/native/system-bridge.cjs');
+const systemProviders = require('../electron/native/system-providers.cjs');
+const systemBridgeSource = read('electron/native/system-bridge.cjs');
+const systemProviderSource = read('electron/native/system-providers.cjs');
 const pkg = JSON.parse(read('package.json'));
 
 const failures = [];
@@ -139,6 +143,51 @@ assert(
   ['startupCapabilities', 'startupStart', 'startupStatus', 'startupCancel', 'startupInventory', 'startupServices', 'startupTasks', 'startupImpact', 'startupJournal', 'startupSessions', 'startupPlan', 'startupReport', 'startupOpenSettings']
     .every((channel) => main.includes(`contract.channels.${channel}`)),
   'every Startup channel has an IPC handler'
+);
+assert(/exposeInMainWorld\(\s*'knouxSystemV1'/.test(preload), 'preload exposes the Live Pulse observatory bridge');
+assert(!preload.includes('ipcRenderer.on(CHANNELS.system'), 'System exposes no event stream');
+assert(contract.channels.systemSnapshot === 'knoux:system:v1:snapshot', 'System snapshot channel is fixed');
+assert(contract.capabilities['system.start'].mode === 'read-only', 'System measurement is read-only');
+assert(contract.capabilities['system.diagnostics'].mode === 'read-only', 'System diagnostics are read-only');
+assert(contract.capabilities['system.hosts.plan'].mode === 'read-only', 'hosts drafts are review-only');
+assert(contract.capabilities['system.settings.open'].mode === 'user-initiated', 'settings handoff is the only user-initiated System capability');
+assert(!Object.keys(contract.capabilities).some((id) => /system\.(process|service|driver|power)\.(terminate|stop|start|set|change|install|remove)/i.test(id)), 'System contract exposes no mutation capability');
+const systemServiceIds = [
+  'system-health-check', 'system-events', 'system-processes', 'system-signatures', 'system-uptime', 'system-perf',
+  'system-drivers', 'system-logs', 'system-resources', 'system-autostart', 'system-services-map', 'system-timeline',
+  'network-interfaces', 'network-dns-config', 'network-adapters', 'network-connectivity', 'network-throughput',
+  'network-traceroute', 'network-topology', 'network-ports', 'network-wifi', 'network-hosts', 'network-proxies', 'network-repair-link',
+  'hardware-inventory', 'hardware-battery', 'hardware-cpu', 'hardware-gpu', 'hardware-memory', 'hardware-cycles',
+  'hardware-thermal', 'hardware-disks', 'hardware-usb', 'hardware-display', 'hardware-audio', 'hardware-health-report',
+];
+assert(
+  systemBridge.SERVICE_DEFINITIONS.length === 36
+    && systemServiceIds.every((id) => systemBridge.SERVICE_DEFINITIONS.some((service) => service.id === id)),
+  'System keeps all thirty-six canonical services'
+);
+assert(
+  ['system', 'network', 'hardware'].every((world) => systemBridge.SERVICE_DEFINITIONS.filter((service) => service.world === world).length === 12),
+  'System splits twelve canonical services across three worlds'
+);
+assert(
+  systemBridge.SERVICE_DEFINITIONS.every((service) => /[\u0600-\u06FF]/.test(service.labelAr) && /[\u0600-\u06FF]/.test(service.noteAr)),
+  'System services carry authored Arabic labels and notes'
+);
+assert(systemBridge.STAGE_DEFINITIONS.length === 9, 'System keeps nine measured stages');
+assert(systemBridge.GATED_OPERATIONS.length === 8, 'System publishes eight explicit mutation gates');
+assert(systemBridge.GATED_OPERATIONS.every((operation) => operation.id && operation.mission && operation.reason), 'System gates name their owning mission and reason');
+assert(systemBridge.SERVICE_DEFINITIONS === systemProviders.SERVICE_DEFINITIONS, 'the bridge reuses the measured provider service catalogue');
+for (const forbidden of ['Stop-Process', 'Stop-Service', 'Set-Service', 'Set-ItemProperty', 'New-ItemProperty', 'Remove-ItemProperty', 'Restart-NetAdapter', 'netsh winsock reset', 'ipconfig /flushdns', 'Start-Process', 'shutdown.exe', 'fs.writeFile', 'fs.rename', 'fs.unlink', 'child_process.exec(']) {
+  assert(!systemBridgeSource.includes(forbidden), `System bridge has no mutation call: ${forbidden}`);
+}
+for (const forbidden of ['Remove-Item', 'Set-Service', 'Stop-Service', 'Restart-NetAdapter', 'Set-NetAdapter', 'Set-ItemProperty', 'Invoke-Expression', 'Start-Process', 'shutdown.exe']) {
+  assert(!systemProviderSource.includes(forbidden), `System provider has no mutation call: ${forbidden}`);
+}
+assert(!systemBridgeSource.includes('shell.openExternal'), 'the System bridge does not open anything itself');
+assert(
+  ['systemCapabilities', 'systemStart', 'systemStatus', 'systemCancel', 'systemSnapshot', 'systemSample', 'systemProcesses', 'systemEvents', 'systemSignatures', 'systemDiagnostics', 'systemTraceroute', 'systemHosts', 'systemHostsPlan', 'systemReport', 'systemOpenSettings']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every System channel has an IPC handler'
 );
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');

@@ -90,6 +90,21 @@ const CHANNELS = Object.freeze({
   startupPlan: 'knoux:startup:v1:plan',
   startupReport: 'knoux:startup:v1:report',
   startupOpenSettings: 'knoux:startup:v1:open-settings',
+  systemCapabilities: 'knoux:system:v1:capabilities',
+  systemStart: 'knoux:system:v1:start',
+  systemStatus: 'knoux:system:v1:status',
+  systemCancel: 'knoux:system:v1:cancel',
+  systemSnapshot: 'knoux:system:v1:snapshot',
+  systemSample: 'knoux:system:v1:sample',
+  systemProcesses: 'knoux:system:v1:processes',
+  systemEvents: 'knoux:system:v1:events',
+  systemSignatures: 'knoux:system:v1:signatures',
+  systemDiagnostics: 'knoux:system:v1:diagnostics',
+  systemTraceroute: 'knoux:system:v1:traceroute',
+  systemHosts: 'knoux:system:v1:hosts',
+  systemHostsPlan: 'knoux:system:v1:hosts-plan',
+  systemReport: 'knoux:system:v1:report',
+  systemOpenSettings: 'knoux:system:v1:open-settings',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -260,5 +275,31 @@ contextBridge.exposeInMainWorld(
     plan: (request) => ipcRenderer.invoke(CHANNELS.startupPlan, request),
     report: () => ipcRenderer.invoke(CHANNELS.startupReport),
     openSettings: (target) => ipcRenderer.invoke(CHANNELS.startupOpenSettings, { target }),
+  })
+);
+
+/* System v1 is a read-only Live Pulse observatory. Process termination,
+   service control, hosts writes, proxy changes, adapter resets, driver
+   changes and power actions do not exist here: only measured reads, bounded
+   diagnostics and review-only plans are exposed. */
+contextBridge.exposeInMainWorld(
+  'knouxSystemV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.systemCapabilities),
+    start: () => ipcRenderer.invoke(CHANNELS.systemStart),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.systemStatus, { sessionId }),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.systemCancel, { sessionId }),
+    snapshot: () => ipcRenderer.invoke(CHANNELS.systemSnapshot),
+    sample: () => ipcRenderer.invoke(CHANNELS.systemSample),
+    processes: () => ipcRenderer.invoke(CHANNELS.systemProcesses),
+    events: (query) => ipcRenderer.invoke(CHANNELS.systemEvents, query || {}),
+    signatures: (paths) => ipcRenderer.invoke(CHANNELS.systemSignatures, { paths }),
+    diagnostics: (request) => ipcRenderer.invoke(CHANNELS.systemDiagnostics, request),
+    traceroute: (request) => ipcRenderer.invoke(CHANNELS.systemTraceroute, request),
+    hosts: () => ipcRenderer.invoke(CHANNELS.systemHosts),
+    hostsPlan: (draft) => ipcRenderer.invoke(CHANNELS.systemHostsPlan, draft),
+    report: (options) => ipcRenderer.invoke(CHANNELS.systemReport, options || {}),
+    openSettings: (target) => ipcRenderer.invoke(CHANNELS.systemOpenSettings, { target }),
   })
 );
