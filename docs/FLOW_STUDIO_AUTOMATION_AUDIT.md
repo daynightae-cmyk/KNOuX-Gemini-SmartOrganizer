@@ -206,7 +206,9 @@ remains pinned and no document-level horizontal overflow occurs.
 ## 9. Release record
 
 The implementation and evidence are committed on `feat/gemini-missions` at
-`5ac87f58b7b80918bc0e7aa2f847647ac66699c2`. Gemini Platform CI run
-`40369661654` is SUCCESS (lint, build, native contract and every native suite,
-including `test:automation`). The acceptance commit and the fast-forward `main`
-SHA are recorded in `missions/MISSION_SEQUENCE_PROGRESS.md`.
+`5ac87f58b7b80918bc0e7aa2f847647ac66699c2`; the acceptance record is
+`8bd3ce2f34e40ad0ea11962fd33c5a962694dcc2`. Gemini Platform CI run
+`40369661654` (implementation) and `40369948815` (acceptance) are SUCCESS.
+Remote `main` was fast-forwarded to the verified acceptance commit
+`8bd3ce2f34e40ad0ea11962fd33c5a962694dcc2`, matching
+`feat/gemini-missions` at checkpoint time.
