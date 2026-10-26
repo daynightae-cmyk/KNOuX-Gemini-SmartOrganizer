@@ -150,7 +150,8 @@ inner scrollers and a pinned footer, and the 1366 assertion proves the footer,
 
 ## 9. Release record
 
-The implementation is committed on `feat/gemini-missions`, pushed to the only
-authorized remote, and integrated into `main` after GitHub Actions for the exact
-commit is green. The SHA, CI run and integration result are recorded in
+The implementation is committed on `feat/gemini-missions` (`2594400`), with the
+acceptance record at `cca97ff`, pushed to the only authorized remote, and
+integrated into `main` after Gemini Platform CI run 40356612756 was green.
+Remote SHA, CI run and integration result are recorded in
 `missions/MISSION_SEQUENCE_PROGRESS.md`.
