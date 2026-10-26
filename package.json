@@ -14,6 +14,7 @@
     "test:apps": "npm run test:apps --prefix apps/gemini-ui",
     "test:cleanup": "npm run test:cleanup --prefix apps/gemini-ui",
     "test:startup": "npm run test:startup --prefix apps/gemini-ui",
+    "test:system": "npm run test:system --prefix apps/gemini-ui",
     "desktop:smoke": "npm run desktop:smoke --prefix apps/gemini-ui",
     "desktop:pack": "npm run desktop:pack --prefix apps/gemini-ui",
     "dev": "npm run dev --prefix apps/gemini-ui",
