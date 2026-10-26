@@ -289,3 +289,23 @@ Do not skip work and do not waste the mission rewriting already functioning code
 D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\references\REF-01_Smart_Organization_Studio.png
 
 The file above EXISTS on this PC and is the approved visual baseline for this section. Inspect it directly at native resolution. Compare actual rendered window region-by-region, maintain the same composition and branded assets, and show actual before/after evidence at the acceptance viewports. Do not claim visual parity without screenshots.
+
+
+---
+
+## REAL USER SERVICE ACTIVATION — POST-READ-ONLY PRODUCT ACCEPTANCE
+
+This addendum implements the user's requirement that KNOuX must deliver REAL consumer actions, not only passive reading and dry-runs. Read and obey missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md BEFORE assessing this section. Treat earlier read-only/preview success as a valid engineering checkpoint but NOT automatic final functionality acceptance.
+
+### Specific outcomes to implement and prove
+
+- Studio's PRIMARY PURPOSE is to organize real user-selected folders. Implement the actual controlled file-operation engine: authorized scoped source/destination, category rules, preview, transactional move/copy/rename or organize, collision policy, file integrity verification, cancel, durable journal and **working Undo/Restore** where possible.
+- Respect symlink/junction boundaries, same-volume atomic moves when available, external drive failure, protected files, duplicates, rechecks and rollback conflicts.
+- The nine stages are a workflow from source selection to EXECUTION and HISTORY, not nine disconnected read-only exhibitions. Execution buttons cannot be permanently disabled in the finished product.
+- Tests must execute real file operations on temporary owned fixtures, assert files/bytes at destination, confirm original metadata and real undo; do NOT organize personal user folders during agent work.
+
+### Product acceptance
+
+Enumerate EVERY existing service ID in this mission. Assign appropriate A observational / B reversible / C destructive-privileged / D connected category. Include each service in the central capability matrix, with actual native/API implementation, UI action, scoped consent gate, controlled fixture effect test, after-state verification, journal/undo if feasible, and honest limitations. A passive service may be complete with live useful measurements; an action-promising service requires a real safe executor behind user approval. Do NOT perform effectful tests on real user resources, account, registry or Windows. Do not mark whole-section PRODUCTION COMPLETE until core actions are implemented/tested and supported integrations have their external/manual gates documented.
+
+Follow the existing SINGLE canonical repo/branch and real CI policy; no worktrees, extra project directories, fake results or Root CI. If currently working on another mission, preserve it and enter this section during the ordered activation pass, not by overwriting the agent's uncommitted changes.

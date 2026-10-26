@@ -330,3 +330,23 @@ Some service buttons are generated inside shared renderer families and are NOT c
 - src/components/cleanup/CleanupWorkspaces.tsx
 
 Trace runtime service dispatch from the selected tile to ServiceWorkspaceHost to the appropriate renderer family. For EACH generated control: trace actual current selection, config props, state updates, actual provider call, preview, permission gate, error and verification. A direct page control inventory alone is not complete. No all-service generic fake preview is acceptable.
+
+
+---
+
+## REAL USER SERVICE ACTIVATION — POST-READ-ONLY PRODUCT ACCEPTANCE
+
+This addendum implements the user's requirement that KNOuX must deliver REAL consumer actions, not only passive reading and dry-runs. Read and obey missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md BEFORE assessing this section. Treat earlier read-only/preview success as a valid engineering checkpoint but NOT automatic final functionality acceptance.
+
+### Specific outcomes to implement and prove
+
+- Cleanup must actually allow a user to reclaim safe storage, not just calculate potential bytes. Implement approved quarantine (prefer recoverable, preserve metadata), validated deletion/purge with irreversible warning, durable journals, available real restore, per-item result and actual freed-space accounting.
+- Support safe temporary locations and explicitly scoped user/browser caches; exclude in-use/protected/shared files; for Windows Update servicing use supported OS maintenance APIs rather than arbitrary WinSxS deletion.
+- Integrate recycle-bin behavior where supported, report what was actually removed vs estimated. Cleanup schedule delegates to the actual approved Automation executor, not a fake calendar setting.
+- Tests: disposable 2-3 folder fixture -> quarantine -> restore, separately approved irreversible purge test on fixture, stale plan, path traversal, locked file and failure injection. Never clean the owner's machine in unattended tests.
+
+### Product acceptance
+
+Enumerate EVERY existing service ID in this mission. Assign appropriate A observational / B reversible / C destructive-privileged / D connected category. Include each service in the central capability matrix, with actual native/API implementation, UI action, scoped consent gate, controlled fixture effect test, after-state verification, journal/undo if feasible, and honest limitations. A passive service may be complete with live useful measurements; an action-promising service requires a real safe executor behind user approval. Do NOT perform effectful tests on real user resources, account, registry or Windows. Do not mark whole-section PRODUCTION COMPLETE until core actions are implemented/tested and supported integrations have their external/manual gates documented.
+
+Follow the existing SINGLE canonical repo/branch and real CI policy; no worktrees, extra project directories, fake results or Root CI. If currently working on another mission, preserve it and enter this section during the ordered activation pass, not by overwriting the agent's uncommitted changes.

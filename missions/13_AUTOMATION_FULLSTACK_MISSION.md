@@ -351,3 +351,22 @@ Some service buttons are generated inside shared renderer families and are NOT c
 - src/components/automation/AutomationWorkspaces.tsx
 
 Trace runtime service dispatch from the selected tile to ServiceWorkspaceHost to the appropriate renderer family. For EACH generated control: trace actual current selection, config props, state updates, actual provider call, preview, permission gate, error and verification. A direct page control inventory alone is not complete. No all-service generic fake preview is acceptable.
+
+
+---
+
+## REAL USER SERVICE ACTIVATION — POST-READ-ONLY PRODUCT ACCEPTANCE
+
+This addendum implements the user's requirement that KNOuX must deliver REAL consumer actions, not only passive reading and dry-runs. Read and obey missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md BEFORE assessing this section. Treat earlier read-only/preview success as a valid engineering checkpoint but NOT automatic final functionality acceptance.
+
+### Specific outcomes to implement and prove
+
+- Flow Studio must include an actual persisted scheduler and executor for safe user-authorized workflows, not just save DAG drafts or fake dry-run history. Implement validated DAG, reliable trigger persistence, queued actual scoped steps, bounded execution, cancellation, crash recovery/idempotency, notifications and durable per-step receipts.
+- Each enabled automation requires explicit scoped standing user consent and a pause/revoke UI; expiry/limits for effects. No silent cleanups, file mutations, elevated repair, app uninstall, cloud messages or paid API calls as default steps. Such steps need separate user approval/capability and policy checks at runtime.
+- Templates, recurrence, quiet hours, battery policy, export/import and backup plan must have meaningful real effects when enabled; test scheduler on controlled clock, dry run vs ACTUAL disposable-fixture step, restart and idempotency. No reliance on permanent Qoder process.
+
+### Product acceptance
+
+Enumerate EVERY existing service ID in this mission. Assign appropriate A observational / B reversible / C destructive-privileged / D connected category. Include each service in the central capability matrix, with actual native/API implementation, UI action, scoped consent gate, controlled fixture effect test, after-state verification, journal/undo if feasible, and honest limitations. A passive service may be complete with live useful measurements; an action-promising service requires a real safe executor behind user approval. Do NOT perform effectful tests on real user resources, account, registry or Windows. Do not mark whole-section PRODUCTION COMPLETE until core actions are implemented/tested and supported integrations have their external/manual gates documented.
+
+Follow the existing SINGLE canonical repo/branch and real CI policy; no worktrees, extra project directories, fake results or Root CI. If currently working on another mission, preserve it and enter this section during the ordered activation pass, not by overwriting the agent's uncommitted changes.

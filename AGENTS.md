@@ -1,3 +1,9 @@
+# REAL-SERVICE PRODUCT ACCEPTANCE — OVERRIDES READ-ONLY FINALITY
+
+Read missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md. A read-only or dry-run milestone is NOT a final product-complete action service. Actual executor implementation and disposable-fixture side-effect tests are REQUIRED while any LIVE changes to the owner's files/OS/accounts require their explicit separate user approval. Keep all past validated work and preserve the current in-flight source changes. After 04/14/01 complete, run the documented per-service activation pass instead of declaring 100% finished. Track every service ID in docs/SERVICE_CAPABILITY_MATRIX.md.
+
+---
+
 # KNOuX Smart Gemini — mandatory workspace and Git rules
 
 ## Absolute canonical development environment

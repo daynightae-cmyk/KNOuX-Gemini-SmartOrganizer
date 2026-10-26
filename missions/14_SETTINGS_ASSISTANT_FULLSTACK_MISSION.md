@@ -224,3 +224,23 @@ Do not skip work and do not waste the mission rewriting already functioning code
 ## ORIGINAL VISUAL ASSET AVAILABILITY
 
 No matching named standalone reference image for this section was found in D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\references during this audit. Preserve approved imagery already in source; if the user supplies a reference with the mission, compare to it. Do not invent a file path or claim exact reference parity absent a supplied image.
+
+
+---
+
+## REAL USER SERVICE ACTIVATION — POST-READ-ONLY PRODUCT ACCEPTANCE
+
+This addendum implements the user's requirement that KNOuX must deliver REAL consumer actions, not only passive reading and dry-runs. Read and obey missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md BEFORE assessing this section. Treat earlier read-only/preview success as a valid engineering checkpoint but NOT automatic final functionality acceptance.
+
+### Specific outcomes to implement and prove
+
+- Settings must persist actual supported app preferences (locale/theme/privacy/indexing/capability controls) and prove their effect after restart. Use secure Windows credential storage for opt-in persistent tokens and explicit delete/revoke; no secrets in React localStorage or logs.
+- AI Assistant must actually call a configured provider only after user supplies/approves credentials and expense/network consent, show response and cancel/errors/provider limits; fixture chat is not complete. Provide fully functional offline non-AI actions when no provider configured.
+- Restore/backup settings should serialize and re-import validated app-owned data, prove restore on disposable profiles and clearly distinguish it from system restore or file backup. User must control network and background execution.
+- Test real settings roundtrip after packaged restart, secure token boundaries and simulated provider requests; never access personal API keys without consent.
+
+### Product acceptance
+
+Enumerate EVERY existing service ID in this mission. Assign appropriate A observational / B reversible / C destructive-privileged / D connected category. Include each service in the central capability matrix, with actual native/API implementation, UI action, scoped consent gate, controlled fixture effect test, after-state verification, journal/undo if feasible, and honest limitations. A passive service may be complete with live useful measurements; an action-promising service requires a real safe executor behind user approval. Do NOT perform effectful tests on real user resources, account, registry or Windows. Do not mark whole-section PRODUCTION COMPLETE until core actions are implemented/tested and supported integrations have their external/manual gates documented.
+
+Follow the existing SINGLE canonical repo/branch and real CI policy; no worktrees, extra project directories, fake results or Root CI. If currently working on another mission, preserve it and enter this section during the ordered activation pass, not by overwriting the agent's uncommitted changes.

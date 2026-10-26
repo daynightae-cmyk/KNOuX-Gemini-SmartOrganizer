@@ -231,3 +231,24 @@ Do not skip work and do not waste the mission rewriting already functioning code
 ## ORIGINAL VISUAL ASSET AVAILABILITY
 
 No matching named standalone reference image for this section was found in D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\references during this audit. Preserve approved imagery already in source; if the user supplies a reference with the mission, compare to it. Do not invent a file path or claim exact reference parity absent a supplied image.
+
+
+---
+
+## REAL USER SERVICE ACTIVATION — POST-READ-ONLY PRODUCT ACCEPTANCE
+
+This addendum implements the user's requirement that KNOuX must deliver REAL consumer actions, not only passive reading and dry-runs. Read and obey missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md BEFORE assessing this section. Treat earlier read-only/preview success as a valid engineering checkpoint but NOT automatic final functionality acceptance.
+
+### Specific outcomes to implement and prove
+
+- Quick and Deep Scan: execute scoped real inventory with progress, cancellation, severity evidence, coverage, refresh, and full browse/export; not a 100% fake scan animation.
+- Duplicate Finder and Large Files must connect findings to the existing scoped File/Storage selector and actually executable user-approved file plan once that shared executor exists; hash verification before any destructive proposal.
+- Junk Cleaner/Privacy traces expose real source-specific candidate policies and hand off to the validated Cleanup quarantine/purge executor after exact approval; no silent deletion or history wiping.
+- Startup Impact and App Health link measured evidence directly to genuine Startup/Applications maintenance actions. System Health Pulse links to supported diagnostics and consent-gated Repair. Recommendations must be individualized, actionable and explain why.
+- Tests must cover scan -> finding -> selected preview -> action gate -> effectful disposable-fixture executor OR explicit honest PARTIAL for a missing executor.
+
+### Product acceptance
+
+Enumerate EVERY existing service ID in this mission. Assign appropriate A observational / B reversible / C destructive-privileged / D connected category. Include each service in the central capability matrix, with actual native/API implementation, UI action, scoped consent gate, controlled fixture effect test, after-state verification, journal/undo if feasible, and honest limitations. A passive service may be complete with live useful measurements; an action-promising service requires a real safe executor behind user approval. Do NOT perform effectful tests on real user resources, account, registry or Windows. Do not mark whole-section PRODUCTION COMPLETE until core actions are implemented/tested and supported integrations have their external/manual gates documented.
+
+Follow the existing SINGLE canonical repo/branch and real CI policy; no worktrees, extra project directories, fake results or Root CI. If currently working on another mission, preserve it and enter this section during the ordered activation pass, not by overwriting the agent's uncommitted changes.
