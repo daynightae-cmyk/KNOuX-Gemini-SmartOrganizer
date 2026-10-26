@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 10 System (02 Smart Scan, 05 Applications, 08 Cleanup and 09 Startup accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 11 Repair (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup and 10 System accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08 and 09 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09 and 10 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -17,7 +17,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08 and 09 acc
 | 05 - Applications | ACCEPTED_WITH_EVIDENCE (measured read-only; uninstall/update/association/startup writes gated to 08/11/14/09) | b52c7e4 | b52c7e4 | docs (this snapshot), visual-evidence/platform-00/applications-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:apps PASS, native smoke appsOk/appsLayoutOk, Gemini Platform CI success (run 40244766892) | 08 |
 | 08 — Cleanup | ACCEPTED_WITH_EVIDENCE (measured read-only; delete/quarantine/recycle-empty/DISM/task/restore mutations gated) | 1359162 | 1359162 | docs (this snapshot), visual-evidence/platform-00/cleanup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:cleanup PASS, native smoke cleanupOk/cleanupLayoutOk + 12/12 service workbenches, Gemini Platform CI success (run 40252357944) | 09 |
 | 09 - Startup | ACCEPTED_WITH_EVIDENCE (measured read-only; enable/disable/delay/restore/journal/registry/task/service mutations gated pending approval) | 11d4b6e | 11d4b6e | docs (this snapshot), visual-evidence/platform-00/startup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:startup PASS (12 services/5 stages/9 entries/3 tasks/3 services/3 protected/4 plan items/2 conflicts), native smoke startupOk/startupLayoutOk/screenshotOk + 12/12 service workbenches, Gemini Platform CI success (run 40257321044) | 10 |
-| 10 — System | PENDING | — | — | — | — |
+| 10 — System | ACCEPTED_WITH_EVIDENCE (measured read-only; 36 services/9 stages/8 mutation gates; process/service/driver/hosts/proxy/adapter/repair/power writes gated) | aebffc2 | pending push verification | docs/SYSTEM_LIVE_PULSE_AUDIT.md, visual-evidence/platform-00/system-measured-dev{,-light,-ar-light,-1366,-1920}.png + system-workbench-dev.png + packaged equivalents, test:system PASS (36 services/9 stages/8 gates), native smoke systemOk/systemLayoutOk + 36/36 workbenches + 36/36 controls + keyboard/RTL, packaged smoke PASS | 11 |
 | 11 — Repair | PENDING | — | — | — | — |
 | 12 — Services | PENDING | — | — | — | — |
 | 13 — Automation | PENDING | — | — | — | — |
@@ -108,9 +108,20 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08 and 09 acc
 - Runtime: `desktop:smoke` PASS with `startupOk`, `startupLayoutOk`, `screenshotOk`, 12/12 workbenches opened and closed and the measured native banner; dark EN, light EN, Arabic light RTL, 1366 and 1920 captures reviewed.
 - Root CI: Gemini Platform CI run 40257321044 SUCCESS; remote `main` fast-forwarded to verified 11d4b6e.
 
+## Mission 10 verification snapshot
+
+- Coordinator: `electron/native/system-bridge.cjs` is the single read-only Live Pulse bridge behind 15 fixed `knoux:system:v1:*` channels. It composes audited CIM, performance counter, event log, Authenticode, Net*, hosts/proxy and hardware providers; it also owns bounded DNS/TCP/HTTP/ICMP probes and `tracert.exe` with validated targets. Every envelope carries capability, status, source, permission, measured provenance and data/error.
+- Measured: 9/9 stages complete, progress 100, **292 processes**, 271 services, 139 signed-driver rows, 300 events, 4 interfaces, 417 sockets, 240 observed neighbours (bounded), 10 startup links, 1 thermal warning, 20 source groups. Hardware: 1 CPU, 1 GPU, 2 DIMMs, 2 disks, 12 USB nodes, 1 monitor, 6 audio endpoints, SMART true; battery and thermal zone unavailable and labelled unavailable. No numbers were invented.
+- Renderer: the fixture inventory, generic modal and fixture test expectations were deleted. `SystemPage` now renders measured hero, four instruments, performance timeline with real samples/interval/pause, measured identity, process ledger, nine-stage coverage and all **36** service workbenches. `system.css` is a authored 4.9K-line `sys-*` design system with dark/light, Arabic RTL, 1366/1672/1920 breakpoints and reduced-motion support.
+- Interactions: smoke opened all 36 workbenches, switched and restored 36/36 segmented controls, exercised timeline tabs/interval/pause/search, proved focus-on-close + Escape, and proved RTL with zero horizontal overflow. At 1366×768 four KPI cards share one row, timeline/facts are side by side, the process ledger and first workbench row are inside the viewport, and inner scrolling works.
+- Blocked by requirement: process termination, service control, driver change, hosts write, proxy write, adapter reset, network repair execution and power policy changes have no channel. Eight operations are published in `capabilities.gatedOperations` with owning missions 10/11/12/14. Hosts edits are immutable previews only.
+- Tests: `test:system` PASS (36 services, 9 stages, 8 gates, fixture snapshots/events/signatures/diagnostics/traceroute, renderer catalog/workbench parity, no mutation calls); all prior native regressions PASS; lint and build PASS.
+- Runtime: development and packaged `desktop:*smoke` PASS with `systemOk`, `systemLayoutOk`, 36/36 workbenches, 36/36 controls, keyboard/Escape, RTL and 1366 layout; dark EN, light EN, Arabic light RTL, 1366, 1920 and a privacy-safe CPU workbench capture reviewed.
+- Root CI: pending push verification for `aebffc2`; main integration pending that green run.
+
 ## Boundary / next
 
-- Next mission file: `10_SYSTEM_FULLSTACK_MISSION.md` (then 11, 12, 13, 04, 14, 01).
+- Next mission file: `11_REPAIR_FULLSTACK_MISSION.md` (then 12, 13, 04, 14, 01).
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
