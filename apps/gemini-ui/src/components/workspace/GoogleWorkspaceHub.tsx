@@ -10,7 +10,7 @@
  * to a Google service. The UI states that explicitly on every panel.
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   FileSpreadsheet,
   Mail,
@@ -936,13 +936,26 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
   const { navigateTo, locale: navLocale, isArabic, toggleLocale } = useNavigation();
   const isAr = navLocale ? isArabic : locale === 'ar';
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isOAuthModalOpen, setIsOAuthModalOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [activeService, setActiveService] = useState<HubServiceId>('sheets');
   const [selectedItemId, setSelectedItemId] = useState<string>('sheet-1');
   const [newInput, setNewInput] = useState('');
   const [copiedId, setCopiedId] = useState(false);
+  const [consentScopes, setConsentScopes] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(HUB_SERVICES.map((service) => [service.id, false]))
+  );
+  const oauthCloseRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!isOAuthModalOpen) return;
+    oauthCloseRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOAuthModalOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOAuthModalOpen]);
 
   // Local fixture additions — the only write this hub performs, and it never
   // leaves the browser.
@@ -989,8 +1002,8 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
   const handleAction = (serviceName: string) => {
     showToast(
       isAr
-        ? `[محاكاة تجريبية] تم تنفيذ إجراء "${serviceName}". يتطلب التنفيذ الحي اعتماد Google OAuth.`
-        : `[Sandbox Preview] Action "${serviceName}" simulated. Live Google API execution requires OAuth token authorization.`
+        ? `معاينة فقط: "${serviceName}" لم يُنفذ. لا يوجد اتصال Google ولا رمز OAuth مخزن.`
+        : `Preview only: "${serviceName}" was not executed. No Google connection or OAuth token exists.`
     );
   };
 
@@ -1048,10 +1061,36 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
     }
   };
 
+  const handleCopyScopeRequest = () => {
+    const selected = HUB_SERVICES.filter((service) => consentScopes[service.id]);
+    if (!selected.length) return;
+    const payload = {
+      schema: 'knoux.google.consent-request.v1',
+      state: 'authorization-not-requested',
+      connected: false,
+      tokenStored: false,
+      services: selected.map((service) => ({ id: service.id, scope: service.scope })),
+      note: 'Local consent review only. No OAuth client, browser authorization, token or Google API call exists.',
+    };
+    const failMessage = isAr
+      ? 'الحافظة غير متاحة — لم يُنشأ أي طلب تفويض.'
+      : 'Clipboard unavailable — no authorization request was created.';
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(JSON.stringify(payload, null, 2)).then(
+        () => showToast(isAr ? 'نُسخ نطاق الموافقة للمراجعة فقط. لم يُطلب أي تفويض.' : 'Scope request copied for review only. No authorization was requested.'),
+        () => showToast(failMessage)
+      );
+    } else {
+      showToast(failMessage);
+    }
+  };
+
+  const allScopesSelected = HUB_SERVICES.every((service) => consentScopes[service.id]);
+
   const ActiveIcon = activeDef.icon;
 
   return (
-    <div dir={isAr ? 'rtl' : 'ltr'} className="w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative">
+    <div dir={isAr ? 'rtl' : 'ltr'} className="w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative" data-testid="workspace-hub">
       <KNOuXTitleBar
         sectionName={isAr ? "خدمات Google" : "Google Workspace"}
         sectionSubtitle={isAr ? "مركز التكامل السحابي" : "Cloud Integration Hub"}
@@ -1064,7 +1103,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
 
       {/* Toast Feedback */}
       {toastMessage && (
-        <div className="absolute top-12 right-6 z-50 px-4 py-2.5 rounded-xl bg-cyan-950/95 border border-cyan-400 text-cyan-200 text-xs shadow-2xl flex items-center gap-2 animate-fade-in backdrop-blur-md">
+        <div className="absolute top-12 right-6 z-50 px-4 py-2.5 rounded-xl bg-cyan-950/95 border border-cyan-400 text-cyan-200 text-xs shadow-2xl flex items-center gap-2 animate-fade-in backdrop-blur-md" data-testid="workspace-toast">
           <Info className="w-4 h-4 text-cyan-400 shrink-0" />
           <span>{toastMessage}</span>
         </div>
@@ -1103,26 +1142,20 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
         </div>
 
         <div className="flex items-center gap-2.5 shrink-0">
-          {isConnected ? (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-xs font-semibold">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>{isAr ? 'وضع المعاينة التنشيطي مُفعّل (محاكاة)' : 'Sandbox preview toggled on (simulated)'}</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <span className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-mono">
-                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                <span>{isAr ? 'المحرك بانتظار Google OAuth' : 'OAuth Bridge Disconnected'}</span>
-              </span>
-              <button
-                onClick={() => setIsOAuthModalOpen(true)}
-                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md cursor-pointer flex items-center gap-1.5 transition-all"
-              >
-                <Lock className="w-3.5 h-3.5" />
-                <span>{isAr ? 'ربط حساب Google' : 'Connect Google OAuth'}</span>
-              </button>
-            </div>
-          )}
+          <div className="flex items-center gap-2" data-testid="workspace-connection-state">
+            <span className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-mono">
+              <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isAr ? 'غير متصل — OAuth غير مهيأ' : 'Not connected — OAuth unconfigured'}</span>
+            </span>
+            <button
+              onClick={() => setIsOAuthModalOpen(true)}
+              data-testid="workspace-connect-button"
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md cursor-pointer flex items-center gap-1.5 transition-all"
+            >
+              <Lock className="w-3.5 h-3.5" />
+              <span>{isAr ? 'مراجعة صلاحيات Google' : 'Review Google access'}</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1138,6 +1171,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             return (
               <button
                 key={srv.id}
+                data-testid={`workspace-service-${srv.id}`}
                 onClick={() => {
                   setActiveService(srv.id);
                   const first = (localAdditions[srv.id] ?? [])[0] ?? (BASE_ITEMS[srv.id] ?? [])[0];
@@ -1184,7 +1218,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             <div className="px-5 py-3 border-b border-[#122b52] flex items-center justify-between gap-3 shrink-0">
               <div className="flex items-center gap-2.5 min-w-0">
                 <ActiveIcon className={`w-5 h-5 shrink-0 ${activeDef.color}`} />
-                <h2 className="text-sm font-bold text-white truncate">
+                <h2 className="text-sm font-bold text-white truncate" data-testid="workspace-service-title">
                   {isAr ? activeDef.labelAr : activeDef.labelEn}
                 </h2>
                 <span className="px-2 py-0.5 rounded-full bg-[#0b1b36] border border-slate-700 text-[10px] font-mono text-slate-400 shrink-0">
@@ -1194,6 +1228,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={() => handleAction(activeDef.actionEn)}
+                  data-testid="workspace-action"
                   className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -1427,7 +1462,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
           </section>
 
           {/* Bottom: integration posture strip */}
-          <section className="shrink-0 grid grid-cols-1 md:grid-cols-3 gap-3">
+          <section className="shrink-0 grid grid-cols-1 md:grid-cols-3 gap-3" data-testid="workspace-posture">
             <div className="rounded-xl bg-[#071328] border border-[#1b3f70] p-3 flex items-start gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-[#0b1f3d] border border-[#1d3f6e] flex items-center justify-center shrink-0">
                 <Lock className="w-3.5 h-3.5 text-cyan-400" />
@@ -1495,59 +1530,109 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
     </main>
   </div>
 
-  {/* Honest OAuth Integration Status Modal */}
+  {/* OAuth consent review — no token, client, browser authorization or API call exists. */}
   {isOAuthModalOpen && (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-      <div className="w-full max-w-md bg-[#040a16] border border-[#1b3f70] rounded-2xl p-5 shadow-2xl text-slate-100 space-y-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in" data-testid="workspace-oauth-modal">
+      <div role="dialog" aria-modal="true" aria-labelledby="workspace-oauth-title" className="w-full max-w-xl bg-[#040a16] border border-[#1b3f70] rounded-2xl p-5 shadow-2xl text-slate-100 space-y-4 max-h-[90vh] overflow-y-auto knx-custom-scrollbar">
         <div className="flex items-center justify-between pb-3 border-b border-[#0f2444]">
           <div className="flex items-center gap-2.5">
             <Globe className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-sm font-bold text-white">
-              {isAr ? 'ربط خدمات Google Workspace' : 'Google Workspace OAuth Setup'}
+            <h2 id="workspace-oauth-title" className="text-sm font-bold text-white">
+              {isAr ? 'مراجعة صلاحيات Google Workspace' : 'Google Workspace access review'}
             </h2>
           </div>
           <button
+            ref={oauthCloseRef}
             onClick={() => setIsOAuthModalOpen(false)}
+            aria-label={isAr ? 'إغلاق' : 'Close'}
+            data-testid="workspace-oauth-close"
             className="p-1 rounded text-slate-400 hover:text-white"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="p-3 rounded-xl bg-[#08152c] border border-[#15325e] text-slate-300 text-xs leading-relaxed space-y-2">
-          <div className="flex items-center gap-2 text-amber-300 font-semibold">
-            <ShieldAlert className="w-4 h-4 text-amber-400" />
-            <span>{isAr ? 'حالة التكامل: وضع المحاكاة التجريبية' : 'Integration Status: Sandbox Simulation'}</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+          <div className="p-3 rounded-xl bg-[#08152c] border border-[#15325e]">
+            <div className="text-amber-300 font-semibold flex items-center gap-1.5"><ShieldAlert className="w-3.5 h-3.5" />{isAr ? 'الحالة' : 'State'}</div>
+            <div className="text-slate-300 mt-1 font-mono">{isAr ? 'غير متصل / غير مهيأ' : 'not-connected / unconfigured'}</div>
           </div>
-          <p className="text-[11px] text-slate-300">
+          <div className="p-3 rounded-xl bg-[#08152c] border border-[#15325e]">
+            <div className="text-cyan-300 font-semibold flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" />{isAr ? 'الرموز المخزنة' : 'Stored tokens'}</div>
+            <div className="text-slate-300 mt-1 font-mono">{isAr ? 'لا يوجد' : 'none'}</div>
+          </div>
+          <div className="p-3 rounded-xl bg-[#08152c] border border-[#15325e]">
+            <div className="text-slate-300 font-semibold flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" />{isAr ? 'طلبات الشبكة' : 'Network requests'}</div>
+            <div className="text-slate-300 mt-1 font-mono">{isAr ? 'لا شيء' : 'none'}</div>
+          </div>
+          <div className="p-3 rounded-xl bg-[#08152c] border border-[#15325e]">
+            <div className="text-slate-300 font-semibold flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" />{isAr ? 'التخزين الآمن' : 'Secure storage'}</div>
+            <div className="text-slate-300 mt-1 font-mono">{isAr ? 'المحرك الأصلي غير متصل' : 'native bridge not connected'}</div>
+          </div>
+        </div>
+
+        <div className="p-3 rounded-xl bg-[#08152c] border border-[#15325e] text-slate-300 text-[11px] leading-relaxed">
+          {isAr
+            ? 'لا يمكن طلب تفويض Google من هذه الواجهة: لا يوجد OAuth Client ID مهيأ، ولا يوجد جسر أصلي لتخزين الرموز بأمان. أي اتصال حقيقي يتطلب موافقتك الصريحة أولاً، ثم تدفق PKCE في المتصفح وتخزينًا آمنًا في النظام. لا تُرسل هذه الصفحة أي بيانات ولا تحتفظ بأي رمز.'
+            : 'Google authorization cannot be requested from this interface: no OAuth Client ID is configured and no native bridge exists for secure token storage. Any live connection requires your explicit consent first, followed by a browser PKCE flow and OS secure storage. This page sends no data and retains no token.'}
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="text-[11px] font-semibold text-slate-200">{isAr ? 'نطاقات القراءة المطلوبة لاحقًا' : 'Least-privilege scopes for future consent'}</div>
+            <div className="flex items-center gap-1.5">
+              <button type="button" onClick={() => setConsentScopes(Object.fromEntries(HUB_SERVICES.map((service) => [service.id, true])))} className="px-2 py-0.5 rounded bg-[#102952] text-cyan-300 text-[10px]">{isAr ? 'تحديد الكل' : 'Select all'}</button>
+              <button type="button" onClick={() => setConsentScopes(Object.fromEntries(HUB_SERVICES.map((service) => [service.id, false])))} className="px-2 py-0.5 rounded bg-[#102952] text-slate-300 text-[10px]">{isAr ? 'مسح' : 'Clear'}</button>
+            </div>
+          </div>
+          <div className="max-h-52 overflow-y-auto knx-custom-scrollbar rounded-xl border border-[#15325e] divide-y divide-[#0f2444]">
+            {HUB_SERVICES.map((service) => {
+              const Icon = service.icon;
+              const selected = Boolean(consentScopes[service.id]);
+              return (
+                <label key={service.id} className="flex items-center gap-2.5 px-3 py-2 text-[11px] cursor-pointer hover:bg-[#0b1f3d]">
+                  <input
+                    type="checkbox"
+                    checked={selected}
+                    onChange={() => setConsentScopes((current) => ({ ...current, [service.id]: !current[service.id] }))}
+                    className="accent-cyan-500"
+                  />
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${service.color}`} />
+                  <span className="text-slate-200 flex-1 truncate">{isAr ? service.labelAr : service.labelEn}</span>
+                  <code className="text-[9.5px] font-mono text-cyan-300 truncate">{service.scope}</code>
+                  {selected ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" aria-hidden="true" /> : null}
+                </label>
+              );
+            })}
+          </div>
+          <p className="text-[10px] text-slate-500 mt-2">
             {isAr
-              ? 'تتطلب خدمات Google الحية (Sheets, Gmail, Calendar, Picker) مفتاح OAuth 2.0 Client ID مصادق عليه عبر Google Cloud Console أو عبر محرك KNOuX المكتبي. البيانات المعروضة حالياً هي بيانات محاكاة تجريبية لتصميم الواجهات.'
-              : 'Connecting live Google accounts requires Google Cloud OAuth 2.0 Client credentials (Client ID / Secret) or the native Windows KNOuX bridge. The current interface runs on high-fidelity fixtures for UI design validation.'}
+              ? 'تحديد النطاقات هنا هو مراجعة محلية فقط. لا يبدأ أي تدفق OAuth ولا يمنح أي وصول.'
+              : 'Selecting scopes here is a local review only. It starts no OAuth flow and grants no access.'}
           </p>
         </div>
 
-        <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#0f2444]">
-          <button
-            onClick={() => {
-              setIsConnected(true);
-              setIsOAuthModalOpen(false);
-              setToastMessage(
-                isAr
-                  ? 'تم تفعيل وضع المعاينة لمحاكاة حساب Google المتصل.'
-                  : 'Sandbox preview activated for simulated Google account.'
-              );
-              setTimeout(() => setToastMessage(null), 3500);
-            }}
-            className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs cursor-pointer"
-          >
-            {isAr ? 'تفعيل محاكاة الاتصال التجريبي' : 'Simulate Connected State'}
-          </button>
-          <button
-            onClick={() => setIsOAuthModalOpen(false)}
-            className="px-3.5 py-1.5 rounded-lg bg-[#081329] hover:bg-[#0e2147] text-slate-300 border border-[#1b3f70] text-xs cursor-pointer"
-          >
-            {isAr ? 'إغلاق' : 'Close'}
-          </button>
+        <div className="flex items-center justify-between gap-2 pt-3 border-t border-[#0f2444]">
+          <span className="text-[10px] font-mono text-amber-300">{allScopesSelected ? (isAr ? '10/10 نطاقات محددة' : '10/10 scopes selected') : (isAr ? 'مراجعة جزئية' : 'partial review')}</span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleCopyScopeRequest}
+              disabled={!HUB_SERVICES.some((service) => consentScopes[service.id])}
+              data-testid="workspace-oauth-copy"
+              className="px-3 py-1.5 rounded-lg bg-cyan-700 hover:bg-cyan-600 disabled:bg-slate-800 disabled:text-slate-500 text-white font-semibold text-[11px] cursor-pointer disabled:cursor-not-allowed flex items-center gap-1.5"
+            >
+              <Copy className="w-3.5 h-3.5" />
+              {isAr ? 'نسخ طلب الموافقة للمراجعة' : 'Copy consent request'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsOAuthModalOpen(false)}
+              className="px-3 py-1.5 rounded-lg bg-[#081329] hover:bg-[#0e2147] text-slate-300 border border-[#1b3f70] text-[11px] cursor-pointer"
+            >
+              {isAr ? 'إغلاق' : 'Close'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

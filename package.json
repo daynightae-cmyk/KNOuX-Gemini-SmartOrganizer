@@ -21,6 +21,7 @@
     "desktop:smoke": "npm run desktop:smoke --prefix apps/gemini-ui",
     "desktop:pack": "npm run desktop:pack --prefix apps/gemini-ui",
     "dev": "npm run dev --prefix apps/gemini-ui",
-    "install:app": "npm ci --prefix apps/gemini-ui"
+    "install:app": "npm ci --prefix apps/gemini-ui",
+    "test:workspace": "npm run test:workspace --prefix apps/gemini-ui"
   }
 }

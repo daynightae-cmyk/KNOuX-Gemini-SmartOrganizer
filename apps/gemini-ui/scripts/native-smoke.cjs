@@ -198,6 +198,11 @@ async function main() {
     automationArabicShotPath: receipt?.automationArabicScreenshot || '',
     automation1366ShotPath: receipt?.automation1366Screenshot || '',
     automation1920ShotPath: receipt?.automation1920Screenshot || '',
+    workspaceShotPath: receipt?.workspaceScreenshot || shotPath.replace(/native-bridge/i, 'workspace-measured'),
+    workspaceArabicShotPath: receipt?.workspaceArabicScreenshot || '',
+    workspace1366ShotPath: receipt?.workspace1366Screenshot || '',
+    workspace1920ShotPath: receipt?.workspace1920Screenshot || '',
+    workspaceOauthShotPath: receipt?.workspaceOauthScreenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -245,6 +250,11 @@ async function main() {
     automationArabicShotBytes: receipt?.automationArabicScreenshotBytes || 0,
     automation1366ShotBytes: receipt?.automation1366ScreenshotBytes || 0,
     automation1920ShotBytes: receipt?.automation1920ScreenshotBytes || 0,
+    workspaceShotBytes: receipt?.workspaceScreenshotBytes || 0,
+    workspaceArabicShotBytes: receipt?.workspaceArabicScreenshotBytes || 0,
+    workspace1366ShotBytes: receipt?.workspace1366ScreenshotBytes || 0,
+    workspace1920ShotBytes: receipt?.workspace1920ScreenshotBytes || 0,
+    workspaceOauthShotBytes: receipt?.workspaceOauthScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -302,7 +312,12 @@ async function main() {
     summary.automationLightShotBytes > 20000 &&
     summary.automationArabicShotBytes > 20000 &&
     summary.automation1366ShotBytes > 20000 &&
-    summary.automation1920ShotBytes > 20000;
+    summary.automation1920ShotBytes > 20000 &&
+    summary.workspaceShotBytes > 20000 &&
+    summary.workspaceArabicShotBytes > 20000 &&
+    summary.workspace1366ShotBytes > 20000 &&
+    summary.workspace1920ShotBytes > 20000 &&
+    summary.workspaceOauthShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');
