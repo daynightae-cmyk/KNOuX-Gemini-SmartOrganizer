@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 09 Startup (02 Smart Scan, 05 Applications and 08 Cleanup accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 10 System (02 Smart Scan, 05 Applications, 08 Cleanup and 09 Startup accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05 and 08 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08 and 09 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -16,7 +16,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05 and 08 accepte
 | 02 — Smart Scan | ACCEPTED_WITH_EVIDENCE (measured read-only; cleanup/startup/app mutation blocked to 08/09/05) | 1d0e559, 4af1f02 (CI fix) | 4af1f02 | docs (this snapshot), visual-evidence/platform-00/smart-scan-measured-dev{,-light,-ar-light,-1366,-1366-bottom,-1920}.png, test:scan PASS, native smoke PASS, Gemini Platform CI success (run 40240780808) | 05 |
 | 05 - Applications | ACCEPTED_WITH_EVIDENCE (measured read-only; uninstall/update/association/startup writes gated to 08/11/14/09) | b52c7e4 | b52c7e4 | docs (this snapshot), visual-evidence/platform-00/applications-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:apps PASS, native smoke appsOk/appsLayoutOk, Gemini Platform CI success (run 40244766892) | 08 |
 | 08 — Cleanup | ACCEPTED_WITH_EVIDENCE (measured read-only; delete/quarantine/recycle-empty/DISM/task/restore mutations gated) | 1359162 | 1359162 | docs (this snapshot), visual-evidence/platform-00/cleanup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:cleanup PASS, native smoke cleanupOk/cleanupLayoutOk + 12/12 service workbenches, Gemini Platform CI success (run 40252357944) | 09 |
-| 09 — Startup | PENDING | — | — | — | — |
+| 09 - Startup | ACCEPTED_WITH_EVIDENCE (measured read-only; enable/disable/delay/restore/journal/registry/task/service mutations gated pending approval) | 11d4b6e | 11d4b6e | docs (this snapshot), visual-evidence/platform-00/startup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:startup PASS (12 services/5 stages/9 entries/3 tasks/3 services/3 protected/4 plan items/2 conflicts), native smoke startupOk/startupLayoutOk/screenshotOk + 12/12 service workbenches, Gemini Platform CI success (run 40257321044) | 10 |
 | 10 — System | PENDING | — | — | — | — |
 | 11 — Repair | PENDING | — | — | — | — |
 | 12 — Services | PENDING | — | — | — | — |
@@ -97,9 +97,20 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05 and 08 accepte
 - Runtime: `desktop:smoke` PASS with `cleanupOk`, `cleanupLayoutOk`, 12/12 workbenches opened and closed, `cleanupServiceProbe.ok`, 1366 side-by-side register/inspector, no horizontal overflow and working inner scroll; dark EN, light EN, Arabic light RTL, 1366 and 1920 captures reviewed.
 - Root CI: Gemini Platform CI run 40252357944 SUCCESS; remote `main` fast-forwarded to verified 1359162.
 
+## Mission 09 verification snapshot
+
+- Coordinator: `electron/native/startup-bridge.cjs` is the single read-only Boot Control bridge behind 13 fixed `knoux:startup:v1:*` channels. It runs a bounded 5-stage discovery session (`registry`, `folders`, `tasks`, `services`, `boot`) and serves inventory, services, tasks, impact, journal, sessions, immutable plan, report and settings.
+- Measured scope: live autoruns from Run/RunOnce (HKLM 64-bit, HKLM WOW6432Node, HKCU), the Startup folder and scheduled logon tasks; live Windows services and their current states; boot evidence only from `Microsoft-Windows-Diagnostics-Performance/Operational` events 100/101/102/103/109/110 plus `Win32_OperatingSystem.LastBootUpTime`. Smoke measured 50 autoruns (10 registry, 1 folder, 39 tasks), 63 services, 39 logon tasks, 41 protected entries and 0 available boot events; no seconds or savings were invented.
+- Honest state: every plan is immutable with `execution.available:false`. Enable, disable, delay, restore, batch, rollback, registry, task and service-policy writes have no IPC channel; restore/rollback report `STARTUP_NO_JOURNAL`; no elevation path exists. The approval-gated sandbox disable/re-enable test was not performed because approval was not given, so boot-time claims remain BLOCKED/PENDING.
+- Renderer: the fixture inventory, floating LiveProcessInspector overlay, `startup-inventory.ts`, `StartupWorkspaces.tsx` and `StartupIcon.tsx` were deleted. The page now renders measured KPIs, a searchable autorun register, a dossier inspector, a scope/source rail, 12 distinct service workbenches and a plan gate, with stable IDs `st:<sha1-24>`, `task:<sha1-24>` and `svc:<sha1-24>`.
+- Visual: `startup.css` was rewritten as a bounded `stp-*` design system with dark/light tokens, authored light palette, Arabic RTL composition and 1366/1672/1920 breakpoints. Register and inspector remain side-by-side at 1366 inside the work grid with no document overflow.
+- Tests: `test:startup` PASS (12 services, 5 stages, 9 entries, 3 tasks, 3 measured services, 2 boot events in the controlled fixture, 3 protected, 4 plan items, 2 conflicts, no mutation); `test:native`/`test:studio`/`test:files`/`test:storage`/`test:scan`/`test:apps`/`test:cleanup` regressions PASS; lint and build PASS.
+- Runtime: `desktop:smoke` PASS with `startupOk`, `startupLayoutOk`, `screenshotOk`, 12/12 workbenches opened and closed and the measured native banner; dark EN, light EN, Arabic light RTL, 1366 and 1920 captures reviewed.
+- Root CI: Gemini Platform CI run 40257321044 SUCCESS; remote `main` fast-forwarded to verified 11d4b6e.
+
 ## Boundary / next
 
-- Next mission file: `09_STARTUP_FULLSTACK_MISSION.md` (then 10, 11, 12, 13, 04, 14, 01).
+- Next mission file: `10_SYSTEM_FULLSTACK_MISSION.md` (then 11, 12, 13, 04, 14, 01).
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
