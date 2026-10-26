@@ -1,0 +1,54 @@
+name: Cinematic entry
+on:
+  pull_request:
+    paths: ['apps/gemini-ui/**', '.github/workflows/cinematic-entry.yml']
+  push:
+    branches: [feat/smart-cinematic-entry-20261026]
+permissions:
+  contents: read
+jobs:
+  entry:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/gemini-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/gemini-ui/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test:native
+      - run: npm run test:entry
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinematic-entry-browser-evidence
+          path: apps/gemini-ui/visual-evidence/cinematic-entry/
+  windows-entry:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: apps/gemini-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/gemini-ui/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/cinematic-native-smoke.cjs
+      - run: npm run desktop:pack
+      - run: node scripts/cinematic-native-smoke.cjs --packaged
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cinematic-entry-windows-evidence
+          path: apps/gemini-ui/visual-evidence/cinematic-entry/

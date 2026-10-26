@@ -7,6 +7,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+import { CinematicEntrySettings } from '../features/cinematic-entry/CinematicEntry';
 import { getAiSession, setAiSession } from '../lib/ai-session';
 import {
   exportSettingsProfile,
@@ -369,6 +370,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
           <div className="bg-[#071329]/90 border border-[#11294a] rounded-2xl p-5 shadow-xl space-y-6">
             
             {/* TAB 1: Engine Performance & Hardware */}
+            <CinematicEntrySettings />
             {activeTab === 'engine' && (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">

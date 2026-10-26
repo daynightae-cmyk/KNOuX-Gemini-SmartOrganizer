@@ -40,6 +40,7 @@ import './automation.css';
 import './home-command-center.css';
 // Light-workstation palette bridge must load after every page stylesheet.
 import './theme-light.css';
+import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection };
 
@@ -146,7 +147,7 @@ function AppContent() {
 export default function App() {
   return (
     <NavigationProvider initialSection="home">
-      <AppContent />
+      <CinematicEntry><AppContent /></CinematicEntry>
     </NavigationProvider>
   );
 }
