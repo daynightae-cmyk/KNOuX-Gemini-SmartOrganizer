@@ -1,6 +1,6 @@
 # PRIMARY INSTRUCTION FOR THE NEW STANDALONE REPOSITORY
 
-READ missions/STANDALONE_AUTONOMOUS_ENTRY.md FIRST. Old manual mission ordering and previous project references below are historical and superseded. New repo: daynightae-cmyk/KNOuX-Gemini-SmartOrganizer; branch feat/gemini-missions; next pending mission 12 Services (00V–11 accepted except the final Home/Settings/Workspace sequence).
+READ missions/STANDALONE_AUTONOMOUS_ENTRY.md FIRST. Old manual mission ordering and previous project references below are historical and superseded. New repo: daynightae-cmyk/KNOuX-Gemini-SmartOrganizer; branch feat/gemini-missions; next pending mission 13 Automation (00V–12 accepted except the final Home/Settings/Workspace sequence).
 
 ---
 

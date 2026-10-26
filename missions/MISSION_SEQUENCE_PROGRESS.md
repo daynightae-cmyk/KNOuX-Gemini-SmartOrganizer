@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 12 Services (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System and 11 Repair accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 13 Automation (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair and 12 Services accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10 and 11 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 11 and 12 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -19,7 +19,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10 an
 | 09 - Startup | ACCEPTED_WITH_EVIDENCE (measured read-only; enable/disable/delay/restore/journal/registry/task/service mutations gated pending approval) | 11d4b6e | 11d4b6e | docs (this snapshot), visual-evidence/platform-00/startup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:startup PASS (12 services/5 stages/9 entries/3 tasks/3 services/3 protected/4 plan items/2 conflicts), native smoke startupOk/startupLayoutOk/screenshotOk + 12/12 service workbenches, Gemini Platform CI success (run 40257321044) | 10 |
 | 10 — System | ACCEPTED_WITH_EVIDENCE (measured read-only; 36 services/9 stages/8 mutation gates; process/service/driver/hosts/proxy/adapter/repair/power writes gated) | aebffc2, 62096a7 (CI fix) | 62096a7 | docs/SYSTEM_LIVE_PULSE_AUDIT.md, visual-evidence/platform-00/system-measured-dev{,-light,-ar-light,-1366,-1920}.png + system-workbench-dev.png + packaged equivalents, test:system PASS (36 services/9 stages/8 gates), native smoke systemOk/systemLayoutOk + 36/36 workbenches + 36/36 controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40349680254) | 11 |
 | 11 — Repair | ACCEPTED_WITH_EVIDENCE (measured read-only; 12 tools/6 stages/10 command previews/8 gates; DISM/SFC/DNS/Winsock/TCPIP/restore/update servicing execution gated) | 2594400, cca97ff (acceptance) | cca97ff | docs/REPAIR_RECOVERY_LAB_AUDIT.md, visual-evidence/platform-00/repair-measured-dev{,-light,-ar-light,-1366,-1920}.png + repair-workbench-dev.png + packaged equivalents, test:repair PASS, native smoke repairOk/repairLayoutOk + 12/12 workbenches/controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40356612756) | 12 |
-| 12 — Services | PENDING | — | — | — | — |
+| 12 — Services | ACCEPTED_WITH_EVIDENCE (measured read-only; 12 tools/6 stages/6 gates; start/stop/restart/startup-policy execution absent) | 9658754 | pending push verification | docs/SERVICE_COMMANDER_AUDIT.md, visual-evidence/platform-00/services-measured-dev{,-light,-ar-light,-1366,-1920}.png + services-workbench-dev.png + packaged equivalents, test:services PASS, native smoke servicesOk/servicesLayoutOk + 12/12 workbenches/controls + operation/activity visibility + keyboard/RTL, packaged smoke PASS | 13 |
 | 13 — Automation | PENDING | — | — | — | — |
 | 04 — Google Workspace | PENDING | — | — | — | — |
 | 14 — Settings/Assistant | PENDING | — | — | — | — |
@@ -131,10 +131,22 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10 an
 - CI note: the smoke's Smart Scan history read was made bounded-retry after reproducing a pre-existing persistence race; no product assertion was weakened.
 - Root CI: Gemini Platform CI run 40356612756 SUCCESS; remote `main` fast-forwarded to verified cca97ff.
 
+## Mission 12 verification snapshot
+
+- Coordinator: `electron/native/services-bridge.cjs` is the single read-only Service Commander bridge behind eight fixed `knoux:services:v1:*` channels. Six stages measure SCM inventory, dependency graph, capability protection policy, bounded SCM events, svchost hosts and the local preview journal.
+- Measured: 271 services (115 running, 156 stopped), 223 dependency edges, 187 protected, 51 non-delayed automatic, 196 manual, 11 disabled, 17 delayed, 16 non-Windows-path services, 200 SCM events (7 days), 105 svchost hosts, standard user, 1 warning (not elevated), 9 source groups. Snapshot receipt `services:ca4cff30cefa96f20a0a53cf`.
+- Important correction: `Win32_Service.Dependencies` returned no rows on this Windows build even though `Get-Service` exposes them. The graph now enriches from bounded `Get-Service ServicesDependedOn` and only then publishes 223 edges; empty sources produce an empty graph, not an inferred one.
+- Honest state: start/stop/restart/startup-type plans are immutable with `execution.available:false`. 6 gates: start, stop, restart, startup-type, protected bypass, elevation. Protected policy is capability-based (role map + kernel driver + non-stoppable). No service was started, stopped, restarted or reconfigured; the journal shows 1 preview and **0 executed operations**.
+- Renderer: the fixture inventory, old registry and generic modal were deleted (shared universal renderers remain for other pending sections). The page renders 6 measured KPIs, a searchable register, operation preview and activity strip in the visible rail, a balanced capped dependency graph, 12 specialised workbenches, measured history/actions and a pinned footer.
+- Interactions: smoke opened all 12 workbenches, switched controls, staged a stop preview with plan receipt and journal/activity rows, proved focus-on-close + Escape, and proved Arabic RTL with no horizontal overflow. At 1366×768 the operation preview top is 341 px, 12 tools and the footer are reachable, and inner scrolling works.
+- Tests: `test:services` PASS (controlled SCM fixture, protection policy, plans/journal, refusal, cancellation, provider failure, no-control source scan, renderer parity); all prior native regressions PASS; lint and build PASS.
+- Runtime: development and packaged smokes PASS with `servicesOk`, `servicesLayoutOk`, 12/12 workbenches and keyboard/RTL checks; dark EN, light EN, Arabic light RTL, 1366, 1920 and a privacy-safe SCM register sheet reviewed.
+- Root CI: pending push verification for `9658754`; main integration pending that green run.
+
 ## Boundary / next
 
-- Next mission file: `12_SERVICES_FULLSTACK_MISSION.md` (then 13, 04, 14, 01).
-- Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
+- Next mission file: `13_AUTOMATION_FULLSTACK_MISSION.md` (then 04, 14, 01).
+- Real file mutations, elevated repair/service/startup/automation operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
 
