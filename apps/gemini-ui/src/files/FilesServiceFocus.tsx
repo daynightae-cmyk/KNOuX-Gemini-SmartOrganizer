@@ -35,6 +35,7 @@ interface FilesServiceFocusProps {
   onOpenStudio: () => void;
   onLoadEmpty: () => void;
   onHash: () => void;
+  embedded?: boolean;
 }
 
 function EmptyNative({ locale }: { locale: 'en' | 'ar' }) {
@@ -66,6 +67,7 @@ export function FilesServiceFocus({
   onOpenStudio,
   onLoadEmpty,
   onHash,
+  embedded = false,
 }: FilesServiceFocusProps) {
   const meta = FILES_DOMAIN_SERVICES.find((entry) => entry.key === service);
   const title = meta ? (locale === 'en' ? meta.labelEn : meta.labelAr) : service;
@@ -77,25 +79,72 @@ export function FilesServiceFocus({
     switch (service) {
       case 'file-downloads-inventory':
         return (
-          <div className="space-y-2">
-            <div className="text-[11px] text-slate-300">
-              {overview ? (
-                <>
-                  <span className="font-mono text-white">{overview.totals.files.toLocaleString()}</span> files ·{' '}
-                  <span className="font-mono text-cyan-300">{formatBytes(overview.totals.bytes)}</span> ·{' '}
-                  {overview.totals.folders.toLocaleString()} folders
-                </>
-              ) : (
-                'No measured overview is loaded.'
-              )}
+          <div className="space-y-3" data-testid="files-downloads-workbench">
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { label: locale === 'en' ? 'Files' : 'ملفات', value: overview ? overview.totals.files.toLocaleString() : '—' },
+                { label: locale === 'en' ? 'Bytes' : 'بايت', value: overview ? formatBytes(overview.totals.bytes) : '—' },
+                { label: locale === 'en' ? 'Folders' : 'مجلدات', value: overview ? overview.totals.folders.toLocaleString() : '—' },
+              ].map((item) => (
+                <div key={item.label} className="rounded-lg border border-[#132c52] bg-[#040d1c] p-2">
+                  <div className="text-[9px] text-slate-500">{item.label}</div>
+                  <div className="font-mono text-sm font-black text-white">{item.value}</div>
+                </div>
+              ))}
             </div>
-            <div className="text-[10px] text-slate-500 font-mono break-all">{overview?.source.path || '—'}</div>
-            <div className="flex gap-2 pt-1">
+            <div className="rounded-lg border border-[#132c52] bg-[#040d1c] p-2 text-[10px]">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-slate-400">{locale === 'en' ? 'Authorized source' : 'المصدر المصرح'}</span>
+                <span className="font-mono text-cyan-300 truncate">{overview?.source.label || '—'}</span>
+              </div>
+              <div className="flex items-center justify-between gap-2 mt-1">
+                <span className="text-slate-400">{locale === 'en' ? 'Last scan' : 'آخر فحص'}</span>
+                <span className="font-mono text-slate-300">{overview?.source.lastScanned || '—'}</span>
+              </div>
+              <div className="flex items-center justify-between gap-2 mt-1">
+                <span className="text-slate-400">{locale === 'en' ? 'Coverage' : 'التغطية'}</span>
+                <span className="font-mono text-amber-300">{overview?.coverage || '—'}</span>
+              </div>
+            </div>
+            {overview ? (
+              <div>
+                <div className="text-[10px] font-semibold text-slate-300 mb-1">{locale === 'en' ? 'Category distribution' : 'توزيع الفئات'}</div>
+                <div className="space-y-1">
+                  {overview.categories.slice(0, 5).map((category) => {
+                    const total = overview.totals.files || 1;
+                    const width = Math.max(2, Math.round((category.count / total) * 100));
+                    return (
+                      <div key={category.key}>
+                        <div className="flex justify-between text-[9px] font-mono text-slate-400"><span>{category.key}</span><span>{category.count.toLocaleString()}</span></div>
+                        <div className="h-1.5 rounded bg-[#0a1c38] overflow-hidden"><div className="h-full bg-gradient-to-r from-[#2476ff] to-[#26c6ff]" style={{ width: `${width}%` }} /></div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+            {overview?.recent?.length ? (
+              <div>
+                <div className="text-[10px] font-semibold text-slate-300 mb-1">{locale === 'en' ? 'Recent indexed files' : 'ملفات مفهرسة حديثًا'}</div>
+                <div className="space-y-1">
+                  {overview.recent.slice(0, 5).map((item) => (
+                    <div key={item.id} className="flex items-center justify-between gap-2 text-[10px]">
+                      <span className="truncate text-slate-300">{item.name}</span>
+                      <span className="font-mono text-slate-500 shrink-0">{formatBytes(item.size)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            <div className="flex flex-wrap gap-2 pt-1">
               <button onClick={onAdd} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
                 {locale === 'en' ? 'Add folder' : 'إضافة مجلد'}
               </button>
               <button onClick={onRescan} className="px-2 py-1 rounded bg-[#0a1c38] border border-[#173766] text-slate-300 text-[10px] cursor-pointer">
                 {locale === 'en' ? 'Rescan' : 'إعادة فحص'}
+              </button>
+              <button onClick={onOpenStudio} className="px-2 py-1 rounded bg-[#1b1340] border border-purple-500/40 text-purple-200 text-[10px] cursor-pointer">
+                {locale === 'en' ? 'Plan in Studio' : 'خطة في الاستوديو'}
               </button>
             </div>
           </div>
@@ -231,6 +280,15 @@ export function FilesServiceFocus({
         return <EmptyNative locale={locale} />;
     }
   };
+
+  if (embedded) {
+    return (
+      <div data-testid="files-service-focus" className="space-y-2">
+        <p className="text-[10px] text-slate-400">{description}</p>
+        {renderBody()}
+      </div>
+    );
+  }
 
   return (
     <div data-testid="files-service-focus" className="bg-[#07152b] rounded-xl p-3 border border-[#2476ff]/40 space-y-2 shadow-[0_0_12px_rgba(36,118,255,0.15)]">

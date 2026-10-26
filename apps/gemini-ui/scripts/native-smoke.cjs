@@ -212,6 +212,8 @@ async function main() {
     homeArabicShotPath: receipt?.homeArabicScreenshot || '',
     home1366ShotPath: receipt?.home1366Screenshot || '',
     home1920ShotPath: receipt?.home1920Screenshot || '',
+    filesWorkbenchSideShotPath: receipt?.filesWorkbenchSideScreenshot || '',
+    filesWorkbenchExpandedShotPath: receipt?.filesWorkbenchExpandedScreenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -273,6 +275,8 @@ async function main() {
     homeArabicShotBytes: receipt?.homeArabicScreenshotBytes || 0,
     home1366ShotBytes: receipt?.home1366ScreenshotBytes || 0,
     home1920ShotBytes: receipt?.home1920ScreenshotBytes || 0,
+    filesWorkbenchSideShotBytes: receipt?.filesWorkbenchSideScreenshotBytes || 0,
+    filesWorkbenchExpandedShotBytes: receipt?.filesWorkbenchExpandedScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -344,7 +348,9 @@ async function main() {
     summary.homeLightShotBytes > 20000 &&
     summary.homeArabicShotBytes > 20000 &&
     summary.home1366ShotBytes > 20000 &&
-    summary.home1920ShotBytes > 20000;
+    summary.home1920ShotBytes > 20000 &&
+    summary.filesWorkbenchSideShotBytes > 20000 &&
+    summary.filesWorkbenchExpandedShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

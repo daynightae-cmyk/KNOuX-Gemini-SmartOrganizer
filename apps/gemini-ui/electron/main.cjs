@@ -5010,6 +5010,96 @@ async function runSmoke(win) {
         receipt.home1920ScreenshotBytes = (await fsp.stat(home1920Path)).size;
         await forceSize(1672, 941);
         await sleep(400);
+
+        // Mission 15A first integration: Files side/expanded workbench host.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'files'; return true; })()`, true);
+        const filesWorkbenchDeadline = Date.now() + 30000;
+        let filesWorkbenchUiReady = false;
+        while (Date.now() < filesWorkbenchDeadline) {
+          await sleep(500);
+          filesWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="files-workspace"]') && document.querySelector('[data-testid="files-service-file-downloads-inventory"]'))`,
+            true
+          );
+          if (filesWorkbenchUiReady) break;
+        }
+        receipt.filesWorkbenchUiReady = filesWorkbenchUiReady;
+        const filesWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             document.querySelector('[data-testid="files-service-file-downloads-inventory"]')?.click();
+             await wait(450);
+             const host = document.querySelector('[data-testid="files-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (!host.querySelector('[data-testid="files-workbench-tool-select"]')) failures.push('tool-selector-missing');
+             if (String(host.innerText || '').trim().length < 30) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="files-select-all"]')) failures.push('originating-list-hidden');
+             if (!document.querySelector('[data-testid="files-footer"]')) failures.push('footer-missing');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.filesWorkbenchSideProbe = filesWorkbenchSideProbe;
+        const filesWorkbenchSidePath = smokeShotPath.replace(/native-bridge/i, 'files-workbench');
+        const filesWorkbenchSideImage = await win.webContents.capturePage();
+        await fsp.writeFile(filesWorkbenchSidePath, filesWorkbenchSideImage.toPNG());
+        receipt.filesWorkbenchSideScreenshot = filesWorkbenchSidePath;
+        receipt.filesWorkbenchSideScreenshotBytes = (await fsp.stat(filesWorkbenchSidePath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('[data-testid="files-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`,
+          true
+        );
+        await sleep(500);
+        const filesWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="files-workbench-expanded"]');
+             const main = document.querySelector('[data-testid="files-workspace"]');
+             const footer = document.querySelector('[data-testid="files-footer"]');
+             if (!expanded) return { ok: false, failures: ['expanded-host-missing'] };
+             if (expanded.getAttribute('data-workbench-mode') !== 'expanded') failures.push('expanded-mode');
+             if (!main) failures.push('main-missing');
+             else {
+               const mainRect = main.getBoundingClientRect();
+               const rect = expanded.getBoundingClientRect();
+               if (rect.top < mainRect.top - 1 || rect.bottom > mainRect.bottom + 1) failures.push('outside-main');
+             }
+             if (!footer) failures.push('footer-missing');
+             else {
+               const rect = footer.getBoundingClientRect();
+               if (rect.bottom > window.innerHeight + 1) failures.push('footer-obscured');
+             }
+             if (document.querySelector('[data-testid="files-workbench"]')) failures.push('side-still-mounted');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.filesWorkbenchExpandedProbe = filesWorkbenchExpandedProbe;
+        const filesWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'files-workbench-expanded');
+        const filesWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(filesWorkbenchExpandedPath, filesWorkbenchExpandedImage.toPNG());
+        receipt.filesWorkbenchExpandedScreenshot = filesWorkbenchExpandedPath;
+        receipt.filesWorkbenchExpandedScreenshotBytes = (await fsp.stat(filesWorkbenchExpandedPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('[data-testid="files-workbench-expanded"] [data-testid="workbench-mode-toggle"]')?.click()`,
+          true
+        );
+        await sleep(400);
+        const filesWorkbenchEscape = await win.webContents.executeJavaScript(
+          `(async () => {
+             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+             await new Promise((resolve) => setTimeout(resolve, 250));
+             return { ok: !document.querySelector('[data-testid="files-workbench"]') && !document.querySelector('[data-testid="files-workbench-expanded"]') };
+           })()`,
+          true
+        );
+        receipt.filesWorkbenchEscape = filesWorkbenchEscape;
+        await forceSize(1672, 941);
+        await sleep(300);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -5452,6 +5542,17 @@ async function runSmoke(win) {
       && receipt.home1366Layout?.withinWidth === true
       && receipt.home1366Layout?.viewportWidth === 1366
       && receipt.home1366Layout?.kpis === 6;
+    const filesWorkbenchOk = Boolean(
+      receipt.filesWorkbenchUiReady === true &&
+      receipt.filesWorkbenchSideProbe?.ok === true &&
+      receipt.filesWorkbenchExpandedProbe?.ok === true &&
+      receipt.filesWorkbenchEscape?.ok === true &&
+      receipt.filesWorkbenchSideScreenshotBytes > 20000 &&
+      receipt.filesWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const filesWorkbenchLayoutOk = receipt.filesWorkbenchSideProbe?.ok === true
+      && receipt.filesWorkbenchExpandedProbe?.ok === true
+      && receipt.filesWorkbenchExpandedProbe?.failures?.length === 0;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -5520,8 +5621,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });

@@ -5,6 +5,10 @@ Source of advertised scope: docs/SERVICE_CAPABILITY_MATRIX.md (181 entries). Exi
 
 A service is accepted only when its actual distinct dock/expanded workbench opens with real meaningful user controls; applicable native action provider has effectful disposable-fixture proof and consent/recovery; EN/AR, RTL, dark/light, 1366/1672/1920, keyboard, dev+packaged Electron pass. Until inspected, all statuses below remain AUDIT_REQUIRED.
 
+## Current integration checkpoint (2026-10-27)
+
+The reusable `ServiceWorkbenchHost` is implemented and Files' 12 domain tools open inside it. Side mode was verified with the originating Files register still visible; expanded mode stays inside the main content and leaves the Files footer visible. The selected file, filters and table selection remain in FilesPage state across mode switches. Files mutation apply/undo remain BLOCKED; all other Files rows are measured read-only. Studio side/expanded integration is not yet complete.
+
 | Mission | Advertised entry | Displayed purpose | Mapped registry ID | Dock/expanded | Dedicated workbench | Actual buttons/selection | Read/native action provider | Risk/approval & undo | E2E/visual evidence | Verified status |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 01 | mission-01-01 | Smart Scan | UNMAPPED_RECONCILE | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
@@ -60,18 +64,18 @@ A service is accepted only when its actual distinct dock/expanded workbench open
 | 05 | app-store-packages | Package Center & WinGet Browser | app-store-packages | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 05 | app-associations | File Extension & Protocol Matrix | app-associations | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 05 | app-startup-impact | Software Boot Impact Analyzer | app-startup-impact | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-downloads-inventory | Downloads Folder Inventory | file-downloads-inventory | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-organize-preview | Visual Rule Builder & Organization Studio | file-organize-preview | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-organize-apply | Organization Staging & Change Review | file-organize-apply | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-organize-undo | File Organization Undo Timeline | file-organize-undo | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-empty-folders | Sparse Empty Folder Explorer | file-empty-folders | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-hash | Cryptographic Hash Inspector | file-hash | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-search | Instant Everything-Style File Search | file-search | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-type-map | File Format Type Distribution | file-type-map | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-recents | Recent File Timeline Histogram | file-recents | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-largest | Ranked Large File Explorer | file-largest | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-metadata | Deep File Metadata & Attributes Dossier | file-metadata | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 06 | file-provenance | Trust Evidence & Provenance Board | file-provenance | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
+| 06 | file-downloads-inventory | Downloads Folder Inventory | file-downloads-inventory | SIDE + EXPANDED | FilesServiceFocus embedded | Add folder, Rescan, Plan in Studio, real source/category/recent lists | measured Files overview (read-only) | read-only; plan handoff | dev+packaged smoke filesWorkbenchOk; files-workbench-dev/expanded | MEASURED_READ_ONLY |
+| 06 | file-organize-preview | Visual Rule Builder & Organization Studio | file-organize-preview | SIDE + EXPANDED | FilesServiceFocus embedded | Open Studio Plan Review; no execution | Studio preview plan (read-only) | preview only; no apply | dev+packaged smoke filesWorkbenchOk | PARTIAL |
+| 06 | file-organize-apply | Organization Staging & Change Review | file-organize-apply | SIDE + EXPANDED | FilesServiceFocus embedded | Explicit BLOCKED explanation; no apply control | none | blocked pending write gate/approval | dev+packaged smoke filesWorkbenchOk | BLOCKED |
+| 06 | file-organize-undo | File Organization Undo Timeline | file-organize-undo | SIDE + EXPANDED | FilesServiceFocus embedded | Explicit BLOCKED explanation; no undo control | none | blocked pending journal/approval | dev+packaged smoke filesWorkbenchOk | BLOCKED |
+| 06 | file-empty-folders | Sparse Empty Folder Explorer | file-empty-folders | SIDE + EXPANDED | FilesServiceFocus embedded | Scan empty folders; bounded results | measured Files empty-folder query | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-hash | Cryptographic Hash Inspector | file-hash | SIDE + EXPANDED | FilesServiceFocus embedded | Compute SHA-256 for selected file | measured Files hash | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-search | Instant Everything-Style File Search | file-search | SIDE + EXPANDED | FilesServiceFocus embedded | Native filters, sort, 200-row ledger, selection | measured Files query | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-type-map | File Format Type Distribution | file-type-map | SIDE + EXPANDED | FilesServiceFocus embedded | Extension distribution from measured overview | measured Files overview | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-recents | Recent File Timeline Histogram | file-recents | SIDE + EXPANDED | FilesServiceFocus embedded | Recent measured rows | measured Files overview | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-largest | Ranked Large File Explorer | file-largest | SIDE + EXPANDED | FilesServiceFocus embedded | Largest measured rows | measured Files overview | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-metadata | Deep File Metadata & Attributes Dossier | file-metadata | SIDE + EXPANDED | FilesServiceFocus embedded | Selected file metadata/attributes/Zone.Identifier | measured Files metadata | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
+| 06 | file-provenance | Trust Evidence & Provenance Board | file-provenance | SIDE + EXPANDED | FilesServiceFocus embedded | Source/coverage/last scan evidence | measured Files overview | read-only | dev+packaged smoke filesWorkbenchOk | MEASURED_READ_ONLY |
 | 07 | storage-disks | Volume Bays & Partition Manager | storage-disks | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 07 | storage-large-files | Heavy-File Storage Ledger | storage-large-files | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 07 | storage-duplicates | Byte-Exact Duplicate Hash Groups | storage-duplicates | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
