@@ -93,7 +93,16 @@
     "systemHosts": "knoux:system:v1:hosts",
     "systemHostsPlan": "knoux:system:v1:hosts-plan",
     "systemReport": "knoux:system:v1:report",
-    "systemOpenSettings": "knoux:system:v1:open-settings"
+    "systemOpenSettings": "knoux:system:v1:open-settings",
+    "repairCapabilities": "knoux:repair:v1:capabilities",
+    "repairStart": "knoux:repair:v1:start",
+    "repairStatus": "knoux:repair:v1:status",
+    "repairCancel": "knoux:repair:v1:cancel",
+    "repairSnapshot": "knoux:repair:v1:snapshot",
+    "repairPlan": "knoux:repair:v1:plan",
+    "repairJournal": "knoux:repair:v1:journal",
+    "repairReport": "knoux:repair:v1:report",
+    "repairOpenSettings": "knoux:repair:v1:open-settings"
   },
   "capabilities": {
     "bridge.status": {
@@ -629,6 +638,60 @@
       "title": "Open a fixed Windows diagnostics settings page",
       "mode": "user-initiated",
       "channel": "knoux:system:v1:open-settings"
+    },
+    "repair.capabilities": {
+      "id": "repair.capabilities",
+      "title": "Discover the twelve Recovery Lab tools and their gates",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:capabilities"
+    },
+    "repair.start": {
+      "id": "repair.start",
+      "title": "Start a bounded read-only repair-evidence discovery",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:start"
+    },
+    "repair.status": {
+      "id": "repair.status",
+      "title": "Poll read-only repair-evidence discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:status"
+    },
+    "repair.cancel": {
+      "id": "repair.cancel",
+      "title": "Cancel a running read-only repair discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:repair:v1:cancel"
+    },
+    "repair.snapshot": {
+      "id": "repair.snapshot",
+      "title": "Read the last measured repair evidence",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:snapshot"
+    },
+    "repair.plan": {
+      "id": "repair.plan",
+      "title": "Stage an immutable repair preview without executing it",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:plan"
+    },
+    "repair.journal": {
+      "id": "repair.journal",
+      "title": "Read the append-only repair preview journal",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:journal"
+    },
+    "repair.report": {
+      "id": "repair.report",
+      "title": "Build a redacted read-only repair evidence report",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:report"
+    },
+    "repair.settings.open": {
+      "id": "repair.settings.open",
+      "title": "Open an allowlisted Windows recovery settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:repair:v1:open-settings"
     }
   },
   "windowActions": [

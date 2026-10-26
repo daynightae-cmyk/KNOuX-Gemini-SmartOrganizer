@@ -105,6 +105,15 @@ const CHANNELS = Object.freeze({
   systemHostsPlan: 'knoux:system:v1:hosts-plan',
   systemReport: 'knoux:system:v1:report',
   systemOpenSettings: 'knoux:system:v1:open-settings',
+  repairCapabilities: 'knoux:repair:v1:capabilities',
+  repairStart: 'knoux:repair:v1:start',
+  repairStatus: 'knoux:repair:v1:status',
+  repairCancel: 'knoux:repair:v1:cancel',
+  repairSnapshot: 'knoux:repair:v1:snapshot',
+  repairPlan: 'knoux:repair:v1:plan',
+  repairJournal: 'knoux:repair:v1:journal',
+  repairReport: 'knoux:repair:v1:report',
+  repairOpenSettings: 'knoux:repair:v1:open-settings',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -301,5 +310,24 @@ contextBridge.exposeInMainWorld(
     hostsPlan: (draft) => ipcRenderer.invoke(CHANNELS.systemHostsPlan, draft),
     report: (options) => ipcRenderer.invoke(CHANNELS.systemReport, options || {}),
     openSettings: (target) => ipcRenderer.invoke(CHANNELS.systemOpenSettings, { target }),
+  })
+);
+
+/* Repair v1 is the read-only Recovery Lab. DISM, SFC, DNS/Winsock/TCPIP
+   reset, restore and update servicing have no execution channel. Plans are
+   immutable previews and the journal is local to the application profile. */
+contextBridge.exposeInMainWorld(
+  'knouxRepairV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.repairCapabilities),
+    start: () => ipcRenderer.invoke(CHANNELS.repairStart),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.repairStatus, { sessionId }),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.repairCancel, { sessionId }),
+    snapshot: () => ipcRenderer.invoke(CHANNELS.repairSnapshot),
+    plan: (toolIds) => ipcRenderer.invoke(CHANNELS.repairPlan, toolIds),
+    journal: () => ipcRenderer.invoke(CHANNELS.repairJournal),
+    report: (options) => ipcRenderer.invoke(CHANNELS.repairReport, options || {}),
+    openSettings: (target) => ipcRenderer.invoke(CHANNELS.repairOpenSettings, { target }),
   })
 );

@@ -189,6 +189,39 @@ assert(
     .every((channel) => main.includes(`contract.channels.${channel}`)),
   'every System channel has an IPC handler'
 );
+assert(/exposeInMainWorld\(\s*'knouxRepairV1'/.test(preload), 'preload exposes the Recovery Lab bridge');
+assert(contract.channels.repairSnapshot === 'knoux:repair:v1:snapshot', 'Repair snapshot channel is fixed');
+assert(contract.capabilities['repair.start'].mode === 'read-only', 'Repair discovery is read-only');
+assert(contract.capabilities['repair.plan'].mode === 'read-only', 'Repair plans are review-only');
+assert(contract.capabilities['repair.journal'].mode === 'read-only', 'Repair journal is read-only');
+assert(contract.capabilities['repair.report'].mode === 'read-only', 'Repair report is read-only');
+assert(contract.capabilities['repair.settings.open'].mode === 'user-initiated', 'Repair settings handoff is user-initiated');
+assert(!Object.keys(contract.capabilities).some((id) => /^repair\.(run|execute|apply|reset|flush|elevate)/i.test(id)), 'Repair contract exposes no execution capability');
+const repairBridge = require('../electron/native/repair-bridge.cjs');
+const repairProviders = require('../electron/native/repair-providers.cjs');
+const repairBridgeSource = read('electron/native/repair-bridge.cjs');
+const repairProviderSource = read('electron/native/repair-providers.cjs');
+assert(repairBridge.SERVICE_DEFINITIONS.length === 12, 'Repair keeps twelve tools');
+assert(repairBridge.COMMAND_SPECS.length === 10, 'Repair keeps ten fixed command previews');
+assert(repairBridge.COMMAND_SPECS.every((entry) => entry.execution.available === false), 'every Repair command is preview-only');
+assert(repairBridge.STAGE_DEFINITIONS.length === 6, 'Repair keeps six measured stages');
+assert(repairBridge.GATED_OPERATIONS.length === 8, 'Repair publishes eight explicit gates');
+assert(repairProviders.SERVICE_DEFINITIONS === repairBridge.SERVICE_DEFINITIONS, 'the bridge reuses the repair provider catalogue');
+assert(repairBridge.SERVICE_DEFINITIONS.every((service) => /[\u0600-\u06FF]/.test(service.labelAr) && /[\u0600-\u06FF]/.test(service.noteAr)), 'Repair tools carry authored Arabic text');
+for (const forbidden of ['shell: true', 'spawn(', 'Start-Process', 'Invoke-Expression', 'Stop-Service', 'Set-Service', 'Remove-Item', 'Restart-Computer', 'dism.exe /online', 'sfc.exe /scannow', 'netsh.exe winsock reset', 'netsh.exe int ip reset', 'ipconfig.exe /flushdns', 'rstrui.exe']) {
+  assert(!repairBridgeSource.toLowerCase().includes(forbidden.toLowerCase()), `Repair bridge has no execution call: ${forbidden}`);
+}
+for (const forbidden of ['shell: true', 'spawn(', 'child_process', 'Start-Process', 'Invoke-Expression', 'Stop-Service', 'Set-Service', 'Remove-Item', 'Restart-Computer']) {
+  assert(!repairProviderSource.toLowerCase().includes(forbidden.toLowerCase()), `Repair provider has no execution call: ${forbidden}`);
+}
+assert(!/runFile\(['"](?:dism|sfc|rstrui)\.exe/i.test(repairBridgeSource), 'the bridge never executes DISM, SFC or System Restore');
+assert(!/runFile\(['"]netsh\.exe['"],\s*\[\s*['"]winsock['"],\s*['"]reset/i.test(repairBridgeSource), 'the bridge never resets Winsock');
+assert(/recordPreview\(plan\)/.test(repairBridgeSource), 'Repair plans are recorded as previews only');
+assert(
+  ['repairCapabilities', 'repairStart', 'repairStatus', 'repairCancel', 'repairSnapshot', 'repairPlan', 'repairJournal', 'repairReport', 'repairOpenSettings']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every Repair channel has an IPC handler'
+);
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');
 assert(main.includes('sandbox: true'), 'main enables sandbox');

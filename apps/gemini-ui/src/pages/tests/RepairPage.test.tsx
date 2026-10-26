@@ -1,112 +1,115 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * KNOuX Recovery Lab - deterministic renderer contract checks (Mission 11).
+ * No Windows call is made. These checks keep the 12 descriptors, 12
+ * workbenches, risk vocabulary and unknown-value rendering aligned.
  */
+import { GUIDED_STEPS, REPAIR_TOOLS, RISK_META, STATE_META, TOOL_BY_ID, TOOL_IDS, toolLabel } from '../../repair/catalog';
+import { REPAIR_WORKBENCH_IDS } from '../../repair/RepairServiceWorkspaces';
+import { journalFilter, journalTitle, planForTool, restoreStatusMeta, stageMeta, t } from '../../repair/model';
+import type { RepairJournalEntry, RepairPlan } from '../../../shared/native-contracts';
 
-import {
-  REPAIR_TOOLS_CATALOG,
-  INITIAL_DIAGNOSTIC_STRIP,
-  GUIDED_REPAIR_STEPS,
-  RepairToolMeta
-} from '../../lib/repair-inventory';
-
-/**
- * Headless test harness verifying REF-08 Repair Recovery Lab domain integrity,
- * catalog completeness, and visual state contracts.
- */
-export function runRepairVerificationSuite(): { passed: boolean; results: string[] } {
-  const results: string[] = [];
-  let allPassed = true;
-
-  function assert(condition: boolean, testName: string) {
-    if (condition) {
-      results.push(`✔ PASS: ${testName}`);
-    } else {
-      results.push(`✘ FAIL: ${testName}`);
-      allPassed = false;
-    }
-  }
-
-  // 1. Verify all 12 repair services are registered with valid metadata
-  assert(REPAIR_TOOLS_CATALOG.length === 12, 'Catalog contains exactly 12 repair tools');
-
-  const requiredServiceKeys = [
-    'dism-checkhealth',
-    'dism-scanhealth',
-    'dism-restorehealth',
-    'sfc-verifyonly',
-    'sfc-scannow',
-    'flush-dns',
-    'reset-winsock',
-    'reset-tcpip',
-    'repair-history',
-    'windows-troubleshooters',
-    'restore-point-review',
-    'windows-update-repair'
-  ];
-
-  const catalogKeys = REPAIR_TOOLS_CATALOG.map(t => t.serviceKey);
-  const allServicesPresent = requiredServiceKeys.every(k => catalogKeys.includes(k));
-  assert(allServicesPresent, 'All 12 required service keys are defined in catalog');
-
-  // 2. Verify DISM ScanHealth configuration matches the reference screenshot
-  const dismScan = REPAIR_TOOLS_CATALOG.find(t => t.serviceKey === 'dism-scanhealth');
-  assert(!!dismScan, 'DISM ScanHealth exists in catalog');
-  if (dismScan) {
-    assert(
-      dismScan.command === 'DISM /Online /Cleanup-Image /ScanHealth',
-      'DISM ScanHealth command matches "DISM /Online /Cleanup-Image /ScanHealth"'
-    );
-    assert(
-      dismScan.privilegeRequirement.level === 'Administrator access required',
-      'DISM ScanHealth requires elevated administrator privileges'
-    );
-    assert(
-      dismScan.riskAssessment.level === 'Low Risk',
-      'DISM ScanHealth risk tier is calibrated to Low Risk'
-    );
-    assert(
-      dismScan.executionStages.length >= 4,
-      'DISM ScanHealth defines the 4 visual execution stages'
-    );
-  }
-
-  // 3. Verify top diagnostic strip has 4 items with honest non-fabricated baselines
-  assert(INITIAL_DIAGNOSTIC_STRIP.length === 4, 'Diagnostic strip has exactly 4 status panels');
-  const stripIds = INITIAL_DIAGNOSTIC_STRIP.map(s => s.id);
-  assert(
-    stripIds.includes('system-components') &&
-    stripIds.includes('windows-file-integrity') &&
-    stripIds.includes('network-config') &&
-    stripIds.includes('repair-journal'),
-    'All 4 diagnostic categories present (System Components, File Integrity, Network, Journal)'
-  );
-
-  // 4. Verify Guided Repair Sequence has 7 steps with step 5 highlighted
-  assert(GUIDED_REPAIR_STEPS.length === 7, 'Guided Repair Sequence has 7 sequential steps');
-  const step5 = GUIDED_REPAIR_STEPS.find(s => s.number === 5);
-  assert(
-    step5?.id === 'confirm-permission' && step5?.highlightColor === 'gold',
-    'Step 5 is Confirm Permission with gold authorization highlight'
-  );
-
-  // 5. Verify privilege and elevation safety contracts
-  const elevatedTools = REPAIR_TOOLS_CATALOG.filter(t => t.privilegeRequirement.elevationRequired);
-  assert(
-    elevatedTools.length >= 8,
-    'High-impact servicing tools require explicit UAC administrator elevation'
-  );
-
-  return { passed: allPassed, results };
+export interface RepairTestResult {
+  name: string;
+  passed: boolean;
+  message?: string;
 }
 
-// Self-executing runner for Node/tsx verification
-if (typeof process !== 'undefined' && process.argv && process.argv[1]?.includes('RepairPage.test')) {
-  const { passed, results } = runRepairVerificationSuite();
-  results.forEach(r => console.log(r));
-  if (!passed) {
-    process.exit(1);
-  } else {
-    console.log('\nAll RepairPage verification tests passed successfully.');
+const EXPECTED_IDS = [
+  'repair-component-check',
+  'repair-component-scan',
+  'repair-component-restore',
+  'repair-files-verify',
+  'repair-files-repair',
+  'repair-dns-flush',
+  'repair-winsock-reset',
+  'repair-tcpip-reset',
+  'repair-history',
+  'repair-troubleshooters',
+  'repair-restore-point',
+  'repair-update-reset',
+];
+
+function check(name: string, run: () => boolean | string): RepairTestResult {
+  try {
+    const result = run();
+    if (typeof result === 'string') return { name, passed: false, message: result };
+    return { name, passed: result };
+  } catch (error) {
+    return { name, passed: false, message: String(error) };
   }
+}
+
+export function runRepairVerificationSuite(): RepairTestResult[] {
+  const results: RepairTestResult[] = [];
+  results.push(check('12 unique repair descriptors in canonical order', () => {
+    if (REPAIR_TOOLS.length !== 12) return `expected 12, received ${REPAIR_TOOLS.length}`;
+    if (new Set(TOOL_IDS).size !== 12) return 'duplicate repair id';
+    if (TOOL_IDS.join('|') !== EXPECTED_IDS.join('|')) return 'catalog order or ids changed';
+    return true;
+  }));
+  results.push(check('every descriptor maps to one specialised workbench', () => {
+    if (REPAIR_WORKBENCH_IDS.length !== 12) return `workbench map has ${REPAIR_WORKBENCH_IDS.length}`;
+    const missing = TOOL_IDS.filter((id) => !REPAIR_WORKBENCH_IDS.includes(id));
+    if (missing.length) return `missing workbenches: ${missing.join(', ')}`;
+    return true;
+  }));
+  results.push(check('risk and state vocabulary is complete', () => {
+    for (const risk of ['read-only', 'elevated-read-only', 'administrative'] as const) {
+      if (!RISK_META[risk].en || !RISK_META[risk].ar) return `risk ${risk} lacks a bilingual label`;
+    }
+    for (const state of ['available', 'partial', 'gated'] as const) {
+      if (!STATE_META[state].en || !STATE_META[state].ar) return `state ${state} lacks a bilingual label`;
+    }
+    if (REPAIR_TOOLS.filter((entry) => entry.risk === 'administrative').length < 6) return 'administrative tools are under-declared';
+    return true;
+  }));
+  results.push(check('seven guided steps end in a blocked execution', () => {
+    if (GUIDED_STEPS.length !== 7) return `expected 7 steps, received ${GUIDED_STEPS.length}`;
+    if (GUIDED_STEPS[5].en !== 'Execute' || GUIDED_STEPS[6].en !== 'Verify result') return 'execution steps changed';
+    return true;
+  }));
+  results.push(check('status helpers never claim completion for an absent stage', () => {
+    if (stageMeta('pending').tone !== 'muted') return 'pending is not muted';
+    if (stageMeta('unavailable').tone !== 'bad') return 'unavailable is not bad';
+    if (restoreStatusMeta('permission_denied').tone !== 'warn') return 'denied restore access is not warned';
+    return true;
+  }));
+  results.push(check('journal filtering is deterministic', () => {
+    const entries = [
+      { id: 'a', at: '2026-01-01T00:00:00.000Z', kind: 'preview', title: 'alpha', summary: 'preview one', toolIds: ['repair-dns-flush'], risk: 'administrative', elevationRequired: false, rebootRequired: false, receipt: 'plan:1', readOnly: true, mutation: 'none' },
+      { id: 'b', at: '2026-01-02T00:00:00.000Z', kind: 'preview', title: 'beta', summary: 'preview two', toolIds: ['repair-files-verify'], risk: 'elevated-read-only', elevationRequired: true, rebootRequired: false, receipt: 'plan:2', readOnly: true, mutation: 'none' },
+    ] as RepairJournalEntry[];
+    if (journalFilter(entries, '', 'all').length !== 2) return 'all filter failed';
+    if (journalFilter(entries, '', 'repair-dns-flush').length !== 1) return 'tool filter failed';
+    if (journalFilter(entries, 'two', 'all').length !== 1) return 'query filter failed';
+    if (!journalTitle(entries[0], 'en').toLowerCase().includes('dns')) return 'journal title failed';
+    return true;
+  }));
+  results.push(check('plan lookup is scoped to one tool', () => {
+    const plan = {
+      items: [
+        { toolId: 'repair-dns-flush', id: 'item-a' },
+        { toolId: 'repair-files-verify', id: 'item-b' },
+      ],
+    } as unknown as RepairPlan;
+    const found = planForTool(plan, 'repair-files-verify');
+    return found && found.id === 'item-b' ? true : 'wrong plan item selected';
+  }));
+  results.push(check('bilingual catalog and translation stay intact', () => {
+    for (const entry of REPAIR_TOOLS) {
+      if (!entry.en || !entry.ar || !entry.blurbAr) return `${entry.id} lacks a bilingual label`;
+    }
+    if (t('ar', 'Read-only', 'للقراءة فقط') !== 'للقراءة فقط') return 'Arabic translation failed';
+    if (toolLabel('repair-dns-flush', 'en') !== 'DNS Cache Refresh') return 'English tool label changed';
+    return true;
+  }));
+  results.push(check('history is read-only and execution is absent', () => {
+    const history = TOOL_BY_ID['repair-history'];
+    if (history.risk !== 'read-only') return 'history is not read-only';
+    for (const id of TOOL_IDS) {
+      if (TOOL_BY_ID[id].state === 'available' && TOOL_BY_ID[id].risk === 'administrative') return `${id} is falsely available`;
+    }
+    return true;
+  }));
+  return results;
 }

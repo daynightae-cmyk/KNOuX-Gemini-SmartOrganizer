@@ -31,6 +31,7 @@ const { AppBridge } = require('./native/app-bridge.cjs');
 const { CleanupBridge } = require('./native/cleanup-bridge.cjs');
 const { StartupBridge } = require('./native/startup-bridge.cjs');
 const { SystemBridge } = require('./native/system-bridge.cjs');
+const { RepairBridge } = require('./native/repair-bridge.cjs');
 const {
   ok,
   fail,
@@ -93,6 +94,7 @@ let appBridge = null;
 let cleanupBridge = null;
 let startupBridge = null;
 let systemBridge = null;
+let repairBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -1250,6 +1252,125 @@ function registerIpc() {
     })
   );
 
+  const REPAIR_SESSION = /^[a-f0-9-]{8,64}$/i;
+  const repairGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!repairBridge) {
+        throw Object.assign(new Error('The read-only Recovery Lab is not initialized.'), { code: 'REPAIR_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Recovery Lab read-only repair evidence',
+        permission,
+        provenance: { mode: 'measured', mutation: 'none' },
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Recovery Lab read-only repair evidence',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'REPAIR_FAILURE',
+          message: String(error?.message || 'Repair request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const repairRequest = (args, code = 'REPAIR_INPUT_INVALID') => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured Recovery Lab request is required.'), { code });
+    }
+    return args[0];
+  };
+
+  ipcMain.handle(contract.channels.repairCapabilities, (event, ...args) =>
+    repairGuard(event, 'repair.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.repairCapabilities);
+      return repairBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.repairStart, (event, ...args) =>
+    repairGuard(event, 'repair.start', 'read-only', () => {
+      assertNoArguments(args, contract.channels.repairStart);
+      return repairBridge.start();
+    })
+  );
+  ipcMain.handle(contract.channels.repairStatus, (event, ...args) =>
+    repairGuard(event, 'repair.status', 'read-only', () => {
+      const request = repairRequest(args);
+      if (typeof request.sessionId !== 'string' || !REPAIR_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid repair session identifier is required.'), { code: 'REPAIR_SESSION_INVALID' });
+      }
+      return repairBridge.status(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.repairCancel, (event, ...args) =>
+    repairGuard(event, 'repair.cancel', 'user-initiated', () => {
+      const request = repairRequest(args);
+      if (typeof request.sessionId !== 'string' || !REPAIR_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid repair session identifier is required.'), { code: 'REPAIR_SESSION_INVALID' });
+      }
+      return repairBridge.cancel(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.repairSnapshot, (event, ...args) =>
+    repairGuard(event, 'repair.snapshot', 'read-only', () => {
+      assertNoArguments(args, contract.channels.repairSnapshot);
+      return repairBridge.snapshot();
+    })
+  );
+  ipcMain.handle(contract.channels.repairPlan, (event, ...args) =>
+    repairGuard(event, 'repair.plan', 'read-only', () => {
+      if (args.length !== 1 || !Array.isArray(args[0]) || args[0].length < 1 || args[0].length > 12) {
+        throw Object.assign(new Error('A repair plan accepts between one and twelve tool identifiers.'), { code: 'REPAIR_INPUT_INVALID' });
+      }
+      const toolIds = args[0].filter((entry) => typeof entry === 'string' && entry.length <= 64);
+      if (!toolIds.length) {
+        throw Object.assign(new Error('No valid repair tool identifier was supplied.'), { code: 'REPAIR_INPUT_INVALID' });
+      }
+      return repairBridge.plan(toolIds);
+    })
+  );
+  ipcMain.handle(contract.channels.repairJournal, (event, ...args) =>
+    repairGuard(event, 'repair.journal', 'read-only', () => {
+      assertNoArguments(args, contract.channels.repairJournal);
+      return repairBridge.journal();
+    })
+  );
+  ipcMain.handle(contract.channels.repairReport, (event, ...args) =>
+    repairGuard(event, 'repair.report', 'read-only', () => {
+      if (args.length > 1) {
+        throw Object.assign(new Error('At most one report options object is accepted.'), { code: 'REPAIR_INPUT_INVALID' });
+      }
+      let options = {};
+      if (args.length === 1) {
+        if (!args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+          throw Object.assign(new Error('The repair report options must be an object.'), { code: 'REPAIR_INPUT_INVALID' });
+        }
+        options = { redact: args[0].redact !== false };
+      }
+      return repairBridge.report(options);
+    })
+  );
+  ipcMain.handle(contract.channels.repairOpenSettings, (event, ...args) =>
+    repairGuard(event, 'repair.settings.open', 'user-initiated', async () => {
+      const request = repairRequest(args);
+      if (!['windowsupdate', 'troubleshoot', 'recovery'].includes(request.target)) {
+        throw Object.assign(new Error('The requested Windows recovery page is not allowlisted.'), { code: 'REPAIR_SETTINGS_TARGET_INVALID' });
+      }
+      const target = repairBridge.settingsTarget(request.target);
+      await shell.openExternal(target.uri);
+      return { opened: true, target: target.target };
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -1449,6 +1570,14 @@ async function runSmoke(win) {
               }
             }
             history = await scanApi.history();
+            // Persistence can settle just after the terminal status response.
+            // Retry the read-only history for a bounded window instead of
+            // turning a timing race into a false product failure.
+            const historyDeadline = Date.now() + 6000;
+            while ((!Array.isArray(history?.data) || history.data.length === 0) && Date.now() < historyDeadline) {
+              await new Promise((resolve) => setTimeout(resolve, 250));
+              history = await scanApi.history();
+            }
           }
           scan = { bridgePresent: true, capabilities, sources, started, session, history };
         }
@@ -1788,6 +1917,21 @@ async function runSmoke(win) {
             snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'system.v1',
           };
         }
+        const repairV1Api = window.knouxRepairV1;
+        let repairV1 = null;
+        if (repairV1Api) {
+          const capabilities = await repairV1Api.capabilities();
+          const started = await repairV1Api.start();
+          const session = started?.data?.id ? await repairV1Api.status(started.data.id) : null;
+          const snapshot = await repairV1Api.snapshot().catch(() => null);
+          repairV1 = {
+            bridgePresent: true,
+            capabilities,
+            started,
+            session,
+            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'repair.v1',
+          };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -1801,6 +1945,7 @@ async function runSmoke(win) {
           cleanupBridgePresent: Boolean(cleanupApi),
           startupBridgePresent: Boolean(startupApi),
           systemV1BridgePresent: Boolean(systemV1Api),
+          repairV1BridgePresent: Boolean(repairV1Api),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -1815,6 +1960,7 @@ async function runSmoke(win) {
           cleanup,
           startup,
           systemV1,
+          repairV1,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -3096,6 +3242,355 @@ async function runSmoke(win) {
         receipt.system1920ScreenshotBytes = (await fsp.stat(system1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Mission 11 Recovery Lab: measured read-only repair evidence, twelve
+        // specialised workbenches, a staged preview, journal, keyboard and RTL.
+        // No DISM/SFC/netsh/service/restore command is executed.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'repair'; return true; })()`,
+          true
+        );
+        const repairDeadline = Date.now() + 90000;
+        let repairUiReady = false;
+        while (Date.now() < repairDeadline) {
+          await sleep(700);
+          repairUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="repair-workspace"]');
+               const banner = document.querySelector('[data-testid="repair-native-banner"]');
+               const required = document.querySelector('[data-testid="repair-native-required"]');
+               const elevation = document.querySelector('[data-testid="repair-kpi-elevation-value"]')?.textContent?.trim() || '';
+               const cards = document.querySelectorAll('[data-testid="repair-tool-grid"] button[data-testid^="repair-tool-"]').length;
+               const history = document.querySelector('[data-testid="repair-history-panel"]');
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 elevation !== '' && elevation !== '—' && elevation !== '-' &&
+                 cards === 12 && Boolean(history) &&
+                 /Measured Recovery Lab|مختبر الاستعادة المقيس/.test(bannerText);
+             })()`,
+            true
+          );
+          if (repairUiReady) break;
+        }
+        const repairControlProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const main = document.querySelector('[data-testid="repair-workspace"]');
+             if (!main) return { ok: false, failures: ['workspace-missing'] };
+             const search = main.querySelector('input[aria-label="Search repair tools"], input[aria-label="بحث أدوات الإصلاح"]');
+             if (!search) failures.push('search:missing');
+             else {
+               const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+               setter.call(search, 'dns');
+               search.dispatchEvent(new Event('input', { bubbles: true }));
+               await wait(140);
+               const filtered = main.querySelectorAll('[data-testid="repair-tool-grid"] button[data-testid^="repair-tool-"]').length;
+               if (filtered < 1 || filtered >= 12) failures.push('search:filter-' + filtered);
+               setter.call(search, '');
+               search.dispatchEvent(new Event('input', { bubbles: true }));
+               await wait(140);
+             }
+             const dnsCard = document.querySelector('[data-testid="repair-tool-repair-dns-flush"]');
+             if (!dnsCard) failures.push('dns-card:missing');
+             else {
+               dnsCard.click();
+               await wait(120);
+               const stage = document.querySelector('[data-testid="repair-stage-selected"]');
+               if (!stage) failures.push('stage:missing');
+               else {
+                 stage.click();
+                 await wait(500);
+                 const rows = document.querySelectorAll('[data-testid="repair-journal-row"]').length;
+                 if (rows < 1) failures.push('journal:no-row');
+                 const receipt = document.querySelector('[data-testid="repair-brief"] .rep-plan-receipt');
+                 if (!receipt) failures.push('plan:no-receipt');
+               }
+             }
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.repairControlProbe = repairControlProbe;
+        const repairServiceProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const seen = new Set();
+             const ids = ${JSON.stringify([
+               'repair-component-check',
+               'repair-component-scan',
+               'repair-component-restore',
+               'repair-files-verify',
+               'repair-files-repair',
+               'repair-dns-flush',
+               'repair-winsock-reset',
+               'repair-tcpip-reset',
+               'repair-history',
+               'repair-troubleshooters',
+               'repair-restore-point',
+               'repair-update-reset',
+             ])};
+             for (const id of ids) {
+               const card = document.querySelector('[data-testid="repair-tool-' + id + '"]');
+               if (!card) { failures.push(id + ':card-missing'); continue; }
+               card.click();
+               await wait(110);
+               const open = document.querySelector('[data-testid="repair-open-selected"]');
+               if (!open) { failures.push(id + ':open-missing'); continue; }
+               open.click();
+               await wait(280);
+               const workbench = document.querySelector('[data-testid="repair-service-workspace-' + id + '"]');
+               const shell = document.querySelector('[data-testid="repair-service-shell-' + id + '"]');
+               const body = workbench ? workbench.querySelector('.rep-wb-body') : null;
+               const text = workbench ? String(workbench.innerText || '').trim() : '';
+               if (workbench && shell && body && text.length >= 30) {
+                 seen.add(id);
+                 const segs = Array.from(workbench.querySelectorAll('.sys-seg'));
+                 for (let index = 0; index < Math.min(segs.length, 3); index += 1) {
+                   const options = Array.from(segs[index].querySelectorAll('button'));
+                   if (options.length < 2) continue;
+                   options[1].click();
+                   await wait(40);
+                   if (!options[1].classList.contains('is-active')) failures.push(id + ':seg-' + index);
+                   options[0].click();
+                   await wait(20);
+                 }
+               } else {
+                 failures.push(id + ':render');
+               }
+               const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+               if (!close) failures.push(id + ':close-missing');
+               else close.click();
+               await wait(140);
+               if (document.querySelector('[data-testid="repair-service-shell-' + id + '"]')) failures.push(id + ':close-failed');
+             }
+             return { ok: failures.length === 0 && seen.size === 12, checked: seen.size, failures };
+           })()`,
+          true
+        );
+        receipt.repairServiceProbe = repairServiceProbe;
+        const repairKeyboardProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="repair-tool-repair-files-verify"]');
+             if (!card) return { ok: false, reason: 'card-missing' };
+             card.focus();
+             card.click();
+             await wait(110);
+             const open = document.querySelector('[data-testid="repair-open-selected"]');
+             if (!open) return { ok: false, reason: 'open-missing' };
+             open.click();
+             await wait(320);
+             const selector = '[data-testid="repair-service-shell-repair-files-verify"]';
+             const shell = document.querySelector(selector);
+             const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+             const focused = Boolean(close) && document.activeElement === close;
+             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+             await wait(300);
+             return { ok: focused && !document.querySelector(selector), focused };
+           })()`,
+          true
+        );
+        receipt.repairKeyboardProbe = repairKeyboardProbe;
+        try {
+          const finalSession = repairBridge?.status?.(renderer.repairV1?.session?.data?.id);
+          if (finalSession) {
+            receipt.repairFinalSession = {
+              id: finalSession.id,
+              status: finalSession.status,
+              progress: finalSession.progress,
+              readOnly: finalSession.readOnly,
+              mutation: finalSession.mutation,
+              warnings: finalSession.warnings.length,
+              stages: finalSession.stages.map((stage) => ({ key: stage.key, status: stage.status, items: stage.items, durationMs: stage.durationMs })),
+            };
+          }
+          const measured = await repairBridge?.snapshot?.();
+          if (measured) {            receipt.repairMeasured = {
+              generatedAt: measured.generatedAt,
+              receipt: measured.receipt,
+              identity: {
+                osName: measured.identity.osName,
+                osBuild: measured.identity.osBuild,
+                isAdmin: measured.identity.isAdmin,
+                dismAvailable: measured.identity.dismAvailable,
+                sfcAvailable: measured.identity.sfcAvailable,
+                pendingReboot: measured.identity.pendingReboot,
+              },
+              adapters: measured.network.adapters.length,
+              addresses: measured.network.addresses.length,
+              dnsEntries: measured.network.dnsCache.entryCount,
+              dnsStatus: measured.network.dnsCache.status,
+              winsockProviders: measured.network.winsock.providerCount,
+              winsockStatus: measured.network.winsock.status,
+              updateServices: measured.update.services.length,
+              downloadItems: measured.update.download.items,
+              restoreStatus: measured.restore.status,
+              restorePoints: measured.restore.points.length,
+              journal: measured.journal.length,
+              commands: measured.commands.length,
+              gates: measured.gates.length,
+              coverage: measured.coverage,
+              warnings: measured.warnings.length,
+              sources: measured.sources.length,
+            };
+          }
+          const finalJournal = await repairBridge?.journal?.();
+          receipt.repairJournalCount = Array.isArray(finalJournal) ? finalJournal.length : 0;
+        } catch (error) {
+          receipt.repairFinalError = redactError(error);
+        }
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="repair-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(500);
+        const repairShotPath = smokeShotPath.replace(/native-bridge/i, 'repair-measured');
+        const repairImage = await win.webContents.capturePage();
+        await fsp.writeFile(repairShotPath, repairImage.toPNG());
+        receipt.repairScreenshot = repairShotPath;
+        receipt.repairScreenshotBytes = (await fsp.stat(repairShotPath)).size;
+        receipt.repairUiReady = repairUiReady;
+
+        await win.webContents.executeJavaScript(
+          `(() => { document.querySelector('button[title="Switch to light theme"], button[title="Switch to dark theme"]')?.click(); return true; })()`,
+          true
+        );
+        await sleep(850);
+        const repairLightPath = repairShotPath.replace(/\.png$/i, '-light.png');
+        const repairLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(repairLightPath, repairLightImage.toPNG());
+        receipt.repairLightScreenshot = repairLightPath;
+        receipt.repairLightScreenshotBytes = (await fsp.stat(repairLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(950);
+        const repairArabicPath = repairShotPath.replace(/\.png$/i, '-ar-light.png');
+        const repairArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(repairArabicPath, repairArabicImage.toPNG());
+        receipt.repairArabicScreenshot = repairArabicPath;
+        receipt.repairArabicScreenshotBytes = (await fsp.stat(repairArabicPath)).size;
+
+        const repairRtlLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="repair-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.rep-kpi'));
+             if (!main || kpis.length !== 4) return { ok: false, reason: 'rtl panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const withinWidth = kpis.every((node) => {
+               const rect = node.getBoundingClientRect();
+               return rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             });
+             const direction = getComputedStyle(main).direction;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth || main.scrollWidth > main.clientWidth + 1;
+             return { ok: direction === 'rtl' && withinWidth && !horizontalOverflow, direction, withinWidth, horizontalOverflow };
+           })()`,
+          true
+        );
+        receipt.repairRtlLayout = repairRtlLayout;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(600);
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const theme = document.querySelector('button[title="Switch to dark theme"], button[title="التبديل إلى الوضع الداكن"]');
+             if (theme) theme.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(850);
+
+        // Capture one privacy-safe workbench: DISM CheckHealth uses system log
+        // metadata and contains no user-profile path.
+        await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="repair-tool-repair-component-check"]');
+             if (card) card.click();
+             await wait(140);
+             const open = document.querySelector('[data-testid="repair-open-selected"]');
+             if (open) open.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(650);
+        const repairWorkbenchPath = repairShotPath.replace(/repair-measured/i, 'repair-workbench');
+        const repairWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(repairWorkbenchPath, repairWorkbenchImage.toPNG());
+        receipt.repairWorkbenchScreenshot = repairWorkbenchPath;
+        receipt.repairWorkbenchScreenshotBytes = (await fsp.stat(repairWorkbenchPath)).size;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const close = document.querySelector('[data-testid="repair-service-shell-repair-component-check"] button[aria-label="Close service"], [data-testid="repair-service-shell-repair-component-check"] button[aria-label="إغلاق الخدمة"]');
+             if (close) close.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(450);
+
+        win.setContentSize(1366, 768);
+        await sleep(950);
+        const repair1366Path = repairShotPath.replace(/\.png$/i, '-1366.png');
+        const repair1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(repair1366Path, repair1366Image.toPNG());
+        receipt.repair1366Screenshot = repair1366Path;
+        receipt.repair1366ScreenshotBytes = (await fsp.stat(repair1366Path)).size;
+
+        const repair1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="repair-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.rep-kpi'));
+             const tools = document.querySelector('[data-testid="repair-tool-grid"]');
+             const history = document.querySelector('[data-testid="repair-history-panel"]');
+             const actionbar = document.querySelector('[data-testid="repair-actionbar"]');
+             if (!main || kpis.length !== 4 || !tools || !history || !actionbar) return { ok: false, reason: 'repair panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const rects = kpis.map((node) => node.getBoundingClientRect());
+             const withinWidth = rects.every((rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1);
+             const sameRow = Math.abs(rects[0].top - rects[1].top) <= 2 && Math.abs(rects[0].top - rects[2].top) <= 2 && Math.abs(rects[0].top - rects[3].top) <= 2;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             const historyRect = history.getBoundingClientRect();
+             const actionRect = actionbar.getBoundingClientRect();
+             const footerVisible = actionRect.bottom <= window.innerHeight + 1 && actionRect.top >= 0;
+             const cards = document.querySelectorAll('[data-testid="repair-tool-grid"] button[data-testid^="repair-tool-"]').length;
+             const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+             return {
+               ok: sameRow && withinWidth && !horizontalOverflow && scrollWorked && footerVisible && cards === 12 && theme === 'dark',
+               horizontalOverflow, scrollWorked, sameRow, withinWidth, footerVisible, cards, theme,
+               historyHeight: Math.round(historyRect.height), viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.repair1366Layout = repair1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="repair-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(350);
+
+        win.setContentSize(1920, 1080);
+        await sleep(950);
+        const repair1920Path = repairShotPath.replace(/\.png$/i, '-1920.png');
+        const repair1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(repair1920Path, repair1920Image.toPNG());
+        receipt.repair1920Screenshot = repair1920Path;
+        receipt.repair1920ScreenshotBytes = (await fsp.stat(repair1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -3378,6 +3873,42 @@ async function runSmoke(win) {
     const systemLayoutOk = receipt.system1366Layout?.ok === true
       && receipt.system1366Layout?.horizontalOverflow === false
       && receipt.systemRtlLayout?.ok === true;
+    const repairV1Data = renderer.repairV1;
+    const repairOk = Boolean(
+      renderer.repairV1BridgePresent === true &&
+      repairV1Data?.capabilities?.status === 'complete' &&
+      repairV1Data.capabilities.capability === 'repair.capabilities' &&
+      repairV1Data.capabilities.data?.readOnly === true &&
+      repairV1Data.capabilities.data?.mutation === 'none' &&
+      repairV1Data.capabilities.data?.fixtureFallback === false &&
+      repairV1Data.capabilities.data?.serviceCount === 12 &&
+      repairV1Data.capabilities.data?.commands?.length === 10 &&
+      repairV1Data.capabilities.data?.gatedOperations?.length === 8 &&
+      repairV1Data.capabilities.data?.elevation?.automaticElevation === false &&
+      repairV1Data?.started?.status === 'complete' &&
+      repairV1Data.started.data?.contract === 'repair.v1' &&
+      repairV1Data.started.data?.readOnly === true &&
+      repairV1Data?.session?.status === 'complete' &&
+      repairV1Data.session.data?.contract === 'repair.v1' &&
+      repairV1Data.session.data?.stages?.length === 6 &&
+      repairV1Data.session.data?.readOnly === true &&
+      ['complete', 'partial'].includes(receipt.repairFinalSession?.status) &&
+      receipt.repairFinalSession?.progress === 100 &&
+      receipt.repairFinalSession?.readOnly === true &&
+      receipt.repairFinalSession?.mutation === 'none' &&
+      receipt.repairFinalSession?.stages?.length === 6 &&
+      receipt.repairMeasured?.commands === 10 &&
+      receipt.repairMeasured?.gates === 8 &&
+      receipt.repairJournalCount >= 1 &&
+      receipt.repairControlProbe?.ok === true &&
+      receipt.repairServiceProbe?.ok === true &&
+      receipt.repairServiceProbe?.checked === 12 &&
+      receipt.repairKeyboardProbe?.ok === true &&
+      receipt.repairUiReady === true
+    );
+    const repairLayoutOk = receipt.repair1366Layout?.ok === true
+      && receipt.repair1366Layout?.horizontalOverflow === false
+      && receipt.repairRtlLayout?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -3423,10 +3954,17 @@ async function runSmoke(win) {
       receipt.systemArabicScreenshotBytes > 20000 &&
       receipt.system1366ScreenshotBytes > 20000 &&
       receipt.system1920ScreenshotBytes > 20000 &&
-      receipt.systemUiReady === true
+      receipt.systemUiReady === true &&
+      receipt.repairScreenshotBytes > 20000 &&
+      receipt.repairWorkbenchScreenshotBytes > 20000 &&
+      receipt.repairLightScreenshotBytes > 20000 &&
+      receipt.repairArabicScreenshotBytes > 20000 &&
+      receipt.repair1366ScreenshotBytes > 20000 &&
+      receipt.repair1920ScreenshotBytes > 20000 &&
+      receipt.repairUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -3549,6 +4087,16 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Live Pulse observatory unavailable:', error?.message || error);
       systemBridge = null;
     }
+    try {
+      repairBridge = new RepairBridge({
+        userDataPath: app.getPath('userData'),
+      });
+      trace('repair bridge initialized');
+    } catch (error) {
+      trace(`repair bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Recovery Lab coordinator unavailable:', error?.message || error);
+      repairBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -3577,6 +4125,7 @@ app.whenReady().then(async () => {
 
 app.on('before-quit', () => {
   void systemBridge?.close?.();
+  void repairBridge?.close?.();
   startupBridge?.dispose();
   cleanupBridge?.dispose();
   appBridge?.dispose();

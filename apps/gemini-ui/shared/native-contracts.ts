@@ -2617,6 +2617,323 @@ export interface SystemShellApi {
   openSettings: (target: 'display' | 'network' | 'wifi' | 'sound') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
 }
 
+/* -------------------------------------------------------------------------- */
+/* Repair v1 - Recovery Lab (Mission 11)                                      */
+/* -------------------------------------------------------------------------- */
+
+export type RepairToolId =
+  | 'repair-component-check'
+  | 'repair-component-scan'
+  | 'repair-component-restore'
+  | 'repair-files-verify'
+  | 'repair-files-repair'
+  | 'repair-dns-flush'
+  | 'repair-winsock-reset'
+  | 'repair-tcpip-reset'
+  | 'repair-history'
+  | 'repair-troubleshooters'
+  | 'repair-restore-point'
+  | 'repair-update-reset';
+
+export type RepairStageKey = 'identity' | 'servicing' | 'network' | 'update' | 'restore' | 'journal';
+
+export interface RepairStage {
+  key: RepairStageKey;
+  labelEn: string;
+  labelAr: string;
+  status: 'pending' | 'running' | 'complete' | 'partial' | 'failed' | 'cancelled';
+  provider: string;
+  startedAt: string | null;
+  completedAt: string | null;
+  durationMs: number | null;
+  items: number | null;
+  warning: string | null;
+}
+
+export interface RepairSession {
+  contract: 'repair.v1';
+  id: string;
+  status: 'running' | 'complete' | 'partial' | 'cancelled' | 'failed';
+  startedAt: string;
+  completedAt: string | null;
+  progress: number;
+  stages: RepairStage[];
+  warnings: string[];
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface RepairToolState {
+  id: RepairToolId;
+  world: 'repair';
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  risk: 'read-only' | 'elevated-read-only' | 'administrative';
+  provider: string;
+  noteEn: string;
+  noteAr: string;
+}
+
+export interface RepairCommandSpec {
+  id: string;
+  toolId: RepairToolId;
+  labelEn: string;
+  labelAr: string;
+  display: string;
+  elevationRequired: boolean;
+  risk: 'read-only' | 'elevated-read-only' | 'administrative';
+  rebootRequired: boolean;
+  execution: { available: false; reason: string };
+}
+
+export interface RepairPrerequisite {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  status: 'passed' | 'failed' | 'unknown' | 'unavailable';
+  detail: string;
+}
+
+export interface RepairIdentity {
+  osName: string | null;
+  osVersion: string | null;
+  osBuild: string | null;
+  architecture: string | null;
+  isAdmin: boolean | null;
+  elevationMethod: 'user-initiated UAC only';
+  powershellVersion: string | null;
+  dismAvailable: boolean | null;
+  sfcAvailable: boolean | null;
+  safeBoot: boolean | null;
+  pendingReboot: boolean | null;
+  systemRoot: string | null;
+  observedAt: string;
+}
+
+export interface RepairFileEvidence {
+  path: string | null;
+  exists: boolean | null;
+  sizeBytes: number | null;
+  lastWrite: string | null;
+}
+
+export interface RepairServicingEvidence {
+  dismLog: RepairFileEvidence;
+  cbsLog: RepairFileEvidence;
+  componentStore: RepairFileEvidence;
+  pendingCbs: boolean | null;
+  pendingWindowsUpdate: boolean | null;
+  componentStoreHealth: 'not-run' | 'unknown';
+  note: string;
+}
+
+export interface RepairNetworkAdapter {
+  name: string;
+  description: string | null;
+  status: string | null;
+  linkSpeed: string | null;
+  mac: string | null;
+}
+
+export interface RepairNetworkAddress {
+  interfaceAlias: string;
+  address: string;
+  prefixLength: number | null;
+  origin: string | null;
+}
+
+export interface RepairNetworkEvidence {
+  adapters: RepairNetworkAdapter[];
+  addresses: RepairNetworkAddress[];
+  dnsServers: Array<{ interfaceAlias: string; servers: string[] }>;
+  dnsCache: {
+    status: 'measured' | 'unavailable';
+    entryCount: number | null;
+    note: string;
+    source: string;
+  };
+  winsock: {
+    status: 'measured' | 'unavailable';
+    providerCount: number | null;
+    categories: string[];
+    note: string;
+    source: string;
+  };
+}
+
+export interface RepairServiceEvidence {
+  name: string;
+  displayName: string | null;
+  status: string | null;
+  startType: string | null;
+}
+
+export interface RepairUpdateEvidence {
+  services: RepairServiceEvidence[];
+  softwareDistribution: { path: string | null; exists: boolean | null };
+  download: { path: string | null; exists: boolean | null; items: number | null };
+  pendingReboot: boolean | null;
+  note: string;
+}
+
+export interface RepairRestorePoint {
+  sequenceNumber: number;
+  description: string | null;
+  createdAt: string | null;
+  type: string | null;
+}
+
+export interface RepairRestoreEvidence {
+  status: 'available' | 'permission_denied' | 'unavailable';
+  points: RepairRestorePoint[];
+  enabled: boolean | null;
+  reason: string | null;
+  source: string;
+}
+
+export interface RepairTroubleshooterCategory {
+  id: 'network' | 'audio' | 'printer' | 'update';
+  labelEn: string;
+  labelAr: string;
+  checklistEn: string[];
+  checklistAr: string[];
+  settingsTarget: string;
+}
+
+export interface RepairTroubleshooterEvidence {
+  msdtAvailable: boolean | null;
+  commandAvailable: boolean | null;
+  settingsTarget: 'troubleshoot';
+  categories: RepairTroubleshooterCategory[];
+  note: string;
+}
+
+export interface RepairJournalEntry {
+  id: string;
+  at: string;
+  kind: 'preview' | 'blocked-attempt';
+  title: string;
+  summary: string;
+  toolIds: RepairToolId[];
+  risk: 'read-only' | 'elevated-read-only' | 'administrative';
+  elevationRequired: boolean;
+  rebootRequired: boolean;
+  receipt: string;
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface RepairSnapshot {
+  contract: 'repair.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  identity: RepairIdentity;
+  servicing: RepairServicingEvidence;
+  network: RepairNetworkEvidence;
+  update: RepairUpdateEvidence;
+  restore: RepairRestoreEvidence;
+  troubleshooters: RepairTroubleshooterEvidence;
+  journal: RepairJournalEntry[];
+  commands: RepairCommandSpec[];
+  gates: Array<{ id: string; mission: string; title: string; reason: string }>;
+  coverage: Array<{ key: RepairStageKey; status: 'complete' | 'partial' | 'unavailable' | 'cancelled'; items: number | null; note: string | null }>;
+  warnings: string[];
+  sources: string[];
+  receipt: string;
+}
+
+export interface RepairPlanItem {
+  id: string;
+  toolId: RepairToolId;
+  titleEn: string;
+  titleAr: string;
+  provider: string;
+  risk: 'read-only' | 'elevated-read-only' | 'administrative';
+  elevationRequired: boolean;
+  rebootRequired: boolean;
+  command: RepairCommandSpec | null;
+  prerequisites: RepairPrerequisite[];
+  evidence: Array<{ label: string; value: string; status: 'measured' | 'unavailable' | 'permission_denied' }>;
+  impactEn: string;
+  impactAr: string;
+  execution: { available: false; reason: string };
+}
+
+export interface RepairPlan {
+  contract: 'repair.v1';
+  id: string;
+  createdAt: string;
+  readOnly: true;
+  mutation: 'none';
+  immutable: true;
+  mode: 'preview';
+  itemCount: number;
+  items: RepairPlanItem[];
+  elevationRequired: boolean;
+  rebootRequired: boolean;
+  execution: { available: false; reason: string };
+  journalRecorded: boolean;
+  receipt: string;
+  warnings: string[];
+}
+
+export interface RepairReport {
+  contract: 'repair.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  redacted: boolean;
+  summary: string;
+  sections: Array<{
+    id: string;
+    titleEn: string;
+    titleAr: string;
+    status: 'validated' | 'partial' | 'unavailable';
+    measured: number;
+    unknown: number;
+    items: Array<{ label: string; value: string; status: 'measured' | 'unknown' | 'warning' }>;
+  }>;
+  warnings: string[];
+  receipt: string;
+}
+
+export interface RepairCapabilities {
+  engine: string;
+  contract: 'repair.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  serviceCount: 12;
+  worldCount: 1;
+  services: RepairToolState[];
+  commands: RepairCommandSpec[];
+  gatedOperations: Array<{ id: string; mission: string; title: string; reason: string }>;
+  elevation: { isAdmin: boolean | null; method: 'user-initiated UAC only'; automaticElevation: false };
+  limits: {
+    journalEntries: number;
+    planItems: number;
+    diagnosticsTimeoutMs: number;
+    discoveryTimeoutMs: number;
+  };
+  nativeOnly: string[];
+}
+
+export interface RepairShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<RepairCapabilities>>;
+  start: () => Promise<NativeEnvelope<RepairSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<RepairSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  snapshot: () => Promise<NativeEnvelope<RepairSnapshot>>;
+  plan: (toolIds: RepairToolId[]) => Promise<NativeEnvelope<RepairPlan>>;
+  journal: () => Promise<NativeEnvelope<RepairJournalEntry[]>>;
+  report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<RepairReport>>;
+  openSettings: (target: 'windowsupdate' | 'troubleshoot' | 'recovery') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+}
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

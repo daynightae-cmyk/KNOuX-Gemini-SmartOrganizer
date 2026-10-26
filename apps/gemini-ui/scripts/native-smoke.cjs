@@ -180,6 +180,12 @@ async function main() {
     systemArabicShotPath: receipt?.systemArabicScreenshot || '',
     system1366ShotPath: receipt?.system1366Screenshot || '',
     system1920ShotPath: receipt?.system1920Screenshot || '',
+    repairShotPath: receipt?.repairScreenshot || shotPath.replace(/native-bridge/i, 'repair-measured'),
+    repairWorkbenchShotPath: receipt?.repairWorkbenchScreenshot || '',
+    repairLightShotPath: receipt?.repairLightScreenshot || '',
+    repairArabicShotPath: receipt?.repairArabicScreenshot || '',
+    repair1366ShotPath: receipt?.repair1366Screenshot || '',
+    repair1920ShotPath: receipt?.repair1920Screenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -209,6 +215,12 @@ async function main() {
     systemArabicShotBytes: receipt?.systemArabicScreenshotBytes || 0,
     system1366ShotBytes: receipt?.system1366ScreenshotBytes || 0,
     system1920ShotBytes: receipt?.system1920ScreenshotBytes || 0,
+    repairShotBytes: receipt?.repairScreenshotBytes || 0,
+    repairWorkbenchShotBytes: receipt?.repairWorkbenchScreenshotBytes || 0,
+    repairLightShotBytes: receipt?.repairLightScreenshotBytes || 0,
+    repairArabicShotBytes: receipt?.repairArabicScreenshotBytes || 0,
+    repair1366ShotBytes: receipt?.repair1366ScreenshotBytes || 0,
+    repair1920ShotBytes: receipt?.repair1920ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -248,7 +260,13 @@ async function main() {
     summary.systemLightShotBytes > 20000 &&
     summary.systemArabicShotBytes > 20000 &&
     summary.system1366ShotBytes > 20000 &&
-    summary.system1920ShotBytes > 20000;
+    summary.system1920ShotBytes > 20000 &&
+    summary.repairShotBytes > 20000 &&
+    summary.repairWorkbenchShotBytes > 20000 &&
+    summary.repairLightShotBytes > 20000 &&
+    summary.repairArabicShotBytes > 20000 &&
+    summary.repair1366ShotBytes > 20000 &&
+    summary.repair1920ShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');
