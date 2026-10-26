@@ -117,8 +117,8 @@ async function main() {
 
   const timeout = setTimeout(() => {
     child.kill();
-    fail('Electron smoke timed out after 360 seconds.');
-  }, 360000);
+    fail('Electron smoke timed out after 600 seconds.');
+  }, 600000);
 
   const exitCode = await new Promise((resolve, reject) => {
     child.on('error', reject);
@@ -214,6 +214,9 @@ async function main() {
     home1920ShotPath: receipt?.home1920Screenshot || '',
     filesWorkbenchSideShotPath: receipt?.filesWorkbenchSideScreenshot || '',
     filesWorkbenchExpandedShotPath: receipt?.filesWorkbenchExpandedScreenshot || '',
+    studioWorkbenchShotPath: receipt?.studioWorkbenchScreenshot || '',
+    studioWorkbenchExpandedShotPath: receipt?.studioWorkbenchExpandedScreenshot || '',
+    studioWorkbench1366ShotPath: receipt?.studioWorkbench1366Screenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -277,6 +280,9 @@ async function main() {
     home1920ShotBytes: receipt?.home1920ScreenshotBytes || 0,
     filesWorkbenchSideShotBytes: receipt?.filesWorkbenchSideScreenshotBytes || 0,
     filesWorkbenchExpandedShotBytes: receipt?.filesWorkbenchExpandedScreenshotBytes || 0,
+    studioWorkbenchShotBytes: receipt?.studioWorkbenchScreenshotBytes || 0,
+    studioWorkbenchExpandedShotBytes: receipt?.studioWorkbenchExpandedScreenshotBytes || 0,
+    studioWorkbench1366ShotBytes: receipt?.studioWorkbench1366ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -350,7 +356,10 @@ async function main() {
     summary.home1366ShotBytes > 20000 &&
     summary.home1920ShotBytes > 20000 &&
     summary.filesWorkbenchSideShotBytes > 20000 &&
-    summary.filesWorkbenchExpandedShotBytes > 20000;
+    summary.filesWorkbenchExpandedShotBytes > 20000 &&
+    summary.studioWorkbenchShotBytes > 20000 &&
+    summary.studioWorkbenchExpandedShotBytes > 20000 &&
+    summary.studioWorkbench1366ShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

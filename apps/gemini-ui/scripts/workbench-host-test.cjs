@@ -17,6 +17,9 @@ const read = (relative) => fs.readFileSync(path.join(appRoot, relative), 'utf8')
 const host = read('src/components/workbench/ServiceWorkbenchHost.tsx');
 const filesPage = read('src/pages/FilesPage.tsx');
 const filesBody = read('src/files/FilesServiceFocus.tsx');
+const studioPage = read('src/studio/StudioPage.tsx');
+const studioContext = read('src/studio/StudioStageContextPanel.tsx');
+const studioParts = read('src/studio/parts.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -77,11 +80,25 @@ check('Files service bodies are not empty generic sheets', () => {
   assert.match(filesBody, /BLOCKED\. No apply or undo capability/);
 });
 
-check('no old generic ServiceWorkspaceHost is imported by Files', () => {
-  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used');
+check('Studio integrates side/expanded stage workbench and context pane', () => {
+  assert.match(studioPage, /ServiceWorkbenchHost/);
+  assert.match(studioPage, /StudioStageContextPanel/);
+  assert.match(studioPage, /studio-workbench-pin/);
+  assert.match(studioPage, /testId="studio-workbench"/);
+  assert.match(studioPage, /knoux\.studio\.workbench\.mode/);
+  assert.match(studioPage, /knoux\.studio\.workbench\.width/);
+  assert.match(studioParts, /data-testid="studio-footer"/);
+  assert.match(studioPage, /Preview only · execution blocked/);
+  assert.match(studioContext, /studio-context-panel/);
+  assert.match(studioContext, /Preview only; no automatic file mutation/);
 });
 
-const result = { ok: failures.length === 0, checks: 6, failures };
+check('no old generic ServiceWorkspaceHost is imported by Files or Studio', () => {
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
+});
+
+const result = { ok: failures.length === 0, checks: 7, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');

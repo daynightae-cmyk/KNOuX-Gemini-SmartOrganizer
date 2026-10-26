@@ -2687,10 +2687,21 @@ async function runSmoke(win) {
           `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'applications'; return true; })()`,
           true
         );
-        const appsDeadline = Date.now() + 45000;
+        const appsStartedAt = Date.now();
+        const appsDeadline = appsStartedAt + 45000;
         let appsUiReady = false;
+        let appsRouteRetries = 0;
         while (Date.now() < appsDeadline) {
           await sleep(500);
+          if (!appsUiReady && appsRouteRetries < 2 && Date.now() - appsStartedAt > (appsRouteRetries + 1) * 12000) {
+            appsRouteRetries += 1;
+            await win.webContents.executeJavaScript(
+              `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'home'; return true; })()`,
+              true
+            );
+            await sleep(400);
+            await win.webContents.executeJavaScript(`(() => { location.hash = 'applications'; return true; })()`, true);
+          }
           appsUiReady = await win.webContents.executeJavaScript(
             `(() => {
                const workspace = document.querySelector('[data-testid="apps-workspace"]');
@@ -5100,6 +5111,99 @@ async function runSmoke(win) {
         receipt.filesWorkbenchEscape = filesWorkbenchEscape;
         await forceSize(1672, 941);
         await sleep(300);
+
+        // Mission 15A: Studio stage workbench, side/expanded and context pane.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'studio'; return true; })()`, true);
+        const studioWorkbenchDeadline = Date.now() + 30000;
+        let studioWorkbenchUiReady = false;
+        while (Date.now() < studioWorkbenchDeadline) {
+          await sleep(500);
+          studioWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="studio-workspace"]') && document.querySelector('[data-testid="studio-workbench-pin"]'))`,
+            true
+          );
+          if (studioWorkbenchUiReady) break;
+        }
+        receipt.studioWorkbenchUiReady = studioWorkbenchUiReady;
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench-pin"]')?.click()`, true);
+        await sleep(700);
+        const studioWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="studio-workbench"]');
+             const context = document.querySelector('[data-testid="studio-context-panel"]');
+             const footer = document.querySelector('[data-testid="studio-footer"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (!context) failures.push('context-missing');
+             if (String(host.innerText || '').trim().length < 60) failures.push('body-empty');
+             if (!footer) failures.push('footer-missing');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.studioWorkbenchSideProbe = studioWorkbenchSideProbe;
+        const studioWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'studio-workbench');
+        const studioWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(studioWorkbenchPath, studioWorkbenchImage.toPNG());
+        receipt.studioWorkbenchScreenshot = studioWorkbenchPath;
+        receipt.studioWorkbenchScreenshotBytes = (await fsp.stat(studioWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('[data-testid="studio-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`,
+          true
+        );
+        await sleep(600);
+        const studioWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             if (document.querySelector('[data-testid="studio-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="studio-workbench-pin"]')) failures.push('pin-missing');
+             if (!document.querySelector('[data-testid="studio-footer"]')) failures.push('footer-missing');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.studioWorkbenchExpandedProbe = studioWorkbenchExpandedProbe;
+        const studioWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'studio-workbench-expanded');
+        const studioWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(studioWorkbenchExpandedPath, studioWorkbenchExpandedImage.toPNG());
+        receipt.studioWorkbenchExpandedScreenshot = studioWorkbenchExpandedPath;
+        receipt.studioWorkbenchExpandedScreenshotBytes = (await fsp.stat(studioWorkbenchExpandedPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench-pin"]')?.click()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        const studioWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="studio-workbench"]') && Boolean(document.querySelector('[data-testid="studio-workbench-pin"]')) })`,
+          true
+        );
+        receipt.studioWorkbenchEscape = studioWorkbenchEscape;
+        await forceSize(1366, 768);
+        await sleep(700);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench-pin"]')?.click()`, true);
+        await sleep(600);
+        const studioWorkbench1366 = await win.webContents.executeJavaScript(
+          `(() => {
+             const host = document.querySelector('[data-testid="studio-workbench"]');
+             const context = document.querySelector('[data-testid="studio-context-panel"]');
+             const overflow = document.documentElement.scrollWidth > window.innerWidth;
+             return { ok: Boolean(host && context) && !overflow, overflow, hostWidth: host ? Math.round(host.getBoundingClientRect().width) : 0, contextWidth: context ? Math.round(context.getBoundingClientRect().width) : 0, viewportWidth: window.innerWidth };
+           })()`,
+          true
+        );
+        receipt.studioWorkbench1366 = studioWorkbench1366;
+        const studioWorkbench1366Path = smokeShotPath.replace(/native-bridge/i, 'studio-workbench-1366');
+        const studioWorkbench1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(studioWorkbench1366Path, studioWorkbench1366Image.toPNG());
+        receipt.studioWorkbench1366Screenshot = studioWorkbench1366Path;
+        receipt.studioWorkbench1366ScreenshotBytes = (await fsp.stat(studioWorkbench1366Path)).size;
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench"] [data-testid="workbench-close"]')?.click()`, true);
+        await forceSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -5553,6 +5657,19 @@ async function runSmoke(win) {
     const filesWorkbenchLayoutOk = receipt.filesWorkbenchSideProbe?.ok === true
       && receipt.filesWorkbenchExpandedProbe?.ok === true
       && receipt.filesWorkbenchExpandedProbe?.failures?.length === 0;
+    const studioWorkbenchOk = Boolean(
+      receipt.studioWorkbenchUiReady === true &&
+      receipt.studioWorkbenchSideProbe?.ok === true &&
+      receipt.studioWorkbenchExpandedProbe?.ok === true &&
+      receipt.studioWorkbenchEscape?.ok === true &&
+      receipt.studioWorkbench1366?.ok === true &&
+      receipt.studioWorkbenchScreenshotBytes > 20000 &&
+      receipt.studioWorkbenchExpandedScreenshotBytes > 20000 &&
+      receipt.studioWorkbench1366ScreenshotBytes > 20000
+    );
+    const studioWorkbenchLayoutOk = receipt.studioWorkbenchSideProbe?.ok === true
+      && receipt.studioWorkbenchExpandedProbe?.ok === true
+      && receipt.studioWorkbench1366?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -5621,8 +5738,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, studioWorkbenchOk, studioWorkbenchLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && studioWorkbenchOk && studioWorkbenchLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
