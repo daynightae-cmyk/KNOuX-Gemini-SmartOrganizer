@@ -28,6 +28,7 @@ const { FilesBridge } = require('./native/files-bridge.cjs');
 const { StorageBridge } = require('./native/storage-bridge.cjs');
 const { ScanBridge } = require('./native/scan-bridge.cjs');
 const { AppBridge } = require('./native/app-bridge.cjs');
+const { CleanupBridge } = require('./native/cleanup-bridge.cjs');
 const {
   ok,
   fail,
@@ -87,6 +88,7 @@ let filesBridge = null;
 let storageBridge = null;
 let scanBridge = null;
 let appBridge = null;
+let cleanupBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -679,6 +681,183 @@ function registerIpc() {
     })
   );
 
+  const CLEANUP_ID = /^cln:[a-f0-9]{24}$/;
+  const CLEANUP_SESSION = /^[a-f0-9-]{8,64}$/i;
+  const CLEANUP_CATEGORY = ['temp', 'browser', 'logs', 'recycle', 'update'];
+  const cleanupGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!cleanupBridge) {
+        throw Object.assign(new Error('The read-only Clean Room coordinator is not initialized.'), { code: 'CLEANUP_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Clean Room read-only coordinator',
+        permission,
+        provenance: { mode: 'measured', mutation: 'none' },
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Clean Room read-only coordinator',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'CLEANUP_FAILURE',
+          message: String(error?.message || 'Cleanup request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const cleanupRequest = (args, code = 'CLEANUP_INPUT_INVALID') => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured cleanup request is required.'), { code });
+    }
+    return args[0];
+  };
+  const cleanupCategories = (request, code, fallbackAll) => {
+    const categories = request.categories;
+    if (categories == null && fallbackAll) return [...CLEANUP_CATEGORY];
+    if (!Array.isArray(categories) || categories.length < 1 || categories.length > CLEANUP_CATEGORY.length
+      || !categories.every((key) => CLEANUP_CATEGORY.includes(key))) {
+      throw Object.assign(new Error('Between 1 and 5 allowlisted cleanup categories are required.'), { code });
+    }
+    return [...new Set(categories)];
+  };
+  const cleanupAgeDays = (value, code) => {
+    if (value == null) return undefined;
+    if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 3650) {
+      throw Object.assign(new Error('An age threshold between 0 and 3650 days is required.'), { code });
+    }
+    return Math.floor(value);
+  };
+
+  ipcMain.handle(contract.channels.cleanupCapabilities, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.cleanupCapabilities);
+      return cleanupBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupStart, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.start', 'read-only', () => {
+      const request = cleanupRequest(args);
+      const categories = cleanupCategories(request, 'CLEANUP_CATEGORY_INVALID', false);
+      const ageDays = cleanupAgeDays(request.ageDays, 'CLEANUP_AGE_INVALID');
+      return cleanupBridge.start({ categories, ...(ageDays == null ? {} : { ageDays }) });
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupStatus, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.status', 'read-only', () => {
+      const request = cleanupRequest(args);
+      if (typeof request.sessionId !== 'string' || !CLEANUP_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid cleanup session identifier is required.'), { code: 'CLEANUP_SESSION_INVALID' });
+      }
+      return cleanupBridge.status(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupCancel, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.cancel', 'user-initiated', () => {
+      const request = cleanupRequest(args);
+      if (typeof request.sessionId !== 'string' || !CLEANUP_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid cleanup session identifier is required.'), { code: 'CLEANUP_SESSION_INVALID' });
+      }
+      return cleanupBridge.cancel(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupInventory, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.inventory', 'read-only', () => {
+      assertNoArguments(args, contract.channels.cleanupInventory);
+      return cleanupBridge.inventory();
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupEstimate, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.estimate', 'read-only', () => {
+      assertNoArguments(args, contract.channels.cleanupEstimate);
+      return cleanupBridge.estimate();
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupQuarantine, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.quarantine', 'read-only', () => {
+      assertNoArguments(args, contract.channels.cleanupQuarantine);
+      return cleanupBridge.quarantine();
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupUnused, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.unused', 'read-only', () => {
+      const request = cleanupRequest(args);
+      if (request.sourceId != null && (typeof request.sourceId !== 'string' || !/^[a-f0-9-]{8,64}$/i.test(request.sourceId))) {
+        throw Object.assign(new Error('A valid authorized source identifier is required.'), { code: 'CLEANUP_SOURCE_INVALID' });
+      }
+      const ageDays = cleanupAgeDays(request.ageDays, 'CLEANUP_AGE_INVALID');
+      const limit = request.limit == null
+        ? undefined
+        : (Number.isInteger(request.limit) && request.limit >= 1 && request.limit <= 200 ? request.limit : null);
+      if (limit === null) throw Object.assign(new Error('A limit between 1 and 200 is required.'), { code: 'CLEANUP_LIMIT_INVALID' });
+      return cleanupBridge.unused({
+        ...(request.sourceId ? { sourceId: request.sourceId } : {}),
+        ...(ageDays == null ? {} : { ageDays }),
+        ...(limit == null ? {} : { limit }),
+      });
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupPlan, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.plan', 'read-only', () => {
+      const request = cleanupRequest(args);
+      const ids = request.candidateIds;
+      if (!Array.isArray(ids) || ids.length < 1 || ids.length > 120 || !ids.every((id) => typeof id === 'string' && CLEANUP_ID.test(id))) {
+        throw Object.assign(new Error('Between 1 and 120 measured cleanup candidate identifiers are required.'), { code: 'CLEANUP_PLAN_INPUT_INVALID' });
+      }
+      if (!['quarantine', 'recycle', 'restore', 'purge', 'archive'].includes(request.mode)) {
+        throw Object.assign(new Error('The cleanup plan mode is not allowlisted.'), { code: 'CLEANUP_PLAN_MODE_INVALID' });
+      }
+      return cleanupBridge.plan({ candidateIds: [...new Set(ids)], mode: request.mode });
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupSchedule, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.schedule', 'read-only', () => {
+      const request = cleanupRequest(args);
+      if (request.frequency !== 'daily' && request.frequency !== 'weekly') {
+        throw Object.assign(new Error('The schedule frequency must be daily or weekly.'), { code: 'CLEANUP_SCHEDULE_INVALID' });
+      }
+      if (typeof request.time !== 'string' || !/^([01]\d|2[0-3]):[0-5]\d$/.test(request.time)) {
+        throw Object.assign(new Error('A 24-hour HH:MM schedule time is required.'), { code: 'CLEANUP_SCHEDULE_TIME_INVALID' });
+      }
+      const weekdays = Array.isArray(request.weekdays) ? request.weekdays : [];
+      if (!weekdays.every((day) => Number.isInteger(day) && day >= 0 && day <= 6)) {
+        throw Object.assign(new Error('Weekdays must be integers from 0 to 6.'), { code: 'CLEANUP_SCHEDULE_DAYS_INVALID' });
+      }
+      const categories = cleanupCategories(request, 'CLEANUP_CATEGORY_INVALID', false);
+      return cleanupBridge.schedule({
+        frequency: request.frequency,
+        time: request.time,
+        weekdays: [...new Set(weekdays)],
+        categories,
+      });
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupReport, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.report', 'read-only', () => {
+      assertNoArguments(args, contract.channels.cleanupReport);
+      return cleanupBridge.report();
+    })
+  );
+  ipcMain.handle(contract.channels.cleanupOpenSettings, (event, ...args) =>
+    cleanupGuard(event, 'cleanup.settings.open', 'user-initiated', async () => {
+      const request = cleanupRequest(args);
+      if (request.target !== 'storage' && request.target !== 'windowsupdate') {
+        throw Object.assign(new Error('The requested Windows Settings page is not allowlisted.'), { code: 'CLEANUP_SETTINGS_TARGET_INVALID' });
+      }
+      const target = cleanupBridge.settingsTarget(request.target);
+      await shell.openExternal(target.uri);
+      return { opened: true, target: target.target };
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -964,6 +1143,120 @@ async function runSmoke(win) {
             })),
           };
         }
+        const cleanupApi = window.knouxCleanupV1;
+        let cleanup = null;
+        if (cleanupApi) {
+          const capabilities = await cleanupApi.capabilities();
+          const started = await cleanupApi.start({ categories: ['temp', 'browser', 'logs', 'recycle', 'update'], ageDays: 1 });
+          let session = started;
+          const sessionId = started?.data?.id || null;
+          if (sessionId) {
+            const cleanupDeadline = Date.now() + 70000;
+            while (Date.now() < cleanupDeadline) {
+              session = await cleanupApi.status(sessionId);
+              if (['complete', 'cancelled', 'failed'].includes(session?.data?.status)) break;
+              await new Promise((resolve) => setTimeout(resolve, 500));
+            }
+          }
+          const inventory = await cleanupApi.inventory();
+          const estimate = await cleanupApi.estimate();
+          const quarantine = await cleanupApi.quarantine();
+          const schedule = await cleanupApi.schedule({
+            frequency: 'daily',
+            time: '02:30',
+            weekdays: [],
+            categories: ['temp', 'logs'],
+          });
+          const report = await cleanupApi.report();
+          const firstCandidateId = inventory?.data?.candidates?.[0]?.id || null;
+          const plan = firstCandidateId
+            ? await cleanupApi.plan({ candidateIds: [firstCandidateId], mode: 'quarantine' })
+            : null;
+          const cleanupSummary = (envelope, transform) => envelope
+            ? {
+                status: envelope.status,
+                capability: envelope.capability,
+                permission: envelope.permission,
+                data: envelope.data ? transform(envelope.data) : null,
+                error: envelope.error ? { code: envelope.error.code } : null,
+              }
+            : null;
+          cleanup = {
+            bridgePresent: true,
+            capabilities: cleanupSummary(capabilities, (data) => ({
+              engine: data.engine,
+              contract: data.contract,
+              readOnly: data.readOnly,
+              mutation: data.mutation,
+              fixtureFallback: data.fixtureFallback,
+              serviceCount: data.services?.length ?? 0,
+              gatedCount: data.gatedOperations?.length ?? 0,
+              categories: data.categories?.map((entry) => entry.key) ?? [],
+            })),
+            started: cleanupSummary(started, (data) => ({
+              id: data.id,
+              status: data.status,
+              categories: data.requestedCategories,
+            })),
+            session: cleanupSummary(session, (data) => ({
+              id: data.id,
+              status: data.status,
+              progressPercent: data.progressPercent,
+              candidateCount: data.candidateCount,
+              stages: data.categories?.map((entry) => ({ key: entry.key, status: entry.status, candidates: entry.candidates })) ?? [],
+              coverage: data.coverage,
+              eligibleBytes: data.estimatedEligibleBytes,
+              reviewBytes: data.estimatedReviewBytes,
+              blockedBytes: data.estimatedBlockedBytes,
+              warningCount: data.warnings?.length ?? 0,
+            })),
+            inventory: cleanupSummary(inventory, (data) => ({
+              status: data.status,
+              readOnly: data.readOnly,
+              mutation: data.mutation,
+              observedAt: data.observedAt,
+              candidateCount: data.candidates?.length ?? 0,
+              summary: data.summary,
+              recycleItemCount: data.recycleItems?.length ?? 0,
+              coverage: data.coverage,
+              warningCount: data.warnings?.length ?? 0,
+            })),
+            estimate: cleanupSummary(estimate, (data) => ({
+              status: data.status,
+              mutation: data.mutation,
+              summary: data.summary,
+              categoryCount: data.categories?.length ?? 0,
+            })),
+            quarantine: cleanupSummary(quarantine, (data) => ({
+              mutation: data.mutation,
+              vaultEntries: data.vault?.items?.length ?? 0,
+              journalEntries: data.journal?.entries?.length ?? 0,
+              execution: data.execution,
+            })),
+            schedule: cleanupSummary(schedule, (data) => ({
+              mutation: data.mutation,
+              scanOnly: data.draft?.scanOnly,
+              occurrenceCount: data.occurrences?.length ?? 0,
+              execution: data.execution,
+            })),
+            report: cleanupSummary(report, (data) => ({
+              mutation: data.mutation,
+              readOnly: data.readOnly,
+              candidateCount: data.summary?.candidates ?? 0,
+              recycleBytes: data.recycle?.bytes ?? 0,
+              journalEntries: data.journal?.entries ?? 0,
+            })),
+            plan: cleanupSummary(plan, (data) => ({
+              contract: data.contract,
+              mode: data.mode,
+              itemCount: data.items?.length ?? 0,
+              totals: data.totals,
+              execution: data.execution,
+              immutable: data.immutable,
+              mutation: data.mutation,
+            })),
+          };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -974,6 +1267,7 @@ async function runSmoke(win) {
           storageBridgePresent: Boolean(storageApi),
           scanBridgePresent: Boolean(scanApi),
           appsBridgePresent: Boolean(appsApi),
+          cleanupBridgePresent: Boolean(cleanupApi),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -985,6 +1279,7 @@ async function runSmoke(win) {
           storage,
           scan,
           apps,
+          cleanup,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -1537,6 +1832,189 @@ async function runSmoke(win) {
         receipt.applications1920ScreenshotBytes = (await fsp.stat(apps1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Measured Clean Room route: the probe above ran a real bounded
+        // discovery session. Load the route, wait for the measured ledger and
+        // capture light, RTL, compact and wide states.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'cleanup'; return true; })()`,
+          true
+        );
+        const cleanupDeadline = Date.now() + 45000;
+        let cleanupUiReady = false;
+        while (Date.now() < cleanupDeadline) {
+          await sleep(500);
+          cleanupUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="cleanup-workspace"]');
+               const banner = document.querySelector('[data-testid="cleanup-native-banner"]');
+               const required = document.querySelector('[data-testid="cleanup-native-required"]');
+               const eligible = document.querySelector('[data-testid="cleanup-kpi-eligible-value"]')?.textContent?.trim() || '';
+               const candidates = document.querySelector('[data-testid="cleanup-kpi-candidates-value"]')?.textContent?.trim() || '';
+               const rows = document.querySelectorAll('[data-testid="cleanup-candidate-row"]').length;
+               const inspector = document.querySelector('[data-testid="cleanup-inspector"]');
+               const services = document.querySelector('[data-testid="cleanup-services"]');
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 eligible !== '' && eligible !== '—' &&
+                 candidates !== '' && candidates !== '—' &&
+                 rows >= 1 && Boolean(inspector) && Boolean(services) &&
+                 /Measured Clean Room|غرفة تنظيف مقيسة/.test(bannerText);
+             })()`,
+            true
+          );
+          if (cleanupUiReady) break;
+        }
+        // Open every one of the twelve workbenches once. A branch that throws
+        // would unmount the workspace, so this probe is the runtime proof that
+        // each measured route renders and closes cleanly.
+        const cleanupServiceProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const ids = ${JSON.stringify([
+               'cleanup-temp-preview',
+               'cleanup-temp-quarantine',
+               'cleanup-temp-undo',
+               'cleanup-quarantine-list',
+               'cleanup-estimate',
+               'cleanup-recycle',
+               'cleanup-unused',
+               'cleanup-update-cache',
+               'cleanup-browser-cache',
+               'cleanup-logs',
+               'cleanup-schedule',
+               'cleanup-reports',
+             ])};
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             for (const id of ids) {
+               const card = document.querySelector('[data-testid="cleanup-service-' + id + '"]');
+               if (!card) { failures.push(id + ':card-missing'); continue; }
+               card.click();
+               await wait(220);
+               const workspace = document.querySelector('[data-testid="cleanup-service-workspace-' + id + '"]');
+               const body = workspace ? workspace.querySelector('.cln-service-body') : null;
+               const text = workspace ? String(workspace.innerText || '').trim() : '';
+               if (!workspace || !body || text.length < 30) {
+                 failures.push(id + ':render');
+               } else {
+                 const close = workspace.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]');
+                 if (!close) failures.push(id + ':close-missing');
+                 else close.click();
+               }
+               await wait(180);
+               if (document.querySelector('[data-testid="cleanup-service-workspace-' + id + '"]')) {
+                 failures.push(id + ':close-failed');
+                 const stray = document.querySelector('[data-testid="cleanup-service-workspace-' + id + '"] button[aria-label="Close service"], [data-testid="cleanup-service-workspace-' + id + '"] button[aria-label="إغلاق الخدمة"]');
+                 if (stray) stray.click();
+                 await wait(160);
+               }
+             }
+             return { ok: failures.length === 0, checked: ids.length, failures };
+           })()`,
+          true
+        );
+        receipt.cleanupServiceProbe = cleanupServiceProbe;
+        await sleep(500);
+        const cleanupShotPath = smokeShotPath.replace(/native-bridge/i, 'cleanup-measured');
+        const cleanupImage = await win.webContents.capturePage();
+        await fsp.writeFile(cleanupShotPath, cleanupImage.toPNG());
+        receipt.cleanupScreenshot = cleanupShotPath;
+        receipt.cleanupScreenshotBytes = (await fsp.stat(cleanupShotPath)).size;
+        receipt.cleanupUiReady = cleanupUiReady;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[aria-pressed]')?.click()`,
+          true
+        );
+        await sleep(900);
+        const cleanupLightPath = cleanupShotPath.replace(/\.png$/i, '-light.png');
+        const cleanupLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(cleanupLightPath, cleanupLightImage.toPNG());
+        receipt.cleanupLightScreenshot = cleanupLightPath;
+        receipt.cleanupLightScreenshotBytes = (await fsp.stat(cleanupLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1000);
+        const cleanupArabicPath = cleanupShotPath.replace(/\.png$/i, '-ar-light.png');
+        const cleanupArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(cleanupArabicPath, cleanupArabicImage.toPNG());
+        receipt.cleanupArabicScreenshot = cleanupArabicPath;
+        receipt.cleanupArabicScreenshotBytes = (await fsp.stat(cleanupArabicPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `(() => {
+             document.querySelector('button[title="Toggle Arabic / English"]')?.click();
+             document.querySelector('button[aria-pressed]')?.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(900);
+        win.setContentSize(1366, 768);
+        await sleep(900);
+        const cleanup1366Path = cleanupShotPath.replace(/\.png$/i, '-1366.png');
+        const cleanup1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(cleanup1366Path, cleanup1366Image.toPNG());
+        receipt.cleanup1366Screenshot = cleanup1366Path;
+        receipt.cleanup1366ScreenshotBytes = (await fsp.stat(cleanup1366Path)).size;
+
+        const cleanup1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="cleanup-workspace"]');
+             const register = document.querySelector('[data-testid="cleanup-register"]');
+             const inspector = document.querySelector('[data-testid="cleanup-inspector"]');
+             const banner = document.querySelector('[data-testid="cleanup-native-banner"]');
+             if (!main || !register || !inspector || !banner) return { ok: false, reason: 'cleanup panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const registerRect = register.getBoundingClientRect();
+             const inspectorRect = inspector.getBoundingClientRect();
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const withinWidth = (rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             const sideBySide = Math.abs(registerRect.top - inspectorRect.top) <= 2
+               && registerRect.right <= inspectorRect.left + 1;
+             const registerFit = withinWidth(registerRect) && registerRect.bottom <= mainRect.bottom + 1;
+             const inspectorFit = withinWidth(inspectorRect) && inspectorRect.bottom <= mainRect.bottom + 1;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             return {
+               ok: sideBySide && registerFit && inspectorFit && !horizontalOverflow && scrollWorked,
+               horizontalOverflow,
+               scrollWorked,
+               sideBySide,
+               registerFit,
+               inspectorFit,
+               registerWidth: Math.round(registerRect.width),
+               inspectorWidth: Math.round(inspectorRect.width),
+               mainBottom: Math.round(mainRect.bottom),
+               viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.cleanup1366Layout = cleanup1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="cleanup-workspace"]');
+             if (main) main.scrollTop = 0;
+             return true;
+           })()`,
+          true
+        );
+        await sleep(300);
+
+        win.setContentSize(1920, 1080);
+        await sleep(900);
+        const cleanup1920Path = cleanupShotPath.replace(/\.png$/i, '-1920.png');
+        const cleanup1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(cleanup1920Path, cleanup1920Image.toPNG());
+        receipt.cleanup1920Screenshot = cleanup1920Path;
+        receipt.cleanup1920ScreenshotBytes = (await fsp.stat(cleanup1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -1682,6 +2160,57 @@ async function runSmoke(win) {
     );
     const appsLayoutOk = receipt.applications1366Layout?.ok === true
       && receipt.applications1366Layout?.horizontalOverflow === false;
+    const cleanupData = renderer.cleanup;
+    const cleanupSession = cleanupData?.session?.data || null;
+    const cleanupInventory = cleanupData?.inventory?.data || null;
+    const cleanupPlan = cleanupData?.plan?.data || null;
+    const cleanupOk = Boolean(
+      cleanupData?.bridgePresent &&
+      renderer.cleanupBridgePresent === true &&
+      cleanupData?.capabilities?.status === 'complete' &&
+      cleanupData.capabilities.data?.readOnly === true &&
+      cleanupData.capabilities.data?.mutation === 'none' &&
+      cleanupData.capabilities.data?.fixtureFallback === false &&
+      cleanupData.capabilities.data?.serviceCount === 12 &&
+      cleanupData.capabilities.data?.gatedCount >= 1 &&
+      cleanupData.capabilities.data?.categories?.length === 5 &&
+      cleanupSession &&
+      ['complete', 'partial', 'cancelled'].includes(cleanupSession.status) &&
+      Array.isArray(cleanupSession.stages) &&
+      cleanupSession.stages.length === 5 &&
+      cleanupSession.coverage &&
+      cleanupSession.coverage.rootsScanned >= 1 &&
+      cleanupData?.inventory?.status === 'complete' &&
+      cleanupInventory?.status === 'complete' &&
+      cleanupInventory?.readOnly === true &&
+      cleanupInventory?.mutation === 'none' &&
+      cleanupInventory?.observedAt &&
+      typeof cleanupInventory?.candidateCount === 'number' &&
+      typeof cleanupInventory?.warningCount === 'number' &&
+      cleanupData?.estimate?.status === 'complete' &&
+      cleanupData.estimate.data?.mutation === 'none' &&
+      cleanupData?.quarantine?.status === 'complete' &&
+      cleanupData.quarantine.data?.mutation === 'none' &&
+      cleanupData.quarantine.data?.execution?.available === false &&
+      cleanupData?.schedule?.status === 'complete' &&
+      cleanupData.schedule.data?.mutation === 'none' &&
+      cleanupData.schedule.data?.scanOnly === true &&
+      cleanupData.schedule.data?.execution?.available === false &&
+      cleanupData?.report?.status === 'complete' &&
+      cleanupData.report.data?.mutation === 'none' &&
+      cleanupData.report.data?.readOnly === true &&
+      receipt.cleanupServiceProbe?.ok === true &&
+      receipt.cleanupServiceProbe?.checked === 12 &&
+      (cleanupPlan === null || (
+        cleanupPlan.contract === 'cleanup.v1' &&
+        cleanupPlan.mutation === 'none' &&
+        cleanupPlan.immutable === true &&
+        cleanupPlan.execution?.available === false &&
+        cleanupPlan.itemCount === 1
+      ))
+    );
+    const cleanupLayoutOk = receipt.cleanup1366Layout?.ok === true
+      && receipt.cleanup1366Layout?.horizontalOverflow === false;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -1708,10 +2237,16 @@ async function runSmoke(win) {
       receipt.applicationsArabicScreenshotBytes > 20000 &&
       receipt.applications1366ScreenshotBytes > 20000 &&
       receipt.applications1920ScreenshotBytes > 20000 &&
-      receipt.applicationsUiReady === true
+      receipt.applicationsUiReady === true &&
+      receipt.cleanupScreenshotBytes > 20000 &&
+      receipt.cleanupLightScreenshotBytes > 20000 &&
+      receipt.cleanupArabicScreenshotBytes > 20000 &&
+      receipt.cleanup1366ScreenshotBytes > 20000 &&
+      receipt.cleanup1920ScreenshotBytes > 20000 &&
+      receipt.cleanupUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -1803,6 +2338,17 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Applications coordinator unavailable:', error?.message || error);
       appBridge = null;
     }
+    try {
+      cleanupBridge = new CleanupBridge({
+        studio: studioBridge,
+        userDataPath: app.getPath('userData'),
+      });
+      trace('cleanup bridge initialized');
+    } catch (error) {
+      trace(`cleanup bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Clean Room coordinator unavailable:', error?.message || error);
+      cleanupBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -1830,6 +2376,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  cleanupBridge?.dispose();
   appBridge?.dispose();
   scanBridge?.dispose();
   void filesBridge?.dispose();

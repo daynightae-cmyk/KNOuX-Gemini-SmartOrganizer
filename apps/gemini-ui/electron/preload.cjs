@@ -65,6 +65,18 @@ const CHANNELS = Object.freeze({
   appsPlan: 'knoux:apps:v1:plan',
   appsPackages: 'knoux:apps:v1:packages',
   appsOpenSettings: 'knoux:apps:v1:open-settings',
+  cleanupCapabilities: 'knoux:cleanup:v1:capabilities',
+  cleanupStart: 'knoux:cleanup:v1:start',
+  cleanupStatus: 'knoux:cleanup:v1:status',
+  cleanupCancel: 'knoux:cleanup:v1:cancel',
+  cleanupInventory: 'knoux:cleanup:v1:inventory',
+  cleanupEstimate: 'knoux:cleanup:v1:estimate',
+  cleanupQuarantine: 'knoux:cleanup:v1:quarantine',
+  cleanupUnused: 'knoux:cleanup:v1:unused',
+  cleanupPlan: 'knoux:cleanup:v1:plan',
+  cleanupSchedule: 'knoux:cleanup:v1:schedule',
+  cleanupReport: 'knoux:cleanup:v1:report',
+  cleanupOpenSettings: 'knoux:cleanup:v1:open-settings',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -191,5 +203,26 @@ contextBridge.exposeInMainWorld(
     plan: (request) => ipcRenderer.invoke(CHANNELS.appsPlan, request),
     packages: (request) => ipcRenderer.invoke(CHANNELS.appsPackages, request),
     openSettings: (target) => ipcRenderer.invoke(CHANNELS.appsOpenSettings, { target }),
+  })
+);
+
+/* Cleanup v1 is a read-only Clean Room coordinator. Destructive actions do
+   not exist here: plans are review-only and every execution is gated. */
+contextBridge.exposeInMainWorld(
+  'knouxCleanupV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.cleanupCapabilities),
+    start: (request) => ipcRenderer.invoke(CHANNELS.cleanupStart, request),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.cleanupStatus, { sessionId }),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.cleanupCancel, { sessionId }),
+    inventory: () => ipcRenderer.invoke(CHANNELS.cleanupInventory),
+    estimate: () => ipcRenderer.invoke(CHANNELS.cleanupEstimate),
+    quarantine: () => ipcRenderer.invoke(CHANNELS.cleanupQuarantine),
+    unused: (request) => ipcRenderer.invoke(CHANNELS.cleanupUnused, request),
+    plan: (request) => ipcRenderer.invoke(CHANNELS.cleanupPlan, request),
+    schedule: (request) => ipcRenderer.invoke(CHANNELS.cleanupSchedule, request),
+    report: () => ipcRenderer.invoke(CHANNELS.cleanupReport),
+    openSettings: (target) => ipcRenderer.invoke(CHANNELS.cleanupOpenSettings, { target }),
   })
 );

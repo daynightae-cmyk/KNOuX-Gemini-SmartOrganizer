@@ -117,8 +117,8 @@ async function main() {
 
   const timeout = setTimeout(() => {
     child.kill();
-    fail('Electron smoke timed out after 180 seconds.');
-  }, 180000);
+    fail('Electron smoke timed out after 240 seconds.');
+  }, 240000);
 
   const exitCode = await new Promise((resolve, reject) => {
     child.on('error', reject);
@@ -164,6 +164,11 @@ async function main() {
     smartScan1366ShotPath: receipt?.smartScan1366Screenshot || smartScanBase.replace(/\.png$/i, '-1366.png'),
     smartScan1366BottomShotPath: receipt?.smartScan1366BottomScreenshot || smartScanBase.replace(/\.png$/i, '-1366-bottom.png'),
     smartScan1920ShotPath: receipt?.smartScan1920Screenshot || smartScanBase.replace(/\.png$/i, '-1920.png'),
+    cleanupShotPath: receipt?.cleanupScreenshot || shotPath.replace(/native-bridge/i, 'cleanup-measured'),
+    cleanupLightShotPath: receipt?.cleanupLightScreenshot || '',
+    cleanupArabicShotPath: receipt?.cleanupArabicScreenshot || '',
+    cleanup1366ShotPath: receipt?.cleanup1366Screenshot || '',
+    cleanup1920ShotPath: receipt?.cleanup1920Screenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -177,6 +182,11 @@ async function main() {
     smartScan1366ShotBytes: receipt?.smartScan1366ScreenshotBytes || 0,
     smartScan1366BottomShotBytes: receipt?.smartScan1366BottomScreenshotBytes || 0,
     smartScan1920ShotBytes: receipt?.smartScan1920ScreenshotBytes || 0,
+    cleanupShotBytes: receipt?.cleanupScreenshotBytes || 0,
+    cleanupLightShotBytes: receipt?.cleanupLightScreenshotBytes || 0,
+    cleanupArabicShotBytes: receipt?.cleanupArabicScreenshotBytes || 0,
+    cleanup1366ShotBytes: receipt?.cleanup1366ScreenshotBytes || 0,
+    cleanup1920ShotBytes: receipt?.cleanup1920ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -200,7 +210,12 @@ async function main() {
     summary.smartScanArabicShotBytes > 20000 &&
     summary.smartScan1366ShotBytes > 20000 &&
     summary.smartScan1366BottomShotBytes > 20000 &&
-    summary.smartScan1920ShotBytes > 20000;
+    summary.smartScan1920ShotBytes > 20000 &&
+    summary.cleanupShotBytes > 20000 &&
+    summary.cleanupLightShotBytes > 20000 &&
+    summary.cleanupArabicShotBytes > 20000 &&
+    summary.cleanup1366ShotBytes > 20000 &&
+    summary.cleanup1920ShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

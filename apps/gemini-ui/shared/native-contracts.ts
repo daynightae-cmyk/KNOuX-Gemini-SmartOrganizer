@@ -1295,6 +1295,292 @@ export interface AppPackagesResult {
   rawLines: number | null;
 }
 
+export type CleanupSafety = 'eligible' | 'review' | 'blocked';
+export type CleanupCategory = 'temp' | 'browser' | 'logs' | 'recycle' | 'update' | 'unused';
+export type CleanupRisk = 'low' | 'medium' | 'high' | 'blocked';
+
+export interface CleanupCandidate {
+  id: string;
+  name: string;
+  path: string | null;
+  category: CleanupCategory;
+  source: string;
+  safety: CleanupSafety;
+  risk: CleanupRisk;
+  sizeBytes: number | null;
+  fileCount: number | null;
+  folderCount: number | null;
+  modifiedAt: string | null;
+  ageDays: number | null;
+  reasons: string[];
+  action: string;
+  permission: string;
+  recoverable: string;
+  provider: string;
+  active: boolean;
+  virtual: boolean;
+  evidence: string[];
+}
+
+export interface CleanupSummary {
+  candidates: number;
+  eligibleBytes: number;
+  reviewBytes: number;
+  blockedBytes: number;
+  eligibleCount: number;
+  reviewCount: number;
+  blockedCount: number;
+  categories: Record<string, {
+    count: number;
+    bytes: number;
+    eligibleBytes?: number;
+    reviewBytes?: number;
+    blockedBytes?: number;
+  }>;
+}
+
+export interface CleanupCoverage {
+  rootsScanned: number;
+  rootsUnavailable: number;
+  filesMeasured: number;
+  foldersMeasured: number;
+  bytesMeasured: number;
+  truncated: boolean;
+  skippedLinks: number;
+  errors: number;
+}
+
+export interface CleanupStage {
+  key: CleanupCategory;
+  status: 'pending' | 'running' | 'complete' | 'failed' | 'cancelled';
+  candidates: number;
+  warnings: string[];
+  startedAt?: string;
+  finishedAt?: string;
+  error?: string;
+}
+
+export interface CleanupSession {
+  id: string;
+  status: 'running' | 'complete' | 'cancelled' | 'failed';
+  mode: string;
+  requestedCategories: CleanupCategory[];
+  ageDays: number;
+  startedAt: string;
+  finishedAt: string | null;
+  progressPercent: number;
+  cancelRequested: boolean;
+  categories: CleanupStage[];
+  warnings: string[];
+  coverage: CleanupCoverage;
+  candidates?: CleanupCandidate[];
+  candidateCount: number;
+  estimatedEligibleBytes: number;
+  estimatedReviewBytes: number;
+  estimatedBlockedBytes: number;
+  error: string | null;
+}
+
+export interface CleanupRecycleItem {
+  id: string;
+  name: string;
+  originalPath: string | null;
+  volume: string;
+  sizeBytes: number;
+  deletedAt: string | null;
+  ageDays: number | null;
+}
+
+export interface CleanupInventory {
+  observedAt: string | null;
+  status: 'complete' | 'unscanned';
+  readOnly: true;
+  mutation: 'none';
+  candidates: CleanupCandidate[];
+  summary: CleanupSummary | null;
+  coverage: CleanupCoverage | null;
+  recycleItems: CleanupRecycleItem[];
+  warnings: string[];
+}
+
+export interface CleanupEstimate {
+  observedAt: string | null;
+  status: 'complete' | 'unscanned';
+  readOnly: true;
+  mutation: 'none';
+  summary: CleanupSummary;
+  categories: Array<{ key: CleanupCategory; count: number; bytes: number; eligibleBytes: number; reviewBytes: number; blockedBytes: number }>;
+  note: string;
+}
+
+export interface CleanupVaultItem {
+  id: string;
+  name: string;
+  kind: 'file' | 'folder';
+  sizeBytes: number | null;
+  quarantinedAt: string;
+  originalPath: string | null;
+  journalId: string | null;
+}
+
+export interface CleanupJournalEntry {
+  id: string;
+  createdAt: string | null;
+  operation: string;
+  status: string;
+  itemCount: number | null;
+  bytes: number | null;
+  vaultPath: string | null;
+  verified: boolean;
+  recovery: string;
+}
+
+export interface CleanupQuarantine {
+  observedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  vault: {
+    vaultPath: string | null;
+    exists: boolean;
+    retentionDays: number;
+    items: CleanupVaultItem[];
+    totalBytes: number;
+    warnings: string[];
+    readOnly: true;
+    mutation: 'none';
+  };
+  journal: {
+    entries: CleanupJournalEntry[];
+    path: string | null;
+    exists: boolean;
+    readOnly: true;
+    mutation: 'none';
+    warnings: string[];
+  };
+  execution: { available: false; gate: string; reason: string };
+}
+
+export interface CleanupUnusedResult {
+  observedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  ageDays: number;
+  source: { id: string; label: string; path: string | null; fileCount: number } | null;
+  status: 'complete' | 'unavailable' | 'needs-source' | 'index-required';
+  items: Array<{
+    id: string;
+    name: string;
+    relative: string;
+    path: string | null;
+    sizeBytes: number | null;
+    modifiedAt: string | null;
+    ageDays: number | null;
+    safety: CleanupSafety;
+  }>;
+  warnings: string[];
+  atimeNote: string;
+}
+
+export interface CleanupPlanItem {
+  candidateId: string;
+  name: string;
+  category: CleanupCategory;
+  path: string | null;
+  safety: CleanupSafety;
+  sizeBytes: number | null;
+  reclaimBytes: number;
+  risk: 'low' | 'review' | 'blocked';
+  reasons: string[];
+  reversible: boolean | string;
+}
+
+export interface CleanupPlan {
+  contract: 'cleanup.v1';
+  planId: string;
+  createdAt: string;
+  observedAt: string | null;
+  mode: 'quarantine' | 'recycle' | 'restore' | 'purge' | 'archive';
+  items: CleanupPlanItem[];
+  totals: { count: number; blocked: number; eligibleBytes: number; reviewBytes: number; reclaimSource: 'measured' | 'unknown' };
+  execution: { available: false; gate: string; reason: string };
+  rollback: { available: false; reason: string };
+  immutable: true;
+  mutation: 'none';
+  fingerprint: string;
+}
+
+export interface CleanupScheduleDraft {
+  draft: { frequency: 'daily' | 'weekly'; time: string; weekdays: number[]; categories: CleanupCategory[]; scanOnly: true };
+  occurrences: string[];
+  quietHours: { from: string; to: string; respected: boolean };
+  execution: { available: false; gate: string; reason: string };
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface CleanupReport {
+  contract: 'cleanup.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  session: { id: string; observedAt: string; categories: CleanupCategory[]; coverage: CleanupCoverage } | null;
+  summary: CleanupSummary;
+  recycle: { items: number; bytes: number };
+  vault: { entries: number; bytes: number; exists: boolean };
+  journal: { entries: number; exists: boolean };
+  warnings: string[];
+  note: string;
+}
+
+export interface CleanupCapabilityService {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  provider: string;
+  noteEn: string;
+  noteAr: string;
+}
+
+export interface CleanupCapabilities {
+  engine: string;
+  contract: 'cleanup.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  serviceCount: number;
+  services: CleanupCapabilityService[];
+  gatedOperations: Array<{ id: string; mission: string; title: string; reason: string }>;
+  categories: Array<{ key: CleanupCategory }>;
+  safety: { eligible: string; review: string; blocked: string };
+  exclusions: string[];
+  limits: {
+    tempFiles: number;
+    recycleItems: number;
+    unusedItems: number;
+    planItems: number;
+    measureBudgetMs: number;
+    treeEntries: number;
+  };
+  nativeOnly: string[];
+}
+
+export interface CleanupShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<CleanupCapabilities>>;
+  start: (request: { categories: CleanupCategory[]; ageDays: number }) => Promise<NativeEnvelope<CleanupSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<CleanupSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  inventory: () => Promise<NativeEnvelope<CleanupInventory>>;
+  estimate: () => Promise<NativeEnvelope<CleanupEstimate>>;
+  quarantine: () => Promise<NativeEnvelope<CleanupQuarantine>>;
+  unused: (request: { sourceId?: string; ageDays: number; limit?: number }) => Promise<NativeEnvelope<CleanupUnusedResult>>;
+  plan: (request: { candidateIds: string[]; mode: CleanupPlan['mode'] }) => Promise<NativeEnvelope<CleanupPlan>>;
+  schedule: (request: { frequency: 'daily' | 'weekly'; time: string; weekdays: number[]; categories: CleanupCategory[] }) => Promise<NativeEnvelope<CleanupScheduleDraft>>;
+  report: () => Promise<NativeEnvelope<CleanupReport>>;
+  openSettings: (target: 'storage' | 'windowsupdate') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+}
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

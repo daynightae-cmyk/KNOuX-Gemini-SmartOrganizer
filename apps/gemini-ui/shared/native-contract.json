@@ -53,7 +53,19 @@
     "appsUpdates": "knoux:apps:v1:updates",
     "appsPlan": "knoux:apps:v1:plan",
     "appsPackages": "knoux:apps:v1:packages",
-    "appsOpenSettings": "knoux:apps:v1:open-settings"
+    "appsOpenSettings": "knoux:apps:v1:open-settings",
+    "cleanupCapabilities": "knoux:cleanup:v1:capabilities",
+    "cleanupStart": "knoux:cleanup:v1:start",
+    "cleanupStatus": "knoux:cleanup:v1:status",
+    "cleanupCancel": "knoux:cleanup:v1:cancel",
+    "cleanupInventory": "knoux:cleanup:v1:inventory",
+    "cleanupEstimate": "knoux:cleanup:v1:estimate",
+    "cleanupQuarantine": "knoux:cleanup:v1:quarantine",
+    "cleanupUnused": "knoux:cleanup:v1:unused",
+    "cleanupPlan": "knoux:cleanup:v1:plan",
+    "cleanupSchedule": "knoux:cleanup:v1:schedule",
+    "cleanupReport": "knoux:cleanup:v1:report",
+    "cleanupOpenSettings": "knoux:cleanup:v1:open-settings"
   },
   "capabilities": {
     "bridge.status": {
@@ -349,6 +361,78 @@
       "title": "Open a fixed Windows Settings page",
       "mode": "user-initiated",
       "channel": "knoux:apps:v1:open-settings"
+    },
+    "cleanup.capabilities": {
+      "id": "cleanup.capabilities",
+      "title": "Read-only Clean Room capabilities and safety policy",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:capabilities"
+    },
+    "cleanup.start": {
+      "id": "cleanup.start",
+      "title": "Start a bounded measured cleanup discovery",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:start"
+    },
+    "cleanup.status": {
+      "id": "cleanup.status",
+      "title": "Poll measured cleanup discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:status"
+    },
+    "cleanup.cancel": {
+      "id": "cleanup.cancel",
+      "title": "Cancel a running cleanup discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:cleanup:v1:cancel"
+    },
+    "cleanup.inventory": {
+      "id": "cleanup.inventory",
+      "title": "Read the last measured cleanup candidate inventory",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:inventory"
+    },
+    "cleanup.estimate": {
+      "id": "cleanup.estimate",
+      "title": "Safety-classified reclaim estimate",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:estimate"
+    },
+    "cleanup.quarantine": {
+      "id": "cleanup.quarantine",
+      "title": "Quarantine vault and cleanup journal reader",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:quarantine"
+    },
+    "cleanup.unused": {
+      "id": "cleanup.unused",
+      "title": "Dormant files inside an authorized Studio source",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:unused"
+    },
+    "cleanup.plan": {
+      "id": "cleanup.plan",
+      "title": "Immutable review-only cleanup plan",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:plan"
+    },
+    "cleanup.schedule": {
+      "id": "cleanup.schedule",
+      "title": "Read-only cleanup schedule draft",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:schedule"
+    },
+    "cleanup.report": {
+      "id": "cleanup.report",
+      "title": "Measured before/after cleanup report",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:report"
+    },
+    "cleanup.settings.open": {
+      "id": "cleanup.settings.open",
+      "title": "Open a fixed Windows Settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:cleanup:v1:open-settings"
     }
   },
   "windowActions": [

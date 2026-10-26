@@ -17,6 +17,8 @@ const security = read('electron/native/security.cjs');
 const provider = require('../electron/native/provider-bridge.cjs');
 const appBridge = require('../electron/native/app-bridge.cjs');
 const appBridgeSource = read('electron/native/app-bridge.cjs');
+const cleanupBridge = require('../electron/native/cleanup-bridge.cjs');
+const cleanupBridgeSource = read('electron/native/cleanup-bridge.cjs');
 const pkg = JSON.parse(read('package.json'));
 
 const failures = [];
@@ -58,6 +60,44 @@ for (const forbidden of ['unlink(', 'rm(', 'rename(', 'writeFile(', 'rmdir(', 'r
 assert(!appBridgeSource.includes('shell.openExternal'), 'the Applications bridge does not open anything itself');
 assert(!appBridgeSource.includes('accept-source-agreements'), 'WinGet source agreements are never accepted automatically');
 assert(!appBridgeSource.includes('exec('), 'Applications bridge never uses a shell command evaluator');
+assert(/exposeInMainWorld\(\s*'knouxCleanupV1'/.test(preload), 'preload exposes the Clean Room bridge');
+assert(!preload.includes('ipcRenderer.on(CHANNELS.cleanup'), 'Cleanup exposes no event stream');
+assert(contract.channels.cleanupPlan === 'knoux:cleanup:v1:plan', 'Cleanup plan channel is fixed');
+assert(contract.capabilities['cleanup.start'].mode === 'read-only', 'Cleanup discovery is read-only');
+assert(contract.capabilities['cleanup.settings.open'].mode === 'user-initiated', 'settings handoff is the only user-initiated Cleanup capability');
+const cleanupServiceIds = [
+  'cleanup-temp-preview',
+  'cleanup-temp-quarantine',
+  'cleanup-temp-undo',
+  'cleanup-quarantine-list',
+  'cleanup-estimate',
+  'cleanup-recycle',
+  'cleanup-unused',
+  'cleanup-update-cache',
+  'cleanup-browser-cache',
+  'cleanup-logs',
+  'cleanup-schedule',
+  'cleanup-reports',
+];
+assert(
+  cleanupBridge.SERVICE_DEFINITIONS.length === 12
+    && cleanupServiceIds.every((id) => cleanupBridge.SERVICE_DEFINITIONS.some((service) => service.id === id)),
+  'Cleanup keeps all twelve canonical services'
+);
+assert(
+  cleanupBridge.SERVICE_DEFINITIONS.every((service) => /[\u0600-\u06FF]/.test(service.labelAr) && service.noteAr),
+  'Cleanup services carry authored Arabic labels and notes'
+);
+assert(cleanupBridge.GATED_OPERATIONS.every((operation) => operation.id && operation.mission), 'Cleanup gates name their owning mission');
+for (const forbidden of ['fsp.unlink', 'fsp.rm(', 'fsp.rmdir', 'fsp.rename', 'fsp.writeFile', 'fs.rmSync', 'fs.unlinkSync', 'fs.renameSync', 'Remove-Item', 'schtasks', 'dism.exe', 'Dism.exe']) {
+  assert(!cleanupBridgeSource.includes(forbidden), `Cleanup bridge has no mutation call: ${forbidden}`);
+}
+assert(!cleanupBridgeSource.includes('shell.openExternal'), 'the Cleanup bridge does not open anything itself');
+assert(
+  ['cleanupCapabilities', 'cleanupStart', 'cleanupStatus', 'cleanupCancel', 'cleanupInventory', 'cleanupEstimate', 'cleanupQuarantine', 'cleanupUnused', 'cleanupPlan', 'cleanupSchedule', 'cleanupReport', 'cleanupOpenSettings']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every Cleanup channel has an IPC handler'
+);
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');
 assert(main.includes('sandbox: true'), 'main enables sandbox');

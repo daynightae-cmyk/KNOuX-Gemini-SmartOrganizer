@@ -4,11 +4,21 @@
  */
 
 import {
-  INITIAL_CLEANUP_METRICS,
-  CATEGORY_BREAKDOWN_BAR,
-  CLEANUP_CANDIDATES_FIXTURE,
-  CLEANUP_SERVICES_CATALOG
-} from '../../lib/cleanup-inventory';
+  CATEGORY_META,
+  DEFAULT_FILTERS,
+  PLAN_MODE_META,
+  SERVICE_ACCENTS,
+  SERVICE_FALLBACK_META,
+  SERVICE_IDS,
+  categoryBytes,
+  categoryCounts,
+  filterCandidates,
+  formatBytes,
+  formatCount,
+  planModeLabel,
+  serviceStateLabel,
+} from '../../cleanup/model';
+import type { CleanupCandidate } from '../../../shared/native-contracts';
 
 export interface CleanupTestResult {
   name: string;
@@ -16,132 +26,132 @@ export interface CleanupTestResult {
   message?: string;
 }
 
+const ARABIC = /[\u0600-\u06FF]/;
+
+/**
+ * Pure-function checks for the Clean Room presentation model.
+ *
+ * These tests never assert screenshot numbers: every byte, count and candidate
+ * shown by Mission 08 is measured by the native coordinator at runtime. The
+ * synthetic candidates below exist only to exercise deterministic sorting and
+ * aggregation logic, and never reach production surfaces.
+ */
 export function runCleanupVerificationSuite(): CleanupTestResult[] {
   const results: CleanupTestResult[] = [];
+  const check = (name: string, run: () => boolean, pass: string, fail: string) => {
+    try {
+      const passed = run();
+      results.push({ name, passed, message: passed ? pass : fail });
+    } catch (error) {
+      results.push({ name, passed: false, message: String(error) });
+    }
+  };
 
-  // Test 1: Verify all 4 top summary strip metrics match reference screenshot
-  try {
-    const coverageMetric = INITIAL_CLEANUP_METRICS.find(m => m.id === 'scan-coverage');
-    const candidatesMetric = INITIAL_CLEANUP_METRICS.find(m => m.id === 'candidate-files');
-    const recoveryMetric = INITIAL_CLEANUP_METRICS.find(m => m.id === 'potential-recovery');
-    const reviewMetric = INITIAL_CLEANUP_METRICS.find(m => m.id === 'items-review');
+  check(
+    'Clean Room service catalog matches the native contract (12 services)',
+    () =>
+      SERVICE_IDS.length === 12 &&
+      new Set(SERVICE_IDS).size === 12 &&
+      SERVICE_IDS.every((id) => Boolean(SERVICE_ACCENTS[id]) && Boolean(SERVICE_FALLBACK_META[id])),
+    '12 unique service IDs with accent and fallback metadata',
+    'Service catalog is incomplete or duplicated'
+  );
 
-    const passed =
-      INITIAL_CLEANUP_METRICS.length === 4 &&
-      coverageMetric?.value === '92%' &&
-      candidatesMetric?.value === '24,893' &&
-      recoveryMetric?.value === '8.46 GB' &&
-      reviewMetric?.value === '317' &&
-      reviewMetric?.isAlert === true;
+  check(
+    'Clean Room bilingual metadata contains real Arabic',
+    () =>
+      Object.values(CATEGORY_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(PLAN_MODE_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(SERVICE_FALLBACK_META).every((meta) => ARABIC.test(meta.titleAr) && ARABIC.test(meta.descAr)) &&
+      serviceStateLabel('gated', 'ar') === 'محجوب' &&
+      planModeLabel('quarantine', 'ar') === 'تهيئة الحجر',
+    'Arabic labels are authored, not placeholder characters',
+    'Arabic metadata is missing or corrupted'
+  );
 
-    results.push({
-      name: 'Clean Room Top Metrics Verification (92%, 24,893, 8.46 GB, 317 Review)',
-      passed,
-      message: passed ? 'All 4 summary cards match reference screenshot' : 'Metrics mismatch'
-    });
-  } catch (err) {
-    results.push({ name: 'Clean Room Top Metrics Verification', passed: false, message: String(err) });
-  }
+  check(
+    'Clean Room byte and count formatting is deterministic',
+    () =>
+      formatBytes(null) === '—' &&
+      formatBytes(0) === '0 B' &&
+      formatBytes(1536) === '1.50 KB' &&
+      formatBytes(1024 * 1024 * 1024 * 2.5) === '2.50 GB' &&
+      formatCount(null) === '—' &&
+      formatCount(24893) === '24,893',
+    'Formatting matches the measured display contract',
+    'Formatting drifted from the display contract'
+  );
 
-  // Test 2: Verify category breakdown bar percentages & sizes
-  try {
-    const tempSeg = CATEGORY_BREAKDOWN_BAR.find(s => s.id === 'seg-temp');
-    const resSeg = CATEGORY_BREAKDOWN_BAR.find(s => s.id === 'seg-residues');
-    const logSeg = CATEGORY_BREAKDOWN_BAR.find(s => s.id === 'seg-logs');
-    const browserSeg = CATEGORY_BREAKDOWN_BAR.find(s => s.id === 'seg-browser');
-    const downSeg = CATEGORY_BREAKDOWN_BAR.find(s => s.id === 'seg-downloads');
-    const recSeg = CATEGORY_BREAKDOWN_BAR.find(s => s.id === 'seg-recycle');
+  const synthetic: CleanupCandidate[] = [
+    {
+      id: 'cln:aaaaaaaaaaaaaaaaaaaaaaaa',
+      name: 'Alpha temporary pool',
+      path: 'C:\\Windows\\Temp',
+      category: 'temp',
+      source: 'temp',
+      safety: 'eligible',
+      risk: 'low',
+      sizeBytes: 2048,
+      fileCount: 4,
+      folderCount: 1,
+      modifiedAt: '2026-10-01T10:00:00.000Z',
+      ageDays: 25,
+      reasons: ['fixture'],
+      action: 'Quarantine',
+      permission: 'Standard user',
+      recoverable: 'Yes',
+      provider: 'CleanupBridge',
+      active: false,
+      virtual: true,
+      evidence: ['synthetic'],
+    },
+    {
+      id: 'cln:bbbbbbbbbbbbbbbbbbbbbbbb',
+      name: 'Beta log archive',
+      path: 'C:\\ProgramData\\logs',
+      category: 'logs',
+      source: 'logs',
+      safety: 'review',
+      risk: 'medium',
+      sizeBytes: 4096,
+      fileCount: 2,
+      folderCount: 0,
+      modifiedAt: '2026-09-01T10:00:00.000Z',
+      ageDays: 55,
+      reasons: ['fixture'],
+      action: 'Review',
+      permission: 'Standard user',
+      recoverable: 'Yes',
+      provider: 'CleanupBridge',
+      active: false,
+      virtual: true,
+      evidence: ['synthetic'],
+    },
+  ];
 
-    const passed =
-      CATEGORY_BREAKDOWN_BAR.length === 6 &&
-      tempSeg?.percentage === 33.8 &&
-      tempSeg?.sizeDisplay === '8.42 GB' &&
-      resSeg?.percentage === 18.7 &&
-      resSeg?.sizeDisplay === '4.65 GB' &&
-      logSeg?.percentage === 12.4 &&
-      logSeg?.sizeDisplay === '2.06 GB' &&
-      browserSeg?.percentage === 20.1 &&
-      browserSeg?.sizeDisplay === '3.76 GB' &&
-      downSeg?.percentage === 9.8 &&
-      downSeg?.sizeDisplay === '1.63 GB' &&
-      recSeg?.percentage === 5.2 &&
-      recSeg?.sizeDisplay === '1.10 GB';
-
-    results.push({
-      name: 'Category Breakdown Bar Verification (6 colored segments matching exact percentages)',
-      passed,
-      message: passed ? 'All breakdown percentages match' : 'Breakdown segments mismatch'
-    });
-  } catch (err) {
-    results.push({ name: 'Category Breakdown Bar Verification', passed: false, message: String(err) });
-  }
-
-  // Test 3: Verify Candidate files from reference screenshot
-  try {
-    const requiredCandidates = [
-      'Chrome Cache Files',
-      'Windows Update Download Cache',
-      'Microsoft Teams - Cache',
-      'Adobe Installer Logs',
-      'Old Downloads',
-      'Recycle Bin Contents'
-    ];
-
-    const currentNames = CLEANUP_CANDIDATES_FIXTURE.map(c => c.name);
-    const hasAll = requiredCandidates.every(name => currentNames.includes(name));
-
-    const chromeCand = CLEANUP_CANDIDATES_FIXTURE.find(c => c.name === 'Chrome Cache Files');
-    const adobeCand = CLEANUP_CANDIDATES_FIXTURE.find(c => c.name === 'Adobe Installer Logs');
-    const downCand = CLEANUP_CANDIDATES_FIXTURE.find(c => c.name === 'Old Downloads');
-
-    const passed =
-      hasAll &&
-      chromeCand?.sizeDisplay === '1.24 GB' &&
-      chromeCand?.safety === 'safe' &&
-      adobeCand?.sizeDisplay === '221 MB' &&
-      adobeCand?.safety === 'review-recommended' &&
-      downCand?.sizeDisplay === '1.13 GB' &&
-      downCand?.safety === 'review-required';
-
-    results.push({
-      name: 'Cleanup Candidates Ledger Verification (6 reference items with exact safety badges)',
-      passed,
-      message: passed ? 'All candidate rows and safety badges match' : 'Candidate rows mismatch'
-    });
-  } catch (err) {
-    results.push({ name: 'Cleanup Candidates Ledger Verification', passed: false, message: String(err) });
-  }
-
-  // Test 4: Verify all 12 Cleanup domain services
-  try {
-    const expectedKeys = [
-      'cleanup-temp-preview',
-      'cleanup-temp-quarantine',
-      'cleanup-temp-undo',
-      'cleanup-quarantine-list',
-      'cleanup-estimate',
-      'cleanup-recycle',
-      'cleanup-unused',
-      'cleanup-update-cache',
-      'cleanup-browser-cache',
-      'cleanup-logs',
-      'cleanup-schedule',
-      'cleanup-reports'
-    ];
-
-    const currentKeys = CLEANUP_SERVICES_CATALOG.map(s => s.serviceKey);
-    const passed =
-      CLEANUP_SERVICES_CATALOG.length === 12 &&
-      expectedKeys.every(k => currentKeys.includes(k));
-
-    results.push({
-      name: 'Cleanup Domain Services Catalog Verification (12 services)',
-      passed,
-      message: passed ? 'All 12 cleanup services cataloged' : 'Missing service catalog keys'
-    });
-  } catch (err) {
-    results.push({ name: 'Cleanup Domain Services Catalog Verification', passed: false, message: String(err) });
-  }
+  check(
+    'Clean Room register filtering and aggregation stay pure',
+    () => {
+      const bySize = filterCandidates(synthetic, DEFAULT_FILTERS);
+      const byQuery = filterCandidates(synthetic, { ...DEFAULT_FILTERS, query: 'beta' });
+      const counts = categoryCounts(synthetic);
+      const bytes = categoryBytes(synthetic);
+      const temp = bytes.find((entry) => entry.key === 'temp');
+      const logs = bytes.find((entry) => entry.key === 'logs');
+      return (
+        bySize.map((item) => item.name).join('|') === 'Beta log archive|Alpha temporary pool' &&
+        byQuery.length === 1 &&
+        byQuery[0].id === synthetic[1].id &&
+        counts.all === 2 &&
+        counts.temp === 1 &&
+        counts.logs === 1 &&
+        temp?.bytes === 2048 &&
+        logs?.bytes === 4096
+      );
+    },
+    'Filters, counts and byte aggregation are deterministic',
+    'Register aggregation produced unexpected output'
+  );
 
   return results;
 }
