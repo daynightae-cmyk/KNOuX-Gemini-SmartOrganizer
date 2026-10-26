@@ -32,7 +32,8 @@
     "test:services": "node scripts/services-native-test.cjs",
     "test:automation": "node scripts/automation-native-test.cjs",
     "test:workspace": "node scripts/workspace-consent-test.cjs",
-    "test:settings": "node scripts/settings-consent-test.cjs"
+    "test:settings": "node scripts/settings-consent-test.cjs",
+    "test:home": "node scripts/home-live-test.cjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
