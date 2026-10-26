@@ -93,6 +93,8 @@ the user's continuation rule, independent safe work continues with Mission 14
 
 ## 7. Release record
 
-The consent/honesty increment is committed on `feat/gemini-missions`; exact SHA,
-CI run and main integration are recorded in
-`missions/MISSION_SEQUENCE_PROGRESS.md` once the release gates complete.
+The consent/honesty increment is committed on `feat/gemini-missions` at
+`35f8494e4a0d0ecab3747738a8f2b2219b71cea7`. Gemini Platform CI run
+`40373180335` is SUCCESS, including the new `test:workspace` gate and every
+prior native suite. Mission 04 is still not accepted; `main` integration and
+the remaining blocked work are tracked in `missions/MISSION_SEQUENCE_PROGRESS.md`.

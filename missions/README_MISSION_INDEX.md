@@ -1,6 +1,6 @@
 # PRIMARY INSTRUCTION FOR THE NEW STANDALONE REPOSITORY
 
-READ missions/STANDALONE_AUTONOMOUS_ENTRY.md FIRST. Old manual mission ordering and previous project references below are historical and superseded. New repo: daynightae-cmyk/KNOuX-Gemini-SmartOrganizer; branch feat/gemini-missions; next pending mission 04 Google Workspace (00V–13 accepted except the final Home/Settings sequence).
+READ missions/STANDALONE_AUTONOMOUS_ENTRY.md FIRST. Old manual mission ordering and previous project references below are historical and superseded. New repo: daynightae-cmyk/KNOuX-Gemini-SmartOrganizer; branch feat/gemini-missions; next pending mission 14 Settings & Assistant (00V–13 accepted; 04 Google Workspace blocked pending explicit OAuth consent).
 
 ---
 
