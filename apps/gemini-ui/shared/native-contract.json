@@ -110,7 +110,20 @@
     "servicesSnapshot": "knoux:services:v1:snapshot",
     "servicesPlan": "knoux:services:v1:plan",
     "servicesJournal": "knoux:services:v1:journal",
-    "servicesReport": "knoux:services:v1:report"
+    "servicesReport": "knoux:services:v1:report",
+    "automationCapabilities": "knoux:automation:v1:capabilities",
+    "automationStart": "knoux:automation:v1:start",
+    "automationStatus": "knoux:automation:v1:status",
+    "automationCancel": "knoux:automation:v1:cancel",
+    "automationSnapshot": "knoux:automation:v1:snapshot",
+    "automationWorkflows": "knoux:automation:v1:workflows",
+    "automationSave": "knoux:automation:v1:save",
+    "automationTemplates": "knoux:automation:v1:templates",
+    "automationDryRun": "knoux:automation:v1:dry-run",
+    "automationSchedulePreview": "knoux:automation:v1:schedule-preview",
+    "automationValidateImport": "knoux:automation:v1:validate-import",
+    "automationJournal": "knoux:automation:v1:journal",
+    "automationReport": "knoux:automation:v1:report"
   },
   "capabilities": {
     "bridge.status": {
@@ -748,6 +761,84 @@
       "title": "Build a redacted read-only service evidence report",
       "mode": "read-only",
       "channel": "knoux:services:v1:report"
+    },
+    "automation.capabilities": {
+      "id": "automation.capabilities",
+      "title": "Discover the twelve Flow Studio tools",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:capabilities"
+    },
+    "automation.start": {
+      "id": "automation.start",
+      "title": "Start a bounded read-only workflow-evidence discovery",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:start"
+    },
+    "automation.status": {
+      "id": "automation.status",
+      "title": "Poll workflow-evidence discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:status"
+    },
+    "automation.cancel": {
+      "id": "automation.cancel",
+      "title": "Cancel a running workflow-evidence discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:automation:v1:cancel"
+    },
+    "automation.snapshot": {
+      "id": "automation.snapshot",
+      "title": "Read measured workflow, template and runtime evidence",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:snapshot"
+    },
+    "automation.workflows": {
+      "id": "automation.workflows",
+      "title": "Read persisted local workflow drafts",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:workflows"
+    },
+    "automation.save": {
+      "id": "automation.save",
+      "title": "Save a validated local workflow draft with a new version",
+      "mode": "user-initiated",
+      "channel": "knoux:automation:v1:save"
+    },
+    "automation.templates": {
+      "id": "automation.templates",
+      "title": "Read built-in workflow templates",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:templates"
+    },
+    "automation.dryRun": {
+      "id": "automation.dryRun",
+      "title": "Validate and dry-run a workflow without execution",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:dry-run"
+    },
+    "automation.schedulePreview": {
+      "id": "automation.schedulePreview",
+      "title": "Preview local schedule occurrences with DST handling",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:schedule-preview"
+    },
+    "automation.validateImport": {
+      "id": "automation.validateImport",
+      "title": "Validate an imported workflow schema",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:validate-import"
+    },
+    "automation.journal": {
+      "id": "automation.journal",
+      "title": "Read the append-only dry-run journal",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:journal"
+    },
+    "automation.report": {
+      "id": "automation.report",
+      "title": "Build a redacted read-only workflow report",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:report"
     }
   },
   "windowActions": [

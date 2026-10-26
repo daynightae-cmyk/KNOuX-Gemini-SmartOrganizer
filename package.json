@@ -17,6 +17,7 @@
     "test:system": "npm run test:system --prefix apps/gemini-ui",
     "test:repair": "npm run test:repair --prefix apps/gemini-ui",
     "test:services": "npm run test:services --prefix apps/gemini-ui",
+    "test:automation": "npm run test:automation --prefix apps/gemini-ui",
     "desktop:smoke": "npm run desktop:smoke --prefix apps/gemini-ui",
     "desktop:pack": "npm run desktop:pack --prefix apps/gemini-ui",
     "dev": "npm run dev --prefix apps/gemini-ui",

@@ -24,3 +24,4 @@ jobs:
       - run: npm run test:system
       - run: npm run test:repair
       - run: npm run test:services
+      - run: npm run test:automation

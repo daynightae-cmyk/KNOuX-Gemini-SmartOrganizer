@@ -122,6 +122,19 @@ const CHANNELS = Object.freeze({
   servicesPlan: 'knoux:services:v1:plan',
   servicesJournal: 'knoux:services:v1:journal',
   servicesReport: 'knoux:services:v1:report',
+  automationCapabilities: 'knoux:automation:v1:capabilities',
+  automationStart: 'knoux:automation:v1:start',
+  automationStatus: 'knoux:automation:v1:status',
+  automationCancel: 'knoux:automation:v1:cancel',
+  automationSnapshot: 'knoux:automation:v1:snapshot',
+  automationWorkflows: 'knoux:automation:v1:workflows',
+  automationSave: 'knoux:automation:v1:save',
+  automationTemplates: 'knoux:automation:v1:templates',
+  automationDryRun: 'knoux:automation:v1:dry-run',
+  automationSchedulePreview: 'knoux:automation:v1:schedule-preview',
+  automationValidateImport: 'knoux:automation:v1:validate-import',
+  automationJournal: 'knoux:automation:v1:journal',
+  automationReport: 'knoux:automation:v1:report',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -355,5 +368,28 @@ contextBridge.exposeInMainWorld(
     plan: (request) => ipcRenderer.invoke(CHANNELS.servicesPlan, request),
     journal: () => ipcRenderer.invoke(CHANNELS.servicesJournal),
     report: (options) => ipcRenderer.invoke(CHANNELS.servicesReport, options || {}),
+  })
+);
+
+/* Automation v1 is Flow Studio: local versioned workflow drafts, validation,
+   dry-runs and schedule previews. There is no executor, scheduler timer,
+   external notification, file copy or privileged action. */
+contextBridge.exposeInMainWorld(
+  'knouxAutomationV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.automationCapabilities),
+    start: () => ipcRenderer.invoke(CHANNELS.automationStart),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.automationStatus, { sessionId }),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.automationCancel, { sessionId }),
+    snapshot: () => ipcRenderer.invoke(CHANNELS.automationSnapshot),
+    workflows: () => ipcRenderer.invoke(CHANNELS.automationWorkflows),
+    save: (workflow) => ipcRenderer.invoke(CHANNELS.automationSave, workflow),
+    templates: () => ipcRenderer.invoke(CHANNELS.automationTemplates),
+    dryRun: (workflow) => ipcRenderer.invoke(CHANNELS.automationDryRun, workflow),
+    schedulePreview: (spec) => ipcRenderer.invoke(CHANNELS.automationSchedulePreview, spec),
+    validateImport: (payload) => ipcRenderer.invoke(CHANNELS.automationValidateImport, payload),
+    journal: () => ipcRenderer.invoke(CHANNELS.automationJournal),
+    report: (options) => ipcRenderer.invoke(CHANNELS.automationReport, options || {}),
   })
 );

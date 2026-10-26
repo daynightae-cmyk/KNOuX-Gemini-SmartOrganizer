@@ -247,6 +247,33 @@ assert(
     .every((channel) => main.includes(`contract.channels.${channel}`)),
   'every Services channel has an IPC handler'
 );
+assert(/exposeInMainWorld\(\s*'knouxAutomationV1'/.test(preload), 'preload exposes the Flow Studio bridge');
+assert(contract.channels.automationSnapshot === 'knoux:automation:v1:snapshot', 'Automation snapshot channel is fixed');
+assert(contract.capabilities['automation.start'].mode === 'read-only', 'Flow Studio discovery is read-only');
+assert(contract.capabilities['automation.save'].mode === 'user-initiated', 'workflow save is user-initiated local metadata');
+assert(contract.capabilities['automation.dryRun'].mode === 'read-only', 'workflow dry-run is read-only');
+assert(contract.capabilities['automation.schedulePreview'].mode === 'read-only', 'schedule preview is read-only');
+assert(contract.capabilities['automation.validateImport'].mode === 'read-only', 'import validation is read-only');
+assert(!Object.keys(contract.capabilities).some((id) => /^automation\.(run|execute|schedule\.job|notify|copy|delete)/i.test(id)), 'Automation contract exposes no execution capability');
+const automationBridge = require('../electron/native/automation-bridge.cjs');
+const automationProviders = require('../electron/native/automation-providers.cjs');
+const automationBridgeSource = read('electron/native/automation-bridge.cjs');
+const automationProviderSource = read('electron/native/automation-providers.cjs');
+assert(automationBridge.AUTOMATION_TOOLS.length === 12, 'Flow Studio keeps twelve tools');
+assert(automationBridge.STAGE_DEFINITIONS.length === 5, 'Flow Studio keeps five measured stages');
+assert(automationBridge.GATED_OPERATIONS.length === 5, 'Flow Studio publishes five explicit gates');
+assert(automationProviders.TEMPLATES.length === 8, 'Flow Studio keeps eight built-in templates');
+assert(automationProviders.AUTOMATION_TOOLS === automationBridge.AUTOMATION_TOOLS, 'the bridge reuses the Flow Studio catalogue');
+assert(automationBridge.AUTOMATION_TOOLS.every((entry) => /[\u0600-\u06FF]/.test(entry.labelAr) && /[\u0600-\u06FF]/.test(entry.noteAr)), 'Flow Studio tools carry authored Arabic text');
+for (const forbidden of ['child_process', 'spawn(', 'shell: true', 'Start-Process', 'Invoke-Expression', 'schtasks', 'setInterval(', 'setTimeout(', 'fetch(', 'http://', 'https://']) {
+  assert(!automationBridgeSource.includes(forbidden), `Automation bridge has no executor: ${forbidden}`);
+  assert(!automationProviderSource.includes(forbidden), `Automation provider has no executor: ${forbidden}`);
+}
+assert(
+  ['automationCapabilities', 'automationStart', 'automationStatus', 'automationCancel', 'automationSnapshot', 'automationWorkflows', 'automationSave', 'automationTemplates', 'automationDryRun', 'automationSchedulePreview', 'automationValidateImport', 'automationJournal', 'automationReport']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every Automation channel has an IPC handler'
+);
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');
 assert(main.includes('sandbox: true'), 'main enables sandbox');

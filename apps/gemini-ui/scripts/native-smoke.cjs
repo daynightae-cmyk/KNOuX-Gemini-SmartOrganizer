@@ -192,6 +192,12 @@ async function main() {
     servicesArabicShotPath: receipt?.servicesArabicScreenshot || '',
     services1366ShotPath: receipt?.services1366Screenshot || '',
     services1920ShotPath: receipt?.services1920Screenshot || '',
+    automationShotPath: receipt?.automationScreenshot || shotPath.replace(/native-bridge/i, 'automation-measured'),
+    automationWorkbenchShotPath: receipt?.automationWorkbenchScreenshot || '',
+    automationLightShotPath: receipt?.automationLightScreenshot || '',
+    automationArabicShotPath: receipt?.automationArabicScreenshot || '',
+    automation1366ShotPath: receipt?.automation1366Screenshot || '',
+    automation1920ShotPath: receipt?.automation1920Screenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -233,6 +239,12 @@ async function main() {
     servicesArabicShotBytes: receipt?.servicesArabicScreenshotBytes || 0,
     services1366ShotBytes: receipt?.services1366ScreenshotBytes || 0,
     services1920ShotBytes: receipt?.services1920ScreenshotBytes || 0,
+    automationShotBytes: receipt?.automationScreenshotBytes || 0,
+    automationWorkbenchShotBytes: receipt?.automationWorkbenchScreenshotBytes || 0,
+    automationLightShotBytes: receipt?.automationLightScreenshotBytes || 0,
+    automationArabicShotBytes: receipt?.automationArabicScreenshotBytes || 0,
+    automation1366ShotBytes: receipt?.automation1366ScreenshotBytes || 0,
+    automation1920ShotBytes: receipt?.automation1920ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -284,7 +296,13 @@ async function main() {
     summary.servicesLightShotBytes > 20000 &&
     summary.servicesArabicShotBytes > 20000 &&
     summary.services1366ShotBytes > 20000 &&
-    summary.services1920ShotBytes > 20000;
+    summary.services1920ShotBytes > 20000 &&
+    summary.automationShotBytes > 20000 &&
+    summary.automationWorkbenchShotBytes > 20000 &&
+    summary.automationLightShotBytes > 20000 &&
+    summary.automationArabicShotBytes > 20000 &&
+    summary.automation1366ShotBytes > 20000 &&
+    summary.automation1920ShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

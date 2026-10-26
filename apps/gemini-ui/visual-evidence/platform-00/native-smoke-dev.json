@@ -1,6 +1,6 @@
 {
   "schema": "knoux.gemini.native-smoke.v1",
-  "startedAt": "2026-10-26T16:38:13.767Z",
+  "startedAt": "2026-10-26T17:23:16.853Z",
   "packaged": false,
   "appVersion": "0.4.0-gemini.0",
   "electronVersion": "43.4.1",
@@ -14,7 +14,7 @@
     "webviewTag": false
   },
   "renderer": {
-    "href": "file:///D:/knoux-workspace/knoux-gemini-smartorganizer/apps/gemini-ui/dist/index.html",
+    "href": "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/index.html",
     "readyState": "complete",
     "rootChildren": 1,
     "bridgePresent": true,
@@ -28,22 +28,23 @@
     "systemV1BridgePresent": true,
     "repairV1BridgePresent": true,
     "servicesV1BridgePresent": true,
+    "automationV1BridgePresent": true,
     "contractVersion": 1,
     "nodeRequireType": "undefined",
     "nodeProcessType": "undefined",
     "status": {
       "contractVersion": 1,
-      "requestId": "43e24e52-a7fd-47da-8345-4a0a23694945",
+      "requestId": "c46a0ac2-d648-4100-b58f-e5c453287eff",
       "capability": "bridge.status",
       "status": "available",
       "source": "KNOuX Gemini Electron main",
-      "observedAt": "2026-10-26T16:38:14.976Z",
+      "observedAt": "2026-10-26T17:23:18.065Z",
       "permission": "read-only",
       "warnings": [],
       "provenance": {
         "provider": "Electron main process",
         "mode": "measured",
-        "observedAt": "2026-10-26T16:38:14.976Z",
+        "observedAt": "2026-10-26T17:23:18.065Z",
         "coverage": "full",
         "permissions": [
           "read-only"
@@ -799,6 +800,97 @@
             "mode": "read-only",
             "channel": "knoux:services:v1:report",
             "status": "available"
+          },
+          {
+            "id": "automation.capabilities",
+            "title": "Discover the twelve Flow Studio tools",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:capabilities",
+            "status": "available"
+          },
+          {
+            "id": "automation.start",
+            "title": "Start a bounded read-only workflow-evidence discovery",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:start",
+            "status": "available"
+          },
+          {
+            "id": "automation.status",
+            "title": "Poll workflow-evidence discovery progress",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:status",
+            "status": "available"
+          },
+          {
+            "id": "automation.cancel",
+            "title": "Cancel a running workflow-evidence discovery",
+            "mode": "user-initiated",
+            "channel": "knoux:automation:v1:cancel",
+            "status": "available"
+          },
+          {
+            "id": "automation.snapshot",
+            "title": "Read measured workflow, template and runtime evidence",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:snapshot",
+            "status": "available"
+          },
+          {
+            "id": "automation.workflows",
+            "title": "Read persisted local workflow drafts",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:workflows",
+            "status": "available"
+          },
+          {
+            "id": "automation.save",
+            "title": "Save a validated local workflow draft with a new version",
+            "mode": "user-initiated",
+            "channel": "knoux:automation:v1:save",
+            "status": "available"
+          },
+          {
+            "id": "automation.templates",
+            "title": "Read built-in workflow templates",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:templates",
+            "status": "available"
+          },
+          {
+            "id": "automation.dryRun",
+            "title": "Validate and dry-run a workflow without execution",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:dry-run",
+            "status": "available"
+          },
+          {
+            "id": "automation.schedulePreview",
+            "title": "Preview local schedule occurrences with DST handling",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:schedule-preview",
+            "status": "available"
+          },
+          {
+            "id": "automation.validateImport",
+            "title": "Validate an imported workflow schema",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:validate-import",
+            "status": "available"
+          },
+          {
+            "id": "automation.journal",
+            "title": "Read the append-only dry-run journal",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:journal",
+            "status": "available"
+          },
+          {
+            "id": "automation.report",
+            "title": "Build a redacted read-only workflow report",
+            "mode": "read-only",
+            "channel": "knoux:automation:v1:report",
+            "status": "available"
           }
         ],
         "contractVersion": 1,
@@ -808,16 +900,16 @@
     "system": {
       "contractVersion": 1,
       "capability": "system.summary",
-      "requestId": "8d64f2c2-1718-451b-a5a4-2c699a938d6a",
+      "requestId": "ca6bb72e-58a5-4870-8bd1-3074ac354870",
       "status": "complete",
       "source": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
-      "observedAt": "2026-10-26T16:38:17.344Z",
+      "observedAt": "2026-10-26T17:23:25.268Z",
       "permission": "read-only",
       "warnings": [],
       "provenance": {
         "provider": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
         "mode": "measured",
-        "observedAt": "2026-10-26T16:38:17.344Z",
+        "observedAt": "2026-10-26T17:23:25.268Z",
         "coverage": "full",
         "permissions": [
           "read-only"
@@ -830,18 +922,18 @@
         "osVersion": "10.0.19045",
         "osBuild": "19045",
         "osArchitecture": "64-bit",
-        "uptimeSeconds": 289898,
+        "uptimeSeconds": 292606,
         "uptimeSource": "Win32_OperatingSystem.LastBootUpTime",
         "cpuModel": "Intel(R) Core(TM) i5-4570 CPU @ 3.20GHz",
         "cpuCores": 4,
         "cpuLogicalProcessors": 4,
-        "cpuLoadPercent": 30,
+        "cpuLoadPercent": 44,
         "cpuLoadSource": "Win32_PerfFormattedData_PerfOS_Processor (_Total)",
         "memoryTotalBytes": 12769726464,
-        "memoryFreeBytes": 3204390912,
+        "memoryFreeBytes": 3139387392,
         "memoryUsedPercent": 75,
         "systemDrive": "C:",
-        "systemDriveFreeBytes": 6112325632,
+        "systemDriveFreeBytes": 6092947456,
         "systemDriveTotalBytes": 140302163968,
         "volumes": [
           {
@@ -849,14 +941,14 @@
             "label": null,
             "fileSystem": "NTFS",
             "sizeBytes": 140302163968,
-            "freeBytes": 6112325632
+            "freeBytes": 6092947456
           },
           {
             "deviceId": "D:",
             "label": "Day Night",
             "fileSystem": "NTFS",
             "sizeBytes": 62913507328,
-            "freeBytes": 26172776448
+            "freeBytes": 26131243008
           },
           {
             "deviceId": "K:",
@@ -872,10 +964,10 @@
     "services": {
       "contractVersion": 1,
       "capability": "services.summary",
-      "requestId": "ee2722d0-cc16-4c07-994f-fbe61e9722b1",
+      "requestId": "0cafa613-82fa-41d9-8696-6e8d65fa8315",
       "status": "complete",
       "source": "Win32_Service",
-      "observedAt": "2026-10-26T16:38:18.047Z",
+      "observedAt": "2026-10-26T17:23:25.936Z",
       "permission": "read-only",
       "warnings": [
         "Service control is not exposed by the platform bridge; later section providers own mutations."
@@ -883,7 +975,7 @@
       "provenance": {
         "provider": "Win32_Service",
         "mode": "measured",
-        "observedAt": "2026-10-26T16:38:18.047Z",
+        "observedAt": "2026-10-26T17:23:25.936Z",
         "coverage": "full",
         "permissions": [
           "read-only"
@@ -891,8 +983,8 @@
       },
       "data": {
         "total": 271,
-        "running": 115,
-        "stopped": 156,
+        "running": 116,
+        "stopped": 155,
         "automatic": 63,
         "manual": 195,
         "disabled": 11,
@@ -905,18 +997,18 @@
       "sources": {
         "contractVersion": 1,
         "capability": "studio.sources",
-        "requestId": "ca11c1c9-0fb7-471a-8f31-576b0cb9cbe0",
+        "requestId": "583558a4-b7aa-476b-8019-3a10d7756c7f",
         "status": "complete",
         "source": "KNOuX Studio read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.047Z",
+        "observedAt": "2026-10-26T17:23:25.937Z",
         "permission": "read-only",
         "warnings": [],
         "data": [
           {
-            "id": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
-            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+            "id": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
+            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
             "label": "studio-source",
-            "addedAt": "2026-10-26T16:38:12.890Z",
+            "addedAt": "2026-10-26T17:23:15.890Z",
             "status": "ready",
             "fileCount": 7,
             "folderCount": 3,
@@ -944,7 +1036,7 @@
                 "bytes": 15
               }
             ],
-            "lastScanned": "2026-10-26T16:38:12.918Z",
+            "lastScanned": "2026-10-26T17:23:15.903Z",
             "partial": false,
             "warnings": []
           }
@@ -953,14 +1045,14 @@
       "query": {
         "contractVersion": 1,
         "capability": "studio.inventory.query",
-        "requestId": "055e0cb1-6bbf-4bcc-96b6-dc5b02851346",
+        "requestId": "9d6f71d3-19be-4291-99f9-140343ab54af",
         "status": "complete",
         "source": "KNOuX Studio read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.058Z",
+        "observedAt": "2026-10-26T17:23:25.947Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+          "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
           "total": 7,
           "bytes": 800891,
           "offset": 0,
@@ -974,7 +1066,7 @@
               "uiCategory": "code",
               "size": 29,
               "ext": "ts",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": false
             },
             {
@@ -1018,7 +1110,7 @@
               "uiCategory": "document",
               "size": 21,
               "ext": "md",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": true
             },
             {
@@ -1029,7 +1121,7 @@
               "uiCategory": "document",
               "size": 31,
               "ext": "txt",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": true
             },
             {
@@ -1040,7 +1132,7 @@
               "uiCategory": "spreadsheet",
               "size": 15,
               "ext": "csv",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": true
             }
           ],
@@ -1051,10 +1143,10 @@
       "thumbs": {
         "contractVersion": 1,
         "capability": "studio.thumbnails",
-        "requestId": "52c9ff12-cde8-477b-9870-0733a857a0dc",
+        "requestId": "b575942c-55b1-4699-b0c9-770a0a9359fe",
         "status": "complete",
         "source": "KNOuX Studio read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.424Z",
+        "observedAt": "2026-10-26T17:23:26.307Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
@@ -1079,14 +1171,14 @@
       "plan": {
         "contractVersion": 1,
         "capability": "studio.plan.preview",
-        "requestId": "fd204df7-11ce-4287-b0b3-4f6c3f772dc7",
+        "requestId": "934e2215-50f9-43a2-bb95-3451ec12e2d6",
         "status": "complete",
         "source": "KNOuX Studio read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.429Z",
+        "observedAt": "2026-10-26T17:23:26.313Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "planHash": "7adea16274d9164d5643d45f02ea0e9f7807ac53c319af8a66919cb5f9d90bf7",
+          "planHash": "f10cc87c0d5722d3375acb3e0070fbd088c06d3d76a723b8af2453b445e60b15",
           "operation": "virtual",
           "structure": "categorized",
           "collisionPolicy": "review",
@@ -1097,7 +1189,7 @@
               "fileId": 0,
               "name": "app.ts",
               "sourceRelative": "app.ts",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "code",
               "size": 29,
               "targetName": "app.ts",
@@ -1110,7 +1202,7 @@
               "fileId": 1,
               "name": "notes.txt",
               "sourceRelative": "notes.txt",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "document",
               "size": 31,
               "targetName": "notes.txt",
@@ -1123,7 +1215,7 @@
               "fileId": 2,
               "name": "table.csv",
               "sourceRelative": "table.csv",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "spreadsheet",
               "size": 15,
               "targetName": "table.csv",
@@ -1136,7 +1228,7 @@
               "fileId": 3,
               "name": "readme.md",
               "sourceRelative": "nested/readme.md",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "document",
               "size": 21,
               "targetName": "readme.md",
@@ -1149,7 +1241,7 @@
               "fileId": 4,
               "name": "image_091f4380.png",
               "sourceRelative": "images/image_091f4380.png",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "image",
               "size": 88653,
               "targetName": "image_091f4380.png",
@@ -1162,7 +1254,7 @@
               "fileId": 5,
               "name": "image_0ab1aa96.png",
               "sourceRelative": "images/image_0ab1aa96.png",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "image",
               "size": 348944,
               "targetName": "image_0ab1aa96.png",
@@ -1175,7 +1267,7 @@
               "fileId": 6,
               "name": "image_2294bf8c.png",
               "sourceRelative": "images/image_2294bf8c.png",
-              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+              "sourceRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
               "category": "image",
               "size": 363198,
               "targetName": "image_2294bf8c.png",
@@ -1226,8 +1318,8 @@
             "skipped": 0,
             "collisions": 0
           },
-          "createdAt": "2026-10-26T16:38:18.427Z",
-          "expiresAt": "2026-10-26T17:08:18.427Z",
+          "createdAt": "2026-10-26T17:23:26.310Z",
+          "expiresAt": "2026-10-26T17:53:26.310Z",
           "previewOnly": true,
           "execution": "blocked_explicit_approval_required"
         }
@@ -1235,23 +1327,23 @@
       "history": {
         "contractVersion": 1,
         "capability": "studio.preview.history",
-        "requestId": "f22fe008-1b42-49d6-a8a9-d68f7c6b0665",
+        "requestId": "30de0ccd-0a21-44db-b593-65075bb21ab1",
         "status": "complete",
         "source": "KNOuX Studio read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.436Z",
+        "observedAt": "2026-10-26T17:23:26.320Z",
         "permission": "read-only",
         "warnings": [],
         "data": [
           {
-            "id": "e8045bc9-0124-44c1-90bd-000b0f850149",
-            "planHash": "7adea16274d9164d5643d45f02ea0e9f7807ac53c319af8a66919cb5f9d90bf7",
-            "createdAt": "2026-10-26T16:38:18.428Z",
+            "id": "18c3f234-8d2d-454c-8d49-f01943d4bb26",
+            "planHash": "f10cc87c0d5722d3375acb3e0070fbd088c06d3d76a723b8af2453b445e60b15",
+            "createdAt": "2026-10-26T17:23:26.311Z",
             "operation": "virtual",
             "files": 7,
             "bytes": 800891,
             "categories": 4,
             "sourceRoots": [
-              "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source"
+              "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source"
             ],
             "destinationSummary": null,
             "collisions": 0,
@@ -1267,18 +1359,18 @@
       "sources": {
         "contractVersion": 1,
         "capability": "files.sources",
-        "requestId": "e7b9ed67-6473-4380-b481-84d31f111388",
+        "requestId": "079e4c76-7c41-4d24-afb4-bdaeee8bd9a2",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.437Z",
+        "observedAt": "2026-10-26T17:23:26.321Z",
         "permission": "read-only",
         "warnings": [],
         "data": [
           {
-            "id": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
-            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+            "id": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
+            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
             "label": "studio-source",
-            "addedAt": "2026-10-26T16:38:12.890Z",
+            "addedAt": "2026-10-26T17:23:15.890Z",
             "status": "ready",
             "fileCount": 7,
             "folderCount": 3,
@@ -1306,7 +1398,7 @@
                 "bytes": 15
               }
             ],
-            "lastScanned": "2026-10-26T16:38:12.918Z",
+            "lastScanned": "2026-10-26T17:23:15.903Z",
             "partial": false,
             "warnings": []
           }
@@ -1315,14 +1407,14 @@
       "query": {
         "contractVersion": 1,
         "capability": "files.inventory.query",
-        "requestId": "fec0eb89-21eb-4dcd-a27c-224fb3687e8b",
+        "requestId": "96039e8f-6930-4588-b5fe-b0f3ebefbdfa",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.438Z",
+        "observedAt": "2026-10-26T17:23:26.322Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+          "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
           "total": 7,
           "bytes": 800891,
           "offset": 0,
@@ -1336,7 +1428,7 @@
               "uiCategory": "code",
               "size": 29,
               "ext": "ts",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": false
             },
             {
@@ -1380,7 +1472,7 @@
               "uiCategory": "document",
               "size": 21,
               "ext": "md",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": true
             },
             {
@@ -1391,7 +1483,7 @@
               "uiCategory": "document",
               "size": 31,
               "ext": "txt",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": true
             },
             {
@@ -1402,7 +1494,7 @@
               "uiCategory": "spreadsheet",
               "size": 15,
               "ext": "csv",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
               "hasThumbnail": true
             }
           ],
@@ -1413,18 +1505,18 @@
       "overview": {
         "contractVersion": 1,
         "capability": "files.overview",
-        "requestId": "9fb23f01-0c65-46e4-84da-14cdcd956178",
+        "requestId": "e9a6f8f9-7da0-4188-a6cd-036dcb604303",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.439Z",
+        "observedAt": "2026-10-26T17:23:26.323Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
           "source": {
-            "id": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
-            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+            "id": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
+            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
             "label": "studio-source",
-            "addedAt": "2026-10-26T16:38:12.890Z",
+            "addedAt": "2026-10-26T17:23:15.890Z",
             "status": "ready",
             "fileCount": 7,
             "folderCount": 3,
@@ -1452,7 +1544,7 @@
                 "bytes": 15
               }
             ],
-            "lastScanned": "2026-10-26T16:38:12.918Z",
+            "lastScanned": "2026-10-26T17:23:15.903Z",
             "partial": false,
             "warnings": []
           },
@@ -1553,8 +1645,8 @@
               "category": "code",
               "size": 29,
               "ext": "ts",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1566,8 +1658,8 @@
               "category": "document",
               "size": 31,
               "ext": "txt",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1579,8 +1671,8 @@
               "category": "spreadsheet",
               "size": 15,
               "ext": "csv",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1592,8 +1684,8 @@
               "category": "document",
               "size": 21,
               "ext": "md",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1685,8 +1777,8 @@
               "category": "document",
               "size": 31,
               "ext": "txt",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1698,8 +1790,8 @@
               "category": "code",
               "size": 29,
               "ext": "ts",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1711,8 +1803,8 @@
               "category": "document",
               "size": 21,
               "ext": "md",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -1724,13 +1816,13 @@
               "category": "spreadsheet",
               "size": 15,
               "ext": "csv",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             }
           ],
-          "scannedAt": "2026-10-26T16:38:12.918Z",
+          "scannedAt": "2026-10-26T17:23:15.903Z",
           "warnings": [],
           "coverage": "complete",
           "permission": "read-only"
@@ -1739,29 +1831,29 @@
       "metadata": {
         "contractVersion": 1,
         "capability": "files.metadata",
-        "requestId": "5008352d-94bd-4bef-a218-9a95385e6def",
+        "requestId": "c3d13d12-486c-4877-b595-01e732a52ee3",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.470Z",
+        "observedAt": "2026-10-26T17:23:26.355Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+          "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
           "sourceLabel": "studio-source",
           "fileId": 0,
           "name": "app.ts",
           "relative": "app.ts",
           "parentFolder": "",
-          "fullPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source\\app.ts",
+          "fullPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source\\app.ts",
           "size": 29,
           "ext": "ts",
           "category": "code",
-          "modifiedAt": "2026-10-26T16:38:12.563Z",
-          "createdAt": "2026-10-26T16:38:12.563Z",
+          "modifiedAt": "2026-10-26T17:23:15.336Z",
+          "createdAt": "2026-10-26T17:23:15.336Z",
           "entryKind": "file",
           "linkCount": 1,
           "hardlinked": false,
-          "fileIdentity": "952551486:3659174697643418",
+          "fileIdentity": "952551486:6755399441460791",
           "volumeSerial": 952551486,
           "readonly": false,
           "hidden": false,
@@ -1783,21 +1875,21 @@
       "hash": {
         "contractVersion": 1,
         "capability": "files.hash",
-        "requestId": "1f003f5e-bd78-4a59-b727-521d1a2cb505",
+        "requestId": "401969c6-8aaf-4175-ab30-87ef1eb896e8",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.475Z",
+        "observedAt": "2026-10-26T17:23:26.360Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+          "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
           "fileId": 0,
           "name": "app.ts",
           "algorithm": "sha256",
           "digest": "ddf066ee341c060cca67ed6faa462602690b490d98c6fecdf607c447754e14bb",
           "bytesRead": 29,
           "sizeAtRead": 29,
-          "fileIdentity": "952551486:3659174697643418",
+          "fileIdentity": "952551486:6755399441460791",
           "changedDuringRead": false,
           "digestReliable": true,
           "warnings": [],
@@ -1807,16 +1899,16 @@
       "emptyFolders": {
         "contractVersion": 1,
         "capability": "files.emptyFolders",
-        "requestId": "729386c6-bb23-44c2-946a-a21ae6638bf5",
+        "requestId": "fb09754a-e4ab-4d79-94d7-83b02d604eef",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.477Z",
+        "observedAt": "2026-10-26T17:23:26.362Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
           "items": [],
           "summary": {
-            "root": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+            "root": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
             "foldersScanned": 3,
             "emptyFolders": 0,
             "skippedLinks": 0,
@@ -1833,10 +1925,10 @@
       "thumbs": {
         "contractVersion": 1,
         "capability": "files.thumbnails",
-        "requestId": "27c72c5b-3d5c-471c-a46d-634eabe52f02",
+        "requestId": "843fa275-58a7-42bf-b0c4-b8eac241e38a",
         "status": "complete",
         "source": "KNOuX Files read-only adapter",
-        "observedAt": "2026-10-26T16:38:18.483Z",
+        "observedAt": "2026-10-26T17:23:26.368Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
@@ -1864,10 +1956,10 @@
       "volumes": {
         "contractVersion": 1,
         "capability": "storage.volumes",
-        "requestId": "5a0b7800-4165-43c6-968e-6d4fdf0a8613",
+        "requestId": "823e15e7-b391-4c40-9ee9-96d8b9ad1b95",
         "status": "complete",
         "source": "KNOuX Storage read-only adapter",
-        "observedAt": "2026-10-26T16:38:20.575Z",
+        "observedAt": "2026-10-26T17:23:28.481Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
@@ -1879,10 +1971,10 @@
               "label": "Mounted volume",
               "fileSystem": "NTFS",
               "totalBytes": 140302163968,
-              "freeBytes": 6112321536,
-              "usedBytes": 134189842432,
-              "usedPercent": 95.6,
-              "freePercent": 4.4,
+              "freeBytes": 6092881920,
+              "usedBytes": 134209282048,
+              "usedPercent": 95.7,
+              "freePercent": 4.3,
               "isLowSpace": true,
               "physicalDevice": null,
               "physicalDeviceAvailable": false,
@@ -1896,10 +1988,10 @@
               "label": "Day Night",
               "fileSystem": "NTFS",
               "totalBytes": 62913507328,
-              "freeBytes": 26172776448,
-              "usedBytes": 36740730880,
-              "usedPercent": 58.4,
-              "freePercent": 41.6,
+              "freeBytes": 26131238912,
+              "usedBytes": 36782268416,
+              "usedPercent": 58.5,
+              "freePercent": 41.5,
               "isLowSpace": false,
               "physicalDevice": null,
               "physicalDeviceAvailable": false,
@@ -1926,18 +2018,18 @@
           ],
           "history": [
             {
-              "capturedAt": "2026-10-26T16:38:20.574Z",
+              "capturedAt": "2026-10-26T17:23:28.480Z",
               "source": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
               "volumes": [
                 {
                   "deviceId": "C:",
                   "totalBytes": 140302163968,
-                  "freeBytes": 6112321536
+                  "freeBytes": 6092881920
                 },
                 {
                   "deviceId": "D:",
                   "totalBytes": 62913507328,
-                  "freeBytes": 26172776448
+                  "freeBytes": 26131238912
                 },
                 {
                   "deviceId": "K:",
@@ -1947,7 +2039,7 @@
               ]
             }
           ],
-          "observedAt": "2026-10-26T16:38:20.573Z",
+          "observedAt": "2026-10-26T17:23:28.480Z",
           "provider": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
           "status": "complete",
           "coverage": "full",
@@ -1959,27 +2051,27 @@
       "history": {
         "contractVersion": 1,
         "capability": "storage.history",
-        "requestId": "79d134ec-d515-4ee0-84fa-21c437c65644",
+        "requestId": "7545a774-e334-41cc-bd5d-076775fcbe2b",
         "status": "complete",
         "source": "KNOuX Storage read-only adapter",
-        "observedAt": "2026-10-26T16:38:20.583Z",
+        "observedAt": "2026-10-26T17:23:28.619Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
           "points": [
             {
-              "capturedAt": "2026-10-26T16:38:20.574Z",
+              "capturedAt": "2026-10-26T17:23:28.480Z",
               "source": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
               "volumes": [
                 {
                   "deviceId": "C:",
                   "totalBytes": 140302163968,
-                  "freeBytes": 6112321536
+                  "freeBytes": 6092881920
                 },
                 {
                   "deviceId": "D:",
                   "totalBytes": 62913507328,
-                  "freeBytes": 26172776448
+                  "freeBytes": 26131238912
                 },
                 {
                   "deviceId": "K:",
@@ -1996,19 +2088,19 @@
       "analysis": {
         "contractVersion": 1,
         "capability": "storage.analysis",
-        "requestId": "871d8dfa-5797-4843-acd6-b74ff6cf1e9e",
+        "requestId": "7958e59d-f6c4-41b6-96ff-f2030ed398ea",
         "status": "complete",
         "source": "KNOuX Storage read-only adapter",
-        "observedAt": "2026-10-26T16:38:20.584Z",
+        "observedAt": "2026-10-26T17:23:28.620Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+          "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
           "source": {
-            "id": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
-            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
-            "addedAt": "2026-10-26T16:38:12.890Z",
-            "lastScanned": "2026-10-26T16:38:12.918Z"
+            "id": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
+            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
+            "addedAt": "2026-10-26T17:23:15.890Z",
+            "lastScanned": "2026-10-26T17:23:15.903Z"
           },
           "totals": {
             "files": 7,
@@ -2022,8 +2114,8 @@
             "files": 7,
             "partial": false,
             "warnings": [],
-            "lastScanned": "2026-10-26T16:38:12.918Z",
-            "scope": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+            "lastScanned": "2026-10-26T17:23:15.903Z",
+            "scope": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
             "scopeKind": "authorized-folder",
             "coversWholeVolume": false
           },
@@ -2126,8 +2218,8 @@
               "category": "document",
               "size": 31,
               "ext": "txt",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2139,8 +2231,8 @@
               "category": "code",
               "size": 29,
               "ext": "ts",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2152,8 +2244,8 @@
               "category": "document",
               "size": 21,
               "ext": "md",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2165,8 +2257,8 @@
               "category": "spreadsheet",
               "size": 15,
               "ext": "csv",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             }
@@ -2180,8 +2272,8 @@
               "category": "code",
               "size": 29,
               "ext": "ts",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2193,8 +2285,8 @@
               "category": "document",
               "size": 31,
               "ext": "txt",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2206,8 +2298,8 @@
               "category": "spreadsheet",
               "size": 15,
               "ext": "csv",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2219,8 +2311,8 @@
               "category": "document",
               "size": 21,
               "ext": "md",
-              "modifiedAt": "2026-10-26T16:38:12.563Z",
-              "modifiedMs": 1793032692563.2756,
+              "modifiedAt": "2026-10-26T17:23:15.336Z",
+              "modifiedMs": 1793035395336.318,
               "readonly": false,
               "hidden": false
             },
@@ -2360,10 +2452,10 @@
       "duplicates": {
         "contractVersion": 1,
         "capability": "storage.duplicates.verify",
-        "requestId": "afff9633-4e70-442d-a0a2-77a24d6bdcf9",
+        "requestId": "f06df655-6020-4098-8fee-4247943893bf",
         "status": "complete",
         "source": "KNOuX Storage read-only adapter",
-        "observedAt": "2026-10-26T16:38:20.585Z",
+        "observedAt": "2026-10-26T17:23:28.621Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
@@ -2390,10 +2482,10 @@
       "capabilities": {
         "contractVersion": 1,
         "capability": "scan.capabilities",
-        "requestId": "ff387565-b969-486d-b774-7f2557464912",
+        "requestId": "1b33589a-31b5-4335-91c0-1c012a0f6367",
         "status": "complete",
         "source": "KNOuX Smart Scan read-only coordinator",
-        "observedAt": "2026-10-26T16:38:20.586Z",
+        "observedAt": "2026-10-26T17:23:28.621Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
@@ -2653,18 +2745,18 @@
       "sources": {
         "contractVersion": 1,
         "capability": "scan.sources",
-        "requestId": "cd6ddcc6-a418-4c35-a60c-fed767af983c",
+        "requestId": "bf819592-981e-48c8-9125-e8ce1cc66457",
         "status": "complete",
         "source": "KNOuX Smart Scan read-only coordinator",
-        "observedAt": "2026-10-26T16:38:20.586Z",
+        "observedAt": "2026-10-26T17:23:28.622Z",
         "permission": "read-only",
         "warnings": [],
         "data": [
           {
-            "id": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
-            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+            "id": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
+            "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
             "label": "studio-source",
-            "addedAt": "2026-10-26T16:38:12.890Z",
+            "addedAt": "2026-10-26T17:23:15.890Z",
             "status": "ready",
             "fileCount": 7,
             "folderCount": 3,
@@ -2692,7 +2784,7 @@
                 "bytes": 15
               }
             ],
-            "lastScanned": "2026-10-26T16:38:12.918Z",
+            "lastScanned": "2026-10-26T17:23:15.903Z",
             "partial": false,
             "warnings": []
           }
@@ -2701,14 +2793,14 @@
       "started": {
         "contractVersion": 1,
         "capability": "scan.start",
-        "requestId": "d344af13-0b07-4c8c-9976-3dc1d824aeaa",
+        "requestId": "650a2365-2605-43f2-bde2-241e788c33a3",
         "status": "complete",
         "source": "KNOuX Smart Scan read-only coordinator",
-        "observedAt": "2026-10-26T16:38:20.588Z",
+        "observedAt": "2026-10-26T17:23:28.624Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "sessionId": "6f936a51-b0e1-4fb6-b0d2-4f9b8ef5081e",
+          "sessionId": "41837a40-1aae-4b48-ab54-20dffe14ec1e",
           "status": "running",
           "mode": "quick",
           "stages": [
@@ -2719,7 +2811,7 @@
               "provider": "Studio/Files inventory",
               "weight": 3,
               "status": "running",
-              "startedAt": "2026-10-26T16:38:20.588Z",
+              "startedAt": "2026-10-26T17:23:28.623Z",
               "finishedAt": null,
               "durationMs": null,
               "detail": "Measured provider call in progress.",
@@ -2778,7 +2870,7 @@
               "error": null
             }
           ],
-          "startedAt": "2026-10-26T16:38:20.587Z",
+          "startedAt": "2026-10-26T17:23:28.623Z",
           "sourceLabel": "studio-source",
           "scope": "authorized-folder"
         }
@@ -2786,24 +2878,24 @@
       "session": {
         "contractVersion": 1,
         "capability": "scan.status",
-        "requestId": "ca316e50-8639-49e0-8350-994db83c9365",
+        "requestId": "b773abd7-1a03-47b3-ab0c-8165ad286f75",
         "status": "complete",
         "source": "KNOuX Smart Scan read-only coordinator",
-        "observedAt": "2026-10-26T16:38:25.699Z",
+        "observedAt": "2026-10-26T17:23:33.730Z",
         "permission": "read-only",
         "warnings": [],
         "data": {
-          "id": "6f936a51-b0e1-4fb6-b0d2-4f9b8ef5081e",
+          "id": "41837a40-1aae-4b48-ab54-20dffe14ec1e",
           "mode": "quick",
           "requestedServices": [
             "quick_scan"
           ],
-          "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+          "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
           "sourceLabel": "studio-source",
           "scope": "authorized-folder",
           "status": "complete",
-          "startedAt": "2026-10-26T16:38:20.587Z",
-          "finishedAt": "2026-10-26T16:38:25.402Z",
+          "startedAt": "2026-10-26T17:23:28.623Z",
+          "finishedAt": "2026-10-26T17:23:33.431Z",
           "cancelRequested": false,
           "progressPercent": 100,
           "progressDeterminate": true,
@@ -2815,9 +2907,9 @@
               "provider": "Studio/Files inventory",
               "weight": 3,
               "status": "complete",
-              "startedAt": "2026-10-26T16:38:20.588Z",
-              "finishedAt": "2026-10-26T16:38:20.591Z",
-              "durationMs": 3,
+              "startedAt": "2026-10-26T17:23:28.623Z",
+              "finishedAt": "2026-10-26T17:23:28.627Z",
+              "durationMs": 4,
               "detail": "7 indexed file(s), 782 KB inside the authorized folder.",
               "error": null
             },
@@ -2828,9 +2920,9 @@
               "provider": "Win32_LogicalDisk",
               "weight": 1,
               "status": "complete",
-              "startedAt": "2026-10-26T16:38:20.591Z",
-              "finishedAt": "2026-10-26T16:38:22.688Z",
-              "durationMs": 2097,
+              "startedAt": "2026-10-26T17:23:28.627Z",
+              "finishedAt": "2026-10-26T17:23:30.701Z",
+              "durationMs": 2074,
               "detail": "3 mounted volume(s); 1 below 10% free.",
               "error": null
             },
@@ -2841,9 +2933,9 @@
               "provider": "Win32 system providers",
               "weight": 2,
               "status": "complete",
-              "startedAt": "2026-10-26T16:38:22.688Z",
-              "finishedAt": "2026-10-26T16:38:24.794Z",
-              "durationMs": 2106,
+              "startedAt": "2026-10-26T17:23:30.701Z",
+              "finishedAt": "2026-10-26T17:23:32.794Z",
+              "durationMs": 2093,
               "detail": "Measured CPU, memory and OS summary (3 signal groups).",
               "error": null
             },
@@ -2854,10 +2946,10 @@
               "provider": "Win32_Service",
               "weight": 2,
               "status": "complete",
-              "startedAt": "2026-10-26T16:38:24.794Z",
-              "finishedAt": "2026-10-26T16:38:25.399Z",
-              "durationMs": 605,
-              "detail": "271 service(s): 115 running, 156 stopped.",
+              "startedAt": "2026-10-26T17:23:32.794Z",
+              "finishedAt": "2026-10-26T17:23:33.428Z",
+              "durationMs": 634,
+              "detail": "271 service(s): 116 running, 155 stopped.",
               "error": null
             },
             {
@@ -2867,9 +2959,9 @@
               "provider": "Local rule engine",
               "weight": 1,
               "status": "complete",
-              "startedAt": "2026-10-26T16:38:25.399Z",
-              "finishedAt": "2026-10-26T16:38:25.402Z",
-              "durationMs": 3,
+              "startedAt": "2026-10-26T17:23:33.429Z",
+              "finishedAt": "2026-10-26T17:23:33.431Z",
+              "durationMs": 2,
               "detail": "1 finding(s), 1 recommendation(s), 1 service result(s).",
               "error": null
             }
@@ -2884,7 +2976,7 @@
               "permission": "read-only",
               "mutation": "none",
               "source": "Studio/Files inventory + Win32_LogicalDisk + Win32 system providers + Win32_Service",
-              "startedAt": "2026-10-26T16:38:20.587Z",
+              "startedAt": "2026-10-26T17:23:28.623Z",
               "finishedAt": null,
               "stages": [
                 {
@@ -2929,8 +3021,8 @@
                   "files": 7,
                   "partial": false,
                   "warnings": [],
-                  "lastScanned": "2026-10-26T16:38:12.918Z",
-                  "scope": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-8884-1793032692553\\studio-source",
+                  "lastScanned": "2026-10-26T17:23:15.903Z",
+                  "scope": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-10376-1793035395330\\studio-source",
                   "scopeKind": "authorized-folder",
                   "coversWholeVolume": false
                 },
@@ -2942,10 +3034,10 @@
                     "label": "Mounted volume",
                     "fileSystem": "NTFS",
                     "totalBytes": 140302163968,
-                    "freeBytes": 6112321536,
-                    "usedBytes": 134189842432,
-                    "usedPercent": 95.6,
-                    "freePercent": 4.4,
+                    "freeBytes": 6092881920,
+                    "usedBytes": 134209282048,
+                    "usedPercent": 95.7,
+                    "freePercent": 4.3,
                     "isLowSpace": true,
                     "physicalDevice": null,
                     "physicalDeviceAvailable": false,
@@ -2959,10 +3051,10 @@
                     "label": "Day Night",
                     "fileSystem": "NTFS",
                     "totalBytes": 62913507328,
-                    "freeBytes": 26172776448,
-                    "usedBytes": 36740730880,
-                    "usedPercent": 58.4,
-                    "freePercent": 41.6,
+                    "freeBytes": 26131238912,
+                    "usedBytes": 36782268416,
+                    "usedPercent": 58.5,
+                    "freePercent": 41.5,
                     "isLowSpace": false,
                     "physicalDevice": null,
                     "physicalDeviceAvailable": false,
@@ -2988,14 +3080,14 @@
                   }
                 ],
                 "system": {
-                  "cpuLoadPercent": 39,
+                  "cpuLoadPercent": 69,
                   "memoryUsedPercent": 75,
                   "osCaption": "Microsoft Windows 10 Pro"
                 },
                 "services": {
                   "total": 271,
-                  "running": 115,
-                  "stopped": 156,
+                  "running": 116,
+                  "stopped": 155,
                   "automatic": 63,
                   "manual": 195,
                   "disabled": 11,
@@ -3023,7 +3115,7 @@
               "serviceId": "system_health_pulse",
               "titleEn": "C: low free space",
               "titleAr": "C: مساحة حرة منخفضة",
-              "evidence": "5.7 GB free of 131 GB (4.4% free) measured at scan time.",
+              "evidence": "5.7 GB free of 131 GB (4.3% free) measured at scan time.",
               "bytes": 0,
               "itemCount": 1,
               "severity": "high",
@@ -3042,8 +3134,8 @@
               "id": "rec-low-space:volume:c:",
               "titleEn": "Free space on C:",
               "titleAr": "حرّر مساحة على C:",
-              "detailEn": "C: has 4.4% free (5.7 GB). Review the largest measured files and Storage Atlas before removing anything.",
-              "detailAr": "C: لديها 4.4% مساحة حرة (5.7 GB). راجع أكبر الملفات المقيسة وأطلس التخزين قبل إزالة أي شيء.",
+              "detailEn": "C: has 4.3% free (5.7 GB). Review the largest measured files and Storage Atlas before removing anything.",
+              "detailAr": "C: لديها 4.3% مساحة حرة (5.7 GB). راجع أكبر الملفات المقيسة وأطلس التخزين قبل إزالة أي شيء.",
               "evidence": "Measured capacity: 5.7 GB free of 131 GB.",
               "serviceId": "system_health_pulse",
               "confidence": "measured",
@@ -3131,14 +3223,14 @@
             }
           ],
           "summary": {
-            "id": "6f936a51-b0e1-4fb6-b0d2-4f9b8ef5081e",
+            "id": "41837a40-1aae-4b48-ab54-20dffe14ec1e",
             "mode": "quick",
             "status": "complete",
-            "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+            "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
             "sourceLabel": "studio-source",
             "scope": "authorized-folder",
-            "startedAt": "2026-10-26T16:38:20.587Z",
-            "finishedAt": "2026-10-26T16:38:25.402Z",
+            "startedAt": "2026-10-26T17:23:28.623Z",
+            "finishedAt": "2026-10-26T17:23:33.431Z",
             "progressPercent": 100,
             "progressDeterminate": true,
             "stagesTotal": 5,
@@ -3154,7 +3246,7 @@
             "healthScore": 80,
             "healthBasis": [
               "Memory 75% used → 0 points.",
-              "CPU 39% momentary load → 0 points.",
+              "CPU 69% momentary load → 0 points.",
               "1 volume(s) below 10% free → −20 points."
             ],
             "warnings": [
@@ -3183,22 +3275,22 @@
       "history": {
         "contractVersion": 1,
         "capability": "scan.history",
-        "requestId": "397e8911-8da8-4b52-8011-197e4412c3f3",
+        "requestId": "642cb9ca-f882-43fa-98e6-27ef84f0f44a",
         "status": "complete",
         "source": "KNOuX Smart Scan read-only coordinator",
-        "observedAt": "2026-10-26T16:38:25.702Z",
+        "observedAt": "2026-10-26T17:23:33.731Z",
         "permission": "read-only",
         "warnings": [],
         "data": [
           {
-            "id": "6f936a51-b0e1-4fb6-b0d2-4f9b8ef5081e",
+            "id": "41837a40-1aae-4b48-ab54-20dffe14ec1e",
             "mode": "quick",
             "status": "complete",
-            "sourceId": "6214185a-8bb8-492a-9d7d-3eb0f213c55d",
+            "sourceId": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
             "sourceLabel": "studio-source",
             "scope": "authorized-folder",
-            "startedAt": "2026-10-26T16:38:20.587Z",
-            "finishedAt": "2026-10-26T16:38:25.402Z",
+            "startedAt": "2026-10-26T17:23:28.623Z",
+            "finishedAt": "2026-10-26T17:23:33.431Z",
             "progressPercent": 100,
             "progressDeterminate": true,
             "stagesTotal": 5,
@@ -3214,7 +3306,7 @@
             "healthScore": 80,
             "healthBasis": [
               "Memory 75% used → 0 points.",
-              "CPU 39% momentary load → 0 points.",
+              "CPU 69% momentary load → 0 points.",
               "1 volume(s) below 10% free → −20 points."
             ],
             "warnings": [
@@ -3257,8 +3349,8 @@
           "contract": "apps.v1",
           "readOnly": true,
           "mutation": "none",
-          "observedAt": "2026-10-26T16:38:25.704Z",
-          "durationMs": 2057,
+          "observedAt": "2026-10-26T17:23:33.732Z",
+          "durationMs": 1994,
           "appCount": 147,
           "firstAppId": "3ccad786bc498f2e69a1",
           "kpis": {
@@ -3395,7 +3487,7 @@
         "capability": "cleanup.start",
         "permission": "read-only",
         "data": {
-          "id": "c16b94f5-1129-4fc8-be36-2f93b7f474d1",
+          "id": "36ebaf3d-f660-4b8a-b937-e6386bc0437a",
           "status": "running",
           "categories": [
             "temp",
@@ -3412,7 +3504,7 @@
         "capability": "cleanup.status",
         "permission": "read-only",
         "data": {
-          "id": "c16b94f5-1129-4fc8-be36-2f93b7f474d1",
+          "id": "36ebaf3d-f660-4b8a-b937-e6386bc0437a",
           "status": "complete",
           "progressPercent": 100,
           "candidateCount": 155,
@@ -3448,14 +3540,14 @@
             "rootsUnavailable": 6,
             "filesMeasured": 32809,
             "foldersMeasured": 8598,
-            "bytesMeasured": 3988414254,
+            "bytesMeasured": 3988414225,
             "truncated": false,
             "skippedLinks": 0,
             "errors": 0
           },
           "eligibleBytes": 0,
           "reviewBytes": 930127838,
-          "blockedBytes": 3058286416,
+          "blockedBytes": 3058286387,
           "warningCount": 3
         },
         "error": null
@@ -3468,23 +3560,23 @@
           "status": "complete",
           "readOnly": true,
           "mutation": "none",
-          "observedAt": "2026-10-26T16:38:40.437Z",
+          "observedAt": "2026-10-26T17:23:48.569Z",
           "candidateCount": 155,
           "summary": {
             "candidates": 155,
             "eligibleBytes": 0,
             "reviewBytes": 930127838,
-            "blockedBytes": 3058286416,
+            "blockedBytes": 3058286387,
             "eligibleCount": 0,
             "reviewCount": 143,
             "blockedCount": 12,
             "categories": {
               "browser": {
                 "count": 9,
-                "bytes": 3040363897,
+                "bytes": 3040363868,
                 "eligibleBytes": 0,
                 "reviewBytes": 0,
-                "blockedBytes": 3040363897
+                "blockedBytes": 3040363868
               },
               "temp": {
                 "count": 141,
@@ -3522,7 +3614,7 @@
             "rootsUnavailable": 6,
             "filesMeasured": 32809,
             "foldersMeasured": 8598,
-            "bytesMeasured": 3988414254,
+            "bytesMeasured": 3988414225,
             "truncated": false,
             "skippedLinks": 0,
             "errors": 0
@@ -3542,17 +3634,17 @@
             "candidates": 155,
             "eligibleBytes": 0,
             "reviewBytes": 930127838,
-            "blockedBytes": 3058286416,
+            "blockedBytes": 3058286387,
             "eligibleCount": 0,
             "reviewCount": 143,
             "blockedCount": 12,
             "categories": {
               "browser": {
                 "count": 9,
-                "bytes": 3040363897,
+                "bytes": 3040363868,
                 "eligibleBytes": 0,
                 "reviewBytes": 0,
-                "blockedBytes": 3040363897
+                "blockedBytes": 3040363868
               },
               "temp": {
                 "count": 141,
@@ -3680,7 +3772,7 @@
         "capability": "startup.start",
         "permission": "read-only",
         "data": {
-          "id": "e213eaa9-e95d-42c8-95d4-a5da1873c7a0",
+          "id": "11fb226b-5206-4bb8-ac75-20075d76d133",
           "status": "running"
         },
         "error": null
@@ -3690,7 +3782,7 @@
         "capability": "startup.status",
         "permission": "read-only",
         "data": {
-          "id": "e213eaa9-e95d-42c8-95d4-a5da1873c7a0",
+          "id": "11fb226b-5206-4bb8-ac75-20075d76d133",
           "status": "partial",
           "entryCount": 51,
           "stages": [
@@ -3727,7 +3819,7 @@
           "status": "partial",
           "readOnly": true,
           "mutation": "none",
-          "observedAt": "2026-10-26T16:38:45.183Z",
+          "observedAt": "2026-10-26T17:23:53.333Z",
           "entryCount": 51,
           "serviceCount": 63,
           "taskCount": 39,
@@ -3876,10 +3968,10 @@
       "capabilities": {
         "contractVersion": 1,
         "capability": "system.capabilities",
-        "requestId": "3e603bb4-a008-4da3-9fcd-a88db96049c1",
+        "requestId": "5f0a9303-1932-4381-84f9-aa2d6aa4de72",
         "status": "complete",
         "source": "KNOuX Live Pulse read-only observatory",
-        "observedAt": "2026-10-26T16:38:45.500Z",
+        "observedAt": "2026-10-26T17:23:53.557Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -4370,10 +4462,10 @@
       "started": {
         "contractVersion": 1,
         "capability": "system.start",
-        "requestId": "a560ed0e-8d69-4737-9550-733959dea973",
+        "requestId": "14a2057b-9ab1-4fc1-8017-2c659705213e",
         "status": "complete",
         "source": "KNOuX Live Pulse read-only observatory",
-        "observedAt": "2026-10-26T16:38:45.522Z",
+        "observedAt": "2026-10-26T17:23:53.579Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -4382,9 +4474,9 @@
         },
         "data": {
           "contract": "system.v1",
-          "id": "86d40017-f583-4d1a-89db-a5a1726dd29f",
+          "id": "e3e36add-9293-44c4-810e-d0cf91868b9a",
           "status": "running",
-          "startedAt": "2026-10-26T16:38:45.501Z",
+          "startedAt": "2026-10-26T17:23:53.558Z",
           "completedAt": null,
           "progress": 0,
           "stages": [
@@ -4394,7 +4486,7 @@
               "labelAr": "هوية النظام والعتاد الأساسي",
               "status": "running",
               "provider": "Win32_OperatingSystem + CIM hardware",
-              "startedAt": "2026-10-26T16:38:45.504Z",
+              "startedAt": "2026-10-26T17:23:53.561Z",
               "completedAt": null,
               "durationMs": null,
               "items": null,
@@ -4505,10 +4597,10 @@
       "session": {
         "contractVersion": 1,
         "capability": "system.status",
-        "requestId": "10098e60-cde5-407d-94e9-f42b392cb0e3",
+        "requestId": "2a45752b-beb8-4f2d-9085-2adcf0f8138c",
         "status": "complete",
         "source": "KNOuX Live Pulse read-only observatory",
-        "observedAt": "2026-10-26T16:38:45.523Z",
+        "observedAt": "2026-10-26T17:23:53.579Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -4517,9 +4609,9 @@
         },
         "data": {
           "contract": "system.v1",
-          "id": "86d40017-f583-4d1a-89db-a5a1726dd29f",
+          "id": "e3e36add-9293-44c4-810e-d0cf91868b9a",
           "status": "running",
-          "startedAt": "2026-10-26T16:38:45.501Z",
+          "startedAt": "2026-10-26T17:23:53.558Z",
           "completedAt": null,
           "progress": 0,
           "stages": [
@@ -4529,7 +4621,7 @@
               "labelAr": "هوية النظام والعتاد الأساسي",
               "status": "running",
               "provider": "Win32_OperatingSystem + CIM hardware",
-              "startedAt": "2026-10-26T16:38:45.504Z",
+              "startedAt": "2026-10-26T17:23:53.561Z",
               "completedAt": null,
               "durationMs": null,
               "items": null,
@@ -4644,10 +4736,10 @@
       "capabilities": {
         "contractVersion": 1,
         "capability": "repair.capabilities",
-        "requestId": "eff95562-a470-405f-97a3-c0b0af626eb4",
+        "requestId": "994325ed-2625-4736-8417-97bb0582d6a1",
         "status": "complete",
         "source": "KNOuX Recovery Lab read-only repair evidence",
-        "observedAt": "2026-10-26T16:38:45.524Z",
+        "observedAt": "2026-10-26T17:23:53.580Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -5012,10 +5104,10 @@
       "started": {
         "contractVersion": 1,
         "capability": "repair.start",
-        "requestId": "8e171d75-f869-48a7-b370-9fa004cd3995",
+        "requestId": "f591987d-17b7-4430-91a3-c9c19c9de4a7",
         "status": "complete",
         "source": "KNOuX Recovery Lab read-only repair evidence",
-        "observedAt": "2026-10-26T16:38:45.540Z",
+        "observedAt": "2026-10-26T17:23:53.596Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -5024,9 +5116,9 @@
         },
         "data": {
           "contract": "repair.v1",
-          "id": "c312413c-72ee-4f50-bd42-1e896a2c492c",
+          "id": "ecfe9ca4-3fc7-4414-86b5-91b26e0c7a9f",
           "status": "running",
-          "startedAt": "2026-10-26T16:38:45.525Z",
+          "startedAt": "2026-10-26T17:23:53.581Z",
           "completedAt": null,
           "progress": 0,
           "stages": [
@@ -5036,7 +5128,7 @@
               "labelAr": "الصلاحيات وهوية الأدوات",
               "status": "running",
               "provider": "WindowsPrincipal + Win32_OperatingSystem + fixed tool paths",
-              "startedAt": "2026-10-26T16:38:45.526Z",
+              "startedAt": "2026-10-26T17:23:53.582Z",
               "completedAt": null,
               "durationMs": null,
               "items": null,
@@ -5111,10 +5203,10 @@
       "session": {
         "contractVersion": 1,
         "capability": "repair.status",
-        "requestId": "d441f737-05c9-46ac-bbc8-bb8db4094162",
+        "requestId": "9303f640-cf28-4728-a6de-841417f129a0",
         "status": "complete",
         "source": "KNOuX Recovery Lab read-only repair evidence",
-        "observedAt": "2026-10-26T16:38:45.540Z",
+        "observedAt": "2026-10-26T17:23:53.597Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -5123,9 +5215,9 @@
         },
         "data": {
           "contract": "repair.v1",
-          "id": "c312413c-72ee-4f50-bd42-1e896a2c492c",
+          "id": "ecfe9ca4-3fc7-4414-86b5-91b26e0c7a9f",
           "status": "running",
-          "startedAt": "2026-10-26T16:38:45.525Z",
+          "startedAt": "2026-10-26T17:23:53.581Z",
           "completedAt": null,
           "progress": 0,
           "stages": [
@@ -5135,7 +5227,7 @@
               "labelAr": "الصلاحيات وهوية الأدوات",
               "status": "running",
               "provider": "WindowsPrincipal + Win32_OperatingSystem + fixed tool paths",
-              "startedAt": "2026-10-26T16:38:45.526Z",
+              "startedAt": "2026-10-26T17:23:53.582Z",
               "completedAt": null,
               "durationMs": null,
               "items": null,
@@ -5214,10 +5306,10 @@
       "capabilities": {
         "contractVersion": 1,
         "capability": "services.capabilities",
-        "requestId": "38dfda1c-5fbf-492c-8276-c9829c17e0d3",
+        "requestId": "87cb30ea-0815-4cd0-9ced-03f2836b394c",
         "status": "complete",
         "source": "KNOuX Service Commander read-only SCM evidence",
-        "observedAt": "2026-10-26T16:38:45.541Z",
+        "observedAt": "2026-10-26T17:23:53.598Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -5428,10 +5520,10 @@
       "started": {
         "contractVersion": 1,
         "capability": "services.start",
-        "requestId": "1e01b87a-13e3-4455-87f6-7ee3c9325a14",
+        "requestId": "0375501a-df2a-4724-8191-682c370b398a",
         "status": "complete",
         "source": "KNOuX Service Commander read-only SCM evidence",
-        "observedAt": "2026-10-26T16:38:45.560Z",
+        "observedAt": "2026-10-26T17:23:53.617Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -5440,9 +5532,9 @@
         },
         "data": {
           "contract": "services.v1",
-          "id": "c3401b0a-9a27-4259-a5d1-24ddb41e4fbf",
+          "id": "beeafe13-6ad4-4084-93c8-4823c9c353aa",
           "status": "running",
-          "startedAt": "2026-10-26T16:38:45.542Z",
+          "startedAt": "2026-10-26T17:23:53.598Z",
           "completedAt": null,
           "progress": 0,
           "stages": [
@@ -5452,7 +5544,7 @@
               "labelAr": "جرد خدمات SCM",
               "status": "running",
               "provider": "Win32_Service + WindowsPrincipal",
-              "startedAt": "2026-10-26T16:38:45.542Z",
+              "startedAt": "2026-10-26T17:23:53.599Z",
               "completedAt": null,
               "durationMs": null,
               "items": null,
@@ -5527,10 +5619,10 @@
       "session": {
         "contractVersion": 1,
         "capability": "services.status",
-        "requestId": "caca5bf3-8060-455a-974c-5a8c5160a433",
+        "requestId": "75fbc4e6-56d8-4e9c-bf61-d2e734cccd04",
         "status": "complete",
         "source": "KNOuX Service Commander read-only SCM evidence",
-        "observedAt": "2026-10-26T16:38:45.560Z",
+        "observedAt": "2026-10-26T17:23:53.618Z",
         "permission": "read-only",
         "warnings": [],
         "provenance": {
@@ -5539,9 +5631,9 @@
         },
         "data": {
           "contract": "services.v1",
-          "id": "c3401b0a-9a27-4259-a5d1-24ddb41e4fbf",
+          "id": "beeafe13-6ad4-4084-93c8-4823c9c353aa",
           "status": "running",
-          "startedAt": "2026-10-26T16:38:45.542Z",
+          "startedAt": "2026-10-26T17:23:53.598Z",
           "completedAt": null,
           "progress": 0,
           "stages": [
@@ -5551,7 +5643,7 @@
               "labelAr": "جرد خدمات SCM",
               "status": "running",
               "provider": "Win32_Service + WindowsPrincipal",
-              "startedAt": "2026-10-26T16:38:45.542Z",
+              "startedAt": "2026-10-26T17:23:53.599Z",
               "completedAt": null,
               "durationMs": null,
               "items": null,
@@ -5625,32 +5717,413 @@
       },
       "snapshotValidated": false
     },
+    "automationV1": {
+      "bridgePresent": true,
+      "capabilities": {
+        "contractVersion": 1,
+        "capability": "automation.capabilities",
+        "requestId": "2f796905-950a-4880-9b65-a8d7b131c9c9",
+        "status": "complete",
+        "source": "KNOuX Flow Studio local workflow drafts",
+        "observedAt": "2026-10-26T17:23:53.619Z",
+        "permission": "read-only",
+        "warnings": [],
+        "provenance": {
+          "mode": "measured",
+          "mutation": "none"
+        },
+        "data": {
+          "engine": "KNOuX Flow Studio local workflow drafts and dry-runs",
+          "contract": "automation.v1",
+          "readOnly": true,
+          "mutation": "none",
+          "fixtureFallback": false,
+          "serviceCount": 12,
+          "worldCount": 1,
+          "services": [
+            {
+              "id": "auto-smart-scan",
+              "world": "automation",
+              "labelEn": "Scheduled Smart Scan",
+              "labelAr": "فحص ذكي مجدول",
+              "state": "gated",
+              "risk": "staged-change",
+              "provider": "Local workflow draft + dry-run",
+              "noteEn": "A scheduled scan chain can be drafted and dry-run; no background execution exists.",
+              "noteAr": "يمكن تهيئة سلسلة فحص مجدولة وتشغيل معاينة جافة؛ لا يوجد تنفيذ خلفي."
+            },
+            {
+              "id": "auto-schedule-manager",
+              "world": "automation",
+              "labelEn": "Schedule Manager",
+              "labelAr": "مدير الجدولة",
+              "state": "gated",
+              "risk": "staged-change",
+              "provider": "Persisted schedule metadata",
+              "noteEn": "Weekly schedule metadata and next occurrences. No timer runs in the background.",
+              "noteAr": "بيانات جدولة أسبوعية والمواعيد التالية. لا يعمل مؤقت في الخلفية."
+            },
+            {
+              "id": "auto-run-history",
+              "world": "automation",
+              "labelEn": "Dry-run History",
+              "labelAr": "سجل المعاينات الجافة",
+              "state": "available",
+              "risk": "read-only",
+              "provider": "Local dry-run journal",
+              "noteEn": "Only deterministic dry-runs are recorded. No workflow run has executed.",
+              "noteAr": "تُسجل المعاينات الجافة الحتمية فقط. لم يُنفذ أي تشغيل سير عمل."
+            },
+            {
+              "id": "auto-templates",
+              "world": "automation",
+              "labelEn": "Template Gallery",
+              "labelAr": "معرض القوالب",
+              "state": "available",
+              "risk": "staged-change",
+              "provider": "Built-in workflow templates",
+              "noteEn": "Built-in templates instantiate into local drafts after validation.",
+              "noteAr": "تُنشأ القوالب المدمجة كمسودات محلية بعد التحقق."
+            },
+            {
+              "id": "auto-schedule-plan",
+              "world": "automation",
+              "labelEn": "Recurrence Composer",
+              "labelAr": "منشئ التكرار",
+              "state": "available",
+              "risk": "staged-change",
+              "provider": "Host-timezone schedule preview",
+              "noteEn": "Computes the next five occurrences with local-time DST handling. No job is scheduled.",
+              "noteAr": "يحسب المواعيد الخمسة التالية مع معالجة التوقيت الصيفي المحلي. لا تُجدول أي مهمة."
+            },
+            {
+              "id": "auto-cleanup-plan",
+              "world": "automation",
+              "labelEn": "Cleanup Pipeline",
+              "labelAr": "مسار التنظيف",
+              "state": "gated",
+              "risk": "staged-change",
+              "provider": "Preview-only pipeline draft",
+              "noteEn": "Scan, classify, approval and report nodes. Cleanup execution belongs to Mission 08 and is absent.",
+              "noteAr": "عقد فحص وتصنيف وموافقة وتقرير. تنفيذ التنظيف يخص المهمة 08 وهو غير متاح."
+            },
+            {
+              "id": "auto-notify",
+              "world": "automation",
+              "labelEn": "Notification Routing",
+              "labelAr": "توجيه الإشعارات",
+              "state": "gated",
+              "risk": "staged-change",
+              "provider": "Local channel policy",
+              "noteEn": "In-app/journal channels only. No external message is sent.",
+              "noteAr": "قنوات داخل التطبيق/السجل فقط. لا تُرسل رسالة خارجية."
+            },
+            {
+              "id": "auto-quiet-hours",
+              "world": "automation",
+              "labelEn": "Quiet Hours Dial",
+              "labelAr": "قرص ساعات الهدوء",
+              "state": "gated",
+              "risk": "staged-change",
+              "provider": "Local quiet-hours policy",
+              "noteEn": "Draft quiet windows and muted event classes. Nothing is scheduled or muted at runtime.",
+              "noteAr": "مسودات نوافذ الهدوء وفئات الأحداث المكتومة. لا يُجدول أو يُكتم شيء وقت التشغيل."
+            },
+            {
+              "id": "auto-battery-policy",
+              "world": "automation",
+              "labelEn": "Power-aware Scheduler",
+              "labelAr": "جدولة واعية بالطاقة",
+              "state": "partial",
+              "risk": "staged-change",
+              "provider": "Measured battery evidence",
+              "noteEn": "Battery evidence is measured only when Windows exposes a battery. No power action is executed.",
+              "noteAr": "تُقاس أدلة البطارية فقط عندما يوفرها Windows. لا يُنفذ إجراء طاقة."
+            },
+            {
+              "id": "auto-retention",
+              "world": "automation",
+              "labelEn": "Artifact Retention",
+              "labelAr": "احتفاظ بالمخرجات",
+              "state": "gated",
+              "risk": "staged-change",
+              "provider": "Local dry-run journal metadata",
+              "noteEn": "Previews aged dry-run records. No deletion channel exists.",
+              "noteAr": "يعاين سجلات المعاينات الجافة القديمة. لا توجد قناة حذف."
+            },
+            {
+              "id": "auto-export",
+              "world": "automation",
+              "labelEn": "Workflow Transfer",
+              "labelAr": "نقل سير العمل",
+              "state": "available",
+              "risk": "staged-change",
+              "provider": "knoux.workflow.v1 schema",
+              "noteEn": "Exports a validated JSON schema and validates pasted imports. No code or command is embedded.",
+              "noteAr": "يصدّر مخطط JSON متحقق ويحقق الاستيراد الملصق. لا يُ embedded كود أو أمر."
+            },
+            {
+              "id": "auto-backup-plan",
+              "world": "automation",
+              "labelEn": "Backup Flow Draft",
+              "labelAr": "مسودة سير النسخ",
+              "state": "partial",
+              "risk": "staged-change",
+              "provider": "Authorized Studio sources + destination gate",
+              "noteEn": "Source/destination drafts only. No file copy channel exists; a destination grant is required.",
+              "noteAr": "مسودات المصدر والوجهة فقط. لا توجد قناة نسخ ملفات؛ يلزم منح وجهة."
+            }
+          ],
+          "gatedOperations": [
+            {
+              "id": "automation.execute",
+              "mission": "13",
+              "title": "Execute a workflow",
+              "reason": "No workflow executor or background scheduler is shipped. Dry-runs are preview-only."
+            },
+            {
+              "id": "automation.cleanup",
+              "mission": "08",
+              "title": "Run a cleanup action",
+              "reason": "Cleanup execution belongs to the approved Mission 08 executor and is not connected."
+            },
+            {
+              "id": "automation.backup",
+              "mission": "06",
+              "title": "Copy a backup",
+              "reason": "File copy requires authorized source and destination grants, verification and rollback; none is exposed."
+            },
+            {
+              "id": "automation.notify.external",
+              "mission": "13",
+              "title": "Send an external notification",
+              "reason": "Only in-app/journal events exist. No email, webhook, SMS or cloud channel is configured."
+            },
+            {
+              "id": "automation.artifact.delete",
+              "mission": "13",
+              "title": "Prune stored artifacts",
+              "reason": "Retention is a preview only; no delete channel exists."
+            }
+          ],
+          "limits": {
+            "workflows": 50,
+            "nodes": 32,
+            "journalEntries": 50,
+            "occurrences": 5
+          },
+          "nativeOnly": [
+            "Persisted local workflow drafts with version history",
+            "Typed DAG validation and cycle rejection",
+            "Deterministic dry-runs with no execution",
+            "Host-timezone schedule occurrence preview",
+            "Measured power and Studio source evidence",
+            "Local dry-run journal and redacted report"
+          ]
+        }
+      },
+      "started": {
+        "contractVersion": 1,
+        "capability": "automation.start",
+        "requestId": "42635606-9839-4140-a82a-29ae7bb15569",
+        "status": "complete",
+        "source": "KNOuX Flow Studio local workflow drafts",
+        "observedAt": "2026-10-26T17:23:53.620Z",
+        "permission": "read-only",
+        "warnings": [],
+        "provenance": {
+          "mode": "measured",
+          "mutation": "none"
+        },
+        "data": {
+          "contract": "automation.v1",
+          "id": "62460ca6-905c-45ef-aec2-4b7718fd930e",
+          "status": "running",
+          "startedAt": "2026-10-26T17:23:53.619Z",
+          "completedAt": null,
+          "progress": 0,
+          "stages": [
+            {
+              "key": "storage",
+              "labelEn": "Workflow store",
+              "labelAr": "مخزن سير العمل",
+              "status": "running",
+              "provider": "Local workflow store",
+              "startedAt": "2026-10-26T17:23:53.619Z",
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            },
+            {
+              "key": "templates",
+              "labelEn": "Built-in templates",
+              "labelAr": "القوالب المدمجة",
+              "status": "pending",
+              "provider": "Not started",
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            },
+            {
+              "key": "runtime",
+              "labelEn": "Local runtime & power evidence",
+              "labelAr": "وقت التشغيل وأدلة الطاقة",
+              "status": "pending",
+              "provider": "Not started",
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            },
+            {
+              "key": "sources",
+              "labelEn": "Authorized Studio sources",
+              "labelAr": "مصادر Studio المصرح بها",
+              "status": "pending",
+              "provider": "Not started",
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            },
+            {
+              "key": "journal",
+              "labelEn": "Dry-run journal",
+              "labelAr": "سجل المعاينات الجافة",
+              "status": "pending",
+              "provider": "Not started",
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            }
+          ],
+          "warnings": [],
+          "readOnly": true,
+          "mutation": "none"
+        }
+      },
+      "session": {
+        "contractVersion": 1,
+        "capability": "automation.status",
+        "requestId": "59129682-bc84-4bde-a2c0-b1c8678e38e1",
+        "status": "complete",
+        "source": "KNOuX Flow Studio local workflow drafts",
+        "observedAt": "2026-10-26T17:23:53.635Z",
+        "permission": "read-only",
+        "warnings": [],
+        "provenance": {
+          "mode": "measured",
+          "mutation": "none"
+        },
+        "data": {
+          "contract": "automation.v1",
+          "id": "62460ca6-905c-45ef-aec2-4b7718fd930e",
+          "status": "running",
+          "startedAt": "2026-10-26T17:23:53.619Z",
+          "completedAt": null,
+          "progress": 40,
+          "stages": [
+            {
+              "key": "storage",
+              "labelEn": "Workflow store",
+              "labelAr": "مخزن سير العمل",
+              "status": "complete",
+              "provider": "Local workflow store",
+              "startedAt": "2026-10-26T17:23:53.619Z",
+              "completedAt": "2026-10-26T17:23:53.620Z",
+              "durationMs": 1,
+              "items": 0,
+              "warning": null
+            },
+            {
+              "key": "templates",
+              "labelEn": "Built-in templates",
+              "labelAr": "القوالب المدمجة",
+              "status": "complete",
+              "provider": "Built-in template library",
+              "startedAt": "2026-10-26T17:23:53.620Z",
+              "completedAt": "2026-10-26T17:23:53.620Z",
+              "durationMs": 0,
+              "items": 8,
+              "warning": null
+            },
+            {
+              "key": "runtime",
+              "labelEn": "Local runtime & power evidence",
+              "labelAr": "وقت التشغيل وأدلة الطاقة",
+              "status": "running",
+              "provider": "Host timezone + measured battery evidence",
+              "startedAt": "2026-10-26T17:23:53.620Z",
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            },
+            {
+              "key": "sources",
+              "labelEn": "Authorized Studio sources",
+              "labelAr": "مصادر Studio المصرح بها",
+              "status": "pending",
+              "provider": "Not started",
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            },
+            {
+              "key": "journal",
+              "labelEn": "Dry-run journal",
+              "labelAr": "سجل المعاينات الجافة",
+              "status": "pending",
+              "provider": "Not started",
+              "startedAt": null,
+              "completedAt": null,
+              "durationMs": null,
+              "items": null,
+              "warning": null
+            }
+          ],
+          "warnings": [],
+          "readOnly": true,
+          "mutation": "none"
+        }
+      },
+      "snapshotValidated": false
+    },
     "cspMeta": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; worker-src 'self' blob:"
   },
-  "screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev.png",
+  "screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev.png",
   "ok": true,
-  "screenshotBytes": 272756,
-  "lightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev-light.png",
-  "lightScreenshotBytes": 229567,
-  "arabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev-ar-light.png",
-  "arabicScreenshotBytes": 218496,
-  "studioScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-measured-dev.png",
-  "studioScreenshotBytes": 353128,
+  "screenshotBytes": 272773,
+  "lightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev-light.png",
+  "lightScreenshotBytes": 229671,
+  "arabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev-ar-light.png",
+  "arabicScreenshotBytes": 218343,
+  "studioScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-measured-dev.png",
+  "studioScreenshotBytes": 353114,
   "studioUiReady": true,
-  "studioPlanScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-plan-dev.png",
-  "studioPlanScreenshotBytes": 291097,
+  "studioPlanScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-plan-dev.png",
+  "studioPlanScreenshotBytes": 291094,
   "studioPlanUiReady": true,
-  "studioHistoryScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-history-dev.png",
-  "studioHistoryScreenshotBytes": 277761,
+  "studioHistoryScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-history-dev.png",
+  "studioHistoryScreenshotBytes": 277309,
   "studioHistoryUiReady": true,
-  "filesScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\files-measured-dev.png",
-  "filesScreenshotBytes": 311913,
+  "filesScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\files-measured-dev.png",
+  "filesScreenshotBytes": 312287,
   "filesUiReady": true,
-  "storageScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\storage-measured-dev.png",
-  "storageScreenshotBytes": 340730,
+  "storageScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\storage-measured-dev.png",
+  "storageScreenshotBytes": 340801,
   "storageUiReady": true,
-  "smartScanScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev.png",
-  "smartScanScreenshotBytes": 332448,
+  "smartScanScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev.png",
+  "smartScanScreenshotBytes": 332866,
   "smartScanUiReady": true,
   "smartScanWideLayout": {
     "ok": true,
@@ -5660,12 +6133,12 @@
     "resultsBottom": 785,
     "mainBottom": 795
   },
-  "smartScanLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-light.png",
-  "smartScanLightScreenshotBytes": 350235,
-  "smartScanArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-ar-light.png",
-  "smartScanArabicScreenshotBytes": 331656,
-  "smartScan1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-1366.png",
-  "smartScan1366ScreenshotBytes": 258319,
+  "smartScanLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-light.png",
+  "smartScanLightScreenshotBytes": 350528,
+  "smartScanArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-ar-light.png",
+  "smartScanArabicScreenshotBytes": 331834,
+  "smartScan1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-1366.png",
+  "smartScan1366ScreenshotBytes": 258086,
   "smartScan1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -5685,19 +6158,19 @@
     "mainScrollHeight": 961,
     "mainClientHeight": 582
   },
-  "smartScan1366BottomScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-1366-bottom.png",
-  "smartScan1366BottomScreenshotBytes": 158922,
-  "smartScan1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-1920.png",
-  "smartScan1920ScreenshotBytes": 382394,
-  "applicationsScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev.png",
-  "applicationsScreenshotBytes": 401733,
+  "smartScan1366BottomScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-1366-bottom.png",
+  "smartScan1366BottomScreenshotBytes": 158868,
+  "smartScan1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\smart-scan-measured-dev-1920.png",
+  "smartScan1920ScreenshotBytes": 381084,
+  "applicationsScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev.png",
+  "applicationsScreenshotBytes": 401489,
   "applicationsUiReady": true,
-  "applicationsLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-light.png",
-  "applicationsLightScreenshotBytes": 356792,
-  "applicationsArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-ar-light.png",
-  "applicationsArabicScreenshotBytes": 337185,
-  "applications1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-1366.png",
-  "applications1366ScreenshotBytes": 312597,
+  "applicationsLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-light.png",
+  "applicationsLightScreenshotBytes": 356412,
+  "applicationsArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-ar-light.png",
+  "applicationsArabicScreenshotBytes": 337122,
+  "applications1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-1366.png",
+  "applications1366ScreenshotBytes": 312328,
   "applications1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -5712,22 +6185,22 @@
     "mainBottom": 768,
     "viewportWidth": 1366
   },
-  "applications1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-1920.png",
-  "applications1920ScreenshotBytes": 438741,
+  "applications1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\applications-measured-dev-1920.png",
+  "applications1920ScreenshotBytes": 438536,
   "cleanupServiceProbe": {
     "ok": true,
     "checked": 12,
     "failures": []
   },
-  "cleanupScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev.png",
-  "cleanupScreenshotBytes": 526952,
+  "cleanupScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev.png",
+  "cleanupScreenshotBytes": 526637,
   "cleanupUiReady": true,
-  "cleanupLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-light.png",
-  "cleanupLightScreenshotBytes": 433205,
-  "cleanupArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-ar-light.png",
-  "cleanupArabicScreenshotBytes": 378221,
-  "cleanup1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-1366.png",
-  "cleanup1366ScreenshotBytes": 424256,
+  "cleanupLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-light.png",
+  "cleanupLightScreenshotBytes": 433024,
+  "cleanupArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-ar-light.png",
+  "cleanupArabicScreenshotBytes": 378209,
+  "cleanup1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-1366.png",
+  "cleanup1366ScreenshotBytes": 424145,
   "cleanup1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -5740,22 +6213,22 @@
     "mainBottom": 729,
     "viewportWidth": 1366
   },
-  "cleanup1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-1920.png",
-  "cleanup1920ScreenshotBytes": 611007,
+  "cleanup1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\cleanup-measured-dev-1920.png",
+  "cleanup1920ScreenshotBytes": 610990,
   "startupServiceProbe": {
     "ok": true,
     "checked": 12,
     "failures": []
   },
-  "startupScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev.png",
-  "startupScreenshotBytes": 499525,
+  "startupScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev.png",
+  "startupScreenshotBytes": 499183,
   "startupUiReady": true,
-  "startupLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-light.png",
-  "startupLightScreenshotBytes": 443564,
-  "startupArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-ar-light.png",
-  "startupArabicScreenshotBytes": 376068,
-  "startup1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-1366.png",
-  "startup1366ScreenshotBytes": 383906,
+  "startupLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-light.png",
+  "startupLightScreenshotBytes": 443321,
+  "startupArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-ar-light.png",
+  "startupArabicScreenshotBytes": 375935,
+  "startup1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-1366.png",
+  "startup1366ScreenshotBytes": 383842,
   "startup1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -5768,8 +6241,8 @@
     "mainBottom": 729,
     "viewportWidth": 1366
   },
-  "startup1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-1920.png",
-  "startup1920ScreenshotBytes": 551324,
+  "startup1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\startup-measured-dev-1920.png",
+  "startup1920ScreenshotBytes": 550972,
   "systemControlProbe": {
     "ok": true,
     "failures": []
@@ -5784,7 +6257,7 @@
     "focused": true
   },
   "systemFinalSession": {
-    "id": "86d40017-f583-4d1a-89db-a5a1726dd29f",
+    "id": "e3e36add-9293-44c4-810e-d0cf91868b9a",
     "status": "complete",
     "progress": 100,
     "readOnly": true,
@@ -5795,43 +6268,43 @@
         "key": "system",
         "status": "complete",
         "items": 6,
-        "durationMs": 6882
+        "durationMs": 7469
       },
       {
         "key": "processes",
         "status": "complete",
         "items": 296,
-        "durationMs": 1880
+        "durationMs": 1836
       },
       {
         "key": "services",
         "status": "complete",
         "items": 281,
-        "durationMs": 1767
+        "durationMs": 2315
       },
       {
         "key": "events",
         "status": "complete",
         "items": 300,
-        "durationMs": 2072
+        "durationMs": 1702
       },
       {
         "key": "drivers",
         "status": "complete",
         "items": 139,
-        "durationMs": 1502
+        "durationMs": 1504
       },
       {
         "key": "network",
         "status": "complete",
         "items": 244,
-        "durationMs": 3607
+        "durationMs": 3723
       },
       {
         "key": "sockets",
         "status": "complete",
-        "items": 334,
-        "durationMs": 1429
+        "items": 347,
+        "durationMs": 1373
       },
       {
         "key": "hardware",
@@ -5848,8 +6321,8 @@
     ]
   },
   "systemMeasured": {
-    "generatedAt": "2026-10-26T16:39:07.269Z",
-    "receipt": "sys:e8a0da37740b7776bfe80c57",
+    "generatedAt": "2026-10-26T17:24:16.205Z",
+    "receipt": "sys:f8b63f1a36a126f29f6dd383",
     "processCount": 296,
     "processRows": 296,
     "serviceRows": 271,
@@ -5859,7 +6332,7 @@
     "interfaceRows": 4,
     "routeRows": 2,
     "neighborRows": 240,
-    "socketRows": 334,
+    "socketRows": 347,
     "startupLinkRows": 10,
     "hardware": {
       "cpu": 1,
@@ -5918,7 +6391,7 @@
       {
         "key": "sockets",
         "status": "complete",
-        "items": 334
+        "items": 347
       },
       {
         "key": "hardware",
@@ -5934,41 +6407,41 @@
     "warnings": 1,
     "sources": 20,
     "metrics": {
-      "timestamp": "2026-10-26T16:39:07.269Z",
-      "cpuPercent": 75,
+      "timestamp": "2026-10-26T17:24:16.205Z",
+      "cpuPercent": 65,
       "cpuFrequencyMHz": 3201,
-      "memoryPercent": 76.3,
-      "memoryUsedBytes": 9741975552,
+      "memoryPercent": 76.8,
+      "memoryUsedBytes": 9809969152,
       "memoryTotalBytes": 12769726464,
-      "memoryCommittedBytes": 19295830016,
+      "memoryCommittedBytes": 19455389696,
       "diskReadBytesPerSec": 0,
       "diskWriteBytesPerSec": 0,
       "diskLatencyMs": 0,
-      "networkInBytesPerSec": 202,
-      "networkOutBytesPerSec": 405,
-      "processCount": 290,
+      "networkInBytesPerSec": 8180,
+      "networkOutBytesPerSec": 14744,
+      "processCount": 292,
       "threadCount": null,
       "handleCount": null,
       "source": "PerfOS + PerfDisk + Tcpip counters"
     }
   },
-  "systemScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev.png",
-  "systemScreenshotBytes": 405473,
+  "systemScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev.png",
+  "systemScreenshotBytes": 403248,
   "systemUiReady": true,
-  "systemWorkbenchScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-workbench-dev.png",
-  "systemWorkbenchScreenshotBytes": 214400,
-  "systemLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-light.png",
-  "systemLightScreenshotBytes": 412234,
-  "systemArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-ar-light.png",
-  "systemArabicScreenshotBytes": 375732,
+  "systemWorkbenchScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-workbench-dev.png",
+  "systemWorkbenchScreenshotBytes": 213588,
+  "systemLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-light.png",
+  "systemLightScreenshotBytes": 408319,
+  "systemArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-ar-light.png",
+  "systemArabicScreenshotBytes": 373113,
   "systemRtlLayout": {
     "ok": true,
     "direction": "rtl",
     "withinWidth": true,
     "horizontalOverflow": false
   },
-  "system1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-1366.png",
-  "system1366ScreenshotBytes": 334945,
+  "system1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-1366.png",
+  "system1366ScreenshotBytes": 332005,
   "system1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -5981,8 +6454,8 @@
     "mainBottom": 731,
     "viewportWidth": 1366
   },
-  "system1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-1920.png",
-  "system1920ScreenshotBytes": 451818,
+  "system1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\system-measured-dev-1920.png",
+  "system1920ScreenshotBytes": 449089,
   "repairControlProbe": {
     "ok": true,
     "failures": []
@@ -5997,7 +6470,7 @@
     "focused": true
   },
   "repairFinalSession": {
-    "id": "c312413c-72ee-4f50-bd42-1e896a2c492c",
+    "id": "ecfe9ca4-3fc7-4414-86b5-91b26e0c7a9f",
     "status": "complete",
     "progress": 100,
     "readOnly": true,
@@ -6008,43 +6481,43 @@
         "key": "identity",
         "status": "complete",
         "items": 10,
-        "durationMs": 1292
+        "durationMs": 1439
       },
       {
         "key": "servicing",
         "status": "complete",
         "items": 3,
-        "durationMs": 474
+        "durationMs": 497
       },
       {
         "key": "network",
         "status": "complete",
         "items": 14,
-        "durationMs": 6260
+        "durationMs": 6075
       },
       {
         "key": "update",
         "status": "complete",
         "items": 5,
-        "durationMs": 734
+        "durationMs": 715
       },
       {
         "key": "restore",
         "status": "partial",
         "items": 0,
-        "durationMs": 903
+        "durationMs": 1278
       },
       {
         "key": "journal",
         "status": "complete",
         "items": 4,
-        "durationMs": 741
+        "durationMs": 1203
       }
     ]
   },
   "repairMeasured": {
-    "generatedAt": "2026-10-26T16:38:55.932Z",
-    "receipt": "repair:7bed5c58aa954bb1ed5c7abf",
+    "generatedAt": "2026-10-26T17:24:04.790Z",
+    "receipt": "repair:a1d6b8c76bb8e6145eb19f70",
     "identity": {
       "osName": "Microsoft Windows 10 Pro",
       "osBuild": "19045",
@@ -6055,7 +6528,7 @@
     },
     "adapters": 4,
     "addresses": 5,
-    "dnsEntries": 39,
+    "dnsEntries": 43,
     "dnsStatus": "measured",
     "winsockProviders": 28,
     "winsockStatus": "measured",
@@ -6108,23 +6581,23 @@
     "sources": 16
   },
   "repairJournalCount": 1,
-  "repairScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev.png",
-  "repairScreenshotBytes": 381832,
+  "repairScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev.png",
+  "repairScreenshotBytes": 381737,
   "repairUiReady": true,
-  "repairLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-light.png",
-  "repairLightScreenshotBytes": 375127,
-  "repairArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-ar-light.png",
-  "repairArabicScreenshotBytes": 319941,
+  "repairLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-light.png",
+  "repairLightScreenshotBytes": 375040,
+  "repairArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-ar-light.png",
+  "repairArabicScreenshotBytes": 319816,
   "repairRtlLayout": {
     "ok": true,
     "direction": "rtl",
     "withinWidth": true,
     "horizontalOverflow": false
   },
-  "repairWorkbenchScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-workbench-dev.png",
-  "repairWorkbenchScreenshotBytes": 260156,
-  "repair1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-1366.png",
-  "repair1366ScreenshotBytes": 334947,
+  "repairWorkbenchScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-workbench-dev.png",
+  "repairWorkbenchScreenshotBytes": 260132,
+  "repair1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-1366.png",
+  "repair1366ScreenshotBytes": 334591,
   "repair1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -6137,8 +6610,8 @@
     "historyHeight": 90,
     "viewportWidth": 1366
   },
-  "repair1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-1920.png",
-  "repair1920ScreenshotBytes": 415234,
+  "repair1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\repair-measured-dev-1920.png",
+  "repair1920ScreenshotBytes": 415153,
   "servicesControlProbe": {
     "ok": true,
     "failures": []
@@ -6153,7 +6626,7 @@
     "focused": true
   },
   "servicesFinalSession": {
-    "id": "c3401b0a-9a27-4259-a5d1-24ddb41e4fbf",
+    "id": "beeafe13-6ad4-4084-93c8-4823c9c353aa",
     "status": "complete",
     "progress": 100,
     "readOnly": true,
@@ -6164,31 +6637,31 @@
         "key": "inventory",
         "status": "complete",
         "items": 271,
-        "durationMs": 1446
+        "durationMs": 1537
       },
       {
         "key": "graph",
         "status": "complete",
         "items": 223,
-        "durationMs": 803
+        "durationMs": 713
       },
       {
         "key": "protected",
         "status": "complete",
-        "items": 188,
+        "items": 187,
         "durationMs": 0
       },
       {
         "key": "events",
         "status": "complete",
         "items": 200,
-        "durationMs": 1062
+        "durationMs": 1029
       },
       {
         "key": "processes",
         "status": "complete",
-        "items": 105,
-        "durationMs": 643
+        "items": 106,
+        "durationMs": 677
       },
       {
         "key": "journal",
@@ -6199,12 +6672,12 @@
     ]
   },
   "servicesMeasured": {
-    "generatedAt": "2026-10-26T16:38:49.497Z",
-    "receipt": "services:c62fdcc9fc7cb208b4a8d545",
+    "generatedAt": "2026-10-26T17:23:57.557Z",
+    "receipt": "services:087fb141968da5cd6f06a5d9",
     "total": 271,
-    "running": 115,
-    "stopped": 156,
-    "protected": 188,
+    "running": 116,
+    "stopped": 155,
+    "protected": 187,
     "automatic": 51,
     "manual": 195,
     "disabled": 11,
@@ -6218,7 +6691,7 @@
       "days": 7,
       "reason": null
     },
-    "svchost": 105,
+    "svchost": 106,
     "elevation": {
       "isAdmin": false
     },
@@ -6239,7 +6712,7 @@
       {
         "key": "protected",
         "status": "complete",
-        "items": 188,
+        "items": 187,
         "note": null
       },
       {
@@ -6251,7 +6724,7 @@
       {
         "key": "processes",
         "status": "complete",
-        "items": 105,
+        "items": 106,
         "note": null
       },
       {
@@ -6265,23 +6738,23 @@
     "sources": 9
   },
   "servicesJournalCount": 1,
-  "servicesScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev.png",
-  "servicesScreenshotBytes": 379310,
+  "servicesScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev.png",
+  "servicesScreenshotBytes": 378852,
   "servicesUiReady": true,
-  "servicesWorkbenchScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-workbench-dev.png",
-  "servicesWorkbenchScreenshotBytes": 299589,
-  "servicesLightScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-light.png",
-  "servicesLightScreenshotBytes": 382610,
-  "servicesArabicScreenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-ar-light.png",
-  "servicesArabicScreenshotBytes": 335924,
+  "servicesWorkbenchScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-workbench-dev.png",
+  "servicesWorkbenchScreenshotBytes": 299638,
+  "servicesLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-light.png",
+  "servicesLightScreenshotBytes": 382431,
+  "servicesArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-ar-light.png",
+  "servicesArabicScreenshotBytes": 335689,
   "servicesRtlLayout": {
     "ok": true,
     "direction": "rtl",
     "withinWidth": true,
     "horizontalOverflow": false
   },
-  "services1366Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-1366.png",
-  "services1366ScreenshotBytes": 330793,
+  "services1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-1366.png",
+  "services1366ScreenshotBytes": 330871,
   "services1366Layout": {
     "ok": true,
     "horizontalOverflow": false,
@@ -6294,8 +6767,151 @@
     "operationTop": 341,
     "viewportWidth": 1366
   },
-  "services1920Screenshot": "D:\\knoux-workspace\\knoux-gemini-smartorganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-1920.png",
-  "services1920ScreenshotBytes": 445037,
+  "services1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\services-measured-dev-1920.png",
+  "services1920ScreenshotBytes": 445734,
+  "automationControlProbe": {
+    "ok": true,
+    "failures": []
+  },
+  "automationToolProbe": {
+    "ok": true,
+    "checked": 12,
+    "failures": []
+  },
+  "automationKeyboardProbe": {
+    "ok": true,
+    "focused": true
+  },
+  "automationFinalSession": {
+    "id": "62460ca6-905c-45ef-aec2-4b7718fd930e",
+    "status": "complete",
+    "progress": 100,
+    "readOnly": true,
+    "mutation": "none",
+    "warnings": 0,
+    "stages": [
+      {
+        "key": "storage",
+        "status": "complete",
+        "items": 0,
+        "durationMs": 1
+      },
+      {
+        "key": "templates",
+        "status": "complete",
+        "items": 8,
+        "durationMs": 0
+      },
+      {
+        "key": "runtime",
+        "status": "partial",
+        "items": 0,
+        "durationMs": 1111
+      },
+      {
+        "key": "sources",
+        "status": "complete",
+        "items": 1,
+        "durationMs": 0
+      },
+      {
+        "key": "journal",
+        "status": "complete",
+        "items": 0,
+        "durationMs": 0
+      }
+    ]
+  },
+  "automationMeasured": {
+    "generatedAt": "2026-10-26T17:23:54.731Z",
+    "receipt": "workflows:45f3ae2920656b25a05914ef",
+    "workflows": 1,
+    "workflowHistory": 1,
+    "templates": 8,
+    "journal": 1,
+    "runtime": {
+      "timezone": "Asia/Dubai",
+      "localTime": "Mon, 26 Oct 2026, 21:23",
+      "batteryAvailable": false,
+      "batteryCount": 0,
+      "batteryChargePercent": null,
+      "powerSource": null,
+      "studioSources": [
+        {
+          "id": "ba74bf8b-8dbb-4537-a7c8-6a325f2f516e",
+          "label": "studio-source",
+          "status": "ready",
+          "fileCount": 7
+        }
+      ]
+    },
+    "gates": 5,
+    "coverage": [
+      {
+        "key": "storage",
+        "status": "complete",
+        "items": 0,
+        "note": null
+      },
+      {
+        "key": "templates",
+        "status": "complete",
+        "items": 8,
+        "note": null
+      },
+      {
+        "key": "runtime",
+        "status": "partial",
+        "items": 0,
+        "note": "No battery was measured. Battery-gated workflow conditions cannot be evaluated on this device."
+      },
+      {
+        "key": "sources",
+        "status": "complete",
+        "items": 1,
+        "note": null
+      },
+      {
+        "key": "journal",
+        "status": "complete",
+        "items": 0,
+        "note": null
+      }
+    ],
+    "warnings": 0,
+    "sources": 6
+  },
+  "automationJournalCount": 1,
+  "automationScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\automation-measured-dev.png",
+  "automationScreenshotBytes": 380837,
+  "automationUiReady": true,
+  "automationWorkbenchScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\automation-workbench-dev.png",
+  "automationWorkbenchScreenshotBytes": 262239,
+  "automationLightScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\automation-measured-dev-light.png",
+  "automationLightScreenshotBytes": 266155,
+  "automationArabicScreenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\automation-measured-dev-ar-light.png",
+  "automationArabicScreenshotBytes": 237462,
+  "automationRtlLayout": {
+    "ok": true,
+    "direction": "rtl",
+    "withinWidth": true,
+    "horizontalOverflow": false
+  },
+  "automation1366Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\automation-measured-dev-1366.png",
+  "automation1366ScreenshotBytes": 296619,
+  "automation1366Layout": {
+    "ok": true,
+    "horizontalOverflow": false,
+    "canvasVisible": true,
+    "scrollWorked": true,
+    "footerVisible": true,
+    "cards": 12,
+    "theme": "dark",
+    "canvasTop": 409,
+    "viewportWidth": 1366
+  },
+  "automation1920Screenshot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\automation-measured-dev-1920.png",
+  "automation1920ScreenshotBytes": 441144,
   "checks": {
     "securityOk": true,
     "bridgeOk": true,
@@ -6317,8 +6933,10 @@
     "repairLayoutOk": true,
     "servicesOk": true,
     "servicesLayoutOk": true,
+    "automationOk": true,
+    "automationLayoutOk": true,
     "screenshotOk": true,
     "windowControlOk": true
   },
-  "finishedAt": "2026-10-26T16:40:57.653Z"
+  "finishedAt": "2026-10-26T17:26:23.398Z"
 }

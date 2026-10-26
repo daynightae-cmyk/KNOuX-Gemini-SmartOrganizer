@@ -33,6 +33,7 @@ const { StartupBridge } = require('./native/startup-bridge.cjs');
 const { SystemBridge } = require('./native/system-bridge.cjs');
 const { RepairBridge } = require('./native/repair-bridge.cjs');
 const { ServicesBridge } = require('./native/services-bridge.cjs');
+const { AutomationBridge } = require('./native/automation-bridge.cjs');
 const {
   ok,
   fail,
@@ -97,6 +98,7 @@ let startupBridge = null;
 let systemBridge = null;
 let repairBridge = null;
 let servicesBridge = null;
+let automationBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -1486,6 +1488,132 @@ function registerIpc() {
     })
   );
 
+  const AUTOMATION_SESSION = /^[a-f0-9-]{8,64}$/i;
+  const automationGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!automationBridge) {
+        throw Object.assign(new Error('The local Flow Studio is not initialized.'), { code: 'AUTOMATION_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Flow Studio local workflow drafts',
+        permission,
+        provenance: { mode: 'measured', mutation: capability === 'automation.save' ? 'local-draft' : 'none' },
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Flow Studio local workflow drafts',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'AUTOMATION_FAILURE',
+          message: String(error?.message || 'Flow Studio request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const automationWorkflowArg = (args, code = 'AUTOMATION_INPUT_INVALID') => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single workflow object is required.'), { code });
+    }
+    return args[0];
+  };
+
+  ipcMain.handle(contract.channels.automationCapabilities, (event, ...args) =>
+    automationGuard(event, 'automation.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.automationCapabilities);
+      return automationBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.automationStart, (event, ...args) =>
+    automationGuard(event, 'automation.start', 'read-only', () => {
+      assertNoArguments(args, contract.channels.automationStart);
+      return automationBridge.start();
+    })
+  );
+  ipcMain.handle(contract.channels.automationStatus, (event, ...args) =>
+    automationGuard(event, 'automation.status', 'read-only', () => {
+      if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || typeof args[0].sessionId !== 'string' || !AUTOMATION_SESSION.test(args[0].sessionId)) {
+        throw Object.assign(new Error('A valid Flow Studio session identifier is required.'), { code: 'AUTOMATION_SESSION_INVALID' });
+      }
+      return automationBridge.status(args[0].sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.automationCancel, (event, ...args) =>
+    automationGuard(event, 'automation.cancel', 'user-initiated', () => {
+      if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || typeof args[0].sessionId !== 'string' || !AUTOMATION_SESSION.test(args[0].sessionId)) {
+        throw Object.assign(new Error('A valid Flow Studio session identifier is required.'), { code: 'AUTOMATION_SESSION_INVALID' });
+      }
+      return automationBridge.cancel(args[0].sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.automationSnapshot, (event, ...args) =>
+    automationGuard(event, 'automation.snapshot', 'read-only', () => {
+      assertNoArguments(args, contract.channels.automationSnapshot);
+      return automationBridge.snapshot();
+    })
+  );
+  ipcMain.handle(contract.channels.automationWorkflows, (event, ...args) =>
+    automationGuard(event, 'automation.workflows', 'read-only', () => {
+      assertNoArguments(args, contract.channels.automationWorkflows);
+      return automationBridge.workflows();
+    })
+  );
+  ipcMain.handle(contract.channels.automationSave, (event, ...args) =>
+    automationGuard(event, 'automation.save', 'user-initiated', () => automationBridge.save(automationWorkflowArg(args)))
+  );
+  ipcMain.handle(contract.channels.automationTemplates, (event, ...args) =>
+    automationGuard(event, 'automation.templates', 'read-only', () => {
+      assertNoArguments(args, contract.channels.automationTemplates);
+      return automationBridge.templates();
+    })
+  );
+  ipcMain.handle(contract.channels.automationDryRun, (event, ...args) =>
+    automationGuard(event, 'automation.dryRun', 'read-only', () => automationBridge.dryRun(automationWorkflowArg(args)))
+  );
+  ipcMain.handle(contract.channels.automationSchedulePreview, (event, ...args) =>
+    automationGuard(event, 'automation.schedulePreview', 'read-only', () => {
+      if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+        throw Object.assign(new Error('A single schedule specification is required.'), { code: 'AUTOMATION_SCHEDULE_INVALID' });
+      }
+      return automationBridge.schedulePreview(args[0]);
+    })
+  );
+  ipcMain.handle(contract.channels.automationValidateImport, (event, ...args) =>
+    automationGuard(event, 'automation.validateImport', 'read-only', () => {
+      if (args.length !== 1) throw Object.assign(new Error('A single workflow import payload is required.'), { code: 'AUTOMATION_INPUT_INVALID' });
+      const payload = args[0];
+      if (typeof payload === 'string' && payload.length > 200000) {
+        throw Object.assign(new Error('The workflow import exceeds the 200 KB limit.'), { code: 'AUTOMATION_INPUT_INVALID' });
+      }
+      return automationBridge.validateImport(payload);
+    })
+  );
+  ipcMain.handle(contract.channels.automationJournal, (event, ...args) =>
+    automationGuard(event, 'automation.journal', 'read-only', () => {
+      assertNoArguments(args, contract.channels.automationJournal);
+      return automationBridge.journal();
+    })
+  );
+  ipcMain.handle(contract.channels.automationReport, (event, ...args) =>
+    automationGuard(event, 'automation.report', 'read-only', () => {
+      if (args.length > 1) throw Object.assign(new Error('At most one report options object is accepted.'), { code: 'AUTOMATION_INPUT_INVALID' });
+      let options = {};
+      if (args.length === 1) {
+        if (!args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) throw Object.assign(new Error('The Flow Studio report options must be an object.'), { code: 'AUTOMATION_INPUT_INVALID' });
+        options = { redact: args[0].redact !== false };
+      }
+      return automationBridge.report(options);
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -2062,6 +2190,21 @@ async function runSmoke(win) {
             snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'services.v1',
           };
         }
+        const automationV1Api = window.knouxAutomationV1;
+        let automationV1 = null;
+        if (automationV1Api) {
+          const capabilities = await automationV1Api.capabilities();
+          const started = await automationV1Api.start();
+          const session = started?.data?.id ? await automationV1Api.status(started.data.id) : null;
+          const snapshot = await automationV1Api.snapshot().catch(() => null);
+          automationV1 = {
+            bridgePresent: true,
+            capabilities,
+            started,
+            session,
+            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'automation.v1',
+          };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -2077,6 +2220,7 @@ async function runSmoke(win) {
           systemV1BridgePresent: Boolean(systemV1Api),
           repairV1BridgePresent: Boolean(repairV1Api),
           servicesV1BridgePresent: Boolean(servicesV1Api),
+          automationV1BridgePresent: Boolean(automationV1Api),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -2093,6 +2237,7 @@ async function runSmoke(win) {
           systemV1,
           repairV1,
           servicesV1,
+          automationV1,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -4057,6 +4202,351 @@ async function runSmoke(win) {
         receipt.services1920ScreenshotBytes = (await fsp.stat(services1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Mission 13 Flow Studio: local workflow drafts, DAG validation, a
+        // deterministic dry-run, twelve workbenches, keyboard and RTL. No
+        // workflow action, notification, file copy or deletion is executed.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'automation'; return true; })()`,
+          true
+        );
+        const automationDeadline = Date.now() + 60000;
+        let automationUiReady = false;
+        while (Date.now() < automationDeadline) {
+          await sleep(600);
+          automationUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="automation-workspace"]');
+               const banner = document.querySelector('[data-testid="automation-native-banner"]');
+               const required = document.querySelector('[data-testid="automation-native-required"]');
+               const workflows = document.querySelector('[data-testid="automation-kpi-workflows-value"]')?.textContent?.trim() || '';
+               const templates = document.querySelector('[data-testid="automation-kpi-templates-value"]')?.textContent?.trim() || '';
+               const canvas = document.querySelector('[data-testid="automation-canvas"]');
+               const inspector = document.querySelector('[data-testid="automation-inspector"]');
+               const cards = document.querySelectorAll('[data-testid="automation-tool-grid"] button[data-testid^="automation-tool-"]').length;
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 workflows !== '' && workflows !== '—' && templates === '8' &&
+                 Boolean(canvas) && Boolean(inspector) && cards === 12 &&
+                 /Local Flow Studio|استوديو التدفق المحلي/.test(bannerText);
+             })()`,
+            true
+          );
+          if (automationUiReady) break;
+        }
+        const automationControlProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const main = document.querySelector('[data-testid="automation-workspace"]');
+             if (!main) return { ok: false, failures: ['workspace-missing'] };
+             const template = main.querySelector('[data-testid="automation-template-tpl-smart-scan"]');
+             if (!template) failures.push('template:missing');
+             else {
+               template.click();
+               await wait(250);
+               const before = main.querySelectorAll('.auto-node').length;
+               const add = main.querySelector('[data-testid="automation-add-node"]');
+               if (!add) failures.push('add:missing');
+               else {
+                 add.click();
+                 await wait(120);
+                 const confirm = main.querySelector('[data-testid="automation-add-node-confirm"]');
+                 if (!confirm) failures.push('add-confirm:missing');
+                 else {
+                   confirm.click();
+                   await wait(180);
+                   const after = main.querySelectorAll('.auto-node').length;
+                   if (after !== before + 1) failures.push('add:count-' + before + '-' + after);
+                 }
+               }
+               const dry = main.querySelector('[data-testid="automation-dryrun"]');
+               if (!dry) failures.push('dryrun:missing');
+               else {
+                 dry.click();
+                 await wait(700);
+                 if (!main.querySelector('[data-testid="automation-dryrun-result"]')) failures.push('dryrun:no-result');
+                 const rows = main.querySelectorAll('[data-testid="automation-journal-row"]').length;
+                 if (rows < 1) failures.push('journal:no-row');
+               }
+               const save = main.querySelector('[data-testid="automation-save"]');
+               if (!save) failures.push('save:missing');
+               else {
+                 save.click();
+                 await wait(900);
+                 const savedRows = main.querySelectorAll('[data-testid^="automation-workflow-row-"]').length;
+                 if (savedRows < 1) failures.push('save:no-row');
+                 const workflowKpi = main.querySelector('[data-testid="automation-kpi-workflows-value"]')?.textContent?.trim() || '';
+                 if (workflowKpi === '0' || workflowKpi === '—') failures.push('save:kpi-' + workflowKpi);
+               }
+             }
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.automationControlProbe = automationControlProbe;
+        const automationToolProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const seen = new Set();
+             const ids = ${JSON.stringify([
+               'auto-smart-scan',
+               'auto-schedule-manager',
+               'auto-run-history',
+               'auto-templates',
+               'auto-schedule-plan',
+               'auto-cleanup-plan',
+               'auto-notify',
+               'auto-quiet-hours',
+               'auto-battery-policy',
+               'auto-retention',
+               'auto-export',
+               'auto-backup-plan',
+             ])};
+             for (const id of ids) {
+               const card = document.querySelector('[data-testid="automation-tool-' + id + '"]');
+               if (!card) { failures.push(id + ':card-missing'); continue; }
+               card.click();
+               await wait(260);
+               const workbench = document.querySelector('[data-testid="automation-service-workspace-' + id + '"]');
+               const shell = document.querySelector('[data-testid="automation-service-shell-' + id + '"]');
+               const body = workbench ? workbench.querySelector('.auto-wb-body') : null;
+               const text = workbench ? String(workbench.innerText || '').trim() : '';
+               if (workbench && shell && body && text.length >= 30) {
+                 seen.add(id);
+                 const segs = Array.from(workbench.querySelectorAll('.sys-seg'));
+                 for (let index = 0; index < Math.min(segs.length, 3); index += 1) {
+                   const options = Array.from(segs[index].querySelectorAll('button'));
+                   if (options.length < 2) continue;
+                   options[1].click();
+                   await wait(40);
+                   if (!options[1].classList.contains('is-active')) failures.push(id + ':seg-' + index);
+                   options[0].click();
+                   await wait(20);
+                 }
+               } else {
+                 failures.push(id + ':render');
+               }
+               const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+               if (!close) failures.push(id + ':close-missing');
+               else close.click();
+               await wait(140);
+               if (document.querySelector('[data-testid="automation-service-shell-' + id + '"]')) failures.push(id + ':close-failed');
+             }
+             return { ok: failures.length === 0 && seen.size === 12, checked: seen.size, failures };
+           })()`,
+          true
+        );
+        receipt.automationToolProbe = automationToolProbe;
+        const automationKeyboardProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="automation-tool-auto-smart-scan"]');
+             if (!card) return { ok: false, reason: 'card-missing' };
+             card.focus();
+             card.click();
+             await wait(320);
+             const selector = '[data-testid="automation-service-shell-auto-smart-scan"]';
+             const shell = document.querySelector(selector);
+             const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+             const focused = Boolean(close) && document.activeElement === close;
+             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+             await wait(300);
+             return { ok: focused && !document.querySelector(selector), focused };
+           })()`,
+          true
+        );
+        receipt.automationKeyboardProbe = automationKeyboardProbe;
+        try {
+          const finalSession = automationBridge?.status?.(renderer.automationV1?.session?.data?.id);
+          if (finalSession) {
+            receipt.automationFinalSession = {
+              id: finalSession.id,
+              status: finalSession.status,
+              progress: finalSession.progress,
+              readOnly: finalSession.readOnly,
+              mutation: finalSession.mutation,
+              warnings: finalSession.warnings.length,
+              stages: finalSession.stages.map((stage) => ({ key: stage.key, status: stage.status, items: stage.items, durationMs: stage.durationMs })),
+            };
+          }
+          const measured = await automationBridge?.snapshot?.();
+          if (measured) {
+            receipt.automationMeasured = {
+              generatedAt: measured.generatedAt,
+              receipt: measured.receipt,
+              workflows: measured.workflows.length,
+              workflowHistory: measured.workflowHistory.length,
+              templates: measured.templates.length,
+              journal: measured.journal.length,
+              runtime: measured.runtime,
+              gates: measured.gates.length,
+              coverage: measured.coverage,
+              warnings: measured.warnings.length,
+              sources: measured.sources.length,
+            };
+          }
+          const finalJournal = await automationBridge?.journal?.();
+          receipt.automationJournalCount = Array.isArray(finalJournal) ? finalJournal.length : 0;
+        } catch (error) {
+          receipt.automationFinalError = redactError(error);
+        }
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="automation-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(500);
+        const automationShotPath = smokeShotPath.replace(/native-bridge/i, 'automation-measured');
+        const automationImage = await win.webContents.capturePage();
+        await fsp.writeFile(automationShotPath, automationImage.toPNG());
+        receipt.automationScreenshot = automationShotPath;
+        receipt.automationScreenshotBytes = (await fsp.stat(automationShotPath)).size;
+        receipt.automationUiReady = automationUiReady;
+
+        // Privacy-safe workbench: local workflow canvas and inspector.
+        await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="automation-tool-auto-smart-scan"]');
+             if (card) card.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(700);
+        const automationWorkbenchPath = automationShotPath.replace(/automation-measured/i, 'automation-workbench');
+        const automationWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(automationWorkbenchPath, automationWorkbenchImage.toPNG());
+        receipt.automationWorkbenchScreenshot = automationWorkbenchPath;
+        receipt.automationWorkbenchScreenshotBytes = (await fsp.stat(automationWorkbenchPath)).size;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const close = document.querySelector('[data-testid="automation-service-shell-auto-smart-scan"] button[aria-label="Close service"], [data-testid="automation-service-shell-auto-smart-scan"] button[aria-label="إغلاق الخدمة"]');
+             if (close) close.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(450);
+
+        await win.webContents.executeJavaScript(
+          `(() => { document.querySelector('button[title="Switch to light theme"], button[title="Switch to dark theme"]')?.click(); return true; })()`,
+          true
+        );
+        await sleep(850);
+        const automationLightPath = automationShotPath.replace(/\.png$/i, '-light.png');
+        const automationLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(automationLightPath, automationLightImage.toPNG());
+        receipt.automationLightScreenshot = automationLightPath;
+        receipt.automationLightScreenshotBytes = (await fsp.stat(automationLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(950);
+        const automationArabicPath = automationShotPath.replace(/\.png$/i, '-ar-light.png');
+        const automationArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(automationArabicPath, automationArabicImage.toPNG());
+        receipt.automationArabicScreenshot = automationArabicPath;
+        receipt.automationArabicScreenshotBytes = (await fsp.stat(automationArabicPath)).size;
+
+        const automationRtlLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="automation-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.auto-kpi'));
+             if (!main || kpis.length !== 6) return { ok: false, reason: 'rtl panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const withinWidth = kpis.every((node) => {
+               const rect = node.getBoundingClientRect();
+               return rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             });
+             const direction = getComputedStyle(main).direction;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth || main.scrollWidth > main.clientWidth + 1;
+             return { ok: direction === 'rtl' && withinWidth && !horizontalOverflow, direction, withinWidth, horizontalOverflow };
+           })()`,
+          true
+        );
+        receipt.automationRtlLayout = automationRtlLayout;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(600);
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const theme = document.querySelector('button[title="Switch to dark theme"], button[title="التبديل إلى الوضع الداكن"]');
+             if (theme) theme.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(850);
+        win.setContentSize(1366, 768);
+        await sleep(950);
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="automation-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(250);
+        const automation1366Path = automationShotPath.replace(/\.png$/i, '-1366.png');
+        const automation1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(automation1366Path, automation1366Image.toPNG());
+        receipt.automation1366Screenshot = automation1366Path;
+        receipt.automation1366ScreenshotBytes = (await fsp.stat(automation1366Path)).size;
+
+        const automation1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="automation-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.auto-kpi'));
+             const canvas = document.querySelector('[data-testid="automation-canvas"]');
+             const inspector = document.querySelector('[data-testid="automation-inspector"]');
+             const actionbar = document.querySelector('[data-testid="automation-actionbar"]');
+             if (!main || kpis.length !== 6 || !canvas || !inspector || !actionbar) return { ok: false, reason: 'automation panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const rects = kpis.map((node) => node.getBoundingClientRect());
+             const withinWidth = rects.every((rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1);
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const canvasRect = canvas.getBoundingClientRect();
+             const canvasVisible = canvasRect.top >= mainRect.top - 1 && canvasRect.top < window.innerHeight && canvasRect.height >= 180;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             const actionRect = actionbar.getBoundingClientRect();
+             const footerVisible = actionRect.bottom <= window.innerHeight + 1 && actionRect.top >= 0;
+             const cards = document.querySelectorAll('[data-testid="automation-tool-grid"] button[data-testid^="automation-tool-"]').length;
+             const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+             return {
+               ok: withinWidth && !horizontalOverflow && canvasVisible && scrollWorked && footerVisible && cards === 12 && theme === 'dark',
+               horizontalOverflow, canvasVisible, scrollWorked, footerVisible, cards, theme,
+               canvasTop: Math.round(canvasRect.top), viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.automation1366Layout = automation1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="automation-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(350);
+
+        win.setContentSize(1920, 1080);
+        await sleep(950);
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="automation-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(250);
+        const automation1920Path = automationShotPath.replace(/\.png$/i, '-1920.png');
+        const automation1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(automation1920Path, automation1920Image.toPNG());
+        receipt.automation1920Screenshot = automation1920Path;
+        receipt.automation1920ScreenshotBytes = (await fsp.stat(automation1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -4414,6 +4904,45 @@ async function runSmoke(win) {
     const servicesLayoutOk = receipt.services1366Layout?.ok === true
       && receipt.services1366Layout?.horizontalOverflow === false
       && receipt.servicesRtlLayout?.ok === true;
+    const automationV1Data = renderer.automationV1;
+    const automationOk = Boolean(
+      renderer.automationV1BridgePresent === true &&
+      automationV1Data?.capabilities?.status === 'complete' &&
+      automationV1Data.capabilities.capability === 'automation.capabilities' &&
+      automationV1Data.capabilities.data?.readOnly === true &&
+      automationV1Data.capabilities.data?.mutation === 'none' &&
+      automationV1Data.capabilities.data?.fixtureFallback === false &&
+      automationV1Data.capabilities.data?.serviceCount === 12 &&
+      automationV1Data.capabilities.data?.gatedOperations?.length === 5 &&
+      automationV1Data?.started?.status === 'complete' &&
+      automationV1Data.started.data?.contract === 'automation.v1' &&
+      automationV1Data.started.data?.readOnly === true &&
+      automationV1Data?.session?.status === 'complete' &&
+      automationV1Data.session.data?.contract === 'automation.v1' &&
+      automationV1Data.session.data?.stages?.length === 5 &&
+      automationV1Data.session.data?.readOnly === true &&
+      ['complete', 'partial'].includes(receipt.automationFinalSession?.status) &&
+      receipt.automationFinalSession?.progress === 100 &&
+      receipt.automationFinalSession?.readOnly === true &&
+      receipt.automationFinalSession?.mutation === 'none' &&
+      receipt.automationFinalSession?.stages?.length === 5 &&
+      receipt.automationMeasured?.templates === 8 &&
+      receipt.automationMeasured?.workflows >= 1 &&
+      receipt.automationMeasured?.journal >= 1 &&
+      receipt.automationMeasured?.gates === 5 &&
+      receipt.automationMeasured?.coverage?.length === 5 &&
+      typeof receipt.automationMeasured?.runtime?.timezone === 'string' &&
+      receipt.automationMeasured?.runtime?.studioSources?.length >= 1 &&
+      receipt.automationJournalCount >= 1 &&
+      receipt.automationControlProbe?.ok === true &&
+      receipt.automationToolProbe?.ok === true &&
+      receipt.automationToolProbe?.checked === 12 &&
+      receipt.automationKeyboardProbe?.ok === true &&
+      receipt.automationUiReady === true
+    );
+    const automationLayoutOk = receipt.automation1366Layout?.ok === true
+      && receipt.automation1366Layout?.horizontalOverflow === false
+      && receipt.automationRtlLayout?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -4473,10 +5002,17 @@ async function runSmoke(win) {
       receipt.servicesArabicScreenshotBytes > 20000 &&
       receipt.services1366ScreenshotBytes > 20000 &&
       receipt.services1920ScreenshotBytes > 20000 &&
-      receipt.servicesUiReady === true
+      receipt.servicesUiReady === true &&
+      receipt.automationScreenshotBytes > 20000 &&
+      receipt.automationWorkbenchScreenshotBytes > 20000 &&
+      receipt.automationLightScreenshotBytes > 20000 &&
+      receipt.automationArabicScreenshotBytes > 20000 &&
+      receipt.automation1366ScreenshotBytes > 20000 &&
+      receipt.automation1920ScreenshotBytes > 20000 &&
+      receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -4620,6 +5156,18 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Service Commander coordinator unavailable:', error?.message || error);
       servicesBridge = null;
     }
+    try {
+      automationBridge = new AutomationBridge({
+        userDataPath: app.getPath('userData'),
+        loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+        loadStudioSources: () => studioBridge?.listSources?.() || [],
+      });
+      trace('automation bridge initialized');
+    } catch (error) {
+      trace(`automation bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Flow Studio coordinator unavailable:', error?.message || error);
+      automationBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -4650,6 +5198,7 @@ app.on('before-quit', () => {
   void systemBridge?.close?.();
   void repairBridge?.close?.();
   void servicesBridge?.close?.();
+  void automationBridge?.close?.();
   startupBridge?.dispose();
   cleanupBridge?.dispose();
   appBridge?.dispose();

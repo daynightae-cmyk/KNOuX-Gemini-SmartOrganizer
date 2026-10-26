@@ -3172,19 +3172,6 @@ export interface ServicesCapabilities {
   nativeOnly: string[];
 }
 
-export interface RepairShellApi {
-  contractVersion: number;
-  capabilities: () => Promise<NativeEnvelope<RepairCapabilities>>;
-  start: () => Promise<NativeEnvelope<RepairSession>>;
-  status: (sessionId: string) => Promise<NativeEnvelope<RepairSession>>;
-  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
-  snapshot: () => Promise<NativeEnvelope<RepairSnapshot>>;
-  plan: (toolIds: RepairToolId[]) => Promise<NativeEnvelope<RepairPlan>>;
-  journal: () => Promise<NativeEnvelope<RepairJournalEntry[]>>;
-  report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<RepairReport>>;
-  openSettings: (target: 'windowsupdate' | 'troubleshoot' | 'recovery') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
-}
-
 export interface ServicesShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<ServicesCapabilities>>;
@@ -3195,6 +3182,300 @@ export interface ServicesShellApi {
   plan: (request: { serviceName: string; action: ServiceAction; startupType?: ServiceStartupType }) => Promise<NativeEnvelope<ServiceOperationPlan>>;
   journal: () => Promise<NativeEnvelope<ServicesJournalEntry[]>>;
   report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<ServicesReport>>;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Automation v1 - Flow Studio (Mission 13)                                   */
+/* -------------------------------------------------------------------------- */
+
+export type AutomationToolId =
+  | 'auto-smart-scan'
+  | 'auto-schedule-manager'
+  | 'auto-run-history'
+  | 'auto-templates'
+  | 'auto-schedule-plan'
+  | 'auto-cleanup-plan'
+  | 'auto-notify'
+  | 'auto-quiet-hours'
+  | 'auto-battery-policy'
+  | 'auto-retention'
+  | 'auto-export'
+  | 'auto-backup-plan';
+
+export type AutomationNodeType = 'trigger' | 'condition' | 'action' | 'approval' | 'report';
+
+export interface AutomationNode {
+  id: string;
+  type: AutomationNodeType;
+  label: string;
+  toolId: AutomationToolId | 'platform';
+  config: Record<string, string | number | boolean | string[] | null>;
+}
+
+export interface AutomationEdge {
+  from: string;
+  to: string;
+}
+
+export interface AutomationTrigger {
+  type: 'manual' | 'schedule' | 'startup';
+  cadence: 'daily' | 'weekly' | 'interval';
+  time: string;
+  days: number[];
+  intervalHours: number;
+  timezone: string;
+  exclusions: string[];
+}
+
+export interface AutomationQuietHours {
+  enabled: boolean;
+  start: string;
+  end: string;
+  days: number[];
+  weekendRule: 'mute' | 'allow' | 'inherit';
+}
+
+export interface AutomationPolicy {
+  requireApproval: boolean;
+  batteryThreshold: number;
+  acOnly: boolean;
+  retentionDays: 14 | 30 | 90;
+  notifyChannels: string[];
+  severity: 'info' | 'warning' | 'error';
+}
+
+export interface AutomationWorkflow {
+  id: string;
+  name: string;
+  schemaVersion: '1.0';
+  version: number;
+  createdAt: string;
+  updatedAt: string;
+  enabled: boolean;
+  trigger: AutomationTrigger;
+  quietHours: AutomationQuietHours;
+  policy: AutomationPolicy;
+  nodes: AutomationNode[];
+  edges: AutomationEdge[];
+  mutation: 'none';
+  execution: 'not-implemented';
+}
+
+export interface AutomationWorkflowHistoryEntry {
+  version: number;
+  savedAt: string;
+  name: string;
+  nodeCount: number;
+}
+
+export interface AutomationTemplate {
+  id: string;
+  category: string;
+  labelEn: string;
+  labelAr: string;
+  blurbEn: string;
+  blurbAr: string;
+  prerequisitesEn: string[];
+  prerequisitesAr: string[];
+  workflow: Omit<AutomationWorkflow, 'id' | 'createdAt' | 'updatedAt' | 'version'>;
+}
+
+export type AutomationStageKey = 'storage' | 'templates' | 'runtime' | 'sources' | 'journal';
+
+export interface AutomationStage {
+  key: AutomationStageKey;
+  labelEn: string;
+  labelAr: string;
+  status: 'pending' | 'running' | 'complete' | 'partial' | 'failed' | 'cancelled';
+  provider: string;
+  startedAt: string | null;
+  completedAt: string | null;
+  durationMs: number | null;
+  items: number | null;
+  warning: string | null;
+}
+
+export interface AutomationSession {
+  contract: 'automation.v1';
+  id: string;
+  status: 'running' | 'complete' | 'partial' | 'cancelled' | 'failed';
+  startedAt: string;
+  completedAt: string | null;
+  progress: number;
+  stages: AutomationStage[];
+  warnings: string[];
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface AutomationDryRunStep {
+  nodeId: string;
+  label: string;
+  type: AutomationNodeType;
+  status: 'would-fire' | 'evaluated-preview' | 'blocked' | 'required' | 'preview-artifact';
+  detail: string;
+}
+
+export interface AutomationDryRunResult {
+  contract: 'automation.v1';
+  id: string;
+  at: string;
+  workflowId: string;
+  workflowName: string;
+  workflowVersion: number;
+  steps: AutomationDryRunStep[];
+  nodeCount: number;
+  edgeCount: number;
+  order: string[];
+  valid: true;
+  readOnly: true;
+  mutation: 'none';
+  execution: 'not-implemented';
+  receipt: string;
+  warnings: string[];
+}
+
+export interface AutomationScheduleSpec {
+  cadence: 'daily' | 'weekly' | 'interval';
+  time: string;
+  days: number[];
+  intervalHours: number;
+  timezone: string;
+  exclusions: string[];
+}
+
+export interface AutomationScheduleOccurrence {
+  at: string;
+  local: string;
+}
+
+export interface AutomationSchedulePreview {
+  contract: 'automation.v1';
+  valid: boolean;
+  spec: AutomationScheduleSpec;
+  timezone: string;
+  next: AutomationScheduleOccurrence[];
+  reason: string | null;
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface AutomationImportValidation {
+  contract: 'automation.v1';
+  valid: boolean;
+  errors: string[];
+  warnings: string[];
+  nodeCount: number;
+  edgeCount: number;
+  workflowName: string | null;
+  schemaVersion: string | null;
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface AutomationJournalEntry {
+  id: string;
+  at: string;
+  kind: 'dry-run';
+  workflowId: string;
+  workflowName: string;
+  workflowVersion: number;
+  nodeCount: number;
+  stepCount: number;
+  receipt: string;
+  readOnly: true;
+  mutation: 'none';
+  execution: 'not-implemented';
+}
+
+export interface AutomationRuntimeEvidence {
+  timezone: string;
+  localTime: string;
+  batteryAvailable: boolean;
+  batteryCount: number;
+  batteryChargePercent: number | null;
+  powerSource: string | null;
+  studioSources: Array<{ id: string; label: string; status: string; fileCount: number | null }>;
+}
+
+export interface AutomationSnapshot {
+  contract: 'automation.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  workflows: AutomationWorkflow[];
+  workflowHistory: AutomationWorkflowHistoryEntry[];
+  templates: AutomationTemplate[];
+  journal: AutomationJournalEntry[];
+  runtime: AutomationRuntimeEvidence;
+  gates: Array<{ id: string; mission: string; title: string; reason: string }>;
+  coverage: Array<{ key: AutomationStageKey; status: 'complete' | 'partial' | 'unavailable' | 'cancelled'; items: number | null; note: string | null }>;
+  warnings: string[];
+  sources: string[];
+  limits: { workflows: number; nodes: number; journalEntries: number; occurrences: number };
+  receipt: string;
+}
+
+export interface AutomationReport {
+  contract: 'automation.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  redacted: boolean;
+  summary: string;
+  sections: Array<{
+    id: string;
+    titleEn: string;
+    titleAr: string;
+    status: 'validated' | 'partial' | 'unavailable';
+    measured: number;
+    unknown: number;
+    items: Array<{ label: string; value: string; status: 'measured' | 'unknown' | 'warning' }>;
+  }>;
+  warnings: string[];
+  receipt: string;
+}
+
+export interface AutomationCapabilities {
+  engine: string;
+  contract: 'automation.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  serviceCount: 12;
+  worldCount: 1;
+  services: Array<{
+    id: AutomationToolId;
+    world: 'automation';
+    labelEn: string;
+    labelAr: string;
+    state: 'available' | 'partial' | 'gated';
+    risk: 'read-only' | 'staged-change';
+    provider: string;
+    noteEn: string;
+    noteAr: string;
+  }>;
+  gatedOperations: Array<{ id: string; mission: string; title: string; reason: string }>;
+  limits: { workflows: number; nodes: number; journalEntries: number; occurrences: number };
+  nativeOnly: string[];
+}
+
+export interface AutomationShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<AutomationCapabilities>>;
+  start: () => Promise<NativeEnvelope<AutomationSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<AutomationSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  snapshot: () => Promise<NativeEnvelope<AutomationSnapshot>>;
+  workflows: () => Promise<NativeEnvelope<AutomationWorkflow[]>>;
+  save: (workflow: AutomationWorkflow | Omit<AutomationWorkflow, 'id' | 'createdAt' | 'updatedAt' | 'version'>) => Promise<NativeEnvelope<AutomationWorkflow>>;
+  templates: () => Promise<NativeEnvelope<AutomationTemplate[]>>;
+  dryRun: (workflow: AutomationWorkflow | Omit<AutomationWorkflow, 'id' | 'createdAt' | 'updatedAt' | 'version'>) => Promise<NativeEnvelope<AutomationDryRunResult>>;
+  schedulePreview: (spec: AutomationScheduleSpec) => Promise<NativeEnvelope<AutomationSchedulePreview>>;
+  validateImport: (payload: unknown) => Promise<NativeEnvelope<AutomationImportValidation>>;
+  journal: () => Promise<NativeEnvelope<AutomationJournalEntry[]>>;
+  report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<AutomationReport>>;
 }
 
 

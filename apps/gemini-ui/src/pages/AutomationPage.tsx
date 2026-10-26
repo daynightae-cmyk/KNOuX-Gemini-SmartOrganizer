@@ -1,1172 +1,442 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * KNOuX SmartOrganizer - Flow Studio (Mission 13).
+ *
+ * Browser previews render an explicit native-required state. In Electron every
+ * workflow, template, schedule occurrence, power reading and dry-run record is
+ * measured or locally persisted. No workflow executor or scheduler timer exists.
  */
-
-import React, { useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Network,
-  Plus,
-  FolderOpen,
-  Save,
-  Play,
-  Clock,
-  Search,
-  Filter,
-  ChevronDown,
-  ChevronRight,
-  MoreHorizontal,
-  Folder,
-  FileText,
-  Image,
-  Archive,
-  Download,
-  RotateCcw,
-  RotateCw,
-  Maximize2,
-  Minus,
-  Square,
-  Map,
-  CheckCircle2,
   AlertTriangle,
-  User,
-  Sliders,
-  Settings,
-  HelpCircle,
-  X,
-  Languages,
-  Calendar,
-  Bell,
-  Moon,
-  Battery,
-  Trash2,
+  BatteryCharging,
+  CalendarDays,
+  CheckCircle2,
+  Clock3,
   Database,
-  LayoutGrid,
-  Zap,
-  Shield,
-  Layers,
-  Sparkles,
-  BarChart2,
+  Download,
+  FileText,
+  GitBranch,
+  History,
+  LayoutTemplate,
+  Loader2,
+  Lock,
+  Play,
+  Plus,
+  Save,
+  Search,
   ShieldCheck,
-  Check,
-  ArrowRight,
-  Eye,
-  CheckSquare
+  Sparkles,
+  X,
 } from 'lucide-react';
-
-import {
-  INITIAL_FLOW_NODES,
-  AUTOMATION_SERVICE_CARDS,
-  INITIAL_OPERATION_STAGES,
-  SAVED_WORKFLOWS_CATALOG,
-  TEMPLATES_CATALOG,
-  WORKFLOW_CATEGORIES,
-  FlowNodeItem,
-  AutomationServiceCard,
-  OperationPreviewStage,
-  SavedWorkflowItem,
-  WorkflowTemplateItem
-} from '../lib/automation-inventory';
-import { AutomationWorkspaces } from '../components/automation/AutomationWorkspaces';
-import { DesignPreviewModal } from '../components/common/DesignPreviewModal';
-import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
+import type { AutomationNode, AutomationNodeType, AutomationWorkflow } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
+import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
+import { AUTOMATION_TOOLS, RISK_META, STATE_META, TOOL_BY_ID, toolLabel, type AutomationLocale } from '../automation/catalog';
+import {
+  appendNode,
+  cloneWorkflow,
+  formatCount,
+  formatTimestamp,
+  initialWorkflow,
+  nextNodeId,
+  removeNode,
+  scheduleSpecFromWorkflow,
+  t,
+  triggerLabel,
+  workflowDraftFromTemplate,
+  workflowStatusLabel,
+} from '../automation/model';
+import { useAutomation } from '../automation/useAutomation';
+import { AutomationServiceWorkspace } from '../automation/AutomationServiceWorkspaces';
+import {
+  DryRunTimeline,
+  NodeInspector,
+  NodePalette,
+  SchedulePreviewList,
+  TemplateCard,
+  TriggerEditor,
+  WorkflowCanvas,
+} from '../automation/ui';
+import { Chip, Panel, SearchBox, Seg, downloadJson, cx } from '../system/ui';
 import '../automation.css';
 
-interface AutomationPageProps {
+export interface AutomationPageProps {
   onNavigateSection?: (section: string) => void;
 }
 
 export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
-  const { navigateTo, isActive, isArabic, toggleLocale } = useNavigation();
-  // Active workflow tab
-  const [activeTab, setActiveTab] = useState<string>('Document Verification Flow');
+  const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const [localLocale, setLocalLocale] = useState<AutomationLocale | null>(null);
+  const locale: AutomationLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
+  const controller = useAutomation();
+  const snapshot = controller.snapshot;
 
-  // Zoom percentage
-  const [zoomLevel, setZoomLevel] = useState<number>(100);
+  const [draft, setDraft] = useState<AutomationWorkflow | null>(null);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [activeTool, setActiveTool] = useState<keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES'] | null>(null);
+  const [libraryQuery, setLibraryQuery] = useState('');
+  const [addOpen, setAddOpen] = useState(false);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
-  // Selected flow node (defaults to node-approval: Require User Approval)
-  const [selectedNodeId, setSelectedNodeId] = useState<string>('node-approval');
+  useEffect(() => {
+    if (!snapshot) return;
+    setDraft((current) => {
+      if (current) return current;
+      const initial = initialWorkflow(snapshot);
+      setSelectedNodeId(initial?.nodes[0]?.id || null);
+      return initial;
+    });
+  }, [snapshot]);
 
-  // Flow nodes list state
-  const [flowNodes, setFlowNodes] = useState<FlowNodeItem[]>(INITIAL_FLOW_NODES);
+  useEffect(() => {
+    if (activeTool && !snapshot) setActiveTool(null);
+  }, [activeTool, snapshot]);
 
-  // Library search and tab
-  const [librarySearch, setLibrarySearch] = useState<string>('');
-  const [libraryFilter, setLibraryFilter] = useState<'All' | 'Workflows' | 'Templates'>('All');
+  const savedWorkflows = useMemo(() => {
+    const needle = libraryQuery.trim().toLowerCase();
+    if (!needle) return snapshot?.workflows || [];
+    return (snapshot?.workflows || []).filter((entry) => `${entry.name} ${entry.id}`.toLowerCase().includes(needle));
+  }, [libraryQuery, snapshot]);
 
-  // Node Configuration active tab
-  const [configTab, setConfigTab] = useState<'General' | 'Conditions' | 'Notifications' | 'Advanced'>('General');
+  const visibleTemplates = useMemo(() => {
+    const needle = libraryQuery.trim().toLowerCase();
+    if (!needle) return snapshot?.templates || [];
+    return (snapshot?.templates || []).filter((entry) => `${entry.labelEn} ${entry.labelAr} ${entry.category}`.toLowerCase().includes(needle));
+  }, [libraryQuery, snapshot]);
 
-  // Node configuration editable values for currently selected node
-  const currentNode = useMemo(() => {
-    return flowNodes.find(n => n.id === selectedNodeId) || flowNodes[3];
-  }, [flowNodes, selectedNodeId]);
+  const selectedNode = draft?.nodes.find((node) => node.id === selectedNodeId) || null;
+  const journal = controller.journal.length ? controller.journal : snapshot?.journal || [];
+  const dryRun = controller.dryRunResult;
 
-  // Modals state
-  const [activeModal, setActiveModal] = useState<
-    'step-through' | 'inspect-inputs' | 'review-permissions' | 'new-workflow' | null
-  >(null);
-
-  // Specialized service workspace (ServiceWorkspaceHost) — opened from the palette cards / History
-  const [activeServiceWorkspace, setActiveServiceWorkspace] = useState<string | null>(null);
-
-  // Draft name for the "New Workflow" picker
-  const [workflowDraftName, setWorkflowDraftName] = useState<string>('');
-
-  // Draft template selection for the "New Workflow" picker
-  const [workflowDraftTemplate, setWorkflowDraftTemplate] = useState<string | null>(null);
-
-  // Toast notification
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  // Update node config field
-  const handleUpdateConfig = (field: string, value: any) => {
-    setFlowNodes(prev =>
-      prev.map(node =>
-        node.id === currentNode.id
-          ? {
-              ...node,
-              config: {
-                ...node.config,
-                [field]: value
-              }
-            }
-          : node
-      )
-    );
+  const loadSaved = (workflow: AutomationWorkflow) => {
+    const next = cloneWorkflow(workflow);
+    setDraft(next);
+    setSelectedNodeId(next.nodes[0]?.id || null);
   };
 
-  const handleAddFileType = () => {
-    const ext = prompt('Enter file extension to add (e.g. TXT, CSV, JPG):');
-    if (ext && ext.trim()) {
-      const clean = ext.trim().toUpperCase().replace(/^\./, '');
-      if (!currentNode.config.fileTypes.includes(clean)) {
-        handleUpdateConfig('fileTypes', [...currentNode.config.fileTypes, clean]);
-      }
+  const instantiate = (templateId: string) => {
+    const template = snapshot?.templates.find((entry) => entry.id === templateId);
+    if (!template) return;
+    const next = workflowDraftFromTemplate(template);
+    setDraft(next);
+    setSelectedNodeId(next.nodes[0]?.id || null);
+    controller.showNotice(t(locale, 'Template loaded as a local draft. Nothing was executed or scheduled.', 'حُمّل القالب كمسودة محلية. لم يُنفذ أو يُجدول شيء.'));
+  };
+
+  const saveDraft = async () => {
+    if (!draft) return;
+    const saved = await controller.saveWorkflow(draft);
+    if (saved) {
+      const next = cloneWorkflow(saved);
+      setDraft(next);
+      setSelectedNodeId((current) => (next.nodes.some((node) => node.id === current) ? current : next.nodes[0]?.id || null));
     }
   };
 
-  const handleRemoveFileType = (typeToRemove: string) => {
-    handleUpdateConfig(
-      'fileTypes',
-      currentNode.config.fileTypes.filter(t => t !== typeToRemove)
+  const runDryRun = async () => {
+    if (!draft) return;
+    await controller.dryRun(draft);
+  };
+
+  const addNode = (type: AutomationNodeType, toolId: string) => {
+    if (!draft) return;
+    const node: AutomationNode = {
+      id: nextNodeId(draft, type),
+      type,
+      label: `${type} ${draft.nodes.length + 1}`,
+      toolId: toolId as AutomationNode['toolId'],
+      config: type === 'condition' ? { thresholdPercent: 10 } : type === 'approval' ? { scope: 'review' } : {},
+    };
+    const next = appendNode(draft, node);
+    setDraft(next);
+    setSelectedNodeId(node.id);
+    setAddOpen(false);
+  };
+
+  const removeSelectedNode = (nodeId: string) => {
+    if (!draft) return;
+    const next = removeNode(draft, nodeId);
+    setDraft(next);
+    setSelectedNodeId(next.nodes[0]?.id || null);
+  };
+
+  const previewSchedule = async () => {
+    if (!draft) return;
+    await controller.previewSchedule(scheduleSpecFromWorkflow(draft));
+  };
+
+  const exportDraft = () => {
+    if (!draft) return;
+    const ok = downloadJson('knoux-flow-workflow.json', draft);
+    controller.showNotice(ok ? t(locale, 'Workflow draft exported as JSON.', 'صُدّرت مسودة سير العمل بصيغة JSON.') : t(locale, 'The export could not start.', 'تعذّر بدء التصدير.'));
+  };
+
+  const exportReport = async () => {
+    if (!snapshot) return;
+    const report = await controller.loadReport(true);
+    if (report) {
+      const ok = downloadJson('knoux-flow-studio-report.json', report);
+      controller.showNotice(ok ? t(locale, 'Read-only Flow Studio report exported.', 'صُدّر تقرير Flow Studio للقراءة فقط.') : t(locale, 'The report export could not start.', 'تعذّر بدء تصدير التقرير.'));
+    }
+  };
+
+  const openTool = (id: keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES']) => {
+    if (!snapshot) {
+      controller.showNotice(t(locale, 'Run Flow Studio discovery before opening a tool.', 'شغّل اكتشاف Flow Studio قبل فتح أداة.'));
+      return;
+    }
+    triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setActiveTool(id);
+  };
+
+  const closeTool = () => {
+    setActiveTool(null);
+    window.setTimeout(() => triggerRef.current?.focus(), 30);
+  };
+
+  const navigate = (section: string) => {
+    if (onNavigateSection) onNavigateSection(section);
+    else navigateTo(section);
+  };
+
+  const scanStatus = controller.scanning
+    ? t(locale, 'Discovering local workflow evidence', 'جارٍ اكتشاف أدلة سير العمل المحلية')
+    : snapshot
+      ? t(locale, 'Local workflow store ready', 'مخزن سير العمل المحلي جاهز')
+      : controller.nativeAvailable
+        ? t(locale, 'Awaiting measured discovery', 'بانتظار الاكتشاف المقيس')
+        : t(locale, 'Native measurement required', 'القياس الأصلي مطلوب');
+
+  const renderToolCard = (entry: (typeof AUTOMATION_TOOLS)[number]) => {
+    const Icon = entry.icon;
+    const state = STATE_META[entry.state];
+    const risk = RISK_META[entry.risk];
+    return (
+      <button key={entry.id} type="button" className="auto-tool-card" data-testid={`automation-tool-${entry.id}`} onClick={() => openTool(entry.id)}>
+        <span className="auto-tool-index">{String(entry.index).padStart(2, '0')}</span>
+        <span className="auto-tool-icon" style={{ color: entry.accent }} aria-hidden="true"><Icon /></span>
+        <span className="auto-tool-copy"><strong>{locale === 'ar' ? entry.ar : entry.en}</strong><em>{entry.provider}</em></span>
+        <span className="auto-tool-badges"><Chip tone={state.tone}>{t(locale, state.en, state.ar)}</Chip><Chip tone={risk.tone}>{t(locale, risk.en, risk.ar)}</Chip></span>
+      </button>
     );
   };
 
-  const handleCreateNewWorkflow = (name: string) => {
-    setActiveTab(name);
-    setToastMessage(`Created workflow draft: "${name}"`);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
   return (
-    <div className={`automation-viewport ${isArabic ? 'rtl' : 'ltr'} h-screen overflow-hidden`} dir={isArabic ? 'rtl' : 'ltr'}>
-      
-      {/* =========================================================================
-         TOP CHROME TITLEBAR
-         ========================================================================= */}
+    <div className={cx('sys-viewport auto-viewport', locale === 'ar' && 'is-rtl')} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <KNOuXTitleBar
-        sectionName={isArabic ? "أتمتة العمليات" : "Automation"}
-        sectionSubtitle={isArabic ? "استوديو التدفق البصري" : "Flow Studio"}
-        onNavigateHome={() => (onNavigateSection ? onNavigateSection("home") : navigateTo("home"))}
-        searchPlaceholder={isArabic ? "البحث في سير العمل والقوالب... (Ctrl+K)" : "Search workflows, triggers, templates... (Ctrl+K)"}
-        isArabic={isArabic}
-        onToggleArabic={toggleLocale}
+        sectionName={t(locale, 'Automation', 'الأتمتة')}
+        sectionSubtitle={t(locale, 'Flow Studio · local drafts', 'استوديو التدفق · مسودات محلية')}
+        onNavigateHome={() => navigate('home')}
+        searchPlaceholder={t(locale, 'Search workflows and templates… (Ctrl+K)', 'ابحث في سير العمل والقوالب… (Ctrl+K)')}
+        isArabic={locale === 'ar'}
+        onToggleArabic={() => { toggleLocale(); setLocalLocale(locale === 'ar' ? 'en' : 'ar'); }}
+        onOpenSettings={() => navigate('settings')}
       />
+      {controller.notice ? (
+        <div className="sys-toast sys-toast-good" role="status"><CheckCircle2 aria-hidden="true" /><span>{controller.notice}</span><button type="button" onClick={controller.clearNotice} aria-label={t(locale, 'Dismiss', 'إغلاق')}><X aria-hidden="true" /></button></div>
+      ) : null}
+      {controller.actionError ? (
+        <div className="sys-toast sys-toast-bad" role="alert"><AlertTriangle aria-hidden="true" /><div><strong>{controller.actionError.code}</strong><span>{controller.actionError.message}</span></div><button type="button" onClick={controller.clearError} aria-label={t(locale, 'Dismiss', 'إغلاق')}><X aria-hidden="true" /></button></div>
+      ) : null}
 
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed top-12 right-6 z-50 px-3.5 py-1.5 rounded-lg bg-purple-950/90 border border-purple-400/40 text-purple-200 text-xs shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
-          {toastMessage}
-        </div>
-      )}
-
-      {/* =========================================================================
-         MAIN APPLICATION LAYOUT (SIDEBAR + CONTENT)
-         ========================================================================= */}
-      <div className="flex-1 flex overflow-hidden">
-        
-        {/* Navigation Sidebar */}
-        <KNOuXSidebar
-          activeSection="automation"
-          onNavigate={(sec) => (onNavigateSection ? onNavigateSection(sec) : navigateTo(sec))}
-          isArabic={isArabic}
-        />
-
-        {/* Content Viewport */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          
-          {/* =========================================================================
-             HERO HEADER BAR WITH ACTION BUTTONS
-             ========================================================================= */}
-          <div className="px-5 py-3 border-b border-slate-800/80 bg-[#081024]/70 flex items-center justify-between shrink-0">
-            {/* Title & Subtitle */}
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-purple-600/40 via-indigo-600/40 to-cyan-500/30 border border-purple-500/40 flex items-center justify-center text-cyan-300 shadow-[0_0_15px_rgba(168,85,247,0.3)] shrink-0">
-                <Network className="w-5 h-5" />
+      <div className="sys-shell">
+        <KNOuXSidebar activeSection="automation" onNavigate={navigate} isArabic={locale === 'ar'} />
+        <div className="sys-shell-main">
+          <main className="sys-main knx-custom-scrollbar auto-main" data-testid="automation-workspace">
+            <section className="sys-hero auto-hero" data-testid="automation-hero">
+              <div className="sys-hero-arc" aria-hidden="true">
+                <svg viewBox="0 0 620 120" fill="none">
+                  <defs><linearGradient id="auto-hero-wave" x1="0" y1="0" x2="620" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#34d399" /><stop offset="0.5" stopColor="#818cf8" /><stop offset="1" stopColor="#f472b6" /></linearGradient></defs>
+                  <path d="M8 62 C88 16, 150 108, 236 52 C322 -4, 386 100, 470 46 C534 6, 580 72, 616 52" stroke="url(#auto-hero-wave)" strokeWidth="2.4" strokeLinecap="round" />
+                  <path d="M8 52 C76 88, 156 16, 240 78 C324 136, 400 24, 486 72 C548 108, 592 28, 616 56" stroke="url(#auto-hero-wave)" strokeWidth="1.4" strokeDasharray="4 5" opacity="0.55" />
+                </svg>
               </div>
-              <div>
-                <h1 className="text-lg font-bold text-white tracking-tight">Flow Studio</h1>
-                <p className="text-[11px] text-slate-400">
-                  {isArabic
-                    ? 'تصميم مسارات عمل ذكية محلية مع رؤية وتحكم كامل.'
-                    : 'Design smart local workflows with full visibility and control.'}
-                </p>
+              <div className="sys-hero-copy">
+                <span className="sys-hero-eyebrow">{t(locale, 'FLOW STUDIO · LOCAL DRAFTS · NO EXECUTION', 'استوديو التدفق · مسودات محلية · بلا تنفيذ')}</span>
+                <h1>{t(locale, 'Flow', 'استوديو')} <span>{t(locale, 'Studio', 'التدفق')}</span></h1>
+                <p>{t(locale, 'Design typed workflow drafts, validate the DAG and inspect every blocked action before any future approval.', 'صمم مسودات سير عمل مهيكلة، وتحقق من DAG، وافحص كل إجراء محجوب قبل أي موافقة مستقبلية.')}</p>
+                <div className="sys-hero-chips">
+                  <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
+                  <Chip tone="info" icon={LayoutTemplate}>{formatCount(snapshot?.templates.length || 0)} {t(locale, 'templates', 'قالب')}</Chip>
+                  <Chip tone="violet" icon={Save}>{formatCount(snapshot?.workflows.length || 0)} {t(locale, 'saved drafts', 'مسودة محفوظة')}</Chip>
+                  <Chip tone="bad" icon={Lock}>{t(locale, '0 workflows executed', '0 سير عمل منفذ')}</Chip>
+                  {snapshot ? <Chip tone="muted" icon={Database}>{t(locale, 'receipt', 'إيصال')} {snapshot.receipt.slice(0, 12)}</Chip> : null}
+                </div>
+                <div className="sys-hero-actions">
+                  <button type="button" className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')} onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())} disabled={!controller.nativeAvailable || controller.cancelling}>
+                    {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}{controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start measured discovery', 'بدء الاكتشاف المقيس')}
+                  </button>
+                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshIcon />{t(locale, 'Refresh store', 'تحديث المخزن')}</button>
+                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void previewSchedule()} disabled={!draft || controller.busy === 'schedule'}><Clock3 aria-hidden="true" />{t(locale, 'Preview schedule', 'معاينة الجدولة')}</button>
+                  <button type="button" className="sys-btn sys-btn-quiet" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}><Download aria-hidden="true" />{t(locale, 'Export report', 'تصدير التقرير')}</button>
+                </div>
               </div>
+              <aside className="sys-source-card auto-source-card" data-testid="automation-source-card">
+                <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
+                <div className="sys-source-copy"><span>{t(locale, 'Evidence source', 'مصدر الأدلة')}</span><strong>KNOuX AutomationBridge v1</strong><em>{scanStatus}</em><em>{snapshot ? formatTimestamp(snapshot.generatedAt, locale) : controller.nativeAvailable ? t(locale, 'Bounded local discovery', 'اكتشاف محلي محدود') : t(locale, 'Browser preview', 'معاينة متصفح')}</em></div>
+                <div className="sys-source-badges"><span className="sys-source-badge">{t(locale, 'Draft only', 'مسودة فقط')}</span><span className="sys-source-badge">{t(locale, 'No timer', 'لا مؤقت')}</span></div>
+              </aside>
+            </section>
+
+            {!controller.nativeAvailable ? (
+              <div className="sys-banner is-required" data-testid="automation-native-required"><Lock aria-hidden="true" /><div><strong>{t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}</strong><p>{t(locale, 'This is a browser preview. The local Flow Studio bridge is unavailable, so no workflow, template, schedule occurrence or dry-run is substituted. Open the native Electron app.', 'هذه معاينة متصفح. جسر Flow Studio المحلي غير متاح، لذلك لا يُستبدل أي سير عمل أو قالب أو موعد أو معاينة جافة. افتح تطبيق Electron الأصلي.')}</p></div></div>
+            ) : (
+              <div className="sys-banner is-measured" data-testid="automation-native-banner"><ShieldCheck aria-hidden="true" /><div><strong>{t(locale, 'Local Flow Studio', 'استوديو التدفق المحلي')}</strong><p>{snapshot ? `${formatCount(snapshot.workflows.length)} ${t(locale, 'saved drafts', 'مسودة محفوظة')} · ${formatCount(snapshot.journal.length)} ${t(locale, 'dry-runs', 'معاينة جافة')} · ${snapshot.runtime.timezone} · ${t(locale, 'execution', 'التنفيذ')}: not-implemented` : scanStatus}</p></div><span className="sys-banner-chip">{snapshot ? t(locale, 'LOCAL', 'محلي') : t(locale, 'MEASURING', 'جارٍ القياس')}</span></div>
+            )}
+
+            {controller.scanning ? (
+              <div className="sys-scan-progress" data-testid="automation-scan-progress"><div className="sys-scan-progress-head"><span><Loader2 aria-hidden="true" className="sys-spin" />{t(locale, 'Bounded local discovery', 'اكتشاف محلي محدود')}</span><em>{formatCount(controller.session?.progress || 0)}%</em></div><div className="sys-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={controller.session?.progress || 0}><span style={{ width: `${Math.max(2, Math.min(100, controller.session?.progress || 0))}%` }} /></div><div className="sys-scan-stages">{(controller.session?.stages || []).map((stage) => <span key={stage.key} className={`sys-scan-stage is-${stage.status}`} title={stage.provider}>{locale === 'ar' ? stage.labelAr : stage.labelEn}</span>)}</div></div>
+            ) : null}
+
+            <div className="sys-kpi-row auto-kpi-row">
+              {[
+                { key: 'workflows', label: t(locale, 'Saved drafts', 'مسودات محفوظة'), value: snapshot ? formatCount(snapshot.workflows.length) : '—', note: t(locale, 'Versioned local workflows', 'سير عمل محلي بنسخ'), icon: Save },
+                { key: 'templates', label: t(locale, 'Templates', 'القوالب'), value: snapshot ? formatCount(snapshot.templates.length) : '—', note: t(locale, 'Built-in typed flows', 'تدفقات مهيكلة مدمجة'), icon: LayoutTemplate },
+                { key: 'dryruns', label: t(locale, 'Dry-runs', 'معاينات جافة'), value: formatCount(journal.length), note: t(locale, 'Deterministic only', 'حتمية فقط'), icon: History },
+                { key: 'nodes', label: t(locale, 'Draft nodes', 'عقد المسودة'), value: draft ? formatCount(draft.nodes.length) : '—', note: draft ? workflowStatusLabel(draft, locale) : t(locale, 'No draft', 'لا مسودة'), icon: GitBranch },
+                { key: 'battery', label: t(locale, 'Power evidence', 'أدلة الطاقة'), value: snapshot ? (snapshot.runtime.batteryAvailable ? `${snapshot.runtime.batteryChargePercent ?? '—'}%` : '—') : '—', note: snapshot?.runtime.batteryAvailable ? t(locale, 'Measured battery', 'بطارية مقيسة') : t(locale, 'Battery unavailable', 'البطارية غير متاحة'), icon: BatteryCharging },
+                { key: 'executed', label: t(locale, 'Executed', 'المنفذ'), value: '0', note: t(locale, 'No executor shipped', 'لا منفذ متوفر'), icon: Lock },
+              ].map((kpi) => {
+                const Icon = kpi.icon;
+                return <div key={kpi.key} className="sys-instrument auto-kpi" data-testid={`automation-kpi-${kpi.key}`}><span className="auto-kpi-head"><span className="auto-kpi-icon"><Icon aria-hidden="true" /></span><span>{kpi.label}</span></span><strong dir="ltr" data-testid={`automation-kpi-${kpi.key}-value`}>{kpi.value}</strong><em>{kpi.note}</em></div>;
+              })}
             </div>
 
-            {/* Right Action Buttons */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setActiveModal('new-workflow')}
-                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md shadow-purple-900/40 border border-purple-400/30 transition-all"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>New Workflow</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setToastMessage('Templates library opened');
-                  setTimeout(() => setToastMessage(null), 2000);
-                }}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
-              >
-                <FolderOpen className="w-3.5 h-3.5" />
-                <span>Open Template</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setToastMessage('Draft saved locally');
-                  setTimeout(() => setToastMessage(null), 2000);
-                }}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
-              >
-                <Save className="w-3.5 h-3.5" />
-                <span>Save Draft</span>
-              </button>
-
-              <button
-                onClick={() => setActiveModal('step-through')}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
-              >
-                <Play className="w-3.5 h-3.5 text-cyan-300" />
-                <span>Preview Flow</span>
-              </button>
-
-              <button
-                onClick={() => setActiveServiceWorkspace('auto-run-history')}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:bg-slate-800 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition-colors"
-              >
-                <Clock className="w-3.5 h-3.5" />
-                <span>History</span>
-              </button>
-            </div>
-          </div>
-
-          {/* =========================================================================
-             THREE-ZONE WORKSPACE (LIBRARY + FLOW CANVAS + INSPECTOR)
-             ========================================================================= */}
-          <div className="flex-1 flex overflow-hidden">
-            
-            {/* -----------------------------------------------------------------------
-               ZONE 1: WORKFLOW LIBRARY (LEFT ACCORDION)
-               ----------------------------------------------------------------------- */}
-            <div className="w-64 bg-[#070e1c] border-r border-slate-800/80 flex flex-col shrink-0 overflow-y-auto automation-custom-scrollbar p-3 space-y-3">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-slate-200">Workflow Library</span>
-                <button className="text-slate-500 hover:text-slate-300">
-                  <ChevronRight className="w-4 h-4 rotate-180" />
-                </button>
-              </div>
-
-              {/* Search bar & filter */}
-              <div className="flex items-center gap-1.5">
-                <div className="relative flex-1">
-                  <Search className="w-3 h-3 absolute left-2.5 top-2 text-slate-500 pointer-events-none" />
-                  <input
-                    type="text"
-                    placeholder="Search workflows, templates..."
-                    value={librarySearch}
-                    onChange={e => setLibrarySearch(e.target.value)}
-                    className="w-full bg-[#0b1429] border border-slate-800 rounded-lg pl-7 pr-2 py-1 text-[11px] text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-400"
-                  />
-                </div>
-                <button className="p-1.5 rounded bg-[#0b1429] border border-slate-800 text-slate-400 hover:text-slate-200">
-                  <Filter className="w-3 h-3" />
-                </button>
-              </div>
-
-              {/* Segmented Filter Pills */}
-              <div className="grid grid-cols-3 gap-1 bg-[#050b18] p-1 rounded-lg border border-slate-800 text-[10.5px]">
-                {(['All', 'Workflows', 'Templates'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    onClick={() => setLibraryFilter(tab)}
-                    className={`py-1 rounded font-medium text-center transition-colors ${
-                      libraryFilter === tab
-                        ? 'bg-purple-600 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-slate-200'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-
-              {/* Categories */}
-              <div>
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 mb-1 px-1">
-                  <span className="flex items-center gap-1">
-                    <ChevronDown className="w-3 h-3" />
-                    Categories
-                  </span>
-                </div>
-                <div className="space-y-0.5 text-xs">
-                  {WORKFLOW_CATEGORIES.map(cat => (
-                    <div
-                      key={cat.name}
-                      className="flex items-center justify-between px-2 py-1 rounded hover:bg-slate-800/40 text-slate-300 cursor-pointer"
-                    >
-                      <span className="flex items-center gap-2 truncate">
-                        <Folder className="w-3 h-3 text-cyan-400 shrink-0" />
-                        <span className="truncate text-[11px]">{cat.name}</span>
-                      </span>
-                      <span className="text-[10px] text-slate-500 font-mono">{cat.count}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Saved Workflows */}
-              <div>
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 mb-1 px-1">
-                  <span className="flex items-center gap-1">
-                    <ChevronDown className="w-3 h-3" />
-                    Saved Workflows
-                  </span>
-                </div>
-                <div className="space-y-1">
-                  {SAVED_WORKFLOWS_CATALOG.map(wf => (
-                    <div
-                      key={wf.id}
-                      onClick={() => setActiveTab(wf.title)}
-                      className={`p-2 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${
-                        activeTab === wf.title
-                          ? 'bg-purple-950/40 border-purple-500/40 text-white'
-                          : 'bg-[#091224]/80 border-slate-800 hover:border-slate-700 text-slate-300'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <div className="p-1 rounded bg-black/40 border border-slate-800 text-cyan-400">
-                          {wf.iconType === 'document' && <FileText className="w-3 h-3 text-emerald-400" />}
-                          {wf.iconType === 'photo' && <Image className="w-3 h-3 text-pink-400" />}
-                          {wf.iconType === 'archive' && <Archive className="w-3 h-3 text-amber-400" />}
-                          {wf.iconType === 'download' && <Download className="w-3 h-3 text-cyan-400" />}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-[11px] font-semibold truncate">{wf.title}</div>
-                          <div className="text-[9.5px] text-slate-400 truncate">{wf.summary}</div>
-                        </div>
-                      </div>
-                      <MoreHorizontal className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Templates */}
-              <div>
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 mb-1 px-1">
-                  <span className="flex items-center gap-1">
-                    <ChevronDown className="w-3 h-3" />
-                    Templates
-                  </span>
-                </div>
-                <div className="space-y-1">
-                  {TEMPLATES_CATALOG.map(tpl => (
-                    <div
-                      key={tpl.id}
-                      onClick={() => setActiveTab(tpl.title)}
-                      className="p-2 rounded-lg bg-[#091224]/80 border border-slate-800 hover:border-slate-700 text-slate-300 cursor-pointer transition-all flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <div className="p-1 rounded bg-black/40 border border-slate-800 text-indigo-400">
-                          {tpl.iconType === 'scratch' && <Plus className="w-3 h-3 text-indigo-400" />}
-                          {tpl.iconType === 'folder' && <Folder className="w-3 h-3 text-amber-400" />}
-                          {tpl.iconType === 'media' && <Play className="w-3 h-3 text-rose-400" />}
-                          {tpl.iconType === 'archive' && <Archive className="w-3 h-3 text-cyan-400" />}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-[11px] font-semibold truncate">{tpl.title}</div>
-                          <div className="text-[9.5px] text-slate-400 truncate">{tpl.summary}</div>
-                        </div>
-                      </div>
-                      <MoreHorizontal className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* -----------------------------------------------------------------------
-               ZONE 2: VISUAL FLOW CANVAS (CENTER) + PALETTE + OPERATION PREVIEW
-               ----------------------------------------------------------------------- */}
-            <div className="flex-1 min-w-0 flex flex-col overflow-y-auto automation-custom-scrollbar">
-              
-              {/* Canvas Header Bar with Tabs & Zoom Controls */}
-              <div className="h-9 bg-[#081024] border-b border-slate-800/80 px-3 flex items-center justify-between shrink-0 select-none">
-                {/* Workflow Tabs */}
-                <div className="flex items-center gap-1 overflow-x-auto">
-                  <div className="px-3 py-1 rounded-t-lg bg-[#0d172c] border-t border-x border-purple-500/40 text-xs font-semibold text-white flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-purple-400"></span>
-                    <span>{activeTab}</span>
-                    <X className="w-3 h-3 text-slate-400 hover:text-white cursor-pointer" />
-                  </div>
-                  <button
-                    onClick={() => setActiveModal('new-workflow')}
-                    className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-white"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-
-                {/* Canvas Canvas Controls */}
-                <div className="flex items-center gap-1.5 text-slate-400 text-xs">
-                  <button className="p-1 rounded hover:bg-slate-800 hover:text-white" title="Undo">
-                    <RotateCcw className="w-3.5 h-3.5" />
-                  </button>
-                  <button className="p-1 rounded hover:bg-slate-800 hover:text-white" title="Redo">
-                    <RotateCw className="w-3.5 h-3.5" />
-                  </button>
-                  <button className="p-1 rounded hover:bg-slate-800 hover:text-white" title="Fit to Screen">
-                    <Maximize2 className="w-3.5 h-3.5" />
-                  </button>
-                  <div className="flex items-center border border-slate-800 rounded px-1.5 py-0.5 bg-black/40 text-[11px] font-mono">
-                    <button
-                      onClick={() => setZoomLevel(prev => Math.max(50, prev - 10))}
-                      className="px-1 hover:text-white"
-                    >
-                      −
-                    </button>
-                    <span className="px-1">{zoomLevel}%</span>
-                    <button
-                      onClick={() => setZoomLevel(prev => Math.min(150, prev + 10))}
-                      className="px-1 hover:text-white"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button className="p-1 rounded hover:bg-slate-800 hover:text-white" title="Minimap">
-                    <Map className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Visual Node Graph Canvas Area */}
-              <div className="flow-canvas-grid min-h-[340px] p-6 relative overflow-x-auto flex items-center">
-                
-                {/* 5 Nodes Horizontal Layout — fixed 132px cards + 38px gaps so the
-                    connector geometry below always lands exactly on the ports. */}
-                <div className="flex items-center gap-[38px] relative z-10 mx-auto shrink-0">
-                  <svg className="flow-connector-svg" viewBox="0 0 812 340" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="flowLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#06b6d4" />
-                        <stop offset="35%" stopColor="#ec4899" />
-                        <stop offset="65%" stopColor="#a855f7" />
-                        <stop offset="100%" stopColor="#f59e0b" />
-                      </linearGradient>
-                    </defs>
-                    {/* Visual connecting bezier lines between nodes (port to port) */}
-                    <path
-                      d="M 132 170 C 150 170, 152 170, 170 170"
-                      stroke="#38bdf8"
-                      strokeWidth="2.5"
-                      fill="none"
-                      strokeDasharray="4 2"
-                    />
-                    <path
-                      d="M 302 170 C 320 170, 322 170, 340 170"
-                      stroke="#818cf8"
-                      strokeWidth="2.5"
-                      fill="none"
-                    />
-                    <path
-                      d="M 472 170 C 490 170, 492 170, 510 170"
-                      stroke="#38bdf8"
-                      strokeWidth="3"
-                      fill="none"
-                    />
-                    <path
-                      d="M 642 170 C 660 170, 662 170, 680 170"
-                      stroke="#38bdf8"
-                      strokeWidth="2.5"
-                      fill="none"
-                    />
-                  </svg>
-
-                  {flowNodes.map(node => {
-                    const isSelected = node.id === selectedNodeId;
-                    return (
-                      <div
-                        key={node.id}
-                        onClick={() => setSelectedNodeId(node.id)}
-                        className={`flow-node-card w-[132px] p-3 cursor-pointer flex flex-col justify-between text-center select-none relative z-10 ${
-                          isSelected
-                            ? 'flow-node-selected'
-                            : node.color === 'teal'
-                            ? 'flow-node-teal'
-                            : node.color === 'pink'
-                            ? 'flow-node-pink'
-                            : 'flow-node-amber'
-                        }`}
-                      >
-                        {/* Ports */}
-                        {node.id !== 'node-start' && <div className="flow-port flow-port-left" />}
-                        {node.id !== 'node-end' && <div className="flow-port flow-port-right" />}
-
-                        {/* Top options icon */}
-                        <div className="flex justify-end text-slate-500 mb-1">
-                          <MoreHorizontal className="w-3.5 h-3.5" />
-                        </div>
-
-                        {/* Node Icon */}
-                        <div className="w-10 h-10 rounded-full mx-auto flex items-center justify-center mb-2 shadow-inner">
-                          {node.iconType === 'play' && (
-                            <div className="w-9 h-9 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-cyan-300">
-                              <Play className="w-4 h-4 fill-cyan-400" />
-                            </div>
-                          )}
-                          {node.iconType === 'file-check' && (
-                            <div className="w-9 h-9 rounded-lg bg-pink-950 border border-pink-400 flex items-center justify-center text-pink-300">
-                              <FileText className="w-4 h-4" />
-                            </div>
-                          )}
-                          {node.iconType === 'folder' && (
-                            <div className="w-9 h-9 rounded-lg bg-amber-950 border border-amber-400 flex items-center justify-center text-amber-300">
-                              <Folder className="w-4 h-4" />
-                            </div>
-                          )}
-                          {node.iconType === 'user' && (
-                            <div className="w-9 h-9 rounded-full bg-purple-950 border border-purple-400 flex items-center justify-center text-purple-300">
-                              <User className="w-4 h-4" />
-                            </div>
-                          )}
-                          {node.iconType === 'certified' && (
-                            <div className="w-9 h-9 rounded-lg bg-amber-950 border border-amber-400 flex items-center justify-center text-amber-300">
-                              <CheckCircle2 className="w-4 h-4" />
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Title & Subtitle */}
-                        <div className="font-semibold text-slate-100 text-[11px] leading-tight line-clamp-2">{node.name}</div>
-                        <div className="text-[9.5px] text-slate-400 line-clamp-2 mt-0.5 leading-tight min-h-[24px]">
-                          {node.subtitle}
-                        </div>
-
-                        {/* Status Chip */}
-                        <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex justify-center">
-                          <span className={`px-2 py-0.5 rounded-full text-[9.5px] font-medium flex items-center gap-1 ${
-                            node.status === 'Active'
-                              ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-600/40'
-                              : node.status === 'Matched'
-                              ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-600/40'
-                              : node.status === 'Ready'
-                              ? 'bg-amber-950/60 text-amber-300 border border-amber-600/40'
-                              : node.status === 'Pending'
-                              ? 'bg-purple-950/60 text-purple-300 border border-purple-500/40'
-                              : 'bg-emerald-950/60 text-emerald-400 border border-emerald-600/40'
-                          }`}>
-                            <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
-                            {node.status}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-              </div>
-
-              {/* Service Palette (12) */}
-              <div className="p-3.5 bg-[#070e1c] border-t border-slate-800/80">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200">
-                    <Settings className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>Service Palette (12)</span>
+            <div className="auto-editor-grid">
+              <Panel className="auto-library" title={t(locale, 'Workflow library', 'مكتبة سير العمل')} sub={t(locale, 'Saved drafts and built-in templates.', 'مسودات محفوظة وقوالب مدمجة.')} icon={LayoutTemplate} bodyClassName="sys-panel-body-flush">
+                <div className="auto-library-search"><SearchBox value={libraryQuery} onChange={setLibraryQuery} placeholder={t(locale, 'Search workflows…', 'ابحث في سير العمل…')} ariaLabel={t(locale, 'Search workflows', 'بحث سير العمل')} /></div>
+                <div className="auto-library-section">
+                  <h4>{t(locale, 'Saved workflows', 'سير العمل المحفوظ')}</h4>
+                  <div className="auto-library-list">
+                    {savedWorkflows.map((workflow) => (
+                      <button key={workflow.id} type="button" className={cx('auto-workflow-row', draft?.id === workflow.id && 'is-active')} data-testid={`automation-workflow-row-${workflow.id}`} onClick={() => loadSaved(workflow)}>
+                        <span><strong>{workflow.name}</strong><em>{triggerLabel(workflow, locale)}</em></span>
+                        <Chip tone="muted">v{workflow.version}</Chip>
+                      </button>
+                    ))}
+                    {!savedWorkflows.length ? <p className="auto-op-hint">{t(locale, 'No saved workflow yet.', 'لا سير عمل محفوظ بعد.')}</p> : null}
                   </div>
                 </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-2">
-                  {AUTOMATION_SERVICE_CARDS.map(card => (
-                    <button
-                      key={card.id}
-                      onClick={() => setActiveServiceWorkspace(card.serviceKey)}
-                      className="p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group"
-                    >
-                      <div className="p-1 rounded bg-black/40 border border-slate-800 text-cyan-400 shrink-0 mt-0.5">
-                        {card.iconType === 'smart-scan' && <Sparkles className="w-3 h-3 text-emerald-400" />}
-                        {card.iconType === 'schedule-mgr' && <Clock className="w-3 h-3 text-cyan-400" />}
-                        {card.iconType === 'history' && <RotateCcw className="w-3 h-3 text-amber-400" />}
-                        {card.iconType === 'templates' && <LayoutGrid className="w-3 h-3 text-indigo-400" />}
-                        {card.iconType === 'schedule-plan' && <Calendar className="w-3 h-3 text-pink-400" />}
-                        {card.iconType === 'cleanup-plan' && <Trash2 className="w-3 h-3 text-emerald-400" />}
-                        {card.iconType === 'notify' && <Bell className="w-3 h-3 text-cyan-400" />}
-                        {card.iconType === 'quiet-hours' && <Moon className="w-3 h-3 text-purple-400" />}
-                        {card.iconType === 'battery' && <Battery className="w-3 h-3 text-emerald-400" />}
-                        {card.iconType === 'retention' && <Archive className="w-3 h-3 text-amber-400" />}
-                        {card.iconType === 'export' && <Download className="w-3 h-3 text-cyan-400" />}
-                        {card.iconType === 'backup' && <Database className="w-3 h-3 text-blue-400" />}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300">
-                          {card.title}
-                        </div>
-                        <div className="text-[9.5px] text-slate-400 line-clamp-2 leading-tight">{card.subtitle}</div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom: Operation Preview Timeline Strip */}
-              <div className="p-3.5 bg-[#060b17] border-t border-slate-800/90 flex flex-col justify-between">
-                <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-800/80 mb-2.5 flex-wrap">
-                  <div className="flex items-center gap-2 shrink-0">
-                    <Eye className="w-4 h-4 text-purple-400" />
-                    <span className="font-semibold text-xs text-white whitespace-nowrap">Operation Preview</span>
-                    <span className="px-2 py-0.5 rounded-full bg-purple-950/60 border border-purple-500/40 text-purple-300 text-[9px] font-semibold whitespace-nowrap">
-                      DESIGN PREVIEW — NOT EXECUTED
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 ml-auto flex-wrap justify-end">
-                    <button
-                      onClick={() => setActiveModal('step-through')}
-                      className="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-300 text-[11px] font-medium flex items-center gap-1 whitespace-nowrap"
-                    >
-                      <Play className="w-3 h-3 text-cyan-300" />
-                      <span>Step Through</span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveModal('inspect-inputs')}
-                      className="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-300 text-[11px] font-medium flex items-center gap-1 whitespace-nowrap"
-                    >
-                      <Database className="w-3 h-3" />
-                      <span>Inspect Inputs</span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveModal('review-permissions')}
-                      className="px-2.5 py-1 rounded bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-300 text-[11px] font-medium flex items-center gap-1 whitespace-nowrap"
-                    >
-                      <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                      <span>Review Permissions</span>
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        setToastMessage('Workflow draft saved');
-                        setTimeout(() => setToastMessage(null), 2000);
-                      }}
-                      className="px-3 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-semibold flex items-center gap-1 whitespace-nowrap"
-                    >
-                      <Save className="w-3 h-3" />
-                      <span>Save Draft</span>
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        setToastMessage('Preview closed');
-                        setTimeout(() => setToastMessage(null), 1500);
-                      }}
-                      className="px-2.5 py-1 rounded border border-slate-700 hover:bg-slate-800 text-slate-400 text-[11px] whitespace-nowrap"
-                    >
-                      ✕ Close Preview
-                    </button>
-                  </div>
-                </div>
-
-                {/* 6 Sequential Stages Timeline with Connectors */}
-                <div className="grid grid-cols-6 gap-2">
-                  {INITIAL_OPERATION_STAGES.map((stage, idx) => (
-                    <div
-                      key={stage.id}
-                      className="p-2 rounded-lg bg-[#091224] border border-slate-800 flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-200">
-                          <span className="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] font-bold">
-                            {stage.step}
-                          </span>
-                          <span className="truncate">{stage.name}</span>
-                        </div>
-                        <p className="text-[9.5px] text-slate-400 line-clamp-2 mt-1 leading-tight">
-                          {stage.description}
-                        </p>
-                      </div>
-                      <div className="mt-2 flex items-center gap-1 text-[9.5px] text-emerald-400 font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                        <span>{stage.status}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-            {/* -----------------------------------------------------------------------
-               ZONE 3: NODE CONFIGURATION INSPECTOR (RIGHT)
-               ----------------------------------------------------------------------- */}
-            <div className="w-80 bg-[#070e1c] border-l border-slate-800/80 flex flex-col shrink-0 overflow-y-auto automation-custom-scrollbar p-3.5 space-y-3">
-              {/* Header */}
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <div className="text-xs font-semibold text-slate-200">Node Configuration</div>
-                <div className="flex items-center gap-2 text-slate-400">
-                  <HelpCircle className="w-3.5 h-3.5 cursor-pointer hover:text-white" />
-                  <X className="w-3.5 h-3.5 cursor-pointer hover:text-white" />
-                </div>
-              </div>
-
-              {/* Node Title Card */}
-              <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/40 flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-purple-900/60 border border-purple-400 flex items-center justify-center text-purple-200">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-white">{currentNode.name}</div>
-                    <div className="text-[10px] text-slate-400">Pause workflow and request user review.</div>
-                  </div>
-                </div>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-[10px] font-medium flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  Enabled
-                </span>
-              </div>
-
-              {/* Config Tabs */}
-              <div className="grid grid-cols-4 gap-1 bg-[#050b18] p-1 rounded-lg border border-slate-800 text-[10.5px]">
-                {(['General', 'Conditions', 'Notifications', 'Advanced'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    onClick={() => setConfigTab(tab)}
-                    className={`py-1 rounded font-medium text-center transition-colors ${
-                      configTab === tab
-                        ? 'bg-purple-600 text-white shadow-sm'
-                        : 'text-slate-400 hover:text-slate-200'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-
-              {/* Form Controls */}
-              <div className="space-y-3 text-xs">
-                
-                {/* Trigger Type */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1.5">
-                    <span>Trigger Type</span>
-                    <HelpCircle className="w-3 h-3 text-slate-500" />
-                  </label>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    <button
-                      onClick={() => handleUpdateConfig('triggerType', 'Folder Event')}
-                      className={`py-1.5 px-2 rounded-lg border text-xs font-medium flex items-center justify-center gap-1.5 ${
-                        currentNode.config.triggerType === 'Folder Event'
-                          ? 'bg-purple-600 text-white border-purple-400 shadow-sm'
-                          : 'bg-[#091224] border-slate-800 text-slate-400'
-                      }`}
-                    >
-                      <Folder className="w-3.5 h-3.5" />
-                      <span>Folder Event</span>
-                    </button>
-
-                    <button
-                      onClick={() => handleUpdateConfig('triggerType', 'Scheduled')}
-                      className={`py-1.5 px-2 rounded-lg border text-xs font-medium flex items-center justify-center gap-1.5 ${
-                        currentNode.config.triggerType === 'Scheduled'
-                          ? 'bg-purple-600 text-white border-purple-400 shadow-sm'
-                          : 'bg-[#091224] border-slate-800 text-slate-400'
-                      }`}
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>Scheduled</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Watch Folder */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1">
-                    <span>Watch Folder</span>
-                  </label>
-                  <div className="flex gap-1.5">
-                    <input
-                      type="text"
-                      value={currentNode.config.watchFolder}
-                      onChange={e => handleUpdateConfig('watchFolder', e.target.value)}
-                      className="flex-1 px-2.5 py-1.5 bg-[#091224] border border-slate-800 rounded-lg text-xs text-slate-200 font-mono focus:outline-none focus:border-purple-400"
-                    />
-                    <button
-                      onClick={() => {
-                        const path = prompt('Enter folder path to watch:', currentNode.config.watchFolder);
-                        if (path) handleUpdateConfig('watchFolder', path);
-                      }}
-                      className="px-2 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-400 hover:text-white"
-                    >
-                      <Folder className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Folder Permission */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1.5">
-                    <span>Folder Permission</span>
-                    <HelpCircle className="w-3 h-3 text-slate-500" />
-                  </label>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    <button
-                      onClick={() => handleUpdateConfig('folderPermission', 'Read Only')}
-                      className={`py-1.5 px-2 rounded-lg border text-xs font-medium ${
-                        currentNode.config.folderPermission === 'Read Only'
-                          ? 'bg-purple-600 text-white border-purple-400'
-                          : 'bg-[#091224] border-slate-800 text-slate-400'
-                      }`}
-                    >
-                      Read Only
-                    </button>
-                    <button
-                      onClick={() => handleUpdateConfig('folderPermission', 'Read & Process')}
-                      className={`py-1.5 px-2 rounded-lg border text-xs font-medium flex items-center justify-center gap-1 ${
-                        currentNode.config.folderPermission === 'Read & Process'
-                          ? 'bg-purple-600 text-white border-purple-400'
-                          : 'bg-[#091224] border-slate-800 text-slate-400'
-                      }`}
-                    >
-                      <Zap className="w-3 h-3" />
-                      <span>Read & Process</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* File Type Condition */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center justify-between mb-1">
-                    <span className="flex items-center gap-1">
-                      <span>File Type Condition</span>
-                      <HelpCircle className="w-3 h-3 text-slate-500" />
-                    </span>
-                    <button
-                      onClick={handleAddFileType}
-                      className="text-[10px] text-cyan-400 hover:text-cyan-300"
-                    >
-                      + Add Type
-                    </button>
-                  </label>
-                  <div className="p-2 rounded-lg bg-[#091224] border border-slate-800 space-y-2">
-                    <select className="w-full bg-black/40 border border-slate-800 rounded p-1 text-[11px] text-slate-300 focus:outline-none">
-                      <option>Matches any of</option>
-                      <option>Matches all of</option>
-                      <option>Does not match</option>
-                    </select>
-
-                    <div className="flex flex-wrap gap-1">
-                      {currentNode.config.fileTypes.map(t => (
-                        <span
-                          key={t}
-                          className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-200 text-[10px] font-mono flex items-center gap-1"
-                        >
-                          <span>{t}</span>
-                          <X
-                            onClick={() => handleRemoveFileType(t)}
-                            className="w-2.5 h-2.5 text-slate-400 hover:text-rose-400 cursor-pointer"
-                          />
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Destination */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1">
-                    <span>Destination (Organize into Category)</span>
-                    <HelpCircle className="w-3 h-3 text-slate-500" />
-                  </label>
-                  <div className="flex gap-1.5">
-                    <input
-                      type="text"
-                      value={currentNode.config.destination}
-                      onChange={e => handleUpdateConfig('destination', e.target.value)}
-                      className="flex-1 px-2.5 py-1.5 bg-[#091224] border border-slate-800 rounded-lg text-xs text-slate-200 font-mono focus:outline-none focus:border-purple-400"
-                    />
-                    <button
-                      onClick={() => {
-                        const path = prompt('Enter target destination:', currentNode.config.destination);
-                        if (path) handleUpdateConfig('destination', path);
-                      }}
-                      className="px-2 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-400 hover:text-white"
-                    >
-                      <Folder className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Review Requirement */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1.5">
-                    <span>Review Requirement</span>
-                    <HelpCircle className="w-3 h-3 text-slate-500" />
-                  </label>
-                  <div className="grid grid-cols-3 gap-1">
-                    {(['Always', 'If Uncertain', 'Never'] as const).map(req => (
-                      <button
-                        key={req}
-                        onClick={() => handleUpdateConfig('reviewRequirement', req)}
-                        className={`py-1.5 rounded-lg border text-[11px] font-medium transition-colors ${
-                          currentNode.config.reviewRequirement === req
-                            ? 'bg-purple-600 text-white border-purple-400'
-                            : 'bg-[#091224] border-slate-800 text-slate-400'
-                        }`}
-                      >
-                        {req}
+                <div className="auto-library-section">
+                  <h4>{t(locale, 'Templates', 'القوالب')}</h4>
+                  <div className="auto-library-templates">
+                    {visibleTemplates.map((template) => (
+                      <button key={template.id} type="button" className="auto-library-template" data-testid={`automation-template-${template.id}`} onClick={() => instantiate(template.id)}>
+                        <strong>{locale === 'ar' ? template.labelAr : template.labelEn}</strong>
+                        <em>{template.workflow.nodes.length} {t(locale, 'nodes', 'عقدة')} · {template.category}</em>
                       </button>
                     ))}
                   </div>
                 </div>
+              </Panel>
 
-                {/* Notification Mode */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1.5">
-                    <span>Notification Mode</span>
-                    <HelpCircle className="w-3 h-3 text-slate-500" />
-                  </label>
-                  <div className="grid grid-cols-3 gap-1">
-                    {(['In-App', 'Windows', 'Email'] as const).map(mode => (
-                      <button
-                        key={mode}
-                        onClick={() => handleUpdateConfig('notificationMode', mode)}
-                        className={`py-1.5 rounded-lg border text-[11px] font-medium transition-colors ${
-                          currentNode.config.notificationMode === mode
-                            ? 'bg-purple-600 text-white border-purple-400'
-                            : 'bg-[#091224] border-slate-800 text-slate-400'
-                        }`}
-                      >
-                        {mode}
-                      </button>
-                    ))}
+              <div className="auto-editor-center">
+                <div className="auto-editor-toolbar">
+                  <label className="auto-name-field"><span>{t(locale, 'Workflow name', 'اسم سير العمل')}</span><input className="sys-input" value={draft?.name || ''} onChange={(event) => draft && setDraft({ ...draft, name: event.target.value })} maxLength={80} aria-label={t(locale, 'Workflow name', 'اسم سير العمل')} data-testid="automation-name-input" /></label>
+                  <Chip tone={draft?.version ? 'good' : 'warn'}>{draft?.version ? `v${draft.version}` : t(locale, 'unsaved', 'غير محفوظ')}</Chip>
+                  <span className="sys-toolbar-spacer" />
+                  <button type="button" className="sys-btn sys-btn-quiet" onClick={() => setAddOpen((value) => !value)} aria-pressed={addOpen} data-testid="automation-add-node"><Plus aria-hidden="true" />{t(locale, 'Add node', 'إضافة عقدة')}</button>
+                  <button type="button" className="sys-btn sys-btn-ghost" onClick={exportDraft} disabled={!draft}><Download aria-hidden="true" />{t(locale, 'Export', 'تصدير')}</button>
+                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void runDryRun()} disabled={!draft || controller.busy === 'dry-run'} data-testid="automation-dryrun"><Play aria-hidden="true" />{t(locale, 'Dry-run', 'معاينة جافة')}</button>
+                  <button type="button" className="sys-btn sys-btn-primary" onClick={() => void saveDraft()} disabled={!draft || controller.busy === 'save'} data-testid="automation-save"><Save aria-hidden="true" />{t(locale, 'Save draft', 'حفظ المسودة')}</button>
+                </div>
+                {addOpen ? <NodePalette locale={locale} onAdd={addNode} /> : null}
+                {draft ? (
+                  <WorkflowCanvas locale={locale} workflow={draft} selectedNodeId={selectedNodeId} onSelect={setSelectedNodeId} />
+                ) : <div className="auto-empty"><GitBranch aria-hidden="true" /><strong>{t(locale, 'No workflow loaded', 'لا سير عمل محمّل')}</strong><p>{t(locale, 'Choose a saved workflow or template from the library.', 'اختر سير عمل محفوظًا أو قالبًا من المكتبة.')}</p></div>}
+                {draft ? (
+                  <div className="auto-editor-lower">
+                    <Panel title={t(locale, 'Trigger & schedule', 'المحفز والجدولة')} icon={CalendarDays}>
+                      <TriggerEditor locale={locale} workflow={draft} onChange={setDraft} />
+                      <div className="auto-occurrence-inline"><SchedulePreviewList locale={locale} preview={controller.schedulePreview} empty={t(locale, 'Preview the schedule to compute local occurrences.', 'عاين الجدولة لحساب المواعيد المحلية.')} /></div>
+                    </Panel>
+                    <Panel title={t(locale, 'Dry-run timeline', 'خط المعاينة الجافة')} icon={Play}>
+                      <DryRunTimeline locale={locale} result={dryRun} />
+                    </Panel>
                   </div>
-                </div>
+                ) : null}
+              </div>
 
-                {/* Error Handling */}
-                <div>
-                  <label className="text-[11px] font-semibold text-slate-300 flex items-center gap-1 mb-1">
-                    <Sliders className="w-3 h-3 text-cyan-400" />
-                    <span>Error Handling</span>
-                  </label>
-                  <select
-                    value={currentNode.config.errorHandling}
-                    onChange={e => handleUpdateConfig('errorHandling', e.target.value)}
-                    className="w-full bg-[#091224] border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-purple-400"
-                  >
-                    <option value="Pause and Notify User">Pause and Notify User</option>
-                    <option value="Skip File and Log Warning">Skip File and Log Warning</option>
-                    <option value="Move to Quarantine Folder">Move to Quarantine Folder</option>
-                    <option value="Retry in 5 Minutes">Retry in 5 Minutes</option>
-                  </select>
-                </div>
-
+              <div className="auto-editor-rail" data-testid="automation-inspector">
+                <Panel title={t(locale, 'Node inspector', 'فاحص العقد')} icon={FileText}>
+                  <NodeInspector locale={locale} workflow={draft || emptyWorkflow} node={selectedNode} onChange={setDraft} onRemove={removeSelectedNode} />
+                </Panel>
+                <Panel title={t(locale, 'Workflow metadata', 'بيانات سير العمل')} icon={ShieldCheck}>
+                  {draft ? (
+                    <>
+                      <div className="auto-meta-row"><span>{t(locale, 'Trigger', 'المحفز')}</span><strong>{triggerLabel(draft, locale)}</strong></div>
+                      <div className="auto-meta-row"><span>{t(locale, 'Nodes / edges', 'العقد / الحواف')}</span><strong>{draft.nodes.length} / {draft.edges.length}</strong></div>
+                      <div className="auto-meta-row"><span>{t(locale, 'Quiet hours', 'ساعات الهدوء')}</span><strong>{draft.quietHours.start}–{draft.quietHours.end}</strong></div>
+                      <div className="auto-meta-row"><span>{t(locale, 'Execution', 'التنفيذ')}</span><strong className="is-bad">{t(locale, 'Not implemented', 'غير منفذ')}</strong></div>
+                    </>
+                  ) : <p className="auto-op-hint">{t(locale, 'Select a workflow.', 'اختر سير عمل.')}</p>}
+                </Panel>
               </div>
             </div>
 
-          </div>
+            <section className="auto-tools-panel" aria-labelledby="auto-tools-title">
+              <div className="auto-panel-head"><div><h2 id="auto-tools-title"><Sparkles aria-hidden="true" />{t(locale, 'Flow tools', 'أدوات التدفق')} ({formatCount(AUTOMATION_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised draft/policy workbench. No action is executed.', 'تفتح كل أداة مساحة عمل مسودة/سياسة متخصصة. لا يُنفذ إجراء.')}</p></div></div>
+              <div className="auto-tool-grid" data-testid="automation-tool-grid">{AUTOMATION_TOOLS.map(renderToolCard)}</div>
+            </section>
 
+            <div className="auto-lower-grid">
+              <Panel title={t(locale, 'Dry-run journal', 'سجل المعاينات الجافة')} sub={t(locale, 'Deterministic records only. Executed workflows: 0.', 'سجلات حتمية فقط. سير العمل المنفذ: 0.')} icon={History} actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Open history', 'فتح السجل')}</button>}>
+                {journal.length ? (
+                  <div className="auto-history">
+                    {journal.slice(0, 5).map((entry) => (
+                      <button key={entry.id} type="button" className="auto-history-row" data-testid="automation-journal-row" onClick={() => openTool('auto-run-history')}>
+                        <span>{formatTimestamp(entry.at, locale)}</span><span>{entry.workflowName}</span><span className="sys-mono">{entry.receipt}</span><Chip tone="info">{t(locale, 'Dry-run', 'معاينة جافة')}</Chip>
+                      </button>
+                    ))}
+                  </div>
+                ) : <div className="auto-empty"><History aria-hidden="true" /><strong>{t(locale, 'No dry-run yet', 'لا معاينة جافة بعد')}</strong><p>{t(locale, 'Dry-run a draft; no workflow action will execute.', 'شغّل معاينة جافة لمسودة؛ لن يُنفذ أي إجراء.')}</p></div>}
+              </Panel>
+              <Panel title={t(locale, 'Persistent actions', 'إجراءات دائمة')} icon={Lock}>
+                <div className="auto-action-stack">
+                  <button type="button" className="auto-action-card is-primary" onClick={() => void runDryRun()} disabled={!draft || controller.busy === 'dry-run'}><Play aria-hidden="true" /><span><strong>{t(locale, 'Dry-run current draft', 'معاينة المسودة الحالية')}</strong><em>{t(locale, 'Deterministic validation, zero execution', 'تحقق حتمي، صفر تنفيذ')}</em></span></button>
+                  <button type="button" className="auto-action-card" onClick={() => void saveDraft()} disabled={!draft || controller.busy === 'save'}><Save aria-hidden="true" /><span><strong>{t(locale, 'Save new version', 'حفظ نسخة جديدة')}</strong><em>{t(locale, 'Local draft only', 'مسودة محلية فقط')}</em></span></button>
+                  <button type="button" className="auto-action-card" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}><Download aria-hidden="true" /><span><strong>{t(locale, 'Export evidence report', 'تصدير تقرير الأدلة')}</strong><em>{t(locale, 'Read-only, redacted', 'للقراءة فقط، منقح')}</em></span></button>
+                </div>
+                <div className="auto-chip-row"><Chip tone="bad" icon={Lock}>{t(locale, 'No executor', 'لا منفذ')}</Chip><Chip tone="warn" icon={Clock3}>{t(locale, 'No background timer', 'لا مؤقت خلفي')}</Chip></div>
+              </Panel>
+            </div>
+
+            <div className="sys-foot-strip">
+              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: local workflow store · Intl host timezone · Win32_Battery where available · Studio sources</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'No file delete, registry write, privileged action or external notification exists in Mission 13.', 'لا حذف ملفات أو كتابة تسجيل أو إجراء مرفوع أو إشعار خارجي في المهمة 13.')}</span>
+              {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
+            </div>
+          </main>
+
+          <footer className="sys-actionbar auto-actionbar" data-testid="automation-actionbar">
+            <div className="sys-actionbar-summary"><strong>{scanStatus}</strong><span className="sys-mono">{draft ? `${draft.name} · v${draft.version || 0} · ${draft.nodes.length} ${t(locale, 'nodes', 'عقدة')}` : t(locale, 'No workflow draft yet.', 'لا مسودة سير عمل بعد.')}</span><span className="sys-chip sys-chip-bad">{t(locale, '0 executed', '0 منفذ')}</span>{snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}</div>
+            <div className="sys-actionbar-actions"><button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'History', 'السجل')}</button><button type="button" className="sys-btn sys-btn-ghost" onClick={() => void runDryRun()} disabled={!draft || controller.busy === 'dry-run'}><Play aria-hidden="true" />{t(locale, 'Dry-run', 'معاينة جافة')}</button><button type="button" className="sys-btn sys-btn-primary" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshIcon />{t(locale, 'Refresh store', 'تحديث المخزن')}</button></div>
+          </footer>
         </div>
-
       </div>
 
-      {/* =========================================================================
-         MODAL LAYER — design previews and specialized service workspaces
-         ========================================================================= */}
-
-      {/* New Workflow — draft creation (template picker) */}
-      <DesignPreviewModal
-        open={activeModal === 'new-workflow'}
-        title={isArabic ? 'سير عمل جديد' : 'New Workflow'}
-        subtitle={isArabic ? 'أنشئ مسودة من قالب محفوظ' : 'Create a local draft from a saved template'}
-        worldLabel="Automation / Flow Studio"
-        icon={<div className="w-8 h-8 rounded-lg bg-purple-900/60 border border-purple-400 flex items-center justify-center text-purple-200 shrink-0"><Plus className="w-4 h-4" /></div>}
-        isArabic={isArabic}
-        cancelLabel={isArabic ? 'إلغاء' : 'Cancel'}
-        confirmLabel={isArabic ? 'إنشاء المسودة' : 'Create Draft'}
-        confirmDisabled={!workflowDraftName.trim() || !workflowDraftTemplate}
-        onConfirm={() => {
-          handleCreateNewWorkflow(workflowDraftName.trim());
-          setWorkflowDraftName('');
-          setWorkflowDraftTemplate(null);
-          setActiveModal(null);
-        }}
-        onClose={() => {
-          setActiveModal(null);
-          setWorkflowDraftName('');
-          setWorkflowDraftTemplate(null);
-        }}
-        notice={
-          isArabic
-            ? 'ينشئ هذا الإجراء مسودة تصميم محلية فقط. لا يتم تشغيل أي أتمتة على ويندوز في هذه المرحلة.'
-            : 'This creates a local design draft only. No automation is executed against Windows in this phase.'
-        }
-      >
-        <div className="space-y-3">
-          <div>
-            <label className="text-[11px] font-semibold text-slate-300 block mb-1.5">
-              {isArabic ? 'اسم المسودة' : 'Draft Name'}
-            </label>
-            <input
-              type="text"
-              value={workflowDraftName}
-              onChange={e => setWorkflowDraftName(e.target.value)}
-              placeholder={isArabic ? 'مثال: تنظيم مستندات المكتب' : 'e.g. Desktop Document Organizer'}
-              className="w-full px-2.5 py-1.5 bg-[#091224] border border-slate-800 rounded-lg text-xs text-slate-200 font-mono focus:outline-none focus:border-purple-400"
-            />
-          </div>
-
-          <div>
-            <label className="text-[11px] font-semibold text-slate-300 block mb-1.5">
-              {isArabic ? 'القالب' : 'Template'}
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {TEMPLATES_CATALOG.map(tpl => (
-                <button
-                  key={tpl.id}
-                  type="button"
-                  onClick={() => setWorkflowDraftTemplate(tpl.id)}
-                  className={`p-2 rounded-lg border text-start transition-colors ${
-                    workflowDraftTemplate === tpl.id
-                      ? 'bg-purple-950/60 border-purple-400 text-white'
-                      : 'bg-[#091224] border-slate-800 text-slate-300 hover:border-slate-700'
-                  }`}
-                >
-                  <div className="text-[11px] font-semibold truncate">{tpl.title}</div>
-                  <div className="text-[9.5px] text-slate-400 line-clamp-2 leading-tight mt-0.5">{tpl.summary}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </DesignPreviewModal>
-
-      {/* Step Through — ordered preview built from the real flow nodes */}
-      <DesignPreviewModal
-        open={activeModal === 'step-through'}
-        title={isArabic ? 'معاينة خطوة بخطوة' : 'Step-Through Preview'}
-        subtitle={isArabic ? 'مسار المسودة المحدد — لم يتم التنفيذ' : 'Selected draft path — not executed'}
-        worldLabel="Automation / Flow Studio"
-        icon={<div className="w-8 h-8 rounded-lg bg-cyan-900/50 border border-cyan-500/50 flex items-center justify-center text-cyan-200 shrink-0"><Play className="w-4 h-4" /></div>}
-        isArabic={isArabic}
-        cancelLabel={isArabic ? 'إغلاق' : 'Close'}
-        onClose={() => setActiveModal(null)}
-        notice={
-          isArabic
-            ? 'معاينة تصميم فقط. قد لا يطابق الترتيب المسار الفعلي بعد توصيل المحرك الأصلي في المرحلة الثانية.'
-            : 'Design preview only. The ordering may differ from the real execution path once the native engine lands in Phase Two.'
-        }
-      >
-        <ol className="space-y-1.5">
-          {flowNodes.map((node, idx) => (
-            <li
-              key={node.id}
-              className={`flex items-start gap-2.5 p-2 rounded-lg border ${
-                node.id === currentNode.id
-                  ? 'bg-purple-950/40 border-purple-500/50'
-                  : 'bg-[#050e1f] border-slate-800/80'
-              }`}
-            >
-              <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9.5px] font-bold shrink-0 mt-0.5">
-                {idx + 1}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="text-[11.5px] font-semibold text-slate-100 truncate">{node.name}</div>
-                <div className="text-[10px] text-slate-400 line-clamp-2 leading-tight mt-0.5">{node.subtitle}</div>
-              </div>
-              <span className="px-1.5 py-0.5 rounded-full bg-slate-800/80 border border-slate-700 text-[9px] text-slate-300 shrink-0 mt-0.5">
-                {node.status}
-              </span>
-            </li>
-          ))}
-        </ol>
-      </DesignPreviewModal>
-
-      {/* Inspect Inputs — the selected node's real configuration */}
-      <DesignPreviewModal
-        open={activeModal === 'inspect-inputs'}
-        title={isArabic ? 'فحص المدخلات' : 'Inspect Inputs'}
-        subtitle={currentNode.name}
-        worldLabel="Automation / Flow Studio"
-        icon={<div className="w-8 h-8 rounded-lg bg-blue-900/50 border border-blue-500/50 flex items-center justify-center text-blue-200 shrink-0"><Database className="w-4 h-4" /></div>}
-        isArabic={isArabic}
-        cancelLabel={isArabic ? 'إغلاق' : 'Close'}
-        onClose={() => setActiveModal(null)}
-        fields={[
-          { label: isArabic ? 'نوع المشغّل' : 'Trigger Type', value: currentNode.config.triggerType, tone: 'cyan' },
-          { label: isArabic ? 'المجلد المراقب' : 'Watch Folder', value: currentNode.config.watchFolder || '—', tone: 'muted' },
-          { label: isArabic ? 'امتدادات الملفات' : 'File Types', value: currentNode.config.fileTypes.join(', ') || '—', tone: 'muted' },
-          { label: isArabic ? 'الوجهة' : 'Destination', value: currentNode.config.destination || '—', tone: 'muted' },
-          { label: isArabic ? 'معالجة الأخطاء' : 'Error Handling', value: currentNode.config.errorHandling, tone: 'amber' },
-        ]}
-        notice={
-          isArabic
-            ? 'القيم أعلاه مقروءة من إعدادات المسودة الحالية داخل المتصفح فقط.'
-            : 'The values above are read from the current in-browser draft configuration only.'
-        }
-      />
-
-      {/* Review Permissions — the node's permission + review posture */}
-      <DesignPreviewModal
-        open={activeModal === 'review-permissions'}
-        title={isArabic ? 'مراجعة الأذونات' : 'Review Permissions'}
-        subtitle={currentNode.name}
-        worldLabel="Automation / Flow Studio"
-        icon={<div className="w-8 h-8 rounded-lg bg-emerald-900/50 border border-emerald-500/50 flex items-center justify-center text-emerald-200 shrink-0"><ShieldCheck className="w-4 h-4" /></div>}
-        isArabic={isArabic}
-        cancelLabel={isArabic ? 'إغلاق' : 'Close'}
-        onClose={() => setActiveModal(null)}
-        fields={[
-          { label: isArabic ? 'أذون المجلد' : 'Folder Permission', value: currentNode.config.folderPermission, tone: 'emerald' },
-          { label: isArabic ? 'متطلب المراجعة' : 'Review Requirement', value: currentNode.config.reviewRequirement, tone: 'emerald' },
-          { label: isArabic ? 'وضع الإشعار' : 'Notification Mode', value: currentNode.config.notificationMode, tone: 'cyan' },
-          {
-            label: isArabic ? 'تنفيذ أصلي' : 'Native Execution',
-            value: isArabic ? 'معطّل' : 'Disabled',
-            tone: 'rose',
-          },
-        ]}
-        notice={
-          isArabic
-            ? 'تُعرض الأذونات كما هي في المسودة. لا يتم طلب أذونات ويندوز فعلية في هذه المرحلة، ولا يتم تطبيق أي تغيير.'
-            : 'Permissions are shown as drafted. No real Windows permissions are requested in this phase and nothing is applied.'
-        }
-      />
-
-      {/* Specialized service workspace (palette cards + History) */}
-      {activeServiceWorkspace && (
-        <AutomationWorkspaces
-          serviceKey={activeServiceWorkspace}
-          onClose={() => setActiveServiceWorkspace(null)}
-          isArabic={isArabic}
-        />
-      )}
-
+      {activeTool && snapshot ? <AutomationServiceWorkspace toolId={activeTool} locale={locale} controller={controller} onClose={closeTool} /> : null}
     </div>
   );
+}
+
+const emptyWorkflow: AutomationWorkflow = {
+  id: 'wf-empty',
+  name: '',
+  schemaVersion: '1.0',
+  version: 0,
+  createdAt: '',
+  updatedAt: '',
+  enabled: false,
+  trigger: { type: 'manual', cadence: 'daily', time: '09:00', days: [], intervalHours: 24, timezone: 'local', exclusions: [] },
+  quietHours: { enabled: false, start: '22:00', end: '07:00', days: [], weekendRule: 'mute' },
+  policy: { requireApproval: true, batteryThreshold: 20, acOnly: false, retentionDays: 30, notifyChannels: ['in-app'], severity: 'warning' },
+  nodes: [],
+  edges: [],
+  mutation: 'none',
+  execution: 'not-implemented',
+};
+
+function RefreshIcon() {
+  return <Sparkles className="auto-refresh-icon" aria-hidden="true" />;
 }

@@ -1,106 +1,170 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * KNOuX Flow Studio - deterministic renderer checks (Mission 13).
+ * No Windows call, workflow execution or scheduler timer is involved.
  */
-
+import { AUTOMATION_TOOL_IDS, AUTOMATION_TOOLS, RISK_META, STATE_META, TOOL_BY_ID, toolLabel } from '../../automation/catalog';
+import { AUTOMATION_WORKBENCH_IDS } from '../../automation/AutomationServiceWorkspaces';
 import {
-  AUTOMATION_SERVICE_CARDS,
-  INITIAL_FLOW_NODES,
-  INITIAL_OPERATION_STAGES,
-  WORKFLOW_CATEGORIES,
-  SAVED_WORKFLOWS_CATALOG,
-  TEMPLATES_CATALOG
-} from '../../lib/automation-inventory';
+  NODE_TYPE_META,
+  appendNode,
+  cloneWorkflow,
+  initialWorkflow,
+  journalWithinRetention,
+  nextNodeId,
+  removeNode,
+  scheduleSpecFromWorkflow,
+  triggerLabel,
+  workflowDraftFromTemplate,
+  workflowNodeCount,
+  t,
+} from '../../automation/model';
+import type { AutomationSnapshot, AutomationTemplate } from '../../../shared/native-contracts';
 
-/**
- * Headless test harness verifying REF-10 Automation Flow Studio domain integrity,
- * catalog completeness, and visual state contracts.
- */
-export function runAutomationVerificationSuite(): { passed: boolean; results: string[] } {
-  const results: string[] = [];
-  let allPassed = true;
-
-  function assert(condition: boolean, testName: string) {
-    if (condition) {
-      results.push(`✔ PASS: ${testName}`);
-    } else {
-      results.push(`✘ FAIL: ${testName}`);
-      allPassed = false;
-    }
-  }
-
-  // 1. Verify 12 Automation Service Cards
-  assert(AUTOMATION_SERVICE_CARDS.length === 12, 'Catalog contains exactly 12 automation services');
-
-  const requiredServiceKeys = [
-    'auto-smart-scan',
-    'auto-schedule-manager',
-    'auto-run-history',
-    'auto-templates',
-    'auto-schedule-plan',
-    'auto-cleanup-plan',
-    'auto-notify',
-    'auto-quiet-hours',
-    'auto-battery-policy',
-    'auto-retention',
-    'auto-export',
-    'auto-backup-plan'
-  ];
-
-  const actualServiceKeys = AUTOMATION_SERVICE_CARDS.map(c => c.serviceKey);
-  const allCardsPresent = requiredServiceKeys.every(k => actualServiceKeys.includes(k));
-  assert(allCardsPresent, 'All 12 required automation service keys are defined in catalog');
-
-  // 2. Verify Flow Canvas Nodes (5 sequential nodes)
-  assert(INITIAL_FLOW_NODES.length === 5, 'Flow canvas contains 5 initial nodes');
-  const nodeNames = INITIAL_FLOW_NODES.map(n => n.name);
-  assert(
-    nodeNames.includes('Start') &&
-    nodeNames.includes('File Type Matches') &&
-    nodeNames.includes('Organize into Category') &&
-    nodeNames.includes('Require User Approval') &&
-    nodeNames.includes('Record Verified Result'),
-    'All 5 sequential node stages are defined (Start -> Condition -> Action -> Approval -> Result)'
-  );
-
-  // 3. Verify Selected Node (Require User Approval)
-  const approvalNode = INITIAL_FLOW_NODES.find(n => n.id === 'node-approval');
-  assert(!!approvalNode, 'Approval node exists in flow definition');
-  if (approvalNode) {
-    assert(approvalNode.color === 'purple', 'Approval node has purple accent styling');
-    assert(approvalNode.status === 'Pending', 'Approval node status is Pending');
-    assert(approvalNode.config.reviewRequirement === 'Always', 'Review requirement is configured to Always');
-    assert(approvalNode.config.fileTypes.length >= 4, 'File types filter contains PDF, DOCX, XLSX, PPTX');
-  }
-
-  // 4. Verify 6 Operation Preview Stages
-  assert(INITIAL_OPERATION_STAGES.length === 6, 'Operation preview has 6 sequential execution stages');
-  const stageNames = INITIAL_OPERATION_STAGES.map(s => s.name);
-  assert(
-    stageNames[0] === 'Trigger Evaluation' &&
-    stageNames[1] === 'Condition Check' &&
-    stageNames[2] === 'Action Proposal' &&
-    stageNames[3] === 'Approval Gate' &&
-    stageNames[4] === 'Execution' &&
-    stageNames[5] === 'Result Journal',
-    '6 Operation Preview stages match screenshot specification'
-  );
-
-  // 5. Verify Workflow Library catalogs
-  assert(WORKFLOW_CATEGORIES.length === 6, 'Library defines 6 workflow categories');
-  assert(SAVED_WORKFLOWS_CATALOG.length >= 4, 'Saved workflows catalog contains 4 baseline workflows');
-  assert(TEMPLATES_CATALOG.length >= 4, 'Templates catalog contains 4 initial templates');
-
-  return { passed: allPassed, results };
+export interface AutomationTestResult {
+  name: string;
+  passed: boolean;
+  message?: string;
 }
 
-// Self-executing runner for Node/tsx verification
-if (typeof process !== 'undefined' && process.argv && process.argv[1]?.includes('AutomationPage.test')) {
-  const { passed, results } = runAutomationVerificationSuite();
-  results.forEach(r => console.log(r));
-  if (!passed) {
-    process.exit(1);
-  } else {
-    console.log('\nAll AutomationPage verification tests passed successfully.');
+const EXPECTED_IDS = [
+  'auto-smart-scan',
+  'auto-schedule-manager',
+  'auto-run-history',
+  'auto-templates',
+  'auto-schedule-plan',
+  'auto-cleanup-plan',
+  'auto-notify',
+  'auto-quiet-hours',
+  'auto-battery-policy',
+  'auto-retention',
+  'auto-export',
+  'auto-backup-plan',
+];
+
+function check(name: string, run: () => boolean | string): AutomationTestResult {
+  try {
+    const result = run();
+    if (typeof result === 'string') return { name, passed: false, message: result };
+    return { name, passed: result };
+  } catch (error) {
+    return { name, passed: false, message: String(error) };
   }
+}
+
+const template: AutomationTemplate = {
+  id: 'tpl-test',
+  category: 'test',
+  labelEn: 'Test Template',
+  labelAr: 'قالب اختبار',
+  blurbEn: 'Test',
+  blurbAr: 'اختبار',
+  prerequisitesEn: ['none'],
+  prerequisitesAr: ['لا شيء'],
+  workflow: {
+    name: 'Test Workflow',
+    schemaVersion: '1.0',
+    enabled: false,
+    trigger: { type: 'schedule', cadence: 'weekly', time: '09:00', days: [1], intervalHours: 24, timezone: 'local', exclusions: [] },
+    quietHours: { enabled: true, start: '22:00', end: '07:00', days: [0, 1, 2, 3, 4, 5, 6], weekendRule: 'mute' },
+    policy: { requireApproval: true, batteryThreshold: 20, acOnly: false, retentionDays: 30, notifyChannels: ['in-app'], severity: 'warning' },
+    nodes: [
+      { id: 'trigger-1', type: 'trigger', label: 'Trigger', toolId: 'platform', config: {} },
+      { id: 'action-1', type: 'action', label: 'Action', toolId: 'auto-smart-scan', config: {} },
+    ],
+    edges: [{ from: 'trigger-1', to: 'action-1' }],
+    mutation: 'none',
+    execution: 'not-implemented',
+  },
+};
+
+export function runAutomationVerificationSuite(): AutomationTestResult[] {
+  const results: AutomationTestResult[] = [];
+  results.push(check('12 automation tools in canonical order', () => {
+    if (AUTOMATION_TOOLS.length !== 12) return `expected 12, received ${AUTOMATION_TOOLS.length}`;
+    if (new Set(AUTOMATION_TOOL_IDS).size !== 12) return 'duplicate tool id';
+    if (AUTOMATION_TOOL_IDS.join('|') !== EXPECTED_IDS.join('|')) return 'tool order or ids changed';
+    return true;
+  }));
+  results.push(check('every automation tool resolves to one workbench', () => {
+    if (AUTOMATION_WORKBENCH_IDS.length !== 12) return `workbench map has ${AUTOMATION_WORKBENCH_IDS.length}`;
+    const missing = AUTOMATION_TOOL_IDS.filter((id) => !AUTOMATION_WORKBENCH_IDS.includes(id));
+    if (missing.length) return `missing workbenches: ${missing.join(', ')}`;
+    return true;
+  }));
+  results.push(check('node, state and risk vocabularies are complete', () => {
+    for (const type of ['trigger', 'condition', 'action', 'approval', 'report'] as const) {
+      if (!NODE_TYPE_META[type].en || !NODE_TYPE_META[type].ar) return `node ${type} lacks bilingual text`;
+    }
+    for (const state of ['available', 'partial', 'gated'] as const) {
+      if (!STATE_META[state].en || !STATE_META[state].ar) return `state ${state} lacks bilingual text`;
+    }
+    for (const risk of ['read-only', 'staged-change'] as const) {
+      if (!RISK_META[risk].en || !RISK_META[risk].ar) return `risk ${risk} lacks bilingual text`;
+    }
+    if (toolLabel('auto-smart-scan', 'en') !== 'Scheduled Smart Scan') return 'English tool label changed';
+    return true;
+  }));
+  results.push(check('template instantiation is an isolated deep draft', () => {
+    const first = workflowDraftFromTemplate(template);
+    const second = workflowDraftFromTemplate(template);
+    if (first.id === second.id) return 'draft ids must be unique';
+    first.nodes[0].label = 'Changed';
+    if (second.nodes[0].label === 'Changed') return 'draft node objects are shared';
+    if (first.version !== 0 || first.execution !== 'not-implemented') return 'draft metadata is wrong';
+    return true;
+  }));
+  results.push(check('node append/remove updates edges deterministically', () => {
+    const draft = workflowDraftFromTemplate(template);
+    const id = nextNodeId(draft, 'report');
+    const next = appendNode(draft, { id, type: 'report', label: 'Report', toolId: 'auto-export', config: {} });
+    if (next.nodes.length !== 3 || !next.edges.some((edge) => edge.to === id)) return 'append failed';
+    const removed = removeNode(next, id);
+    if (removed.nodes.length !== 2 || removed.edges.some((edge) => edge.from === id || edge.to === id)) return 'remove failed';
+    return true;
+  }));
+  results.push(check('cloning a workflow does not share arrays', () => {
+    const draft = workflowDraftFromTemplate(template);
+    const copy = cloneWorkflow(draft);
+    copy.trigger.days.push(5);
+    if (draft.trigger.days.includes(5)) return 'trigger days shared';
+    copy.policy.notifyChannels.push('journal');
+    if (draft.policy.notifyChannels.includes('journal')) return 'channels shared';
+    return true;
+  }));
+  results.push(check('schedule metadata keeps weekly days', () => {
+    const draft = workflowDraftFromTemplate(template);
+    const spec = scheduleSpecFromWorkflow(draft);
+    if (spec.days.join(',') !== '1') return 'days changed';
+    if (!triggerLabel(draft, 'en').includes('Mon')) return 'weekly label missing day';
+    if (workflowNodeCount(draft) !== 2) return 'node count wrong';
+    return true;
+  }));
+  results.push(check('initial workflow prefers saved drafts over templates', () => {
+    const saved = workflowDraftFromTemplate(template);
+    const snapshot = { workflows: [saved], templates: [template] } as unknown as AutomationSnapshot;
+    const initial = initialWorkflow(snapshot);
+    if (!initial || initial.id !== saved.id) return 'saved workflow not selected';
+    const templatesOnly = { workflows: [], templates: [template] } as unknown as AutomationSnapshot;
+    const fromTemplate = initialWorkflow(templatesOnly);
+    if (!fromTemplate || fromTemplate.version !== 0) return 'template draft not selected';
+    return true;
+  }));
+  results.push(check('retention splits aged records without deleting', () => {
+    const old = { at: '2020-01-01T00:00:00.000Z' };
+    const fresh = { at: new Date().toISOString() };
+    const result = journalWithinRetention([old, fresh], 30);
+    if (result.aged.length !== 1 || result.retained.length !== 1) return 'retention split failed';
+    if (!/[\u0600-\u06FF]/.test(t('ar', 'Read-only', 'للقراءة فقط'))) return 'Arabic label failed';
+    return true;
+  }));
+  results.push(check('templates and execution policy stay explicit', () => {
+    for (const entry of AUTOMATION_TOOLS) {
+      const tool = TOOL_BY_ID[entry.id];
+      if (tool.state === 'available' && tool.id !== 'auto-run-history' && tool.id !== 'auto-templates' && tool.id !== 'auto-schedule-plan' && tool.id !== 'auto-export') {
+        return `${entry.id} is falsely available`;
+      }
+    }
+    return true;
+  }));
+  return results;
 }
