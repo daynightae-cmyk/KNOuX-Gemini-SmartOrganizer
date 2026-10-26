@@ -23,7 +23,8 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 | 13 — Automation | ACCEPTED_WITH_EVIDENCE (draft + deterministic dry-run only; 12 tools/5 stages/5 gates/8 templates; no executor, background timer or approval-to-run; notification/backup/cleanup/privileged execution gated) | 5ac87f5, 8bd3ce2 (acceptance) | 8bd3ce2 | docs/FLOW_STUDIO_AUTOMATION_AUDIT.md, visual-evidence/platform-00/automation-measured-dev{,-light,-ar-light,-1366,-1920}.png + automation-workbench-dev.png + packaged equivalents, test:automation PASS, native smoke automationOk/automationLayoutOk + 12/12 workbenches/controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (runs 40369661654, 40369948815) | 04 |
 | 04 — Google Workspace | BLOCKED / PARTIAL (honest disconnected hub + local 10-scope consent gate delivered; live OAuth, credentials, Google REST adapters, light theme and per-service cinematic views NOT implemented; no account connected) | 35f8494 (safety increment) | 35f8494 | docs/GOOGLE_WORKSPACE_CONSENT_AUDIT.md, visual-evidence/platform-00/workspace-measured-dev{,-ar,-1366,-1920}.png + workspace-oauth-dev.png, test:workspace PASS, dev smoke workspaceOk/workspaceLayoutOk + 10/10 services + no simulated connected state + keyboard/RTL; live OAuth NOT PERFORMED | 14 (04 remains blocked pending explicit OAuth consent) |
 | 14 — Settings/Assistant | PENDING | — | — | — | — |
-| 01 — Home | PENDING | — | — | — | — |
+| 01 — Home | PENDING | — | — | — | 15 |
+| 15 — Real Service Activation | PENDING_PRODUCT_PHASE (starts only after 04/14/01; ordered 03 → 06 → 07 → 02 → 05 → 08 → 09 → 10 → 11 → 12 → 13 → 04 → 14 → 01) | — | — | missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, docs/SERVICE_CAPABILITY_MATRIX.md (150 rows; 76 measured read-only, 59 partial, 10 consent-waiting, 3 unsupported, 1 implemented/tested, 1 blocked) | activation |
 
 ## Platform 00 verification snapshot
 
@@ -179,6 +180,8 @@ The ordered activation pass after 04/14/01 is: 03 Studio → 06 Files → 07 Sto
 ## Boundary / next
 
 - Next independent mission: `14_SETTINGS_ASSISTANT_FULLSTACK_MISSION.md` (then 01). Mission 04 remains BLOCKED pending explicit OAuth consent and the remaining visual specialization.
+- Product phase after 04/14/01: `15_REAL_SERVICE_ACTIVATION_MISSION.md` (read `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` first). It is an integration/remediation pass, not a new app or branch.
+- The central ledger `docs/SERVICE_CAPABILITY_MATRIX.md` must be updated with effect-test evidence; a green CI/screenshot is not action-service proof.
 - Real file mutations, elevated repair/service/startup/automation operations, Google OAuth/account connection, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 

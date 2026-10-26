@@ -43,6 +43,9 @@ No worktrees, extra repos, Root CI or old Electron launcher. No destructive real
 ## BLOCKED: 04 — GOOGLE WORKSPACE
 The fake simulated connected state was removed and a local 10-scope consent review was added, but live OAuth PKCE, client credentials, OS secure token storage, Google REST adapters, light-theme parity and the per-service cinematic views remain unimplemented. Do not claim Mission 04 complete or send Google data. Resume only after separate explicit OAuth consent and client configuration. See docs/GOOGLE_WORKSPACE_CONSENT_AUDIT.md.
 
+## PRODUCT PHASE: 15 — REAL SERVICE ACTIVATION
+After 04/14/01, read missions/15_REAL_SERVICE_ACTIVATION_MISSION.md and missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md. It is the ordered cross-section activation of real executors, effect tests, approval gates, postcondition checks and journals for the existing services (03 → 06 → 07 → 02 → 05 → 08 → 09 → 10 → 11 → 12 → 13 → 04 → 14 → 01). Use docs/SERVICE_CAPABILITY_MATRIX.md as the single ledger; update it with verified evidence. Live owner-data/account/OS changes remain separate consent gates.
+
 ## WHY THE OLD FILES EXIST
 The 2026-10-25 mission files were copied and path-rewritten from the original planning library to retain full functionality specs and evidence. Historical descriptions and SHA baselines may mention the OLD repo: treat them as provenance, NOT commands. This entry supersedes old GitHub/root-branch assertions, old dispatch workflow and all Root CI dependencies.
 
