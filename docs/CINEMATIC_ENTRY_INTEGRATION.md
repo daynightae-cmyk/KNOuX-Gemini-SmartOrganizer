@@ -47,7 +47,7 @@ On Windows, run `node scripts/cinematic-native-smoke.cjs`, `npm run desktop:pack
 
 User-supplied CODEX_CLOUD_MISSION.md and KNOuX_Codex_Cinematic_Cloud_Kit.zip are task specifications/reference material, subordinate to the user's direct isolation and safety instructions. All ten separate PNG names and original SHA-256 digests are in evidence/cinematic-entry/reference-manifest.json. They were inspected as an ordered storyboard and remain temporary reference files. No authorized Forge source audio/components were found in this repository; the mark, glass, particles and sound are original procedural implementations inspired by the reference family, with no copied media or external CDN dependency.
 
-The current baseline Home contains static visual-preview KPI values and explicitly labels its preview state. This PR reveals that same existing Home; it does not create, validate or promote those numbers to measured data. Mission 01 activation remains the owning task. Native/consent capability states remain authoritative.
+The original creation baseline contained static Home preview values. Published main 66d8808 subsequently delivered the measured Home implementation. It was brought into the dedicated feature branch without modifying its Home/provider code; the only conflict was package.json, resolved by retaining test:home and test:entry. The intro now reveals that upstream Home, with truthful native-unavailable states in a browser. Native/consent capability states remain authoritative.
 
 ## Quality follow-up
 

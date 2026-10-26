@@ -207,6 +207,11 @@ async function main() {
     settingsArabicShotPath: receipt?.settingsArabicScreenshot || '',
     settings1366ShotPath: receipt?.settings1366Screenshot || '',
     settings1920ShotPath: receipt?.settings1920Screenshot || '',
+    homeShotPath: receipt?.homeScreenshot || shotPath.replace(/native-bridge/i, 'home-measured'),
+    homeLightShotPath: receipt?.homeLightScreenshot || '',
+    homeArabicShotPath: receipt?.homeArabicScreenshot || '',
+    home1366ShotPath: receipt?.home1366Screenshot || '',
+    home1920ShotPath: receipt?.home1920Screenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -263,6 +268,11 @@ async function main() {
     settingsArabicShotBytes: receipt?.settingsArabicScreenshotBytes || 0,
     settings1366ShotBytes: receipt?.settings1366ScreenshotBytes || 0,
     settings1920ShotBytes: receipt?.settings1920ScreenshotBytes || 0,
+    homeShotBytes: receipt?.homeScreenshotBytes || 0,
+    homeLightShotBytes: receipt?.homeLightScreenshotBytes || 0,
+    homeArabicShotBytes: receipt?.homeArabicScreenshotBytes || 0,
+    home1366ShotBytes: receipt?.home1366ScreenshotBytes || 0,
+    home1920ShotBytes: receipt?.home1920ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -329,7 +339,12 @@ async function main() {
     summary.settingsShotBytes > 20000 &&
     summary.settingsArabicShotBytes > 20000 &&
     summary.settings1366ShotBytes > 20000 &&
-    summary.settings1920ShotBytes > 20000;
+    summary.settings1920ShotBytes > 20000 &&
+    summary.homeShotBytes > 20000 &&
+    summary.homeLightShotBytes > 20000 &&
+    summary.homeArabicShotBytes > 20000 &&
+    summary.home1366ShotBytes > 20000 &&
+    summary.home1920ShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

@@ -29,13 +29,13 @@ import {
   RotateCcw,
   X,
   ExternalLink,
+  RefreshCw,
 } from 'lucide-react';
 import {
   DeckTile,
   KpiMetric,
   PageId,
   INITIAL_DECK_TILES,
-  INITIAL_KPIS,
 } from '../../lib/home-ui';
 import { EarthHorizonScene } from './EarthHorizonScene';
 
@@ -246,6 +246,7 @@ export const HomeCommandDeck: React.FC<HomeCommandDeckProps> = ({
               return (
                 <div
                   key={tile.id}
+                  data-testid={`home-deck-tile-${tile.id}`}
                   onClick={() => onNavigate(tile.targetPage)}
                   className={`relative p-3 rounded-xl border ${style.border} ${style.bg} ${style.glow} hover:brightness-110 cursor-pointer transition-all flex flex-col justify-between overflow-hidden group min-h-[72px]`}
                 >
@@ -356,6 +357,11 @@ export interface HomeCommandCenterProps {
   onNavigate: (page: PageId | string) => void;
   onOpenPalette?: () => void;
   renderDeck?: boolean;
+  kpis?: KpiMetric[];
+  liveStatus?: 'loading' | 'live' | 'partial' | 'native-required';
+  observedAt?: string | null;
+  onRefresh?: () => void;
+  errors?: string[];
 }
 
 export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
@@ -363,10 +369,20 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
   onNavigate,
   onOpenPalette,
   renderDeck = true,
+  kpis = [],
+  liveStatus = 'loading',
+  observedAt = null,
+  onRefresh,
+  errors = [],
 }) => {
   const isAr = locale === 'ar';
-  const [kpis] = useState<KpiMetric[]>(INITIAL_KPIS);
-  const [searchDraft, setSearchDraft] = useState('');
+  const statusMeta = {
+    loading: { text: isAr ? 'جارٍ قياس البيانات الحية…' : 'Measuring live data…', color: 'text-cyan-300', dot: 'bg-cyan-400 animate-pulse' },
+    live: { text: isAr ? 'بيانات حية مقيسة' : 'Live measured data', color: 'text-emerald-300', dot: 'bg-emerald-400' },
+    partial: { text: isAr ? 'بيانات جزئية — راجع الملاحظات' : 'Partial measured — see notes', color: 'text-amber-300', dot: 'bg-amber-400' },
+    'native-required': { text: isAr ? 'القياس الأصلي مطلوب' : 'Native measurement required', color: 'text-rose-300', dot: 'bg-rose-400' },
+  }[liveStatus];
+  const statusTime = observedAt ? new Date(observedAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : null;
 
   return (
     <div className="flex flex-col gap-3 relative z-10 shrink-0">
@@ -386,6 +402,20 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                 ? 'نظامك بالكامل في مكان واحد. منظم، محسّن، وتحت سيطرتك المطلقة.'
                 : 'Your complete system. Organized, optimized, in control.'}
             </p>
+            <div className="mt-1 flex items-center gap-2 flex-wrap" data-testid="home-live-status">
+              <span className={`inline-flex items-center gap-1.5 text-[10px] font-medium ${statusMeta.color}`} title={errors.length ? errors.join(' · ') : undefined}>
+                <span className={`w-1.5 h-1.5 rounded-full ${statusMeta.dot}`} />
+                {statusMeta.text}
+                {statusTime ? <span className="font-mono text-slate-400">· {statusTime}</span> : null}
+              </span>
+              {onRefresh ? (
+                <button type="button" onClick={onRefresh} className="inline-flex items-center gap-1 text-[10px] text-cyan-300 hover:text-white" title={isAr ? 'تحديث البيانات المقيسة' : 'Refresh measured data'}>
+                  <RefreshCw className="w-3 h-3" />
+                  {isAr ? 'تحديث' : 'Refresh'}
+                </button>
+              ) : null}
+              {errors.length ? <span className="text-[9.5px] text-amber-300 font-mono">{errors.length} {isAr ? 'تحذير' : 'warning(s)'}</span> : null}
+            </div>
           </div>
 
           {/* Right vertical tagline matching screenshot exactly */}
@@ -407,15 +437,15 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
           <Search className="w-4 h-4 text-cyan-400 shrink-0 mr-2.5 group-hover:scale-105 transition-transform" />
           <input
             type="text"
-            value={searchDraft}
-            onChange={(e) => setSearchDraft(e.target.value)}
+            readOnly
             placeholder={
               isAr
-                ? 'ابحث عن ملفات، تطبيقات، إعدادات، أو نفذ إجراء فورياً...'
-                : 'Search for files, applications, settings, or run a command...'
+                ? 'انتقل إلى مساحة عمل أو أداة بالاسم...'
+                : 'Jump to a workspace, service, or tool...'
             }
             className="bg-transparent border-none outline-none text-slate-200 placeholder-slate-400 text-xs sm:text-sm w-full cursor-pointer"
             onFocus={() => onOpenPalette && onOpenPalette()}
+            onClick={() => onOpenPalette && onOpenPalette()}
           />
           <kbd className="px-2 py-0.5 rounded bg-[#0d213d] text-[10px] font-mono text-cyan-300 border border-[#1b3f70] shrink-0 ml-2">
             Ctrl + K
@@ -429,6 +459,7 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
           return (
             <div
               key={kpi.id}
+              data-testid={`home-kpi-${kpi.id}`}
               onClick={() => onNavigate(kpi.targetPage)}
               className="p-2.5 rounded-xl bg-[#071329]/80 border border-[#152e50] hover:border-cyan-500/50 hover:bg-[#0a1a36] transition-all cursor-pointer flex flex-col justify-between group shadow-sm min-h-[72px]"
             >
@@ -450,41 +481,21 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                       {isAr ? kpi.titleAr : kpi.title}
                     </div>
                     {kpi.badge && (
-                      <span className="text-[10px] font-medium text-emerald-400 flex items-center gap-1">
+                      <span className="text-[10px] font-medium flex items-center gap-1" style={{ color: kpi.badgeColor || '#10b981' }}>
                         {kpi.badge}
                       </span>
                     )}
                   </div>
                 </div>
 
-                {/* Sparkline curve or 7 vertical microbars */}
-                {kpi.id === 'kpi-health' ? (
-                  <svg className="w-12 h-6" viewBox="0 0 50 20" fill="none">
-                    <path
-                      d="M 2 16 Q 14 18 24 10 T 40 8 T 48 3"
-                      stroke="#10b981"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                ) : (
-                  <div className="flex items-end gap-0.5 h-5 pr-1">
-                    <span className="w-1 rounded-sm bg-cyan-400/40" style={{ height: '35%', backgroundColor: kpi.color, opacity: 0.4 }} />
-                    <span className="w-1 rounded-sm bg-cyan-400/50" style={{ height: '55%', backgroundColor: kpi.color, opacity: 0.6 }} />
-                    <span className="w-1 rounded-sm bg-cyan-400/60" style={{ height: '45%', backgroundColor: kpi.color, opacity: 0.5 }} />
-                    <span className="w-1 rounded-sm bg-cyan-400/70" style={{ height: '70%', backgroundColor: kpi.color, opacity: 0.75 }} />
-                    <span className="w-1 rounded-sm bg-cyan-400/80" style={{ height: '60%', backgroundColor: kpi.color, opacity: 0.7 }} />
-                    <span className="w-1 rounded-sm bg-cyan-400/90" style={{ height: '85%', backgroundColor: kpi.color, opacity: 0.9 }} />
-                    <span className="w-1 rounded-sm bg-cyan-400" style={{ height: '100%', backgroundColor: kpi.color, opacity: 1 }} />
-                  </div>
-                )}
+                {/* No fabricated trend: a single measured-status dot only. */}
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: kpi.badgeColor || kpi.color }} title={kpi.badge || 'Not measured'} />
               </div>
 
               {/* Metric Value & Subtext */}
               <div className="mt-1">
-                <div dir="ltr" className="text-base sm:text-lg font-black text-white tracking-tight flex items-baseline justify-end gap-1">
+                <div dir="ltr" data-testid={`home-kpi-${kpi.id}-value`} className="text-base sm:text-lg font-black text-white tracking-tight flex items-baseline justify-end gap-1">
                   <span>{kpi.value}</span>
-                  {kpi.id === 'kpi-health' && <span className="text-xs font-normal text-slate-400">/ 100</span>}
                 </div>
                 <div className="text-[10px] text-slate-400 truncate">
                   {isAr ? kpi.subtextAr : kpi.subtext}

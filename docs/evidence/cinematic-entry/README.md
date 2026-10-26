@@ -4,7 +4,7 @@ Actual Chromium renders at the requested viewport, locale and theme. WebP compre
 
 [Silent original motion recording](entry-demo.mp4) · [frame timing](demo-timing.json) · [reference provenance](reference-manifest.json)
 
-The movie records the real browser transition with original CDP frame timestamps. It contains no soundtrack; audio gestures/voices are verified separately by automated instrumentation. The Home shown is the existing renderer preview, whose static metrics are not certified by this feature.
+The movie records the real browser transition with original CDP frame timestamps. It contains no soundtrack; audio gestures/voices are verified separately by automated instrumentation. The Home shown is the upstream measured Home renderer. Browser captures truthfully show native-unavailable values; actual Windows bridge behavior is verified separately in CI.
 
 | Viewport | Locale | Theme | Ready | Entering | Real Home |
 |---|---|---|---|---|---|

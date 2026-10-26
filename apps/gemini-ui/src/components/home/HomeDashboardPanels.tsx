@@ -12,12 +12,12 @@
  *   - Sub-panel 2: Quick Access (Word, Excel, Video, JPG, Zip with paths, recency, action menus)
  * 
  * Right Column:
- * - KNOuX Insight [AI] card (48.6 GB reclaimable, Run Smart Scan Now, See Details)
+ * - KNOuX Insight card fed by a measured scan or an explicit no-estimate state
  * - Recent Activity & Recommendations (5 items with checkboxes and status icons)
  * - Pending Safe Actions (3 items with checkboxes, Preview buttons, Apply button)
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Lightbulb,
   Activity,
@@ -52,31 +52,45 @@ import {
   PageId,
   KnouxInsightData,
   HomeActivityItem,
+  KpiMetric,
   QuickAccessItem,
   StorageVolumeSnapshot,
   PendingSafeAction,
-  INITIAL_INSIGHT,
-  INITIAL_ACTIVITIES,
-  INITIAL_QUICK_ACCESS,
-  INITIAL_STORAGE_VOLUMES,
-  INITIAL_SAFE_ACTIONS,
 } from '../../lib/home-ui';
+import type { HomeLiveStatus } from '../../home/live';
+import { formatBytes, type HomeSystemMetrics } from '../../home/derive';
 
 export interface HomeDashboardPanelsProps {
   locale?: string;
   onNavigate: (page: PageId | string) => void;
   commandDeckNode?: React.ReactNode;
+  activities?: HomeActivityItem[];
+  quickAccess?: QuickAccessItem[];
+  volumes?: StorageVolumeSnapshot[];
+  insight?: KnouxInsightData | null;
+  pendingActions?: PendingSafeAction[];
+  systemMetrics?: HomeSystemMetrics | null;
+  liveStatus?: HomeLiveStatus;
+  kpis?: KpiMetric[];
 }
 
 export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
   locale = 'en',
   onNavigate,
   commandDeckNode,
+  activities: activitiesProp = [],
+  quickAccess: quickAccessProp = [],
+  volumes: volumesProp = [],
+  insight: insightProp = null,
+  pendingActions: pendingActionsProp = [],
+  systemMetrics = null,
+  liveStatus = 'loading',
+  kpis = [],
 }) => {
   const isAr = locale === 'ar';
 
   // State
-  const [insight, setInsight] = useState<KnouxInsightData | null>(INITIAL_INSIGHT);
+  const insight = insightProp;
   const [isInsightDismissed, setIsInsightDismissed] = useState(false);
   const [insightDetailsOpen, setInsightDetailsOpen] = useState(false);
 
@@ -86,20 +100,31 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
   // Quick Access Tabs & Filter
   const [quickTab, setQuickTab] = useState<'files' | 'folders' | 'pinned'>('files');
   const [timeFilter, setTimeFilter] = useState<'7d' | '30d' | 'all'>('7d');
-  const [quickItems, setQuickItems] = useState<QuickAccessItem[]>(INITIAL_QUICK_ACCESS);
+  const [quickItems, setQuickItems] = useState<QuickAccessItem[]>(quickAccessProp);
+  useEffect(() => setQuickItems(quickAccessProp), [quickAccessProp]);
 
   // Activities
-  const [activities, setActivities] = useState<HomeActivityItem[]>(INITIAL_ACTIVITIES);
+  const [activities, setActivities] = useState<HomeActivityItem[]>(activitiesProp);
+  useEffect(() => setActivities(activitiesProp), [activitiesProp]);
   const [selectedActivity, setSelectedActivity] = useState<HomeActivityItem | null>(null);
 
-  // Storage
-  const [volumes] = useState<StorageVolumeSnapshot[]>(INITIAL_STORAGE_VOLUMES);
-
-  // Pending Actions
-  const [pendingActions] = useState<PendingSafeAction[]>(INITIAL_SAFE_ACTIONS);
+  // Storage and pending actions are measured props, never fixture state.
+  const volumes = volumesProp;
+  const pendingActions = pendingActionsProp;
   const [selectedActionIds, setSelectedActionIds] = useState<string[]>([]);
   const [expandedActionId, setExpandedActionId] = useState<string | null>(null);
   const [previewAction, setPreviewAction] = useState<PendingSafeAction | null>(null);
+
+  const visibleQuickItems = quickItems.filter((item) => {
+    if (quickTab === 'pinned' && !item.isPinned) return false;
+    if (quickTab === 'folders' && item.category !== 'folder') return false;
+    if (timeFilter !== 'all' && item.modifiedAt) {
+      const windowMs = (timeFilter === '7d' ? 7 : 30) * 86400000;
+      const modified = new Date(item.modifiedAt).getTime();
+      if (Number.isFinite(modified) && modified < Date.now() - windowMs) return false;
+    }
+    return true;
+  });
 
   const togglePin = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -219,11 +244,14 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
           {/* ================= CARD 1: SYSTEM OVERVIEW & STORAGE SNAPSHOT ================= */}
           <div className="flex flex-col gap-2 p-3 rounded-xl bg-[#071329]/90 border border-[#152e50] shadow-sm">
             {/* Header with Tabs */}
-            <div className="flex items-center justify-between pb-1.5 border-b border-[#0d2342]">
-              <div className="flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center justify-between gap-1 pb-1.5 border-b border-[#0d2342]">
+              <div className="flex items-center gap-1.5 min-w-0">
                 <Settings className="w-3.5 h-3.5 text-cyan-400" />
                 <span className="text-xs font-bold text-white">
                   {isAr ? 'نظرة عامة على النظام' : 'System Overview'}
+                </span>
+                <span className="text-[8px] font-mono text-slate-500" data-testid="home-dashboard-status">
+                  {liveStatus === 'live' ? 'LIVE' : liveStatus === 'partial' ? 'PARTIAL' : liveStatus === 'native-required' ? 'NO NATIVE' : 'MEASURING'}
                 </span>
               </div>
 
@@ -272,24 +300,42 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
               </div>
             </div>
 
-            {/* Gauge + Multi-series Line Chart */}
-            <div className="flex items-center gap-2 pt-1">
-              {/* Circular Gauge */}
-              <div
-                className="flex flex-col items-center justify-center shrink-0 cursor-pointer hover:brightness-110 transition-all"
-                onClick={() => onNavigate('system')}
-                title="Click to view live system pulse"
-              >
+            {overviewTab === 'storage' ? (
+              <div className="pt-1 space-y-2" data-testid="home-system-storage">
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="rounded-lg border border-[#122847] bg-[#040c1d] p-2">
+                    <div className="text-[9px] text-slate-400">{isAr ? 'إجمالي المساحة' : 'Total capacity'}</div>
+                    <div className="text-sm font-black text-white font-mono" dir="ltr">{formatBytes(volumes.reduce((sum, volume) => sum + volume.totalBytes, 0))}</div>
+                  </div>
+                  <div className="rounded-lg border border-[#122847] bg-[#040c1d] p-2">
+                    <div className="text-[9px] text-slate-400">{isAr ? 'المساحة الحرة' : 'Free space'}</div>
+                    <div className="text-sm font-black text-emerald-300 font-mono" dir="ltr">{formatBytes(volumes.reduce((sum, volume) => sum + volume.freeBytes, 0))}</div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-[10px] text-slate-400">
+                  <span>{volumes.length} {isAr ? 'أحجام مقيسة' : 'measured volume(s)'}</span>
+                  <button onClick={() => onNavigate('storage')} className="text-cyan-300 hover:text-white">{isAr ? 'فتح أطلس التخزين ←' : 'Open Volume Atlas →'}</button>
+                </div>
+              </div>
+            ) : overviewTab === 'apps' ? (
+              <div className="grid grid-cols-2 gap-2 pt-1" data-testid="home-system-apps">
+                {[
+                  { kpi: kpis.find((entry) => entry.id === 'kpi-apps'), page: 'applications' as const, label: isAr ? 'التطبيقات المثبتة' : 'Installed applications' },
+                  { kpi: kpis.find((entry) => entry.id === 'kpi-services'), page: 'services' as const, label: isAr ? 'الخدمات العاملة' : 'Services running' },
+                ].map((entry) => (
+                  <button key={entry.page} onClick={() => onNavigate(entry.page)} className="rounded-lg border border-[#122847] bg-[#040c1d] p-2 text-start hover:border-cyan-500/50">
+                    <div className="text-[9px] text-slate-400">{entry.label}</div>
+                    <div className="text-sm font-black text-white font-mono" dir="ltr">{entry.kpi?.value || '—'}</div>
+                    <div className="text-[8.5px] text-slate-500 truncate">{entry.kpi?.badge || (isAr ? 'غير مقيس' : 'Not measured')}</div>
+                  </button>
+                ))}
+              </div>
+            ) : (
+            <div className="flex items-center gap-3 pt-1" data-testid="home-system-live">
+              <div className="flex flex-col items-center justify-center shrink-0 cursor-pointer hover:brightness-110 transition-all" onClick={() => onNavigate('system')}>
                 <div className="relative w-20 h-20 flex items-center justify-center">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="#0f294d"
-                      strokeWidth="8"
-                      fill="none"
-                    />
+                    <circle cx="50" cy="50" r="40" stroke="#0f294d" strokeWidth="8" fill="none" />
                     <circle
                       cx="50"
                       cy="50"
@@ -297,7 +343,7 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                       stroke="url(#gauge-cyan-teal)"
                       strokeWidth="8"
                       strokeDasharray="251.2"
-                      strokeDashoffset="25.1"
+                      strokeDashoffset={251.2 * (1 - (systemMetrics?.cpuPercent ?? 0) / 100)}
                       strokeLinecap="round"
                       fill="none"
                     />
@@ -310,127 +356,44 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                     </defs>
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <span className="text-xl font-black text-white leading-none">92</span>
-                    <span className="text-[9px] font-bold text-emerald-400 mt-0.5">
-                      {isAr ? 'ممتاز' : 'Excellent'}
+                    <span className="text-xl font-black text-white leading-none" data-testid="home-cpu-value">
+                      {systemMetrics?.cpuPercent == null ? '—' : Math.round(systemMetrics.cpuPercent)}
+                    </span>
+                    <span className="text-[9px] font-bold text-cyan-300 mt-0.5">
+                      {systemMetrics?.cpuPercent == null ? (isAr ? 'غير مقيس' : 'Not measured') : (isAr ? 'حمل المعالج' : 'CPU load')}
                     </span>
                   </div>
                 </div>
-                <span className="text-[9.5px] text-slate-400 mt-1 text-center max-w-[90px] leading-tight">
-                  {isAr ? 'نظامك يعمل بسلاسة تامة.' : 'Your system is running smoothly.'}
+                <span className="text-[9.5px] text-slate-400 mt-1 text-center max-w-[100px] leading-tight">
+                  {systemMetrics?.observedAt ? `${isAr ? 'عينة' : 'Sample'} ${new Date(systemMetrics.observedAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}` : (isAr ? 'بانتظار القياس' : 'Awaiting measurement')}
                 </span>
               </div>
 
-              {/* Multi-series chart with Legend & Apr 26 Tooltip */}
-              <div className="flex-1 min-w-0 flex flex-col justify-between">
-                {/* Legend */}
-                <div className="flex items-center gap-2 text-[9px] text-slate-400 mb-1 flex-wrap">
-                  <span className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                    <span>CPU Usage</span>
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                    <span>Memory Usage</span>
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                    <span>Disk Activity</span>
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-                    <span>System Health</span>
-                  </span>
-                </div>
-
-                {/* Chart SVG with interactive-looking Apr 26 popover */}
-                <div className="relative w-full h-20 bg-[#040a17] rounded-lg p-1 border border-[#0f2444] overflow-hidden">
-                  <svg className="w-full h-full" viewBox="0 0 350 80" preserveAspectRatio="none">
-                    {/* Horizontal grid lines */}
-                    <line x1="0" y1="20" x2="350" y2="20" stroke="rgba(255,255,255,0.04)" strokeDasharray="3 3" />
-                    <line x1="0" y1="40" x2="350" y2="40" stroke="rgba(255,255,255,0.04)" strokeDasharray="3 3" />
-                    <line x1="0" y1="60" x2="350" y2="60" stroke="rgba(255,255,255,0.04)" strokeDasharray="3 3" />
-
-                    {/* Vertical guideline on Apr 26 */}
-                    <line x1="280" y1="0" x2="280" y2="80" stroke="#38bdf8" strokeWidth="1" strokeDasharray="2 2" strokeOpacity="0.5" />
-
-                    {/* Teal Line (System Health ~92%) */}
-                    <path
-                      d="M 10 15 Q 60 14 110 18 T 210 14 T 280 12 T 340 10"
-                      stroke="#14b8a6"
-                      strokeWidth="1.8"
-                      fill="none"
-                    />
-
-                    {/* Purple Line (Memory Usage ~46%) */}
-                    <path
-                      d="M 10 45 Q 60 48 110 40 T 210 44 T 280 42 T 340 46"
-                      stroke="#a855f7"
-                      strokeWidth="1.8"
-                      fill="none"
-                    />
-
-                    {/* Blue Line (CPU Usage ~28%) */}
-                    <path
-                      d="M 10 60 Q 60 55 110 65 T 210 58 T 280 56 T 340 60"
-                      stroke="#3b82f6"
-                      strokeWidth="1.8"
-                      fill="none"
-                    />
-
-                    {/* Cyan Line (Disk Activity ~12%) */}
-                    <path
-                      d="M 10 72 Q 60 70 110 68 T 210 74 T 280 70 T 340 72"
-                      stroke="#06b6d4"
-                      strokeWidth="1.8"
-                      fill="none"
-                    />
-
-                    {/* Active Point at Apr 26 */}
-                    <circle cx="280" cy="12" r="2.5" fill="#14b8a6" />
-                    <circle cx="280" cy="42" r="2.5" fill="#a855f7" />
-                    <circle cx="280" cy="56" r="2.5" fill="#3b82f6" />
-                    <circle cx="280" cy="70" r="2.5" fill="#06b6d4" />
-                  </svg>
-
-                  {/* Apr 26 2:00 PM Tooltip Card */}
-                  <div className="absolute right-3 top-1 bg-[#08152e]/95 border border-[#1b3f70] rounded px-2 py-1 shadow-xl text-[8.5px] leading-tight pointer-events-none">
-                    <div className="text-[8px] font-mono text-slate-300 font-semibold mb-0.5">Apr 26, 2025 2:00 PM</div>
-                    <div className="flex items-center gap-1.5 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      <span>CPU</span>
-                      <span className="font-mono font-bold text-white ml-auto">28%</span>
+              <div className="flex-1 min-w-0 flex flex-col justify-center gap-2">
+                {[
+                  { key: 'cpu', label: isAr ? 'المعالج' : 'CPU', value: systemMetrics?.cpuPercent ?? null, color: '#3b82f6' },
+                  { key: 'memory', label: isAr ? 'الذاكرة' : 'Memory', value: systemMetrics?.memoryPercent ?? null, color: '#a855f7' },
+                  { key: 'disk', label: isAr ? 'قرص النظام' : 'System disk used', value: systemMetrics?.diskPercent ?? null, color: '#06b6d4' },
+                ].map((metric) => (
+                  <div key={metric.key} className="flex items-center gap-2" data-testid={`home-metric-${metric.key}`}>
+                    <span className="w-20 text-[10px] text-slate-400 shrink-0 truncate">{metric.label}</span>
+                    <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                      <div className="h-full rounded-full transition-all" style={{ width: `${metric.value == null ? 0 : Math.max(1, Math.min(100, metric.value))}%`, backgroundColor: metric.color }} />
                     </div>
-                    <div className="flex items-center gap-1.5 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                      <span>Memory</span>
-                      <span className="font-mono font-bold text-white ml-auto">46%</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                      <span>Disk</span>
-                      <span className="font-mono font-bold text-white ml-auto">12%</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal-400" />
-                      <span>Health</span>
-                      <span className="font-mono font-bold text-emerald-400 ml-auto">92%</span>
-                    </div>
+                    <span className="w-10 text-[10px] font-mono text-slate-200 text-end shrink-0" dir="ltr">
+                      {metric.value == null ? '—' : `${Math.round(metric.value)}%`}
+                    </span>
                   </div>
+                ))}
+                <div className="text-[9px] text-slate-500 leading-tight">
+                  {isAr
+                    ? 'قيم حالية من ملخص النظام الأصلي. لا تُعرض سلسلة تاريخية غير مقيسة.'
+                    : 'Current values from the native system summary. No unmeasured historical series is shown.'}
                 </div>
-
-                {/* Dates Row */}
-                <div className="flex items-center justify-between text-[8.5px] font-mono text-slate-400 mt-1 px-1">
-                  <span>Apr 21</span>
-                  <span>Apr 22</span>
-                  <span>Apr 23</span>
-                  <span>Apr 24</span>
-                  <span>Apr 25</span>
-                  <span className="text-cyan-300 font-bold">Apr 26</span>
-                  <span>Apr 27</span>
-                </div>
+                {systemMetrics?.osCaption ? <div className="text-[9px] font-mono text-slate-500 truncate">{systemMetrics.osCaption}</div> : null}
               </div>
             </div>
+            )}
 
             {/* Storage Snapshot Sub-panel directly underneath */}
             <div className="pt-2 border-t border-[#0d2342] mt-1">
@@ -450,85 +413,41 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                 </button>
               </div>
 
-              {/* 3 Volumes Strip */}
+              {/* Measured volumes: no invented drive labels or capacities. */}
               <div className="grid grid-cols-3 gap-2">
-                {/* Drive C: */}
-                <div
-                  onClick={() => onNavigate('storage')}
-                  className="p-1.5 rounded-lg bg-[#040c1d] border border-[#122847] hover:border-sky-500/50 transition cursor-pointer"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-5 h-5 rounded bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
-                      <HardDrive className="w-3 h-3" />
+                {volumes.length ? volumes.slice(0, 3).map((volume, index) => (
+                  <div
+                    key={volume.id}
+                    data-testid={`home-volume-${index}`}
+                    onClick={() => onNavigate('storage')}
+                    className="p-1.5 rounded-lg bg-[#040c1d] border border-[#122847] hover:border-sky-500/50 transition cursor-pointer"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-5 h-5 rounded bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
+                        <HardDrive className="w-3 h-3" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[10px] font-bold text-white truncate" dir="ltr">{volume.letter}</div>
+                        <div className="text-[8.5px] text-slate-400 truncate">{volume.label}</div>
+                      </div>
+                      <span className="text-[8.5px] font-mono text-emerald-400 ml-auto whitespace-nowrap">
+                        {volume.freeFormatted}
+                      </span>
                     </div>
-                    <div className="min-w-0">
-                      <div className="text-[10px] font-bold text-white truncate">C: Windows</div>
-                      <div className="text-[8.5px] text-slate-400">NTFS • 476 GB</div>
+                    <div className="w-full h-1.5 rounded-full bg-slate-800 flex overflow-hidden mt-1.5">
+                      <div className="h-full" style={{ width: `${volume.usedPercent}%`, backgroundColor: volume.accentColor }} />
+                      <div className="h-full bg-emerald-400" style={{ width: `${volume.freePercent}%` }} />
                     </div>
-                    <span className="text-[8.5px] font-mono text-emerald-400 ml-auto whitespace-nowrap">
-                      98.4 GB free
-                    </span>
-                  </div>
-                  {/* Dual bar: used vs free */}
-                  <div className="w-full h-1.5 rounded-full bg-slate-800 flex overflow-hidden mt-1.5">
-                    <div className="h-full bg-rose-500" style={{ width: '79.3%' }} />
-                    <div className="h-full bg-emerald-400" style={{ width: '20.7%' }} />
-                  </div>
-                  <div className="flex items-center justify-between text-[7.5px] text-slate-400 mt-1">
-                    <span className="flex items-center gap-1">
-                      <span className="w-1 h-1 rounded-full bg-rose-500" />
-                      <span>Used 377.6 GB (79.3%)</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span className="w-1 h-1 rounded-full bg-emerald-400" />
-                      <span>Free 98.4 GB (20.7%)</span>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Drive D: */}
-                <div
-                  onClick={() => onNavigate('storage')}
-                  className="p-1.5 rounded-lg bg-[#040c1d] border border-[#122847] hover:border-sky-500/50 transition cursor-pointer"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-5 h-5 rounded bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
-                      <HardDrive className="w-3 h-3" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[10px] font-bold text-white truncate">D: Data</div>
-                      <div className="text-[8.5px] text-slate-400">1.82 TB</div>
+                    <div className="flex items-center justify-between text-[7.5px] text-slate-400 mt-1">
+                      <span>{isAr ? 'مستخدم' : 'Used'} {volume.usedPercent}%</span>
+                      <span>{isAr ? 'حر' : 'Free'} {volume.freePercent}%</span>
                     </div>
                   </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden mt-1.5">
-                    <div className="h-full bg-sky-500 rounded-full" style={{ width: '66.4%' }} />
+                )) : (
+                  <div className="col-span-3 rounded-lg border border-dashed border-[#17325c] p-3 text-center text-[10px] text-slate-400">
+                    {isAr ? 'لا توجد أحجام مقيسة. افتح أطلس التخزين أو تحقق من جسر النظام.' : 'No measured volumes. Open Volume Atlas or check the native system bridge.'}
                   </div>
-                  <div className="text-right text-[8px] font-mono text-slate-400 mt-1">
-                    66.4% used
-                  </div>
-                </div>
-
-                {/* Drive E: */}
-                <div
-                  onClick={() => onNavigate('storage')}
-                  className="p-1.5 rounded-lg bg-[#040c1d] border border-[#122847] hover:border-sky-500/50 transition cursor-pointer"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-5 h-5 rounded bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
-                      <HardDrive className="w-3 h-3" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[10px] font-bold text-white truncate">E: Projects</div>
-                      <div className="text-[8.5px] text-slate-400">931 GB</div>
-                    </div>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden mt-1.5">
-                    <div className="h-full bg-sky-500 rounded-full" style={{ width: '37.5%' }} />
-                  </div>
-                  <div className="text-right text-[8px] font-mono text-slate-400 mt-1">
-                    37.5% used
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -597,11 +516,12 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
               </button>
             </div>
 
-            {/* 5 File Rows */}
+            {/* Recent files measured from an authorized source only. */}
             <div className="flex-1 flex flex-col justify-between space-y-1 mt-0.5">
-              {quickItems.slice(0, 5).map((file) => (
+              {visibleQuickItems.length ? visibleQuickItems.slice(0, 5).map((file) => (
                 <div
                   key={file.id}
+                  data-testid="home-quick-row"
                   onClick={() => onNavigate('files')}
                   className="flex items-center justify-between p-1.5 rounded-lg bg-[#040b19]/60 hover:bg-[#091830] border border-transparent hover:border-[#173866] transition cursor-pointer group"
                 >
@@ -632,7 +552,15 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                     </button>
                   </div>
                 </div>
-              ))}
+              )) : (
+                <div className="flex-1 flex items-center justify-center rounded-lg border border-dashed border-[#17325c] p-3 text-center text-[10px] text-slate-400">
+                  {quickTab === 'folders'
+                    ? (isAr ? 'لا توجد مجلدات مقيسة في هذه القائمة. افتح Files لاستكشاف المجلدات.' : 'No measured folders in this list. Open Files to browse folders.')
+                    : quickTab === 'pinned'
+                      ? (isAr ? 'لا توجد عناصر مثبتة. ثبّت ملفًا من القائمة.' : 'No pinned items. Pin a file from the list.')
+                      : (isAr ? 'لا توجد ملفات حديثة مقيسة. صرّح بمجلد وفهرسه في Files.' : 'No measured recent files. Authorize and index a folder in Files.')}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -652,8 +580,8 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                 <span className="text-xs font-bold text-white tracking-wide">
                   KNOuX Insight
                 </span>
-                <span className="px-1.5 py-0.2 rounded-full bg-blue-600 text-white font-bold text-[9px] shadow-sm">
-                  AI
+                <span className="px-1.5 py-0.2 rounded-full bg-cyan-700 text-white font-bold text-[9px] shadow-sm">
+                  {isAr ? 'دليل مقيس' : 'Measured'}
                 </span>
               </div>
 
@@ -687,7 +615,7 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
             {/* Two Action Buttons */}
             <div className="grid grid-cols-2 gap-2 mt-3">
               <button
-                onClick={() => onNavigate('cleanup')}
+                onClick={() => onNavigate(insight.targetPage)}
                 className="w-full py-1.5 px-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(37,99,235,0.4)] transition cursor-pointer"
               >
                 <span>{isAr ? insight.actionTextAr : insight.actionText}</span>
@@ -724,11 +652,12 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
             </button>
           </div>
 
-          {/* 5 Rows */}
+          {/* Real measured activity only. */}
           <div className="space-y-1.5">
-            {activities.map((act) => (
+            {activities.length ? activities.map((act) => (
               <div
                 key={act.id}
+                data-testid="home-activity-row"
                 onClick={() => setSelectedActivity(act)}
                 className="flex items-center justify-between p-1.5 rounded-lg hover:bg-[#0a1b38] transition cursor-pointer group"
               >
@@ -768,7 +697,11 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                   <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-white transition" />
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="rounded-lg border border-dashed border-[#17325c] p-3 text-center text-[10px] text-slate-400">
+                {isAr ? 'لا يوجد نشاط موثق بعد. نفّذ فحصًا أو معاينة جافة حقيقية لتظهر هنا.' : 'No verified activity yet. Run a real scan or dry-run to populate this list.'}
+              </div>
+            )}
           </div>
         </section>
 
@@ -782,7 +715,7 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                 {isAr ? 'الإجراءات الآمنة المعلقة' : 'Pending Safe Actions'}
               </span>
               <span className="w-4 h-4 rounded-full bg-blue-600 text-white font-bold text-[9px] flex items-center justify-center">
-                3
+                {pendingActions.length}
               </span>
             </div>
 
@@ -797,13 +730,12 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
 
           <p className="text-[9.5px] text-slate-400 mb-2">
             {isAr
-              ? 'مراجعة وتطبيق إجراءات الصيانة الآمنة الموصى بها.'
-              : 'Review and apply recommended actions.'}
+              ? 'مراجعة المرشحات المقيسة؛ التنفيذ يتطلب موافقة داخل القسم المسؤول ولا يحدث من Home.'
+              : 'Review measured candidates; execution requires approval inside the owning service and never happens from Home.'}
           </p>
 
-          {/* 3 Action Rows */}
           <div className="space-y-1.5 mb-2.5">
-            {pendingActions.map((act) => {
+            {pendingActions.length ? pendingActions.map((act) => {
               const isSelected = selectedActionIds.includes(act.id);
               const isExpanded = expandedActionId === act.id;
 
@@ -867,10 +799,14 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                   )}
                 </div>
               );
-            })}
+            }) : (
+              <div className="rounded-lg border border-dashed border-[#17325c] p-3 text-center text-[10px] text-slate-400">
+                {isAr ? 'لا توجد إجراءات معلقة موثقة. نفّذ فحصًا ذكيًا لإنشاء مرشحات قابلة للمراجعة.' : 'No verified pending actions. Run Smart Scan to create reviewable candidates.'}
+              </div>
+            )}
           </div>
 
-          {/* Sticky Apply Selected Actions Footer Button matching screenshot */}
+          {/* Sticky review footer: navigation, not an execution claim. */}
           <button
             onClick={() => onNavigate('cleanup')}
             className={`w-full py-2 px-3 rounded-lg border text-xs font-semibold flex items-center justify-center gap-2 transition cursor-pointer ${
@@ -882,8 +818,8 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
             <Check className="w-3.5 h-3.5 text-blue-400" />
             <span>
               {isAr
-                ? `تطبيق الإجراءات المحددة (${selectedActionIds.length})`
-                : `Apply Selected Actions (${selectedActionIds.length})`}
+                ? `مراجعة المحدد في التنظيف (${selectedActionIds.length})`
+                : `Review selected in Cleanup (${selectedActionIds.length})`}
             </span>
           </button>
         </section>
@@ -922,25 +858,22 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
 
               <div className="p-2.5 bg-slate-900/90 rounded-lg border border-slate-800 space-y-1.5 font-mono">
                 <div className="flex justify-between text-[11px]">
-                  <span className="text-slate-400">Windows Update Cache:</span>
-                  <span className="text-cyan-400 font-semibold">32.4 GB</span>
+                  <span className="text-slate-400">{isAr ? 'مرشحات موثقة:' : 'Verified reclaimable:'}</span>
+                  <span className="text-emerald-400 font-semibold">{insight.reclaimGb > 0 ? `${insight.reclaimGb} GB` : '—'}</span>
                 </div>
-                <div className="flex justify-between text-[11px]">
-                  <span className="text-slate-400">Orphaned Application Residue:</span>
-                  <span className="text-cyan-400 font-semibold">16.2 GB</span>
-                </div>
-                <div className="flex justify-between text-xs border-t border-slate-800 pt-1 font-bold">
-                  <span className="text-white">Total Space Reclaimable:</span>
-                  <span className="text-emerald-400">48.6 GB</span>
+                <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-800">
+                  {isAr
+                    ? 'لا تُعرض تفاصيل فئات غير مقيسة. افتح التنظيف لفحص الخطة الثابتة والأدلة.'
+                    : 'No unmeasured category breakdown is shown. Open Cleanup to inspect the immutable plan and evidence.'}
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-[11px] text-emerald-400 bg-emerald-950/40 p-2 rounded border border-emerald-800/60">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+              <div className="flex items-center gap-2 text-[11px] text-amber-200 bg-amber-950/30 p-2 rounded border border-amber-800/60">
+                <Info className="w-4 h-4 shrink-0" />
                 <span>
                   {isAr
-                    ? 'فحص الأمان مكتمل: لا توجد أي تأثيرات على استقرار التطبيقات أو البرامج المشغلة.'
-                    : 'Safety check passed: Zero risk to active user profiles, registry integrity, or installed apps.'}
+                    ? 'هذه مراجعة فقط. لا تحذف Home أي ملف؛ يتطلب التنفيذ موافقة صريحة داخل قسم التنظيف.'
+                    : 'Review only. Home deletes nothing; execution requires explicit approval inside Cleanup.'}
                 </span>
               </div>
             </div>

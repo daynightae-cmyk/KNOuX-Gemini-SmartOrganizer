@@ -4865,6 +4865,151 @@ async function runSmoke(win) {
         receipt.settingsLightNote = 'The Settings hub is dark-only in this build; light-theme parity remains BLOCKED.';
         await forceSize(1672, 941);
         await sleep(400);
+
+        // Mission 01 Home: measured KPIs, real journals/files/volumes and
+        // functional deep links. No fake counters, paths or activity are
+        // accepted. The live hook only reads existing bridges.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        const homeDeadline = Date.now() + 45000;
+        let homeUiReady = false;
+        while (Date.now() < homeDeadline) {
+          await sleep(500);
+          homeUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const root = document.querySelector('[data-testid="home-workspace"]');
+               const status = document.querySelector('[data-testid="home-live-status"]')?.innerText || '';
+               return Boolean(root) && !/Measuring live data|جارٍ قياس/i.test(status);
+             })()`,
+            true
+          );
+          if (homeUiReady) break;
+        }
+        receipt.homeUiReady = homeUiReady;
+        const homeControlProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const root = () => document.querySelector('[data-testid="home-workspace"]');
+             if (!root()) return { ok: false, failures: ['root-missing'] };
+             const text = root().innerText || '';
+             for (const fake of ['C:\\\\Users\\\\Alex', 'Organized 842 files', 'Microsoft Edge updated', 'Startup items optimized', 'Windows Update Cache:', 'Orphaned Application Residue']) {
+               if (text.includes(fake)) failures.push('fake:' + fake);
+             }
+             const values = Array.from(document.querySelectorAll('[data-testid^="home-kpi-"][data-testid$="-value"]')).map((node) => String(node.textContent || '').trim());
+             if (values.length !== 6) failures.push('kpi-count-' + values.length);
+             if (values.some((value) => !value || value === '...')) failures.push('kpi-empty');
+             const status = document.querySelector('[data-testid="home-live-status"]')?.innerText || '';
+             if (!/Live measured|Partial measured|Native measurement required|بيانات حية|بيانات جزئية|القياس الأصلي/i.test(status)) failures.push('live-status');
+             if (!document.querySelector('[data-testid="home-metric-cpu"]')) failures.push('cpu-metric-missing');
+             if (document.querySelectorAll('[data-testid^="home-volume-"]').length < 1) failures.push('volumes-missing');
+             const tile = document.querySelector('[data-testid="home-deck-tile-tile-studio"]');
+             if (!tile) failures.push('studio-tile-missing');
+             else {
+               tile.click();
+               await wait(350);
+               const routed = location.hash.toLowerCase().includes('studio') || /Organization Studio|استوديو التنظيم/.test(document.body.innerText);
+               if (!routed) failures.push('studio-navigation');
+               location.hash = 'home';
+               await wait(900);
+             }
+             if (!document.querySelector('[data-testid="home-workspace"]')) failures.push('home-return');
+             return { ok: failures.length === 0, kpis: values.length, failures };
+           })()`,
+          true
+        );
+        receipt.homeControlProbe = homeControlProbe;
+        const homeDataDeadline = Date.now() + 30000;
+        while (Date.now() < homeDataDeadline) {
+          const ready = await win.webContents.executeJavaScript(
+            `(() => {
+               const status = document.querySelector('[data-testid="home-live-status"]')?.innerText || '';
+               const cpu = document.querySelector('[data-testid="home-cpu-value"]')?.textContent?.trim() || '';
+               return Boolean(document.querySelector('[data-testid="home-workspace"]')) && !/Measuring live data|جارٍ قياس/i.test(status) && cpu !== '—' && cpu !== '';
+             })()`,
+            true
+          );
+          if (ready) break;
+          await sleep(500);
+        }
+        await sleep(400);
+        const homeShotPath = smokeShotPath.replace(/native-bridge/i, 'home-measured');
+        const homeImage = await win.webContents.capturePage();
+        await fsp.writeFile(homeShotPath, homeImage.toPNG());
+        receipt.homeScreenshot = homeShotPath;
+        receipt.homeScreenshotBytes = (await fsp.stat(homeShotPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Switch to light theme"], button[title="التبديل إلى الوضع الفاتح"]')?.click()`,
+          true
+        );
+        await sleep(1500);
+        const homeLightPath = homeShotPath.replace(/\.png$/i, '-light.png');
+        const homeLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(homeLightPath, homeLightImage.toPNG());
+        receipt.homeLightScreenshot = homeLightPath;
+        receipt.homeLightScreenshotBytes = (await fsp.stat(homeLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1500);
+        const homeRtlLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const root = document.querySelector('[data-testid="home-workspace"]');
+             if (!root) return { ok: false, reason: 'root-missing' };
+             const direction = getComputedStyle(root).direction;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             return { ok: direction === 'rtl' && !horizontalOverflow, direction, horizontalOverflow };
+           })()`,
+          true
+        );
+        receipt.homeRtlLayout = homeRtlLayout;
+        const homeArabicPath = homeShotPath.replace(/\.png$/i, '-ar-light.png');
+        const homeArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(homeArabicPath, homeArabicImage.toPNG());
+        receipt.homeArabicScreenshot = homeArabicPath;
+        receipt.homeArabicScreenshotBytes = (await fsp.stat(homeArabicPath)).size;
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(500);
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Switch to dark theme"], button[title="التبديل إلى الوضع الداكن"]')?.click()`,
+          true
+        );
+        await sleep(1000);
+
+        await forceSize(1366, 768);
+        await sleep(750);
+        const home1366Path = homeShotPath.replace(/\.png$/i, '-1366.png');
+        const home1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(home1366Path, home1366Image.toPNG());
+        receipt.home1366Screenshot = home1366Path;
+        receipt.home1366ScreenshotBytes = (await fsp.stat(home1366Path)).size;
+        const home1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const root = document.querySelector('[data-testid="home-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('[data-testid^="home-kpi-"]')).filter((node) => /-value$/.test(node.getAttribute('data-testid') || '') === false);
+             if (!root) return { ok: false, reason: 'root-missing' };
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const rootRect = root.getBoundingClientRect();
+             const withinWidth = kpis.every((node) => { const rect = node.getBoundingClientRect(); return rect.left >= rootRect.left - 1 && rect.right <= rootRect.right + 1; });
+             return { ok: !horizontalOverflow && withinWidth && kpis.length === 6, horizontalOverflow, withinWidth, kpis: kpis.length, viewportWidth: window.innerWidth };
+           })()`,
+          true
+        );
+        receipt.home1366Layout = home1366Layout;
+        await forceSize(1920, 1080);
+        await sleep(750);
+        const home1920Path = homeShotPath.replace(/\.png$/i, '-1920.png');
+        const home1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(home1920Path, home1920Image.toPNG());
+        receipt.home1920Screenshot = home1920Path;
+        receipt.home1920ScreenshotBytes = (await fsp.stat(home1920Path)).size;
+        await forceSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -5292,6 +5437,21 @@ async function runSmoke(win) {
       && receipt.settings1366Layout?.footerVisible === true
       && receipt.settings1366Layout?.viewportWidth === 1366
       && receipt.settings1366Layout?.tabs === 7;
+    const homeOk = Boolean(
+      receipt.homeUiReady === true &&
+      receipt.homeControlProbe?.ok === true &&
+      receipt.homeRtlLayout?.ok === true &&
+      receipt.homeScreenshotBytes > 20000 &&
+      receipt.homeLightScreenshotBytes > 20000 &&
+      receipt.homeArabicScreenshotBytes > 20000 &&
+      receipt.home1366ScreenshotBytes > 20000 &&
+      receipt.home1920ScreenshotBytes > 20000
+    );
+    const homeLayoutOk = receipt.home1366Layout?.ok === true
+      && receipt.home1366Layout?.horizontalOverflow === false
+      && receipt.home1366Layout?.withinWidth === true
+      && receipt.home1366Layout?.viewportWidth === 1366
+      && receipt.home1366Layout?.kpis === 6;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -5360,8 +5520,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });

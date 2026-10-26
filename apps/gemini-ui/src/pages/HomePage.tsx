@@ -11,6 +11,16 @@ import { HomeCommandCenter, HomeCommandDeck } from '../components/home/HomeComma
 import { HomeDashboardPanels } from '../components/home/HomeDashboardPanels';
 import { PageId } from '../lib/home-ui';
 import { useNavigation } from '../context/NavigationContext';
+import { useHomeLive } from '../home/live';
+import {
+  deriveActivities,
+  deriveInsight,
+  deriveKpis,
+  derivePendingActions,
+  deriveQuickAccess,
+  deriveSystemMetrics,
+  deriveVolumes,
+} from '../home/derive';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import {
   Search,
@@ -47,6 +57,14 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [headerSearch, setHeaderSearch] = useState('');
+  const homeLive = useHomeLive();
+  const kpis = deriveKpis(homeLive);
+  const activities = deriveActivities(homeLive);
+  const quickAccess = deriveQuickAccess(homeLive);
+  const volumes = deriveVolumes(homeLive);
+  const insight = deriveInsight(homeLive);
+  const pendingActions = derivePendingActions(homeLive);
+  const systemMetrics = deriveSystemMetrics(homeLive);
 
   const navigateTo = (page: PageId | string) => {
     contextNavigateTo(page);
@@ -109,6 +127,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <div
       dir={isAr ? 'rtl' : 'ltr'}
+      data-testid="home-workspace"
       className="w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative"
       style={{
         fontFamily: isAr
@@ -122,7 +141,12 @@ export const HomePage: React.FC<HomePageProps> = ({
         sectionSubtitle={isAr ? 'مركز القيادة الرئيسي' : 'Main Command Center'}
         onNavigateHome={() => navigateTo('home')}
         searchQuery={headerSearch}
-        onSearchChange={setHeaderSearch}
+        searchPlaceholder={isAr ? 'انتقل إلى مساحة عمل أو أداة...' : 'Jump to a workspace, service, or tool...'}
+        onSearchChange={(value) => {
+          setHeaderSearch(value);
+          setPaletteSearch(value);
+          if (value.trim()) setIsPaletteOpen(true);
+        }}
         isArabic={isAr}
         onToggleArabic={toggleLocale}
         onOpenNotifications={() => setIsNotificationsOpen((prev) => !prev)}
@@ -144,12 +168,25 @@ export const HomePage: React.FC<HomePageProps> = ({
             onNavigate={navigateTo}
             onOpenPalette={() => setIsPaletteOpen(true)}
             renderDeck={false}
+            kpis={kpis}
+            liveStatus={homeLive.status}
+            observedAt={homeLive.observedAt}
+            onRefresh={homeLive.refresh}
+            errors={homeLive.errors}
           />
 
           {/* REGIONS C + D, E, F, G, H, I: CANONICAL TWO-COLUMN DASHBOARD */}
           <HomeDashboardPanels
             locale={locale}
             onNavigate={navigateTo}
+            kpis={kpis}
+            activities={activities}
+            quickAccess={quickAccess}
+            volumes={volumes}
+            insight={insight}
+            pendingActions={pendingActions}
+            systemMetrics={systemMetrics}
+            liveStatus={homeLive.status}
             commandDeckNode={
               <HomeCommandDeck
                 locale={locale}
@@ -178,8 +215,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                 autoFocus
                 placeholder={
                   isAr
-                    ? 'اكتب اسم القسم أو الإجراء للانتقال الفوري...'
-                    : 'Type a workspace, service, or tool name...'
+                    ? 'انتقل إلى قسم أو أداة بالاسم...'
+                    : 'Jump to a workspace, service, or tool...'
                 }
                 className="bg-transparent border-none outline-none text-white text-sm w-full placeholder-slate-500"
               />
@@ -308,7 +345,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => setIsSettingsOpen(false)}
                 className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs cursor-pointer"
               >
-                {isAr ? 'حفظ وإغلاق' : 'Save & Close'}
+                {isAr ? 'إغلاق' : 'Close'}
               </button>
             </div>
           </div>
@@ -337,15 +374,22 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           <div className="space-y-2 mt-2 max-h-60 overflow-y-auto">
-            <div className="p-2 rounded-lg bg-[#0b1b36] border border-[#163666]">
-              <div className="flex items-center gap-1.5 text-emerald-400 text-[11px] font-semibold">
-                <CheckCircle2 className="w-3 h-3" />
-                <span>{isAr ? 'اكتمل الفحص الذكي' : 'Smart Scan Completed'}</span>
+            {activities.length ? activities.slice(0, 4).map((activity) => (
+              <div key={activity.id} className="p-2 rounded-lg bg-[#0b1b36] border border-[#163666]">
+                <div className="flex items-center gap-1.5 text-cyan-300 text-[11px] font-semibold">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>{isAr ? activity.titleAr : activity.title}</span>
+                </div>
+                <div className="text-[10px] text-slate-300 mt-0.5">
+                  {isAr ? activity.detailAr : activity.detail}
+                </div>
+                <div className="text-[9px] font-mono text-slate-500 mt-0.5">{isAr ? activity.timeAgoAr : activity.timeAgo}</div>
               </div>
-              <div className="text-[10px] text-slate-300 mt-0.5">
-                {isAr ? 'تم اكتشاف 48.6 جيجابايت قابلة للاستعادة بأمان.' : '48.6 GB reclaimable safely detected.'}
+            )) : (
+              <div className="p-2 rounded-lg bg-[#0b1b36] border border-[#163666] text-[10px] text-slate-400">
+                {isAr ? 'لا توجد إشعارات موثقة بعد. نفّذ فحصًا حقيقيًا لتظهر النتائج.' : 'No verified notifications yet. Run a real scan to populate this list.'}
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}

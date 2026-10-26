@@ -12,18 +12,18 @@ For EVERY row fill exact native provider, actual visible action, permission gate
 
 | Mission | Service ID | Service intent | Proposed class | Old scope | Real provider | Actual executor/UI action | Consent & recovery | Fixture end-to-end | Actual product state |
 |---|---|---|---|---|---|---|---|---|---|
-| 01 | mission-01-01 | Smart Scan | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-02 | Organize Files | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-03 | Applications | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-04 | Storage | A | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-05 | Cleanup | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-06 | Startup Control | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-07 | System Live Pulse | A | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-08 | Repair Lab | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-09 | Global Search | A | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-10 | KNOuX Insight | A | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-11 | Recent Activity | A | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 01 | mission-01-12 | Pending Safe Actions | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
+| 01 | mission-01-01 | Smart Scan | B | HOME_DASHBOARD | measured scan history + KPI | deep link to Smart Scan; no execution from Home | read-only | test:home + dev/packaged smoke | PARTIAL — real scan KPI/insight; scan execution belongs to the service |
+| 01 | mission-01-02 | Organize Files | B | HOME_DASHBOARD | none on Home | deep link to Studio with no file mutation | read-only | test:home + dev/packaged smoke | PARTIAL — measured Home card; organization execution belongs to Studio |
+| 01 | mission-01-03 | Applications | B | HOME_DASHBOARD | real applications inventory KPI | deep link to Applications; no uninstall from Home | read-only | test:home + dev/packaged smoke | PARTIAL — measured count displayed; management belongs to Applications |
+| 01 | mission-01-04 | Storage | A | HOME_DASHBOARD | system summary measured volumes | measured volume snapshot + link to Volume Atlas | read-only | test:home + dev/packaged smoke | MEASURED_READ_ONLY |
+| 01 | mission-01-05 | Cleanup | B | HOME_DASHBOARD | scan reclaimable KPI + cleanup link | review link only; no deletion from Home | read-only | test:home + dev/packaged smoke | PARTIAL — measured candidate review; cleanup executor is separate |
+| 01 | mission-01-06 | Startup Control | B | HOME_DASHBOARD | none on Home | deep link to Startup Control | read-only | test:home + dev/packaged smoke | PARTIAL — navigation and measured context; startup changes are separate |
+| 01 | mission-01-07 | System Live Pulse | A | HOME_DASHBOARD | native system summary live sample | real CPU/memory/disk display + link | read-only | test:home + dev/packaged smoke | MEASURED_READ_ONLY |
+| 01 | mission-01-08 | Repair Lab | B | HOME_DASHBOARD | none on Home | deep link to Repair Lab | read-only | test:home + dev/packaged smoke | PARTIAL — navigation only; repairs are separately approved |
+| 01 | mission-01-09 | Global Search | A | HOME_DASHBOARD | workspace/tool command palette | workspace jump; no indexed file/app search | read-only | test:home + dev/packaged smoke | PARTIAL — real workspace navigation; global indexed search not implemented |
+| 01 | mission-01-10 | KNOuX Insight | A | HOME_DASHBOARD | measured scan or explicit no-estimate | measured insight card with no invented total | read-only | test:home + dev/packaged smoke | MEASURED_READ_ONLY |
+| 01 | mission-01-11 | Recent Activity | A | HOME_DASHBOARD | scan/automation journals | real recent activity, empty when no journal | read-only | test:home + dev/packaged smoke | MEASURED_READ_ONLY |
+| 01 | mission-01-12 | Pending Safe Actions | B | HOME_DASHBOARD | measured scan candidates | review-only pending item + explicit approval boundary | user approval inside owning service | test:home + dev/packaged smoke | PARTIAL — review-only from Home; no executor |
 | 02 | mission-02-01 | Quick Scan | A | SCOPED_MILESTONE_ONLY | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 02 | mission-02-02 | Deep Scan | A | SCOPED_MILESTONE_ONLY | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 02 | mission-02-03 | Duplicate Finder | B | SCOPED_MILESTONE_ONLY | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |

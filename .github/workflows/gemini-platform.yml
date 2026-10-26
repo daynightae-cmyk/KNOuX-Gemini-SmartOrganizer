@@ -27,3 +27,4 @@ jobs:
       - run: npm run test:automation
       - run: npm run test:workspace
       - run: npm run test:settings
+      - run: npm run test:home
