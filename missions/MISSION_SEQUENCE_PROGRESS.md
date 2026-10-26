@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 14 Settings & Assistant (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services and 13 Automation accepted; 04 Google Workspace remains BLOCKED pending explicit OAuth consent). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 01 Home (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services and 13 Automation accepted; 04 Google Workspace remains BLOCKED pending explicit OAuth consent; 14 Settings has a safety increment but remains PARTIAL/BLOCKED for secure vault/live AI/light parity). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 11, 12, 13 accepted; 04 consent safety delivered and live OAuth blocked)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 11, 12, 13 accepted; 04 consent safety and 14 settings safety delivered; live OAuth/secure vault/AI remain blocked)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -22,7 +22,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 | 12 — Services | ACCEPTED_WITH_EVIDENCE (measured read-only; 12 tools/6 stages/6 gates; start/stop/restart/startup-policy execution absent) | 9658754, 87d38da (acceptance) | 87d38da | docs/SERVICE_COMMANDER_AUDIT.md, visual-evidence/platform-00/services-measured-dev{,-light,-ar-light,-1366,-1920}.png + services-workbench-dev.png + packaged equivalents, test:services PASS, native smoke servicesOk/servicesLayoutOk + 12/12 workbenches/controls + operation/activity visibility + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40362298717) | 13 |
 | 13 — Automation | ACCEPTED_WITH_EVIDENCE (draft + deterministic dry-run only; 12 tools/5 stages/5 gates/8 templates; no executor, background timer or approval-to-run; notification/backup/cleanup/privileged execution gated) | 5ac87f5, 8bd3ce2 (acceptance) | 8bd3ce2 | docs/FLOW_STUDIO_AUTOMATION_AUDIT.md, visual-evidence/platform-00/automation-measured-dev{,-light,-ar-light,-1366,-1920}.png + automation-workbench-dev.png + packaged equivalents, test:automation PASS, native smoke automationOk/automationLayoutOk + 12/12 workbenches/controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (runs 40369661654, 40369948815) | 04 |
 | 04 — Google Workspace | BLOCKED / PARTIAL (honest disconnected hub + local 10-scope consent gate delivered; live OAuth, credentials, Google REST adapters, light theme and per-service cinematic views NOT implemented; no account connected) | 35f8494 (safety increment) | 35f8494 | docs/GOOGLE_WORKSPACE_CONSENT_AUDIT.md, visual-evidence/platform-00/workspace-measured-dev{,-ar,-1366,-1920}.png + workspace-oauth-dev.png, test:workspace PASS, dev smoke workspaceOk/workspaceLayoutOk + 10/10 services + no simulated connected state + keyboard/RTL; live OAuth NOT PERFORMED | 14 (04 remains blocked pending explicit OAuth consent) |
-| 14 — Settings/Assistant | PENDING | — | — | — | — |
+| 14 — Settings/Assistant | PARTIAL / BLOCKED (honest non-secret preference persistence/export/import/reset; fake simulator and fake save/theme/export/Google claims removed; engine/guards disabled with explicit notices; native secure vault, live AI proxy/consent, Google authorization and light parity NOT implemented) | 3782336 | 3782336 | docs/SETTINGS_ASSISTANT_AUDIT.md, visual-evidence/platform-00/settings-measured-dev{,-ar,-1366,-1920}.png + packaged equivalents, test:settings PASS, dev+packaged smoke settingsOk/settingsLayoutOk + 7 tabs + density persistence + keyboard/RTL; live AI/Google NOT PERFORMED | 01 |
 | 01 — Home | PENDING | — | — | — | 15 |
 | 15 — Real Service Activation | PENDING_PRODUCT_PHASE (starts only after 04/14/01; ordered 03 → 06 → 07 → 02 → 05 → 08 → 09 → 10 → 11 → 12 → 13 → 04 → 14 → 01) | — | — | missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, docs/SERVICE_CAPABILITY_MATRIX.md, docs/SERVICE_REGISTRY_EVIDENCE.md | activation |
 | 15A — Interactive Service Workbenches | PENDING (first prerequisite/stage of Mission 15; after 14/01; resizable pinned/expanded service-specific host for every advertised service) | — | — | missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md, docs/SERVICE_WORKBENCH_ACCEPTANCE.md (181-entry audit skeleton; all AUDIT_REQUIRED until inspected) | 15A |
@@ -178,9 +178,17 @@ The user added `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` and per-mission
 
 The ordered activation pass after 04/14/01 is: 03 Studio → 06 Files → 07 Storage → 02 Smart Scan → 05 Applications → 08 Cleanup → 09 Startup → 10 System → 11 Repair → 12 Services → 13 Automation → 04 Google Workspace → 14 Settings → 01 Home. Each action service needs a fixed executor, per-run approval, disposable-fixture side-effect test, postcondition verification and journal/undo evidence; live user/account/OS changes remain separate consent gates. No fake final 100% is claimed.
 
+## Mission 14 settings safety snapshot (PARTIAL / BLOCKED)
+
+- Removed the simulated `LiveProcessInspector` whose fake logs claimed “Google Workspace Sync … 10 APIs Connected”. Replaced the Settings footer with actual preference/secret/AI limits.
+- “Save All Settings” now persists a typed non-secret profile; no fake save toast. Export produces a credential-free JSON; import previews a typed diff and applies only non-secret preferences; reset persists defaults. No key or token is included.
+- Engine controls are explicitly preferences only (no native engine provider). Registry/auto-clean/privacy guards are off and disabled with a NOT IMPLEMENTED notice. Google settings states no account/token exists. AI keys are session-only with an explicit warning; no native vault/proxy exists.
+- Evidence: `docs/SETTINGS_ASSISTANT_AUDIT.md`; dev smoke `settingsOk`/`settingsLayoutOk` (7 tabs, save/density persistence across route remount, guard disabled, no fake Google active claim, 1366/1920/AR, footer visible); packaged smoke same; `test:settings` PASS; lint/build PASS; CI run 40384818673 SUCCESS.
+- Blocked: native OS secure key storage, native provider proxy, live AI/assistant consent/allowlist, live Google OAuth, global accent theming and full light-theme parity. No live provider or account call was performed.
+
 ## Boundary / next
 
-- Next independent mission: `14_SETTINGS_ASSISTANT_FULLSTACK_MISSION.md` (then 01). Mission 04 remains BLOCKED pending explicit OAuth consent and the remaining visual specialization.
+- Next independent mission: `01_HOME_FULLSTACK_MISSION.md` (then 15A/15). Mission 04 remains BLOCKED pending explicit OAuth consent; Mission 14 remains PARTIAL/BLOCKED for the native vault/live AI/light parity.
 - Product phase after 04/14/01: `15_REAL_SERVICE_ACTIVATION_MISSION.md` and its first UX stage `15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md` (read `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` first). They are integration/remediation passes, not new apps or branches.
 - The authoritative `docs/SERVICE_CAPABILITY_MATRIX.md` and registry evidence `docs/SERVICE_REGISTRY_EVIDENCE.md` must be updated with effect-test evidence; a green CI/screenshot is not action-service proof.
 - Real file mutations, elevated repair/service/startup/automation operations, Google OAuth/account connection, credentials and AI provider calls remain separately gated.

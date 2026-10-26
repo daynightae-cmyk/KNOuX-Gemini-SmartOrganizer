@@ -81,6 +81,9 @@ implemented**.
 
 ## 7. Release record
 
-The implementation is committed on `feat/gemini-missions`; exact SHA, CI run and
-`main` integration are recorded in `missions/MISSION_SEQUENCE_PROGRESS.md` after
-the release gates pass.
+The Settings honesty increment is committed on `feat/gemini-missions` at
+`3782336678de359700b993cc8f2f102c1747d2a0`. Gemini Platform CI run
+`40384818673` is SUCCESS, including the new `test:settings` gate, every prior
+native suite, and development + packaged smoke. Mission 14 remains
+PARTIAL/BLOCKED for the native vault, live assistant, Google authorization and
+light parity; `main` is fast-forwarded to the verified acceptance record.

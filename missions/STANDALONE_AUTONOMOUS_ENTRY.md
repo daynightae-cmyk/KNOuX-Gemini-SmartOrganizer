@@ -11,7 +11,7 @@ ONE ACTIVE MISSION FOLDER: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\missio
 Before any write, execute python scripts/verify-workspace.py from the canonical repository root. If it does not PASS, STOP.
 DO NOT work from D:\KNOUX-Workspace\KNOuX-Gemini-UI, old Root GitHub, K: worktrees, temporary extracts or new clones.
 Old paths in historical progress/evidence are for provenance only. All new source, tasks, screenshots, tests, packages, commits and pushes belong to this canonical Git repo.
-Completed: 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services, 13 Automation. 04 Google Workspace has a consent/honesty safety increment but remains BLOCKED pending explicit OAuth consent. NEXT: 14 Settings & Assistant.
+Completed: 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services, 13 Automation. 04 Google Workspace and 14 Settings have safety increments but remain BLOCKED/PARTIAL for live OAuth, secure vault, live AI and light parity. NEXT: 01 Home.
 No worktrees, extra repos, Root CI or old Electron launcher. No destructive real-user operations without separate approval.
 
 ---
@@ -30,15 +30,18 @@ No worktrees, extra repos, Root CI or old Electron launcher. No destructive real
 - Do NOT execute any old Root CI visual acceptance or legacy KNOuX SmartOrganizer.exe. Only the standalone Gemini Electron entrypoint and CI count.
 - Existing standalone source includes the completed missions 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services and 13 Automation. Do not redo them.
 
-## NEXT MISSION: 14 — SETTINGS & ASSISTANT
+## NEXT MISSION: 01 — HOME
 1. Inspect current standalone Git HEAD, local/remote and CI, dirty/untracked changes, exclusive writing processes. Never assume the source Git SHA is the new repo HEAD.
-2. Read missions/14_SETTINGS_ASSISTANT_FULLSTACK_MISSION.md completely. Audit SettingsPage, ApiKeySetupModal and KNOuXAssistantChat. Remove any fake “saved/tested” success, localStorage secrets, simulated provider status and unsupported feature toggles. Keep provider keys session-only or implement a separately approved native secure-storage bridge; never print or commit a key. Assistant retrieval/tools require explicit consent and an operation allowlist.
-3. Validate TypeScript/build/native contract/studio/files/storage/scan/apps/cleanup/startup/system/repair/services/automation/workspace regressions, targeted Settings tests and Electron dev/packaged smoke. Test at 1366x768, 1672x941, 1920x1080 in EN/AR and light/dark. Report measured source provenance, partial/unsupported states, without inventing live data.
+2. Read missions/01_HOME_FULLSTACK_MISSION.md completely. Audit the Home page for fixture KPIs, fake recent activity, fake smart recommendations and decorative cards. Connect every card/insight to its actual service context, measured state, pending approvals/jobs/receipts and safe navigation. Do not claim an action executed when it only navigates.
+3. Validate TypeScript/build/native contract/studio/files/storage/scan/apps/cleanup/startup/system/repair/services/automation/workspace/settings regressions, targeted Home tests and Electron dev/packaged smoke. Test at 1366x768, 1672x941, 1920x1080 in EN/AR and light/dark. Report measured source provenance, partial/unsupported states, without inventing live data.
 4. Review secrets and staged diff; commit on feat/gemini-missions and push normally to the NEW remote only; verify exact SHA against GitHub and await NEW standalone CI result.
-5. After successful local and CI gates, update missions/MISSION_SEQUENCE_PROGRESS.md and start Mission 01 Home.
+5. After successful local and CI gates, update missions/MISSION_SEQUENCE_PROGRESS.md and start Mission 15A (interactive workbench UX gate), beginning with Studio and Files.
 6. If a critical gate fails: bounded repair attempts, preserve WIP with honest labels and STOP; no fabricated pass or unsafe continuation.
 7. DO NOT run actual automation execution, service start/stop/start-type changes, delete/move/rename/uninstall, Windows startup/system/repair modifications, elevation, account OAuth, Google connection or external AI billing without separate user approval. Implement safe previews/tests using disposable fixtures only.
 8. Never create new worktrees, overwrite unique work, reset/clean/rebase/force-push, or touch the original K: project or its D: legacy checkout. After the standalone Gemini feature branch is green, its verified `main` may be advanced only by normal fast-forward; never force-push and never modify the legacy project's main.
+
+## BLOCKED/PARTIAL: 14 — SETTINGS & ASSISTANT
+The Settings honesty increment persists non-secret preferences, exports/imports credential-free profiles and disables fake engine/guard controls. Native secure credential storage, a provider proxy, live assistant consent/allowlist, global accent theming and light parity remain unimplemented. Do not claim Mission 14 complete or store keys in localStorage. See docs/SETTINGS_ASSISTANT_AUDIT.md.
 
 ## BLOCKED: 04 — GOOGLE WORKSPACE
 The fake simulated connected state was removed and a local 10-scope consent review was added, but live OAuth PKCE, client credentials, OS secure token storage, Google REST adapters, light-theme parity and the per-service cinematic views remain unimplemented. Do not claim Mission 04 complete or send Google data. Resume only after separate explicit OAuth consent and client configuration. See docs/GOOGLE_WORKSPACE_CONSENT_AUDIT.md.
