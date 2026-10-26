@@ -165,7 +165,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 
 ## Real-service product acceptance amendment — 2026-10-26
 
-The user added `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` and per-mission activation addenda. Read-only/preview milestones remain valid **engineering checkpoints**, not final product acceptance for action services. The central ledger is now `docs/SERVICE_CAPABILITY_MATRIX.md`, generated from the canonical 132 service IDs plus 10 Workspace and 8 Settings surfaces:
+The user added `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` and per-mission activation addenda. Read-only/preview milestones remain valid **engineering checkpoints**, not final product acceptance for action services. The authoritative mission-heading product backlog is `docs/SERVICE_CAPABILITY_MATRIX.md`; the registry-ID evidence supplement is `docs/SERVICE_REGISTRY_EVIDENCE.md`, covering the canonical 132 service IDs plus 10 Workspace and 8 Settings surfaces:
 
 - 76 MEASURED_READ_ONLY (observation outcomes working)
 - 59 PARTIAL (real measured preview, no approved effectful executor)
@@ -181,7 +181,7 @@ The ordered activation pass after 04/14/01 is: 03 Studio → 06 Files → 07 Sto
 
 - Next independent mission: `14_SETTINGS_ASSISTANT_FULLSTACK_MISSION.md` (then 01). Mission 04 remains BLOCKED pending explicit OAuth consent and the remaining visual specialization.
 - Product phase after 04/14/01: `15_REAL_SERVICE_ACTIVATION_MISSION.md` (read `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` first). It is an integration/remediation pass, not a new app or branch.
-- The central ledger `docs/SERVICE_CAPABILITY_MATRIX.md` must be updated with effect-test evidence; a green CI/screenshot is not action-service proof.
+- The authoritative `docs/SERVICE_CAPABILITY_MATRIX.md` and registry evidence `docs/SERVICE_REGISTRY_EVIDENCE.md` must be updated with effect-test evidence; a green CI/screenshot is not action-service proof.
 - Real file mutations, elevated repair/service/startup/automation operations, Google OAuth/account connection, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 

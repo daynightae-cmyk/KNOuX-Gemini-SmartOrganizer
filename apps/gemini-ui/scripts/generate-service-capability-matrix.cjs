@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Generates docs/SERVICE_CAPABILITY_MATRIX.md from the canonical service IDs
+ * Generates docs/SERVICE_REGISTRY_EVIDENCE.md from the canonical service IDs
  * and the currently implemented section bridges. Keep the overrides current as
  * the activation pass adds real executors. This is a documentation generator;
  * it never touches the app runtime.
@@ -11,7 +11,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const repoRoot = path.join(__dirname, '..', '..', '..');
-const output = path.join(repoRoot, 'docs', 'SERVICE_CAPABILITY_MATRIX.md');
+const output = path.join(repoRoot, 'docs', 'SERVICE_REGISTRY_EVIDENCE.md');
 
 const sections = [
   {
@@ -166,14 +166,16 @@ function short(value) {
   return String(value).replace(/\|/g, '/').replace(/\n/g, ' ');
 }
 
-const header = `# KNOuX Service Capability Matrix
+const header = `# KNOuX Service Registry Evidence
 
 Updated: 2026-10-26
 Repository: \`D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\`
 Branch: \`feat/gemini-missions\`
 Authority: \`missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md\`
 
-This is the single honest service ledger. \`MEASURED_READ_ONLY\` means the user's
+This is the registry-ID evidence supplement to the mission-heading product backlog in
+\`docs/SERVICE_CAPABILITY_MATRIX.md\`. It is the honest status ledger
+for the canonical 132 registry IDs plus Workspace and Settings surfaces. \`MEASURED_READ_ONLY\` means the user's
 intended outcome for that row is observation, and the measured provider is
 working. It does **not** prove an action executor. \`PARTIAL\` action rows have a
 real measured preview but no approved effectful executor. \`CONNECTABLE_AWAITING_CONSENT\`

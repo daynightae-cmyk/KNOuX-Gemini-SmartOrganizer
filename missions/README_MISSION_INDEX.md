@@ -1,6 +1,6 @@
 # PRIMARY INSTRUCTION FOR THE NEW STANDALONE REPOSITORY
 
-READ missions/STANDALONE_AUTONOMOUS_ENTRY.md FIRST. Old manual mission ordering and previous project references below are historical and superseded. New repo: daynightae-cmyk/KNOuX-Gemini-SmartOrganizer; branch feat/gemini-missions; next pending mission 14 Settings & Assistant (00V–13 accepted; 04 Google Workspace blocked pending explicit OAuth consent). After 04/14/01, run `15_REAL_SERVICE_ACTIVATION_MISSION.md` under `REAL_SERVICE_FUNCTIONALITY_STANDARD.md`; the live ledger is `docs/SERVICE_CAPABILITY_MATRIX.md`.
+READ missions/STANDALONE_AUTONOMOUS_ENTRY.md FIRST. Old manual mission ordering and previous project references below are historical and superseded. New repo: daynightae-cmyk/KNOuX-Gemini-SmartOrganizer; branch feat/gemini-missions; next pending mission 14 Settings & Assistant (00V–13 accepted; 04 Google Workspace blocked pending explicit OAuth consent). After 04/14/01, run `15_REAL_SERVICE_ACTIVATION_MISSION.md` under `REAL_SERVICE_FUNCTIONALITY_STANDARD.md`; the authoritative backlog is `docs/SERVICE_CAPABILITY_MATRIX.md`; registry evidence is `docs/SERVICE_REGISTRY_EVIDENCE.md`.
 
 ---
 
