@@ -25,6 +25,12 @@ interface StorageServiceFocusProps {
   onNavigateFiles: () => void;
   onNavigateCleanup: () => void;
   onNavigateStudio: () => void;
+  embedded?: boolean;
+}
+
+export function storageServiceLabel(serviceKey: string, isArabic: boolean): { title: string; description: string } {
+  const meta = LABELS[serviceKey] || { en: serviceKey, ar: serviceKey, descEn: '', descAr: '' };
+  return { title: isArabic ? meta.ar : meta.en, description: isArabic ? meta.descAr : meta.descEn };
 }
 
 const LABELS: Record<string, { en: string; ar: string; descEn: string; descAr: string }> = {
@@ -67,6 +73,7 @@ export function StorageServiceFocus({
   onNavigateFiles,
   onNavigateCleanup,
   onNavigateStudio,
+  embedded = false,
 }: StorageServiceFocusProps) {
   const meta = LABELS[serviceKey] || { en: serviceKey, ar: serviceKey, descEn: '', descAr: '' };
   const measured = Boolean(analysis) || volumes.length > 0;
@@ -223,6 +230,15 @@ export function StorageServiceFocus({
         return <div className="text-[10px] text-amber-300">{isArabic ? 'خدمة غير معروفة.' : 'Unknown service.'}</div>;
     }
   };
+
+  if (embedded) {
+    return (
+      <div data-testid="storage-service-focus" className="space-y-2">
+        <p className="text-[10px] text-slate-400">{isArabic ? meta.descAr : meta.descEn}</p>
+        {renderBody()}
+      </div>
+    );
+  }
 
   return (
     <div data-testid="storage-service-focus" className="bg-[#07152b] rounded-xl p-3 border border-[#2476ff]/40 space-y-2 shadow-[0_0_12px_rgba(36,118,255,0.15)]">

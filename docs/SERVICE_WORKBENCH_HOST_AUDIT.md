@@ -62,11 +62,25 @@ Studio now has a typed side/expanded stage workbench:
 - Screenshots: `studio-workbench-dev.png`, `studio-workbench-expanded-dev.png`,
   `studio-workbench-1366-dev.png` and packaged equivalents.
 
+## 3c. Storage integration (12/12 tools)
+
+Storage's 12 tools now open in the same host as a pinned fixed side dock
+(340–680 px, persisted), with the Volume Atlas still visible, and expand inside
+the app content while leaving the footer visible. The body uses the existing
+measured `StorageServiceFocus` with real volume/capacity, large-file,
+duplicate-verification, treemap, folder, type, coverage and history evidence.
+Fragmentation, SMART, reclaim execution and drive-type classification remain
+explicitly unsupported/blocked.
+
+`storageWorkbenchOk`/`storageWorkbenchLayoutOk` PASS in dev and packaged smoke;
+screenshots `storage-workbench-dev.png` / `storage-workbench-expanded-dev.png`
+and packaged equivalents. CI is recorded in the mission ledger.
+
 ## 4. Honest limits / next
 
-- Other domains (Storage, Scan, Applications, Cleanup, Startup, System, Repair,
-  Services, Automation, Workspace, Settings, Home) still use their existing
-  specialized panels/modal sheets and must be migrated next.
+- Scan, Applications, Cleanup, Startup, System, Repair, Services, Automation,
+  Workspace, Settings and Home still use their existing specialized panels/modal
+  sheets and must be migrated next.
 - No file apply/undo executor was added; those remain blocked in Files.
 - No real user file, account, service, registry, startup, Windows setting or
   paid API was touched.

@@ -20,6 +20,8 @@ const filesBody = read('src/files/FilesServiceFocus.tsx');
 const studioPage = read('src/studio/StudioPage.tsx');
 const studioContext = read('src/studio/StudioStageContextPanel.tsx');
 const studioParts = read('src/studio/parts.tsx');
+const storagePage = read('src/pages/StoragePage.tsx');
+const storageFocus = read('src/storage/StorageServiceFocus.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -93,12 +95,25 @@ check('Studio integrates side/expanded stage workbench and context pane', () => 
   assert.match(studioContext, /Preview only; no automatic file mutation/);
 });
 
-check('no old generic ServiceWorkspaceHost is imported by Files or Studio', () => {
-  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
-  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
+check('Storage integrates a pinned/expanded workbench with measured bodies', () => {
+  assert.match(storagePage, /ServiceWorkbenchHost/);
+  assert.match(storagePage, /testId="storage-workbench"/);
+  assert.match(storagePage, /testId="storage-workbench-expanded"/);
+  assert.match(storagePage, /storage-workbench-tool-select/);
+  assert.match(storagePage, /knoux\.storage\.workbench\.mode/);
+  assert.match(storagePage, /knoux\.storage\.workbench\.width/);
+  assert.match(storagePage, /data-testid="storage-workspace"/);
+  assert.match(storageFocus, /embedded\?: boolean/);
+  assert.match(storageFocus, /storage-service-focus/);
 });
 
-const result = { ok: failures.length === 0, checks: 7, failures };
+check('no old generic ServiceWorkspaceHost is imported by Files, Studio or Storage', () => {
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(storagePage), 'old generic host must not be used by Storage');
+});
+
+const result = { ok: failures.length === 0, checks: 8, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');
