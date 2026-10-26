@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 13 Automation (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair and 12 Services accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 04 Google Workspace (02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services and 13 Automation accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 11 and 12 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 11, 12 and 13 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -20,7 +20,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 | 10 — System | ACCEPTED_WITH_EVIDENCE (measured read-only; 36 services/9 stages/8 mutation gates; process/service/driver/hosts/proxy/adapter/repair/power writes gated) | aebffc2, 62096a7 (CI fix) | 62096a7 | docs/SYSTEM_LIVE_PULSE_AUDIT.md, visual-evidence/platform-00/system-measured-dev{,-light,-ar-light,-1366,-1920}.png + system-workbench-dev.png + packaged equivalents, test:system PASS (36 services/9 stages/8 gates), native smoke systemOk/systemLayoutOk + 36/36 workbenches + 36/36 controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40349680254) | 11 |
 | 11 — Repair | ACCEPTED_WITH_EVIDENCE (measured read-only; 12 tools/6 stages/10 command previews/8 gates; DISM/SFC/DNS/Winsock/TCPIP/restore/update servicing execution gated) | 2594400, cca97ff (acceptance) | cca97ff | docs/REPAIR_RECOVERY_LAB_AUDIT.md, visual-evidence/platform-00/repair-measured-dev{,-light,-ar-light,-1366,-1920}.png + repair-workbench-dev.png + packaged equivalents, test:repair PASS, native smoke repairOk/repairLayoutOk + 12/12 workbenches/controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40356612756) | 12 |
 | 12 — Services | ACCEPTED_WITH_EVIDENCE (measured read-only; 12 tools/6 stages/6 gates; start/stop/restart/startup-policy execution absent) | 9658754, 87d38da (acceptance) | 87d38da | docs/SERVICE_COMMANDER_AUDIT.md, visual-evidence/platform-00/services-measured-dev{,-light,-ar-light,-1366,-1920}.png + services-workbench-dev.png + packaged equivalents, test:services PASS, native smoke servicesOk/servicesLayoutOk + 12/12 workbenches/controls + operation/activity visibility + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40362298717) | 13 |
-| 13 — Automation | PENDING | — | — | — | — |
+| 13 — Automation | ACCEPTED_WITH_EVIDENCE (draft + deterministic dry-run only; 12 tools/5 stages/5 gates/8 templates; no executor, background timer or approval-to-run; notification/backup/cleanup/privileged execution gated) | 5ac87f5 | 5ac87f5 | docs/FLOW_STUDIO_AUTOMATION_AUDIT.md, visual-evidence/platform-00/automation-measured-dev{,-light,-ar-light,-1366,-1920}.png + automation-workbench-dev.png + packaged equivalents, test:automation PASS, native smoke automationOk/automationLayoutOk + 12/12 workbenches/controls + keyboard/RTL, packaged smoke PASS, Gemini Platform CI success (run 40369661654) | 04 |
 | 04 — Google Workspace | PENDING | — | — | — | — |
 | 14 — Settings/Assistant | PENDING | — | — | — | — |
 | 01 — Home | PENDING | — | — | — | — |
@@ -143,10 +143,21 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 - Runtime: development and packaged smokes PASS with `servicesOk`, `servicesLayoutOk`, 12/12 workbenches and keyboard/RTL checks; dark EN, light EN, Arabic light RTL, 1366, 1920 and a privacy-safe SCM register sheet reviewed.
 - Root CI: Gemini Platform CI run 40362298717 SUCCESS; remote `main` fast-forwarded to verified 87d38da.
 
+## Mission 13 verification snapshot
+
+- Coordinator: `electron/native/automation-bridge.cjs` persists versioned local workflow drafts and a dry-run journal under `userData/knoux-automation`, behind 13 fixed `knoux:automation:v1:*` channels. `save` is the only writing channel and is user-initiated; all others are read-only or user-initiated cancel.
+- Validators: `automation-providers.cjs` supplies 12 tools, 5 stages, 5 gates, 8 built-in templates, a typed DAG normalizer (unique ids, required trigger/action, valid edges, Kahn cycle detection, reachability), host-timezone occurrence preview (daily/weekly/interval, exclusions, local DST dates, foreign timezones refused) and import validation.
+- Measured smoke: session complete 100, read-only, mutation none; 1 saved draft, 1 history record, 8 templates, 1 dry-run journal, 5 gates, 6 sources, receipt `workflows:45f3ae2920656b25a05914ef`; host `Asia/Dubai`; battery unavailable and runtime stage `partial`; one authorized Studio source. Nothing was executed.
+- Interactions: loaded the Smart Scan template, added a node (4 → 5), produced a dry-run timeline and one journal row, saved a draft, opened all 12 specialised workbenches with controls switched, proved focus-on-close + Escape, and proved Arabic RTL plus 1366 canvas/footer visibility without horizontal overflow.
+- Native test: version 1 → 2 save, new-bridge reload of versions/journal, deterministic dry-run, cycle/missing-action/unreachable/duplicate refusal, daily five occurrences, foreign-timezone refusal, import accept/reject, report states zero execution, no executor method, cancellation, no shell/timer/network source.
+- Honest limits: **no execution engine, background scheduler, crash resume of in-flight runs, idempotent execution step tokens or approve-to-run flow**. Draft/journal persistence and reload are verified; execution is gated for a separately approved future mission. Templates do not invent time-saved estimates; task categories are derived from bound tools.
+- Runtime: development and packaged smokes PASS with `automationOk`, `automationLayoutOk`, 12/12 workbenches, keyboard/RTL; dark EN, light EN, Arabic light RTL, 1366, 1920 and a Smart Scan scope/policy workbench reviewed.
+- Root CI: Gemini Platform CI run 40369661654 SUCCESS for 5ac87f5.
+
 ## Boundary / next
 
-- Next mission file: `13_AUTOMATION_FULLSTACK_MISSION.md` (then 04, 14, 01).
-- Real file mutations, elevated repair/service/startup/automation operations, Google OAuth, credentials and AI provider calls remain separately gated.
+- Next mission file: `04_GOOGLE_WORKSPACE_FULLSTACK_MISSION.md` (then 14, 01).
+- Real file mutations, elevated repair/service/startup/automation operations, Google OAuth/account connection, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
 

@@ -205,6 +205,8 @@ remains pinned and no document-level horizontal overflow occurs.
 
 ## 9. Release record
 
-Implementation and evidence are committed on `feat/gemini-missions`. The final
-commit, Gemini Platform CI run and `main` integration SHA are recorded in
-`missions/MISSION_SEQUENCE_PROGRESS.md` after the release gates complete.
+The implementation and evidence are committed on `feat/gemini-missions` at
+`5ac87f58b7b80918bc0e7aa2f847647ac66699c2`. Gemini Platform CI run
+`40369661654` is SUCCESS (lint, build, native contract and every native suite,
+including `test:automation`). The acceptance commit and the fast-forward `main`
+SHA are recorded in `missions/MISSION_SEQUENCE_PROGRESS.md`.
