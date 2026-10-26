@@ -90,6 +90,9 @@ Development Electron (fresh profile; measured values vary):
 
 ## 6. Release record
 
-Committed on `feat/gemini-missions`; the exact SHA, CI run and `main`
-fast-forward are recorded in `missions/MISSION_SEQUENCE_PROGRESS.md` after the
-release gates pass.
+The live Home increment is committed on `feat/gemini-missions` at
+`4948959a417c177af30dc7e459a29cc16b240fc4`. Gemini Platform CI run
+`40394777969` is SUCCESS, including `test:home`, every prior native suite and
+development + packaged smoke. `main` is fast-forwarded to the verified record.
+Mission 01 remains PARTIAL for global indexed search and in-place execution;
+no service action is claimed from Home.

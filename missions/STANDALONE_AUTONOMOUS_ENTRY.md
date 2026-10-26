@@ -11,7 +11,7 @@ ONE ACTIVE MISSION FOLDER: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\missio
 Before any write, execute python scripts/verify-workspace.py from the canonical repository root. If it does not PASS, STOP.
 DO NOT work from D:\KNOUX-Workspace\KNOuX-Gemini-UI, old Root GitHub, K: worktrees, temporary extracts or new clones.
 Old paths in historical progress/evidence are for provenance only. All new source, tasks, screenshots, tests, packages, commits and pushes belong to this canonical Git repo.
-Completed: 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services, 13 Automation. 04 Google Workspace and 14 Settings have safety increments but remain BLOCKED/PARTIAL for live OAuth, secure vault, live AI and light parity. NEXT: 01 Home.
+Completed: 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services, 13 Automation. 01 Home has a measured live dashboard but remains PARTIAL for global indexed search/in-place execution; 04 Google Workspace and 14 Settings remain BLOCKED/PARTIAL for live OAuth, secure vault, live AI and light parity. NEXT: 15A Interactive Service Workbenches.
 No worktrees, extra repos, Root CI or old Electron launcher. No destructive real-user operations without separate approval.
 
 ---
@@ -30,15 +30,16 @@ No worktrees, extra repos, Root CI or old Electron launcher. No destructive real
 - Do NOT execute any old Root CI visual acceptance or legacy KNOuX SmartOrganizer.exe. Only the standalone Gemini Electron entrypoint and CI count.
 - Existing standalone source includes the completed missions 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services and 13 Automation. Do not redo them.
 
-## NEXT MISSION: 01 — HOME
+## NEXT MISSION: 15A — INTERACTIVE SERVICE WORKBENCHES
 1. Inspect current standalone Git HEAD, local/remote and CI, dirty/untracked changes, exclusive writing processes. Never assume the source Git SHA is the new repo HEAD.
-2. Read missions/01_HOME_FULLSTACK_MISSION.md completely. Audit the Home page for fixture KPIs, fake recent activity, fake smart recommendations and decorative cards. Connect every card/insight to its actual service context, measured state, pending approvals/jobs/receipts and safe navigation. Do not claim an action executed when it only navigates.
-3. Validate TypeScript/build/native contract/studio/files/storage/scan/apps/cleanup/startup/system/repair/services/automation/workspace/settings regressions, targeted Home tests and Electron dev/packaged smoke. Test at 1366x768, 1672x941, 1920x1080 in EN/AR and light/dark. Report measured source provenance, partial/unsupported states, without inventing live data.
-4. Review secrets and staged diff; commit on feat/gemini-missions and push normally to the NEW remote only; verify exact SHA against GitHub and await NEW standalone CI result.
-5. After successful local and CI gates, update missions/MISSION_SEQUENCE_PROGRESS.md and start Mission 15A (interactive workbench UX gate), beginning with Studio and Files.
-6. If a critical gate fails: bounded repair attempts, preserve WIP with honest labels and STOP; no fabricated pass or unsafe continuation.
-7. DO NOT run actual automation execution, service start/stop/start-type changes, delete/move/rename/uninstall, Windows startup/system/repair modifications, elevation, account OAuth, Google connection or external AI billing without separate user approval. Implement safe previews/tests using disposable fixtures only.
-8. Never create new worktrees, overwrite unique work, reset/clean/rebase/force-push, or touch the original K: project or its D: legacy checkout. After the standalone Gemini feature branch is green, its verified `main` may be advanced only by normal fast-forward; never force-push and never modify the legacy project's main.
+2. Read missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md, missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md and docs/SERVICE_WORKBENCH_ACCEPTANCE.md completely. Build one typed ServiceWorkbenchHost with pinned resizable side and expanded modes, persistent selection/filters, focus/Escape/ARIA and no titlebar/footer obstruction. Reuse every existing specialized workbench; do not create 150 generic cards.
+3. Start with Organization Studio and Files: source/selection context, domain tools, action basket, preview, approval, real file-operation executor on disposable fixtures, verification and undo where feasible. Preserve all accepted read-only engines and designs.
+4. Validate TypeScript/build, native contract and every prior domain test, targeted workbench/file-effect tests, dev + packaged Electron, 1366/1672/1920, EN/AR, dark/light, keyboard/RTL. Update both matrices and docs/SERVICE_WORKBENCH_ACCEPTANCE.md with actual evidence.
+5. Review secrets/diff; commit on feat/gemini-missions, push normally, verify SHA and CI, fast-forward existing main only after required checks pass.
+6. Continue through Mission 15 activation order without asking for routine continuation. Do not claim UI-only workbenches as action-complete or perform live owner-data/account/OS changes without separate explicit consent.
+
+## PARTIAL: 01 — HOME
+Home is now a measured read-only command center: real KPIs, volumes, files, journals, insight and review-only pending items; no fake totals or Alex paths. Global indexed file/application search and in-place execution are not implemented; cards deep-link. See docs/HOME_COMMAND_CENTER_AUDIT.md.
 
 ## BLOCKED/PARTIAL: 14 — SETTINGS & ASSISTANT
 The Settings honesty increment persists non-secret preferences, exports/imports credential-free profiles and disables fake engine/guard controls. Native secure credential storage, a provider proxy, live assistant consent/allowlist, global accent theming and light parity remain unimplemented. Do not claim Mission 14 complete or store keys in localStorage. See docs/SETTINGS_ASSISTANT_AUDIT.md.
