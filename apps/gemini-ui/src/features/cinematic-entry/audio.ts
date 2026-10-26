@@ -3,7 +3,7 @@
 export class EntryAudio {
   private context: AudioContext | null = null;
   private generation = 0;
-  constructor(private create = () => new AudioContext()) {}
+  constructor(private readonly create = () => new AudioContext()) {}
   async gesture(cue: 'unlock' | 'enter'): Promise<boolean> {
     const generation = this.generation;
     try {

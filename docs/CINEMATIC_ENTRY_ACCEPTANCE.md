@@ -46,3 +46,11 @@ The existing Home visual preview has static KPI/service activity examples. This 
 ## Review and merge
 
 **DO NOT MERGE while Qoder is active in the canonical Windows checkout.** See CINEMATIC_ENTRY_INTEGRATION.md. Branch push, PR and exact CI status are reported in the delivery and any follow-up evidence update; local PASS does not imply CI or packaged Windows PASS.
+
+## Follow-up after GitHub reconnection (2026-10-27, Dubai)
+
+At implementation commit `c7fa4e034bffba277c68d5ce54ad608e42837165`, both push and PR runs finished successfully for browser entry, all existing Windows contract/fixture suites, and the real Windows development plus unsigned packaged entry smoke. See [browser/Windows workflow](https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/40391740431) and [existing Windows suite](https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/40391741239). These are remotely observed PASS results, separate from the Linux-only NOT_RUN rows above.
+
+SonarCloud separately failed its initial quality gate. Its annotations identified oversized cognitive complexity, dialog/decoration semantics, CTA contrast and CI package-install concerns. The follow-up splits scene geometry, rendering and lifecycle into bounded helpers, separates entry controls/copy/footer, uses a native dialog and output status, strengthens CTA contrast and explicit reduced-motion CSS, and uses frozen install with dependency lifecycle scripts disabled in CI. Electron installation is an explicit checksum-verifying step. Browser CI uses the hosted Ubuntu image's existing Chrome rather than downloading or executing an on-demand npm package.
+
+The owner advanced main independently while this branch was under review. This branch retains its original baseline and does not merge or overwrite that work. The owner must reconcile integration after Qoder is idle. Subsequent source digests and regenerated screenshots are recorded in run-results.json; the PR check list is authoritative for the follow-up commit's remote gate status.

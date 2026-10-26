@@ -8,7 +8,7 @@
 [data-phase=ACTIVE][data-home=false] > .entry-particles { visibility:hidden; }
 .cinematic-boundary[data-home=true] .cinematic-workspace > div:first-child { background-color:transparent; }
 .cinematic-boundary[data-home=true] .cinematic-workspace main { background-color:transparent; background-image:none; }
-.entry-overlay { position:fixed; z-index:4; inset:40px 0 0; color:var(--entry-ink); overflow:hidden; outline:none; font-family:'Plus Jakarta Sans','Tajawal',system-ui,sans-serif; display:flex; flex-direction:column; align-items:center; }
+.entry-overlay { margin:0; padding:0; border:0; max-width:none; max-height:none; width:auto; height:auto; background:transparent; position:fixed; z-index:4; inset:40px 0 0; color:var(--entry-ink); overflow:hidden; outline:none; font-family:'Plus Jakarta Sans','Tajawal',system-ui,sans-serif; display:flex; flex-direction:column; align-items:center; }
 .entry-atmosphere { position:fixed; z-index:2; inset:40px 0 0; pointer-events:none; background:radial-gradient(ellipse at 50% 45%,#b798f52b 0,transparent 36%),radial-gradient(ellipse at 20% 70%,#7442d350,transparent 48%),radial-gradient(ellipse at 90% 10%,#c0a7ed44,transparent 50%),linear-gradient(135deg,#170f2d,#1e1235); }
 [data-light=true] .entry-atmosphere { background:radial-gradient(ellipse at 50% 45%,#ffffffe0,transparent 38%),radial-gradient(ellipse at 10% 60%,#b59ae07a,transparent 50%),radial-gradient(ellipse at 90% 20%,#c5b5ed99,transparent 50%),linear-gradient(120deg,#e8def9,#d6caef); }
 .entry-controls { position:relative; z-index:4; display:flex; justify-content:space-between; align-items:center; width:100%; padding:24px 32px; }
@@ -39,7 +39,7 @@
 .entry-subtitle { font-size:13px; color:var(--entry-soft); margin:10px 0 20px; }
 .entry-status { display:flex; justify-content:center; align-items:center; gap:7px; font-size:11px; letter-spacing:.02em; min-height:18px; color:var(--entry-soft); margin:0 0 14px; }
 .entry-status svg { color:#bc9aee; }
-.entry-enter { color:white; display:inline-flex; align-items:center; justify-content:center; gap:24px; min-width:228px; min-height:47px; border-radius:999px; padding:12px 23px; border:1px solid #dfc4ff88; background:linear-gradient(130deg,#a25df2,#7933cd 55%,#5721a0); box-shadow:inset 0 1px 0 #ffffff60,0 8px 28px #8d36df40,0 0 0 4px #ac6df610; font-size:12px; font-weight:650; cursor:pointer; transition:transform .15s,box-shadow .2s; }
+.entry-enter { color:white; display:inline-flex; align-items:center; justify-content:center; gap:24px; min-width:228px; min-height:47px; border-radius:999px; padding:12px 23px; border:1px solid #dfc4ff88; background:linear-gradient(130deg,#8840d3,#6824b6 55%,#48148e); box-shadow:inset 0 1px 0 #ffffff60,0 8px 28px #8d36df40,0 0 0 4px #ac6df610; font-size:12px; font-weight:650; cursor:pointer; transition:transform .15s,box-shadow .2s; }
 .entry-enter:hover:not(:disabled) { transform:translateY(-2px); box-shadow:inset 0 1px 0 #fff8,0 10px 40px #a761ee80; }
 .entry-enter:active { transform:scale(.96); }
 .entry-native { color:var(--entry-soft); font-size:10px; margin:15px auto 0; max-width:450px; padding:0 16px; line-height:1.7; }
@@ -49,7 +49,7 @@
 .entry-options { display:flex; align-items:center; flex-wrap:wrap; gap:18px; font-size:11px; }
 .entry-options label { display:flex; align-items:center; gap:7px; cursor:pointer; }
 .entry-options input { accent-color:#a26bee; width:14px; height:14px; }
-.entry-footer small { flex-basis:100%; text-align:end; font-size:10px; }
+.entry-footer output { flex-basis:100%; text-align:end; font-size:10px; }
 [data-phase=ENTERING] .entry-overlay { animation:entry-dissolve 1.6s ease both; pointer-events:auto; }
 [data-phase=ENTERING] .entry-medallion { animation:entry-release 1.6s cubic-bezier(.2,.65,.2,1) both; }
 [data-phase=ENTERING] .entry-copy { animation:entry-copy-release 1.2s ease both; }
@@ -72,3 +72,8 @@
 [data-phase=ENTERING] > .entry-atmosphere { animation:entry-dissolve 1.6s ease both; }
 [data-phase=ACTIVE] > .entry-atmosphere { visibility:hidden; }
 [data-reduced=true][data-phase=ENTERING] > .entry-atmosphere { animation-duration:.18s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-medallion,.entry-mark,.entry-glint,.entry-copy { animation:none !important; }
+  .entry-enter,.entry-orbits,.entry-particles { transition:none; }
+}

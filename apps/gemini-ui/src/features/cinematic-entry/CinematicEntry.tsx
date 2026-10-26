@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent } from 'react';
 import { ArrowRight, Check, RotateCcw, Volume2, VolumeX } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 import { getNativeShell, readBridgeStatus } from '../../native/client';
@@ -7,11 +7,14 @@ import { ENTRY_MS, FORMATION_MS, loadPreferences, savePreferences, transition, t
 import { startParticles } from './particles';
 import './entry.css';
 
-/** One stable boundary, one real workspace mount. No route replacement, no data
- * fixtures, no Electron changes. READY means the renderer painted, not that an
- * unavailable Windows service has magically become implemented. */
-export function CinematicEntry({ children }: { children: ReactNode }) {
-  const { isArabic: ar, currentSection, theme } = useNavigation();
+function focusWorkspaceTarget(target: HTMLElement | null | undefined) {
+  if (!target) return;
+  if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+  target.focus({ preventScroll: true });
+}
+
+function useEntryController() {
+  const { currentSection, theme } = useNavigation();
   const [preferences, setPreferences] = useState(loadPreferences);
   const [systemReduced, setSystemReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
   const reduced = preferences.reduced || systemReduced;
@@ -24,7 +27,7 @@ export function CinematicEntry({ children }: { children: ReactNode }) {
   const [native, setNative] = useState<'preview' | 'pending' | 'ready' | 'unavailable'>(() => getNativeShell() ? 'pending' : 'preview');
   const [audioState, setAudioState] = useState<'idle' | 'played' | 'blocked'>('idle');
   const [saved, setSaved] = useState(true);
-  const overlay = useRef<HTMLDivElement>(null);
+  const overlay = useRef<HTMLDialogElement>(null);
   const workspace = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const audio = useRef<EntryAudio | null>(null);
@@ -87,75 +90,115 @@ export function CinematicEntry({ children }: { children: ReactNode }) {
       const timer = setTimeout(() => send('READY'), reduced ? 0 : FORMATION_MS);
       return () => clearTimeout(timer);
     }
+  }, [phase, painted, reduced]);
+  useEffect(() => {
     if (phase === 'ENTERING') {
       const timer = setTimeout(() => {
         persist({ seen: true }); send('FINISH'); audio.current?.dispose();
       }, reduced ? 180 : ENTRY_MS);
       return () => clearTimeout(timer);
     }
+  }, [phase, reduced]);
+  useEffect(() => {
     if (phase === 'ACTIVE' && painted) {
       const target = returnFocus.current?.isConnected ? returnFocus.current : workspace.current?.querySelector<HTMLElement>('main h1, main h2, main');
-      if (target) { if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
+      focusWorkspaceTarget(target);
     }
   }, [phase, painted, reduced]);
 
-  const visible = phase !== 'ACTIVE';
-  const nativeNote = native === 'preview' ? (ar ? 'معاينة المتصفح · جسر Windows غير متاح' : 'Browser preview · Windows bridge unavailable')
-    : native === 'pending' ? (ar ? 'جارٍ الاتصال بجسر Windows…' : 'Connecting to Windows bridge…')
-    : native === 'ready' ? (ar ? 'جسر التطبيق متصل · تبقى الأذونات مطلوبة' : 'App bridge connected · permissions still apply')
-    : (ar ? 'الجسر الأصلي غير متاح · راجع حالة الخدمات داخل التطبيق' : 'Native bridge unavailable · check service status in workspace');
-  return <div className="cinematic-boundary" data-phase={phase} data-reduced={reduced} data-home={currentSection === 'home'} data-light={theme === 'light'} data-audio={audioState}>
-    <div className="entry-atmosphere" aria-hidden="true" />
-    <canvas ref={canvas} className="entry-particles" aria-hidden="true" />
-    <div ref={workspace} className="cinematic-workspace" inert={visible} aria-hidden={visible || undefined} data-painted={painted}>{children}</div>
-    {visible && <div ref={overlay} className="entry-overlay" role="dialog" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-status" tabIndex={-1} dir={ar ? 'rtl' : 'ltr'} onKeyDown={event => {
-      if (event.key === 'Escape') { event.preventDefault(); enter(true); }
-      if (event.key === 'Tab') {
-        const nodes = Array.from(overlay.current!.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled)'));
-        const index = nodes.indexOf(document.activeElement as HTMLElement);
-        if (event.shiftKey && index <= 0) { event.preventDefault(); nodes.at(-1)?.focus(); }
-        else if (!event.shiftKey && (index === nodes.length - 1 || index === -1)) { event.preventDefault(); nodes[0]?.focus(); }
-      }
-    }}>
-      <div className="entry-controls">
-        <button type="button" className="entry-quiet" aria-pressed={!preferences.muted} onClick={() => {
-          const muted = !preferences.muted; persist({ muted });
-          if (muted) { audio.current?.dispose(); setAudioState('idle'); } else play('unlock');
-        }}>{preferences.muted ? <VolumeX size={16} /> : <Volume2 size={16} />}{ar ? (preferences.muted ? 'تشغيل الصوت' : 'كتم الصوت') : (preferences.muted ? 'Enable sound' : 'Mute sound')}</button>
-        <button type="button" className="entry-quiet" disabled={!painted || phase === 'ENTERING'} onClick={() => enter(true)}>{ar ? 'تخطي' : 'Skip'} <ArrowRight size={14} /></button>
-      </div>
-      <div className="entry-composition">
-        <div className="entry-orbits" aria-hidden="true"><i /><i /><i /></div>
-        <div className="entry-medallion" aria-hidden="true">
-          <div className="entry-glass" />
-          <div className="entry-mark"><i /><i /><i /><b /></div>
-          <div className="entry-glint" />
-        </div>
-        <div className="entry-copy">
-          <p className="entry-eyebrow">YOUR SPACE. IN HARMONY.</p>
-          <h1 id="entry-title" dir="ltr">KNOuX <span>Smart</span></h1>
-          <p className="entry-subtitle">{ar ? 'مساحة أهدأ. تحكّم أوضح.' : 'A calmer space. A clearer mind.'}</p>
-          <p id="entry-status" className="entry-status" role="status" aria-live="polite">{phase === 'READY' ? <><Check size={14} />{ar ? 'واجهة مساحة العمل جاهزة' : 'Workspace interface ready'}</> : phase === 'ENTERING' ? (ar ? 'أهلًا بك في مساحتك' : 'Welcome to your space') : (ar ? 'تشكيل مساحتك…' : 'Bringing your space together…')}</p>
-          <button type="button" className="entry-enter" disabled={phase !== 'READY'} onClick={() => enter()}>{ar ? 'دخول مساحة العمل' : 'Enter Workspace'}<ArrowRight size={18} /></button>
-          <p className="entry-native" data-native={native}>{nativeNote}</p>
-        </div>
-      </div>
-      <div className="entry-footer">
-        <span dir="ltr">SMARTORGANIZER <em> / </em> LOCAL FIRST</span>
-        <div className="entry-options">
-          <label><input type="checkbox" checked={preferences.always} onChange={e => persist({ always: e.target.checked })} />{ar ? 'عرض المقدمة دائمًا' : 'Always show intro'}</label>
-          <label><input type="checkbox" checked={reduced} disabled={systemReduced} onChange={e => persist({ reduced: e.target.checked })} />{ar ? 'تقليل الحركة' : 'Reduced motion'}</label>
-          <button type="button" className="entry-quiet" disabled={phase !== 'READY'} onClick={() => { if (phaseRef.current === 'READY') { phaseRef.current = 'INIT'; setPhase('INIT'); } }}><RotateCcw size={13} />{ar ? 'إعادة' : 'Replay'}</button>
-        </div>
-        {!saved && <small role="status">{ar ? 'التفضيلات لهذه الجلسة فقط' : 'Preferences apply to this session only'}</small>}
-        {audioState === 'blocked' && <small role="status">{ar ? 'الصوت غير متاح؛ يمكنك المتابعة' : 'Audio unavailable; you can continue'}</small>}
-      </div>
-    </div>}
+  return { preferences, reduced, phase, phaseRef, painted, native, audioState, saved, overlay, workspace, canvas, persist, play, enter, audio, setAudioState, setPhase, systemReduced };
+}
+
+type Controller = ReturnType<typeof useEntryController>;
+type ViewProps = Readonly<{ c: Controller; ar: boolean }>;
+const translate = (ar: boolean, en: string, arabic: string) => ar ? arabic : en;
+
+function nativeNote(native: Controller['native'], ar: boolean) {
+  const notes = {
+    preview: ['Browser preview · Windows bridge unavailable', 'معاينة المتصفح · جسر Windows غير متاح'],
+    pending: ['Connecting to Windows bridge…', 'جارٍ الاتصال بجسر Windows…'],
+    ready: ['App bridge connected · permissions still apply', 'جسر التطبيق متصل · تبقى الأذونات مطلوبة'],
+    unavailable: ['Native bridge unavailable · check service status in workspace', 'الجسر الأصلي غير متاح · راجع حالة الخدمات داخل التطبيق'],
+  };
+  return notes[native][Number(ar)];
+}
+
+function handleEntryKeys(event: KeyboardEvent<HTMLDialogElement>, c: Controller) {
+  if (event.key === 'Escape') { event.preventDefault(); c.enter(true); }
+  if (event.key !== 'Tab') return;
+  const nodes = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled)'));
+  const index = nodes.indexOf(document.activeElement as HTMLElement);
+  const atStart = event.shiftKey && index <= 0;
+  const atEnd = !event.shiftKey && (index === nodes.length - 1 || index === -1);
+  if (!atStart && !atEnd) return;
+  event.preventDefault();
+  const target = atStart ? nodes.at(-1) : nodes[0];
+  target?.focus();
+}
+
+function EntryControls({ c, ar }: ViewProps) {
+  const mutedLabel = translate(ar, 'Enable sound', 'تشغيل الصوت');
+  const enabledLabel = translate(ar, 'Mute sound', 'كتم الصوت');
+  return <div className="entry-controls">
+    <button type="button" className="entry-quiet" aria-pressed={!c.preferences.muted} onClick={() => {
+      const muted = !c.preferences.muted; c.persist({ muted });
+      if (muted) { c.audio.current?.dispose(); c.setAudioState('idle'); } else c.play('unlock');
+    }}>{c.preferences.muted ? <VolumeX size={16} /> : <Volume2 size={16} />}{c.preferences.muted ? mutedLabel : enabledLabel}</button>
+    <button type="button" className="entry-quiet" disabled={!c.painted || c.phase === 'ENTERING'} onClick={() => c.enter(true)}>{translate(ar, 'Skip', 'تخطي')} <ArrowRight size={14} /></button>
   </div>;
 }
 
-/** Mounted in the real Settings screen; replay never replaces application state. */
+function EntryCopy({ c, ar }: ViewProps) {
+  let status = translate(ar, 'Bringing your space together…', 'تشكيل مساحتك…');
+  if (c.phase === 'READY') status = translate(ar, 'Workspace interface ready', 'واجهة مساحة العمل جاهزة');
+  if (c.phase === 'ENTERING') status = translate(ar, 'Welcome to your space', 'أهلًا بك في مساحتك');
+  return <div className="entry-copy">
+    <p className="entry-eyebrow">YOUR SPACE. IN HARMONY.</p>
+    <h1 id="entry-title" dir="ltr">KNOuX <span>Smart</span></h1>
+    <p className="entry-subtitle">{translate(ar, 'A calmer space. A clearer mind.', 'مساحة أهدأ. تحكّم أوضح.')}</p>
+    <output id="entry-status" className="entry-status" aria-live="polite">{c.phase === 'READY' && <Check size={14} />}{status}</output>
+    <button type="button" className="entry-enter" disabled={c.phase !== 'READY'} onClick={() => c.enter()}>{translate(ar, 'Enter Workspace', 'دخول مساحة العمل')}<ArrowRight size={18} /></button>
+    <p className="entry-native" data-native={c.native}>{nativeNote(c.native, ar)}</p>
+  </div>;
+}
+
+function EntryFooter({ c, ar }: ViewProps) {
+  return <div className="entry-footer">
+    <span dir="ltr">SMARTORGANIZER <em> / </em> LOCAL FIRST</span>
+    <div className="entry-options">
+      <label><input type="checkbox" checked={c.preferences.always} onChange={e => c.persist({ always: e.target.checked })} />{translate(ar, 'Always show intro', 'عرض المقدمة دائمًا')}</label>
+      <label><input type="checkbox" checked={c.reduced} disabled={c.systemReduced} onChange={e => c.persist({ reduced: e.target.checked })} />{translate(ar, 'Reduced motion', 'تقليل الحركة')}</label>
+      <button type="button" className="entry-quiet" disabled={c.phase !== 'READY'} onClick={() => { if (c.phaseRef.current === 'READY') { c.phaseRef.current = 'INIT'; c.setPhase('INIT'); } }}><RotateCcw size={13} />{translate(ar, 'Replay', 'إعادة')}</button>
+    </div>
+    {!c.saved && <output>{translate(ar, 'Preferences apply to this session only', 'التفضيلات لهذه الجلسة فقط')}</output>}
+    {c.audioState === 'blocked' && <output>{translate(ar, 'Audio unavailable; you can continue', 'الصوت غير متاح؛ يمكنك المتابعة')}</output>}
+  </div>;
+}
+
+/** One stable boundary and real workspace mount. Readiness describes the
+ * renderer; native provider availability remains separate and authoritative. */
+export function CinematicEntry({ children }: Readonly<{ children: ReactNode }>) {
+  const { isArabic: ar, currentSection, theme } = useNavigation();
+  const c = useEntryController();
+  const visible = c.phase !== 'ACTIVE';
+  return <div className="cinematic-boundary" data-phase={c.phase} data-reduced={c.reduced} data-home={currentSection === 'home'} data-light={theme === 'light'} data-audio={c.audioState}>
+    <div className="entry-atmosphere" aria-hidden="true" />
+    <canvas ref={c.canvas} className="entry-particles" role="presentation" />
+    <div ref={c.workspace} className="cinematic-workspace" inert={visible} aria-hidden={visible || undefined} data-painted={c.painted}>{children}</div>
+    {visible && <dialog open ref={c.overlay} className="entry-overlay" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-status" tabIndex={-1} dir={ar ? 'rtl' : 'ltr'} onKeyDown={event => handleEntryKeys(event, c)}>
+      <EntryControls c={c} ar={ar} />
+      <div className="entry-composition">
+        <div className="entry-orbits" aria-hidden="true"><i /><i /><i /></div>
+        <div className="entry-medallion" aria-hidden="true"><div className="entry-glass" /><div className="entry-mark"><i /><i /><i /><b /></div><div className="entry-glint" /></div>
+        <EntryCopy c={c} ar={ar} />
+      </div>
+      <EntryFooter c={c} ar={ar} />
+    </dialog>}
+  </div>;
+}
+
+/** Mounted in the real Settings screen; replay preserves application state. */
 export function CinematicEntrySettings() {
   const { isArabic: ar } = useNavigation();
-  return <button type="button" className="entry-settings-replay" onClick={() => window.dispatchEvent(new Event('knoux:replay-entry'))}><RotateCcw size={15} />{ar ? 'إعادة مقدمة KNOuX · تفضيلات الصوت والحركة' : 'Replay KNOuX intro · sound & motion preferences'}</button>;
+  return <button type="button" className="entry-settings-replay" onClick={() => window.dispatchEvent(new Event('knoux:replay-entry'))}><RotateCcw size={15} />{translate(ar, 'Replay KNOuX intro · sound & motion preferences', 'إعادة مقدمة KNOuX · تفضيلات الصوت والحركة')}</button>;
 }

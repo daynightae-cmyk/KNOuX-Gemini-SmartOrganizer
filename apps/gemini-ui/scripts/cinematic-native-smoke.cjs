@@ -7,7 +7,7 @@ const path = require('node:path');
 const os = require('node:os');
 const assert = require('node:assert/strict');
 (async () => {
-  if (process.platform !== 'win32') throw Error('NOT_RUN: Windows runner required; Electron sandbox must remain enabled.');
+  if (process.platform !== 'win32') throw new Error('NOT_RUN: Windows runner required; Electron sandbox must remain enabled.');
   const packaged = process.argv.includes('--packaged');
   const evidence = path.resolve('visual-evidence/cinematic-entry');
   await fs.mkdir(evidence, { recursive: true });
