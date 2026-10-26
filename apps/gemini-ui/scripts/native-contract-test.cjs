@@ -222,6 +222,31 @@ assert(
     .every((channel) => main.includes(`contract.channels.${channel}`)),
   'every Repair channel has an IPC handler'
 );
+assert(/exposeInMainWorld\(\s*'knouxServicesV1'/.test(preload), 'preload exposes the Service Commander bridge');
+assert(contract.channels.servicesSnapshot === 'knoux:services:v1:snapshot', 'Services snapshot channel is fixed');
+assert(contract.capabilities['services.start'].mode === 'read-only', 'Service discovery is read-only');
+assert(contract.capabilities['services.plan'].mode === 'read-only', 'Service plans are review-only');
+assert(contract.capabilities['services.journal'].mode === 'read-only', 'Service journal is read-only');
+assert(contract.capabilities['services.report'].mode === 'read-only', 'Service report is read-only');
+assert(!Object.keys(contract.capabilities).some((id) => /^services\.(start-service|stop-service|restart|apply|execute|config)/i.test(id)), 'Services contract exposes no control capability');
+const servicesBridge = require('../electron/native/services-bridge.cjs');
+const servicesProviders = require('../electron/native/services-providers.cjs');
+const servicesBridgeSource = read('electron/native/services-bridge.cjs');
+const servicesProviderSource = read('electron/native/services-providers.cjs');
+assert(servicesBridge.SERVICE_TOOLS.length === 12, 'Service Commander keeps twelve tools');
+assert(servicesBridge.STAGE_DEFINITIONS.length === 6, 'Service Commander keeps six measured stages');
+assert(servicesBridge.GATED_OPERATIONS.length === 6, 'Service Commander publishes six explicit gates');
+assert(servicesProviders.SERVICE_TOOLS === servicesBridge.SERVICE_TOOLS, 'the bridge reuses the service provider catalogue');
+assert(servicesBridge.SERVICE_TOOLS.every((entry) => /[\u0600-\u06FF]/.test(entry.labelAr) && /[\u0600-\u06FF]/.test(entry.noteAr)), 'service tools carry authored Arabic text');
+for (const forbidden of ['Start-Service', 'Stop-Service', 'Restart-Service', 'Set-Service', 'sc.exe', 'shell: true', 'spawn(', 'Start-Process', 'Invoke-Expression', 'shutdown.exe']) {
+  assert(!servicesBridgeSource.includes(forbidden), `Services bridge has no control call: ${forbidden}`);
+  assert(!servicesProviderSource.includes(forbidden), `Services provider has no control call: ${forbidden}`);
+}
+assert(
+  ['servicesCapabilities', 'servicesStart', 'servicesStatus', 'servicesCancel', 'servicesSnapshot', 'servicesPlan', 'servicesJournal', 'servicesReport']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every Services channel has an IPC handler'
+);
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');
 assert(main.includes('sandbox: true'), 'main enables sandbox');

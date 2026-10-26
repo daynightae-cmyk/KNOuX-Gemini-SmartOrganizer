@@ -1,1100 +1,415 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * KNOuX SmartOrganizer - Service Commander (Mission 12).
+ *
+ * Browser previews render an explicit native-required state. In Electron every
+ * service, edge, event, host and operation preview comes from the read-only
+ * ServicesBridge. No SCM start/stop/restart/startup-type write exists.
  */
-
-import React, { useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Cog,
-  Search,
-  Minus,
-  Square,
-  X,
-  Languages,
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle2,
+  ChevronRight,
   Database,
-  Play,
-  PlayCircle,
-  Square as StopSquare,
-  Slash,
-  Shield,
+  Download,
+  FileText,
+  GitBranch,
+  History,
+  Layers,
+  List,
+  Loader2,
+  Lock,
+  RefreshCw,
+  Search,
   ShieldAlert,
   ShieldCheck,
-  RotateCcw,
-  Clock,
-  Layers,
-  FileText,
-  Activity,
+  Sparkles,
   Wrench,
-  CheckCircle2,
-  AlertTriangle,
-  ChevronRight,
-  ChevronDown,
-  Terminal,
-  Settings,
-  HelpCircle,
-  Folder,
-  Sliders,
-  HardDrive,
-  Calendar,
-  Lock,
-  List,
-  Check,
-  Eye,
-  BarChart2,
-  Home,
-  Zap,
-  ArrowRight
+  X,
 } from 'lucide-react';
-
-import {
-  SERVICE_COMMANDER_METRICS,
-  SERVICE_NAVIGATION_CARDS,
-  INITIAL_SERVICES_REGISTER,
-  INITIAL_ACTIVITY_LOGS,
-  INITIAL_DEPENDENCY_GRAPH_NODES,
-  WindowsServiceItem,
-  RecentServiceActivityRecord,
-  StartupType,
-  ServiceStatus,
-  DependencyGraphNode
-} from '../lib/services-inventory';
-import { ServicesWorkspaces } from '../components/services/ServicesWorkspaces';
-import { DesignPreviewModal } from '../components/common/DesignPreviewModal';
-import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
+import type { ServicesJournalEntry, ServicesToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
+import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
+import { RISK_META, SERVICES_TOOLS, STATE_META, TOOL_BY_ID, type ServicesLocale } from '../services/catalog';
+import {
+  actionLabel,
+  dependencyImpact,
+  formatCount,
+  formatTimestamp,
+  startupMeta,
+  t,
+} from '../services/model';
+import { useServices } from '../services/useServices';
+import { ServicesServiceWorkspace } from '../services/ServicesServiceWorkspaces';
+import {
+  DependencyGraph,
+  OperationDock,
+  ServiceDossier,
+  ServiceRegister,
+  ServiceStateChip,
+} from '../services/ui';
+import { Chip, DataRows, Panel, downloadJson, cx } from '../system/ui';
 import '../services.css';
 
-interface ServicesPageProps {
+export interface ServicesPageProps {
   onNavigateSection?: (section: string) => void;
 }
 
+const AR = 'ar';
+
 export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
-  const { navigateTo, isActive, isArabic, toggleLocale } = useNavigation();
-  // Selected service (defaulting to WinDefend as shown in reference screenshot)
-  const [selectedServiceName, setSelectedServiceName] = useState<string>('WinDefend');
+  const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const [localLocale, setLocalLocale] = useState<ServicesLocale | null>(null);
+  const locale: ServicesLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
+  const controller = useServices();
+  const snapshot = controller.snapshot;
 
-  // Filter state
-  const [activeFilterKey, setActiveFilterKey] = useState<
-    'all' | 'running' | 'stopped' | 'automatic' | 'manual' | 'disabled' | 'protected'
-  >('all');
+  const [selectedName, setSelectedName] = useState<string | null>(null);
+  const [activeTool, setActiveTool] = useState<ServicesToolId | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
-  // Search filter
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  useEffect(() => {
+    if (!snapshot) {
+      setSelectedName(null);
+      return;
+    }
+    setSelectedName((current) => {
+      if (current && snapshot.services.some((entry) => entry.name === current)) return current;
+      return snapshot.services.find((entry) => String(entry.state).toLowerCase() === 'running' && !entry.protected)?.name || snapshot.services[0]?.name || null;
+    });
+  }, [snapshot]);
 
-  // Live state of services register
-  const [servicesList, setServicesList] = useState<WindowsServiceItem[]>(INITIAL_SERVICES_REGISTER);
+  useEffect(() => {
+    if (activeTool && !snapshot) setActiveTool(null);
+  }, [activeTool, snapshot]);
 
-  // Recent activity logs
-  const [activityLogs, setActivityLogs] = useState<RecentServiceActivityRecord[]>(INITIAL_ACTIVITY_LOGS);
+  const selected = useMemo(() => snapshot?.services.find((entry) => entry.name === selectedName) || null, [selectedName, snapshot]);
+  const impact = useMemo(() => (snapshot && selected ? dependencyImpact(snapshot, selected) : null), [selected, snapshot]);
+  const journal = controller.journal.length ? controller.journal : snapshot?.journal || [];
 
-  // Active modal
-  const [activeModal, setActiveModal] = useState<
-    'review-change' | 'change-startup-type' | 'specialized-card' | 'activity-view-all' | null
-  >(null);
-  const [activeCardKey, setActiveCardKey] = useState<string | null>(null);
-  const [activeServiceWorkspace, setActiveServiceWorkspace] = useState<string | null>(null);
-  const [startupTypeDraft, setStartupTypeDraft] = useState<StartupType | null>(null);
+  const openTool = useCallback((id: ServicesToolId) => {
+    if (!controller.snapshot) {
+      controller.showNotice(t(locale, 'Run the measured Service Commander discovery before opening a tool.', 'شغّل اكتشاف Service Commander المقيس قبل فتح أداة.'));
+      return;
+    }
+    triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setActiveTool(id);
+  }, [controller, locale]);
 
-  // Proposed operation for the selected service
-  const [proposedAction, setProposedAction] = useState<{
-    type: 'Start' | 'Stop' | 'Restart' | 'ChangeStartup';
-    newStatus?: ServiceStatus;
-    newStartupType?: StartupType;
-  } | null>({
-    type: 'Stop',
-    newStatus: 'Stopped',
-    newStartupType: 'Manual'
-  });
+  const closeTool = useCallback(() => {
+    setActiveTool(null);
+    window.setTimeout(() => triggerRef.current?.focus(), 30);
+  }, []);
 
-  // Toast feedback
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const exportReport = useCallback(async () => {
+    if (!snapshot) {
+      controller.showNotice(t(locale, 'Run the measured discovery before exporting a report.', 'شغّل الاكتشاف المقيس قبل تصدير تقرير.'));
+      return;
+    }
+    const report = await controller.loadReport(true);
+    if (report) {
+      const ok = downloadJson('knoux-service-commander-report.json', report);
+      controller.showNotice(ok ? t(locale, 'Read-only service report exported.', 'صُدّر تقرير الخدمات للقراءة فقط.') : t(locale, 'The report export could not start.', 'تعذّر بدء تصدير التقرير.'));
+    }
+  }, [controller, locale, snapshot]);
 
-  // Find currently selected service
-  const currentService = useMemo(() => {
+  const navigate = (section: string) => {
+    if (onNavigateSection) onNavigateSection(section);
+    else navigateTo(section);
+  };
+
+  const scanStatus = controller.scanning
+    ? t(locale, 'Measuring SCM evidence', 'جارٍ قياس أدلة SCM')
+    : snapshot
+      ? t(locale, 'Measured register ready', 'السجل المقيس جاهز')
+      : controller.nativeAvailable
+        ? t(locale, 'Awaiting measured discovery', 'بانتظار الاكتشاف المقيس')
+        : t(locale, 'Native measurement required', 'القياس الأصلي مطلوب');
+
+  const renderToolCard = (entry: (typeof SERVICES_TOOLS)[number]) => {
+    const Icon = entry.icon;
+    const state = STATE_META[entry.state];
+    const risk = RISK_META[entry.risk];
     return (
-      servicesList.find(s => s.name === selectedServiceName) ||
-      servicesList.find(s => s.name === 'WinDefend') ||
-      servicesList[0]
+      <button
+        key={entry.id}
+        type="button"
+        className="svc-tool-card"
+        data-testid={`services-tool-${entry.id}`}
+        onClick={() => openTool(entry.id)}
+      >
+        <span className="svc-tool-index">{String(entry.index).padStart(2, '0')}</span>
+        <span className="svc-tool-icon" style={{ color: entry.accent }} aria-hidden="true"><Icon /></span>
+        <span className="svc-tool-copy">
+          <strong>{locale === AR ? entry.ar : entry.en}</strong>
+          <em>{entry.provider}</em>
+        </span>
+        <span className="svc-tool-badges">
+          <Chip tone={state.tone}>{t(locale, state.en, state.ar)}</Chip>
+          <Chip tone={risk.tone}>{t(locale, risk.en, risk.ar)}</Chip>
+        </span>
+      </button>
     );
-  }, [servicesList, selectedServiceName]);
-
-  // Filtered services
-  const filteredServices = useMemo(() => {
-    return servicesList.filter(s => {
-      // Filter tab
-      if (activeFilterKey === 'running' && s.status !== 'Running') return false;
-      if (activeFilterKey === 'stopped' && s.status !== 'Stopped') return false;
-      if (activeFilterKey === 'automatic' && !s.startupType.startsWith('Automatic')) return false;
-      if (activeFilterKey === 'manual' && s.startupType !== 'Manual') return false;
-      if (activeFilterKey === 'disabled' && s.startupType !== 'Disabled') return false;
-      if (activeFilterKey === 'protected' && !s.isProtected) return false;
-
-      // Text search
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        const matchesName = s.name.toLowerCase().includes(q);
-        const matchesDisplay = s.displayName.toLowerCase().includes(q);
-        const matchesDesc = s.description.toLowerCase().includes(q);
-        return matchesName || matchesDisplay || matchesDesc;
-      }
-      return true;
-    });
-  }, [servicesList, activeFilterKey, searchQuery]);
-
-  // Dependency graph nodes for the selected service
-  const dependencyNodes = useMemo(() => {
-    if (INITIAL_DEPENDENCY_GRAPH_NODES[currentService.name]) {
-      return INITIAL_DEPENDENCY_GRAPH_NODES[currentService.name];
-    }
-    // Dynamic fallback for any service
-    const nodes: DependencyGraphNode[] = [
-      { id: currentService.name, name: currentService.name, role: 'selected', status: currentService.status }
-    ];
-    currentService.dependencies.forEach(dep => {
-      nodes.push({ id: dep, name: dep, role: 'dependency', status: 'Running' });
-    });
-    currentService.dependents.forEach(dep => {
-      nodes.push({ id: dep, name: dep, role: 'dependent', status: 'Running' });
-    });
-    return nodes;
-  }, [currentService]);
-
-  const handleApplyChange = (
-    updated: Partial<WindowsServiceItem>,
-    newActivityLog: RecentServiceActivityRecord
-  ) => {
-    setServicesList(prev =>
-      prev.map(item => (item.name === currentService.name ? { ...item, ...updated } : item))
-    );
-    setActivityLogs(prev => [newActivityLog, ...prev]);
-    setToastMessage(`Updated ${currentService.name}: ${newActivityLog.details}`);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
-  const handleSelectCard = (card: typeof SERVICE_NAVIGATION_CARDS[0]) => {
-    setActiveCardKey(card.title);
-    setActiveModal('specialized-card');
-    setActiveServiceWorkspace(card.serviceKey);
-  };
-
-  const handleQuickAction = (
-    serviceItem: WindowsServiceItem,
-    action: 'Start' | 'Stop' | 'Restart',
-    e: React.MouseEvent
-  ) => {
-    e.stopPropagation();
-    setSelectedServiceName(serviceItem.name);
-    if (action === 'Start') {
-      setProposedAction({ type: 'Start', newStatus: 'Running' });
-    } else if (action === 'Stop') {
-      setProposedAction({ type: 'Stop', newStatus: 'Stopped' });
-    } else if (action === 'Restart') {
-      setProposedAction({ type: 'Restart', newStatus: 'Running' });
-    }
-    setActiveModal('review-change');
   };
 
   return (
-    <div className={`services-viewport ${isArabic ? 'rtl' : 'ltr'} h-screen overflow-hidden`} dir={isArabic ? 'rtl' : 'ltr'}>
-      
-      {/* =========================================================================
-         TOP CHROME TITLEBAR
-         ========================================================================= */}
+    <div className={cx('sys-viewport svc-viewport', locale === AR && 'is-rtl')} dir={locale === AR ? 'rtl' : 'ltr'}>
       <KNOuXTitleBar
-        sectionName={isArabic ? "خدمات ويندوز" : "Services"}
-        sectionSubtitle={isArabic ? "مركز تحكم الخدمات" : "Windows Services Commander"}
-        onNavigateHome={() => (onNavigateSection ? onNavigateSection("home") : navigateTo("home"))}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        searchPlaceholder={isArabic ? "البحث في خدمات ويندوز... (Ctrl+K)" : "Search Windows services... (Ctrl+K)"}
-        isArabic={isArabic}
-        onToggleArabic={toggleLocale}
+        sectionName={t(locale, 'Services', 'الخدمات')}
+        sectionSubtitle={t(locale, 'Service Commander · preview only', 'قائد الخدمات · معاينة فقط')}
+        onNavigateHome={() => navigate('home')}
+        searchPlaceholder={t(locale, 'Search measured services… (Ctrl+K)', 'ابحث في الخدمات المقيسة… (Ctrl+K)')}
+        isArabic={locale === AR}
+        onToggleArabic={() => { toggleLocale(); setLocalLocale(locale === AR ? 'en' : 'ar'); }}
+        onOpenSettings={() => navigate('settings')}
       />
 
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed top-12 right-6 z-50 px-3.5 py-1.5 rounded-lg bg-cyan-950/90 border border-cyan-400/40 text-cyan-200 text-xs shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
-          {toastMessage}
+      {controller.notice ? (
+        <div className="sys-toast sys-toast-good" role="status">
+          <CheckCircle2 aria-hidden="true" />
+          <span>{controller.notice}</span>
+          <button type="button" onClick={controller.clearNotice} aria-label={t(locale, 'Dismiss', 'إغلاق')}><X aria-hidden="true" /></button>
         </div>
-      )}
+      ) : null}
+      {controller.actionError ? (
+        <div className="sys-toast sys-toast-bad" role="alert">
+          <AlertTriangle aria-hidden="true" />
+          <div><strong>{controller.actionError.code}</strong><span>{controller.actionError.message}</span></div>
+          <button type="button" onClick={controller.clearError} aria-label={t(locale, 'Dismiss', 'إغلاق')}><X aria-hidden="true" /></button>
+        </div>
+      ) : null}
 
-      {/* =========================================================================
-         MAIN APPLICATION LAYOUT (SIDEBAR + CONTENT)
-         ========================================================================= */}
-      <div className="flex-1 flex overflow-hidden">
-        
-        {/* Navigation Sidebar */}
-        <KNOuXSidebar
-          activeSection="services"
-          onNavigate={(sec) => (onNavigateSection ? onNavigateSection(sec) : navigateTo(sec))}
-          isArabic={isArabic}
-        />
-
-        {/* Content Viewport */}
-        <main className="flex-1 flex flex-col min-h-0 overflow-y-auto px-5 py-2.5 gap-2.5 services-custom-scrollbar">
-
-          {/* =========================================================================
-             HERO HEADER SECTION
-             ========================================================================= */}
-          <section className="relative rounded-xl bg-gradient-to-r from-[#0b1329] via-[#091533] to-[#0d1c3d] border border-slate-800/90 p-3 overflow-hidden flex items-center justify-between shadow-xl">
-            {/* Holographic Glowing Gear & Titles */}
-            <div className="flex items-center gap-3.5 relative z-10">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600/40 via-indigo-600/40 to-cyan-500/30 border border-purple-500/40 flex items-center justify-center text-cyan-300 shadow-[0_0_20px_rgba(168,85,247,0.35)] shrink-0">
-                <Cog className="w-5 h-5 animate-spin [animation-duration:15s]" />
+      <div className="sys-shell">
+        <KNOuXSidebar activeSection="services" onNavigate={navigate} isArabic={locale === AR} />
+        <div className="sys-shell-main">
+          <main className="sys-main knx-custom-scrollbar svc-main" data-testid="services-workspace">
+            <section className="sys-hero svc-hero" data-testid="services-hero">
+              <div className="sys-hero-arc" aria-hidden="true">
+                <svg viewBox="0 0 620 120" fill="none">
+                  <defs>
+                    <linearGradient id="svc-hero-wave" x1="0" y1="0" x2="620" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#f472b6" />
+                      <stop offset="0.5" stopColor="#818cf8" />
+                      <stop offset="1" stopColor="#22d3ee" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M8 62 C88 16, 150 108, 236 52 C322 -4, 386 100, 470 46 C534 6, 580 72, 616 52" stroke="url(#svc-hero-wave)" strokeWidth="2.4" strokeLinecap="round" />
+                  <path d="M8 52 C76 88, 156 16, 240 78 C324 136, 400 24, 486 72 C548 108, 592 28, 616 56" stroke="url(#svc-hero-wave)" strokeWidth="1.4" strokeDasharray="4 5" opacity="0.55" />
+                </svg>
               </div>
-              <div>
-                <h1 className="text-xl font-bold tracking-tight text-slate-100">
-                  Service Commander
-                </h1>
-                <p className="text-xs text-slate-300/90 mt-0.5">
-                  {isArabic
-                    ? 'فحص خدمات ويندوز، الاعتماديات، سياسات بدء التشغيل، والإجراءات الخاضعة للرقابة.'
-                    : 'Inspect Windows services, dependencies, startup policies and controlled actions.'}
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Technical Circuit Watermark */}
-            <div className="services-circuit-watermark hidden lg:flex items-center gap-4 text-slate-400">
-              <div className="text-right text-[11px] tracking-wider leading-relaxed border-r border-slate-700/60 pr-3">
-                <div>SERVICES</div>
-                <div>STABILITY</div>
-                <div>CONTROL</div>
-                <div>VISIBILITY</div>
-              </div>
-            </div>
-          </section>
-
-          {/* =========================================================================
-             TOP STATUS RIBBON (6 METRICS CARDS)
-             ========================================================================= */}
-          <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-            {SERVICE_COMMANDER_METRICS.map(card => {
-              const isSelected = activeFilterKey === card.filterKey;
-              return (
-                <button
-                  key={card.id}
-                  onClick={() => setActiveFilterKey(card.filterKey)}
-                  className={`p-2 rounded-lg border text-left transition-all flex items-center gap-3 ${
-                    isSelected
-                      ? 'bg-[#0e1d3d] border-cyan-400/80 shadow-[0_0_14px_rgba(56,189,248,0.25)]'
-                      : 'bg-[#081024]/80 border-slate-800/80 hover:border-slate-700 hover:bg-[#0b1633]'
-                  }`}
-                >
-                  <div className="p-1.5 rounded-lg bg-slate-900/90 border border-slate-800 shrink-0">
-                    {card.icon === 'database' && <Database className="w-4 h-4 text-blue-400" />}
-                    {card.icon === 'play' && <PlayCircle className="w-4 h-4 text-emerald-400" />}
-                    {card.icon === 'stop' && <StopSquare className="w-4 h-4 text-slate-400" />}
-                    {card.icon === 'gear' && <Cog className="w-4 h-4 text-cyan-400" />}
-                    {card.icon === 'file' && <FileText className="w-4 h-4 text-indigo-400" />}
-                    {card.icon === 'slash' && <Slash className="w-4 h-4 text-rose-400" />}
-                  </div>
-                  <div>
-                    <span className="text-[10.5px] text-slate-400 block truncate">{card.title}</span>
-                    <span className="text-[17px] font-bold text-slate-100 font-mono leading-none mt-0.5 block">
-                      {card.count}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </section>
-
-          {/* =========================================================================
-             MAIN MIDDLE REGION: SERVICE REGISTER & MATRIX (LEFT) + INSPECTOR (RIGHT)
-             ========================================================================= */}
-          <section className="grid grid-cols-1 lg:grid-cols-12 grid-rows-1 gap-2.5 flex-1 min-h-0">
-
-            {/* -----------------------------------------------------------------------
-               LEFT: SEGMENTED FILTERS, REGISTER TABLE, 12 CARDS & HISTORY (7.5 cols)
-               ----------------------------------------------------------------------- */}
-            <div className="lg:col-span-8 flex flex-col gap-2.5 min-h-0">
-
-              {/* Segmented Filter Tabs Bar */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-xs shrink-0">
-                <button
-                  onClick={() => setActiveFilterKey('all')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'all'
-                      ? 'bg-blue-600 text-white border-blue-400 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-slate-200'
-                  }`}
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  <span>All (271)</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveFilterKey('running')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'running'
-                      ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-emerald-400'
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                  <span>Running (189)</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveFilterKey('stopped')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'stopped'
-                      ? 'bg-slate-800 text-slate-200 border-slate-600 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-slate-200'
-                  }`}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
-                  <span>Stopped (82)</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveFilterKey('automatic')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'automatic'
-                      ? 'bg-cyan-950/80 text-cyan-300 border-cyan-500 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-cyan-400'
-                  }`}
-                >
-                  <Cog className="w-3 h-3" />
-                  <span>Automatic (122)</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveFilterKey('manual')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'manual'
-                      ? 'bg-indigo-950/80 text-indigo-300 border-indigo-500 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-indigo-400'
-                  }`}
-                >
-                  <FileText className="w-3 h-3" />
-                  <span>Manual (98)</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveFilterKey('disabled')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'disabled'
-                      ? 'bg-rose-950/80 text-rose-300 border-rose-500 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-rose-400'
-                  }`}
-                >
-                  <Slash className="w-3 h-3" />
-                  <span>Disabled (51)</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveFilterKey('protected')}
-                  className={`px-3 py-1 rounded-lg border font-medium flex items-center gap-1.5 transition-all ${
-                    activeFilterKey === 'protected'
-                      ? 'bg-amber-950/80 text-amber-300 border-amber-500 shadow-sm'
-                      : 'bg-[#081024] text-slate-400 border-slate-800 hover:text-amber-400'
-                  }`}
-                >
-                  <Shield className="w-3 h-3 text-amber-400" />
-                  <span>Protected (28)</span>
-                </button>
-              </div>
-
-              {/* Native Service Register Table */}
-              <div className="rounded-xl bg-[#081024]/90 border border-slate-800/90 shadow-sm overflow-hidden flex flex-col flex-1 min-h-[96px]">
-                <div className="overflow-auto flex-1 min-h-0 services-custom-scrollbar">
-                  <table className="w-full text-left text-xs border-collapse">
-                    <thead className="bg-[#0b142b] border-b border-slate-800/80 sticky top-0 z-10 text-[11px] text-slate-400">
-                      <tr>
-                        <th className="py-1.5 px-3 font-semibold">Service Name</th>
-                        <th className="py-1.5 px-3 font-semibold">Display Name</th>
-                        <th className="py-1.5 px-3 font-semibold">Current Status</th>
-                        <th className="py-1.5 px-3 font-semibold">Startup Type</th>
-                        <th className="py-1.5 px-3 font-semibold">Account</th>
-                        <th className="py-1.5 px-3 font-semibold">Dependencies</th>
-                        <th className="py-1.5 px-3 font-semibold text-right">Available Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-800/50">
-                      {filteredServices.map(service => {
-                        const isSelected = service.name === currentService.name;
-                        return (
-                          <tr
-                            key={service.name}
-                            onClick={() => setSelectedServiceName(service.name)}
-                            className={`cursor-pointer transition-all ${
-                              isSelected
-                                ? 'service-row-active'
-                                : 'hover:bg-slate-800/40 text-slate-300'
-                            }`}
-                          >
-                            {/* Service Name */}
-                            <td className="py-1.5 px-3 font-mono text-[11.5px] text-slate-100 flex items-center gap-2">
-                              <Cog className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-cyan-300' : 'text-slate-500'}`} />
-                              <span className="font-semibold">{service.name}</span>
-                            </td>
-
-                            {/* Display Name */}
-                            <td className="py-1.5 px-3 text-slate-300 truncate max-w-[150px]">
-                              {service.displayName}
-                            </td>
-
-                            {/* Current Status */}
-                            <td className="py-1.5 px-3">
-                              <div className="flex items-center gap-1.5">
-                                <span
-                                  className={`w-1.5 h-1.5 rounded-full ${
-                                    service.status === 'Running' ? 'bg-emerald-400' : 'bg-slate-500'
-                                  }`}
-                                />
-                                <span
-                                  className={
-                                    service.status === 'Running' ? 'text-emerald-400 font-medium' : 'text-slate-400'
-                                  }
-                                >
-                                  {service.status}
-                                </span>
-                              </div>
-                            </td>
-
-                            {/* Startup Type */}
-                            <td className="py-1.5 px-3 text-slate-300 text-[11px]">
-                              {service.startupType}
-                            </td>
-
-                            {/* Account */}
-                            <td className="py-1.5 px-3 text-slate-400 text-[11px]">
-                              {service.account}
-                            </td>
-
-                            {/* Dependencies */}
-                            <td className="py-1.5 px-3 text-slate-400 font-mono text-[10.5px]">
-                              {service.dependencies.length > 0 ? service.dependencies.join(', ') : 'N/A'}
-                            </td>
-
-                            {/* Available Actions Buttons */}
-                            <td className="py-1.5 px-3 text-right">
-                              <div className="flex items-center justify-end gap-1">
-                                {service.status === 'Running' ? (
-                                  <button
-                                    onClick={e => handleQuickAction(service, 'Stop', e)}
-                                    title="Stop Service"
-                                    className="p-1 rounded bg-slate-800/80 hover:bg-rose-900/50 hover:text-rose-300 text-slate-400 transition-colors"
-                                  >
-                                    <StopSquare className="w-3 h-3" />
-                                  </button>
-                                ) : (
-                                  <button
-                                    onClick={e => handleQuickAction(service, 'Start', e)}
-                                    title="Start Service"
-                                    className="p-1 rounded bg-slate-800/80 hover:bg-emerald-900/50 hover:text-emerald-300 text-slate-400 transition-colors"
-                                  >
-                                    <Play className="w-3 h-3" />
-                                  </button>
-                                )}
-
-                                <button
-                                  onClick={e => handleQuickAction(service, 'Restart', e)}
-                                  title="Restart Service"
-                                  className="p-1 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors"
-                                >
-                                  <RotateCcw className="w-3 h-3" />
-                                </button>
-
-                                {service.isProtected ? (
-                                  <button
-                                    onClick={e => {
-                                      e.stopPropagation();
-                                      setSelectedServiceName(service.name);
-                                      setActiveCardKey('Protected Services');
-                                      setActiveModal('specialized-card');
-                                    }}
-                                    title="Protected Service"
-                                    className="p-1 rounded bg-amber-950/60 border border-amber-600/40 text-amber-300"
-                                  >
-                                    <Shield className="w-3 h-3" />
-                                  </button>
-                                ) : (
-                                  <button
-                                    onClick={e => {
-                                      e.stopPropagation();
-                                      setSelectedServiceName(service.name);
-                                      setActiveModal('change-startup-type');
-                                    }}
-                                    title="Configure Startup Policy"
-                                    className="p-1 rounded bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors"
-                                  >
-                                    <Settings className="w-3 h-3" />
-                                  </button>
-                                )}
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+              <div className="sys-hero-copy">
+                <span className="sys-hero-eyebrow">{t(locale, 'SERVICE COMMANDER · READ-ONLY · NO SCM WRITES', 'قائد الخدمات · للقراءة فقط · بلا كتابة SCM')}</span>
+                <h1>{t(locale, 'Service', 'قائد')} <span>{t(locale, 'Commander', 'الخدمات')}</span></h1>
+                <p>{t(locale, 'Inspect Windows services through the measured SCM register, understand dependency impact and review every operation before authorizing it.', 'افحص خدمات Windows عبر سجل SCM المقيس، وافهم أثر الاعتماديات، وراجع كل عملية قبل اعتمادها.')}</p>
+                <div className="sys-hero-chips">
+                  <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
+                  <Chip tone="info" icon={List}>{formatCount(SERVICES_TOOLS.length)} {t(locale, 'service tools', 'أداة خدمات')}</Chip>
+                  <Chip tone={snapshot?.elevation.isAdmin === true ? 'warn' : 'muted'} icon={Lock}>{snapshot ? (snapshot.elevation.isAdmin === true ? t(locale, 'Elevated', 'مرفوع') : t(locale, 'Standard user', 'مستخدم عادي')) : t(locale, 'Privilege not measured', 'الصلاحية غير مقيسة')}</Chip>
+                  <Chip tone="bad" icon={ShieldAlert}>{t(locale, '0 SCM operations executed', '0 عملية SCM منفذة')}</Chip>
+                  {snapshot ? <Chip tone="violet" icon={Database}>{t(locale, 'receipt', 'إيصال')} {snapshot.receipt.slice(0, 12)}</Chip> : null}
                 </div>
-              </div>
-
-              {/* Twelve Service Navigation Cards (4 cols × 3 rows) */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 shrink-0">
-                {SERVICE_NAVIGATION_CARDS.map(card => (
-                  <button
-                    key={card.id}
-                    onClick={() => handleSelectCard(card)}
-                    className="p-1.5 rounded-lg bg-[#081024]/85 border border-slate-800/80 hover:border-slate-700 hover:bg-[#0b1633] text-left transition-all flex flex-col justify-between min-h-[46px] group"
-                  >
-                    <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center gap-1.5">
-                        <div className="p-1 rounded bg-slate-900 border border-slate-800 text-cyan-400">
-                          {card.iconType === 'register' && <List className="w-3 h-3" />}
-                          {card.iconType === 'control' && <Play className="w-3 h-3 text-emerald-400" />}
-                          {card.iconType === 'undo' && <RotateCcw className="w-3 h-3 text-purple-400" />}
-                          {card.iconType === 'dependencies' && <Layers className="w-3 h-3 text-blue-400" />}
-                          {card.iconType === 'protected' && <Shield className="w-3 h-3 text-amber-400" />}
-                          {card.iconType === 'search' && <Search className="w-3 h-3 text-cyan-400" />}
-                          {card.iconType === 'startup-report' && <FileText className="w-3 h-3 text-indigo-400" />}
-                          {card.iconType === 'state-history' && <Clock className="w-3 h-3 text-slate-400" />}
-                          {card.iconType === 'dependents' && <Layers className="w-3 h-3 text-pink-400" />}
-                          {card.iconType === 'diagnose' && <Activity className="w-3 h-3 text-rose-400" />}
-                          {card.iconType === 'config' && <Cog className="w-3 h-3 text-cyan-400" />}
-                          {card.iconType === 'perf' && <BarChart2 className="w-3 h-3 text-emerald-400" />}
-                        </div>
-                        <span className="font-semibold text-slate-100 text-[11px] truncate group-hover:text-cyan-300">
-                          {card.title}
-                        </span>
-                      </div>
-                      <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-slate-300" />
-                    </div>
-                    <p className="text-[10px] text-slate-400 line-clamp-1 mt-1 leading-tight">
-                      {card.subtitle}
-                    </p>
+                <div className="sys-hero-actions">
+                  <button type="button" className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')} onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())} disabled={!controller.nativeAvailable || controller.cancelling}>
+                    {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
+                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start measured discovery', 'بدء الاكتشاف المقيس')}
                   </button>
-                ))}
-              </div>
-
-              {/* Bottom: Recent Service Activity */}
-              <div className="p-3 rounded-xl bg-[#081024]/90 border border-slate-800/90 shadow-sm flex flex-col justify-between shrink-0">
-                <div className="flex items-center justify-between pb-1.5 border-b border-slate-800/80 mb-1.5">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-200">
-                    <Clock className="w-3.5 h-3.5 text-blue-400" />
-                    <span>Recent Service Activity</span>
-                  </div>
-                  <button
-                    onClick={() => setActiveModal('activity-view-all')}
-                    className="text-[10.5px] text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
-                  >
-                    View All
+                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}>
+                    <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh register', 'تحديث السجل')}
+                  </button>
+                  <button type="button" className="sys-btn sys-btn-quiet" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}>
+                    <Download aria-hidden="true" />{t(locale, 'Export report', 'تصدير التقرير')}
                   </button>
                 </div>
-
-                <div className="overflow-x-auto overflow-y-auto services-custom-scrollbar">
-                  <table className="w-full text-left text-xs">
-                    <thead className="sticky top-0 bg-[#081024] z-10">
-                      <tr className="text-[10.5px] text-slate-400 border-b border-slate-800/60 pb-1">
-                        <th className="py-1 px-2 font-medium">Timestamp</th>
-                        <th className="py-1 px-2 font-medium">Service Name</th>
-                        <th className="py-1 px-2 font-medium">Action</th>
-                        <th className="py-1 px-2 font-medium">Previous State</th>
-                        <th className="py-1 px-2 font-medium">New State</th>
-                        <th className="py-1 px-2 font-medium">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-800/40 text-[11px]">
-                      {activityLogs.slice(0, 5).map((log, idx) => (
-                        <tr
-                          key={log.id}
-                          className={`text-slate-300 hover:bg-slate-900/40 ${
-                            idx === 3 ? 'services-activity-row-4' : idx === 4 ? 'services-activity-row-5' : ''
-                          }`}
-                        >
-                          <td className="py-1 px-2 font-mono text-slate-400 whitespace-nowrap">{log.timestamp}</td>
-                          <td className="py-1 px-2 font-semibold text-slate-200 whitespace-nowrap">{log.serviceName}</td>
-                          <td className="py-1 px-2">
-                            <span
-                              className={`px-1.5 py-0.5 rounded text-[10px] font-medium whitespace-nowrap ${
-                                log.action === 'Started'
-                                  ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/40'
-                                  : log.action === 'Stopped'
-                                  ? 'bg-rose-950/60 text-rose-400 border border-rose-800/40'
-                                  : 'bg-cyan-950/60 text-cyan-300 border border-cyan-800/40'
-                              }`}
-                            >
-                              {log.action}
-                            </span>
-                          </td>
-                          <td className="py-1 px-2 text-slate-400 whitespace-nowrap">{log.previousState}</td>
-                          <td className="py-1 px-2 text-slate-200 whitespace-nowrap">{log.newState}</td>
-                          <td className="py-1 px-2 text-slate-400 truncate max-w-[150px]">{log.details}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               </div>
+              <aside className="sys-source-card svc-source-card" data-testid="services-source-card">
+                <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
+                <div className="sys-source-copy">
+                  <span>{t(locale, 'Evidence source', 'مصدر الأدلة')}</span>
+                  <strong>KNOuX ServicesBridge v1</strong>
+                  <em>{scanStatus}</em>
+                  <em>{snapshot ? formatTimestamp(snapshot.generatedAt, locale) : controller.nativeAvailable ? t(locale, 'Bounded read-only discovery', 'اكتشاف محدود للقراءة فقط') : t(locale, 'Browser preview', 'معاينة متصفح')}</em>
+                </div>
+                <div className="sys-source-badges">
+                  <span className="sys-source-badge">{t(locale, 'Read-only', 'للقراءة فقط')}</span>
+                  <span className="sys-source-badge">{t(locale, 'No auto elevation', 'بلا رفع تلقائي')}</span>
+                </div>
+              </aside>
+            </section>
 
+            {!controller.nativeAvailable ? (
+              <div className="sys-banner is-required" data-testid="services-native-required">
+                <Lock aria-hidden="true" />
+                <div><strong>{t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}</strong><p>{t(locale, 'This is a browser preview. The read-only ServicesBridge is unavailable, so no service, edge, event, host or plan is substituted. Open the native Electron app to measure this machine.', 'هذه معاينة متصفح. جسر ServicesBridge للقراءة فقط غير متاح، لذلك لا تُستبدل أي خدمة أو حافة أو حدث أو مضيف أو خطة. افتح تطبيق Electron الأصلي لقياس هذا الجهاز.')}</p></div>
+              </div>
+            ) : (
+              <div className="sys-banner is-measured" data-testid="services-native-banner">
+                <ShieldCheck aria-hidden="true" />
+                <div><strong>{t(locale, 'Measured Service Commander', 'قائد الخدمات المقيس')}</strong><p>{snapshot ? `${formatCount(snapshot.summary.total)} ${t(locale, 'services', 'خدمة')} · ${formatCount(snapshot.summary.running)} ${t(locale, 'running', 'تعمل')} · ${formatCount(snapshot.summary.protected)} ${t(locale, 'protected', 'محمية')} · ${t(locale, 'mutation', 'التغيير')}: none` : scanStatus}</p></div>
+                <span className="sys-banner-chip">{snapshot ? t(locale, 'MEASURED', 'مقيس') : t(locale, 'MEASURING', 'جارٍ القياس')}</span>
+              </div>
+            )}
+
+            {controller.scanning ? (
+              <div className="sys-scan-progress" data-testid="services-scan-progress">
+                <div className="sys-scan-progress-head"><span><Loader2 aria-hidden="true" className="sys-spin" />{t(locale, 'Bounded SCM discovery in progress', 'اكتشاف SCM المحدود قيد التنفيذ')}</span><em>{formatCount(controller.session?.progress || 0)}%</em></div>
+                <div className="sys-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={controller.session?.progress || 0}><span style={{ width: `${Math.max(2, Math.min(100, controller.session?.progress || 0))}%` }} /></div>
+                <div className="sys-scan-stages">{(controller.session?.stages || []).map((stage) => <span key={stage.key} className={`sys-scan-stage is-${stage.status}`} title={stage.provider}>{locale === AR ? stage.labelAr : stage.labelEn}</span>)}</div>
+              </div>
+            ) : null}
+
+            <div className="sys-kpi-row svc-kpi-row">
+              {[
+                { key: 'total', label: t(locale, 'Services', 'الخدمات'), value: snapshot ? formatCount(snapshot.summary.total) : '—', note: t(locale, 'Measured SCM rows', 'صفوف SCM مقيسة'), icon: List, tone: '' },
+                { key: 'running', label: t(locale, 'Running', 'تعمل'), value: snapshot ? formatCount(snapshot.summary.running) : '—', note: t(locale, 'Measured state', 'حالة مقيسة'), icon: CheckCircle2, tone: 'is-good' },
+                { key: 'protected', label: t(locale, 'Protected', 'محمية'), value: snapshot ? formatCount(snapshot.summary.protected) : '—', note: t(locale, 'Control denied by policy', 'التحكم مرفوض بالسياسة'), icon: ShieldAlert, tone: 'is-bad' },
+                { key: 'automatic', label: t(locale, 'Automatic', 'تلقائي'), value: snapshot ? formatCount(snapshot.summary.automatic) : '—', note: t(locale, 'Non-delayed automatic', 'تلقائي غير مؤجل'), icon: Layers, tone: 'is-cyan' },
+                { key: 'events', label: t(locale, 'SCM events', 'أحداث SCM'), value: snapshot ? formatCount(snapshot.events.length) : '—', note: snapshot?.eventCoverage.status || t(locale, 'not measured', 'غير مقيس'), icon: FileText, tone: 'is-warn' },
+                { key: 'hosts', label: t(locale, 'svchost hosts', 'مضيفات svchost'), value: snapshot ? formatCount(snapshot.svchost.length) : '—', note: t(locale, 'Shared process groups', 'مجموعات عمليات مشتركة'), icon: RefreshCw, tone: 'is-violet' },
+              ].map((kpi) => {
+                const Icon = kpi.icon;
+                return (
+                  <button key={kpi.key} type="button" className={cx('sys-instrument svc-kpi', kpi.tone)} onClick={() => openTool(kpi.key === 'events' ? 'services-state-history' : kpi.key === 'hosts' ? 'services-perf' : kpi.key === 'protected' ? 'services-protected' : 'services-inventory')} data-testid={`services-kpi-${kpi.key}`}>
+                    <span className="svc-kpi-head"><span className="svc-kpi-icon"><Icon aria-hidden="true" /></span><span>{kpi.label}</span></span>
+                    <strong dir="ltr" data-testid={`services-kpi-${kpi.key}-value`}>{kpi.value}</strong>
+                    <em>{kpi.note}</em>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* -----------------------------------------------------------------------
-               RIGHT: INSPECTOR COLUMN (SERVICE DOSSIER, GRAPH & OPERATION PREVIEW) (4 cols)
-               ----------------------------------------------------------------------- */}
-            <div className="lg:col-span-4 flex flex-col gap-2.5 min-h-0 overflow-hidden">
-
-              {/* Search Services (name or display name) */}
-              <div className="relative shrink-0">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400 pointer-events-none" />
-                <input
-                  type="text"
-                  placeholder="Search services (name or display name)..."
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#081024] border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors"
-                />
-              </div>
-
-              {/* Service Dossier */}
-              <div className="p-3 rounded-xl bg-[#081024]/90 border border-slate-800/90 shadow-sm flex flex-col flex-1 min-h-[88px] overflow-hidden">
-                <div className="flex items-center justify-between pb-1.5 border-b border-slate-800/80 shrink-0">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-purple-400" />
-                    <h3 className="font-semibold text-xs text-slate-100">Service Dossier</h3>
-                  </div>
-                  {currentService.isProtected && (
-                    <span className="px-2 py-0.5 rounded-full bg-amber-950/60 border border-amber-500/40 text-amber-300 text-[10px] font-semibold flex items-center gap-1">
-                      <Shield className="w-3 h-3" />
-                      Protected Service
-                    </span>
-                  )}
-                </div>
-
-                {/* Metadata List */}
-                <div className="flex-1 min-h-0 overflow-y-auto services-custom-scrollbar grid grid-cols-1 2xl:grid-cols-2 gap-x-4 gap-y-0.5 text-[11px] pr-1 mt-1.5">
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Service Name:</span>
-                    <span className="font-mono text-slate-200 font-semibold truncate">{currentService.name}</span>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Display Name:</span>
-                    <span className="text-slate-200 font-medium truncate" title={currentService.displayName}>
-                      {currentService.displayName}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Current Status:</span>
-                    <span className="flex items-center gap-1.5 font-medium">
-                      <span className={`w-2 h-2 rounded-full ${currentService.status === 'Running' ? 'bg-emerald-400' : 'bg-slate-400'}`} />
-                      <span className={currentService.status === 'Running' ? 'text-emerald-400' : 'text-slate-400'}>
-                        {currentService.status}
-                      </span>
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Startup Type:</span>
-                    <span className="text-slate-200 font-semibold">{currentService.startupType}</span>
-                  </div>
-
-                  <div className="col-span-full pt-0.5">
-                    <span className="text-slate-400 text-[11px] block mb-0.5">Executable Path:</span>
-                    <div className="p-1.5 rounded bg-black/50 border border-slate-800 text-[10.5px] font-mono text-cyan-300 break-all select-all">
-                      {currentService.executablePath}
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Dependencies:</span>
-                    <span className="text-slate-200 font-mono text-[11px] truncate">
-                      {currentService.dependencies.length > 0 ? currentService.dependencies.join(', ') : 'None'}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Dependents:</span>
-                    <span className="text-slate-200 font-mono text-[11px] truncate">
-                      {currentService.dependents.length > 0 ? currentService.dependents.join(', ') : 'None'}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Service Account:</span>
-                    <span className="text-slate-200 truncate">{currentService.account}</span>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="text-slate-400 text-[11px] shrink-0">Management Rights:</span>
-                    <span className="text-slate-200 truncate">{currentService.managementRights}</span>
-                  </div>
-
-                  {currentService.protectionRestrictions && (
-                    <div className="col-span-full flex justify-between items-center gap-2 pt-0.5 border-t border-slate-800/60">
-                      <span className="text-slate-400 text-[11px] shrink-0">Protection Restrictions:</span>
-                      <span className="text-amber-300 font-medium text-[11px] truncate">{currentService.protectionRestrictions}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Dependency Graph Diagram */}
-              <div className="p-3 rounded-xl bg-[#081024]/90 border border-slate-800/90 shadow-sm space-y-2 shrink-0">
-                <div className="flex items-center justify-between pb-1.5 border-b border-slate-800/80 shrink-0">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 whitespace-nowrap">
-                    <Layers className="w-4 h-4 text-cyan-400" />
-                    <span>Dependency Graph</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[9px] whitespace-nowrap">
-                    <span className="flex items-center gap-1 text-blue-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400" /> Dependency
-                    </span>
-                    <span className="flex items-center gap-1 text-pink-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-pink-400" /> Dependent
-                    </span>
-                    <span className="flex items-center gap-1 text-purple-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-400" /> Selected
-                    </span>
-                  </div>
-                </div>
-
-                {/* Graph Canvas */}
-                <div className="relative min-h-[clamp(52px,8vh,112px)] rounded-lg bg-[#060b17] border border-slate-800/80 p-1.5 flex flex-col items-center justify-between">
-                  {/* Top: Dependency (e.g. RPCSS) */}
-                  <div className="flex justify-center">
-                    {dependencyNodes.find(n => n.name === 'RPCSS' || (n.role === 'dependency' && n.name !== 'EventLog' && n.name !== 'BFE')) && (
-                      <div className="dep-node dep-node-dependency">
-                        {dependencyNodes.find(n => n.name === 'RPCSS' || n.role === 'dependency')?.name}
-                      </div>
+            <div className="svc-main-grid">
+              <Panel className="svc-register-panel" title={t(locale, 'SCM service register', 'سجل خدمات SCM')} sub={snapshot ? `${formatCount(snapshot.summary.total)} ${t(locale, 'measured services', 'خدمة مقيسة')}` : t(locale, 'Awaiting measured discovery', 'بانتظار الاكتشاف المقيس')} icon={List} bodyClassName="sys-panel-body-flush">
+                {snapshot ? (
+                  <ServiceRegister locale={locale} services={snapshot.services} selectedName={selectedName} onSelect={setSelectedName} />
+                ) : <div className="svc-empty"><Lock aria-hidden="true" /><strong>{t(locale, 'No SCM register yet', 'لا سجل SCM بعد')}</strong><p>{scanStatus}</p></div>}
+              </Panel>
+              <div className="svc-main-rail">
+                <OperationDock locale={locale} snapshot={snapshot || emptySnapshot} controller={controller} service={selected} mode="both" />
+                <Panel
+                  className="svc-mini-journal"
+                  title={t(locale, 'Recent service activity', 'أحدث نشاط للخدمات')}
+                  sub={t(locale, 'Previews only · 0 executed.', 'معاينات فقط · 0 منفذ.')}
+                  icon={History}
+                  actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('services-undo')} disabled={!snapshot}>{t(locale, 'Journal', 'السجل')}<ChevronRight aria-hidden="true" /></button>}
+                >
+                  <div data-testid="services-mini-journal">
+                    {journal.length ? journal.slice(0, 2).map((entry: ServicesJournalEntry) => (
+                      <button key={entry.id} type="button" className="svc-mini-row" onClick={() => openTool('services-undo')}>
+                        <span>{entry.displayName || entry.serviceName}</span>
+                        <em>{actionLabel(entry.action, locale)} · {formatTimestamp(entry.at, locale)}</em>
+                        <Chip tone={entry.kind === 'blocked-preview' ? 'bad' : 'info'}>{t(locale, 'Preview', 'معاينة')}</Chip>
+                      </button>
+                    )) : (
+                      <p className="svc-op-hint">{t(locale, 'No preview staged yet. Stage one above; it is recorded without executing a service change.', 'لا معاينة مُهيَّأة بعد. هيّئ واحدة أعلاه؛ تُسجّل دون تنفيذ تغيير خدمة.')}</p>
                     )}
                   </div>
-
-                  {/* Middle Row: Left Dependency, Center Selected, Right Dependency */}
-                  <div className="flex items-center justify-between w-full px-2 my-1">
-                    {/* Left Node */}
-                    <div className="w-24 text-left">
-                      {dependencyNodes.find(n => n.name === 'EventLog' || n.name === 'NSI' || n.name === 'HTTP') ? (
-                        <div className="dep-node dep-node-dependency text-[10.5px]">
-                          {dependencyNodes.find(n => n.name === 'EventLog' || n.name === 'NSI' || n.name === 'HTTP')?.name}
-                        </div>
-                      ) : (
-                        <div className="w-16" />
-                      )}
-                    </div>
-
-                    {/* Center Selected Node */}
-                    <div className="dep-node dep-node-selected text-xs px-4 py-1.5">
-                      {currentService.name}
-                    </div>
-
-                    {/* Right Node */}
-                    <div className="w-24 text-right">
-                      {dependencyNodes.find(n => n.name === 'BFE' || n.name === 'Tcpip' || n.name === 'WinHTTP') ? (
-                        <div className="dep-node dep-node-dependency text-[10.5px]">
-                          {dependencyNodes.find(n => n.name === 'BFE' || n.name === 'Tcpip' || n.name === 'WinHTTP')?.name}
-                        </div>
-                      ) : (
-                        <div className="w-16" />
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Bottom: Dependent (e.g. WdFilter or Fax) */}
-                  <div className="flex justify-center">
-                    {dependencyNodes.find(n => n.role === 'dependent') ? (
-                      <div className="dep-node dep-node-dependent text-[10.5px]">
-                        {dependencyNodes.find(n => n.role === 'dependent')?.name}
-                      </div>
-                    ) : (
-                      <span className="text-[10px] text-slate-500 italic">No Downstream Dependents</span>
-                    )}
-                  </div>
-                </div>
+                </Panel>
+                <Panel className="svc-dossier-panel" title={t(locale, 'Service dossier', 'ملف الخدمة')} sub={selected?.name} icon={Search}>
+                  <ServiceDossier locale={locale} snapshot={snapshot || emptySnapshot} service={selected} />
+                </Panel>
               </div>
-
-              {/* Service Operation Preview */}
-              <div className="p-3 rounded-xl bg-[#081024]/90 border border-slate-800/90 shadow-sm space-y-1.5 shrink-0">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 pb-1.5 border-b border-slate-800/80 shrink-0">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
-                  <span>Service Operation Preview</span>
-                </div>
-
-                {/* State Transition */}
-                <div className="p-1.5 rounded-lg bg-[#060b17] border border-slate-800 flex items-center justify-between text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400">Current State:</span>
-                    <p className="font-semibold text-emerald-400">
-                      ● {currentService.status} ({currentService.startupType})
-                    </p>
-                  </div>
-
-                  <ArrowRight className="w-4 h-4 text-cyan-400 shrink-0" />
-
-                  <div>
-                    <span className="text-[10px] text-slate-400">Proposed State:</span>
-                    <p className="font-semibold text-slate-300">
-                      ● {proposedAction?.newStatus || 'Stopped'} ({proposedAction?.newStartupType || 'Manual'})
-                    </p>
-                  </div>
-                </div>
-
-                {/* Checklist fields */}
-                <div className="space-y-0.5 text-[10.5px]">
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Prerequisites:</span>
-                    <span className="text-slate-300">None</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-400">Affected Dependents:</span>
-                    <span className="text-slate-300">{currentService.dependents.length > 0 ? currentService.dependents.join(', ') : 'None'}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Administrator Required:</span>
-                    <span className="text-amber-300 font-semibold flex items-center gap-1">
-                      <AlertTriangle className="w-3 h-3" /> Yes
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Confirmation Step:</span>
-                    <span className="text-amber-300 flex items-center gap-1">
-                      <AlertTriangle className="w-3 h-3" /> User confirmation required
-                    </span>
-                  </div>
-                  <div className="flex justify-between pt-0.5">
-                    <span className="text-slate-400">Event Stream (preview):</span>
-                    <span className="text-slate-300">Will log to Windows Event Log (System)</span>
-                  </div>
-                </div>
-
-                {/* Primary Action Buttons */}
-                <div className="grid grid-cols-4 gap-1.5 pt-0.5">
-                  <button
-                    disabled={currentService.status === 'Running'}
-                    onClick={() => {
-                      setProposedAction({ type: 'Start', newStatus: 'Running' });
-                      setActiveModal('review-change');
-                    }}
-                    className={`py-1 px-2 rounded-lg border text-xs font-medium flex items-center justify-center gap-1 whitespace-nowrap transition-all ${
-                      currentService.status === 'Running'
-                        ? 'bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed'
-                        : 'bg-emerald-950/60 border-emerald-500/50 text-emerald-300 hover:bg-emerald-900/70'
-                    }`}
-                  >
-                    <Play className="w-3 h-3" />
-                    <span>Start</span>
-                  </button>
-
-                  <button
-                    disabled={currentService.status === 'Stopped'}
-                    onClick={() => {
-                      setProposedAction({ type: 'Stop', newStatus: 'Stopped' });
-                      setActiveModal('review-change');
-                    }}
-                    className={`py-1 px-2 rounded-lg border text-xs font-medium flex items-center justify-center gap-1 whitespace-nowrap transition-all ${
-                      currentService.status === 'Stopped'
-                        ? 'bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed'
-                        : 'bg-rose-950/70 border-rose-500/60 text-rose-200 hover:bg-rose-900/80'
-                    }`}
-                  >
-                    <StopSquare className="w-3 h-3" />
-                    <span>Stop</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setProposedAction({ type: 'Restart', newStatus: 'Running' });
-                      setActiveModal('review-change');
-                    }}
-                    className="py-1 px-2 rounded-lg bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-medium flex items-center justify-center gap-1 whitespace-nowrap transition-colors"
-                  >
-                    <RotateCcw className="w-3 h-3" />
-                    <span>Restart</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setStartupTypeDraft(currentService.startupType);
-                      setActiveModal('change-startup-type');
-                    }}
-                    title={isArabic ? 'تغيير نوع بدء التشغيل' : 'Change Startup Type'}
-                    className="services-compact-btn py-1 px-2 rounded-lg bg-slate-900/80 border border-slate-700 hover:bg-slate-800 text-slate-300 font-medium flex items-center justify-center gap-0.5 transition-colors"
-                  >
-                    <span>{isArabic ? 'بدء التشغيل' : 'Startup'}</span>
-                    <ChevronDown className="w-3 h-3" />
-                  </button>
-                </div>
-
-                {/* Sticky Action Footer */}
-                <div className="pt-0.5 flex items-center gap-2">
-                  <button
-                    onClick={() => setActiveModal('review-change')}
-                    className="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium text-xs shadow-md transition-all text-center"
-                  >
-                    Review Change
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setSelectedServiceName('WinDefend');
-                      setToastMessage('Reset selection to default');
-                      setTimeout(() => setToastMessage(null), 1800);
-                    }}
-                    className="px-4 py-1.5 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-medium transition-colors"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-
             </div>
 
-          </section>
+            {snapshot ? (
+              <Panel className="svc-graph-panel" title={t(locale, 'Dependency network', 'شبكة الاعتماديات')} sub={selected ? `${selected.name} · ${impact?.upstream.length || 0} upstream · ${impact?.directDependents.length || 0} downstream · ${formatCount(snapshot.edges.length)} ${t(locale, 'measured edges', 'حافة مقيسة')}` : undefined} icon={GitBranch}>
+                <div data-testid="services-dependency-graph"><DependencyGraph locale={locale} snapshot={snapshot} service={selected} onSelect={setSelectedName} /></div>
+              </Panel>
+            ) : null}
 
-        </main>
+            <section className="svc-tools-panel" aria-labelledby="svc-tools-title">
+              <div className="svc-panel-head">
+                <div><h2 id="svc-tools-title"><Wrench aria-hidden="true" />{t(locale, 'Service tools', 'أدوات الخدمات')} ({formatCount(SERVICES_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised measured workbench. No operation is executed.', 'تفتح كل أداة مساحة عمل مقيسة متخصصة. لا تُنفذ أي عملية.')}</p></div>
+              </div>
+              <div className="svc-tool-grid" data-testid="services-tool-grid">
+                {SERVICES_TOOLS.map(renderToolCard)}
+              </div>
+            </section>
+
+            <div className="svc-lower-grid">
+              <Panel title={t(locale, 'Service activity journal', 'سجل نشاط الخدمات')} sub={t(locale, 'Immutable previews only. Executed operations: 0.', 'معاينات ثابتة فقط. العمليات المنفذة: 0.')} icon={History} actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('services-undo')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Open journal', 'فتح السجل')}</button>}>
+                {journal.length ? (
+                  <div className="svc-history">
+                    <div className="svc-history-head"><span>{t(locale, 'Date & time', 'التاريخ والوقت')}</span><span>{t(locale, 'Service', 'الخدمة')}</span><span>{t(locale, 'Action', 'الإجراء')}</span><span>{t(locale, 'Result', 'النتيجة')}</span></div>
+                    {journal.slice(0, 5).map((entry: ServicesJournalEntry) => (
+                      <button key={entry.id} type="button" className="svc-history-row" data-testid="services-journal-row" onClick={() => openTool('services-undo')}>
+                        <span>{formatTimestamp(entry.at, locale)}</span>
+                        <span>{entry.displayName || entry.serviceName}</span>
+                        <span>{actionLabel(entry.action, locale)}</span>
+                        <span><Chip tone={entry.kind === 'blocked-preview' ? 'bad' : 'info'}>{t(locale, 'Preview only', 'معاينة فقط')}</Chip></span>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="svc-empty"><FileText aria-hidden="true" /><strong>{t(locale, 'No service preview yet', 'لا معاينة خدمة بعد')}</strong><p>{t(locale, 'Stage an operation preview. The journal records the review and keeps executed operations at zero.', 'هيّئ معاينة عملية. يسجل السجل المراجعة ويبقي العمليات المنفذة صفرًا.')}</p></div>
+                )}
+              </Panel>
+              <Panel title={t(locale, 'Persistent actions', 'إجراءات دائمة')} icon={Lock}>
+                <div className="svc-action-stack">
+                  <button type="button" className="svc-action-card is-primary" onClick={() => openTool('services-control')} disabled={!snapshot} data-testid="services-review-selected">
+                    <FileText aria-hidden="true" /><span><strong>{t(locale, 'Review selected service', 'مراجعة الخدمة المحددة')}</strong><em>{selected ? selected.displayName || selected.name : t(locale, 'Select a service first', 'اختر خدمة أولًا')}</em></span><ArrowRight aria-hidden="true" />
+                  </button>
+                  <button type="button" className="svc-action-card" onClick={() => openTool('services-dependencies')} disabled={!snapshot}>
+                    <GitBranch aria-hidden="true" /><span><strong>{t(locale, 'Open dependency map', 'فتح خريطة الاعتماديات')}</strong><em>{impact ? `${impact.upstream.length} upstream · ${impact.directDependents.length} downstream` : t(locale, 'No service selected', 'لا خدمة محددة')}</em></span><ChevronRight aria-hidden="true" />
+                  </button>
+                  <button type="button" className="svc-action-card" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}>
+                    <Download aria-hidden="true" /><span><strong>{t(locale, 'Export service evidence', 'تصدير أدلة الخدمات')}</strong><em>{t(locale, 'Measured report, redacted by default', 'تقرير مقيس منقح افتراضيًا')}</em></span><ArrowRight aria-hidden="true" />
+                  </button>
+                </div>
+                <div className="svc-chip-row">
+                  <Chip tone="bad" icon={Lock}>{t(locale, 'Start/stop/restart not executable', 'البدء/الإيقاف/إعادة التشغيل غير قابل للتنفيذ')}</Chip>
+                  <Chip tone="warn" icon={ShieldAlert}>{t(locale, 'Protected deny by policy', 'منع الحماية بالسياسة')}</Chip>
+                </div>
+              </Panel>
+            </div>
+
+            <div className="sys-foot-strip">
+              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: Win32_Service · Win32_Process · System event log · local preview journal</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'No StartService/StopService/ChangeServiceConfig or sc.exe channel exists in Mission 12.', 'لا توجد قناة StartService/StopService/ChangeServiceConfig أو sc.exe في المهمة 12.')}</span>
+              {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
+            </div>
+          </main>
+
+          <footer className="sys-actionbar svc-actionbar" data-testid="services-actionbar">
+            <div className="sys-actionbar-summary">
+              <strong>{scanStatus}</strong>
+              <span className="sys-mono">{snapshot ? `${formatCount(snapshot.summary.total)} ${t(locale, 'services', 'خدمة')} · ${formatCount(snapshot.summary.protected)} ${t(locale, 'protected', 'محمية')} · ${formatCount(snapshot.events.length)} ${t(locale, 'events', 'حدث')}` : t(locale, 'No measured service register yet.', 'لا سجل خدمات مقيس بعد.')}</span>
+              <span className="sys-chip sys-chip-bad">{t(locale, '0 executed', '0 منفذ')}</span>
+              {snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}
+            </div>
+            <div className="sys-actionbar-actions">
+              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('services-undo')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Journal', 'السجل')}</button>
+              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('services-control')} disabled={!snapshot}><FileText aria-hidden="true" />{t(locale, 'Review selected', 'مراجعة المحدد')}</button>
+              <button type="button" className="sys-btn sys-btn-primary" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh evidence', 'تحديث الأدلة')}</button>
+            </div>
+          </footer>
+        </div>
       </div>
 
-      <DesignPreviewModal
-        open={activeModal === 'review-change'}
-        title={isArabic ? 'مراجعة تغيير الخدمة' : 'Review Service Change'}
-        subtitle={currentService.displayName}
-        worldLabel={isArabic ? 'الخدمات' : 'Windows Services'}
-        isArabic={isArabic}
-        onClose={() => setActiveModal(null)}
-        fields={[
-          { label: isArabic ? 'الخدمة' : 'Service', value: currentService.name, tone: 'cyan' },
-          { label: isArabic ? 'الحالة الحالية' : 'Current State', value: currentService.status },
-          { label: isArabic ? 'الحالة المقترحة' : 'Proposed State', value: proposedAction?.newStatus ?? currentService.status, tone: 'emerald' },
-          { label: isArabic ? 'نوع البدء' : 'Startup Type', value: proposedAction?.newStartupType ?? currentService.startupType },
-          { label: isArabic ? 'الحساب' : 'Account', value: currentService.account, tone: 'muted' },
-          { label: isArabic ? 'متطلب مدير النظام' : 'Administrator Required', value: 'Yes', tone: 'amber' },
-          { label: isArabic ? 'سجل الأحداث (معاينة)' : 'Event Stream (preview)', value: 'Windows Event Log (System)', tone: 'muted' },
-        ]}
-        notice={
-          isArabic
-            ? 'يؤثر هذا الإجراء على نموذج الجلسة المحلية فقط. لا يتم تطبيقه على ويندوز في هذه المرحلة.'
-            : 'This action applies to the local session fixture only. No Windows service is mutated in this phase.'
-        }
-        confirmLabel={isArabic ? 'تطبيق على المعاينة' : 'Apply to Session Preview'}
-        onConfirm={() => {
-          handleApplyChange(
-            {
-              status: proposedAction?.newStatus ?? currentService.status,
-              startupType: proposedAction?.newStartupType ?? currentService.startupType,
-            },
-            {
-              id: 'act-' + Date.now(),
-              timestamp: 'now',
-              serviceName: currentService.name,
-              action:
-                proposedAction?.type === 'ChangeStartup'
-                  ? 'Startup Type Changed'
-                  : proposedAction?.type === 'Restart'
-                    ? 'Restarted'
-                    : proposedAction?.type === 'Stop'
-                      ? 'Stopped'
-                      : 'Started',
-              previousState: currentService.status + ' (' + currentService.startupType + ')',
-              newState:
-                (proposedAction?.newStatus ?? currentService.status) +
-                ' (' +
-                (proposedAction?.newStartupType ?? currentService.startupType) +
-                ')',
-              details: 'Session preview applied for ' + currentService.name + '.',
-              user: 'KNOuX Preview Session',
-            }
-          );
-          setActiveModal(null);
-        }}
-      />
-
-      <DesignPreviewModal
-        open={activeModal === 'change-startup-type'}
-        title={isArabic ? 'تغيير نوع البدء' : 'Change Startup Type'}
-        subtitle={currentService.displayName}
-        worldLabel={isArabic ? 'الخدمات' : 'Windows Services'}
-        isArabic={isArabic}
-        onClose={() => setActiveModal(null)}
-        fields={[
-          { label: isArabic ? 'الخدمة' : 'Service', value: currentService.name, tone: 'cyan' },
-          { label: isArabic ? 'نوع البدء الحالي' : 'Current Startup Type', value: currentService.startupType },
-        ]}
-        notice={
-          isArabic
-            ? 'اختر نوع البدء المراد تطبيقه على نموذج المعاينة المحلي.'
-            : 'Choose the startup type to apply to the local preview fixture.'
-        }
-        confirmLabel={isArabic ? 'تطبيق على المعاينة' : 'Apply to Session Preview'}
-        confirmDisabled={!startupTypeDraft}
-        onConfirm={() => {
-          if (!startupTypeDraft) return;
-          setProposedAction({
-            type: 'ChangeStartup',
-            newStatus: currentService.status,
-            newStartupType: startupTypeDraft,
-          });
-          setActiveModal(null);
-        }}
-      >
-        <div className="grid grid-cols-2 gap-2">
-          {(['Automatic', 'Automatic (Delayed)', 'Manual', 'Disabled'] as StartupType[]).map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setStartupTypeDraft(t)}
-              className={
-                'px-2.5 py-1.5 rounded-lg border text-[11px] font-medium transition ' +
-                (startupTypeDraft === t
-                  ? 'bg-cyan-950/70 border-cyan-500/60 text-cyan-200'
-                  : 'bg-[#050e1f] border-slate-800 text-slate-300 hover:border-slate-700')
-              }
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </DesignPreviewModal>
-
-      <DesignPreviewModal
-        open={activeModal === 'activity-view-all'}
-        title={isArabic ? 'كل نشاط الخدمات' : 'All Service Activity'}
-        subtitle={isArabic ? 'سجل المعاينة المحلي' : 'Local preview journal'}
-        worldLabel={isArabic ? 'الخدمات' : 'Windows Services'}
-        isArabic={isArabic}
-        onClose={() => setActiveModal(null)}
-        notice={
-          isArabic
-            ? 'سجل مصمم داخل التطبيق. لا يحتوي على أحداث ويندوز حقيقية.'
-            : 'Application-local journal. These entries are design fixtures, not real Windows events.'
-        }
-      >
-        <div className="rounded-xl border border-slate-800/80 overflow-hidden">
-          <table className="w-full text-left text-[11px]">
-            <thead className="bg-[#071329] text-slate-400 font-mono uppercase text-[10px]">
-              <tr>
-                <th className="p-2">{isArabic ? 'الوقت' : 'Timestamp'}</th>
-                <th className="p-2">{isArabic ? 'الخدمة' : 'Service'}</th>
-                <th className="p-2">{isArabic ? 'الإجراء' : 'Action'}</th>
-                <th className="p-2">{isArabic ? 'الحالة الجديدة' : 'New State'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {activityLogs.map((log) => (
-                <tr key={log.id} className="border-b border-slate-800/50 font-mono">
-                  <td className="p-2 text-slate-400">{log.timestamp}</td>
-                  <td className="p-2 text-slate-200">{log.serviceName}</td>
-                  <td className="p-2 text-cyan-300">{log.action}</td>
-                  <td className="p-2 text-emerald-300">{log.newState}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </DesignPreviewModal>
-
-      {activeServiceWorkspace && (
-        <ServicesWorkspaces
-          serviceKey={activeServiceWorkspace}
-          onClose={() => setActiveServiceWorkspace(null)}
-          isArabic={isArabic}
-        />
-      )}
-
+      {activeTool && snapshot ? <ServicesServiceWorkspace toolId={activeTool} locale={locale} controller={controller} onClose={closeTool} /> : null}
     </div>
   );
 }
+
+const emptySnapshot = {
+  contract: 'services.v1',
+  generatedAt: '',
+  readOnly: true,
+  mutation: 'none',
+  fixtureFallback: false,
+  services: [],
+  total: 0,
+  truncated: false,
+  elevation: { isAdmin: null },
+  summary: { total: 0, running: 0, stopped: 0, automatic: 0, manual: 0, disabled: 0, delayed: 0, protected: 0, thirdParty: 0 },
+  edges: [],
+  events: [],
+  eventCoverage: { status: 'unavailable', count: 0, days: 7, reason: null },
+  svchost: [],
+  journal: [],
+  gates: [],
+  coverage: [],
+  warnings: [],
+  sources: [],
+  receipt: '',
+} as never;

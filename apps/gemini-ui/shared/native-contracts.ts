@@ -2934,6 +2934,270 @@ export interface RepairShellApi {
   openSettings: (target: 'windowsupdate' | 'troubleshoot' | 'recovery') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
 }
 
+/* -------------------------------------------------------------------------- */
+/* Services v1 - Service Commander (Mission 12)                               */
+/* -------------------------------------------------------------------------- */
+
+export type ServicesToolId =
+  | 'services-inventory'
+  | 'services-control'
+  | 'services-undo'
+  | 'services-dependencies'
+  | 'services-protected'
+  | 'services-search'
+  | 'services-startup-report'
+  | 'services-state-history'
+  | 'services-dependents'
+  | 'services-diagnose'
+  | 'services-config'
+  | 'services-perf';
+
+export type ServicesStageKey = 'inventory' | 'graph' | 'protected' | 'events' | 'processes' | 'journal';
+
+export interface ServicesStage {
+  key: ServicesStageKey;
+  labelEn: string;
+  labelAr: string;
+  status: 'pending' | 'running' | 'complete' | 'partial' | 'failed' | 'cancelled';
+  provider: string;
+  startedAt: string | null;
+  completedAt: string | null;
+  durationMs: number | null;
+  items: number | null;
+  warning: string | null;
+}
+
+export interface ServicesSession {
+  contract: 'services.v1';
+  id: string;
+  status: 'running' | 'complete' | 'partial' | 'cancelled' | 'failed';
+  startedAt: string;
+  completedAt: string | null;
+  progress: number;
+  stages: ServicesStage[];
+  warnings: string[];
+  readOnly: true;
+  mutation: 'none';
+}
+
+export type ServiceAction = 'start' | 'stop' | 'restart' | 'startup-type';
+export type ServiceStartupType = 'automatic' | 'manual' | 'disabled' | 'delayed';
+
+export interface ServiceRecord {
+  name: string;
+  displayName: string | null;
+  description: string | null;
+  state: string | null;
+  startupType: 'automatic' | 'manual' | 'disabled' | 'unknown';
+  delayedAuto: boolean | null;
+  account: string | null;
+  pid: number | null;
+  binaryPath: string | null;
+  serviceType: string | null;
+  acceptsStop: boolean | null;
+  dependencies: string[];
+  dependents: string[];
+  protected: boolean;
+  protectionRole: 'security' | 'rpc' | 'networking' | 'servicing' | 'system' | 'audio' | 'kernel-driver' | 'non-stoppable' | null;
+  protectionReason: string | null;
+  controllable: boolean;
+  source: string;
+}
+
+export interface ServiceDependencyEdge {
+  from: string;
+  to: string;
+}
+
+export interface ServiceEventRecord {
+  id: string;
+  at: string | null;
+  eventId: number | null;
+  level: number | null;
+  provider: string;
+  serviceName: string | null;
+  message: string;
+  source: string;
+}
+
+export interface ServiceSvchostGroup {
+  pid: number;
+  group: string | null;
+  workingSetBytes: number | null;
+  serviceCount: number;
+  services: string[];
+  source: string;
+}
+
+export interface ServicesJournalEntry {
+  id: string;
+  at: string;
+  kind: 'preview' | 'blocked-preview';
+  serviceName: string;
+  displayName: string | null;
+  action: ServiceAction;
+  title: string;
+  summary: string;
+  currentState: string | null;
+  proposedState: string | null;
+  currentStartupType: string | null;
+  proposedStartupType: string | null;
+  protected: boolean;
+  elevationRequired: boolean;
+  receipt: string;
+  readOnly: true;
+  mutation: 'none';
+}
+
+export interface ServicesSnapshot {
+  contract: 'services.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  services: ServiceRecord[];
+  total: number;
+  truncated: boolean;
+  elevation: { isAdmin: boolean | null };
+  summary: {
+    total: number;
+    running: number;
+    stopped: number;
+    automatic: number;
+    manual: number;
+    disabled: number;
+    delayed: number;
+    protected: number;
+    thirdParty: number;
+  };
+  edges: ServiceDependencyEdge[];
+  events: ServiceEventRecord[];
+  eventCoverage: { status: 'available' | 'permission_denied' | 'unavailable'; count: number; days: number; reason: string | null };
+  svchost: ServiceSvchostGroup[];
+  journal: ServicesJournalEntry[];
+  gates: Array<{ id: string; mission: string; title: string; reason: string }>;
+  coverage: Array<{ key: ServicesStageKey; status: 'complete' | 'partial' | 'unavailable' | 'cancelled'; items: number | null; note: string | null }>;
+  warnings: string[];
+  sources: string[];
+  receipt: string;
+}
+
+export interface ServiceDependencyImpact {
+  directDependents: string[];
+  cascadeDependents: string[];
+  runningDependents: string[];
+  protectedDependents: string[];
+  upstream: string[];
+}
+
+export interface ServiceOperationPlanItem {
+  id: string;
+  serviceName: string;
+  displayName: string | null;
+  action: ServiceAction;
+  actionLabelEn: string;
+  actionLabelAr: string;
+  current: { state: string | null; startupType: string | null; delayedAuto: boolean | null };
+  proposed: { state: string | null; startupType: string | null; delayedAuto: boolean | null };
+  protected: boolean;
+  protectionRole: string | null;
+  protectionReason: string | null;
+  elevationRequired: true;
+  rebootRequired: false;
+  dependencyImpact: ServiceDependencyImpact;
+  conflicts: string[];
+  prerequisites: Array<{ id: string; labelEn: string; labelAr: string; status: 'passed' | 'failed' | 'unknown'; detail: string }>;
+  execution: { available: false; reason: string };
+  receipt: string;
+}
+
+export interface ServiceOperationPlan {
+  contract: 'services.v1';
+  id: string;
+  createdAt: string;
+  readOnly: true;
+  mutation: 'none';
+  immutable: true;
+  mode: 'preview';
+  itemCount: 1;
+  item: ServiceOperationPlanItem;
+  execution: { available: false; reason: string };
+  journalRecorded: boolean;
+  warnings: string[];
+  receipt: string;
+}
+
+export interface ServicesReport {
+  contract: 'services.v1';
+  generatedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  redacted: boolean;
+  summary: string;
+  sections: Array<{
+    id: string;
+    titleEn: string;
+    titleAr: string;
+    status: 'validated' | 'partial' | 'unavailable';
+    measured: number;
+    unknown: number;
+    items: Array<{ label: string; value: string; status: 'measured' | 'unknown' | 'warning' }>;
+  }>;
+  warnings: string[];
+  receipt: string;
+}
+
+export interface ServicesCapabilities {
+  engine: string;
+  contract: 'services.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  serviceCount: 12;
+  worldCount: 1;
+  services: Array<{
+    id: ServicesToolId;
+    world: 'services';
+    labelEn: string;
+    labelAr: string;
+    state: 'available' | 'partial' | 'gated';
+    risk: 'read-only' | 'staged-change';
+    provider: string;
+    noteEn: string;
+    noteAr: string;
+  }>;
+  gatedOperations: Array<{ id: string; mission: string; title: string; reason: string }>;
+  elevation: { isAdmin: boolean | null; method: 'user-initiated UAC only'; automaticElevation: false };
+  limits: { services: number; events: number; journalEntries: number; discoveryTimeoutMs: number };
+  nativeOnly: string[];
+}
+
+export interface RepairShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<RepairCapabilities>>;
+  start: () => Promise<NativeEnvelope<RepairSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<RepairSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  snapshot: () => Promise<NativeEnvelope<RepairSnapshot>>;
+  plan: (toolIds: RepairToolId[]) => Promise<NativeEnvelope<RepairPlan>>;
+  journal: () => Promise<NativeEnvelope<RepairJournalEntry[]>>;
+  report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<RepairReport>>;
+  openSettings: (target: 'windowsupdate' | 'troubleshoot' | 'recovery') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+}
+
+export interface ServicesShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<ServicesCapabilities>>;
+  start: () => Promise<NativeEnvelope<ServicesSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<ServicesSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  snapshot: () => Promise<NativeEnvelope<ServicesSnapshot>>;
+  plan: (request: { serviceName: string; action: ServiceAction; startupType?: ServiceStartupType }) => Promise<NativeEnvelope<ServiceOperationPlan>>;
+  journal: () => Promise<NativeEnvelope<ServicesJournalEntry[]>>;
+  report: (options?: { redact?: boolean }) => Promise<NativeEnvelope<ServicesReport>>;
+}
+
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

@@ -32,6 +32,7 @@ const { CleanupBridge } = require('./native/cleanup-bridge.cjs');
 const { StartupBridge } = require('./native/startup-bridge.cjs');
 const { SystemBridge } = require('./native/system-bridge.cjs');
 const { RepairBridge } = require('./native/repair-bridge.cjs');
+const { ServicesBridge } = require('./native/services-bridge.cjs');
 const {
   ok,
   fail,
@@ -95,6 +96,7 @@ let cleanupBridge = null;
 let startupBridge = null;
 let systemBridge = null;
 let repairBridge = null;
+let servicesBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -1371,6 +1373,119 @@ function registerIpc() {
     })
   );
 
+  const SERVICES_SESSION = /^[a-f0-9-]{8,64}$/i;
+  const servicesGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!servicesBridge) {
+        throw Object.assign(new Error('The read-only Service Commander is not initialized.'), { code: 'SERVICES_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Service Commander read-only SCM evidence',
+        permission,
+        provenance: { mode: 'measured', mutation: 'none' },
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Service Commander read-only SCM evidence',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'SERVICES_FAILURE',
+          message: String(error?.message || 'Service request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const servicesRequest = (args) => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured Service Commander request is required.'), { code: 'SERVICES_INPUT_INVALID' });
+    }
+    return args[0];
+  };
+
+  ipcMain.handle(contract.channels.servicesCapabilities, (event, ...args) =>
+    servicesGuard(event, 'services.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.servicesCapabilities);
+      return servicesBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.servicesStart, (event, ...args) =>
+    servicesGuard(event, 'services.start', 'read-only', () => {
+      assertNoArguments(args, contract.channels.servicesStart);
+      return servicesBridge.start();
+    })
+  );
+  ipcMain.handle(contract.channels.servicesStatus, (event, ...args) =>
+    servicesGuard(event, 'services.status', 'read-only', () => {
+      const request = servicesRequest(args);
+      if (typeof request.sessionId !== 'string' || !SERVICES_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid service discovery session identifier is required.'), { code: 'SERVICES_SESSION_INVALID' });
+      }
+      return servicesBridge.status(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.servicesCancel, (event, ...args) =>
+    servicesGuard(event, 'services.cancel', 'user-initiated', () => {
+      const request = servicesRequest(args);
+      if (typeof request.sessionId !== 'string' || !SERVICES_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid service discovery session identifier is required.'), { code: 'SERVICES_SESSION_INVALID' });
+      }
+      return servicesBridge.cancel(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.servicesSnapshot, (event, ...args) =>
+    servicesGuard(event, 'services.snapshot', 'read-only', () => {
+      assertNoArguments(args, contract.channels.servicesSnapshot);
+      return servicesBridge.snapshot();
+    })
+  );
+  ipcMain.handle(contract.channels.servicesPlan, (event, ...args) =>
+    servicesGuard(event, 'services.plan', 'read-only', () => {
+      const request = servicesRequest(args);
+      if (typeof request.serviceName !== 'string' || request.serviceName.length > 256) {
+        throw Object.assign(new Error('A valid service name is required.'), { code: 'SERVICES_NAME_INVALID' });
+      }
+      if (!['start', 'stop', 'restart', 'startup-type'].includes(request.action)) {
+        throw Object.assign(new Error('The requested service action is not supported.'), { code: 'SERVICES_ACTION_INVALID' });
+      }
+      const payload = { serviceName: request.serviceName, action: request.action };
+      if (request.action === 'startup-type') {
+        if (!['automatic', 'manual', 'disabled', 'delayed'].includes(request.startupType)) {
+          throw Object.assign(new Error('A valid startup type is required.'), { code: 'SERVICES_STARTUP_INVALID' });
+        }
+        payload.startupType = request.startupType;
+      }
+      return servicesBridge.plan(payload);
+    })
+  );
+  ipcMain.handle(contract.channels.servicesJournal, (event, ...args) =>
+    servicesGuard(event, 'services.journal', 'read-only', () => {
+      assertNoArguments(args, contract.channels.servicesJournal);
+      return servicesBridge.journal();
+    })
+  );
+  ipcMain.handle(contract.channels.servicesReport, (event, ...args) =>
+    servicesGuard(event, 'services.report', 'read-only', () => {
+      if (args.length > 1) throw Object.assign(new Error('At most one report options object is accepted.'), { code: 'SERVICES_INPUT_INVALID' });
+      let options = {};
+      if (args.length === 1) {
+        if (!args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+          throw Object.assign(new Error('The service report options must be an object.'), { code: 'SERVICES_INPUT_INVALID' });
+        }
+        options = { redact: args[0].redact !== false };
+      }
+      return servicesBridge.report(options);
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -1932,6 +2047,21 @@ async function runSmoke(win) {
             snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'repair.v1',
           };
         }
+        const servicesV1Api = window.knouxServicesV1;
+        let servicesV1 = null;
+        if (servicesV1Api) {
+          const capabilities = await servicesV1Api.capabilities();
+          const started = await servicesV1Api.start();
+          const session = started?.data?.id ? await servicesV1Api.status(started.data.id) : null;
+          const snapshot = await servicesV1Api.snapshot().catch(() => null);
+          servicesV1 = {
+            bridgePresent: true,
+            capabilities,
+            started,
+            session,
+            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'services.v1',
+          };
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -1946,6 +2076,7 @@ async function runSmoke(win) {
           startupBridgePresent: Boolean(startupApi),
           systemV1BridgePresent: Boolean(systemV1Api),
           repairV1BridgePresent: Boolean(repairV1Api),
+          servicesV1BridgePresent: Boolean(servicesV1Api),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -1961,6 +2092,7 @@ async function runSmoke(win) {
           startup,
           systemV1,
           repairV1,
+          servicesV1,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -3591,6 +3723,340 @@ async function runSmoke(win) {
         receipt.repair1920ScreenshotBytes = (await fsp.stat(repair1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Mission 12 Service Commander: measured SCM evidence, twelve
+        // specialised workbenches, one immutable preview, keyboard and RTL.
+        // No service is started, stopped, restarted or reconfigured.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'services'; return true; })()`,
+          true
+        );
+        const servicesDeadline = Date.now() + 90000;
+        let servicesUiReady = false;
+        while (Date.now() < servicesDeadline) {
+          await sleep(700);
+          servicesUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="services-workspace"]');
+               const banner = document.querySelector('[data-testid="services-native-banner"]');
+               const required = document.querySelector('[data-testid="services-native-required"]');
+               const total = document.querySelector('[data-testid="services-kpi-total-value"]')?.textContent?.trim() || '';
+               const cards = document.querySelectorAll('[data-testid="services-tool-grid"] button[data-testid^="services-tool-"]').length;
+               const graph = document.querySelector('[data-testid="services-dependency-graph"]');
+               const op = document.querySelector('[data-testid="services-operation-preview"]');
+               const activity = document.querySelector('[data-testid="services-mini-journal"]');
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 total !== '' && total !== '—' && total !== '-' &&
+                 cards === 12 && Boolean(graph) && Boolean(op) && Boolean(activity) &&
+                 /Measured Service Commander|قائد الخدمات المقيس/.test(bannerText);
+             })()`,
+            true
+          );
+          if (servicesUiReady) break;
+        }
+        const servicesControlProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const main = document.querySelector('[data-testid="services-workspace"]');
+             if (!main) return { ok: false, failures: ['workspace-missing'] };
+             const rows = Array.from(main.querySelectorAll('[data-testid="services-register-row"]'));
+             if (!rows.length) failures.push('register:empty');
+             else {
+               // Keep the page's initial running non-protected selection so the
+               // preview exercises a representable state transition.
+               const stage = main.querySelector('[data-testid="services-stage-preview"]');
+               if (!stage) failures.push('stage:missing');
+               else {
+                 stage.click();
+                 await wait(600);
+                 if (!main.querySelector('[data-testid="services-plan-ready"]')) failures.push('plan:missing');
+                 const journalRows = main.querySelectorAll('[data-testid="services-journal-row"]').length;
+                 if (journalRows < 1) failures.push('journal:no-row');
+                 const activityRows = main.querySelectorAll('[data-testid="services-mini-journal"] .svc-mini-row').length;
+                 if (activityRows < 1) failures.push('activity:no-row');
+               }
+             }
+             const search = main.querySelector('input[aria-label="Search services"], input[aria-label="بحث الخدمات"]');
+             if (!search) failures.push('search:missing');
+             else {
+               const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+               setter.call(search, 'svc');
+               search.dispatchEvent(new Event('input', { bubbles: true }));
+               await wait(150);
+               const filtered = main.querySelectorAll('[data-testid="services-register-row"]').length;
+               if (filtered < 1 || filtered >= rows.length) failures.push('search:filter-' + filtered);
+               setter.call(search, '');
+               search.dispatchEvent(new Event('input', { bubbles: true }));
+               await wait(150);
+             }
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.servicesControlProbe = servicesControlProbe;
+        const servicesToolProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const seen = new Set();
+             const ids = ${JSON.stringify([
+               'services-inventory',
+               'services-control',
+               'services-undo',
+               'services-dependencies',
+               'services-protected',
+               'services-search',
+               'services-startup-report',
+               'services-state-history',
+               'services-dependents',
+               'services-diagnose',
+               'services-config',
+               'services-perf',
+             ])};
+             for (const id of ids) {
+               const card = document.querySelector('[data-testid="services-tool-' + id + '"]');
+               if (!card) { failures.push(id + ':card-missing'); continue; }
+               card.click();
+               await wait(270);
+               const workbench = document.querySelector('[data-testid="services-service-workspace-' + id + '"]');
+               const shell = document.querySelector('[data-testid="services-service-shell-' + id + '"]');
+               const body = workbench ? workbench.querySelector('.svc-wb-body') : null;
+               const text = workbench ? String(workbench.innerText || '').trim() : '';
+               if (workbench && shell && body && text.length >= 30) {
+                 seen.add(id);
+                 const segs = Array.from(workbench.querySelectorAll('.sys-seg'));
+                 for (let index = 0; index < Math.min(segs.length, 3); index += 1) {
+                   const options = Array.from(segs[index].querySelectorAll('button'));
+                   if (options.length < 2) continue;
+                   options[1].click();
+                   await wait(40);
+                   if (!options[1].classList.contains('is-active')) failures.push(id + ':seg-' + index);
+                   options[0].click();
+                   await wait(20);
+                 }
+               } else {
+                 failures.push(id + ':render');
+               }
+               const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+               if (!close) failures.push(id + ':close-missing');
+               else close.click();
+               await wait(140);
+               if (document.querySelector('[data-testid="services-service-shell-' + id + '"]')) failures.push(id + ':close-failed');
+             }
+             return { ok: failures.length === 0 && seen.size === 12, checked: seen.size, failures };
+           })()`,
+          true
+        );
+        receipt.servicesToolProbe = servicesToolProbe;
+        const servicesKeyboardProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="services-tool-services-inventory"]');
+             if (!card) return { ok: false, reason: 'card-missing' };
+             card.focus();
+             card.click();
+             await wait(320);
+             const selector = '[data-testid="services-service-shell-services-inventory"]';
+             const shell = document.querySelector(selector);
+             const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
+             const focused = Boolean(close) && document.activeElement === close;
+             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+             await wait(300);
+             return { ok: focused && !document.querySelector(selector), focused };
+           })()`,
+          true
+        );
+        receipt.servicesKeyboardProbe = servicesKeyboardProbe;
+        try {
+          const finalSession = servicesBridge?.status?.(renderer.servicesV1?.session?.data?.id);
+          if (finalSession) {
+            receipt.servicesFinalSession = {
+              id: finalSession.id,
+              status: finalSession.status,
+              progress: finalSession.progress,
+              readOnly: finalSession.readOnly,
+              mutation: finalSession.mutation,
+              warnings: finalSession.warnings.length,
+              stages: finalSession.stages.map((stage) => ({ key: stage.key, status: stage.status, items: stage.items, durationMs: stage.durationMs })),
+            };
+          }
+          const measured = await servicesBridge?.snapshot?.();
+          if (measured) {
+            receipt.servicesMeasured = {
+              generatedAt: measured.generatedAt,
+              receipt: measured.receipt,
+              total: measured.summary.total,
+              running: measured.summary.running,
+              stopped: measured.summary.stopped,
+              protected: measured.summary.protected,
+              automatic: measured.summary.automatic,
+              manual: measured.summary.manual,
+              disabled: measured.summary.disabled,
+              delayed: measured.summary.delayed,
+              thirdParty: measured.summary.thirdParty,
+              edges: measured.edges.length,
+              events: measured.events.length,
+              eventCoverage: measured.eventCoverage,
+              svchost: measured.svchost.length,
+              elevation: measured.elevation,
+              gates: measured.gates.length,
+              coverage: measured.coverage,
+              warnings: measured.warnings.length,
+              sources: measured.sources.length,
+            };
+          }
+          const finalJournal = await servicesBridge?.journal?.();
+          receipt.servicesJournalCount = Array.isArray(finalJournal) ? finalJournal.length : 0;
+        } catch (error) {
+          receipt.servicesFinalError = redactError(error);
+        }
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="services-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(500);
+        const servicesShotPath = smokeShotPath.replace(/native-bridge/i, 'services-measured');
+        const servicesImage = await win.webContents.capturePage();
+        await fsp.writeFile(servicesShotPath, servicesImage.toPNG());
+        receipt.servicesScreenshot = servicesShotPath;
+        receipt.servicesScreenshotBytes = (await fsp.stat(servicesShotPath)).size;
+        receipt.servicesUiReady = servicesUiReady;
+
+        // Privacy-safe workbench: service register and SCM dossier, no user path.
+        await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const card = document.querySelector('[data-testid="services-tool-services-inventory"]');
+             if (card) card.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(700);
+        const servicesWorkbenchPath = servicesShotPath.replace(/services-measured/i, 'services-workbench');
+        const servicesWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(servicesWorkbenchPath, servicesWorkbenchImage.toPNG());
+        receipt.servicesWorkbenchScreenshot = servicesWorkbenchPath;
+        receipt.servicesWorkbenchScreenshotBytes = (await fsp.stat(servicesWorkbenchPath)).size;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const close = document.querySelector('[data-testid="services-service-shell-services-inventory"] button[aria-label="Close service"], [data-testid="services-service-shell-services-inventory"] button[aria-label="إغلاق الخدمة"]');
+             if (close) close.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(450);
+
+        await win.webContents.executeJavaScript(
+          `(() => { document.querySelector('button[title="Switch to light theme"], button[title="Switch to dark theme"]')?.click(); return true; })()`,
+          true
+        );
+        await sleep(850);
+        const servicesLightPath = servicesShotPath.replace(/\.png$/i, '-light.png');
+        const servicesLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(servicesLightPath, servicesLightImage.toPNG());
+        receipt.servicesLightScreenshot = servicesLightPath;
+        receipt.servicesLightScreenshotBytes = (await fsp.stat(servicesLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(950);
+        const servicesArabicPath = servicesShotPath.replace(/\.png$/i, '-ar-light.png');
+        const servicesArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(servicesArabicPath, servicesArabicImage.toPNG());
+        receipt.servicesArabicScreenshot = servicesArabicPath;
+        receipt.servicesArabicScreenshotBytes = (await fsp.stat(servicesArabicPath)).size;
+
+        const servicesRtlLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="services-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.svc-kpi'));
+             if (!main || kpis.length !== 6) return { ok: false, reason: 'rtl panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const withinWidth = kpis.every((node) => {
+               const rect = node.getBoundingClientRect();
+               return rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             });
+             const direction = getComputedStyle(main).direction;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth || main.scrollWidth > main.clientWidth + 1;
+             return { ok: direction === 'rtl' && withinWidth && !horizontalOverflow, direction, withinWidth, horizontalOverflow };
+           })()`,
+          true
+        );
+        receipt.servicesRtlLayout = servicesRtlLayout;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(600);
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const theme = document.querySelector('button[title="Switch to dark theme"], button[title="التبديل إلى الوضع الداكن"]');
+             if (theme) theme.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(850);
+        win.setContentSize(1366, 768);
+        await sleep(950);
+        const services1366Path = servicesShotPath.replace(/\.png$/i, '-1366.png');
+        const services1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(services1366Path, services1366Image.toPNG());
+        receipt.services1366Screenshot = services1366Path;
+        receipt.services1366ScreenshotBytes = (await fsp.stat(services1366Path)).size;
+
+        const services1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="services-workspace"]');
+             const kpis = Array.from(document.querySelectorAll('.svc-kpi'));
+             const tools = document.querySelector('[data-testid="services-tool-grid"]');
+             const operation = document.querySelector('[data-testid="services-operation-preview"]');
+             const actionbar = document.querySelector('[data-testid="services-actionbar"]');
+             if (!main || kpis.length !== 6 || !tools || !operation || !actionbar) return { ok: false, reason: 'services panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const rects = kpis.map((node) => node.getBoundingClientRect());
+             const withinWidth = rects.every((rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1);
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const operationRect = operation.getBoundingClientRect();
+             const operationVisible = operationRect.top >= mainRect.top - 1 && operationRect.top < window.innerHeight && operationRect.bottom > mainRect.top && operationRect.height > 80;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             const actionRect = actionbar.getBoundingClientRect();
+             const footerVisible = actionRect.bottom <= window.innerHeight + 1 && actionRect.top >= 0;
+             const cards = document.querySelectorAll('[data-testid="services-tool-grid"] button[data-testid^="services-tool-"]').length;
+             const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+             return {
+               ok: withinWidth && !horizontalOverflow && scrollWorked && operationVisible && footerVisible && cards === 12 && theme === 'dark',
+               horizontalOverflow, scrollWorked, withinWidth, operationVisible, footerVisible, cards, theme,
+               operationTop: Math.round(operationRect.top), viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.services1366Layout = services1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => { const main = document.querySelector('[data-testid="services-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
+          true
+        );
+        await sleep(350);
+
+        win.setContentSize(1920, 1080);
+        await sleep(950);
+        const services1920Path = servicesShotPath.replace(/\.png$/i, '-1920.png');
+        const services1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(services1920Path, services1920Image.toPNG());
+        receipt.services1920Screenshot = services1920Path;
+        receipt.services1920ScreenshotBytes = (await fsp.stat(services1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -3909,6 +4375,45 @@ async function runSmoke(win) {
     const repairLayoutOk = receipt.repair1366Layout?.ok === true
       && receipt.repair1366Layout?.horizontalOverflow === false
       && receipt.repairRtlLayout?.ok === true;
+    const servicesV1Data = renderer.servicesV1;
+    const servicesOk = Boolean(
+      renderer.servicesV1BridgePresent === true &&
+      servicesV1Data?.capabilities?.status === 'complete' &&
+      servicesV1Data.capabilities.capability === 'services.capabilities' &&
+      servicesV1Data.capabilities.data?.readOnly === true &&
+      servicesV1Data.capabilities.data?.mutation === 'none' &&
+      servicesV1Data.capabilities.data?.fixtureFallback === false &&
+      servicesV1Data.capabilities.data?.serviceCount === 12 &&
+      servicesV1Data.capabilities.data?.gatedOperations?.length === 6 &&
+      servicesV1Data.capabilities.data?.elevation?.automaticElevation === false &&
+      servicesV1Data?.started?.status === 'complete' &&
+      servicesV1Data.started.data?.contract === 'services.v1' &&
+      servicesV1Data.started.data?.readOnly === true &&
+      servicesV1Data?.session?.status === 'complete' &&
+      servicesV1Data.session.data?.contract === 'services.v1' &&
+      servicesV1Data.session.data?.stages?.length === 6 &&
+      servicesV1Data.session.data?.readOnly === true &&
+      ['complete', 'partial'].includes(receipt.servicesFinalSession?.status) &&
+      receipt.servicesFinalSession?.progress === 100 &&
+      receipt.servicesFinalSession?.readOnly === true &&
+      receipt.servicesFinalSession?.mutation === 'none' &&
+      receipt.servicesFinalSession?.stages?.length === 6 &&
+      receipt.servicesMeasured?.total > 0 &&
+      receipt.servicesMeasured?.protected > 0 &&
+      receipt.servicesMeasured?.edges > 0 &&
+      receipt.servicesMeasured?.eventCoverage?.status === 'available' &&
+      receipt.servicesMeasured?.svchost > 0 &&
+      receipt.servicesMeasured?.gates === 6 &&
+      receipt.servicesJournalCount >= 1 &&
+      receipt.servicesControlProbe?.ok === true &&
+      receipt.servicesToolProbe?.ok === true &&
+      receipt.servicesToolProbe?.checked === 12 &&
+      receipt.servicesKeyboardProbe?.ok === true &&
+      receipt.servicesUiReady === true
+    );
+    const servicesLayoutOk = receipt.services1366Layout?.ok === true
+      && receipt.services1366Layout?.horizontalOverflow === false
+      && receipt.servicesRtlLayout?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -3961,10 +4466,17 @@ async function runSmoke(win) {
       receipt.repairArabicScreenshotBytes > 20000 &&
       receipt.repair1366ScreenshotBytes > 20000 &&
       receipt.repair1920ScreenshotBytes > 20000 &&
-      receipt.repairUiReady === true
+      receipt.repairUiReady === true &&
+      receipt.servicesScreenshotBytes > 20000 &&
+      receipt.servicesWorkbenchScreenshotBytes > 20000 &&
+      receipt.servicesLightScreenshotBytes > 20000 &&
+      receipt.servicesArabicScreenshotBytes > 20000 &&
+      receipt.services1366ScreenshotBytes > 20000 &&
+      receipt.services1920ScreenshotBytes > 20000 &&
+      receipt.servicesUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -4097,6 +4609,17 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Recovery Lab coordinator unavailable:', error?.message || error);
       repairBridge = null;
     }
+    try {
+      servicesBridge = new ServicesBridge({
+        userDataPath: app.getPath('userData'),
+        loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+      });
+      trace('services bridge initialized');
+    } catch (error) {
+      trace(`services bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Service Commander coordinator unavailable:', error?.message || error);
+      servicesBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -4126,6 +4649,7 @@ app.whenReady().then(async () => {
 app.on('before-quit', () => {
   void systemBridge?.close?.();
   void repairBridge?.close?.();
+  void servicesBridge?.close?.();
   startupBridge?.dispose();
   cleanupBridge?.dispose();
   appBridge?.dispose();

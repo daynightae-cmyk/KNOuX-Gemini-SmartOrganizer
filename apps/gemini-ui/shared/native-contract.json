@@ -102,7 +102,15 @@
     "repairPlan": "knoux:repair:v1:plan",
     "repairJournal": "knoux:repair:v1:journal",
     "repairReport": "knoux:repair:v1:report",
-    "repairOpenSettings": "knoux:repair:v1:open-settings"
+    "repairOpenSettings": "knoux:repair:v1:open-settings",
+    "servicesCapabilities": "knoux:services:v1:capabilities",
+    "servicesStart": "knoux:services:v1:start",
+    "servicesStatus": "knoux:services:v1:status",
+    "servicesCancel": "knoux:services:v1:cancel",
+    "servicesSnapshot": "knoux:services:v1:snapshot",
+    "servicesPlan": "knoux:services:v1:plan",
+    "servicesJournal": "knoux:services:v1:journal",
+    "servicesReport": "knoux:services:v1:report"
   },
   "capabilities": {
     "bridge.status": {
@@ -692,6 +700,54 @@
       "title": "Open an allowlisted Windows recovery settings page",
       "mode": "user-initiated",
       "channel": "knoux:repair:v1:open-settings"
+    },
+    "services.capabilities": {
+      "id": "services.capabilities",
+      "title": "Discover the twelve Service Commander tools",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:capabilities"
+    },
+    "services.start": {
+      "id": "services.start",
+      "title": "Start a bounded read-only Windows service discovery",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:start"
+    },
+    "services.status": {
+      "id": "services.status",
+      "title": "Poll read-only service discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:status"
+    },
+    "services.cancel": {
+      "id": "services.cancel",
+      "title": "Cancel a running read-only service discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:services:v1:cancel"
+    },
+    "services.snapshot": {
+      "id": "services.snapshot",
+      "title": "Read the last measured service register",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:snapshot"
+    },
+    "services.plan": {
+      "id": "services.plan",
+      "title": "Stage an immutable service-operation preview",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:plan"
+    },
+    "services.journal": {
+      "id": "services.journal",
+      "title": "Read the append-only service preview journal",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:journal"
+    },
+    "services.report": {
+      "id": "services.report",
+      "title": "Build a redacted read-only service evidence report",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:report"
     }
   },
   "windowActions": [

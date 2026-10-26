@@ -114,6 +114,14 @@ const CHANNELS = Object.freeze({
   repairJournal: 'knoux:repair:v1:journal',
   repairReport: 'knoux:repair:v1:report',
   repairOpenSettings: 'knoux:repair:v1:open-settings',
+  servicesCapabilities: 'knoux:services:v1:capabilities',
+  servicesStart: 'knoux:services:v1:start',
+  servicesStatus: 'knoux:services:v1:status',
+  servicesCancel: 'knoux:services:v1:cancel',
+  servicesSnapshot: 'knoux:services:v1:snapshot',
+  servicesPlan: 'knoux:services:v1:plan',
+  servicesJournal: 'knoux:services:v1:journal',
+  servicesReport: 'knoux:services:v1:report',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -329,5 +337,23 @@ contextBridge.exposeInMainWorld(
     journal: () => ipcRenderer.invoke(CHANNELS.repairJournal),
     report: (options) => ipcRenderer.invoke(CHANNELS.repairReport, options || {}),
     openSettings: (target) => ipcRenderer.invoke(CHANNELS.repairOpenSettings, { target }),
+  })
+);
+
+/* Services v1 is the read-only Service Commander. Start/stop/restart and
+   startup-policy changes have no execution channel; plans are immutable
+   previews and the journal is local to the application profile. */
+contextBridge.exposeInMainWorld(
+  'knouxServicesV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.servicesCapabilities),
+    start: () => ipcRenderer.invoke(CHANNELS.servicesStart),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.servicesStatus, { sessionId }),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.servicesCancel, { sessionId }),
+    snapshot: () => ipcRenderer.invoke(CHANNELS.servicesSnapshot),
+    plan: (request) => ipcRenderer.invoke(CHANNELS.servicesPlan, request),
+    journal: () => ipcRenderer.invoke(CHANNELS.servicesJournal),
+    report: (options) => ipcRenderer.invoke(CHANNELS.servicesReport, options || {}),
   })
 );
