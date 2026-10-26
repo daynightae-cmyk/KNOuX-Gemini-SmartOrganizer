@@ -38,3 +38,8 @@ Test real effects on temporary test-owned files and fake/mocked OS or controlled
 - Section not FINAL_PRODUCT_COMPLETE if the primary consumer outcome is a forever-disabled apply button or dummy dry-run. Preserve earlier ACCEPTED_WITH_EVIDENCE as engineering milestones and report current gaps accurately.
 
 After all practical activation work, produce docs/PRODUCT_SERVICE_ACCEPTANCE_REPORT.md with all service IDs, exact runnable results, known unsupported/approval-gated cases, security review, installer/signing readiness and shipping recommendation. Do not claim production-ready until all relevant release gates pass.
+
+
+## Mandatory interactive workbench & real controls — Mission 15A
+
+BEFORE declaring any action-service completed, deliver Mission 15A interactive UI for its original service ID: persistent side/expanded workbench, relevant real buttons/options, functioning handlers and mode persistence. Use its service-specific checklist, then implement actual safe native execute/verify/undo and fixture effect tests. Every service ID must appear in docs/SERVICE_WORKBENCH_ACCEPTANCE.md as well as both existing capability/registry ledgers. Read-only-only implementation and identical generic modal do NOT close the product service.

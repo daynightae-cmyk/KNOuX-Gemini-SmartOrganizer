@@ -48,3 +48,8 @@ If account credentials, API approval or an actual privileged OS operation is nee
 An observational service must answer a real practical user question. An action service must LET THE USER DO THE ACTION after deliberately approving it, with tested underlying executable implementation and honest limits. A connected service must have real authorization and functional API integration when connected. All services need service-specific outcomes rather than read-only theater. The app is NOT production-ready until required packaging/signing, security, supported hardware/accounts and real-user consent/manual gates are honestly satisfied.
 
 Priority: real user outcomes > pretty dashboards > synthetic numbers. Do not compromise user safety to force a checkbox to green.
+
+
+## Mandatory interactive workbench & real controls — Mission 15A
+
+Additional mandatory UI acceptance: Every service must open a domain-specific interactive workbench, pinned/resizable on one side or expanded/full-width within the app, with meaningful working buttons/selection/options based on its actual tool. One shared host, distinct domain modules. Read missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md. Both UI interaction proof and real effectful fixture/native proof (where appropriate) are required. User-directed real-world changes remain consent-gated.

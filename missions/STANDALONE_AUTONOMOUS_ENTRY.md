@@ -50,3 +50,8 @@ After 04/14/01, read missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, missions/15
 The 2026-10-25 mission files were copied and path-rewritten from the original planning library to retain full functionality specs and evidence. Historical descriptions and SHA baselines may mention the OLD repo: treat them as provenance, NOT commands. This entry supersedes old GitHub/root-branch assertions, old dispatch workflow and all Root CI dependencies.
 
 EXECUTION LOOP: VERIFY NEW PROJECT -> READ NEXT LOCAL MISSION -> IMPLEMENT -> TEST -> COMMIT -> PUSH TO NEW PRIVATE REPO -> VERIFY NEW SHA AND STANDALONE CI -> NEXT MISSION.
+
+
+## Mandatory interactive workbench & real controls — Mission 15A
+
+NEXT PRODUCT GATE: Preserve current safe tasks 14 Settings/Assistant and 01 Home if not yet completed. BEFORE/AS PART OF 15 Real Service Activation, execute missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md, then fulfill all Mission 15 native action gaps. This is mandatory for ALL 181 advertised entries mapped to 150 registry/surface rows. Always implement dedicated side or expanded full tool screens and real relevant buttons; no preview-only 'done'.

@@ -43,3 +43,8 @@ Do NOT redo them or replace measured APIs with fixtures.
 ## Next safe execution
 Read missions/STANDALONE_AUTONOMOUS_ENTRY.md and implement Mission 02 Smart Scan. Test actual Electron, native and viewports. Commit reviewed work, push to NEW GitHub repo, verify SHA and independent CI before continuing.
 Do not manipulate personal files, install/uninstall applications, change services/startup/registry, elevate, connect accounts or execute live write operations without explicit approval.
+
+
+## Mandatory interactive workbench & real controls — Mission 15A
+
+Read missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md and enforce it across all 14 domains as the UX prerequisite of Real Service Mission 15. Every service opens a pinned side or expanded full workbench with real tool-specific controls, not inert panels. Never conflate acceptance of old read-only milestones with product functionality. Honor the sole canonical workspace and consent/safety boundaries.

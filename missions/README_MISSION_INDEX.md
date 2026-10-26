@@ -91,3 +91,8 @@ Observed checkpoint: Gemini feature branch local HEAD == remote SHA b03368bc9a9d
 Autonomous order: VISUAL 00 -> PLATFORM 00 -> 03 -> 06 -> 07 -> 02 -> 05 -> 08 -> 09 -> 10 -> 11 -> 12 -> 13 -> 04 -> 14 -> 01.
 
 A successful task commits reviewed code directly into the EXISTING Gemini feature branch, pushes normally, checks remote SHA and relevant CI, then reads the next local task without another user prompt. This is branch integration, NEVER a merge into main. Automatic advancement stops on unresolved critical gates, active write conflicts, unsafe operations or expired sessions; never claim background continuation. Real file deletion, privileged Windows mutations, Google connection and live account actions require separate approval. The mission controller contains exact acceptance gates and resume rules.
+
+
+## Mandatory interactive workbench & real controls — Mission 15A
+
+CURRENT PRIORITY OVERRIDE: missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md defines the mandatory per-service side/full interactive workspace requirement. It is the first UX gate of Mission 15, after safe pending missions. Historical original ordering below is superseded by missions/STANDALONE_AUTONOMOUS_ENTRY.md and latest MISSION_SEQUENCE_PROGRESS.md.

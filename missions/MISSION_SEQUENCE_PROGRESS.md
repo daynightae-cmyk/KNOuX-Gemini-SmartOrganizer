@@ -218,3 +218,8 @@ Completed scope: 00V, 00P, 03, 06, 07; all integrated. This migration is workspa
 - Gates: lint/build/native/Studio/Files/Storage tests PASS; development and packaged Gemini smoke PASS; standalone CI run `40231214966` SUCCESS.
 - Durable report: `docs/COMPLETE_QODER_CONVERSATION_RECONCILIATION.md`; machine manifest: `docs/RECONCILIATION_MANIFEST.json`.
 - Mission 02 was not started during this consolidation. It remains the next product mission.
+
+
+## Mandatory interactive workbench & real controls — Mission 15A
+
+NEW USER PRODUCT REQUIREMENT (not yet implementation complete): EVERY advertised service opens a specialized interactive tool workbench, either pinned resizable side dock or expanded within the same app; rich real functional buttons, user-selected scope/options, actual measured results, per-operation approval, verified execution where appropriate, and undo/recovery where feasible. Full specification: missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md. Scope is 181 mission entries reconciled to 150 existing registry/surfaces (overlapping classifications, no automatic 181 engines). Current actual action completion counts remain unchanged; do not mark any as done by this docs amendment. First finish current safe 14/01 work if pending, then execute 15A as the UX gate of mission 15 and activate real native action providers. Keep one canonical repo and active feature branch.
