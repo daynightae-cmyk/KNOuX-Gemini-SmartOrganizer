@@ -169,11 +169,11 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 The user added `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` and per-mission activation addenda. Read-only/preview milestones remain valid **engineering checkpoints**, not final product acceptance for action services. The authoritative mission-heading product backlog is `docs/SERVICE_CAPABILITY_MATRIX.md`; the registry-ID evidence supplement is `docs/SERVICE_REGISTRY_EVIDENCE.md`, covering the canonical 132 service IDs plus 10 Workspace and 8 Settings surfaces:
 
 - 76 MEASURED_READ_ONLY (observation outcomes working)
-- 59 PARTIAL (real measured preview, no approved effectful executor)
+- 57 PARTIAL (real measured preview or local preference action, no approved effectful native executor)
 - 10 CONNECTABLE_AWAITING_CONSENT (Google Workspace; no account/token/API call)
 - 3 UNSUPPORTED (storage fragmentation/SMART and one settings engine surface)
 - 1 IMPLEMENTED_AND_TESTED (local automation workflow export/import validation)
-- 1 BLOCKED (settings assistant live provider)
+- 2 BLOCKED (settings Google authorization and live assistant provider)
 - 0 rows are claimed as a completed action executor without an effect test.
 
 The ordered activation pass after 04/14/01 is: 03 Studio → 06 Files → 07 Storage → 02 Smart Scan → 05 Applications → 08 Cleanup → 09 Startup → 10 System → 11 Repair → 12 Services → 13 Automation → 04 Google Workspace → 14 Settings → 01 Home. Each action service needs a fixed executor, per-run approval, disposable-fixture side-effect test, postcondition verification and journal/undo evidence; live user/account/OS changes remain separate consent gates. No fake final 100% is claimed.

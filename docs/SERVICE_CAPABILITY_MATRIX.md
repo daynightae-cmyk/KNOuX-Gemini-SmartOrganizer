@@ -4,7 +4,7 @@ Source: each original service heading from the 14 domain mission files inside th
 This is a PRODUCT COMPLETION backlog, NOT a claim that these capabilities are implemented. Earlier CI and Qoder milestones remain historical scoped acceptance only.
 Read missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md and missions/15_REAL_SERVICE_ACTIVATION_MISSION.md.
 
-> Registry-ID evidence for 150 current surfaces (76 measured read-only, 59 partial, 10 consent-waiting, 3 unsupported, 1 implemented/tested, 1 blocked) is maintained in `docs/SERVICE_REGISTRY_EVIDENCE.md`. This mission-heading inventory is the authoritative product backlog; reconcile provisional mission-ID rows to registry IDs during Mission 15.
+> Registry-ID evidence for 150 current surfaces (76 measured read-only, 57 partial, 10 consent-waiting, 4 unsupported, 1 implemented/tested, 2 blocked) is maintained in `docs/SERVICE_REGISTRY_EVIDENCE.md`. This mission-heading inventory is the authoritative product backlog; reconcile provisional mission-ID rows to registry IDs during Mission 15.
 
 Classes are PROVISIONAL (A observation / B reversible action / C privileged or irreversible / D external connected); verify and correct during code/provider inspection.
 Where a mission did not specify a service code, a provisional mission-ID-section-ID is used until reconciled with the actual service registry.
@@ -185,14 +185,14 @@ For EVERY row fill exact native provider, actual visible action, permission gate
 | 13 | auto-retention | Artifact Retention Policy Timeline | B | SCOPED_MILESTONE_ONLY | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 13 | auto-export | Workflow Export & Schema Transfer | B | SCOPED_MILESTONE_ONLY | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
 | 13 | auto-backup-plan | Backup Flow & Verification Designer | B | SCOPED_MILESTONE_ONLY | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-01 | Engine & Turbo Hardware | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-02 | AI Copilot & Provider Keys | D | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-03 | Google Workspace Hub | D | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-04 | Automated Protection & Guards | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-05 | Neon Glass Customization | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-06 | Language & Locale | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-07 | Profile Backup & System Restore | B | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
-| 14 | mission-14-08 | AI Assistant Chat | D | PENDING_MISSION | AUDIT_REQUIRED | AUDIT_REQUIRED | AUDIT_REQUIRED | NOT_VERIFIED | AUDIT_REQUIRED |
+| 14 | mission-14-01 | Engine & Turbo Hardware | B | SCOPED_SAFETY_INCREMENT | renderer profile | preference sliders/cards; no engine provider | none (no effect) | test:settings + dev/packaged smoke | PARTIAL — preferences only; no engine executor |
+| 14 | mission-14-02 | AI Copilot & Provider Keys | D | SCOPED_SAFETY_INCREMENT | session-memory key | session-only OpenRouter probe; no native vault/proxy | explicit test click; key discarded on close | no live provider test | BLOCKED — session-only key; no native vault/proxy |
+| 14 | mission-14-03 | Google Workspace Hub | D | SCOPED_SAFETY_INCREMENT | none | disconnected status; no OAuth client/token | explicit OAuth consent required | no live account test | BLOCKED_REQUIRES_USER_ACTION — no OAuth connection |
+| 14 | mission-14-04 | Automated Protection & Guards | B | SCOPED_SAFETY_INCREMENT | none | disabled/off switches; explicit not-implemented notice | none | test:settings + dev/packaged smoke | UNSUPPORTED — no guard engine; controls intentionally off |
+| 14 | mission-14-05 | Neon Glass Customization | A | SCOPED_SAFETY_INCREMENT | renderer profile | persisted accent/density + page-local preview | user-initiated local | test:settings + dev/packaged smoke | PARTIAL — local preference; global theming/light parity incomplete |
+| 14 | mission-14-06 | Language & Locale | A | SCOPED_SAFETY_INCREMENT | NavigationContext | live locale/theme switch; persisted | user-initiated local | test:settings + dev/packaged smoke | PARTIAL — live EN/AR and persisted; full light/RTL route coverage pending |
+| 14 | mission-14-07 | Profile Backup & System Restore | B | SCOPED_SAFETY_INCREMENT | renderer profile | credential-free export, import preview/diff, reset | user-initiated local file; no secrets | test:settings + dev/packaged smoke | PARTIAL — non-secret preferences backup works; Windows restore not here |
+| 14 | mission-14-08 | AI Assistant Chat | D | SCOPED_SAFETY_INCREMENT | session-memory key | assistant chat UI only; no consent/allowlist/proxy | blocked pending explicit consent | none | BLOCKED — no secure provider proxy/consent/allowlist |
 
 ## Scope inventory
 

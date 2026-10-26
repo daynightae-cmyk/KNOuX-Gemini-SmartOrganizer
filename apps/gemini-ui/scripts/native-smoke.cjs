@@ -203,6 +203,10 @@ async function main() {
     workspace1366ShotPath: receipt?.workspace1366Screenshot || '',
     workspace1920ShotPath: receipt?.workspace1920Screenshot || '',
     workspaceOauthShotPath: receipt?.workspaceOauthScreenshot || '',
+    settingsShotPath: receipt?.settingsScreenshot || shotPath.replace(/native-bridge/i, 'settings-measured'),
+    settingsArabicShotPath: receipt?.settingsArabicScreenshot || '',
+    settings1366ShotPath: receipt?.settings1366Screenshot || '',
+    settings1920ShotPath: receipt?.settings1920Screenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -255,6 +259,10 @@ async function main() {
     workspace1366ShotBytes: receipt?.workspace1366ScreenshotBytes || 0,
     workspace1920ShotBytes: receipt?.workspace1920ScreenshotBytes || 0,
     workspaceOauthShotBytes: receipt?.workspaceOauthScreenshotBytes || 0,
+    settingsShotBytes: receipt?.settingsScreenshotBytes || 0,
+    settingsArabicShotBytes: receipt?.settingsArabicScreenshotBytes || 0,
+    settings1366ShotBytes: receipt?.settings1366ScreenshotBytes || 0,
+    settings1920ShotBytes: receipt?.settings1920ScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -317,7 +325,11 @@ async function main() {
     summary.workspaceArabicShotBytes > 20000 &&
     summary.workspace1366ShotBytes > 20000 &&
     summary.workspace1920ShotBytes > 20000 &&
-    summary.workspaceOauthShotBytes > 20000;
+    summary.workspaceOauthShotBytes > 20000 &&
+    summary.settingsShotBytes > 20000 &&
+    summary.settingsArabicShotBytes > 20000 &&
+    summary.settings1366ShotBytes > 20000 &&
+    summary.settings1920ShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

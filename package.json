@@ -22,6 +22,7 @@
     "desktop:pack": "npm run desktop:pack --prefix apps/gemini-ui",
     "dev": "npm run dev --prefix apps/gemini-ui",
     "install:app": "npm ci --prefix apps/gemini-ui",
-    "test:workspace": "npm run test:workspace --prefix apps/gemini-ui"
+    "test:workspace": "npm run test:workspace --prefix apps/gemini-ui",
+    "test:settings": "npm run test:settings --prefix apps/gemini-ui"
   }
 }

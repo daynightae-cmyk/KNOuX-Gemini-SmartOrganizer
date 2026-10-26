@@ -1726,6 +1726,27 @@ async function runSmoke(win) {
     screenshot: smokeShotPath || null,
     ok: false,
   };
+  const forceSize = async (width, height) => {
+    try {
+      if (win.isMaximized()) {
+        win.unmaximize();
+        await sleep(400);
+      }
+    } catch {
+      // The size assertion below reports the real outcome.
+    }
+    if (!win.isVisible()) {
+      win.show();
+      await sleep(300);
+    }
+    // Frameless window: outer bounds equal the renderer content size. An
+    // explicit position also leaves any Windows snap region before resizing.
+    win.setBounds({ x: 40, y: 40, width, height }, false);
+    await sleep(500);
+    const [actualWidth, actualHeight] = win.getSize();
+    trace(`smoke size requested=${width}x${height} actual=${actualWidth}x${actualHeight}`);
+    return { width: actualWidth, height: actualHeight };
+  };
   try {
     trace('smoke start');
     await sleep(1200);
@@ -2280,8 +2301,11 @@ async function runSmoke(win) {
         }
         await sleep(500);
         win.showInactive();
+        await sleep(300);
+        if (!win.isVisible()) win.show();
         if (win.isMaximized()) win.unmaximize();
         await sleep(600);
+        trace(`smoke window visible=${win.isVisible()} size=${JSON.stringify(win.getSize())} content=${JSON.stringify(win.getContentSize())}`);
         const image = await win.webContents.capturePage();
         await fsp.mkdir(path.dirname(smokeShotPath), { recursive: true });
         await fsp.writeFile(smokeShotPath, image.toPNG());
@@ -2579,9 +2603,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(900);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(900);
         const smartScan1366Path = smartScanShotPath.replace(/\.png$/i, '-1366.png');
         const smartScan1366Image = await win.webContents.capturePage();
@@ -2647,18 +2669,14 @@ async function runSmoke(win) {
         );
         await sleep(200);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(900);
         const smartScan1920Path = smartScanShotPath.replace(/\.png$/i, '-1920.png');
         const smartScan1920Image = await win.webContents.capturePage();
         await fsp.writeFile(smartScan1920Path, smartScan1920Image.toPNG());
         receipt.smartScan1920Screenshot = smartScan1920Path;
         receipt.smartScan1920ScreenshotBytes = (await fsp.stat(smartScan1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Measured Applications route: inventory, signature, associations,
@@ -2733,9 +2751,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(900);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(900);
         const apps1366Path = appsShotPath.replace(/\.png$/i, '-1366.png');
         const apps1366Image = await win.webContents.capturePage();
@@ -2790,18 +2806,14 @@ async function runSmoke(win) {
         );
         await sleep(300);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(900);
         const apps1920Path = appsShotPath.replace(/\.png$/i, '-1920.png');
         const apps1920Image = await win.webContents.capturePage();
         await fsp.writeFile(apps1920Path, apps1920Image.toPNG());
         receipt.applications1920Screenshot = apps1920Path;
         receipt.applications1920ScreenshotBytes = (await fsp.stat(apps1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Measured Clean Room route: the probe above ran a real bounded
@@ -2924,9 +2936,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(900);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(900);
         const cleanup1366Path = cleanupShotPath.replace(/\.png$/i, '-1366.png');
         const cleanup1366Image = await win.webContents.capturePage();
@@ -2979,18 +2989,14 @@ async function runSmoke(win) {
         );
         await sleep(300);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(900);
         const cleanup1920Path = cleanupShotPath.replace(/\.png$/i, '-1920.png');
         const cleanup1920Image = await win.webContents.capturePage();
         await fsp.writeFile(cleanup1920Path, cleanup1920Image.toPNG());
         receipt.cleanup1920Screenshot = cleanup1920Path;
         receipt.cleanup1920ScreenshotBytes = (await fsp.stat(cleanup1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Measured Boot Control route: the probe above ran a real bounded
@@ -3111,9 +3117,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(900);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(900);
         const startup1366Path = startupShotPath.replace(/\.png$/i, '-1366.png');
         const startup1366Image = await win.webContents.capturePage();
@@ -3166,18 +3170,14 @@ async function runSmoke(win) {
         );
         await sleep(300);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(900);
         const startup1920Path = startupShotPath.replace(/\.png$/i, '-1920.png');
         const startup1920Image = await win.webContents.capturePage();
         await fsp.writeFile(startup1920Path, startup1920Image.toPNG());
         receipt.startup1920Screenshot = startup1920Path;
         receipt.startup1920ScreenshotBytes = (await fsp.stat(startup1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Measured Live Pulse route: run the real bounded observatory scan,
@@ -3273,8 +3273,12 @@ async function runSmoke(win) {
                  if (!id) continue;
                  seen.add(id);
                  card.click();
-                 await wait(260);
-                 const workbench = document.querySelector('[data-testid="sys-service-workspace-' + id + '"]');
+                 let workbench = null;
+                 for (let attempt = 0; attempt < 10; attempt += 1) {
+                   await wait(100);
+                   workbench = document.querySelector('[data-testid="sys-service-workspace-' + id + '"]');
+                   if (workbench) break;
+                 }
                  const shell = document.querySelector('[data-testid="sys-service-shell-' + id + '"]');
                  const body = workbench ? workbench.querySelector('.sys-wb-body') : null;
                  const text = workbench ? String(workbench.innerText || '').trim() : '';
@@ -3296,7 +3300,7 @@ async function runSmoke(win) {
                  const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
                  if (!close) failures.push(id + ':close-missing');
                  else close.click();
-                 await wait(150);
+                 await wait(300);
                  if (document.querySelector('[data-testid="sys-service-shell-' + id + '"]')) failures.push(id + ':close-failed');
                }
              }
@@ -3482,9 +3486,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(900);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(1000);
         const system1366Path = systemShotPath.replace(/\.png$/i, '-1366.png');
         const system1366Image = await win.webContents.capturePage();
@@ -3537,18 +3539,14 @@ async function runSmoke(win) {
         );
         await sleep(400);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(1000);
         const system1920Path = systemShotPath.replace(/\.png$/i, '-1920.png');
         const system1920Image = await win.webContents.capturePage();
         await fsp.writeFile(system1920Path, system1920Image.toPNG());
         receipt.system1920Screenshot = system1920Path;
         receipt.system1920ScreenshotBytes = (await fsp.stat(system1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Mission 11 Recovery Lab: measured read-only repair evidence, twelve
@@ -3670,7 +3668,7 @@ async function runSmoke(win) {
                const close = shell ? shell.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]') : null;
                if (!close) failures.push(id + ':close-missing');
                else close.click();
-               await wait(140);
+               await wait(300);
                if (document.querySelector('[data-testid="repair-service-shell-' + id + '"]')) failures.push(id + ':close-failed');
              }
              return { ok: failures.length === 0 && seen.size === 12, checked: seen.size, failures };
@@ -3846,9 +3844,7 @@ async function runSmoke(win) {
         );
         await sleep(450);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(950);
         const repair1366Path = repairShotPath.replace(/\.png$/i, '-1366.png');
         const repair1366Image = await win.webContents.capturePage();
@@ -3892,18 +3888,14 @@ async function runSmoke(win) {
         );
         await sleep(350);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(950);
         const repair1920Path = repairShotPath.replace(/\.png$/i, '-1920.png');
         const repair1920Image = await win.webContents.capturePage();
         await fsp.writeFile(repair1920Path, repair1920Image.toPNG());
         receipt.repair1920Screenshot = repair1920Path;
         receipt.repair1920ScreenshotBytes = (await fsp.stat(repair1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Mission 12 Service Commander: measured SCM evidence, twelve
@@ -4186,9 +4178,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(850);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(950);
         const services1366Path = servicesShotPath.replace(/\.png$/i, '-1366.png');
         const services1366Image = await win.webContents.capturePage();
@@ -4232,18 +4222,14 @@ async function runSmoke(win) {
         );
         await sleep(350);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(950);
         const services1920Path = servicesShotPath.replace(/\.png$/i, '-1920.png');
         const services1920Image = await win.webContents.capturePage();
         await fsp.writeFile(services1920Path, services1920Image.toPNG());
         receipt.services1920Screenshot = services1920Path;
         receipt.services1920ScreenshotBytes = (await fsp.stat(services1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Mission 13 Flow Studio: local workflow drafts, DAG validation, a
@@ -4351,8 +4337,12 @@ async function runSmoke(win) {
                const card = document.querySelector('[data-testid="automation-tool-' + id + '"]');
                if (!card) { failures.push(id + ':card-missing'); continue; }
                card.click();
-               await wait(260);
-               const workbench = document.querySelector('[data-testid="automation-service-workspace-' + id + '"]');
+               let workbench = null;
+               for (let attempt = 0; attempt < 10; attempt += 1) {
+                 await wait(100);
+                 workbench = document.querySelector('[data-testid="automation-service-workspace-' + id + '"]');
+                 if (workbench) break;
+               }
                const shell = document.querySelector('[data-testid="automation-service-shell-' + id + '"]');
                const body = workbench ? workbench.querySelector('.auto-wb-body') : null;
                const text = workbench ? String(workbench.innerText || '').trim() : '';
@@ -4527,9 +4517,7 @@ async function runSmoke(win) {
           true
         );
         await sleep(850);
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(950);
         await win.webContents.executeJavaScript(
           `(() => { const main = document.querySelector('[data-testid="automation-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
@@ -4578,9 +4566,7 @@ async function runSmoke(win) {
         );
         await sleep(350);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(950);
         await win.webContents.executeJavaScript(
           `(() => { const main = document.querySelector('[data-testid="automation-workspace"]'); if (main) main.scrollTop = 0; return true; })()`,
@@ -4592,9 +4578,7 @@ async function runSmoke(win) {
         await fsp.writeFile(automation1920Path, automation1920Image.toPNG());
         receipt.automation1920Screenshot = automation1920Path;
         receipt.automation1920ScreenshotBytes = (await fsp.stat(automation1920Path)).size;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
         await sleep(400);
 
         // Mission 04 Google Workspace honesty probe: no account is connected,
@@ -4722,9 +4706,7 @@ async function runSmoke(win) {
         );
         await sleep(500);
 
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1366, 768);
+        await forceSize(1366, 768);
         await sleep(800);
         const workspace1366Path = workspaceShotPath.replace(/\.png$/i, '-1366.png');
         const workspace1366Image = await win.webContents.capturePage();
@@ -4745,9 +4727,7 @@ async function runSmoke(win) {
           true
         );
         receipt.workspace1366Layout = workspace1366Layout;
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1920, 1080);
+        await forceSize(1920, 1080);
         await sleep(800);
         const workspace1920Path = workspaceShotPath.replace(/\.png$/i, '-1920.png');
         const workspace1920Image = await win.webContents.capturePage();
@@ -4756,9 +4736,134 @@ async function runSmoke(win) {
         receipt.workspace1920ScreenshotBytes = (await fsp.stat(workspace1920Path)).size;
         receipt.workspaceLightSupported = false;
         receipt.workspaceLightNote = 'The approved Google Workspace hub is dark-only in this build; light theme parity remains BLOCKED.';
-        if (win.isMaximized()) win.unmaximize();
-        await sleep(200);
-        win.setContentSize(1672, 941);
+        await forceSize(1672, 941);
+        await sleep(400);
+
+        // Mission 14 settings honesty probe: real preference persistence,
+        // credential-free export UI, disabled unsupported guards and no
+        // simulated telemetry. No AI/provider request is made.
+        await win.webContents.executeJavaScript(
+          `(() => { location.hash = 'settings'; return true; })()`,
+          true
+        );
+        const settingsDeadline = Date.now() + 30000;
+        let settingsUiReady = false;
+        while (Date.now() < settingsDeadline) {
+          await sleep(500);
+          settingsUiReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="settings-root"]') && document.querySelector('[data-testid="settings-footer"]'))`,
+            true
+          );
+          if (settingsUiReady) break;
+        }
+        receipt.settingsUiReady = settingsUiReady;
+        const settingsControlProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             const root = () => document.querySelector('[data-testid="settings-root"]');
+             if (!root()) return { ok: false, failures: ['root-missing'] };
+             if (/Turbo Active|Engine Status: Turbo Active/.test(root().innerText)) failures.push('fake-engine-status');
+             if (/All configuration changes saved/.test(root().innerText)) failures.push('fake-save-toast');
+             const tabs = document.querySelectorAll('[data-testid^="settings-tab-"]');
+             if (tabs.length !== 7) failures.push('tab-count-' + tabs.length);
+             document.querySelector('[data-testid="settings-tab-guard"]')?.click();
+             await wait(120);
+             const disabledGuards = document.querySelectorAll('input[type="checkbox"][disabled]').length;
+             if (disabledGuards < 3) failures.push('guard-not-disabled-' + disabledGuards);
+             if (!document.querySelector('[data-testid="settings-guard-notice"]')) failures.push('guard-notice-missing');
+             document.querySelector('[data-testid="settings-tab-appearance"]')?.click();
+             await wait(120);
+             document.querySelector('[data-testid="settings-density-compact"]')?.click();
+             await wait(80);
+             document.querySelector('[data-testid="settings-save"]')?.click();
+             await wait(350);
+             let stored = null;
+             try { stored = JSON.parse(localStorage.getItem('knoux_settings_profile_v1') || 'null'); } catch { stored = null; }
+             if (stored?.density !== 'compact') failures.push('not-persisted');
+             const toast = document.querySelector('[data-testid="settings-toast"]')?.innerText || '';
+             if (!/saved|حُفظت|حفظت/i.test(toast)) failures.push('save-toast');
+             location.hash = 'home';
+             await wait(350);
+             location.hash = 'settings';
+             await wait(600);
+             if (root()?.getAttribute('data-density') !== 'compact') failures.push('reload-not-persisted');
+             document.querySelector('[data-testid="settings-tab-workspace"]')?.click();
+             await wait(120);
+             if (/Authorized credentials and scopes active/.test(root()?.innerText || '')) failures.push('fake-google-active');
+             document.querySelector('[data-testid="settings-tab-engine"]')?.click();
+             await wait(120);
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.settingsControlProbe = settingsControlProbe;
+        await win.webContents.executeJavaScript(`location.hash = 'settings'`, true);
+        await sleep(1200);
+        const settingsShotPath = smokeShotPath.replace(/native-bridge/i, 'settings-measured');
+        const settingsImage = await win.webContents.capturePage();
+        await fsp.writeFile(settingsShotPath, settingsImage.toPNG());
+        receipt.settingsScreenshot = settingsShotPath;
+        receipt.settingsScreenshotBytes = (await fsp.stat(settingsShotPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1200);
+        const settingsRtlLayout = await win.webContents.executeJavaScript(
+          `(() => {
+             const root = document.querySelector('[data-testid="settings-root"]');
+             if (!root) return { ok: false, reason: 'root-missing' };
+             const direction = getComputedStyle(root).direction;
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             return { ok: direction === 'rtl' && !horizontalOverflow, direction, horizontalOverflow };
+           })()`,
+          true
+        );
+        receipt.settingsRtlLayout = settingsRtlLayout;
+        const settingsArabicPath = settingsShotPath.replace(/\.png$/i, '-ar.png');
+        const settingsArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(settingsArabicPath, settingsArabicImage.toPNG());
+        receipt.settingsArabicScreenshot = settingsArabicPath;
+        receipt.settingsArabicScreenshotBytes = (await fsp.stat(settingsArabicPath)).size;
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(450);
+
+        await forceSize(1366, 768);
+        await sleep(750);
+        const settings1366Path = settingsShotPath.replace(/\.png$/i, '-1366.png');
+        const settings1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(settings1366Path, settings1366Image.toPNG());
+        receipt.settings1366Screenshot = settings1366Path;
+        receipt.settings1366ScreenshotBytes = (await fsp.stat(settings1366Path)).size;
+        const settings1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const root = document.querySelector('[data-testid="settings-root"]');
+             const footer = document.querySelector('[data-testid="settings-footer"]');
+             if (!root || !footer) return { ok: false, reason: 'panels-missing' };
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const footerRect = footer.getBoundingClientRect();
+             const footerVisible = footerRect.bottom <= window.innerHeight + 1 && footerRect.top >= 0;
+             const tabs = document.querySelectorAll('[data-testid^="settings-tab-"]').length;
+             return { ok: !horizontalOverflow && footerVisible && tabs === 7, horizontalOverflow, footerVisible, tabs, viewportWidth: window.innerWidth };
+           })()`,
+          true
+        );
+        receipt.settings1366Layout = settings1366Layout;
+        await forceSize(1920, 1080);
+        await sleep(750);
+        const settings1920Path = settingsShotPath.replace(/\.png$/i, '-1920.png');
+        const settings1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(settings1920Path, settings1920Image.toPNG());
+        receipt.settings1920Screenshot = settings1920Path;
+        receipt.settings1920ScreenshotBytes = (await fsp.stat(settings1920Path)).size;
+        receipt.settingsLightSupported = false;
+        receipt.settingsLightNote = 'The Settings hub is dark-only in this build; light-theme parity remains BLOCKED.';
+        await forceSize(1672, 941);
         await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
@@ -5155,6 +5260,7 @@ async function runSmoke(win) {
     );
     const automationLayoutOk = receipt.automation1366Layout?.ok === true
       && receipt.automation1366Layout?.horizontalOverflow === false
+      && receipt.automation1366Layout?.viewportWidth === 1366
       && receipt.automationRtlLayout?.ok === true;
     const workspaceOk = Boolean(
       receipt.workspaceUiReady === true &&
@@ -5170,7 +5276,22 @@ async function runSmoke(win) {
     const workspaceLayoutOk = receipt.workspace1366Layout?.ok === true
       && receipt.workspace1366Layout?.horizontalOverflow === false
       && receipt.workspace1366Layout?.actionsVisible === true
+      && receipt.workspace1366Layout?.viewportWidth === 1366
       && receipt.workspace1366Layout?.services === 10;
+    const settingsOk = Boolean(
+      receipt.settingsUiReady === true &&
+      receipt.settingsControlProbe?.ok === true &&
+      receipt.settingsRtlLayout?.ok === true &&
+      receipt.settingsScreenshotBytes > 20000 &&
+      receipt.settingsArabicScreenshotBytes > 20000 &&
+      receipt.settings1366ScreenshotBytes > 20000 &&
+      receipt.settings1920ScreenshotBytes > 20000
+    );
+    const settingsLayoutOk = receipt.settings1366Layout?.ok === true
+      && receipt.settings1366Layout?.horizontalOverflow === false
+      && receipt.settings1366Layout?.footerVisible === true
+      && receipt.settings1366Layout?.viewportWidth === 1366
+      && receipt.settings1366Layout?.tabs === 7;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -5239,8 +5360,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
