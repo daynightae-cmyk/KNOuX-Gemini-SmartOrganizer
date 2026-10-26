@@ -149,7 +149,8 @@ the persistent footer.
 
 ## 9. Release record
 
-The implementation is committed on `feat/gemini-missions` (`9658754`), pushed
-to the only authorized remote, and integrated into `main` after GitHub Actions
-for the exact commit is green. The SHA, CI run and integration result are
-recorded in `missions/MISSION_SEQUENCE_PROGRESS.md`.
+The implementation is committed on `feat/gemini-missions` (`9658754`), with the
+acceptance record at `87d38da`, pushed to the only authorized remote, and
+integrated into `main` after Gemini Platform CI run 40362298717 was green.
+Remote SHA, CI run and integration result are recorded in
+`missions/MISSION_SEQUENCE_PROGRESS.md`.
