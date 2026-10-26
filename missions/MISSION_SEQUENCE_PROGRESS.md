@@ -203,6 +203,11 @@ The ordered activation pass after 04/14/01 is: 03 Studio → 06 Files → 07 Sto
 - Evidence: `docs/SERVICE_WORKBENCH_HOST_AUDIT.md`, acceptance Files rows, `files-workbench-dev.png`/`files-workbench-expanded-dev.png` + packaged; `test:workbench` PASS; dev+packaged `filesWorkbenchOk`/`filesWorkbenchLayoutOk`; CI 40399994447 SUCCESS.
 - Not done: Studio side/expanded integration, remaining domains, 1366/AR/light workbench captures, and any real file executor/undo. No owner files were modified.
 
+
+## Public site merge recovery — 2026-10-27
+
+PR #2 (`gh-pages` → `main`) added the public OAuth/site pages but its merge tree contained only the 5 site files; the entire Gemini app tree was absent from `origin/main` (`296cfa8`). Before pushing Studio work, a normal `-s ours` merge preserved the 566 app files plus the 5 site files and kept both histories. CI run `40410193790` is SUCCESS; remote `main` was fast-forwarded from `296cfa8` to `2fe53d6`. No force-push, reset or history loss occurred. Local and remote feature/main SHAs must remain equal at the next checkpoint.
+
 ## Boundary / next
 
 - Next independent mission: continue `15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md` with the remaining domains (Storage, Scan, Applications, Cleanup, Startup, System, Repair, Services, Automation, Workspace, Settings, Home); then Mission 15 real executors. 01 Home remains PARTIAL for global indexed search and in-place execution; 04 and 14 remain BLOCKED/PARTIAL for live OAuth/secure vault/live AI/light parity.
