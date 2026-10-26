@@ -19,6 +19,8 @@ const appBridge = require('../electron/native/app-bridge.cjs');
 const appBridgeSource = read('electron/native/app-bridge.cjs');
 const cleanupBridge = require('../electron/native/cleanup-bridge.cjs');
 const cleanupBridgeSource = read('electron/native/cleanup-bridge.cjs');
+const startupBridge = require('../electron/native/startup-bridge.cjs');
+const startupBridgeSource = read('electron/native/startup-bridge.cjs');
 const pkg = JSON.parse(read('package.json'));
 
 const failures = [];
@@ -97,6 +99,46 @@ assert(
   ['cleanupCapabilities', 'cleanupStart', 'cleanupStatus', 'cleanupCancel', 'cleanupInventory', 'cleanupEstimate', 'cleanupQuarantine', 'cleanupUnused', 'cleanupPlan', 'cleanupSchedule', 'cleanupReport', 'cleanupOpenSettings']
     .every((channel) => main.includes(`contract.channels.${channel}`)),
   'every Cleanup channel has an IPC handler'
+);
+assert(/exposeInMainWorld\(\s*'knouxStartupV1'/.test(preload), 'preload exposes the Boot Control bridge');
+assert(!preload.includes('ipcRenderer.on(CHANNELS.startup'), 'Startup exposes no event stream');
+assert(contract.channels.startupPlan === 'knoux:startup:v1:plan', 'Startup plan channel is fixed');
+assert(contract.capabilities['startup.start'].mode === 'read-only', 'Startup measurement is read-only');
+assert(contract.capabilities['startup.plan'].mode === 'read-only', 'Startup plans are review-only');
+assert(contract.capabilities['startup.settings.open'].mode === 'user-initiated', 'settings handoff is the only user-initiated Startup capability');
+const startupServiceIds = [
+  'startup-overview',
+  'startup-disable',
+  'startup-restore',
+  'startup-sources',
+  'startup-journal',
+  'startup-filter',
+  'startup-impact',
+  'startup-services',
+  'startup-tasks',
+  'startup-delay',
+  'startup-batch',
+  'startup-undo-all',
+];
+assert(
+  startupBridge.SERVICE_DEFINITIONS.length === 12
+    && startupServiceIds.every((id) => startupBridge.SERVICE_DEFINITIONS.some((service) => service.id === id)),
+  'Startup keeps all twelve canonical services'
+);
+assert(
+  startupBridge.SERVICE_DEFINITIONS.every((service) => /[\u0600-\u06FF]/.test(service.labelAr) && service.noteAr),
+  'Startup services carry authored Arabic labels and notes'
+);
+assert(startupBridge.STAGE_DEFINITIONS.length === 5, 'Startup keeps five measured stages');
+assert(startupBridge.GATED_OPERATIONS.every((operation) => operation.id && operation.mission), 'Startup gates name their owning mission');
+for (const forbidden of ['Set-ItemProperty', 'New-ItemProperty', 'Remove-ItemProperty', 'reg add', 'schtasks', 'Set-Service', 'Stop-Service', 'Start-Process', 'Remove-Item', 'Move-Item', 'Rename-Item', 'fs.writeFile', 'fs.rename', 'fs.unlink', 'child_process.exec(']) {
+  assert(!startupBridgeSource.includes(forbidden), `Startup bridge has no mutation call: ${forbidden}`);
+}
+assert(!startupBridgeSource.includes('shell.openExternal'), 'the Startup bridge does not open anything itself');
+assert(
+  ['startupCapabilities', 'startupStart', 'startupStatus', 'startupCancel', 'startupInventory', 'startupServices', 'startupTasks', 'startupImpact', 'startupJournal', 'startupSessions', 'startupPlan', 'startupReport', 'startupOpenSettings']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every Startup channel has an IPC handler'
 );
 assert(!/require\(['"](?:node:)?(fs|child_process|path|os)['"]\)/.test(preload), 'preload has no Node filesystem/process module');
 assert(main.includes('contextIsolation: true'), 'main enables contextIsolation');

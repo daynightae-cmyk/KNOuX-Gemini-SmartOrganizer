@@ -77,6 +77,19 @@ const CHANNELS = Object.freeze({
   cleanupSchedule: 'knoux:cleanup:v1:schedule',
   cleanupReport: 'knoux:cleanup:v1:report',
   cleanupOpenSettings: 'knoux:cleanup:v1:open-settings',
+  startupCapabilities: 'knoux:startup:v1:capabilities',
+  startupStart: 'knoux:startup:v1:start',
+  startupStatus: 'knoux:startup:v1:status',
+  startupCancel: 'knoux:startup:v1:cancel',
+  startupInventory: 'knoux:startup:v1:inventory',
+  startupServices: 'knoux:startup:v1:services',
+  startupTasks: 'knoux:startup:v1:tasks',
+  startupImpact: 'knoux:startup:v1:impact',
+  startupJournal: 'knoux:startup:v1:journal',
+  startupSessions: 'knoux:startup:v1:sessions',
+  startupPlan: 'knoux:startup:v1:plan',
+  startupReport: 'knoux:startup:v1:report',
+  startupOpenSettings: 'knoux:startup:v1:open-settings',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -224,5 +237,28 @@ contextBridge.exposeInMainWorld(
     schedule: (request) => ipcRenderer.invoke(CHANNELS.cleanupSchedule, request),
     report: () => ipcRenderer.invoke(CHANNELS.cleanupReport),
     openSettings: (target) => ipcRenderer.invoke(CHANNELS.cleanupOpenSettings, { target }),
+  })
+);
+
+/* Startup v1 is a read-only Boot Control coordinator. Enable/disable/delay,
+   restoration, journal writes and service policy changes do not exist here:
+   plans are review-only and every execution is gated. */
+contextBridge.exposeInMainWorld(
+  'knouxStartupV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    capabilities: () => ipcRenderer.invoke(CHANNELS.startupCapabilities),
+    start: (request) => ipcRenderer.invoke(CHANNELS.startupStart, request),
+    status: (sessionId) => ipcRenderer.invoke(CHANNELS.startupStatus, { sessionId }),
+    cancel: (sessionId) => ipcRenderer.invoke(CHANNELS.startupCancel, { sessionId }),
+    inventory: () => ipcRenderer.invoke(CHANNELS.startupInventory),
+    services: () => ipcRenderer.invoke(CHANNELS.startupServices),
+    tasks: () => ipcRenderer.invoke(CHANNELS.startupTasks),
+    impact: () => ipcRenderer.invoke(CHANNELS.startupImpact),
+    journal: () => ipcRenderer.invoke(CHANNELS.startupJournal),
+    sessions: () => ipcRenderer.invoke(CHANNELS.startupSessions),
+    plan: (request) => ipcRenderer.invoke(CHANNELS.startupPlan, request),
+    report: () => ipcRenderer.invoke(CHANNELS.startupReport),
+    openSettings: (target) => ipcRenderer.invoke(CHANNELS.startupOpenSettings, { target }),
   })
 );

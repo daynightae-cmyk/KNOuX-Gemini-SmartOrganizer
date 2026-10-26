@@ -65,7 +65,20 @@
     "cleanupPlan": "knoux:cleanup:v1:plan",
     "cleanupSchedule": "knoux:cleanup:v1:schedule",
     "cleanupReport": "knoux:cleanup:v1:report",
-    "cleanupOpenSettings": "knoux:cleanup:v1:open-settings"
+    "cleanupOpenSettings": "knoux:cleanup:v1:open-settings",
+    "startupCapabilities": "knoux:startup:v1:capabilities",
+    "startupStart": "knoux:startup:v1:start",
+    "startupStatus": "knoux:startup:v1:status",
+    "startupCancel": "knoux:startup:v1:cancel",
+    "startupInventory": "knoux:startup:v1:inventory",
+    "startupServices": "knoux:startup:v1:services",
+    "startupTasks": "knoux:startup:v1:tasks",
+    "startupImpact": "knoux:startup:v1:impact",
+    "startupJournal": "knoux:startup:v1:journal",
+    "startupSessions": "knoux:startup:v1:sessions",
+    "startupPlan": "knoux:startup:v1:plan",
+    "startupReport": "knoux:startup:v1:report",
+    "startupOpenSettings": "knoux:startup:v1:open-settings"
   },
   "capabilities": {
     "bridge.status": {
@@ -433,6 +446,84 @@
       "title": "Open a fixed Windows Settings page",
       "mode": "user-initiated",
       "channel": "knoux:cleanup:v1:open-settings"
+    },
+    "startup.capabilities": {
+      "id": "startup.capabilities",
+      "title": "Read-only Boot Control capabilities and gates",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:capabilities"
+    },
+    "startup.start": {
+      "id": "startup.start",
+      "title": "Start a bounded measured startup inventory",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:start"
+    },
+    "startup.status": {
+      "id": "startup.status",
+      "title": "Poll measured startup scan progress",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:status"
+    },
+    "startup.cancel": {
+      "id": "startup.cancel",
+      "title": "Cancel a running startup scan",
+      "mode": "user-initiated",
+      "channel": "knoux:startup:v1:cancel"
+    },
+    "startup.inventory": {
+      "id": "startup.inventory",
+      "title": "Read the last measured startup inventory",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:inventory"
+    },
+    "startup.services": {
+      "id": "startup.services",
+      "title": "Measured automatic and delayed-auto services",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:services"
+    },
+    "startup.tasks": {
+      "id": "startup.tasks",
+      "title": "Measured logon and boot scheduled tasks",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:tasks"
+    },
+    "startup.impact": {
+      "id": "startup.impact",
+      "title": "Measured boot diagnostics impact evidence",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:impact"
+    },
+    "startup.journal": {
+      "id": "startup.journal",
+      "title": "Startup change journal reader",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:journal"
+    },
+    "startup.sessions": {
+      "id": "startup.sessions",
+      "title": "Batch startup session reader",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:sessions"
+    },
+    "startup.plan": {
+      "id": "startup.plan",
+      "title": "Immutable review-only startup plan",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:plan"
+    },
+    "startup.report": {
+      "id": "startup.report",
+      "title": "Measured read-only startup report",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:report"
+    },
+    "startup.settings.open": {
+      "id": "startup.settings.open",
+      "title": "Open the fixed Windows Startup Apps settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:startup:v1:open-settings"
     }
   },
   "windowActions": [

@@ -29,6 +29,7 @@ const { StorageBridge } = require('./native/storage-bridge.cjs');
 const { ScanBridge } = require('./native/scan-bridge.cjs');
 const { AppBridge } = require('./native/app-bridge.cjs');
 const { CleanupBridge } = require('./native/cleanup-bridge.cjs');
+const { StartupBridge } = require('./native/startup-bridge.cjs');
 const {
   ok,
   fail,
@@ -89,6 +90,7 @@ let storageBridge = null;
 let scanBridge = null;
 let appBridge = null;
 let cleanupBridge = null;
+let startupBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -858,6 +860,157 @@ function registerIpc() {
     })
   );
 
+  const STARTUP_TARGET = /^(st|task|svc):[a-f0-9]{24}$/;
+  const STARTUP_SESSION = /^[a-f0-9-]{8,64}$/i;
+  const startupGuard = async (event, capability, permission, work) => {
+    try {
+      assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin });
+      if (!startupBridge) {
+        throw Object.assign(new Error('The read-only Boot Control coordinator is not initialized.'), { code: 'STARTUP_UNAVAILABLE' });
+      }
+      const data = await work();
+      return ok({
+        capability,
+        status: 'complete',
+        source: 'KNOuX Boot Control read-only coordinator',
+        permission,
+        provenance: { mode: 'measured', mutation: 'none' },
+        data,
+      });
+    } catch (error) {
+      const untrusted = error?.code === 'UNTRUSTED_SENDER';
+      return fail({
+        capability,
+        status: untrusted ? 'permission_denied' : 'failed',
+        source: 'KNOuX Boot Control read-only coordinator',
+        permission: untrusted ? 'not-granted' : permission,
+        error: {
+          code: typeof error?.code === 'string' ? error.code : 'STARTUP_FAILURE',
+          message: String(error?.message || 'Startup request failed.').replace(/\s+/g, ' ').slice(0, 300),
+          retryable: Boolean(error?.retryable),
+        },
+      });
+    }
+  };
+  const startupRequest = (args, code = 'STARTUP_INPUT_INVALID') => {
+    if (args.length !== 1 || !args[0] || typeof args[0] !== 'object' || Array.isArray(args[0])) {
+      throw Object.assign(new Error('A single structured startup request is required.'), { code });
+    }
+    return args[0];
+  };
+
+  ipcMain.handle(contract.channels.startupCapabilities, (event, ...args) =>
+    startupGuard(event, 'startup.capabilities', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupCapabilities);
+      return startupBridge.capabilities();
+    })
+  );
+  ipcMain.handle(contract.channels.startupStart, (event, ...args) =>
+    startupGuard(event, 'startup.start', 'read-only', () => {
+      let request = {};
+      if (args.length) request = startupRequest(args);
+      for (const key of ['includeTasks', 'includeServices', 'includeBoot']) {
+        if (request[key] != null && typeof request[key] !== 'boolean') {
+          throw Object.assign(new Error('Startup scan switches must be booleans.'), { code: 'STARTUP_SCAN_INPUT_INVALID' });
+        }
+      }
+      return startupBridge.start(request);
+    })
+  );
+  ipcMain.handle(contract.channels.startupStatus, (event, ...args) =>
+    startupGuard(event, 'startup.status', 'read-only', () => {
+      const request = startupRequest(args);
+      if (typeof request.sessionId !== 'string' || !STARTUP_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid startup session identifier is required.'), { code: 'STARTUP_SESSION_INVALID' });
+      }
+      return startupBridge.status(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.startupCancel, (event, ...args) =>
+    startupGuard(event, 'startup.cancel', 'user-initiated', () => {
+      const request = startupRequest(args);
+      if (typeof request.sessionId !== 'string' || !STARTUP_SESSION.test(request.sessionId)) {
+        throw Object.assign(new Error('A valid startup session identifier is required.'), { code: 'STARTUP_SESSION_INVALID' });
+      }
+      return startupBridge.cancel(request.sessionId);
+    })
+  );
+  ipcMain.handle(contract.channels.startupInventory, (event, ...args) =>
+    startupGuard(event, 'startup.inventory', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupInventory);
+      return startupBridge.inventory();
+    })
+  );
+  ipcMain.handle(contract.channels.startupServices, (event, ...args) =>
+    startupGuard(event, 'startup.services', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupServices);
+      return startupBridge.services();
+    })
+  );
+  ipcMain.handle(contract.channels.startupTasks, (event, ...args) =>
+    startupGuard(event, 'startup.tasks', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupTasks);
+      return startupBridge.tasks();
+    })
+  );
+  ipcMain.handle(contract.channels.startupImpact, (event, ...args) =>
+    startupGuard(event, 'startup.impact', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupImpact);
+      return startupBridge.impact();
+    })
+  );
+  ipcMain.handle(contract.channels.startupJournal, (event, ...args) =>
+    startupGuard(event, 'startup.journal', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupJournal);
+      return startupBridge.journal();
+    })
+  );
+  ipcMain.handle(contract.channels.startupSessions, (event, ...args) =>
+    startupGuard(event, 'startup.sessions', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupSessions);
+      return startupBridge.sessions();
+    })
+  );
+  ipcMain.handle(contract.channels.startupPlan, (event, ...args) =>
+    startupGuard(event, 'startup.plan', 'read-only', () => {
+      const request = startupRequest(args);
+      const ids = request.entryIds;
+      if (!Array.isArray(ids) || ids.length < 1 || ids.length > 120
+        || !ids.every((id) => typeof id === 'string' && STARTUP_TARGET.test(id))) {
+        throw Object.assign(new Error('Between 1 and 120 measured startup target identifiers are required.'), { code: 'STARTUP_PLAN_INPUT_INVALID' });
+      }
+      if (!['disable', 'enable', 'delay', 'restore', 'batch', 'rollback'].includes(request.mode)) {
+        throw Object.assign(new Error('The startup plan mode is not allowlisted.'), { code: 'STARTUP_PLAN_MODE_INVALID' });
+      }
+      if (request.delayMinutes != null
+        && (typeof request.delayMinutes !== 'number' || !Number.isFinite(request.delayMinutes) || request.delayMinutes < 1 || request.delayMinutes > 240)) {
+        throw Object.assign(new Error('A delay between 1 and 240 minutes is required.'), { code: 'STARTUP_PLAN_DELAY_INVALID' });
+      }
+      return startupBridge.plan({
+        entryIds: [...new Set(ids)],
+        mode: request.mode,
+        ...(request.delayMinutes == null ? {} : { delayMinutes: Math.floor(request.delayMinutes) }),
+      });
+    })
+  );
+  ipcMain.handle(contract.channels.startupReport, (event, ...args) =>
+    startupGuard(event, 'startup.report', 'read-only', () => {
+      assertNoArguments(args, contract.channels.startupReport);
+      return startupBridge.report();
+    })
+  );
+  ipcMain.handle(contract.channels.startupOpenSettings, (event, ...args) =>
+    startupGuard(event, 'startup.settings.open', 'user-initiated', async () => {
+      const request = startupRequest(args);
+      if (request.target !== 'startupapps') {
+        throw Object.assign(new Error('The requested Windows Settings page is not allowlisted.'), { code: 'STARTUP_SETTINGS_TARGET_INVALID' });
+      }
+      const target = startupBridge.settingsTarget(request.target);
+      await shell.openExternal(target.uri);
+      return { opened: true, target: target.target };
+    })
+  );
+
   ipcMain.handle(contract.channels.windowControl, (event, ...args) =>
     guard(event, 'window.control', args, async (callArgs) => {
       if (callArgs.length !== 1) {
@@ -1144,8 +1297,7 @@ async function runSmoke(win) {
           };
         }
         const cleanupApi = window.knouxCleanupV1;
-        let cleanup = null;
-        if (cleanupApi) {
+        let cleanup = null;        if (cleanupApi) {
           const capabilities = await cleanupApi.capabilities();
           const started = await cleanupApi.start({ categories: ['temp', 'browser', 'logs', 'recycle', 'update'], ageDays: 1 });
           let session = started;
@@ -1257,6 +1409,128 @@ async function runSmoke(win) {
             })),
           };
         }
+        const startupApi = window.knouxStartupV1;
+        let startup = null;
+        if (startupApi) {
+          const capabilities = await startupApi.capabilities();
+          const started = await startupApi.start({});
+          let session = started;
+          const sessionId = started?.data?.id || null;
+          if (sessionId) {
+            const startupDeadline = Date.now() + 85000;
+            while (Date.now() < startupDeadline) {
+              session = await startupApi.status(sessionId);
+              if (['complete', 'partial', 'cancelled', 'failed'].includes(session?.data?.status)) break;
+              await new Promise((resolve) => setTimeout(resolve, 500));
+            }
+          }
+          const inventory = await startupApi.inventory();
+          const services = await startupApi.services();
+          const tasks = await startupApi.tasks();
+          let impact = null;
+          let journal = null;
+          let sessions = null;
+          let report = null;
+          let plan = null;
+          try {
+            impact = await startupApi.impact();
+            journal = await startupApi.journal();
+            sessions = await startupApi.sessions();
+            report = await startupApi.report();
+            const firstEntryId = inventory?.data?.entries?.[0]?.id || inventory?.data?.services?.[0]?.id || null;
+            if (firstEntryId) plan = await startupApi.plan({ entryIds: [firstEntryId], mode: 'disable' });
+          } catch (error) {
+            startup = {
+              bridgePresent: true,
+              error: { code: typeof error?.code === 'string' ? error.code : 'STARTUP_PROBE_FAILED' },
+            };
+          }
+          const startupSummary = (envelope, transform) => envelope
+            ? {
+                status: envelope.status,
+                capability: envelope.capability,
+                permission: envelope.permission,
+                data: envelope.data ? transform(envelope.data) : null,
+                error: envelope.error ? { code: envelope.error.code } : null,
+              }
+            : null;
+          if (!startup) {
+            startup = {
+              capabilities: startupSummary(capabilities, (data) => ({
+                engine: data.engine,
+                contract: data.contract,
+                readOnly: data.readOnly,
+                mutation: data.mutation,
+                fixtureFallback: data.fixtureFallback,
+                serviceCount: data.services?.length ?? 0,
+                gatedCount: data.gatedOperations?.length ?? 0,
+              })),
+              started: startupSummary(started, (data) => ({ id: data.id, status: data.status })),
+              session: startupSummary(session, (data) => ({
+                id: data.id,
+                status: data.status,
+                entryCount: data.entryCount,
+                stages: data.stages?.map((entry) => ({ key: entry.key, status: entry.status })) ?? [],
+                warningCount: data.warningCount,
+              })),
+              inventory: startupSummary(inventory, (data) => ({
+                status: data.status,
+                readOnly: data.readOnly,
+                mutation: data.mutation,
+                observedAt: data.observedAt,
+                entryCount: data.entries?.length ?? 0,
+                serviceCount: data.services?.length ?? 0,
+                taskCount: data.tasks?.length ?? 0,
+                summary: data.summary,
+                coverage: data.coverage,
+                boot: data.boot ? { available: data.boot.available, eventCount: data.boot.eventCount, lastBootAt: data.boot.lastBootAt } : null,
+                warningCount: data.warnings?.length ?? 0,
+              })),
+              services: startupSummary(services, (data) => ({
+                count: data.length,
+                automatic: data.filter((entry) => entry.startupType === 'automatic').length,
+                delayed: data.filter((entry) => entry.startupType === 'delayed').length,
+                protectedCount: data.filter((entry) => entry.protected).length,
+              })),
+              tasks: startupSummary(tasks, (data) => ({
+                count: data.length,
+                protectedCount: data.filter((entry) => entry.protected).length,
+              })),
+              impact: startupSummary(impact, (data) => ({
+                available: data.available,
+                eventCount: data.events?.length ?? 0,
+                attributedCount: data.attributed?.length ?? 0,
+              })),
+              journal: startupSummary(journal, (data) => ({
+                available: data.available,
+                status: data.status,
+                entryCount: data.entries?.length ?? 0,
+                execution: data.execution,
+              })),
+              sessions: startupSummary(sessions, (data) => ({
+                available: data.available,
+                count: data.sessions?.length ?? 0,
+                execution: data.execution,
+              })),
+              plan: startupSummary(plan, (data) => ({
+                contract: data.contract,
+                mode: data.mode,
+                itemCount: data.items?.length ?? 0,
+                conflictCount: data.conflictCount,
+                estimatedSavingsMs: data.estimatedSavingsMs,
+                execution: data.execution,
+                immutable: data.immutable,
+                mutation: data.mutation,
+              })),
+              report: startupSummary(report, (data) => ({
+                readOnly: data.readOnly,
+                mutation: data.mutation,
+                entryCount: data.entries?.length ?? 0,
+                summary: data.summary,
+              })),
+            };
+          }
+        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -1268,6 +1542,7 @@ async function runSmoke(win) {
           scanBridgePresent: Boolean(scanApi),
           appsBridgePresent: Boolean(appsApi),
           cleanupBridgePresent: Boolean(cleanupApi),
+          startupBridgePresent: Boolean(startupApi),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -1280,6 +1555,7 @@ async function runSmoke(win) {
           scan,
           apps,
           cleanup,
+          startup,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -1287,7 +1563,7 @@ async function runSmoke(win) {
     );
     const renderer = await Promise.race([
       rendererProbe,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Renderer bridge probe timed out after 90 seconds.')), 90000)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Renderer bridge probe timed out after 180 seconds.')), 180000)),
     ]);
     trace(`renderer probe complete bridge=${Boolean(renderer?.bridgePresent)} system=${renderer?.system?.status} services=${renderer?.services?.status}`);
     receipt.renderer = renderer;
@@ -2015,6 +2291,187 @@ async function runSmoke(win) {
         receipt.cleanup1920ScreenshotBytes = (await fsp.stat(cleanup1920Path)).size;
         win.setContentSize(1672, 941);
         await sleep(400);
+
+        // Measured Boot Control route: the probe above ran a real bounded
+        // startup inventory. Load the route, prove measured entries reach the
+        // register, open all twelve workbenches, then capture theme and size
+        // variants. No startup value is ever changed.
+        await win.webContents.executeJavaScript(
+          `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'startup'; return true; })()`,
+          true
+        );
+        const startupDeadline = Date.now() + 45000;
+        let startupUiReady = false;
+        while (Date.now() < startupDeadline) {
+          await sleep(500);
+          startupUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const workspace = document.querySelector('[data-testid="startup-workspace"]');
+               const banner = document.querySelector('[data-testid="startup-native-banner"]');
+               const required = document.querySelector('[data-testid="startup-native-required"]');
+               const entries = document.querySelector('[data-testid="startup-kpi-entries-value"]')?.textContent?.trim() || '';
+               const protectedCount = document.querySelector('[data-testid="startup-kpi-protected-value"]')?.textContent?.trim() || '';
+               const rows = document.querySelectorAll('[data-testid="startup-register-row"]').length;
+               const inspector = document.querySelector('[data-testid="startup-inspector"]');
+               const services = document.querySelector('[data-testid="startup-services"]');
+               const bannerText = banner?.innerText || '';
+               return Boolean(workspace) && Boolean(banner) && !required &&
+                 entries !== '' && entries !== '—' &&
+                 protectedCount !== '' && protectedCount !== '—' &&
+                 rows >= 1 && Boolean(inspector) && Boolean(services) &&
+                 /Measured Boot Control|تحكم الإقلاع المقيس/.test(bannerText);
+             })()`,
+            true
+          );
+          if (startupUiReady) break;
+        }
+        const startupServiceProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const ids = ${JSON.stringify([
+               'startup-overview',
+               'startup-disable',
+               'startup-restore',
+               'startup-sources',
+               'startup-journal',
+               'startup-filter',
+               'startup-impact',
+               'startup-services',
+               'startup-tasks',
+               'startup-delay',
+               'startup-batch',
+               'startup-undo-all',
+             ])};
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             for (const id of ids) {
+               const card = document.querySelector('[data-testid="startup-service-' + id + '"]');
+               if (!card) { failures.push(id + ':card-missing'); continue; }
+               card.click();
+               await wait(240);
+               const workspace = document.querySelector('[data-testid="startup-service-workspace-' + id + '"]');
+               const body = workspace ? workspace.querySelector('.stp-service-body') : null;
+               const text = workspace ? String(workspace.innerText || '').trim() : '';
+               if (!workspace || !body || text.length < 30) {
+                 failures.push(id + ':render');
+               } else {
+                 const close = workspace.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]');
+                 if (!close) failures.push(id + ':close-missing');
+                 else close.click();
+               }
+               await wait(180);
+               if (document.querySelector('[data-testid="startup-service-workspace-' + id + '"]')) {
+                 failures.push(id + ':close-failed');
+                 const stray = document.querySelector('[data-testid="startup-service-workspace-' + id + '"] button[aria-label="Close service"], [data-testid="startup-service-workspace-' + id + '"] button[aria-label="إغلاق الخدمة"]');
+                 if (stray) stray.click();
+                 await wait(160);
+               }
+             }
+             return { ok: failures.length === 0, checked: ids.length, failures };
+           })()`,
+          true
+        );
+        receipt.startupServiceProbe = startupServiceProbe;
+        await sleep(500);
+        const startupShotPath = smokeShotPath.replace(/native-bridge/i, 'startup-measured');
+        const startupImage = await win.webContents.capturePage();
+        await fsp.writeFile(startupShotPath, startupImage.toPNG());
+        receipt.startupScreenshot = startupShotPath;
+        receipt.startupScreenshotBytes = (await fsp.stat(startupShotPath)).size;
+        receipt.startupUiReady = startupUiReady;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[aria-pressed]')?.click()`,
+          true
+        );
+        await sleep(900);
+        const startupLightPath = startupShotPath.replace(/\.png$/i, '-light.png');
+        const startupLightImage = await win.webContents.capturePage();
+        await fsp.writeFile(startupLightPath, startupLightImage.toPNG());
+        receipt.startupLightScreenshot = startupLightPath;
+        receipt.startupLightScreenshotBytes = (await fsp.stat(startupLightPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('button[title="Toggle Arabic / English"]')?.click()`,
+          true
+        );
+        await sleep(1000);
+        const startupArabicPath = startupShotPath.replace(/\.png$/i, '-ar-light.png');
+        const startupArabicImage = await win.webContents.capturePage();
+        await fsp.writeFile(startupArabicPath, startupArabicImage.toPNG());
+        receipt.startupArabicScreenshot = startupArabicPath;
+        receipt.startupArabicScreenshotBytes = (await fsp.stat(startupArabicPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `(() => {
+             document.querySelector('button[title="Toggle Arabic / English"]')?.click();
+             document.querySelector('button[aria-pressed]')?.click();
+             return true;
+           })()`,
+          true
+        );
+        await sleep(900);
+        win.setContentSize(1366, 768);
+        await sleep(900);
+        const startup1366Path = startupShotPath.replace(/\.png$/i, '-1366.png');
+        const startup1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(startup1366Path, startup1366Image.toPNG());
+        receipt.startup1366Screenshot = startup1366Path;
+        receipt.startup1366ScreenshotBytes = (await fsp.stat(startup1366Path)).size;
+
+        const startup1366Layout = await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="startup-workspace"]');
+             const register = document.querySelector('[data-testid="startup-register"]');
+             const inspector = document.querySelector('[data-testid="startup-inspector"]');
+             const banner = document.querySelector('[data-testid="startup-native-banner"]');
+             if (!main || !register || !inspector || !banner) return { ok: false, reason: 'startup panels missing' };
+             const mainRect = main.getBoundingClientRect();
+             const registerRect = register.getBoundingClientRect();
+             const inspectorRect = inspector.getBoundingClientRect();
+             const horizontalOverflow = document.documentElement.scrollWidth > window.innerWidth;
+             const withinWidth = (rect) => rect.left >= mainRect.left - 1 && rect.right <= mainRect.right + 1;
+             const sideBySide = Math.abs(registerRect.top - inspectorRect.top) <= 2
+               && registerRect.right <= inspectorRect.left + 1;
+             const registerFit = withinWidth(registerRect) && registerRect.bottom <= mainRect.bottom + 1;
+             const inspectorFit = withinWidth(inspectorRect) && inspectorRect.bottom <= mainRect.bottom + 1;
+             const beforeTop = main.scrollTop;
+             main.scrollTop = main.scrollHeight;
+             const scrollWorked = main.scrollTop > beforeTop || main.scrollHeight <= main.clientHeight + 2;
+             return {
+               ok: sideBySide && registerFit && inspectorFit && !horizontalOverflow && scrollWorked,
+               horizontalOverflow,
+               scrollWorked,
+               sideBySide,
+               registerFit,
+               inspectorFit,
+               registerWidth: Math.round(registerRect.width),
+               inspectorWidth: Math.round(inspectorRect.width),
+               mainBottom: Math.round(mainRect.bottom),
+               viewportWidth: window.innerWidth,
+             };
+           })()`,
+          true
+        );
+        receipt.startup1366Layout = startup1366Layout;
+        await win.webContents.executeJavaScript(
+          `(() => {
+             const main = document.querySelector('[data-testid="startup-workspace"]');
+             if (main) main.scrollTop = 0;
+             return true;
+           })()`,
+          true
+        );
+        await sleep(300);
+
+        win.setContentSize(1920, 1080);
+        await sleep(900);
+        const startup1920Path = startupShotPath.replace(/\.png$/i, '-1920.png');
+        const startup1920Image = await win.webContents.capturePage();
+        await fsp.writeFile(startup1920Path, startup1920Image.toPNG());
+        receipt.startup1920Screenshot = startup1920Path;
+        receipt.startup1920ScreenshotBytes = (await fsp.stat(startup1920Path)).size;
+        win.setContentSize(1672, 941);
+        await sleep(400);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -2211,6 +2668,54 @@ async function runSmoke(win) {
     );
     const cleanupLayoutOk = receipt.cleanup1366Layout?.ok === true
       && receipt.cleanup1366Layout?.horizontalOverflow === false;
+    const startupData = renderer.startup;
+    const startupSession = startupData?.session?.data || null;
+    const startupInventory = startupData?.inventory?.data || null;
+    const startupPlan = startupData?.plan?.data || null;
+    const startupOk = Boolean(
+      startupData?.capabilities?.status === 'complete' &&
+      renderer.startupBridgePresent === true &&
+      startupData.capabilities.data?.readOnly === true &&
+      startupData.capabilities.data?.mutation === 'none' &&
+      startupData.capabilities.data?.fixtureFallback === false &&
+      startupData.capabilities.data?.serviceCount === 12 &&
+      startupData.capabilities.data?.gatedCount >= 1 &&
+      startupSession &&
+      ['complete', 'partial', 'cancelled'].includes(startupSession.status) &&
+      startupSession.stages?.length === 5 &&
+      startupData?.inventory?.status === 'complete' &&
+      startupInventory?.readOnly === true &&
+      startupInventory?.mutation === 'none' &&
+      startupInventory?.observedAt &&
+      typeof startupInventory?.entryCount === 'number' &&
+      typeof startupInventory?.warningCount === 'number' &&
+      startupData?.services?.status === 'complete' &&
+      typeof startupData.services.data?.count === 'number' &&
+      startupData?.tasks?.status === 'complete' &&
+      typeof startupData.tasks.data?.count === 'number' &&
+      startupData?.impact?.status === 'complete' &&
+      startupData.impact.data?.available === true &&
+      startupData?.journal?.status === 'complete' &&
+      startupData.journal.data?.available === false &&
+      startupData.journal.data?.execution?.available === false &&
+      startupData?.sessions?.status === 'complete' &&
+      startupData.sessions.data?.available === false &&
+      startupData?.report?.status === 'complete' &&
+      startupData.report.data?.readOnly === true &&
+      startupData.report.data?.mutation === 'none' &&
+      receipt.startupServiceProbe?.ok === true &&
+      receipt.startupServiceProbe?.checked === 12 &&
+      (startupPlan === null || (
+        startupPlan.contract === 'startup.v1' &&
+        startupPlan.mutation === 'none' &&
+        startupPlan.immutable === true &&
+        startupPlan.execution?.available === false &&
+        startupPlan.estimatedSavingsMs === null &&
+        startupPlan.itemCount === 1
+      ))
+    );
+    const startupLayoutOk = receipt.startup1366Layout?.ok === true
+      && receipt.startup1366Layout?.horizontalOverflow === false;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -2243,10 +2748,16 @@ async function runSmoke(win) {
       receipt.cleanupArabicScreenshotBytes > 20000 &&
       receipt.cleanup1366ScreenshotBytes > 20000 &&
       receipt.cleanup1920ScreenshotBytes > 20000 &&
-      receipt.cleanupUiReady === true
+      receipt.cleanupUiReady === true &&
+      receipt.startupScreenshotBytes > 20000 &&
+      receipt.startupLightScreenshotBytes > 20000 &&
+      receipt.startupArabicScreenshotBytes > 20000 &&
+      receipt.startup1366ScreenshotBytes > 20000 &&
+      receipt.startup1920ScreenshotBytes > 20000 &&
+      receipt.startupUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -2349,6 +2860,16 @@ app.whenReady().then(async () => {
       console.error('[gemini-shell] Clean Room coordinator unavailable:', error?.message || error);
       cleanupBridge = null;
     }
+    try {
+      startupBridge = new StartupBridge({
+        loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+      });
+      trace('startup bridge initialized');
+    } catch (error) {
+      trace(`startup bridge init failed: ${error?.message || error}`);
+      console.error('[gemini-shell] Boot Control coordinator unavailable:', error?.message || error);
+      startupBridge = null;
+    }
     trace('studio bridge initialized');
     const smokeStudioRoot = argValue('--knoux-studio-smoke-root');
     if (smokeStudioRoot && isSmoke && smokeUserData) {
@@ -2376,6 +2897,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  startupBridge?.dispose();
   cleanupBridge?.dispose();
   appBridge?.dispose();
   scanBridge?.dispose();

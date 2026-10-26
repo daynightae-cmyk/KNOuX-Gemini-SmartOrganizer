@@ -1581,6 +1581,255 @@ export interface CleanupShellApi {
   openSettings: (target: 'storage' | 'windowsupdate') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
 }
 
+export interface StartupEntry {
+  id: string;
+  name: string;
+  sourceKind: 'registry-run' | 'registry-runonce' | 'startup-folder' | 'scheduled-task';
+  scope: 'user' | 'machine';
+  location: string;
+  command: string | null;
+  args: string | null;
+  executable: string | null;
+  publisher: string | null;
+  signature: 'valid' | 'untrusted' | 'unsigned' | 'unavailable';
+  state: 'enabled' | 'disabled' | 'unknown';
+  approvedState: 'enabled' | 'disabled' | 'unknown';
+  protection: 'protected' | 'standard';
+  protectionReason: string | null;
+  elevationRequired: boolean;
+  active: boolean;
+  description: string | null;
+  triggers: string[];
+  taskState: string | null;
+  taskPath: string | null;
+  nextRunAt: string | null;
+  lastRunAt: string | null;
+  userId: string | null;
+  runLevel: string | null;
+  evidence: string[];
+}
+
+export interface StartupServiceEntry {
+  id: string;
+  name: string;
+  displayName: string;
+  state: string;
+  startupType: 'automatic' | 'delayed' | 'manual' | 'disabled' | 'unknown';
+  delayedAuto: boolean;
+  account: string;
+  binaryPath: string | null;
+  running: boolean;
+  processId: number | null;
+  protected: boolean;
+  protectionReason: string | null;
+  evidence: string[];
+}
+
+export interface StartupTaskEntry {
+  id: string;
+  name: string;
+  path: string;
+  state: string;
+  author: string | null;
+  userId: string | null;
+  runLevel: string | null;
+  triggers: string[];
+  nextRunAt: string | null;
+  lastRunAt: string | null;
+  execute: string | null;
+  args: string | null;
+  protected: boolean;
+  protectionReason: string | null;
+}
+
+export interface StartupBootEvent {
+  id: string;
+  eventId: number | null;
+  timeCreated: string | null;
+  level: string | null;
+  provider: string;
+  message: string | null;
+  properties: string[];
+  measured: boolean;
+}
+
+export interface StartupBootEvidence {
+  available: boolean;
+  lastBootAt: string | null;
+  uptimeSeconds: number | null;
+  eventCount: number;
+  events: StartupBootEvent[];
+  note: string;
+}
+
+export interface StartupSourceCoverage {
+  registryKeys: number;
+  startupFolders: number;
+  scheduledTasks: number;
+  servicesMeasured: number;
+  errors: string[];
+}
+
+export interface StartupSummary {
+  total: number;
+  enabled: number;
+  disabled: number;
+  unknown: number;
+  protectedCount: number;
+  activeCount: number;
+  elevationCount: number;
+  registry: number;
+  folders: number;
+  tasks: number;
+  services: number;
+}
+
+export interface StartupInventory {
+  status: 'complete' | 'partial';
+  source: string;
+  observedAt: string;
+  readOnly: true;
+  mutation: 'none';
+  entries: StartupEntry[];
+  services: StartupServiceEntry[];
+  tasks: StartupTaskEntry[];
+  summary: StartupSummary;
+  coverage: StartupSourceCoverage;
+  boot: StartupBootEvidence;
+  warnings: string[];
+}
+
+export interface StartupStage {
+  key: string;
+  labelEn: string;
+  labelAr: string;
+  status: 'pending' | 'running' | 'complete' | 'partial' | 'failed' | 'skipped';
+  detail: string;
+  startedAt: string | null;
+  finishedAt: string | null;
+}
+
+export interface StartupSession {
+  id: string;
+  status: 'running' | 'complete' | 'partial' | 'cancelled' | 'failed';
+  startedAt: string;
+  finishedAt: string | null;
+  stages: StartupStage[];
+  entryCount: number | null;
+  warningCount: number;
+  cancelled: boolean;
+  error: string | null;
+}
+
+export interface StartupImpact {
+  available: boolean;
+  observedAt: string;
+  lastBootAt: string | null;
+  uptimeSeconds: number | null;
+  events: StartupBootEvent[];
+  attributed: Array<{ entryId: string | null; name: string; evidence: string; delayMs: number | null }>;
+  note: string;
+  warnings: string[];
+}
+
+export interface StartupPlanItem {
+  entryId: string;
+  name: string;
+  sourceKind: StartupEntry['sourceKind'] | 'service';
+  location: string;
+  action: 'disable' | 'enable' | 'delay' | 'restore' | 'rollback';
+  before: string;
+  after: string;
+  protected: boolean;
+  elevationRequired: boolean;
+  conflicts: string[];
+}
+
+export interface StartupPlan {
+  id: string;
+  contract: 'startup.v1';
+  mode: 'disable' | 'enable' | 'delay' | 'restore' | 'batch' | 'rollback';
+  createdAt: string;
+  immutable: true;
+  mutation: 'none';
+  itemCount: number;
+  items: StartupPlanItem[];
+  protectedCount: number;
+  elevationCount: number;
+  conflictCount: number;
+  estimatedSavingsMs: null;
+  execution: { available: false; gate: string; reason: string };
+  warnings: string[];
+}
+
+export interface StartupJournal {
+  available: false;
+  status: 'empty' | 'gated';
+  entries: [];
+  reason: string;
+  execution: { available: false; gate: string; reason: string };
+}
+
+export interface StartupSessions {
+  available: false;
+  sessions: [];
+  reason: string;
+  execution: { available: false; gate: string; reason: string };
+}
+
+export interface StartupReport {
+  generatedAt: string;
+  source: string;
+  readOnly: true;
+  mutation: 'none';
+  summary: StartupSummary;
+  coverage: StartupSourceCoverage;
+  boot: StartupBootEvidence;
+  entries: StartupEntry[];
+  note: string;
+}
+
+export interface StartupCapabilityService {
+  id: string;
+  labelEn: string;
+  labelAr: string;
+  state: 'available' | 'partial' | 'gated';
+  provider: string;
+  noteEn: string;
+  noteAr: string;
+}
+
+export interface StartupCapabilities {
+  engine: string;
+  contract: 'startup.v1';
+  readOnly: true;
+  mutation: 'none';
+  fixtureFallback: false;
+  serviceCount: number;
+  services: StartupCapabilityService[];
+  gatedOperations: Array<{ id: string; mission: string; title: string; reason: string }>;
+  sources: string[];
+  limits: { entries: number; services: number; tasks: number; bootEvents: number; planItems: number; scanTimeoutMs: number };
+  nativeOnly: string[];
+}
+
+export interface StartupShellApi {
+  contractVersion: number;
+  capabilities: () => Promise<NativeEnvelope<StartupCapabilities>>;
+  start: (request: { includeTasks?: boolean; includeServices?: boolean; includeBoot?: boolean }) => Promise<NativeEnvelope<StartupSession>>;
+  status: (sessionId: string) => Promise<NativeEnvelope<StartupSession>>;
+  cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
+  inventory: () => Promise<NativeEnvelope<StartupInventory>>;
+  services: () => Promise<NativeEnvelope<StartupServiceEntry[]>>;
+  tasks: () => Promise<NativeEnvelope<StartupTaskEntry[]>>;
+  impact: () => Promise<NativeEnvelope<StartupImpact>>;
+  journal: () => Promise<NativeEnvelope<StartupJournal>>;
+  sessions: () => Promise<NativeEnvelope<StartupSessions>>;
+  plan: (request: { entryIds: string[]; mode: StartupPlan['mode']; delayMinutes?: number }) => Promise<NativeEnvelope<StartupPlan>>;
+  report: () => Promise<NativeEnvelope<StartupReport>>;
+  openSettings: (target: 'startupapps') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+}
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

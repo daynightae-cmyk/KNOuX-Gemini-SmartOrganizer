@@ -4,14 +4,33 @@
  */
 
 import {
-  INITIAL_BOOT_METRICS,
-  BOOT_STAGES_BREAKDOWN,
-  STARTUP_SOURCES_SUMMARY,
-  STARTUP_ITEMS_FIXTURE,
-  STARTUP_SERVICES_CATALOG,
-  StartupItem,
-  StartupItemStatus
-} from '../../lib/startup-inventory';
+  BOOT_EVENT_META,
+  DEFAULT_FILTERS,
+  ENTRY_SOURCES,
+  PLAN_MODE_META,
+  SERVICE_ACCENTS,
+  SERVICE_FALLBACK_META,
+  SERVICE_IDS,
+  SERVICE_STARTUP_META,
+  SIGNATURE_META,
+  SOURCE_META,
+  STATE_META,
+  bootEventLabel,
+  filterEntries,
+  formatCount,
+  formatDelay,
+  formatTimestamp,
+  formatUptime,
+  planModeLabel,
+  serviceStateLabel,
+  sourceCounts,
+  sourceLabel,
+  stateLabel,
+  t,
+  visibleServices,
+  visibleTasks,
+} from '../../startup/model';
+import type { StartupEntry, StartupServiceEntry, StartupTaskEntry } from '../../../shared/native-contracts';
 
 export interface StartupTestResult {
   name: string;
@@ -19,145 +38,224 @@ export interface StartupTestResult {
   message?: string;
 }
 
+const ARABIC = /[\u0600-\u06FF]/;
+
+/**
+ * Pure-function checks for the Boot Control presentation model.
+ *
+ * No screenshot number is asserted: every count, timestamp and boot event shown
+ * by Mission 09 is measured by the native coordinator at runtime. The synthetic
+ * entries below only exercise deterministic filtering and aggregation and never
+ * reach a production surface.
+ */
 export function runStartupVerificationSuite(): StartupTestResult[] {
   const results: StartupTestResult[] = [];
+  const check = (name: string, run: () => boolean, pass: string, fail: string) => {
+    try {
+      const passed = run();
+      results.push({ name, passed, message: passed ? pass : fail });
+    } catch (error) {
+      results.push({ name, passed: false, message: String(error) });
+    }
+  };
 
-  // Test 1: Verify all 4 top summary strip metrics match REF-06 specifications
-  try {
-    const bootDuration = INITIAL_BOOT_METRICS.find((m) => m.id === 'boot-duration');
-    const activeItems = INITIAL_BOOT_METRICS.find((m) => m.id === 'active-items');
-    const highImpact = INITIAL_BOOT_METRICS.find((m) => m.id === 'high-impact');
-    const reclaimable = INITIAL_BOOT_METRICS.find((m) => m.id === 'reclaimable-velocity');
+  check(
+    'Boot Control service catalog matches the native contract (12 services)',
+    () =>
+      SERVICE_IDS.length === 12 &&
+      new Set(SERVICE_IDS).size === 12 &&
+      SERVICE_IDS.every((id) => Boolean(SERVICE_ACCENTS[id]) && Boolean(SERVICE_FALLBACK_META[id])),
+    '12 unique service IDs with accent and fallback metadata',
+    'Service catalog is incomplete or duplicated'
+  );
 
-    const passed =
-      INITIAL_BOOT_METRICS.length === 4 &&
-      bootDuration?.value === '13.8s' &&
-      activeItems?.value === '28' &&
-      highImpact?.value === '6' &&
-      highImpact?.isAlert === true &&
-      reclaimable?.value === '4.6s';
+  check(
+    'Boot Control bilingual metadata contains real Arabic',
+    () =>
+      Object.values(SOURCE_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(SIGNATURE_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(STATE_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(SERVICE_STARTUP_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(BOOT_EVENT_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(PLAN_MODE_META).every((meta) => ARABIC.test(meta.ar)) &&
+      Object.values(SERVICE_FALLBACK_META).every((meta) => ARABIC.test(meta.titleAr) && ARABIC.test(meta.descAr)) &&
+      sourceLabel('registry-run', 'ar') === 'تسجيل Run' &&
+      stateLabel('disabled', 'ar') === 'معطّل' &&
+      serviceStateLabel('gated', 'ar') === 'محجوب' &&
+      t('ar', 'Measured', 'مقيس') === 'مقيس',
+    'Arabic labels are authored, not placeholder characters',
+    'Arabic metadata is missing or corrupted'
+  );
 
-    results.push({
-      name: 'Startup Top Metrics Verification (13.8s, 28 items, 6 high impact, 4.6s savings)',
-      passed,
-      message: passed ? 'All 4 summary metrics verified against REF-06 specification' : 'Metrics mismatch'
-    });
-  } catch (err) {
-    results.push({ name: 'Startup Top Metrics Verification', passed: false, message: String(err) });
-  }
+  check(
+    'Boot Control formatting is deterministic and never invents values',
+    () =>
+      formatCount(null) === '—' &&
+      formatCount(0) === '0' &&
+      formatCount(2841) === '2,841' &&
+      formatUptime(null) === '—' &&
+      formatUptime(3725) === '1h 2m' &&
+      formatUptime(90061) === '1d 1h' &&
+      formatDelay(null, 'en') === 'Not published' &&
+      formatDelay(750, 'en') === '750 ms' &&
+      formatDelay(30000, 'en') === '30 s' &&
+      formatTimestamp(null, 'en') === '—' &&
+      formatTimestamp('not-a-date', 'en') === '—' &&
+      bootEventLabel(101, 'en') === 'Slow startup' &&
+      bootEventLabel(999, 'en') === 'Boot event 999',
+    'Formatting matches the measured display contract',
+    'Formatting drifted from the display contract'
+  );
 
-  // Test 2: Verify boot stages waterfall breakdown (5 sequential phases summing to 13.8s)
-  try {
-    const uefi = BOOT_STAGES_BREAKDOWN.find((s) => s.id === 'stage-uefi');
-    const kernel = BOOT_STAGES_BREAKDOWN.find((s) => s.id === 'stage-kernel');
-    const drivers = BOOT_STAGES_BREAKDOWN.find((s) => s.id === 'stage-drivers');
-    const logon = BOOT_STAGES_BREAKDOWN.find((s) => s.id === 'stage-logon');
-    const apps = BOOT_STAGES_BREAKDOWN.find((s) => s.id === 'stage-startup-apps');
+  check(
+    'Boot Control plan and service states stay declared gates',
+    () =>
+      planModeLabel('disable', 'en') === 'Disable review' &&
+      planModeLabel('rollback', 'ar') === 'مراجعة التراجع' &&
+      serviceStateLabel('available', 'en') === 'Available' &&
+      serviceStateLabel('partial', 'en') === 'Partial' &&
+      serviceStateLabel('gated', 'en') === 'Gated' &&
+      SERVICE_STARTUP_META.automatic.tone === 'warn' &&
+      SERVICE_STARTUP_META.delayed.tone === 'good' &&
+      SERVICE_STARTUP_META.disabled.tone === 'bad',
+    'Every mutation family is represented as reviewed, partial or gated',
+    'A service state or plan mode lost its honest gate'
+  );
 
-    const totalDuration = BOOT_STAGES_BREAKDOWN.reduce((sum, s) => sum + s.durationMs, 0);
-    const totalPercentage = BOOT_STAGES_BREAKDOWN.reduce((sum, s) => sum + s.percentage, 0);
+  const synthetic: StartupEntry[] = [
+    {
+      id: 'st:aaaaaaaaaaaaaaaaaaaaaaaa',
+      name: 'Alpha Sync Agent',
+      sourceKind: 'registry-run',
+      scope: 'user',
+      location: 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run',
+      command: '"C:\\Apps\\alpha.exe" --background',
+      args: '--background',
+      executable: 'C:\\Apps\\alpha.exe',
+      publisher: 'Alpha Software Ltd',
+      signature: 'valid',
+      state: 'enabled',
+      approvedState: 'enabled',
+      protection: 'standard',
+      protectionReason: null,
+      elevationRequired: false,
+      active: true,
+      description: 'synthetic',
+      triggers: [],
+      taskState: null,
+      taskPath: null,
+      nextRunAt: null,
+      lastRunAt: null,
+      userId: null,
+      runLevel: null,
+      evidence: ['synthetic'],
+    },
+    {
+      id: 'task:bbbbbbbbbbbbbbbbbbbbbbbb',
+      name: 'Beta Maintenance Task',
+      sourceKind: 'scheduled-task',
+      scope: 'machine',
+      location: '\\Microsoft\\Windows\\Beta\\Maintenance',
+      command: 'C:\\Windows\\System32\\beta.exe',
+      args: null,
+      executable: 'C:\\Windows\\System32\\beta.exe',
+      publisher: null,
+      signature: 'unsigned',
+      state: 'disabled',
+      approvedState: 'disabled',
+      protection: 'protected',
+      protectionReason: 'Microsoft maintenance task',
+      elevationRequired: true,
+      active: false,
+      description: 'synthetic',
+      triggers: ['At logon'],
+      taskState: 'Disabled',
+      taskPath: '\\Microsoft\\Windows\\Beta\\',
+      nextRunAt: '2026-11-01T06:00:00.000Z',
+      lastRunAt: '2026-10-01T06:00:00.000Z',
+      userId: 'SYSTEM',
+      runLevel: 'Highest',
+      evidence: ['synthetic'],
+    },
+  ];
 
-    const passed =
-      BOOT_STAGES_BREAKDOWN.length === 5 &&
-      uefi?.durationMs === 2400 &&
-      kernel?.durationMs === 3100 &&
-      drivers?.durationMs === 2200 &&
-      logon?.durationMs === 1800 &&
-      apps?.durationMs === 4300 &&
-      totalDuration === 13800 &&
-      Math.abs(totalPercentage - 100) < 0.2;
+  check(
+    'Boot Control register filtering and aggregation stay pure',
+    () => {
+      const all = filterEntries(synthetic, DEFAULT_FILTERS);
+      const byQuery = filterEntries(synthetic, { ...DEFAULT_FILTERS, query: 'alpha' });
+      const byProtected = filterEntries(synthetic, { ...DEFAULT_FILTERS, prevention: 'protected' });
+      const byUnsigned = filterEntries(synthetic, { ...DEFAULT_FILTERS, signature: 'unsigned' });
+      const bySource = filterEntries(synthetic, { ...DEFAULT_FILTERS, source: 'scheduled-task' });
+      const counts = sourceCounts(synthetic);
+      return (
+        all.map((entry) => entry.name).join('|') === 'Beta Maintenance Task|Alpha Sync Agent' &&
+        byQuery.length === 1 &&
+        byQuery[0].id === synthetic[0].id &&
+        byProtected.length === 1 &&
+        byProtected[0].id === synthetic[1].id &&
+        byUnsigned.length === 1 &&
+        bySource.length === 1 &&
+        counts.all === 2 &&
+        counts['registry-run'] === 1 &&
+        counts['scheduled-task'] === 1 &&
+        counts['startup-folder'] === 0 &&
+        ENTRY_SOURCES.length === 4
+      );
+    },
+    'Filters, source counts and stable ordering are deterministic',
+    'Register aggregation produced unexpected output'
+  );
 
-    results.push({
-      name: 'Boot Waterfall Stages Verification (5 sequential phases = 13,800 ms)',
-      passed,
-      message: passed ? 'All 5 phases verified with exact duration and percentage summation' : 'Stage sequence invalid'
-    });
-  } catch (err) {
-    results.push({ name: 'Boot Waterfall Stages Verification', passed: false, message: String(err) });
-  }
+  const services: StartupServiceEntry[] = [
+    {
+      id: 'svc:cccccccccccccccccccccccc',
+      name: 'AlphaSvc',
+      displayName: 'Alpha Background Service',
+      state: 'Running',
+      startupType: 'automatic',
+      delayedAuto: false,
+      account: 'LocalSystem',
+      binaryPath: 'C:\\Windows\\System32\\svchost.exe -k alpha',
+      running: true,
+      processId: 1234,
+      protected: false,
+      protectionReason: null,
+      evidence: ['synthetic'],
+    },
+  ];
 
-  // Test 3: Verify all 12 domain service catalog entries match REF-06 requirements
-  try {
-    const requiredKeys = [
-      'startup-overview',
-      'startup-disable',
-      'startup-restore',
-      'startup-sources',
-      'startup-journal',
-      'startup-filter',
-      'startup-impact',
-      'startup-services',
-      'startup-tasks',
-      'startup-delay',
-      'startup-batch',
-      'startup-undo-all'
-    ];
+  const tasks: StartupTaskEntry[] = [
+    {
+      id: 'task:dddddddddddddddddddddddd',
+      name: 'Delta Logon Helper',
+      path: '\\Microsoft\\Windows\\Delta\\',
+      state: 'Ready',
+      author: 'Delta Software',
+      userId: 'SYSTEM',
+      runLevel: 'Highest',
+      triggers: ['At logon'],
+      nextRunAt: '2026-11-01T06:00:00.000Z',
+      lastRunAt: '2026-10-01T06:00:00.000Z',
+      execute: 'C:\\Windows\\System32\\delta.exe',
+      args: null,
+      protected: false,
+      protectionReason: null,
+    },
+  ];
 
-    const presentKeys = new Set(STARTUP_SERVICES_CATALOG.map((s) => s.serviceKey));
-    const allPresent = requiredKeys.every((k) => presentKeys.has(k));
-
-    results.push({
-      name: 'Twelve Domain Services Matrix Verification (12 specialized workspaces)',
-      passed: allPresent && STARTUP_SERVICES_CATALOG.length === 12,
-      message: allPresent ? 'All 12 required service keys registered and mapped' : 'Missing required service keys'
-    });
-  } catch (err) {
-    results.push({ name: 'Twelve Domain Services Matrix Verification', passed: false, message: String(err) });
-  }
-
-  // Test 4: Verify authentic realistic startup applications fixtures
-  try {
-    const onedrive = STARTUP_ITEMS_FIXTURE.find((i) => i.id === 'item-onedrive');
-    const discord = STARTUP_ITEMS_FIXTURE.find((i) => i.id === 'item-discord');
-    const spotify = STARTUP_ITEMS_FIXTURE.find((i) => i.id === 'item-spotify');
-    const nvidia = STARTUP_ITEMS_FIXTURE.find((i) => i.id === 'item-nvidia');
-    const steam = STARTUP_ITEMS_FIXTURE.find((i) => i.id === 'item-steam');
-    const security = STARTUP_ITEMS_FIXTURE.find((i) => i.id === 'item-security');
-
-    const passed =
-      STARTUP_ITEMS_FIXTURE.length >= 12 &&
-      onedrive?.publisher === 'Microsoft Corporation' &&
-      onedrive?.impact === 'high' &&
-      onedrive?.source === 'registry_hkcu' &&
-      discord?.impactDelayMs === 1420 &&
-      spotify?.recommendation === 'safe_to_disable' &&
-      nvidia?.source === 'registry_hklm' &&
-      steam?.impactDelayMs === 1980 &&
-      security?.isProtected === true;
-
-    results.push({
-      name: 'Startup Items Fixture Integrity (Realistic Windows 11 Autostart entries)',
-      passed,
-      message: passed ? 'Fixture items contain authentic registry hives, publishers, and impact delay metrics' : 'Fixture data invalid'
-    });
-  } catch (err) {
-    results.push({ name: 'Startup Items Fixture Integrity', passed: false, message: String(err) });
-  }
-
-  // Test 5: Verify non-destructive soft-disable and state transition contracts
-  try {
-    const testItem = { ...STARTUP_ITEMS_FIXTURE[0] };
-    const originalPath = testItem.executablePath;
-    const originalHive = testItem.sourceLocation;
-
-    // Simulate soft-disable transition
-    const disabledState: StartupItem = { ...testItem, status: 'disabled' };
-    const delayedState: StartupItem = { ...testItem, status: 'delayed', delaySeconds: 30 };
-
-    const nonDestructive =
-      disabledState.executablePath === originalPath &&
-      disabledState.sourceLocation === originalHive &&
-      delayedState.delaySeconds === 30 &&
-      delayedState.status === 'delayed';
-
-    results.push({
-      name: 'Safe Non-Destructive State Contract Verification',
-      passed: nonDestructive,
-      message: nonDestructive ? 'Soft-disable preserves binary paths and registry metadata without deletion' : 'State transition corrupted metadata'
-    });
-  } catch (err) {
-    results.push({ name: 'Safe Non-Destructive State Contract Verification', passed: false, message: String(err) });
-  }
+  check(
+    'Boot Control service and logon-task search is read-only and bounded',
+    () =>
+      visibleServices(services, '').length === 1 &&
+      visibleServices(services, 'alpha background').length === 1 &&
+      visibleServices(services, 'nomatch').length === 0 &&
+      visibleTasks(tasks, '').length === 1 &&
+      visibleTasks(tasks, 'delta software').length === 1 &&
+      visibleTasks(tasks, 'nomatch').length === 0,
+    'Service and task filters search measured fields only',
+    'Service or task filtering produced unexpected output'
+  );
 
   return results;
 }
