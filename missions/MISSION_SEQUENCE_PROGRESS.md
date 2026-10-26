@@ -1,10 +1,10 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 08 Cleanup (02 Smart Scan and 05 Applications accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 09 Startup (02 Smart Scan, 05 Applications and 08 Cleanup accepted). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
-Updated: 2026-10-26 (single-agent autonomous run; Missions 02 and 05 accepted)
+Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05 and 08 accepted)
 
 | Mission | State | Accepted commit(s) | Remote verified | Evidence | Next |
 |---|---|---|---|---|---|
@@ -15,7 +15,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02 and 05 accepted)
 | 07 — Storage | ACCEPTED_WITH_EVIDENCE (read-only; SMART/defrag/removable unsupported, cleanup blocked) | 1feea22 | 1feea22 | docs/STORAGE_VOLUME_ATLAS_AUDIT.md, visual-evidence/mission-07/ (12 viewport/theme/RTL captures + 10/10 interactions + contrast 0), platform-00 storage measured dev + packaged screenshots and receipts, test:storage PASS, Gemini Platform CI success (run 40219756939) | 02 |
 | 02 — Smart Scan | ACCEPTED_WITH_EVIDENCE (measured read-only; cleanup/startup/app mutation blocked to 08/09/05) | 1d0e559, 4af1f02 (CI fix) | 4af1f02 | docs (this snapshot), visual-evidence/platform-00/smart-scan-measured-dev{,-light,-ar-light,-1366,-1366-bottom,-1920}.png, test:scan PASS, native smoke PASS, Gemini Platform CI success (run 40240780808) | 05 |
 | 05 - Applications | ACCEPTED_WITH_EVIDENCE (measured read-only; uninstall/update/association/startup writes gated to 08/11/14/09) | b52c7e4 | b52c7e4 | docs (this snapshot), visual-evidence/platform-00/applications-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:apps PASS, native smoke appsOk/appsLayoutOk, Gemini Platform CI success (run 40244766892) | 08 |
-| 08 — Cleanup | PENDING | — | — | — | — |
+| 08 — Cleanup | ACCEPTED_WITH_EVIDENCE (measured read-only; delete/quarantine/recycle-empty/DISM/task/restore mutations gated) | 1359162 | 1359162 | docs (this snapshot), visual-evidence/platform-00/cleanup-measured-dev{,-light,-ar-light,-1366,-1920}.png, test:cleanup PASS, native smoke cleanupOk/cleanupLayoutOk + 12/12 service workbenches, Gemini Platform CI success (run 40252357944) | 09 |
 | 09 — Startup | PENDING | — | — | — | — |
 | 10 — System | PENDING | — | — | — | — |
 | 11 — Repair | PENDING | — | — | — | — |
@@ -87,9 +87,19 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02 and 05 accepted)
 - Runtime: `desktop:smoke` PASS with `appsOk`, `appsLayoutOk`, measured Applications route and 1366/1672/1920 assertions (side-by-side register/dossier, no horizontal overflow, working inner scroll); dark/light/AR-light screenshots reviewed and 1366 compression fixed.
 - Root CI: Gemini Platform CI run 40244766892 SUCCESS; remote `main` fast-forwarded to verified b52c7e4.
 
+## Mission 08 verification snapshot
+
+- Coordinator: `electron/native/cleanup-bridge.cjs` is the single read-only Clean Room bridge behind 12 fixed `knoux:cleanup:v1:*` channels. It performs a bounded 5-stage discovery session (`start`/`status`/`cancel`) and serves inventory, estimate, quarantine/journal, dormant items, immutable plan, schedule draft and report.
+- Measured scope: allowlisted user/Windows temp, browser profile cache roots, crash/WER/CBS/DISM logs, SoftwareDistribution and WinSxS. Cookies, history, saved passwords, personal Documents/Desktop/Downloads/Pictures/Music/Videos, reparse points and shared roots are excluded. Recycle Bin metadata is read through Shell.Application namespace 10; WinSxS and servicing stores are measured but never serviced. Dormant items require an already-authorized Studio source.
+- Honest state: every plan is immutable with `execution.available:false`; no delete, move, rename, quarantine write, restore, recycle-empty, DISM, scheduled task or elevation channel exists. Mission 08 claims zero reclaimed bytes because nothing was deleted.
+- Renderer: the fixture inventory and unused wrapper modal were deleted. The page now renders measured KPIs, category filters, a measured candidate ledger, an eight-step safety review, 12 distinct service workbenches and a plan gate. Inspector flex clipping was fixed so all review checkpoints and evidence remain scrollable, and light/RTL contrast was re-checked.
+- Tests: `test:cleanup` PASS (controlled fixture: 12 services, 5 stages, 11 candidates, 3 blocked plan items, no file mutation, honest cancellation); `test:native`/`test:studio`/`test:files`/`test:storage`/`test:scan`/`test:apps` regressions PASS; lint and build PASS.
+- Runtime: `desktop:smoke` PASS with `cleanupOk`, `cleanupLayoutOk`, 12/12 workbenches opened and closed, `cleanupServiceProbe.ok`, 1366 side-by-side register/inspector, no horizontal overflow and working inner scroll; dark EN, light EN, Arabic light RTL, 1366 and 1920 captures reviewed.
+- Root CI: Gemini Platform CI run 40252357944 SUCCESS; remote `main` fast-forwarded to verified 1359162.
+
 ## Boundary / next
 
-- Next mission file: `08_CLEANUP_FULLSTACK_MISSION.md` (then 09, 10, 11, 12, 13, 04, 14, 01).
+- Next mission file: `09_STARTUP_FULLSTACK_MISSION.md` (then 10, 11, 12, 13, 04, 14, 01).
 - Real file mutations, elevated repair/service/startup operations, Google OAuth, credentials and AI provider calls remain separately gated.
 - One automatic preservation checkpoint (`d9e856d`) was observed and retained; no conflicting writer was found. No main/K: edits, no force-push/reset/clean.
 
