@@ -25,7 +25,7 @@ Updated: 2026-10-26 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 | 14 — Settings/Assistant | PENDING | — | — | — | — |
 | 01 — Home | PENDING | — | — | — | 15 |
 | 15 — Real Service Activation | PENDING_PRODUCT_PHASE (starts only after 04/14/01; ordered 03 → 06 → 07 → 02 → 05 → 08 → 09 → 10 → 11 → 12 → 13 → 04 → 14 → 01) | — | — | missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, docs/SERVICE_CAPABILITY_MATRIX.md, docs/SERVICE_REGISTRY_EVIDENCE.md | activation |
-| 15A — Interactive Service Workbenches | PENDING (first prerequisite/stage of Mission 15; after 14/01; resizable pinned/expanded service-specific host for every advertised service) | — | — | missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md | 15A |
+| 15A — Interactive Service Workbenches | PENDING (first prerequisite/stage of Mission 15; after 14/01; resizable pinned/expanded service-specific host for every advertised service) | — | — | missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md, docs/SERVICE_WORKBENCH_ACCEPTANCE.md (181-entry audit skeleton; all AUDIT_REQUIRED until inspected) | 15A |
 
 ## Platform 00 verification snapshot
 

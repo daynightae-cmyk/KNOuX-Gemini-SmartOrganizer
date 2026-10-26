@@ -66,3 +66,45 @@ for f in sorted(M.iterdir()):
 manifest.write_text(json.dumps(records,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print(json.dumps({"amended_files":edited,"amended_count":len(edited),"all_domain_missions":len(D),
 "new_task":"15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md","mission_sha256_rows":len(records)},ensure_ascii=False,indent=2))
+
+
+# Create an explicitly unverified 181-to-150 interaction audit skeleton ONCE only.
+# Preserve a human/agent-updated actual acceptance sheet on subsequent executions.
+accept=R/"docs"/"SERVICE_WORKBENCH_ACCEPTANCE.md"
+if not accept.exists():
+ source=R/"docs"/"SERVICE_CAPABILITY_MATRIX.md"
+ evidence=R/"docs"/"SERVICE_REGISTRY_EVIDENCE.md"
+ advertised=[]
+ for ln in source.read_text(encoding="utf-8-sig").splitlines():
+  if not ln.startswith("| "):continue
+  cells=[c.strip() for c in ln.strip().strip("|").split("|")]
+  if len(cells)==10 and cells[0].isdigit() and len(cells[0])==2:advertised.append(cells)
+ existing=set()
+ for ln in evidence.read_text(encoding="utf-8-sig").splitlines():
+  if not ln.startswith("| "):continue
+  cells=[c.strip() for c in ln.strip().strip("|").split("|")]
+  if len(cells)>=13 and cells[1].startswith(chr(96)) and cells[1].endswith(chr(96)):
+   existing.add(cells[1].strip(chr(96)))
+ assert len(advertised)==181,len(advertised)
+ assert len(existing)==150,len(existing)
+ mapped=0
+ lines=[
+  "# KNOuX — Service Workbench UI & Actual Action Acceptance\n\n",
+  "This is a starting audit inventory, **NOT TEST EVIDENCE** and not an assertion of delivered workbenches.\n",
+  "Source of advertised scope: docs/SERVICE_CAPABILITY_MATRIX.md (181 entries). Existing service/surface IDs: docs/SERVICE_REGISTRY_EVIDENCE.md (150 entries). Counts overlap; not 331 distinct engines. Use missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md and missions/15_REAL_SERVICE_ACTIVATION_MISSION.md.\n\n",
+  "A service is accepted only when its actual distinct dock/expanded workbench opens with real meaningful user controls; applicable native action provider has effectful disposable-fixture proof and consent/recovery; EN/AR, RTL, dark/light, 1366/1672/1920, keyboard, dev+packaged Electron pass. Until inspected, all statuses below remain AUDIT_REQUIRED.\n\n",
+  "| Mission | Advertised entry | Displayed purpose | Mapped registry ID | Dock/expanded | Dedicated workbench | Actual buttons/selection | Read/native action provider | Risk/approval & undo | E2E/visual evidence | Verified status |\n",
+  "|---|---|---|---|---|---|---|---|---|---|---|\n"
+ ]
+ for cells in advertised:
+  mission,ident,purpose=cells[0],cells[1],cells[2]
+  linked=ident if ident in existing else "UNMAPPED_RECONCILE"
+  if linked==ident:mapped+=1
+  lines.append("| "+" | ".join([mission,ident,purpose.replace("|","/"),linked,"AUDIT_REQUIRED","AUDIT_REQUIRED","AUDIT_REQUIRED","AUDIT_REQUIRED","AUDIT_REQUIRED","NOT_VERIFIED","AUDIT_REQUIRED"])+" |\n")
+ lines.append(f"\n**181 advertised mission entries; {mapped} exact ID matches in 150 evidence registry rows; {181-mapped} require ID reconciliation or justified aggregation.** No implementation evidence asserted.\n")
+ lines.append("\nDo not label 'Full UI parity' or 'Actual execution' without runtime proof. Read-only/informational services do not need fake mutation controls. Sensitive real-user system/account/file actions need explicit per-operation in-app authorization; tests use disposable resources only.\n")
+ accept.parent.mkdir(exist_ok=True)
+ accept.write_text("".join(lines),encoding="utf-8")
+ print("WORKBENCH_ACCEPTANCE_SKELETON",len(advertised),len(existing),"ID_MATCHES",mapped,"NEEDS_RECONCILIATION",181-mapped)
+else:
+ print("WORKBENCH_ACCEPTANCE_PRESERVED_ALREADY_EXISTS")
