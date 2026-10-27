@@ -1,3 +1,4 @@
+import { StorageCleanupLiveWorkbench } from './operations/StorageCleanupLiveWorkbench';
 import { OrganizationLiveWorkbench } from './operations/OrganizationLiveWorkbench';
 /**
  * @license
@@ -141,6 +142,7 @@ function AppContent() {
     <>
       <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['home', 'automation', 'studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair', 'services'].includes(currentSection)}>{renderActiveWorkspace()}</div>
       <OrganizationLiveWorkbench />
+      <StorageCleanupLiveWorkbench />
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

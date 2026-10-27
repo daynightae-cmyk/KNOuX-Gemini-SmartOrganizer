@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
 const {fixture,bridgeFor,hashSources,sha}=require('./live-organization-fixtures.cjs');
 async function main() {
- const evidence=path.resolve(__dirname,'../../../docs/evidence/live-organization');await fs.mkdir(evidence,{recursive:true});
+ const evidence=process.env.KNOUX_ORGANIZATION_EVIDENCE_DIR?path.resolve(process.env.KNOUX_ORGANIZATION_EVIDENCE_DIR):path.resolve(__dirname,'../../../docs/evidence/live-organization');await fs.mkdir(evidence,{recursive:true});
  const checks=[];const record=(name,details={})=>{checks.push({name,...details});console.log('VERIFIED',name);};
  const f=await fixture();const {engine,studio,events,request}=await bridgeFor(f);
  try {

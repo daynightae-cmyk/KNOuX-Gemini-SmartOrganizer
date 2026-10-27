@@ -385,6 +385,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       updatedAt: operation.updatedAt,
       planId: operation.planId,
       planHash: operation.planHash,
+      ...(operation.approvalContext ? {approvalContext:operation.approvalContext} : {}),
       destinationSummary: operation.destinationSummary || null,
       sourceRoots: operation.sourceRoots || [],
       totalFiles: operation.totalFiles || 0,
@@ -645,6 +646,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
     const expiresAtMs = createdAtMs + PLAN_TTL_MS;
     const sourceRoots = Array.from(inventoryByRoot.values());
     const planForHash = {
+      ...(request.approvalContext ? {approvalContext:jsonClone(request.approvalContext)} : {}),
       planId,
       createdAt: iso(createdAtMs),
       expiresAt: iso(expiresAtMs),
@@ -829,7 +831,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
     return { removed: true, alreadyAbsent: false };
   }
 
-  async function execute({ owner, request, emit = () => {} }) {
+  async function execute({ owner, request, emit = () => {}, beforeFile = async () => {} }) {
     await ensureReady();
     const record = plans.get(request.planId);
     if (!record || record.owner !== owner) throw studioError('STUDIO_PLAN_NOT_FOUND', 'That plan is no longer available. Build a new plan.');
@@ -914,6 +916,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       for (const op of record.internalOperations) {
         if (abort.signal.aborted) throw studioError('STUDIO_CANCELLED', 'Cancelled during preflight.');
         try {
+          await beforeFile(op);
           await verifySourceForOperation(op);
         } catch (error) {
           if (String(error?.code || '').startsWith('STUDIO_PLAN_STALE')) record.stale = true;
@@ -989,6 +992,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
           bytes: bytesDone, totalBytes: plan.totals.bytes, currentName: op.name, operation: plan.operation
         });
         try {
+          await beforeFile(op);
           await verifySourceForOperation(op);
           const relativeTargetFolder = path.relative(op.targetRoot, path.dirname(op.targetAbsolute));
           await safety.resolveWithinRoot(op.targetRoot, relativeTargetFolder, { create: false, label: 'Destination' });
@@ -1141,6 +1145,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       id: executionId,
       planId: plan.planId,
       planHash: plan.planHash,
+      ...(plan.approvalContext ? {approvalContext:jsonClone(plan.approvalContext)} : {}),
       owner,
       profileId,
       mode: plan.operation,
@@ -1186,6 +1191,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       id: executionId,
       planId: plan.planId,
       planHash: plan.planHash,
+      ...(plan.approvalContext ? {approvalContext:jsonClone(plan.approvalContext)} : {}),
       owner,
       profileId,
       mode: plan.operation,
