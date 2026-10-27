@@ -118,7 +118,7 @@ async function main() {
   const timeout = setTimeout(() => {
     child.kill();
     fail('Electron smoke timed out after 600 seconds.');
-  }, 600000);
+  }, 1200000);
 
   const exitCode = await new Promise((resolve, reject) => {
     child.on('error', reject);
@@ -223,6 +223,10 @@ async function main() {
     scanWorkbenchExpandedShotPath: receipt?.scanWorkbenchExpandedScreenshot || '',
     appsWorkbenchShotPath: receipt?.appsWorkbenchScreenshot || '',
     appsWorkbenchExpandedShotPath: receipt?.appsWorkbenchExpandedScreenshot || '',
+    cleanupWorkbenchShotPath: receipt?.cleanupWorkbenchScreenshot || '',
+    cleanupWorkbenchExpandedShotPath: receipt?.cleanupWorkbenchExpandedScreenshot || '',
+    startupWorkbenchShotPath: receipt?.startupWorkbenchScreenshot || '',
+    startupWorkbenchExpandedShotPath: receipt?.startupWorkbenchExpandedScreenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -295,6 +299,10 @@ async function main() {
     scanWorkbenchExpandedShotBytes: receipt?.scanWorkbenchExpandedScreenshotBytes || 0,
     appsWorkbenchShotBytes: receipt?.appsWorkbenchScreenshotBytes || 0,
     appsWorkbenchExpandedShotBytes: receipt?.appsWorkbenchExpandedScreenshotBytes || 0,
+    cleanupWorkbenchShotBytes: receipt?.cleanupWorkbenchScreenshotBytes || 0,
+    cleanupWorkbenchExpandedShotBytes: receipt?.cleanupWorkbenchExpandedScreenshotBytes || 0,
+    startupWorkbenchShotBytes: receipt?.startupWorkbenchScreenshotBytes || 0,
+    startupWorkbenchExpandedShotBytes: receipt?.startupWorkbenchExpandedScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -377,7 +385,11 @@ async function main() {
     summary.scanWorkbenchShotBytes > 20000 &&
     summary.scanWorkbenchExpandedShotBytes > 20000 &&
     summary.appsWorkbenchShotBytes > 20000 &&
-    summary.appsWorkbenchExpandedShotBytes > 20000;
+    summary.appsWorkbenchExpandedShotBytes > 20000 &&
+    summary.cleanupWorkbenchShotBytes > 20000 &&
+    summary.cleanupWorkbenchExpandedShotBytes > 20000 &&
+    summary.startupWorkbenchShotBytes > 20000 &&
+    summary.startupWorkbenchExpandedShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

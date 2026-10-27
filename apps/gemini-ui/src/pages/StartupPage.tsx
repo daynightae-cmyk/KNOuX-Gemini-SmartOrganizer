@@ -28,9 +28,11 @@ import { AutorunInspector } from '../startup/AutorunInspector';
 import { ServiceRail } from '../startup/ServiceRail';
 import { ServiceWorkspace } from '../startup/ServiceWorkspace';
 import { PlanGate } from '../startup/PlanGate';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useStartup } from '../startup/useStartup';
 import {
   DEFAULT_FILTERS,
+  SERVICE_FALLBACK_META,
   SERVICE_IDS,
   filterEntries,
   formatCount,
@@ -57,6 +59,20 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<StartupServiceId | null>(null);
   const [planOpen, setPlanOpen] = useState(false);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.startup.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.startup.workbench.width')); return Number.isFinite(value) && value >= 340 ? Math.min(720, value) : 560; } catch { return 560; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.startup.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.startup.workbench.width', String(workbenchWidth));
+    } catch {
+      // In-memory only when storage is unavailable.
+    }
+  }, [workbenchMode, workbenchWidth]);
 
   const filteredEntries = useMemo(() => filterEntries(entries, filters), [entries, filters]);
   const counts = useMemo(() => {
@@ -158,6 +174,53 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
   const boot = inventory?.boot;
   const serviceCount = inventory?.services.length || 0;
   const taskCount = inventory?.tasks.length || 0;
+
+  const closeWorkbench = () => {
+    if (!planOpen) setActiveService(null);
+  };
+
+  const startupServiceLabel = (service: StartupServiceId): string => {
+    const capability = controller.capabilities?.services.find((entry) => entry.id === service);
+    if (capability) return locale === 'ar' ? capability.labelAr : capability.labelEn;
+    const fallback = SERVICE_FALLBACK_META[service];
+    return locale === 'ar' ? fallback.titleAr : fallback.titleEn;
+  };
+
+  const renderStartupServiceBody = () => activeService ? (
+    <ServiceWorkspace
+      service={activeService}
+      locale={locale}
+      controller={controller}
+      entries={entries}
+      selectedEntry={selectedEntry}
+      selectedIds={[...checkedIds]}
+      onSelectEntry={setSelectedId}
+      onApplySelection={applySelection}
+      onStagePlan={(ids, mode, delayMinutes) => void stagePlan(ids, mode, delayMinutes)}
+      onClose={closeWorkbench}
+      onNotice={controller.showNotice}
+      onNavigateSection={handleNavigate}
+      embedded
+    />
+  ) : null;
+
+  const startupWorkbenchToolSelector = (
+    <select
+      data-testid="startup-workbench-tool-select"
+      aria-label={t(locale, 'Switch startup service', 'تبديل خدمة الإقلاع')}
+      value={activeService || ''}
+      onChange={(event) => {
+        if ((SERVICE_IDS as readonly string[]).includes(event.target.value)) {
+          setActiveService(event.target.value as StartupServiceId);
+        }
+      }}
+      className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {SERVICE_IDS.map((id) => (
+        <option key={id} value={id}>{startupServiceLabel(id)}</option>
+      ))}
+    </select>
+  );
 
   return (
     <div className={`stp-viewport relative text-slate-100 font-sans select-none ${locale === 'ar' ? 'rtl' : 'ltr'}`}>
@@ -365,20 +428,44 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
       </div>
 
       {activeService ? (
-        <ServiceWorkspace
-          service={activeService}
-          locale={locale}
-          controller={controller}
-          entries={entries}
-          selectedEntry={selectedEntry}
-          selectedIds={[...checkedIds]}
-          onSelectEntry={setSelectedId}
-          onApplySelection={applySelection}
-          onStagePlan={(ids, mode, delayMinutes) => void stagePlan(ids, mode, delayMinutes)}
-          onClose={() => setActiveService(null)}
-          onNotice={controller.showNotice}
-          onNavigateSection={handleNavigate}
-        />
+        workbenchMode === 'side' ? (
+          <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="startup-workbench-side-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={startupServiceLabel(activeService)}
+              subtitle={t(locale, 'Measured boot context · read-only', 'سياق الإقلاع المقيس · للقراءة فقط')}
+              locale={locale}
+              mode="side"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              onResize={(width) => setWorkbenchWidth(width)}
+              minWidth={340}
+              maxWidth={720}
+              testId="startup-workbench"
+              toolSelector={startupWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{t(locale, 'Read-only · no startup, task, service or registry write', 'للقراءة فقط · لا كتابة إقلاع أو مهمة أو خدمة أو سجل')}</span>}
+            >
+              {renderStartupServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        ) : (
+          <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="startup-workbench-expanded-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={startupServiceLabel(activeService)}
+              subtitle={t(locale, 'Measured boot context · read-only', 'سياق الإقلاع المقيس · للقراءة فقط')}
+              locale={locale}
+              mode="expanded"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              testId="startup-workbench-expanded"
+              toolSelector={startupWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{t(locale, 'Read-only · no startup, task, service or registry write', 'للقراءة فقط · لا كتابة إقلاع أو مهمة أو خدمة أو سجل')}</span>}
+            >
+              {renderStartupServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        )
       ) : null}
 
       {planOpen && controller.plan ? (

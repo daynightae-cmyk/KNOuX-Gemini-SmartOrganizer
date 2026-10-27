@@ -3493,3 +3493,78 @@ export interface AppsShellApi {
   packages: (request: { tab: 'installed' | 'discover'; query?: string }) => Promise<NativeEnvelope<AppPackagesResult>>;
   openSettings: (target: 'defaultapps' | 'appsfeatures') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
 }
+
+/* Google Workspace desktop OAuth v1. Token and client-secret material never
+   appear in these types; only a minimized account label and read-only Sheets
+   metadata/values cross the main-process boundary. */
+export type GoogleConnectionState = 'disconnected' | 'connecting' | 'connected' | 'permission-missing' | 'error';
+
+export interface GoogleAccountSummary {
+  email: string | null;
+  displayName: string;
+}
+
+export interface GoogleConnectionStatus {
+  contract: 'google.oauth.v1';
+  configured: boolean;
+  connection: GoogleConnectionState;
+  connected: boolean;
+  account: GoogleAccountSummary | null;
+  grantedScopes: string[];
+  missingScopes: string[];
+  tokenStorage: 'windows-dpapi-safeStorage' | 'unavailable';
+  storageAvailable: boolean;
+  selectedSpreadsheetCount: number;
+  obtainedAt: string | null;
+  lastError: { code: string; message: string; retryable: boolean } | null;
+  updatedAt: string;
+}
+
+export interface GoogleSheetTab {
+  sheetId: number;
+  title: string;
+  index: number;
+  rows: number;
+  columns: number;
+}
+
+export interface GoogleSheetMetadata {
+  id: string;
+  title: string;
+  tabs: GoogleSheetTab[];
+  observedAt: string;
+}
+
+export interface GoogleSheetsListResult {
+  sheets: GoogleSheetMetadata[];
+  failures: Array<{ id: string; code: string }>;
+  selectedCount: number;
+}
+
+export interface GoogleSheetValues {
+  spreadsheetId: string;
+  range: string;
+  majorDimension: 'ROWS' | 'COLUMNS';
+  values: string[][];
+  rowCount: number;
+  columnCount: number;
+  observedAt: string;
+}
+
+export interface GoogleSelectionResult {
+  ids: string[];
+  added?: boolean;
+  removed?: boolean;
+}
+
+export interface GoogleShellApi {
+  contractVersion: number;
+  getStatus: () => Promise<NativeEnvelope<GoogleConnectionStatus>>;
+  connect: () => Promise<NativeEnvelope<GoogleConnectionStatus>>;
+  cancel: () => Promise<NativeEnvelope<GoogleConnectionStatus>>;
+  disconnect: () => Promise<NativeEnvelope<GoogleConnectionStatus>>;
+  listSheets: () => Promise<NativeEnvelope<GoogleSheetsListResult>>;
+  addSpreadsheet: (input: string) => Promise<NativeEnvelope<GoogleSelectionResult>>;
+  removeSpreadsheet: (id: string) => Promise<NativeEnvelope<GoogleSelectionResult>>;
+  readSheet: (request: { id: string; range?: string; majorDimension?: 'ROWS' | 'COLUMNS' }) => Promise<NativeEnvelope<GoogleSheetValues>>;
+}

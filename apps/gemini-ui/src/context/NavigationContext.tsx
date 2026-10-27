@@ -7,7 +7,7 @@
  * breadcrumbs, history, and accurate highlight detection for all sidebars and top bars.
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, ReactNode } from 'react';
 
 export type AppTheme = 'dark' | 'light';
 
@@ -189,6 +189,11 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     return normalizeSection(initialSection);
   });
 
+  const currentSectionRef = useRef<AppSection>(currentSection);
+  useEffect(() => {
+    currentSectionRef.current = currentSection;
+  }, [currentSection]);
+
   const [history, setHistory] = useState<AppSection[]>([currentSection]);
 
   const [locale, setLocaleState] = useState<'en' | 'ar'>(() => {
@@ -269,23 +274,27 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     document.documentElement.style.colorScheme = theme;
   }, [theme]);
 
-  // Listen to hash changes in browser
+  // Listen to hash changes in browser. The listener is registered once and
+  // reads the latest section from a ref; re-registering on every render with a
+  // stale closure allowed a queued hash event to revert a newer route.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const handleHashChange = () => {
       const hash = window.location.hash.replace(/^#\/?/, '');
       const parsed = tryNormalizeSection(hash);
-      if (parsed && parsed !== currentSection) {
+      if (parsed && parsed !== currentSectionRef.current) {
+        currentSectionRef.current = parsed;
         setCurrentSection(parsed);
       }
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [currentSection]);
+  }, []);
 
   const navigateTo = useCallback(
     (target: string) => {
       const normalized = normalizeSection(target);
+      currentSectionRef.current = normalized;
       setCurrentSection((prev) => {
         if (prev === normalized) return prev;
         return normalized;
@@ -307,12 +316,14 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   const goBack = useCallback(() => {
     setHistory((prev) => {
       if (prev.length <= 1) {
+        currentSectionRef.current = 'home';
         setCurrentSection('home');
         if (typeof window !== 'undefined') window.location.hash = 'home';
         return ['home'];
       }
       const newHistory = prev.slice(0, -1);
       const previous = newHistory[newHistory.length - 1] || 'home';
+      currentSectionRef.current = previous;
       setCurrentSection(previous);
       if (typeof window !== 'undefined') window.location.hash = previous;
       if (onSectionChange) onSectionChange(previous);

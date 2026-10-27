@@ -18,3 +18,6 @@
 # Local-only, already-executed workspace consolidation utilities
 /scripts/consolidate-workspace-once.py
 /scripts/safe-legacy-tasks-redirect.py
+
+# Google OAuth desktop client credentials (local/private)
+**/google-desktop-client*.json

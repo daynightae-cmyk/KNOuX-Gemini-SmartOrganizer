@@ -85,6 +85,7 @@ export interface ServiceWorkspaceProps {
   onToggleSelected: (id: string) => void;
   onStagePlan: (ids: string[], mode: CleanupPlan['mode']) => void;
   onClose: () => void;
+  embedded?: boolean;
 }
 
 interface BranchProps {
@@ -1874,6 +1875,7 @@ export function ServiceWorkspace({
   onToggleSelected,
   onStagePlan,
   onClose,
+  embedded = false,
 }: ServiceWorkspaceProps) {
   const capability = controller.capabilities?.services.find((entry) => entry.id === service);
   const fallback = SERVICE_FALLBACK_META[service];
@@ -1897,6 +1899,50 @@ export function ServiceWorkspace({
     onToggleSelected,
     onStagePlan,
   };
+
+  const renderWorkspaceBody = () => (
+    <>
+      {!controller.nativeAvailable ? (
+        <div className="cln-native-banner cln-native-required cln-service-native" data-testid="cleanup-service-native-required">
+          <FolderLock className="w-4 h-4 shrink-0" />
+          <div>
+            <strong>{t(locale, 'Native measurement required', 'مطلوب قياس أصلي')}</strong>
+            <p>{t(locale, 'This is a browser preview. No candidate, vault, journal or report value is substituted.', 'هذه معاينة متصفح. لا تُستبدل أي قيمة مرشح أو حجر أو سجل أو تقرير.')}</p>
+          </div>
+        </div>
+      ) : null}
+
+      {service === 'cleanup-temp-preview' ? <TempPreviewWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-temp-quarantine' ? <QuarantineWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-temp-undo' ? <UndoWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-quarantine-list' ? <VaultWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-estimate' ? <EstimateWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-recycle' ? <RecycleWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-unused' ? <UnusedWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-update-cache' ? <UpdateCacheWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-browser-cache' ? <BrowserCacheWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-logs' ? <LogsWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-schedule' ? <ScheduleWorkspace {...branchProps} /> : null}
+      {service === 'cleanup-reports' ? <ReportsWorkspace {...branchProps} /> : null}
+    </>
+  );
+
+  if (embedded) {
+    return (
+      <div data-testid="cleanup-service-focus" className="flex flex-col gap-2">
+        <p className="text-[10px] text-slate-400">{note}</p>
+        {renderWorkspaceBody()}
+        <div className="cln-service-foot-gate">
+          <Lock className="w-3.5 h-3.5 shrink-0" />
+          <div>
+            <strong>{gate.gate}</strong>
+            <p>{gate.reason}</p>
+          </div>
+          <span className="cln-chip cln-chip-muted">{t(locale, 'READ-ONLY', 'للقراءة فقط')}</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="cln-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="cln-service-title">
@@ -1924,30 +1970,7 @@ export function ServiceWorkspace({
           </div>
         </header>
 
-        <div className="cln-service-body knx-custom-scrollbar">
-          {!controller.nativeAvailable ? (
-            <div className="cln-native-banner cln-native-required cln-service-native" data-testid="cleanup-service-native-required">
-              <FolderLock className="w-4 h-4 shrink-0" />
-              <div>
-                <strong>{t(locale, 'Native measurement required', 'مطلوب قياس أصلي')}</strong>
-                <p>{t(locale, 'This is a browser preview. No candidate, vault, journal or report value is substituted.', 'هذه معاينة متصفح. لا تُستبدل أي قيمة مرشح أو حجر أو سجل أو تقرير.')}</p>
-              </div>
-            </div>
-          ) : null}
-
-          {service === 'cleanup-temp-preview' ? <TempPreviewWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-temp-quarantine' ? <QuarantineWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-temp-undo' ? <UndoWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-quarantine-list' ? <VaultWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-estimate' ? <EstimateWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-recycle' ? <RecycleWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-unused' ? <UnusedWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-update-cache' ? <UpdateCacheWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-browser-cache' ? <BrowserCacheWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-logs' ? <LogsWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-schedule' ? <ScheduleWorkspace {...branchProps} /> : null}
-          {service === 'cleanup-reports' ? <ReportsWorkspace {...branchProps} /> : null}
-        </div>
+        <div className="cln-service-body knx-custom-scrollbar">{renderWorkspaceBody()}</div>
 
         <footer className="cln-service-foot">
           <div className="cln-service-foot-gate">

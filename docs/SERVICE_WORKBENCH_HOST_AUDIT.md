@@ -113,11 +113,41 @@ side/expanded evidence shows real inventory instead of an in-flight loader.
 screenshots `apps-workbench-dev.png` / `apps-workbench-expanded-dev.png` and
 packaged equivalents.
 
+## 3f. Cleanup integration (12/12 measured services)
+
+Cleanup's twelve services now open in the host as a pinned side dock
+(340–720 px, persisted in `knoux.cleanup.workbench.mode|width`) while the
+candidate register, inspector and measured action bar remain visible. The
+embedded `ServiceWorkspace` keeps every real control: safety filters, candidate
+selection, immutable quarantine/recycle/archive/purge review-plan staging,
+vault and journal evidence, reclaim estimates, recycling ledgers, bounded
+cache/log evidence, schedule drafts and clipboard-only reports. No delete,
+move, quarantine, recycle purge, DISM, scheduled-task or restore channel exists;
+every branch states its approval gate and recovery boundary.
+
+`cleanupWorkbenchOk`/`cleanupWorkbenchLayoutOk` PASS in dev and packaged smoke;
+screenshots `cleanup-workbench-dev.png` / `cleanup-workbench-expanded-dev.png`
+and packaged equivalents.
+
+## 3g. Startup integration (12/12 measured services)
+
+Startup's twelve services open in the host as a pinned side dock (340–720 px,
+persisted in `knoux.startup.workbench.mode|width`) while the autorun register,
+measured boot summary and action bar remain visible. The embedded
+`ServiceWorkspace` keeps source filters, measured service/task evidence,
+disable/enable review staging, delay drafts, batch trays, journal evidence and
+explicit rollback boundaries. Every mutation, elevation and rollback channel
+remains gated; no registry, startup-folder, task, service or journal write
+exists.
+
+`startupWorkbenchOk`/`startupWorkbenchLayoutOk` PASS in dev and packaged smoke;
+screenshots `startup-workbench-dev.png` / `startup-workbench-expanded-dev.png`
+and packaged equivalents.
+
 ## 4. Honest limits / next
 
-- Cleanup, Startup, System, Repair, Services, Automation, Workspace, Settings
-  and Home still use their existing specialized panels/modal sheets and must be
-  migrated next.
+- System, Repair, Services, Automation, Workspace, Settings and Home still use
+  their existing specialized panels/modal sheets and must be migrated next.
 - No file apply/undo or application uninstall/update executor was added; those
   remain blocked.
 - No real user file, account, service, registry, startup, Windows setting or

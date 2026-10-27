@@ -26,6 +26,8 @@ const systemProviders = require('../electron/native/system-providers.cjs');
 const systemBridgeSource = read('electron/native/system-bridge.cjs');
 const systemProviderSource = read('electron/native/system-providers.cjs');
 const pkg = JSON.parse(read('package.json'));
+const googleAuth = require('../electron/native/google-auth.cjs');
+const googleSource = read('electron/native/google-auth.cjs');
 
 const failures = [];
 const assert = (condition, label) => {
@@ -314,6 +316,26 @@ if (fs.existsSync(distIndex)) {
 assert(pkg.main === 'electron/main.cjs', 'package main points at the Gemini shell');
 assert(typeof pkg.scripts['desktop:smoke'] === 'string', 'desktop smoke script exists');
 assert(typeof pkg.scripts['desktop:pack'] === 'string', 'desktop pack script exists');
+
+assert(/exposeInMainWorld\(\s*'knouxGoogleV1'/.test(preload), 'preload exposes the Google bridge');
+assert(contract.channels.googleStatus === 'knoux:google:v1:status', 'Google status channel is fixed');
+assert(contract.channels.googleSheetRead === 'knoux:google:v1:sheet-read', 'Google sheet-read channel is fixed');
+assert(contract.capabilities['google.connect'].mode === 'user-initiated', 'Google connect is user-initiated');
+assert(contract.capabilities['google.status'].mode === 'read-only', 'Google status is read-only');
+assert(
+  ['googleStatus', 'googleConnect', 'googleCancel', 'googleDisconnect', 'googleSheetsList', 'googleSheetAdd', 'googleSheetRemove', 'googleSheetRead']
+    .every((channel) => main.includes(`contract.channels.${channel}`)),
+  'every Google channel has an IPC handler'
+);
+assert(googleAuth.REQUEST_SCOPES.length === 4, 'Google requests exactly four scopes');
+assert(!googleAuth.REQUEST_SCOPES.some((scope) => /drive|gmail|calendar|tasks|forms|presentations|chat|classroom|contacts|spreadsheets(?!\.readonly)/i.test(scope)), 'Google requests no broad non-Sheets scope');
+assert(googleSource.includes('code_challenge_method') && googleSource.includes("'S256'"), 'Google uses PKCE S256');
+assert(googleSource.includes("host: '127.0.0.1'"), 'Google loopback binds to 127.0.0.1');
+assert(googleSource.includes('safeStorage') && googleSource.includes('windows-dpapi-safeStorage'), 'Google stores tokens with DPAPI-backed safeStorage');
+assert(!preload.includes('refresh_token') && !preload.includes('access_token') && !preload.includes('client_secret'), 'preload exposes no token or client-secret field');
+assert(!contract.namespace.includes('token'), 'contract namespace carries no token');
+assert(!fs.existsSync(path.join(appRoot, 'google-desktop-client.json')), 'no OAuth client JSON is bundled in the app root');
+assert(read('electron-builder.config.cjs').includes('!**/google-desktop-client*.json'), 'packaging excludes local OAuth client JSON');
 
 const result = {
   ok: failures.length === 0,

@@ -28,9 +28,11 @@ import { CandidateInspector } from '../cleanup/CandidateInspector';
 import { ServiceRail } from '../cleanup/ServiceRail';
 import { ServiceWorkspace } from '../cleanup/ServiceWorkspace';
 import { PlanGate } from '../cleanup/PlanGate';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useCleanup } from '../cleanup/useCleanup';
 import {
   DEFAULT_FILTERS,
+  SERVICE_FALLBACK_META,
   SERVICE_IDS,
   filterCandidates,
   formatBytes,
@@ -58,6 +60,20 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<CleanupServiceId | null>(null);
   const [planOpen, setPlanOpen] = useState(false);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.cleanup.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.cleanup.workbench.width')); return Number.isFinite(value) && value >= 340 ? Math.min(720, value) : 560; } catch { return 560; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.cleanup.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.cleanup.workbench.width', String(workbenchWidth));
+    } catch {
+      // In-memory only when storage is unavailable.
+    }
+  }, [workbenchMode, workbenchWidth]);
 
   const filteredCandidates = useMemo(() => filterCandidates(candidates, filters), [candidates, filters]);
   const selectedCandidate = candidates.find((candidate) => candidate.id === selectedId) || null;
@@ -155,6 +171,52 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
 
   const errorText = controller.actionError ? `${controller.actionError.code}: ${controller.actionError.message}` : null;
   const warm = Boolean(inventory?.warnings?.length);
+
+  const closeWorkbench = () => {
+    if (!planOpen) setActiveService(null);
+  };
+
+  const cleanupServiceLabel = (service: CleanupServiceId): string => {
+    const capability = controller.capabilities?.services.find((entry) => entry.id === service);
+    if (capability) return locale === 'ar' ? capability.labelAr : capability.labelEn;
+    const fallback = SERVICE_FALLBACK_META[service];
+    return locale === 'ar' ? fallback.titleAr : fallback.titleEn;
+  };
+
+  const renderCleanupServiceBody = () => activeService ? (
+    <ServiceWorkspace
+      service={activeService}
+      locale={locale}
+      controller={controller}
+      candidates={candidates}
+      selectedCandidate={selectedCandidate}
+      selectedIds={[...checkedIds]}
+      onSelectCandidate={setSelectedId}
+      onApplySelection={applySelection}
+      onToggleSelected={toggleCheck}
+      onStagePlan={(ids, mode) => void stagePlan(ids, mode)}
+      onClose={closeWorkbench}
+      embedded
+    />
+  ) : null;
+
+  const cleanupWorkbenchToolSelector = (
+    <select
+      data-testid="cleanup-workbench-tool-select"
+      aria-label={t(locale, 'Switch cleanup service', 'تبديل خدمة التنظيف')}
+      value={activeService || ''}
+      onChange={(event) => {
+        if ((SERVICE_IDS as readonly string[]).includes(event.target.value)) {
+          setActiveService(event.target.value as CleanupServiceId);
+        }
+      }}
+      className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {SERVICE_IDS.map((id) => (
+        <option key={id} value={id}>{cleanupServiceLabel(id)}</option>
+      ))}
+    </select>
+  );
 
   return (
     <div className={`cln-viewport relative text-slate-100 font-sans select-none ${locale === 'ar' ? 'rtl' : 'ltr'}`}>
@@ -340,19 +402,44 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
       </div>
 
       {activeService ? (
-        <ServiceWorkspace
-          service={activeService}
-          locale={locale}
-          controller={controller}
-          candidates={candidates}
-          selectedCandidate={selectedCandidate}
-          selectedIds={[...checkedIds]}
-          onSelectCandidate={setSelectedId}
-          onApplySelection={applySelection}
-          onToggleSelected={toggleCheck}
-          onStagePlan={(ids, mode) => void stagePlan(ids, mode)}
-          onClose={() => setActiveService(null)}
-        />
+        workbenchMode === 'side' ? (
+          <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="cleanup-workbench-side-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={cleanupServiceLabel(activeService)}
+              subtitle={t(locale, 'Measured cleanup context · review only', 'سياق التنظيف المقيس · للمراجعة فقط')}
+              locale={locale}
+              mode="side"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              onResize={(width) => setWorkbenchWidth(width)}
+              minWidth={340}
+              maxWidth={720}
+              testId="cleanup-workbench"
+              toolSelector={cleanupWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{t(locale, 'Review only · no delete, move or quarantine', 'مراجعة فقط · لا حذف أو نقل أو حجر')}</span>}
+            >
+              {renderCleanupServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        ) : (
+          <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="cleanup-workbench-expanded-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={cleanupServiceLabel(activeService)}
+              subtitle={t(locale, 'Measured cleanup context · review only', 'سياق التنظيف المقيس · للمراجعة فقط')}
+              locale={locale}
+              mode="expanded"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              testId="cleanup-workbench-expanded"
+              toolSelector={cleanupWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{t(locale, 'Review only · no delete, move or quarantine', 'مراجعة فقط · لا حذف أو نقل أو حجر')}</span>}
+            >
+              {renderCleanupServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        )
       ) : null}
 
       {planOpen && controller.plan ? (

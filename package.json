@@ -25,6 +25,8 @@
     "test:workspace": "npm run test:workspace --prefix apps/gemini-ui",
     "test:settings": "npm run test:settings --prefix apps/gemini-ui",
     "test:home": "npm run test:home --prefix apps/gemini-ui",
-    "test:workbench": "npm run test:workbench --prefix apps/gemini-ui"
+    "test:workbench": "npm run test:workbench --prefix apps/gemini-ui",
+    "test:google": "npm run test:google --prefix apps/gemini-ui",
+    "test:navigation": "npm run test:navigation --prefix apps/gemini-ui"
   }
 }

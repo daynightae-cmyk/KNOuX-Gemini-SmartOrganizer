@@ -26,6 +26,10 @@ const scanPage = read('src/smart-scan/SmartScanPage.tsx');
 const scanBody = read('src/smart-scan/ScanServiceWorkspace.tsx');
 const appsPage = read('src/pages/ApplicationsPage.tsx');
 const appsBody = read('src/apps/AppServiceWorkspace.tsx');
+const cleanupPage = read('src/pages/CleanupPage.tsx');
+const cleanupBody = read('src/cleanup/ServiceWorkspace.tsx');
+const startupPage = read('src/pages/StartupPage.tsx');
+const startupBody = read('src/startup/ServiceWorkspace.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -137,15 +141,44 @@ check('Applications integrates a pinned/expanded workbench over the register', (
   assert.match(appsBody, /app-service-focus/);
 });
 
+check('Cleanup integrates a pinned/expanded workbench with gated service bodies', () => {
+  assert.match(cleanupPage, /ServiceWorkbenchHost/);
+  assert.match(cleanupPage, /testId="cleanup-workbench"/);
+  assert.match(cleanupPage, /testId="cleanup-workbench-expanded"/);
+  assert.match(cleanupPage, /cleanup-workbench-tool-select/);
+  assert.match(cleanupPage, /knoux\.cleanup\.workbench\.mode/);
+  assert.match(cleanupPage, /knoux\.cleanup\.workbench\.width/);
+  assert.match(cleanupPage, /data-testid="cleanup-workspace"/);
+  assert.match(cleanupPage, /data-testid="cleanup-actionbar"/);
+  assert.match(cleanupBody, /embedded\?: boolean/);
+  assert.match(cleanupBody, /cleanup-service-focus/);
+  assert.match(cleanupBody, /renderWorkspaceBody/);
+});
+
+check('Startup integrates a pinned/expanded workbench with gated service bodies', () => {
+  assert.match(startupPage, /ServiceWorkbenchHost/);
+  assert.match(startupPage, /testId="startup-workbench"/);
+  assert.match(startupPage, /testId="startup-workbench-expanded"/);
+  assert.match(startupPage, /startup-workbench-tool-select/);
+  assert.match(startupPage, /knoux\.startup\.workbench\.mode/);
+  assert.match(startupPage, /knoux\.startup\.workbench\.width/);
+  assert.match(startupPage, /data-testid="startup-workspace"/);
+  assert.match(startupPage, /data-testid="startup-actionbar"/);
+  assert.match(startupBody, /embedded\?: boolean/);
+  assert.match(startupBody, /startup-service-focus/);
+});
+
 check('no old generic ServiceWorkspaceHost is imported by any migrated domain', () => {
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(storagePage), 'old generic host must not be used by Storage');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(scanPage), 'old generic host must not be used by Scan');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(appsPage), 'old generic host must not be used by Applications');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(cleanupPage), 'old generic host must not be used by Cleanup');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(startupPage), 'old generic host must not be used by Startup');
 });
 
-const result = { ok: failures.length === 0, checks: 10, failures };
+const result = { ok: failures.length === 0, checks: 12, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');

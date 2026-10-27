@@ -9,7 +9,7 @@
  * remain preview-only until their own missions land.
  */
 
-const { app, BrowserWindow, Menu, ipcMain, session, dialog, nativeImage, shell } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, session, dialog, nativeImage, shell, safeStorage } = require('electron');
 const path = require('node:path');
 const fs = require('node:fs');
 const fsp = require('node:fs/promises');
@@ -34,6 +34,7 @@ const { SystemBridge } = require('./native/system-bridge.cjs');
 const { RepairBridge } = require('./native/repair-bridge.cjs');
 const { ServicesBridge } = require('./native/services-bridge.cjs');
 const { AutomationBridge } = require('./native/automation-bridge.cjs');
+const { GoogleOAuthService, TokenVault } = require('./native/google-auth.cjs');
 const {
   ok,
   fail,
@@ -99,6 +100,7 @@ let systemBridge = null;
 let repairBridge = null;
 let servicesBridge = null;
 let automationBridge = null;
+let googleOAuthService = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -1642,6 +1644,112 @@ function registerIpc() {
       });
     })
   );
+  const googleGuard = (event, capability, args, permission, work) =>
+    guard(event, capability, args, async (callArgs) => {
+      if (!googleOAuthService) {
+        return fail({
+          capability,
+          status: 'failed',
+          source: 'Google OAuth main-process coordinator',
+          permission: 'not-granted',
+          error: { code: 'GOOGLE_UNAVAILABLE', message: 'The Google OAuth coordinator is not initialized.', retryable: false },
+        });
+      }
+      try {
+        const data = await work(callArgs);
+        return ok({
+          capability,
+          status: 'complete',
+          source: 'Google OAuth main-process coordinator',
+          permission,
+          data,
+        });
+      } catch (error) {
+        return fail({
+          capability,
+          status: 'failed',
+          source: 'Google OAuth main-process coordinator',
+          permission: 'not-granted',
+          error: {
+            code: typeof error?.code === 'string' ? error.code : 'GOOGLE_ERROR',
+            message: typeof error?.message === 'string' ? error.message : 'The Google operation failed.',
+            retryable: Boolean(error?.retryable),
+          },
+        });
+      }
+    });
+
+  ipcMain.handle(contract.channels.googleStatus, (event, ...args) =>
+    googleGuard(event, 'google.status', args, 'read-only', async (callArgs) => {
+      assertNoArguments(callArgs, 'google.status');
+      return googleOAuthService.getStatus();
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleConnect, (event, ...args) =>
+    googleGuard(event, 'google.connect', args, 'user-authorized', async (callArgs) => {
+      assertNoArguments(callArgs, 'google.connect');
+      return googleOAuthService.connect();
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleCancel, (event, ...args) =>
+    googleGuard(event, 'google.cancel', args, 'user-authorized', async (callArgs) => {
+      assertNoArguments(callArgs, 'google.cancel');
+      return googleOAuthService.cancelConnect();
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleDisconnect, (event, ...args) =>
+    googleGuard(event, 'google.disconnect', args, 'user-authorized', async (callArgs) => {
+      assertNoArguments(callArgs, 'google.disconnect');
+      return googleOAuthService.disconnect();
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleSheetsList, (event, ...args) =>
+    googleGuard(event, 'google.sheets.list', args, 'read-only', async (callArgs) => {
+      assertNoArguments(callArgs, 'google.sheets.list');
+      return googleOAuthService.listSelectedSheets();
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleSheetAdd, (event, ...args) =>
+    googleGuard(event, 'google.sheets.add', args, 'user-initiated', async (callArgs) => {
+      const payload = callArgs[0];
+      if (!payload || typeof payload !== 'object' || typeof payload.input !== 'string' || payload.input.length > 2048) {
+        throw Object.assign(new Error('A spreadsheet URL or ID string is required.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      return googleOAuthService.addSpreadsheet(payload.input);
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleSheetRemove, (event, ...args) =>
+    googleGuard(event, 'google.sheets.remove', args, 'user-initiated', async (callArgs) => {
+      const payload = callArgs[0];
+      if (!payload || typeof payload !== 'object' || typeof payload.id !== 'string' || payload.id.length > 160) {
+        throw Object.assign(new Error('A spreadsheet ID string is required.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      return googleOAuthService.removeSpreadsheet(payload.id);
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleSheetRead, (event, ...args) =>
+    googleGuard(event, 'google.sheets.read', args, 'read-only', async (callArgs) => {
+      const payload = callArgs[0];
+      if (!payload || typeof payload !== 'object' || typeof payload.id !== 'string' || payload.id.length > 160) {
+        throw Object.assign(new Error('A selected spreadsheet ID is required.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      if (payload.range != null && (typeof payload.range !== 'string' || payload.range.length > 160)) {
+        throw Object.assign(new Error('The sheet range is invalid.'), { code: 'GOOGLE_SHEET_RANGE_INVALID' });
+      }
+      if (payload.majorDimension != null && payload.majorDimension !== 'ROWS' && payload.majorDimension !== 'COLUMNS') {
+        throw Object.assign(new Error('The sheet dimension is invalid.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      return googleOAuthService.readSheet(payload);
+    })
+  );
+
 }
 
 function createWindow() {
@@ -1749,6 +1857,15 @@ async function runSmoke(win) {
   };
   try {
     trace('smoke start');
+    // The smoke window is shown for real captures. Ignore pointer input so a
+    // person at the desktop cannot connect an account or change product state
+    // while the automated evidence is being collected.
+    try {
+      win.setIgnoreMouseEvents(true, { forward: true });
+      win.setFocusable(false);
+    } catch {
+      // Capture evidence still proceeds if the platform rejects these flags.
+    }
     await sleep(1200);
     const prefs = win.webContents.getLastWebPreferences() || {};
     receipt.security = {
@@ -1761,6 +1878,31 @@ async function runSmoke(win) {
       webSecurity: prefs.webSecurity !== false,
       webviewTag: Boolean(prefs.webviewTag),
     };
+
+    // Prove the real Windows safeStorage/DPAPI vault round trip with a
+    // disposable, clearly fake token. No Google request or real credential is
+    // involved; the probe file is removed immediately.
+    try {
+      const vaultPath = path.join(smokeUserData || app.getPath('userData'), 'google-vault-probe.bin');
+      const probeVault = new TokenVault({ safeStorage, filePath: vaultPath });
+      const dummy = {
+        version: 1,
+        refreshToken: 'smoke-only-not-a-real-google-refresh-token',
+        account: null,
+        grantedScopes: [],
+        obtainedAt: new Date().toISOString(),
+      };
+      await probeVault.save(dummy);
+      const loaded = await probeVault.load();
+      const encrypted = await fsp.readFile(vaultPath);
+      const noPlaintext = !encrypted.toString('utf8').includes(dummy.refreshToken);
+      await probeVault.clear();
+      const cleared = !(await fsp.stat(vaultPath).then(() => true).catch(() => false));
+      receipt.googleVaultOk = loaded.refreshToken === dummy.refreshToken && noPlaintext && cleared;
+    } catch (error) {
+      receipt.googleVaultOk = false;
+      receipt.googleVaultError = redactError(error);
+    }
 
     trace('executing renderer bridge probe');
     const rendererProbe = win.webContents.executeJavaScript(
@@ -2163,69 +2305,46 @@ async function runSmoke(win) {
             };
           }
         }
-        // Mission 10: prove the versioned Live Pulse bridge from the renderer,
-        // then warm the bounded read-only scan. start() is idempotent, so the
-        // System route later joins this same session instead of rescanning.
+        // Mission 10 + 11/12/13: prove the versioned bridges from the renderer
+        // and warm their bounded read-only sessions in parallel. start() is
+        // idempotent, so the route sections later join the same sessions.
+        const warmDomain = async (api, contractName) => {
+          if (!api) return null;
+          const capabilities = await api.capabilities();
+          const started = await api.start();
+          const session = started?.data?.id ? await api.status(started.data.id) : null;
+          const snapshot = await api.snapshot().catch(() => null);
+          return {
+            bridgePresent: true,
+            capabilities,
+            started,
+            session,
+            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === contractName,
+          };
+        };
+        const [systemV1, repairV1, servicesV1, automationV1] = await Promise.all([
+          warmDomain(window.knouxSystemV1, 'system.v1'),
+          warmDomain(window.knouxRepairV1, 'repair.v1'),
+          warmDomain(window.knouxServicesV1, 'services.v1'),
+          warmDomain(window.knouxAutomationV1, 'automation.v1'),
+        ]);
+        const googleApi = window.knouxGoogleV1;
+        let google = null;
+        if (googleApi) {
+          try {
+            const googleStatus = await googleApi.getStatus();
+            google = {
+              bridgePresent: true,
+              status: googleStatus,
+            };
+          } catch (error) {
+            google = { bridgePresent: true, status: null, probeError: String(error?.message || error) };
+          }
+        }
         const systemV1Api = window.knouxSystemV1;
-        let systemV1 = null;
-        if (systemV1Api) {
-          const capabilities = await systemV1Api.capabilities();
-          const started = await systemV1Api.start();
-          const session = started?.data?.id ? await systemV1Api.status(started.data.id) : null;
-          const snapshot = await systemV1Api.snapshot().catch(() => null);
-          systemV1 = {
-            bridgePresent: true,
-            capabilities,
-            started,
-            session,
-            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'system.v1',
-          };
-        }
         const repairV1Api = window.knouxRepairV1;
-        let repairV1 = null;
-        if (repairV1Api) {
-          const capabilities = await repairV1Api.capabilities();
-          const started = await repairV1Api.start();
-          const session = started?.data?.id ? await repairV1Api.status(started.data.id) : null;
-          const snapshot = await repairV1Api.snapshot().catch(() => null);
-          repairV1 = {
-            bridgePresent: true,
-            capabilities,
-            started,
-            session,
-            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'repair.v1',
-          };
-        }
         const servicesV1Api = window.knouxServicesV1;
-        let servicesV1 = null;
-        if (servicesV1Api) {
-          const capabilities = await servicesV1Api.capabilities();
-          const started = await servicesV1Api.start();
-          const session = started?.data?.id ? await servicesV1Api.status(started.data.id) : null;
-          const snapshot = await servicesV1Api.snapshot().catch(() => null);
-          servicesV1 = {
-            bridgePresent: true,
-            capabilities,
-            started,
-            session,
-            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'services.v1',
-          };
-        }
         const automationV1Api = window.knouxAutomationV1;
-        let automationV1 = null;
-        if (automationV1Api) {
-          const capabilities = await automationV1Api.capabilities();
-          const started = await automationV1Api.start();
-          const session = started?.data?.id ? await automationV1Api.status(started.data.id) : null;
-          const snapshot = await automationV1Api.snapshot().catch(() => null);
-          automationV1 = {
-            bridgePresent: true,
-            capabilities,
-            started,
-            session,
-            snapshotValidated: snapshot?.status === 'complete' && snapshot?.data?.contract === 'automation.v1',
-          };
-        }
         return {
           href: location.href,
           readyState: document.readyState,
@@ -2242,6 +2361,7 @@ async function runSmoke(win) {
           repairV1BridgePresent: Boolean(repairV1Api),
           servicesV1BridgePresent: Boolean(servicesV1Api),
           automationV1BridgePresent: Boolean(automationV1Api),
+          googleBridgePresent: Boolean(googleApi),
           contractVersion: api?.contractVersion ?? null,
           nodeRequireType: typeof window.require,
           nodeProcessType: typeof window.process,
@@ -2259,6 +2379,7 @@ async function runSmoke(win) {
           repairV1,
           servicesV1,
           automationV1,
+          google,
           cspMeta: document.querySelector('meta[http-equiv="Content-Security-Policy"]')?.getAttribute('content') || null
         };
       })()`,
@@ -2266,7 +2387,7 @@ async function runSmoke(win) {
     );
     const renderer = await Promise.race([
       rendererProbe,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Renderer bridge probe timed out after 180 seconds.')), 180000)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Renderer bridge probe timed out after 300 seconds.')), 300000)),
     ]);
     trace(`renderer probe complete bridge=${Boolean(renderer?.bridgePresent)} system=${renderer?.system?.status} services=${renderer?.services?.status}`);
     receipt.renderer = renderer;
@@ -2688,12 +2809,12 @@ async function runSmoke(win) {
           true
         );
         const appsStartedAt = Date.now();
-        const appsDeadline = appsStartedAt + 45000;
+        const appsDeadline = appsStartedAt + 90000;
         let appsUiReady = false;
         let appsRouteRetries = 0;
         while (Date.now() < appsDeadline) {
           await sleep(500);
-          if (!appsUiReady && appsRouteRetries < 2 && Date.now() - appsStartedAt > (appsRouteRetries + 1) * 12000) {
+          if (!appsUiReady && appsRouteRetries < 4 && Date.now() - appsStartedAt > (appsRouteRetries + 1) * 12000) {
             appsRouteRetries += 1;
             await win.webContents.executeJavaScript(
               `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'home'; return true; })()`,
@@ -2884,23 +3005,23 @@ async function runSmoke(win) {
                const card = document.querySelector('[data-testid="cleanup-service-' + id + '"]');
                if (!card) { failures.push(id + ':card-missing'); continue; }
                card.click();
-               await wait(220);
-               const workspace = document.querySelector('[data-testid="cleanup-service-workspace-' + id + '"]');
-               const body = workspace ? workspace.querySelector('.cln-service-body') : null;
-               const text = workspace ? String(workspace.innerText || '').trim() : '';
+               await wait(260);
+               const workspace = document.querySelector('[data-testid="cleanup-workbench"]');
+               const body = workspace ? workspace.querySelector('[data-testid="cleanup-service-focus"]') : null;
+               const text = body ? String(body.innerText || '').trim() : '';
                if (!workspace || !body || text.length < 30) {
                  failures.push(id + ':render');
                } else {
-                 const close = workspace.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]');
+                 const close = workspace.querySelector('[data-testid="workbench-close"]');
                  if (!close) failures.push(id + ':close-missing');
                  else close.click();
                }
-               await wait(180);
-               if (document.querySelector('[data-testid="cleanup-service-workspace-' + id + '"]')) {
+               await wait(240);
+               if (document.querySelector('[data-testid="cleanup-workbench"]') || document.querySelector('[data-testid="cleanup-workbench-expanded"]')) {
                  failures.push(id + ':close-failed');
-                 const stray = document.querySelector('[data-testid="cleanup-service-workspace-' + id + '"] button[aria-label="Close service"], [data-testid="cleanup-service-workspace-' + id + '"] button[aria-label="إغلاق الخدمة"]');
+                 const stray = document.querySelector('[data-testid="cleanup-workbench"] [data-testid="workbench-close"], [data-testid="cleanup-workbench-expanded"] [data-testid="workbench-close"]');
                  if (stray) stray.click();
-                 await wait(160);
+                 await wait(180);
                }
              }
              return { ok: failures.length === 0, checked: ids.length, failures };
@@ -3065,23 +3186,23 @@ async function runSmoke(win) {
                const card = document.querySelector('[data-testid="startup-service-' + id + '"]');
                if (!card) { failures.push(id + ':card-missing'); continue; }
                card.click();
-               await wait(240);
-               const workspace = document.querySelector('[data-testid="startup-service-workspace-' + id + '"]');
-               const body = workspace ? workspace.querySelector('.stp-service-body') : null;
-               const text = workspace ? String(workspace.innerText || '').trim() : '';
+               await wait(260);
+               const workspace = document.querySelector('[data-testid="startup-workbench"]');
+               const body = workspace ? workspace.querySelector('[data-testid="startup-service-focus"]') : null;
+               const text = body ? String(body.innerText || '').trim() : '';
                if (!workspace || !body || text.length < 30) {
                  failures.push(id + ':render');
                } else {
-                 const close = workspace.querySelector('button[aria-label="Close service"], button[aria-label="إغلاق الخدمة"]');
+                 const close = workspace.querySelector('[data-testid="workbench-close"]');
                  if (!close) failures.push(id + ':close-missing');
                  else close.click();
                }
-               await wait(180);
-               if (document.querySelector('[data-testid="startup-service-workspace-' + id + '"]')) {
+               await wait(240);
+               if (document.querySelector('[data-testid="startup-workbench"]') || document.querySelector('[data-testid="startup-workbench-expanded"]')) {
                  failures.push(id + ':close-failed');
-                 const stray = document.querySelector('[data-testid="startup-service-workspace-' + id + '"] button[aria-label="Close service"], [data-testid="startup-service-workspace-' + id + '"] button[aria-label="إغلاق الخدمة"]');
+                 const stray = document.querySelector('[data-testid="startup-workbench"] [data-testid="workbench-close"], [data-testid="startup-workbench-expanded"] [data-testid="workbench-close"]');
                  if (stray) stray.click();
-                 await wait(160);
+                 await wait(180);
                }
              }
              return { ok: failures.length === 0, checked: ids.length, failures };
@@ -4629,7 +4750,13 @@ async function runSmoke(win) {
                const title = document.querySelector('[data-testid="workspace-service-title"]')?.textContent?.trim() || '';
                const action = document.querySelector('[data-testid="workspace-action"]');
                if (title) seen.add(id);
-               if (!action) failures.push(id + ':action-missing');
+               if (id === 'sheets') {
+                 if (!document.querySelector('[data-testid="workspace-sheets-workbench"]')) failures.push('sheets-workbench-missing');
+                 if (!document.querySelector('[data-testid="workspace-google-state"]')) failures.push('sheets-state-missing');
+                 if (!document.querySelector('[data-testid="workspace-google-disconnected"]')) failures.push('sheets-disconnected-state-missing');
+               } else if (!action) {
+                 failures.push(id + ':action-missing');
+               }
              }
              const action = document.querySelector('[data-testid="workspace-action"]');
              if (action) {
@@ -4646,13 +4773,11 @@ async function runSmoke(win) {
                const modal = document.querySelector('[data-testid="workspace-oauth-modal"]');
                if (!modal) failures.push('oauth-modal-missing');
                else {
-                 const scopes = modal.querySelectorAll('input[type="checkbox"]').length;
-                 const copyButton = modal.querySelector('[data-testid="workspace-oauth-copy"]');
-                 if (scopes !== 10) failures.push('scope-count-' + scopes);
-                 if (!copyButton || !copyButton.disabled) failures.push('copy-not-gated');
-                 modal.querySelectorAll('button').forEach((node) => { if (node.textContent?.trim() === 'Select all' || node.textContent?.trim() === 'تحديد الكل') node.click(); });
-                 await wait(80);
-                 if (copyButton && copyButton.disabled) failures.push('copy-still-disabled');
+                 const scopeRows = modal.querySelectorAll('[data-testid="workspace-oauth-scopes"] > div').length;
+                 if (scopeRows !== 4) failures.push('scope-count-' + scopeRows);
+                 if (!modal.querySelector('[data-testid="workspace-oauth-status"]')) failures.push('oauth-status-missing');
+                 if (!modal.querySelector('[data-testid="workspace-oauth-connect"]') && !modal.querySelector('[data-testid="workspace-oauth-disconnect"]')) failures.push('oauth-action-missing');
+                 if (/refresh_token|access_token|client_secret/i.test(modal.innerText || '')) failures.push('token-text-in-modal');
                  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
                  await wait(120);
                  if (document.querySelector('[data-testid="workspace-oauth-modal"]')) failures.push('escape-close');
@@ -5389,7 +5514,7 @@ async function runSmoke(win) {
           if (appsWorkbenchUiReady) break;
         }
         receipt.appsWorkbenchUiReady = appsWorkbenchUiReady;
-        const appsWorkbenchDataDeadline = Date.now() + 30000;
+        const appsWorkbenchDataDeadline = Date.now() + 60000;
         let appsWorkbenchDataReady = false;
         while (Date.now() < appsWorkbenchDataDeadline) {
           await sleep(500);
@@ -5458,6 +5583,174 @@ async function runSmoke(win) {
         await sleep(300);
         receipt.appsWorkbenchEscape = await win.webContents.executeJavaScript(
           `({ ok: !document.querySelector('[data-testid="apps-workbench"]') && !document.querySelector('[data-testid="apps-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Cleanup side/expanded workbench over measured candidates.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'cleanup'; return true; })()`, true);
+        const cleanupWorkbenchDeadline = Date.now() + 30000;
+        let cleanupWorkbenchUiReady = false;
+        while (Date.now() < cleanupWorkbenchDeadline) {
+          await sleep(500);
+          cleanupWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const main = document.querySelector('[data-testid="cleanup-workspace"]');
+               const tile = document.querySelector('[data-testid="cleanup-service-cleanup-temp-preview"]');
+               return Boolean(main && tile && main.getBoundingClientRect().width > 100 && tile.getBoundingClientRect().width > 0);
+             })()`,
+            true
+          );
+          if (cleanupWorkbenchUiReady) break;
+        }
+        receipt.cleanupWorkbenchUiReady = cleanupWorkbenchUiReady;
+        await sleep(1200);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="cleanup-service-cleanup-temp-preview"]')?.click()`, true);
+        const cleanupWorkbenchHostDeadline = Date.now() + 15000;
+        while (Date.now() < cleanupWorkbenchHostDeadline) {
+          await sleep(300);
+          const hostMounted = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="cleanup-workbench"]') || document.querySelector('[data-testid="cleanup-workbench-expanded"]'))`,
+            true
+          );
+          if (hostMounted) break;
+        }
+        await sleep(400);
+        const cleanupWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="cleanup-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="cleanup-service-focus"]')) failures.push('body-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="cleanup-workspace"]')) failures.push('page-hidden');
+             if (!document.querySelector('[data-testid="cleanup-actionbar"]')) failures.push('actionbar-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.cleanupWorkbenchSideProbe = cleanupWorkbenchSideProbe;
+        const cleanupWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'cleanup-workbench');
+        const cleanupWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(cleanupWorkbenchPath, cleanupWorkbenchImage.toPNG());
+        receipt.cleanupWorkbenchScreenshot = cleanupWorkbenchPath;
+        receipt.cleanupWorkbenchScreenshotBytes = (await fsp.stat(cleanupWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="cleanup-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const cleanupWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="cleanup-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="cleanup-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="cleanup-workspace"]')) failures.push('page-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.cleanupWorkbenchExpandedProbe = cleanupWorkbenchExpandedProbe;
+        const cleanupWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'cleanup-workbench-expanded');
+        const cleanupWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(cleanupWorkbenchExpandedPath, cleanupWorkbenchExpandedImage.toPNG());
+        receipt.cleanupWorkbenchExpandedScreenshot = cleanupWorkbenchExpandedPath;
+        receipt.cleanupWorkbenchExpandedScreenshotBytes = (await fsp.stat(cleanupWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.cleanupWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="cleanup-workbench"]') && !document.querySelector('[data-testid="cleanup-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Startup side/expanded workbench over measured autoruns.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'startup'; return true; })()`, true);
+        const startupWorkbenchDeadline = Date.now() + 30000;
+        let startupWorkbenchUiReady = false;
+        while (Date.now() < startupWorkbenchDeadline) {
+          await sleep(500);
+          startupWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const main = document.querySelector('[data-testid="startup-workspace"]');
+               const tile = document.querySelector('[data-testid="startup-service-startup-overview"]');
+               return Boolean(main && tile && main.getBoundingClientRect().width > 100 && tile.getBoundingClientRect().width > 0);
+             })()`,
+            true
+          );
+          if (startupWorkbenchUiReady) break;
+        }
+        receipt.startupWorkbenchUiReady = startupWorkbenchUiReady;
+        await sleep(1200);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="startup-service-startup-overview"]')?.click()`, true);
+        const startupWorkbenchHostDeadline = Date.now() + 15000;
+        while (Date.now() < startupWorkbenchHostDeadline) {
+          await sleep(300);
+          const hostMounted = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="startup-workbench"]') || document.querySelector('[data-testid="startup-workbench-expanded"]'))`,
+            true
+          );
+          if (hostMounted) break;
+        }
+        await sleep(400);
+        const startupWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="startup-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="startup-service-focus"]')) failures.push('body-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="startup-workspace"]')) failures.push('page-hidden');
+             if (!document.querySelector('[data-testid="startup-actionbar"]')) failures.push('actionbar-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.startupWorkbenchSideProbe = startupWorkbenchSideProbe;
+        const startupWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'startup-workbench');
+        const startupWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(startupWorkbenchPath, startupWorkbenchImage.toPNG());
+        receipt.startupWorkbenchScreenshot = startupWorkbenchPath;
+        receipt.startupWorkbenchScreenshotBytes = (await fsp.stat(startupWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="startup-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const startupWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="startup-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="startup-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="startup-workspace"]')) failures.push('page-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.startupWorkbenchExpandedProbe = startupWorkbenchExpandedProbe;
+        const startupWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'startup-workbench-expanded');
+        const startupWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(startupWorkbenchExpandedPath, startupWorkbenchExpandedImage.toPNG());
+        receipt.startupWorkbenchExpandedScreenshot = startupWorkbenchExpandedPath;
+        receipt.startupWorkbenchExpandedScreenshotBytes = (await fsp.stat(startupWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.startupWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="startup-workbench"]') && !document.querySelector('[data-testid="startup-workbench-expanded"]') })`,
           true
         );
         await forceSize(1672, 941);
@@ -5875,6 +6168,21 @@ async function runSmoke(win) {
       && receipt.workspace1366Layout?.actionsVisible === true
       && receipt.workspace1366Layout?.viewportWidth === 1366
       && receipt.workspace1366Layout?.services === 10;
+    const googleData = renderer.google;
+    const googleStatusData = googleData?.status?.data;
+    const googleOk = Boolean(
+      renderer.googleBridgePresent === true &&
+      googleData?.status?.status === 'complete' &&
+      googleData.status.capability === 'google.status' &&
+      googleStatusData?.contract === 'google.oauth.v1' &&
+      googleStatusData?.connected === false &&
+      googleStatusData?.connection !== 'connected' &&
+      googleStatusData?.account === null &&
+      googleStatusData?.storageAvailable === true &&
+      receipt.googleVaultOk === true &&
+      typeof googleStatusData?.configured === 'boolean' &&
+      !/refresh_token|access_token|client_secret/i.test(JSON.stringify(googleStatusData || {}))
+    );
     const settingsOk = Boolean(
       receipt.settingsUiReady === true &&
       receipt.settingsControlProbe?.ok === true &&
@@ -5960,6 +6268,26 @@ async function runSmoke(win) {
     );
     const appsWorkbenchLayoutOk = receipt.appsWorkbenchSideProbe?.ok === true
       && receipt.appsWorkbenchExpandedProbe?.ok === true;
+    const cleanupWorkbenchOk = Boolean(
+      receipt.cleanupWorkbenchUiReady === true &&
+      receipt.cleanupWorkbenchSideProbe?.ok === true &&
+      receipt.cleanupWorkbenchExpandedProbe?.ok === true &&
+      receipt.cleanupWorkbenchEscape?.ok === true &&
+      receipt.cleanupWorkbenchScreenshotBytes > 20000 &&
+      receipt.cleanupWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const cleanupWorkbenchLayoutOk = receipt.cleanupWorkbenchSideProbe?.ok === true
+      && receipt.cleanupWorkbenchExpandedProbe?.ok === true;
+    const startupWorkbenchOk = Boolean(
+      receipt.startupWorkbenchUiReady === true &&
+      receipt.startupWorkbenchSideProbe?.ok === true &&
+      receipt.startupWorkbenchExpandedProbe?.ok === true &&
+      receipt.startupWorkbenchEscape?.ok === true &&
+      receipt.startupWorkbenchScreenshotBytes > 20000 &&
+      receipt.startupWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const startupWorkbenchLayoutOk = receipt.startupWorkbenchSideProbe?.ok === true
+      && receipt.startupWorkbenchExpandedProbe?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -6028,8 +6356,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, studioWorkbenchOk, studioWorkbenchLayoutOk, storageWorkbenchOk, storageWorkbenchLayoutOk, scanWorkbenchOk, scanWorkbenchLayoutOk, appsWorkbenchOk, appsWorkbenchLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && studioWorkbenchOk && studioWorkbenchLayoutOk && storageWorkbenchOk && storageWorkbenchLayoutOk && scanWorkbenchOk && scanWorkbenchLayoutOk && appsWorkbenchOk && appsWorkbenchLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, googleOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, studioWorkbenchOk, studioWorkbenchLayoutOk, storageWorkbenchOk, storageWorkbenchLayoutOk, scanWorkbenchOk, scanWorkbenchLayoutOk, appsWorkbenchOk, appsWorkbenchLayoutOk, cleanupWorkbenchOk, cleanupWorkbenchLayoutOk, startupWorkbenchOk, startupWorkbenchLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && googleOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && studioWorkbenchOk && studioWorkbenchLayoutOk && storageWorkbenchOk && storageWorkbenchLayoutOk && scanWorkbenchOk && scanWorkbenchLayoutOk && appsWorkbenchOk && appsWorkbenchLayoutOk && cleanupWorkbenchOk && cleanupWorkbenchLayoutOk && startupWorkbenchOk && startupWorkbenchLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });
@@ -6195,6 +6523,18 @@ app.whenReady().then(async () => {
     trace(`studio bridge init failed: ${error?.message || error}`);
     console.error('[gemini-shell] Studio bridge unavailable:', error?.message || error);
   }
+  trace('constructing google oauth coordinator');
+  if (isSmoke) {
+    const oauthRoot = path.join(app.getPath('userData'), 'oauth');
+    await fsp.rm(path.join(oauthRoot, 'google-refresh.bin'), { force: true }).catch(() => {});
+    await fsp.rm(path.join(oauthRoot, 'selected-sheets.json'), { force: true }).catch(() => {});
+  }
+  googleOAuthService = new GoogleOAuthService({
+    safeStorage,
+    shell,
+    userDataPath: app.getPath('userData'),
+    env: process.env,
+  });
   trace('registering ipc');
   registerIpc();
   trace('creating window');
