@@ -11,6 +11,9 @@ def git(*args):
     result = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True, encoding="utf-8", errors="replace")
     return result.returncode, result.stdout.strip(), result.stderr.strip()
 
+def digest_bytes(data):
+    return hashlib.sha256(data).hexdigest()
+
 def sha256(path):
     digest = hashlib.sha256()
     with open(path, "rb") as handle:
@@ -25,17 +28,59 @@ def resolve(value):
     path = Path(value)
     return path if path.is_absolute() else ROOT / path
 
+def normalize_newlines(data):
+    return data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+def source_bytes(entry):
+    external = entry.get("externalCopy")
+    if external and Path(external).is_file():
+        return Path(external).read_bytes()
+    worktree, relative = entry.get("worktree"), entry.get("path")
+    if worktree and relative:
+        candidate = BACKUP / "worktrees" / worktree / "working-files" / relative
+        if candidate.is_file():
+            return candidate.read_bytes()
+    return None
+
+def git_blob_bytes(path):
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return None
+    tracked = subprocess.run(["git", "-C", str(ROOT), "ls-files", "--error-unmatch", "--", relative], capture_output=True)
+    if tracked.returncode != 0:
+        return None
+    blob = subprocess.run(["git", "-C", str(ROOT), "show", f"HEAD:{relative}"], capture_output=True)
+    return blob.stdout if blob.returncode == 0 else None
+
+def git_blob_sha(path):
+    data = git_blob_bytes(path)
+    return digest_bytes(data) if data is not None else None
+
 def check_file(entry, hash_key, label, failures, counts):
     destination = resolve(entry.get("destination", ""))
     counts["checked"] += 1
     if not destination.is_file():
         failures.append({"kind": "missing_file", "record": label, "path": str(destination)})
         return False
-    actual = sha256(destination)
+    worktree = sha256(destination)
+    blob_data = git_blob_bytes(destination)
+    blob = digest_bytes(blob_data) if blob_data is not None else None
     expected = entry.get(hash_key)
-    if expected and actual != expected:
-        failures.append({"kind": "sha_mismatch", "record": label, "path": str(destination), "expected": expected, "actual": actual})
+    if expected and expected not in {worktree, blob}:
+        source = source_bytes(entry) if label == "wip" else None
+        if source is not None and blob_data is not None and normalize_newlines(source) == normalize_newlines(blob_data):
+            counts["lineEndingNormalized"].append({"path": str(destination), "expected": expected, "blob": blob, "worktree": worktree, "sourceBytes": len(source), "blobBytes": len(blob)})
+            counts["matched"] += 1
+            return True
+        failures.append({"kind": "sha_mismatch", "record": label, "path": str(destination), "expected": expected, "blob": blob, "worktree": worktree})
         return False
+    if expected and blob == expected:
+        counts["blobMatched"] += 1
+        if worktree != blob:
+            counts["worktreeLineEndingDiffs"].append({"path": str(destination), "blob": blob, "worktree": worktree})
+    elif expected:
+        counts["worktreeMatched"] += 1
     counts["matched"] += 1
     return True
 
@@ -49,7 +94,7 @@ failures = result["failures"]
 wip = load("docs/integration/M0_WIP_DISPOSITION.json")
 canonical_code, common_dir, _ = git("rev-parse", "--path-format=absolute", "--git-common-dir")
 canonical = Path(common_dir).parent
-counts = {"checked": 0, "matched": 0, "external": 0, "externalMatched": 0, "worktreeLinks": 0, "worktreeLinksMatched": 0, "statuses": {}}
+counts = {"checked": 0, "matched": 0, "blobMatched": 0, "worktreeMatched": 0, "worktreeLineEndingDiffs": [], "lineEndingNormalized": [], "external": 0, "externalMatched": 0, "worktreeLinks": 0, "worktreeLinksMatched": 0, "statuses": {}}
 for entry in wip:
     counts["statuses"][entry["status"]] = counts["statuses"].get(entry["status"], 0) + 1
     if not entry.get("destination"):
@@ -76,7 +121,7 @@ result["counts"]["wip"] = counts
 
 # 2. Archive disposition: verify archive hashes and every extracted member destination.
 groups = load("docs/integration/M0_ARTIFACT_DISPOSITION.json")
-counts = {"archives": 0, "archivesMatched": 0, "checked": 0, "matched": 0, "statuses": {}}
+counts = {"archives": 0, "archivesMatched": 0, "checked": 0, "matched": 0, "blobMatched": 0, "worktreeMatched": 0, "worktreeLineEndingDiffs": [], "lineEndingNormalized": [], "statuses": {}}
 for group in groups:
     counts["statuses"][group.get("status", "unknown")] = counts["statuses"].get(group.get("status", "unknown"), 0) + 1
     if "members" in group:
@@ -96,26 +141,33 @@ result["counts"]["artifact"] = counts
 
 # 3. Visual sprint conflicts: preserve the archived sprint bytes, verify current files exist.
 conflicts = load("docs/integration/M0_VISUAL_CONFLICT_DISPOSITION.json")
-counts = {"checked": 0, "archivesMatched": 0, "currentMatched": 0, "currentEvolved": [], "statuses": {}}
+counts = {"checked": 0, "archivesMatched": 0, "currentMatched": 0, "currentEvolved": [], "blobMatched": 0, "worktreeLineEndingDiffs": [], "statuses": {}}
 for entry in conflicts:
     counts["checked"] += 1
     counts["statuses"][entry["status"]] = counts["statuses"].get(entry["status"], 0) + 1
     archive = resolve(entry["sprintArchive"])
     if not archive.is_file():
         failures.append({"kind": "missing_sprint_archive", "path": str(archive), "record": entry["path"]})
-    elif sha256(archive) != entry["sprintSha256"]:
-        failures.append({"kind": "sprint_archive_sha_mismatch", "path": str(archive), "expected": entry["sprintSha256"], "actual": sha256(archive)})
     else:
-        counts["archivesMatched"] += 1
+        archive_blob = git_blob_sha(archive); archive_work = sha256(archive)
+        if entry["sprintSha256"] in {archive_blob, archive_work}:
+            counts["archivesMatched"] += 1
+            if archive_blob == entry["sprintSha256"] and archive_work != archive_blob:
+                counts["worktreeLineEndingDiffs"].append({"path": str(archive), "blob": archive_blob, "worktree": archive_work})
+        else:
+            failures.append({"kind": "sprint_archive_sha_mismatch", "path": str(archive), "expected": entry["sprintSha256"], "blob": archive_blob, "worktree": archive_work})
     current = resolve(entry["path"])
     if not current.is_file():
         failures.append({"kind": "missing_current_file", "path": str(current), "record": entry["path"]})
     else:
-        actual = sha256(current)
-        if actual == entry["currentSha256"]:
+        current_blob = git_blob_sha(current); current_work = sha256(current)
+        if entry["currentSha256"] in {current_blob, current_work}:
             counts["currentMatched"] += 1
+            if current_blob == entry["currentSha256"] and current_work != current_blob:
+                counts["blobMatched"] += 1
+                counts["worktreeLineEndingDiffs"].append({"path": str(current), "blob": current_blob, "worktree": current_work})
         else:
-            counts["currentEvolved"].append({"path": entry["path"], "recorded": entry["currentSha256"], "current": actual, "reason": entry.get("reason", "")})
+            counts["currentEvolved"].append({"path": entry["path"], "recorded": entry["currentSha256"], "blob": current_blob, "worktree": current_work, "reason": entry.get("reason", "")})
 result["counts"]["visualConflict"] = counts
 
 # 4. Root checkpoint and the external preservation backup.

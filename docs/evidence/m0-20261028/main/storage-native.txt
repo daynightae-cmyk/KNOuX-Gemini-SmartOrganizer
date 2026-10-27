@@ -1,0 +1,25 @@
+$ node --max-old-space-size=160 scripts/storage-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+{
+  "ok": true,
+  "volumes": 2,
+  "files": 4,
+  "bytes": 6291478,
+  "folders": [
+    "alpha:4194304",
+    "beta:2097152"
+  ],
+  "candidates": 1,
+  "verifiedGroups": 1,
+  "reclaimableBytes": 2097152,
+  "history": 2,
+  "failures": []
+}
+[storage-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.31s

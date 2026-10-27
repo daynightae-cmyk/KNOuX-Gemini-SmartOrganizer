@@ -1,0 +1,38 @@
+# M0 main branch inventory
+generated: 2026-10-27T22:42:54Z
+head: ae6a8fcacff46bc205106e91dc9ce4cf7b1e6169
+branch: main
+
+## local branches
++ codex/live-organization-20261027            c63e975 (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/live-organization) docs(storage-cleanup): record native vault recovery and packaged evidence
+  feat/gemini-missions                        800bb95 [origin/feat/gemini-missions] docs(audit): record merged increment and green CI
++ feat/knoux-visual-day-night-sprint-20261027 d586601 (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/visual-sprint) [origin/feat/knoux-visual-day-night-sprint-20261027] feat(a11y): expose orbital satellite toggle state and record wiring evidence
++ feat/knoux-visual-home-follow-20261027      92c103f (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/qoder-visual) docs(evidence): capture day/night pairs for the remaining reference screens
++ feat/knoux-visual-studio-rebuild-20261027   d96dcf9 (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/visual-owner-rebuild) docs(visual): record round 2 day/night fidelity evidence
+  integration/final-acceptance-20261027       a1d7360 chore(m0): checkpoint canonical WIP byte-preserved before main consolidation
++ integration/knoux-unified-20261028          a46468e (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/unified-20261028) fix(m0): bind the evidence manifest to committed blob hashes
++ integration/visual-day-night-20261027       96544ec (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/integration) merge(visual): integrate the Orbital Engine and Repair work with the Home and theme line
++ integration/visual-final-closure-20261027   516f0ed (D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/closure) feat(visual): close the Services orbital wheel and stop hiding dials
+* main                                        ae6a8fc [origin/main: ahead 56] merge(m0): consolidate the verified unified integration into main
+  traycer/chipper-elk                         800bb95 docs(audit): record merged increment and green CI
+
+## local branches not merged into main
+
+## remote branches not merged into main
+
+## remote heads
+800bb95c49af98cdfc83e224f295e302d13fb60c	refs/heads/feat/gemini-missions
+d5866019780b1c11c837d5faec86d04818cbdc84	refs/heads/feat/knoux-visual-day-night-sprint-20261027
+92c103f7aec6a81bc15267353d5e776696306e5b	refs/heads/feat/knoux-visual-home-follow-20261027
+5bfb33aa70137b5097841af1da950f5f024612b3	refs/heads/feat/smart-cinematic-entry-20261026
+cd6df14ca8fa3d8f66cec100d1b3b145a0fa4f4a	refs/heads/gh-pages
+96544ec466d69d00c455623432039485a619d7f6	refs/heads/integration/visual-day-night-20261027
+516f0ed0ff41a39e59b98938faa7a14d3d199063	refs/heads/integration/visual-final-closure-20261027
+9e8cab5c1156f95001fd2c12c5dfd81a8c9a635f	refs/heads/main
+
+## ancestry
+origin/main: ancestor
+9e8cab5: ancestor
+a46468e: ancestor
+
+## unmerged index entries

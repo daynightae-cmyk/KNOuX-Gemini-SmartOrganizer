@@ -1,0 +1,798 @@
+{
+  "head": "ae6a8fcacff46bc205106e91dc9ce4cf7b1e6169",
+  "branch": "main",
+  "startedAt": "2026-10-27T22:49:44Z",
+  "failures": [],
+  "counts": {
+    "wip": {
+      "checked": 916,
+      "matched": 916,
+      "blobMatched": 439,
+      "worktreeMatched": 449,
+      "worktreeLineEndingDiffs": [
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\SERVICE_PREVIEW_LIVE_EXECUTION_20261027\\09_COPY_TO_AGENT_EXECUTION_PROMPT.md",
+          "blob": "8fded366e6744ee4973c8e32e0b4ef742c0fc23e8179f6ec46717c9a79bf939f",
+          "worktree": "67c1b99e704d905e7cfb7f4f34bfd58737415d088fdaccab6918bb3f41dc232f"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\SERVICE_PREVIEW_LIVE_EXECUTION_20261027\\tools\\generate_mission.py",
+          "blob": "9da397871e0c671742e3367dfc78b3683bcac13299ea4f0ec1c5832870a3e0bb",
+          "worktree": "9f73fc4eb15d643429708771066506a913d9d20bedae2275f2fe86d1f2903eaa"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\SERVICE_PREVIEW_LIVE_EXECUTION_20261027\\tools\\refine_critical_specs.py",
+          "blob": "7f73477aad4b3f844433426bd55030089058c0d95165190c3f35969554e0f247",
+          "worktree": "905b32f22e353219fc43c160e75d61b14dea45e2f643e6df702b7e8f757d08f5"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\00_PRODUCTION_CLOSURE_MASTER_20261027.md",
+          "blob": "89b22ace71668ae191c9b02c5b17936e04e0a8208bf9792183e64e7e584f9882",
+          "worktree": "01da27767260affbed9483f02751628dd9c85906a18a40f86b4b5d5012bc0db1"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\INSTALL_20_LOCAL_ORIGINAL_REFS_20261027.ps1",
+          "blob": "7d327c27ad8f4073d13d8218ff9dd110ad579dbd67f7eff1d831bec32b8cbabb",
+          "worktree": "4ccc9df78772411a4827181502042985c8a8e5ae56f975a7e38e0c86c6641657"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\INSTALL_HOME_AND_CIRCULAR_LOGO_20261027.ps1",
+          "blob": "69b73757678b1db19b3d3af0857b81aa1549d5d13a70e5f88e8a24ccee83a732",
+          "worktree": "86f8c367228e752bf13a39cfd38c899238b4fad1049347b0278a19864d9fbb59"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\INSTALL_VISUAL_DAY_NIGHT_20261027.ps1",
+          "blob": "bb5ae897279f176f281800624a5d96e984f91acffc3f30bf2ba7bbee87f5f571",
+          "worktree": "96233bbe7889fb62af4ddf9b41bbb4362ee2a77bf5145acd84cf790f0b594480"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\PRODUCTION_AUDIT_COLLECT_READONLY_20261027.ps1",
+          "blob": "e2e4eca808ed703e22b6c97c4bcf5c774bc15203890e83f5a901084e65a6de63",
+          "worktree": "e3467d1c5ade934f46a27db5bf3526b0d9f1765b46e35bb93c530faa722c8353"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\PRODUCTION_READINESS_AUDIT_20261027.md",
+          "blob": "0229d5a1e8ac7e469e9fb18dee0517093d75385b4db6a7b58efdf087b938dbd4",
+          "worktree": "a05a63af765b59b72a3ee203c641a24ee112cd1834971942f71c123e87cc84b7"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\SERVICE_PREVIEW_LIVE_EXECUTION_20261027\\09_COPY_TO_AGENT_EXECUTION_PROMPT.md",
+          "blob": "8fded366e6744ee4973c8e32e0b4ef742c0fc23e8179f6ec46717c9a79bf939f",
+          "worktree": "67c1b99e704d905e7cfb7f4f34bfd58737415d088fdaccab6918bb3f41dc232f"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\SERVICE_PREVIEW_LIVE_EXECUTION_20261027\\tools\\generate_mission.py",
+          "blob": "9da397871e0c671742e3367dfc78b3683bcac13299ea4f0ec1c5832870a3e0bb",
+          "worktree": "9f73fc4eb15d643429708771066506a913d9d20bedae2275f2fe86d1f2903eaa"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\SERVICE_PREVIEW_LIVE_EXECUTION_20261027\\tools\\refine_critical_specs.py",
+          "blob": "7f73477aad4b3f844433426bd55030089058c0d95165190c3f35969554e0f247",
+          "worktree": "905b32f22e353219fc43c160e75d61b14dea45e2f643e6df702b7e8f757d08f5"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\UPDATE_HOME_FIRST_MISSIONS_20261027.ps1",
+          "blob": "870334c7eeb17026d49031d31abc979b640e8b6a587564f81c8da75d14175240",
+          "worktree": "f97db056f75500f5c8e637b64bd3ac3c30cbb3d7dde878dec7c6c4a78fef03cb"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\00_DESIGN_AND_QA.md",
+          "blob": "327e0c8430cb858d119aecf33f11bf4570d2acecbac24585fbdddc29c922ea05",
+          "worktree": "762dbe50c3f2f5d3a4126c816e718a4d25587daa62584c682d3202ef8ad934f0"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\00_MASTER_VISUAL_DIRECTIVE.md",
+          "blob": "3389715446d421876c298f2d14f983f92d22a876f728321c3b2da3136f96bd1d",
+          "worktree": "51c0940740e891752bd7d24490398a7600d097c246397d40a780c2f8143bf765"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\00_TASK_QUEUE.md",
+          "blob": "2b7dd871e896337aaf53eda400172b3220c4ce73266c1bc677711aca86374555",
+          "worktree": "6467d4d124e1f76a2425c1c291f1f168348d3f2311ffe34a9a06d2dbf2475011"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\01_organization-studio.md",
+          "blob": "d4fece23dda1fd863e4138bc58c55bc21713c943573c68f8b8d39d0e938f9f8e",
+          "worktree": "be8850dc7451b4907c1ebe1583846f803ab84a32e47d7a98e7edec6939a882be"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\02_files-instant-search.md",
+          "blob": "9bf27c63391bd9508d7977dc2c8d2186b92884f181a4cdaa637a80cf281e1279",
+          "worktree": "7c474e379dcd9c6039153a121925b5320fa70445c3bbb8fcbea99bfab8eeb998"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\03_smart-scan.md",
+          "blob": "6eeee115e4347b68423fd8b274a5598db9240ec1b0ed0c76da1d0caaecfee900",
+          "worktree": "b3bc23272462308f4925d2903d29846e680a83c84996f74571cb8805b47174bc"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\04_applications.md",
+          "blob": "1c9212d7a1d1513457865983db107b44288beb4b29b8e4075cf9be7a0018e442",
+          "worktree": "ba825f2fed6a9d6910020f730eea1eee19b4842102a9ef906cc831c957c2f903"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\05_storage.md",
+          "blob": "df1e331f95f9cf1b866105fe0fede4e16c75f37e625348edef3035463b15a877",
+          "worktree": "eafc2f8b766eaf947a5dda4206ab4bca2679ae7c402150ec41ed64929b1ca31f"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\06_cleanup.md",
+          "blob": "800a53af083330d9ae5f56082d4823dc18320309c68953542a5dd2d36daa6111",
+          "worktree": "ab8c6f7fd7108a1e61a2dd76d624b16f539c2ec712bc9db366773e9535f8f5ea"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\07_startup.md",
+          "blob": "da5519132aadaa485794eaf5972cbf6ad23b44369aa3ef1b324e4d8582b8f029",
+          "worktree": "9982656c620a0c0a9e7edb98314ac0370b256171ae64c31a19e30cb33dc9b3b0"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\08_system.md",
+          "blob": "4fa510bf1eec8b6aac1470d6eae5972edf9f808e7b3f443d2a4d4a40613bb6dd",
+          "worktree": "473c15cd5335c59ab3d086b7cf4465ff72630651c39c5796278a5ffc8fc4fcb9"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\09_repair.md",
+          "blob": "bffa64174a63d79f294e0f4b10675b56cf582df484d1f5051f4fa387f0733339",
+          "worktree": "75b85bb3283260c971d85f3c429fdc9a656aaf8172ed6e17079dc09eef031b8a"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_20261027\\10_services.md",
+          "blob": "11378a426eea6fc61e98395dc65a0fc9fc060492c119cdc1217c2f9b58df39e5",
+          "worktree": "3443d4aacc1672da4654eb426c5d47d12d2db31a58899fb114b943b657a9e699"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_BRAND_CIRCULAR_LOGO.md",
+          "blob": "c7e38f70663b77ef42e2993357b524bdd3ef3ef8ac8e5e9f622e5c4d158044ef",
+          "worktree": "5391d9598ca70d00c9eb8c603d96f59b5460af71aa3b0ed4542cf98a6607a9c8"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_EMERGENCY_STUDIO_GOLD_STANDARD_VISUAL_RECOVERY_20261027.md",
+          "blob": "911536d4bc1d1cddb1863dcc5e9a77049a9a881fd4fd831d30521b6e3e90ae77",
+          "worktree": "0867049208faa9f8e4cdebf156d422faa6c4165f7d8ef6aeb635a4b000f6db36"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_FAST_TRACK_VISUAL_SPRINT.md",
+          "blob": "e78c04bf957954113d7874bc778552d6bceff5f296ac66878018b9e49097ac35",
+          "worktree": "a04ffaecf1b49592cba69738293982b30c3c29ea74785c05dd0455b336296767"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_FINAL_VISUAL_INTEGRATION_CLOSURE_20261027.md",
+          "blob": "a79128070ef1739856f345c132f5ee52a938a8dc108ffd50570524628b0b21b4",
+          "worktree": "15e58a3fac99eb674200eb7f1d79ce61bd3f34ea90adeb2fe89dadb5746acef4"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_HOME_FIRST_IMPLEMENTATION.md",
+          "blob": "1add405743d4f404d6f45b8443d777a122a14ee163fd69409b459c85bf92bcf6",
+          "worktree": "52fc397220b7d518b4eba22cb980e7b9e570ee56f5cc2d93f088102ad6c315ee"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_QWEN_VISUAL_RECOVERY_FIRST.md",
+          "blob": "d836cbc32aeac920455a9bbb5f8c203011cfc35044b01419f3a2891b0fe4b7a5",
+          "worktree": "be5d496cd3084a82094a2d8a8cc2ebc431de5fd4d42ca560b32a7478e13393a6"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_START_HOME_FIRST_QWEN.md",
+          "blob": "0c2c79203a0cfa44865ded9de2bb7af1e1fb3b613cea78b1349f70645e587b81",
+          "worktree": "f73f6db300be152d40bd4848fe798a7cd49078fef9acfb2d32bd8a9da48ce3db"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_START_QWEN_HERE.md",
+          "blob": "e57f5e355864c92d7f20cc00f3778838f95179bda94cf4057f99a0be447a28f2",
+          "worktree": "d51e1d0992b1982b5990f0b6c943e7ce74476faceb8ecd400922897d2e7d876a"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\APPLY_QWEN_MISSION_PATCH.ps1",
+          "blob": "354938eca4a20ff1474932ab10ffd2d227ffbfa94ec141dc5d19c7b9c2b52b30",
+          "worktree": "bc930975bd25da96beecef6f3affd386135acd5b5ef0a235053b2fedecf678d4"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\AUDIT_VIEWPORT_COMPOSITION_20261027.mjs",
+          "blob": "30ae067fb093df63ac46dfef1177bc5e9c7c746c32df20aba79dd6bc6d969386",
+          "worktree": "9e1297c960768b8151c31238da94795373bc46f1f74624a7c8eb62d8d2393fac"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\HEAD.txt",
+          "blob": "29f79860009b52e5008b6df42b1b01ec93ada46946c48cb622dd56ffcf621919",
+          "worktree": "d4405ef1ec2a9c67f95917e450becb271c83cca205d23506f8a390f05668f783"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\codex-tracked.patch",
+          "blob": "7ca340d278ea60d03a4ade84cf184a09ef2fba063cc063d497edb876508c2a28",
+          "worktree": "6a4cd24ea66af0db0ac7f92792efc4dc11767de12c7f73a0c7bd0e3f820145fa"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\git-status.txt",
+          "blob": "3d59b7fb92204c65f01cffa019b7c2674e85feedbbcc89dc68dd4e50443e8452",
+          "worktree": "965a6ed008b70455584f0e8d336307da08cc717b50da0b93717e06b81f4b0598"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\OrbitalControl.tsx",
+          "blob": "5f3066f7040d656b18b1ddc59c468d81e4dc49e58dba9277b3af8df564e7713e",
+          "worktree": "a2a26e39919c3907d228ce7dc558c8cde8a53b5f93a75f0ac7d79c9c646aee86"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\orbit-probe.mjs",
+          "blob": "940dc41af4f358c369a9af3f22d349c8d70e8d8134cb2744d0d688a985fdae05",
+          "worktree": "b64c9db1e17812b50731d7a6105f5329f2ca158a13c0463616cf279f88290322"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\orbital-engine.css",
+          "blob": "d535bda04b3c5ed9b63a21ca66f1f45d8f3e590b89992a0f5db0ddaa7ed40ab3",
+          "worktree": "e06e3c5ea8505bad8f99ec6e411c8f03d617c94ac88b2b382a7438a4d3f4cfcb"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\repair-evidence\\preview.json",
+          "blob": "ebf85f8ee8399a3322bc447ffc764629eb7cd99fdb390c0e3d25c1904fce668f",
+          "worktree": "70291da07b0c5fb55871b5b1d35eeca872f55e87c432fbc8ba80b9039adeefa9"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\system-reference.css",
+          "blob": "5b11c99dff53033153e9c639a3575fb45c283fbb2bec4806e9c61f68047f90db",
+          "worktree": "700f51f25d5951f973955f77ab2d437deafa52ec19c04a2d19557b4a9254e0bd"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\wip-20261027-101301\\HEAD.txt",
+          "blob": "c278583c393ac00e6b7b2986f6ef6adce77722f975eadde3af440c4282454b79",
+          "worktree": "a56a3556c4683c5dfea856aa881db540c67831b4a87452e85a2733e953933a68"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\wip-20261027-101301\\codex-wip-tracked.patch",
+          "blob": "282c024f65d7c9dcece5a59026fc1eae19c84dcb0c81ec5fa1f687d35cd93897",
+          "worktree": "ab4e15a7ef468287265a8fbb24d04dd7d795958836c974fb271c276215d3199e"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\wip-20261027-101301\\git-status.txt",
+          "blob": "f4e9e0ae3a868db3e7ef1dc26d3fa0d66f7d20c8e9ddda0d2b83e0740d47ae47",
+          "worktree": "fd748d08013ad58a148733d0fee745355038f01c54bef4afefa87c685b113366"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\wip-20261027-101301\\untracked\\repair-evidence\\preview.json",
+          "blob": "ebf85f8ee8399a3322bc447ffc764629eb7cd99fdb390c0e3d25c1904fce668f",
+          "worktree": "70291da07b0c5fb55871b5b1d35eeca872f55e87c432fbc8ba80b9039adeefa9"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\wip-20261027-101301\\untracked\\visual\\system-reference.css",
+          "blob": "5b11c99dff53033153e9c639a3575fb45c283fbb2bec4806e9c61f68047f90db",
+          "worktree": "700f51f25d5951f973955f77ab2d437deafa52ec19c04a2d19557b4a9254e0bd"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\codex-tracked.patch",
+          "blob": "560d50d194f3785026cd22077adde5688baa6b6b4baf2d151d3619f79c212bf8",
+          "worktree": "c45ca001e3ab26c0f7ad58b5c2d5df418912022e51ea81b9956c7be417d7a117"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\git-status.txt",
+          "blob": "cc76ff3fafa9a41c9440b090d0db9ff6fd252a163826658c27f26b35311856ec",
+          "worktree": "43ac031435683944b3dfaee36e87282685f0f69bb5452346a1119df894cfa511"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\manifest.txt",
+          "blob": "724f60d38e127b243e087e8b8704e9b621f09fe1d25bb78e3c96c97a26ef06f0",
+          "worktree": "222d5b246f74ff651459bb4af808e7b0aca8eb3e048b3f13af60ed069699720f"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\sha256.txt",
+          "blob": "79f300a20e40f80e300ba245ea3c9272f9facb6db81d5dd5674709ec2b675d60",
+          "worktree": "132f2c909325ce261f45a5658419623b5f8dc0cf1a72c0ced1d4926e2bf173c5"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\untracked\\apps\\gemini-ui\\src\\visual\\OrbitalControl.tsx",
+          "blob": "5f3066f7040d656b18b1ddc59c468d81e4dc49e58dba9277b3af8df564e7713e",
+          "worktree": "a2a26e39919c3907d228ce7dc558c8cde8a53b5f93a75f0ac7d79c9c646aee86"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\untracked\\apps\\gemini-ui\\src\\visual\\orbital-engine.css",
+          "blob": "60ea8cb759f5edab61434826fade936d89a7437fdaf904b090b14224707968d2",
+          "worktree": "f92f5fee5b9e9b32e7a64de16514d4f3de54a8d5052b1468a245bcee316addc7"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\untracked\\apps\\gemini-ui\\src\\visual\\system-reference.css",
+          "blob": "5b11c99dff53033153e9c639a3575fb45c283fbb2bec4806e9c61f68047f90db",
+          "worktree": "700f51f25d5951f973955f77ab2d437deafa52ec19c04a2d19557b4a9254e0bd"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\DESIGN_SYSTEM_AND_QA.md",
+          "blob": "a86e0df898cca93c16236007c6c5ccd30032eac92518304887cd4fac88fa5098",
+          "worktree": "015c37eb1248d98d3598cfd809c7f4ca554d818708655afcc3b8f5724b41a48e"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\INSTALL_TO_D.ps1",
+          "blob": "8e10391c2387002bcbc199dd7d004d51a164fcfa17e5fdcc56ec42a30af8e178",
+          "worktree": "5059b159dff08e450b0428ae1b69f872033b9ff3d2c38b31ad55fb09ab3d71fb"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\QWEN_PRIORITY_SCREEN_TASKS.md",
+          "blob": "dde840bec84abcd30ef3b35820b2787972666386a2e5edfdc757b393a9e592af",
+          "worktree": "180f51a07a2c69fb7332a37602b171b3514faf803d0d45b57581403cf33c8468"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\START_VISUAL_NOW.md",
+          "blob": "9339f1342c8728055042125781a3798ef271e8c14c57adaaf2e36be4e98fa84d",
+          "worktree": "67955c3d8ace4948a57dd7465d90da948a1c1db9bceb31e75ee7ec76dadb8ebc"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\TASK_QUEUE.md",
+          "blob": "7d9d790b804e4d00145ec96b10aec804e96d7ceeb56a9128a851fcc3c2f15c84",
+          "worktree": "cb381ae366146a2202f6a0b7714d539f0c113910a984abab14b8afa709ee0fe9"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\REFERENCES_MANIFEST.before_20_new_refs_20261027.json",
+          "blob": "3d293d7c36ab5dac347031444dd750fd9a237620a568059e8fa5fd46b5996829",
+          "worktree": "12cf84c8361885be5b5356616bf711d6512b50a7f782e4139c421e3b1b89d2a2"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\mission_docs_before_home_20261027\\00_FAST_TRACK_VISUAL_SPRINT.md",
+          "blob": "956ceb162f8ecd3963bef181ef053c792c92f838458e0a7e7c937f40ad7ef909",
+          "worktree": "83e03e58650be742832d36d044de7967e4eee07dff1699d5f1dae76ef25cb3e2"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\mission_docs_before_home_20261027\\00_QWEN_VISUAL_RECOVERY_FIRST.md",
+          "blob": "ef8d574e0e120879833cf8889e8170a96b2dbbf04ac26daaccb436c9e77715df",
+          "worktree": "993a558129795cf879fe27da25a278c6a7069a4d83011c97089ab9884cddee6a"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\mission_docs_before_home_20261027\\00_START_QWEN_HERE.md",
+          "blob": "8eeabb64c6b9e7297c3b98071341c3e2223d55e534c15d389c84fcce7a7b2694",
+          "worktree": "d98b1bd27c0eab8cb9eb02f9a638339a61cd6bd2f299e1fa88e7c7a16ec134f5"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\mission_docs_before_home_20261027\\QWEN_PRIORITY_SCREEN_TASKS.md",
+          "blob": "e7fdf3eacf81720ea090429a4cfc3703e36c2cee4480fafe30c96600ce138977",
+          "worktree": "593b47c38c102d23e783536a39958e59f7c4dfde1a6c93c68e5b4c3048352f7a"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\mission_docs_before_home_20261027\\START_VISUAL_NOW.md",
+          "blob": "3c554c853dea2b0493495dc3ddc22b282872a45cad7be8d917f9453c6a79d7fa",
+          "worktree": "e283d28ea2cc3f0432f68b74015eb00e6eb1577277d05969c02ee0d84516cf46"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\scripts\\fidelity-boards.mjs",
+          "blob": "363d59ef9e2a69a5a46c84e6c6eeecede985e38d5f9acfbf0d4aa2550690868d",
+          "worktree": "7eeffe9cea3683530a554ae154c90789cc2f50b1b70cf17f1d9c28371ccce106"
+        }
+      ],
+      "lineEndingNormalized": [
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_MASTER_VISUAL_DIRECTIVE.md",
+          "expected": "b38ed2dfd8a627be7e437e3be2fbf498d0bbeda48dcc7664122357bbba60291b",
+          "blob": "c792d9cd005997e3fd576af2a05c19aa12946fb8b4adf93e6d9db62c8cdeb67a",
+          "worktree": "deeb42f2d820b01d4ba020bdead30d08936fdd716d5ad0518dc3c7464777a398",
+          "sourceBytes": 4193,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\00_merge-codex-entry-branch-first.md",
+          "expected": "c79f6271485b7d1c8e27c34ac582bd80d8917703b1845d7d66f20c20a6841adb",
+          "blob": "b35a09696a66c62a08ae243a124f166a5bbd1b7c68e4c09d0d5a0692e8478f89",
+          "worktree": "5b54636cffbcaded0a152037063c78da1384a063b98e7ef41d1e1cd7620bef6d",
+          "sourceBytes": 3681,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\01_organization-studio.md",
+          "expected": "1d57ff959e93e52cb37e4a131b8ab00dfea8e1baa695a9f640c6b914864c50a2",
+          "blob": "152c7df19b82412c2f04986f2781c59ea2bbe840802a2519d2e5b3715e90d8ee",
+          "worktree": "47784325d91c091a9c45345c58bb9b8fa4136a64138eff518219ac77e4419ef7",
+          "sourceBytes": 5095,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\02_files-instant-search.md",
+          "expected": "037b60427883e88ef090c8e2c5691465966058f145a0bf211e22275991d37ab6",
+          "blob": "ef05a5025a06846f89f8002e98929027c02ab063e394d4a20c14c8f4780cd528",
+          "worktree": "e63d265d29e5bb7d8e7af08c4084de5e91c3f7c7ef01766884a6384f4f0a3146",
+          "sourceBytes": 5056,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\03_smart-scan.md",
+          "expected": "334821a885873ec85476c6ba022361d015323c84301ee8be067a3da362d96f9e",
+          "blob": "03f3614eabae856addb425201dd58e5320d81d23b121272c1d3e043d1eda2719",
+          "worktree": "acb59795df2ebb19cbceded7aab81c08958f07758b9985fb6b39cfdf544c6305",
+          "sourceBytes": 5133,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\04_applications.md",
+          "expected": "ca2e74eb1db3fd95b56b5200980fdf40b05d3c049bb391baf4d5f225a73acf88",
+          "blob": "708cc4f88ea65226659fccc245dfc57e6a80b83277c991b2034bbfe8eb869abe",
+          "worktree": "bd1cb280023c73421c10c3dbbc2695af0668e6c176e31d3a5dfc454c99d64542",
+          "sourceBytes": 5017,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\05_storage.md",
+          "expected": "a0e8d9d19c67a87b4a22db549b468c46df137e3c6f3c12218d53453382887912",
+          "blob": "830b2e1361c2e6ff0f2cbcb957c51c5be3fd6650f3cb72c5a4c2d1e6bdcd2f27",
+          "worktree": "7922b3038111f9075ea776206ada41fb6558c1e0efa90dfa6ec4fd243e321c88",
+          "sourceBytes": 4933,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\06_cleanup.md",
+          "expected": "5a11f7dca5aca816ea9c6e9cfc257f5b6ab373250057de46c32c3519989e522b",
+          "blob": "8818b72afc59f234a2e7fe4ce9acb45c3079861bdc976b80a73c09033881872e",
+          "worktree": "431448aabfeead66c322e6bc1afb69d5567ce31a8297699cb7ba1b1e12d6d1a3",
+          "sourceBytes": 4989,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\07_startup.md",
+          "expected": "51b44c59fd3e1b33a0bb48b70d74af9bccbfa843e3667872907a0ae2c0f52526",
+          "blob": "1f2bc1fe39e452358429ed92976b22a08f91402070f51d25896d5319d5fa9231",
+          "worktree": "fa8e9b8dfc73bda87b59ca0d0b3aaa4da3f4229abc4df7989bbd97784c668167",
+          "sourceBytes": 4921,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\08_system.md",
+          "expected": "803072f3bf87fce9b2e0baa82e6a0ca774d01107940118fa0c71d5a4264b9c4e",
+          "blob": "40318b43e08764584cd1c6c734943353a3bb4436b3862845129f2dceacfde260",
+          "worktree": "a0c69942dd6dc9aa3d0ed19df7a272b3cb5e70d473244ab775a8dd8a4a5b4992",
+          "sourceBytes": 4948,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\09_repair.md",
+          "expected": "d828bb856ddea1a6bcbee1dd2a62167b597cc0a0219880bc0022f61cb059cd7a",
+          "blob": "baf3b896c6f441eed24c3470a8c0538d93d115233e533e89f32afb4d6f388958",
+          "worktree": "59834b71f5f311bacf1afcf201decc45a844fe2315abd33830234037374b78fe",
+          "sourceBytes": 4954,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\10_services.md",
+          "expected": "8f79dfba0aa3d19fec578b79ccab8dce8a8440d1d4e64e128dc3928811207e83",
+          "blob": "4188a2a82415592df45043176f7efddf72d942572c31521ef171ee8b18899798",
+          "worktree": "6d36d927f072db506c35cffca1ece7833884ba75835dae8f5e0b068519181ae7",
+          "sourceBytes": 4931,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\repair-reference.css",
+          "expected": "cb88b93bc1924906453b17c27191c9835c926ab5293f229b67fb0a3f22c80c2d",
+          "blob": "513287394873158be984fecc72cd6fb7f2a44349355cd63542d3a406d9038aec",
+          "worktree": "3ec86aa157003344a23107281e644e8b24fcdedaac7a67a8e3fea9a325a8a1bd",
+          "sourceBytes": 2606,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\01_organization-studio.md",
+          "expected": "36a28af69730f7dfeddfe8c1e740f4d12bfd78d6dd4ce04b05515cde94505240",
+          "blob": "4b92931e6cf369757aa4111e19bcc28613a1854361d5a5994221d5e19209128a",
+          "worktree": "ccc4ff0caf19080b8e16809923fa32c899b828bd4c908bb56dd079a4a7281d6c",
+          "sourceBytes": 4106,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\02_files-instant-search.md",
+          "expected": "d3c536a9e3f8c621d89781bc91eec46b717bbc718908ded7f065ce7032f3864f",
+          "blob": "c6b415f8fac33fe89c27a205596aab52918281aea844065ce36a379aaa642a5c",
+          "worktree": "9e8daa5cd7866edd1eff892a8080b6bda9e11ce030d2e95d2c5a2599fb954878",
+          "sourceBytes": 4065,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\03_smart-scan.md",
+          "expected": "4204a3451b56a20b98cd770f5da5860eb756b93c9348e2a32ef316f7ea782337",
+          "blob": "16adfc43460e2c889bf449b0c5db05ce7fd4992ef2fb1fb12b1b41116ba797ea",
+          "worktree": "d00a6f7fa0acc2df054ad5af1328a7fb59c0272d72aba9f6bff191c79516f65b",
+          "sourceBytes": 4150,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\04_applications.md",
+          "expected": "b334735646725e555416e1fc263d4f6ace5f3e0b0c69a3277fe8a3e646a26240",
+          "blob": "ac1a431a47e0d95498ad93df5ebc0c2d8d0b04cf49df57ffe84ec0107bcccb9a",
+          "worktree": "cf316ec9a6c94facf6bbb424dfa3e45fb5d1fd786dd6842eeee6076b513c9804",
+          "sourceBytes": 4040,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\05_storage.md",
+          "expected": "8d4c849bc8e8ec8ce4b4c6a5718df10d042a5fb8457c7bbafa581413685d9c50",
+          "blob": "bee7bd79e0725e42d8ea8fb5f7c01a072017bfce3d22987f0aa5696ffccd36a1",
+          "worktree": "7c47f0b516d3fbd707901f39d217139dd18b3114de421cd47028895d20d02d84",
+          "sourceBytes": 3948,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\06_cleanup.md",
+          "expected": "2dd0ba3e1c78a696e1ce8e0678c351b979772c0175b95e433c75dc599b22e89e",
+          "blob": "3d9bf149c88bee1b4210fd9574a5124bce33eaa5285c8ec8d8edd9f0ec475c51",
+          "worktree": "1e080c5b7efcfb541d13f7630b4724c8c704a9d7c16d71aa390d99699279a6f9",
+          "sourceBytes": 4020,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\07_startup.md",
+          "expected": "121c777e31820a0f93d8fd0681faa67e1b38231b9d9835672ad4a774e4c35abd",
+          "blob": "9626742dbbf72cd23bfdf672bb8d5e6a7830a4b3f15a9d74b428f1b5509b4b25",
+          "worktree": "710621b2956ef35ce74dca9bd9454cd2bfa82afba899a31cfa1a18ec1a46cb0e",
+          "sourceBytes": 3941,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\08_system.md",
+          "expected": "646f8804f42297bbc9163a7025aab478d38db737aece8e2ad9a4be460ed83c58",
+          "blob": "f23ec0266647fc18413a7f161d7cd8c2d4374e7e64386f349a3d9c9e940e5a7e",
+          "worktree": "0c7d7485328109cfe2d097de64bf4a0b509c4388571a382f76f521e2c8612724",
+          "sourceBytes": 3962,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\09_repair.md",
+          "expected": "6d1abfff9d3f19e167aa0d57eca1f5b47a473440d97bf47661224d33e5332c95",
+          "blob": "5c535300bd1a702dc2a596c361a9abf4cad8df04e3a64b64298338c18151d08b",
+          "worktree": "7b459ec442cf321fbead212d8bf8046501211b1fb5e948dff50fcef9efbf48e4",
+          "sourceBytes": 3974,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\10_services.md",
+          "expected": "c289eb3943350e4af0e19b8f182e44f292efc8ed2a22cf76cdfa3e3e773053ea",
+          "blob": "2fa3c0bfb1719142d2b18e3bc59d40425707762b4d27a8962e547df675bb153d",
+          "worktree": "ec8e66669d647ee5f012279e4b8885bf8c3cbf0bb8d31822354f4b218913c61f",
+          "sourceBytes": 3934,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_QWEN_20261027\\wip-20261027-101301\\untracked\\visual\\repair-reference.css",
+          "expected": "cb88b93bc1924906453b17c27191c9835c926ab5293f229b67fb0a3f22c80c2d",
+          "blob": "513287394873158be984fecc72cd6fb7f2a44349355cd63542d3a406d9038aec",
+          "worktree": "3ec86aa157003344a23107281e644e8b24fcdedaac7a67a8e3fea9a325a8a1bd",
+          "sourceBytes": 2606,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\untracked\\apps\\gemini-ui\\src\\services.css",
+          "expected": "642c88ad3118be2ba9c7f100a262e0ab39a7f7ba1a7d5a1f38a59a4df8d9fea2",
+          "blob": "7ce929b3fef67737525582d41f95107a323565ad04c2924a1a447e4c92dd8d9a",
+          "worktree": "8d91b2a6e77691cf0ff41f50e1438412da36222d992b29a9d13b1f62f1349273",
+          "sourceBytes": 34493,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_CLOSURE_SNAPSHOT_20261027-120840\\untracked\\apps\\gemini-ui\\src\\visual\\repair-reference.css",
+          "expected": "cb88b93bc1924906453b17c27191c9835c926ab5293f229b67fb0a3f22c80c2d",
+          "blob": "513287394873158be984fecc72cd6fb7f2a44349355cd63542d3a406d9038aec",
+          "worktree": "3ec86aa157003344a23107281e644e8b24fcdedaac7a67a8e3fea9a325a8a1bd",
+          "sourceBytes": 2606,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\README.md",
+          "expected": "515394729311e05931d5756a99880f3aa4d838fc54f36bc95aef33f9dfa0608b",
+          "blob": "849cc188db4fc5fe1a752841f05f8a3d09f3a6d2e69561fccf138fca6bb8b8cd",
+          "worktree": "97bee0f0c820732bbb0a5cc45186ad0c9352304b9e43ff877138cfd75f798117",
+          "sourceBytes": 1788,
+          "blobBytes": 64
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\references_backups\\mission_docs_before_home_20261027\\00_MASTER_VISUAL_DIRECTIVE.md",
+          "expected": "c28689868c19a07e42f1b4f7e473533cb8acf3746f9e7d313826f2aabd5ad140",
+          "blob": "55db6a6c5df88c315d915160b8dec9672ccc3ec95957584d08c30cf8bf9b7785",
+          "worktree": "d2b6c527279ec18429896d5b97fe7e83516a0122f15c825a64e2d4c3ec8f602e",
+          "sourceBytes": 3458,
+          "blobBytes": 64
+        }
+      ],
+      "external": 9,
+      "externalMatched": 9,
+      "worktreeLinks": 7,
+      "worktreeLinksMatched": 7,
+      "statuses": {
+        "INTEGRATED": 470,
+        "VERIFIED_DUPLICATE": 462
+      }
+    },
+    "artifact": {
+      "archives": 5,
+      "archivesMatched": 5,
+      "checked": 1815,
+      "matched": 1815,
+      "blobMatched": 1805,
+      "worktreeMatched": 10,
+      "worktreeLineEndingDiffs": [
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\missions\\VISUAL_REDESIGN_DAY_NIGHT_20261027\\BACKUP_BEFORE_INTEGRATION_20261027-111115\\untracked\\repair-evidence\\preview.json",
+          "blob": "ebf85f8ee8399a3322bc447ffc764629eb7cd99fdb390c0e3d25c1904fce668f",
+          "worktree": "70291da07b0c5fb55871b5b1d35eeca872f55e87c432fbc8ba80b9039adeefa9"
+        }
+      ],
+      "lineEndingNormalized": [],
+      "statuses": {
+        "ALL_MEMBERS_ACCOUNTED": 5,
+        "VERIFIED_DUPLICATE": 62,
+        "INTEGRATED": 823
+      }
+    },
+    "visualConflict": {
+      "checked": 70,
+      "archivesMatched": 70,
+      "currentMatched": 58,
+      "currentEvolved": [
+        {
+          "path": "apps/gemini-ui/src/apps/ApplicationsHero.tsx",
+          "recorded": "7eac76392e8ce36f4860d299bc32e5c092fd28f4c94a4e4581819680858240b7",
+          "blob": "8445e75ca311e07bc3cea6140895b82ea7307c15a74e05db8876747239d15c57",
+          "worktree": "3572fbc3de19a8751c60976a71ccf15becbc42e225464bb516ad58e0b3e5e503",
+          "reason": "Keep required typed handler and measured refresh/check/export wheel. Search and all service dossiers remain in ApplicationsTools/register."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/RepairPage.tsx",
+          "recorded": "2eb9ea4ec339c3752c2faa38435c378b571608df413aa9eab3939daf728faaf0",
+          "blob": "5bf8705b82f9e63ece6e8bdaec7c7648879246c79e9b431e49e8c0ff80b7a5da",
+          "worktree": "721f8117a6e8cb98bedc68b79e695f0a46a1a69d39a1350efce7e3c7c8069f4b",
+          "reason": "Keep accepted hero/features; combine six Sprint diagnostic/restore/log scopes with current layout and consent boundaries."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/StoragePage.tsx",
+          "recorded": "9da3b341206d6443be9c6a7d7bb920f4b1cc9c0505582652641bfb4562201ac3",
+          "blob": "ed3bb4eebbd82415174778f37900fdf971873b4cd99c792e209f074e7118a4f0",
+          "worktree": "c0d3ac0c64e6c842640c092bb174f67914c6d32125480c3264c221c05a0476d3",
+          "reason": "Keep measured refresh and live vault duplicate route. Filetype/age/folder tabs remain directly available in main map controls."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/SystemPage.tsx",
+          "recorded": "15144ce436e40b64d847e03bbc459ba3c653d81d440c07b1541b0f1a2a864211",
+          "blob": "1d9c2b9cc850c157886847e75a51ede866f2e526bc2f271102e6149e1300299c",
+          "worktree": "7706e296043c60ddcb15b23aefdd87a0667b039894934a0f9783efdbd9ca5aaa",
+          "reason": "Keep reference GPU/events wheel. Thermal/health/connectivity stay accessible through full native service registry and health cards."
+        },
+        {
+          "path": "apps/gemini-ui/src/smart-scan/SmartScanHero.tsx",
+          "recorded": "97897c7b42858eb63e0819a547904f987a37ef664bbe4a437f8cd2c6527e3f57",
+          "blob": "1033f11a94b9846970f740695aaaaf3cdead7e93e770306287ff6ebe4c6ef828",
+          "worktree": "719d3c4567ed6085f09ef56e21eded8bda0d0072fdd6062ad6237d925048dfa8",
+          "reason": "Retain accepted HeroFeatures/source status rail, integrate Sprint six tool-specific scope handlers."
+        },
+        {
+          "path": "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+          "recorded": "02aaae38fd06abf44a6f1974e6c41b5703b73e82cc6f592c2bbdeb46e688b2d5",
+          "blob": "6a54c323d275bdc53a016465b86075ceaa55c26801890cf52355dc2a0455b7a8",
+          "worktree": "94f549753a08d68d84f08293e473f75b10758a790c7709f7b0114ff818387bd9",
+          "reason": "Pass actual capability-backed service IDs to existing workbench."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/OrbitalControl.tsx",
+          "recorded": "69df6516005369fbdd67ffe5af9cc7a7de3a6ffb00eb662c3cf4b212dc14657d",
+          "blob": "965ec9cb2576590c5ca1bbf863d744c8a7f4b5da7052a7c2e63237da75daafe9",
+          "worktree": "8b21bc407609b41b22f0248ed2c14cdc042948da975a7fec2cdd6534a41aaaad",
+          "reason": "Combine current coreIcon and Reduced Motion particles with Sprint aria-pressed toggle semantics."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/repair-reference.css",
+          "recorded": "513287394873158be984fecc72cd6fb7f2a44349355cd63542d3a406d9038aec",
+          "blob": "7ac8f2826afbe85339c8fbe3a3b7b2393a91e8a3f2ebaedc1a99e1febc136720",
+          "worktree": "7c31093506c4a8608d7393656e879a62378c34567d08568d334f9fb6c596e957",
+          "reason": "Integrate vertical seven-step checklist and wrapping; later accepted canvas sizing overrides remain."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/system-reference.css",
+          "recorded": "1da33763efd7e5a15db7a19c9fa5cc401c63cd68ec3633edc35161613aa10f0e",
+          "blob": "52dfdd6eb56224f9bb3aadab396aa97743b329593b87c6ee3c81f69390342a13",
+          "worktree": "170454f9c2cacb6fcf2f3d807537cc988bfbec69460b03f8098c8357739c182d",
+          "reason": "Retain truthful native-unavailable instruments, not removal of accepted instrumentation."
+        },
+        {
+          "path": "docs/evidence/visual-sprint/studio/dark-1672x941.png",
+          "recorded": "719c53300d69ef2703a9f0199e015ff8cb5d1e534ffbafe2835bf0821dbf56f8",
+          "blob": "dbf0520875536a4fe0668f1e789567151c2faf5ccde2f0462dfab780e1ee5df0",
+          "worktree": "dbf0520875536a4fe0668f1e789567151c2faf5ccde2f0462dfab780e1ee5df0",
+          "reason": "Newest accepted canonical capture retained; divergent Sprint bytes archived separately with original relative name."
+        },
+        {
+          "path": "docs/evidence/visual-sprint/studio/light-1672x941.png",
+          "recorded": "81737c980269e9183e6e0b1a4aca3ab1e6912297e801f68c819c342cdbb7e58e",
+          "blob": "08f49a02668518eb092310213b2ae8b2508302ee720f4b93d0033c9d85e67989",
+          "worktree": "08f49a02668518eb092310213b2ae8b2508302ee720f4b93d0033c9d85e67989",
+          "reason": "Newest accepted canonical capture retained; divergent Sprint bytes archived separately with original relative name."
+        },
+        {
+          "path": "docs/evidence/visual-sprint/studio/preview.json",
+          "recorded": "c443ced5f09f23eaaede601f225419765bfaaf8bede143fd470f2d644f8396cb",
+          "blob": "97c5660fcc089314a6008122cc7e5d249a31b11d522349a5ac063e2b74530516",
+          "worktree": "76bb0c3f48ae8dd7d5432e36b4f309d3182b6851d8bc8e4747a13828caece5c6",
+          "reason": "Newest accepted canonical capture retained; divergent Sprint bytes archived separately with original relative name."
+        }
+      ],
+      "blobMatched": 16,
+      "worktreeLineEndingDiffs": [
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\App.tsx",
+          "blob": "fd43caa317a0bdb1dad876b363987984b96a7d95d4be175a8679c97b9488c3d4",
+          "worktree": "e8059bf9173c087d008a7bf37d87c1b679070b8eeec23b6b1c4425759198b81d"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\pages\\ApplicationsPage.tsx",
+          "blob": "0bb73fe90d3330c1a32304e3812d042274492467ba6cbe1d8628496b3a337ff7",
+          "worktree": "8985eae7b0ab54233b68c99955fbd0ede0eaa597cf8173b1631bea3793fae5cc"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\pages\\ServicesPage.tsx",
+          "blob": "0eb17ff0eb1488bf28a39f2f844837a2b6532768bdab274d0c3b5af9b1360e8c",
+          "worktree": "0da39caadbf2b94c7d879ebfda8fb2e850925423f1194a9b66b142a05b18228b"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\services.css",
+          "blob": "f7fdd124b0962b251f52e90f5b15ceb48d485347180e1e96529fbf10762886e8",
+          "worktree": "cb104ac7db47f0f038a432a557b3f3a6fcb87beb834cf2b83614ab4f9549d65a"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\visual\\orbital-engine.css",
+          "blob": "f173701340ea04e0b163f0feae858cde4eebe4d71f3daca6fdcb2135c5620f0a",
+          "worktree": "3160e873a368c3972456ea2d3ed312dfc5d1fd17d68d104861c291e8e1c249bb"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\applications\\preview.json",
+          "blob": "510cd375056f6ac182ad8ddfeb9c6ec16c965d5fc3517e262173f7f180bc5c27",
+          "worktree": "75eaeb38d5b661a5d41a2aff7b4a3e1dda5fa821002c2311dd67bb5603939493"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\automation\\preview.json",
+          "blob": "0c64ac297dd472db1b9044cbe2e08c3db8f4e4370f5e3c02cbe43adb66a066bf",
+          "worktree": "1de12b182dfb51375198fe5f968786d7e929a90c043564b63dd00d01a83724c3"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\cleanup\\preview.json",
+          "blob": "6174455dbea94404209fa304384b4011b923a15fade038f7f1d94d792e6573b9",
+          "worktree": "065960348f1e98ade3ca235f028cfd0283739665d12e852664637ac85a95ce7d"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\files\\preview.json",
+          "blob": "989387a3acf67dc5bd4f5d0537268ed14d66685e1732d129e3bb7017fee7c881",
+          "worktree": "11d62e365eb2bdbdc747aa5e91fb5916510403b56881698a70220c57b0b39822"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\home\\preview.json",
+          "blob": "79effcb7d62bfb4d35ebfd8d3d967696a4c9075f8df9321765871fed1d2fd519",
+          "worktree": "6307f622af01a4bbef367e8b2c73a3b9f79918482e8dc003abb04356adf3bb63"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\repair\\preview.json",
+          "blob": "aba4f3d83f8ccbb18c89c1c60be58d3c7aca2a8b80e28e0ba8e2ea3e521941d8",
+          "worktree": "2aeafd305f0fcba8a258c73841ffcfa1c15d3ec1b4cb524e2b22820f794ab0a7"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\services\\preview.json",
+          "blob": "61e7b7681ab9f751175d834dbc65ffa9448cfc11c972ec5e389d3dc62a2b8145",
+          "worktree": "34a9f92043de0068258c8da0559e6a65de55a0553b7c0fc5be490c5ab42fdf68"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\smart_scan\\preview.json",
+          "blob": "938306d590c52468e3e293ade964b50474960e336f4ddcf6e81908e2cad3e67f",
+          "worktree": "3fe36967cf283ab32636b486c9416e2031c2a3efb455724ffcae549901c06baa"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\startup\\preview.json",
+          "blob": "1741982395a78a8ab312937b8150532b0e89dc3ef8b012847a83d8115007e092",
+          "worktree": "65964e305330767c572e9051a903f2ed7f93f092c64362816ab86a8bd06c062a"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\storage\\preview.json",
+          "blob": "3b585ab240c3a2d8c13fd0acc244d6d0e1038bb68f7d1412e64d14ca64d50435",
+          "worktree": "4369e20b0eb405d6531a37272c55133ffecaf3b7965f892e7c89c18019553d8d"
+        },
+        {
+          "path": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\visual-sprint\\system\\preview.json",
+          "blob": "f4cd80846d92dcd02c3c250ce718e8e8921cbed145b75395fe81ed8f2338a130",
+          "worktree": "5e2685b6b51d0bad0241a29395479ae441f4fe5a0d655dacf275ade91d66a7c9"
+        }
+      ],
+      "statuses": {
+        "CONFLICT_RECONCILED": 70
+      }
+    },
+    "rootCheckpoint": {
+      "staged": 458,
+      "stagedPresent": 458,
+      "stagedMissing": []
+    }
+  },
+  "notes": [],
+  "unmergedLocalBranches": [],
+  "finishedAt": "2026-10-27T22:52:02Z",
+  "durationSeconds": 137.4,
+  "ok": true
+}

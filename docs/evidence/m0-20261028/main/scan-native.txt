@@ -1,0 +1,48 @@
+$ node --max-old-space-size=160 scripts/scan-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+{
+  "ok": true,
+  "services": 10,
+  "stages": 10,
+  "quickFiles": 6,
+  "quickFindings": 4,
+  "deepFindings": 8,
+  "verifiedGroups": 1,
+  "startupItems": 2,
+  "installedApps": 3,
+  "privacySampled": 6,
+  "privacyWithZone": 1,
+  "healthScore": 72,
+  "deepStages": [
+    "inventory:complete",
+    "capacity:complete",
+    "system:complete",
+    "services:complete",
+    "startup:complete",
+    "apps:complete",
+    "emptyFolders:complete",
+    "privacy:complete",
+    "duplicates:complete",
+    "analyze:complete"
+  ],
+  "emptyFolders": {
+    "root": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-scan-native-test-iw0hKc\\source",
+    "foldersScanned": 5,
+    "emptyFolders": 1,
+    "skippedLinks": 0,
+    "errors": 0,
+    "limit": 200,
+    "elapsedMs": 1
+  },
+  "history": 20,
+  "persistedSessions": 10,
+  "failures": []
+}
+[scan-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 2.6s

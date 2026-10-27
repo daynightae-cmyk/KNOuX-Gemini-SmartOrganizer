@@ -1,0 +1,28 @@
+$ node --max-old-space-size=160 scripts/workbench-host-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+[workbench-host-test]
+  ✓ typed host exposes side and expanded modes
+  ✓ host is resizable, keyboard operable and does not auto-trap side focus
+  ✓ host preserves selections because it owns only chrome/scroll
+  ✓ Files integrates the host with specialized bodies and persistence
+  ✓ Files service bodies are not empty generic sheets
+  ✓ Studio integrates side/expanded stage workbench and context pane
+  ✓ Storage integrates a pinned/expanded workbench with measured bodies
+  ✓ Scan integrates a pinned/expanded workbench with measured service bodies
+  ✓ Applications integrates a pinned/expanded workbench over the register
+  ✓ Cleanup integrates a pinned/expanded workbench with gated service bodies
+  ✓ Startup integrates a pinned/expanded workbench with gated service bodies
+  ✓ no old generic ServiceWorkspaceHost is imported by any migrated domain
+{
+  "ok": true,
+  "checks": 12,
+  "failures": []
+}
+[workbench-host-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.06s

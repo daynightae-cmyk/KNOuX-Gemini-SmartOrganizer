@@ -1,0 +1,19 @@
+$ node --max-old-space-size=160 scripts/navigation-route-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+[navigation-route-test]
+  ✓ current section is mirrored into a ref
+  ✓ hash listener reads the latest section and registers once
+  ✓ navigateTo and goBack update the ref with the route
+{
+  "ok": true,
+  "checks": 3,
+  "failures": []
+}
+[navigation-route-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.06s

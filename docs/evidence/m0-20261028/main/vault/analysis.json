@@ -1,0 +1,867 @@
+{
+  "source": {
+    "id": "4d17484e-f8a1-4967-860c-b35919c7c413",
+    "path": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-PuskE5\\source",
+    "label": "source",
+    "addedAt": "2026-10-27T22:36:58.718Z",
+    "status": "ready",
+    "fileCount": 40,
+    "folderCount": 4,
+    "fileTypesCount": 2,
+    "totalBytes": 38639,
+    "categories": [
+      {
+        "key": "document",
+        "count": 27,
+        "bytes": 1101
+      },
+      {
+        "key": "other",
+        "count": 13,
+        "bytes": 37538
+      }
+    ],
+    "lastScanned": "2026-10-27T22:36:58.797Z",
+    "partial": false,
+    "warnings": []
+  },
+  "analysis": {
+    "sourceId": "4d17484e-f8a1-4967-860c-b35919c7c413",
+    "source": {
+      "id": "4d17484e-f8a1-4967-860c-b35919c7c413",
+      "path": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-PuskE5\\source",
+      "identity": {
+        "fileIdentity": "3259581351:844424931067959",
+        "identityAvailable": true,
+        "size": 0,
+        "modifiedMs": 1793140618679.7964,
+        "linkCount": 1,
+        "hardlinked": false,
+        "volumeSerial": 3259581351
+      },
+      "addedAt": "2026-10-27T22:36:58.718Z",
+      "lastScanned": "2026-10-27T22:36:59.824Z"
+    },
+    "totals": {
+      "files": 40,
+      "bytes": 38639,
+      "folders": 4,
+      "categories": 2,
+      "partial": false,
+      "analyzedBytes": 38639
+    },
+    "coverage": {
+      "files": 40,
+      "partial": false,
+      "warnings": [],
+      "lastScanned": "2026-10-27T22:36:58.797Z",
+      "scope": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-PuskE5\\source",
+      "scopeKind": "authorized-folder",
+      "coversWholeVolume": false
+    },
+    "tree": {
+      "id": "folder:root",
+      "relative": "",
+      "name": "source",
+      "sizeBytes": 38639,
+      "files": 40,
+      "children": [
+        {
+          "id": "folder:group-2",
+          "relative": "group-2",
+          "name": "group-2",
+          "sizeBytes": 12672,
+          "files": 3,
+          "children": []
+        },
+        {
+          "id": "folder:group-1",
+          "relative": "group-1",
+          "name": "group-1",
+          "sizeBytes": 12480,
+          "files": 3,
+          "children": []
+        },
+        {
+          "id": "folder:group-0",
+          "relative": "group-0",
+          "name": "group-0",
+          "sizeBytes": 12288,
+          "files": 3,
+          "children": []
+        },
+        {
+          "id": "folder:__root_files__",
+          "relative": "",
+          "name": "(root files)",
+          "sizeBytes": 1199,
+          "files": 31,
+          "children": []
+        }
+      ]
+    },
+    "folders": [
+      {
+        "id": "folder:group-2",
+        "name": "group-2",
+        "relative": "group-2",
+        "sizeBytes": 12672,
+        "files": 3,
+        "children": []
+      },
+      {
+        "id": "folder:group-1",
+        "name": "group-1",
+        "relative": "group-1",
+        "sizeBytes": 12480,
+        "files": 3,
+        "children": []
+      },
+      {
+        "id": "folder:group-0",
+        "name": "group-0",
+        "relative": "group-0",
+        "sizeBytes": 12288,
+        "files": 3,
+        "children": []
+      }
+    ],
+    "largest": [
+      {
+        "id": 31,
+        "name": "copy-0.bin",
+        "relative": "group-2/copy-0.bin",
+        "parentFolder": "group-2",
+        "category": "other",
+        "size": 4224,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.655Z",
+        "modifiedMs": 1793140618655.8103,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 32,
+        "name": "copy-1.bin",
+        "relative": "group-2/copy-1.bin",
+        "parentFolder": "group-2",
+        "category": "other",
+        "size": 4224,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.655Z",
+        "modifiedMs": 1793140618655.8103,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 33,
+        "name": "copy-2.bin",
+        "relative": "group-2/copy-2.bin",
+        "parentFolder": "group-2",
+        "category": "other",
+        "size": 4224,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.656Z",
+        "modifiedMs": 1793140618656.8096,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 34,
+        "name": "copy-0.bin",
+        "relative": "group-1/copy-0.bin",
+        "parentFolder": "group-1",
+        "category": "other",
+        "size": 4160,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.652Z",
+        "modifiedMs": 1793140618652.812,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 35,
+        "name": "copy-1.bin",
+        "relative": "group-1/copy-1.bin",
+        "parentFolder": "group-1",
+        "category": "other",
+        "size": 4160,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.653Z",
+        "modifiedMs": 1793140618653.8113,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 36,
+        "name": "copy-2.bin",
+        "relative": "group-1/copy-2.bin",
+        "parentFolder": "group-1",
+        "category": "other",
+        "size": 4160,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.654Z",
+        "modifiedMs": 1793140618654.8108,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 37,
+        "name": "copy-0.bin",
+        "relative": "group-0/copy-0.bin",
+        "parentFolder": "group-0",
+        "category": "other",
+        "size": 4096,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.649Z",
+        "modifiedMs": 1793140618649.8132,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 38,
+        "name": "copy-1.bin",
+        "relative": "group-0/copy-1.bin",
+        "parentFolder": "group-0",
+        "category": "other",
+        "size": 4096,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.651Z",
+        "modifiedMs": 1793140618651.8125,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 39,
+        "name": "copy-2.bin",
+        "relative": "group-0/copy-2.bin",
+        "parentFolder": "group-0",
+        "category": "other",
+        "size": 4096,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.652Z",
+        "modifiedMs": 1793140618652.812,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 24,
+        "name": "unique-30.txt",
+        "relative": "unique-30.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 54,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 23,
+        "name": "unique-29.txt",
+        "relative": "unique-29.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 53,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 22,
+        "name": "unique-28.txt",
+        "relative": "unique-28.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 52,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 21,
+        "name": "unique-27.txt",
+        "relative": "unique-27.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 51,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 20,
+        "name": "unique-26.txt",
+        "relative": "unique-26.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 50,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 19,
+        "name": "unique-25.txt",
+        "relative": "unique-25.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 49,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 18,
+        "name": "unique-24.txt",
+        "relative": "unique-24.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 48,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 17,
+        "name": "unique-23.txt",
+        "relative": "unique-23.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 47,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 16,
+        "name": "unique-22.txt",
+        "relative": "unique-22.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 46,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 15,
+        "name": "unique-21.txt",
+        "relative": "unique-21.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 45,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 14,
+        "name": "unique-20.txt",
+        "relative": "unique-20.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 44,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      }
+    ],
+    "recent": [
+      {
+        "id": 33,
+        "name": "copy-2.bin",
+        "relative": "group-2/copy-2.bin",
+        "parentFolder": "group-2",
+        "category": "other",
+        "size": 4224,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.656Z",
+        "modifiedMs": 1793140618656.8096,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 31,
+        "name": "copy-0.bin",
+        "relative": "group-2/copy-0.bin",
+        "parentFolder": "group-2",
+        "category": "other",
+        "size": 4224,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.655Z",
+        "modifiedMs": 1793140618655.8103,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 32,
+        "name": "copy-1.bin",
+        "relative": "group-2/copy-1.bin",
+        "parentFolder": "group-2",
+        "category": "other",
+        "size": 4224,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.655Z",
+        "modifiedMs": 1793140618655.8103,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 36,
+        "name": "copy-2.bin",
+        "relative": "group-1/copy-2.bin",
+        "parentFolder": "group-1",
+        "category": "other",
+        "size": 4160,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.654Z",
+        "modifiedMs": 1793140618654.8108,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 35,
+        "name": "copy-1.bin",
+        "relative": "group-1/copy-1.bin",
+        "parentFolder": "group-1",
+        "category": "other",
+        "size": 4160,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.653Z",
+        "modifiedMs": 1793140618653.8113,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 34,
+        "name": "copy-0.bin",
+        "relative": "group-1/copy-0.bin",
+        "parentFolder": "group-1",
+        "category": "other",
+        "size": 4160,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.652Z",
+        "modifiedMs": 1793140618652.812,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 39,
+        "name": "copy-2.bin",
+        "relative": "group-0/copy-2.bin",
+        "parentFolder": "group-0",
+        "category": "other",
+        "size": 4096,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.652Z",
+        "modifiedMs": 1793140618652.812,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 38,
+        "name": "copy-1.bin",
+        "relative": "group-0/copy-1.bin",
+        "parentFolder": "group-0",
+        "category": "other",
+        "size": 4096,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.651Z",
+        "modifiedMs": 1793140618651.8125,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 37,
+        "name": "copy-0.bin",
+        "relative": "group-0/copy-0.bin",
+        "parentFolder": "group-0",
+        "category": "other",
+        "size": 4096,
+        "ext": "bin",
+        "modifiedAt": "2026-10-27T22:36:58.649Z",
+        "modifiedMs": 1793140618649.8132,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 0,
+        "name": "old-0.tmp",
+        "relative": "old-0.tmp",
+        "parentFolder": "",
+        "category": "other",
+        "size": 23,
+        "ext": "tmp",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 1,
+        "name": "old-1.tmp",
+        "relative": "old-1.tmp",
+        "parentFolder": "",
+        "category": "other",
+        "size": 24,
+        "ext": "tmp",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 2,
+        "name": "old-2.tmp",
+        "relative": "old-2.tmp",
+        "parentFolder": "",
+        "category": "other",
+        "size": 25,
+        "ext": "tmp",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 3,
+        "name": "old-3.tmp",
+        "relative": "old-3.tmp",
+        "parentFolder": "",
+        "category": "other",
+        "size": 26,
+        "ext": "tmp",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 4,
+        "name": "unique-10.txt",
+        "relative": "unique-10.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 34,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 5,
+        "name": "unique-11.txt",
+        "relative": "unique-11.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 35,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 6,
+        "name": "unique-12.txt",
+        "relative": "unique-12.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 36,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 7,
+        "name": "unique-13.txt",
+        "relative": "unique-13.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 37,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 8,
+        "name": "unique-14.txt",
+        "relative": "unique-14.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 38,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 9,
+        "name": "unique-15.txt",
+        "relative": "unique-15.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 39,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 10,
+        "name": "unique-16.txt",
+        "relative": "unique-16.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 40,
+        "ext": "txt",
+        "modifiedAt": "2026-10-17T22:36:58.648Z",
+        "modifiedMs": 1792276618648,
+        "readonly": false,
+        "hidden": false
+      }
+    ],
+    "categories": [
+      {
+        "key": "document",
+        "count": 27,
+        "bytes": 1101
+      },
+      {
+        "key": "other",
+        "count": 13,
+        "bytes": 37538
+      }
+    ],
+    "extensions": [
+      {
+        "ext": "bin",
+        "count": 9,
+        "bytes": 37440
+      },
+      {
+        "ext": "txt",
+        "count": 27,
+        "bytes": 1101
+      },
+      {
+        "ext": "tmp",
+        "count": 4,
+        "bytes": 98
+      }
+    ],
+    "ages": [
+      {
+        "key": "day",
+        "label": "Last 24 hours",
+        "count": 9,
+        "bytes": 37440
+      },
+      {
+        "key": "week",
+        "label": "Last 7 days",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "month",
+        "label": "Last 30 days",
+        "count": 31,
+        "bytes": 1199
+      },
+      {
+        "key": "year",
+        "label": "Last year",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "older",
+        "label": "Older / unknown",
+        "count": 0,
+        "bytes": 0
+      }
+    ],
+    "duplicateCandidates": [],
+    "duplicatePolicy": {
+      "candidatesAreSizeMatches": true,
+      "contentVerified": false,
+      "minimumBytes": 1048576,
+      "maxGroups": 20,
+      "maxVerifiedFiles": 48,
+      "maxVerifiedBytes": 268435456
+    },
+    "permission": "read-only"
+  },
+  "duplicates": {
+    "groups": [
+      {
+        "size": 4224,
+        "digest": "dca15dc4d795149a6a4b475629755fe90fe316da4bf949ac00f03d50b4bc9b7f",
+        "files": [
+          {
+            "id": 31,
+            "name": "copy-0.bin",
+            "relative": "group-2/copy-0.bin",
+            "size": 4224,
+            "modifiedAt": "2026-10-27T22:36:58.655Z"
+          },
+          {
+            "id": 32,
+            "name": "copy-1.bin",
+            "relative": "group-2/copy-1.bin",
+            "size": 4224,
+            "modifiedAt": "2026-10-27T22:36:58.655Z"
+          },
+          {
+            "id": 33,
+            "name": "copy-2.bin",
+            "relative": "group-2/copy-2.bin",
+            "size": 4224,
+            "modifiedAt": "2026-10-27T22:36:58.656Z"
+          }
+        ],
+        "count": 3,
+        "wastedBytes": 8448
+      },
+      {
+        "size": 4160,
+        "digest": "b915ad0da55722a6ab9357d217145e3cf211f7f83454e6d2d168fc54e6016926",
+        "files": [
+          {
+            "id": 34,
+            "name": "copy-0.bin",
+            "relative": "group-1/copy-0.bin",
+            "size": 4160,
+            "modifiedAt": "2026-10-27T22:36:58.652Z"
+          },
+          {
+            "id": 35,
+            "name": "copy-1.bin",
+            "relative": "group-1/copy-1.bin",
+            "size": 4160,
+            "modifiedAt": "2026-10-27T22:36:58.653Z"
+          },
+          {
+            "id": 36,
+            "name": "copy-2.bin",
+            "relative": "group-1/copy-2.bin",
+            "size": 4160,
+            "modifiedAt": "2026-10-27T22:36:58.654Z"
+          }
+        ],
+        "count": 3,
+        "wastedBytes": 8320
+      },
+      {
+        "size": 4096,
+        "digest": "6896d9ea3f73a4434f5832bc65714e7d066f177373f36f34dc8a6f735daa41b1",
+        "files": [
+          {
+            "id": 37,
+            "name": "copy-0.bin",
+            "relative": "group-0/copy-0.bin",
+            "size": 4096,
+            "modifiedAt": "2026-10-27T22:36:58.649Z"
+          },
+          {
+            "id": 38,
+            "name": "copy-1.bin",
+            "relative": "group-0/copy-1.bin",
+            "size": 4096,
+            "modifiedAt": "2026-10-27T22:36:58.651Z"
+          },
+          {
+            "id": 39,
+            "name": "copy-2.bin",
+            "relative": "group-0/copy-2.bin",
+            "size": 4096,
+            "modifiedAt": "2026-10-27T22:36:58.652Z"
+          }
+        ],
+        "count": 3,
+        "wastedBytes": 8192
+      }
+    ],
+    "summary": {
+      "candidates": 3,
+      "filesHashed": 9,
+      "bytesHashed": 37440,
+      "verifiedGroups": 3,
+      "reclaimableVerifiedBytes": 24960,
+      "budgetReached": false,
+      "maxFiles": 400,
+      "maxBytes": 268435456
+    },
+    "errors": [],
+    "warnings": [],
+    "permission": "read-only",
+    "mutation": "none"
+  },
+  "tempCandidates": [
+    {
+      "id": 0,
+      "name": "old-0.tmp",
+      "relative": "old-0.tmp",
+      "size": 23,
+      "reason": "Reviewed temporary extension; at least 7 days old",
+      "risk": "manual-review"
+    },
+    {
+      "id": 1,
+      "name": "old-1.tmp",
+      "relative": "old-1.tmp",
+      "size": 24,
+      "reason": "Reviewed temporary extension; at least 7 days old",
+      "risk": "manual-review"
+    },
+    {
+      "id": 2,
+      "name": "old-2.tmp",
+      "relative": "old-2.tmp",
+      "size": 25,
+      "reason": "Reviewed temporary extension; at least 7 days old",
+      "risk": "manual-review"
+    },
+    {
+      "id": 3,
+      "name": "old-3.tmp",
+      "relative": "old-3.tmp",
+      "size": 26,
+      "reason": "Reviewed temporary extension; at least 7 days old",
+      "risk": "manual-review"
+    }
+  ],
+  "ageDays": 7,
+  "scannedAt": "2026-10-27T22:36:59.193Z",
+  "readOnly": true
+}

@@ -1,0 +1,23 @@
+$ node --max-old-space-size=160 scripts/startup-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+{
+  "ok": true,
+  "services": 12,
+  "stages": 5,
+  "entries": 9,
+  "tasks": 3,
+  "servicesMeasured": 3,
+  "bootEvents": 2,
+  "protectedCount": 3,
+  "planItems": 4,
+  "planConflicts": 2,
+  "failures": []
+}
+[startup-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.36s

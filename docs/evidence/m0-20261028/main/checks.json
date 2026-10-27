@@ -1,0 +1,288 @@
+{
+  "head": "ae6a8fcacff46bc205106e91dc9ce4cf7b1e6169",
+  "branch": "main",
+  "startedAt": "2026-10-27T22:36:13Z",
+  "finishedAt": "2026-10-27T22:37:03Z",
+  "ok": true,
+  "checks": [
+    {
+      "name": "guard",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "scripts/verify-workspace.py"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+      "exitCode": 0,
+      "durationSeconds": 0.24
+    },
+    {
+      "name": "types",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 7.39
+    },
+    {
+      "name": "build",
+      "command": [
+        "node",
+        "--single-threaded",
+        "--v8-pool-size=1",
+        "--max-old-space-size=160",
+        "--optimize-for-size",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 19.69
+    },
+    {
+      "name": "native-contract",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/native-contract-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.17
+    },
+    {
+      "name": "studio-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/studio-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.7
+    },
+    {
+      "name": "files-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/files-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.69
+    },
+    {
+      "name": "storage-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/storage-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.31
+    },
+    {
+      "name": "scan-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/scan-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 2.6
+    },
+    {
+      "name": "apps-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/apps-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.18
+    },
+    {
+      "name": "cleanup-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/cleanup-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.41
+    },
+    {
+      "name": "startup-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/startup-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.36
+    },
+    {
+      "name": "system-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/system-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.22
+    },
+    {
+      "name": "repair-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/repair-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.5
+    },
+    {
+      "name": "services-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/services-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.33
+    },
+    {
+      "name": "automation-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/automation-native-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.25
+    },
+    {
+      "name": "workspace-consent",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/workspace-consent-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.07
+    },
+    {
+      "name": "google-oauth",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/google-oauth-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.7
+    },
+    {
+      "name": "settings-consent",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/settings-consent-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.07
+    },
+    {
+      "name": "home-live",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/home-live-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.07
+    },
+    {
+      "name": "workbench-host",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/workbench-host-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.06
+    },
+    {
+      "name": "navigation-route",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/navigation-route-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 0.06
+    },
+    {
+      "name": "live-organization",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/live-organization-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 7.58
+    },
+    {
+      "name": "live-organization-negative",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/live-organization-negative.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 2.25
+    },
+    {
+      "name": "storage-vault",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/storage-vault-test.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 1.36
+    },
+    {
+      "name": "storage-vault-negative",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/storage-vault-negative.cjs"
+      ],
+      "cwd": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui",
+      "exitCode": 0,
+      "durationSeconds": 3.33
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+$ node --max-old-space-size=160 scripts/live-organization-negative.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+{
+  "checks": [
+    "Exclusive Windows file lock refuses operation before effects; original hashes preserved",
+    "Actual worker process interruption persisted journal; restart detects interrupted state and safely undoes the completed move"
+  ]
+}
+
+STDERR:
+
+EXIT: 0
+DURATION: 2.25s

@@ -1,0 +1,35 @@
+$ node --max-old-space-size=160 scripts/apps-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui)
+
+STDOUT:
+{
+  "ok": true,
+  "apps": 5,
+  "kpis": {
+    "installed": 5,
+    "publishers": 3,
+    "packaged": 2,
+    "protectedCount": 2,
+    "startupLinked": 1,
+    "startupEntries": 2,
+    "staleRegistrations": 2,
+    "reportedFootprintBytes": 2637824,
+    "measuredFootprintBytes": 10000,
+    "measuredFootprintApps": 1,
+    "updatesAvailable": null
+  },
+  "startup": 2,
+  "signature": "valid",
+  "associations": 3,
+  "measuredBytes": 10000,
+  "leftovers": 3,
+  "updates": 2,
+  "planBlocked": 1,
+  "failures": []
+}
+[apps-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.18s

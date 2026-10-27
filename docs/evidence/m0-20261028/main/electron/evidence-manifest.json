@@ -1,0 +1,242 @@
+{
+  "head": "ae6a8fcacff46bc205106e91dc9ce4cf7b1e6169",
+  "branch": "main",
+  "mergeCommit": "ae6a8fcacff46bc205106e91dc9ce4cf7b1e6169",
+  "parents": [
+    "9e8cab5c1156f95001fd2c12c5dfd81a8c9a635f",
+    "a46468e40d52055952723c60f0feafe90c376fc0"
+  ],
+  "previousMain": "9e8cab5c1156f95001fd2c12c5dfd81a8c9a635f",
+  "integrationHead": "a46468e40d52055952723c60f0feafe90c376fc0",
+  "generatedAt": "2026-10-27T22:52:00Z",
+  "electronVersion": "43.4.1",
+  "hashScope": "SHA-256 values are of the committed Git blob bytes (LF-normalized). PNG captures are binary and byte-exact. Python-written JSON is written with LF newlines.",
+  "treeEquality": {
+    "mainTree": "955538509b04d119791193db3f48fb206a35e758",
+    "integrationTree": "955538509b04d119791193db3f48fb206a35e758"
+  },
+  "guard": {
+    "path": "../guard.txt",
+    "sha256": "02398ac488c3fde8c0b005d0c4c9026dc2f3160a3f4c7bc2a708823d7c21aa87",
+    "status": "PASS",
+    "root": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+    "branch": "main"
+  },
+  "inventory": {
+    "serviceRows": 181,
+    "domainMissionFiles": 14,
+    "ipcHandlers": 128,
+    "ipcMainOn": 0,
+    "trackedWorktrees": 0,
+    "unmergedLocalBranches": [],
+    "unmergedRemoteBranches": [],
+    "unresolvedConflicts": 0
+  },
+  "checks": {
+    "path": "../checks.json",
+    "sha256": "252136c431be9f661bd27ff23f781a84872ccbca9bac2d1b34ab321b9368c25d",
+    "head": "ae6a8fcacff46bc205106e91dc9ce4cf7b1e6169",
+    "branch": "main",
+    "passed": 25,
+    "failed": 0
+  },
+  "suites": [
+    {
+      "name": "organization",
+      "command": "node --max-old-space-size=160 scripts/live-organization-electron.mjs",
+      "proof": "organization/proof.json",
+      "sha256": "9bfe514d0d67570c56b7eb7059d4ba5bf714d408ed6727015e753317e8f3d31f",
+      "ok": true,
+      "checks": 7,
+      "screenshots": 14,
+      "confirmations": 2,
+      "verified": [
+        "Untrusted BrowserWindow is denied by the production sender guard",
+        "Fixed IPC allowlist rejects raw path payloads",
+        "Real folder picker -> native inventory -> exact SHA-256 before/after plan",
+        "Exact approval -> native copy/hash/verify/unlink -> 40 verified moves",
+        "Undo preview -> separate native confirmation -> all 40 source hashes restored",
+        "Selected Files scope survives a fresh scan and limits the plan to one file",
+        "Files and Studio open the same workbench; side/expanded mode retains the plan"
+      ]
+    },
+    {
+      "name": "vault",
+      "command": "node --max-old-space-size=160 scripts/storage-vault-electron.mjs",
+      "proof": "vault/proof.json",
+      "sha256": "b8e3cd3ea50b0ec32d2889296b64882f7c660e29291662bd15241825e8b8253f",
+      "ok": true,
+      "checks": 6,
+      "screenshots": 12,
+      "confirmations": 2,
+      "verified": [
+        "Typed production IPC rejects raw path injection",
+        "Native discovery finds three SHA-256 duplicate groups and selects no keeper automatically",
+        "Exact approval performs three real quarantines with hashes; verifiedReclaimedBytes remains zero",
+        "Restore refuses an occupied original path without overwrite",
+        "Native restore recovers every original hash; the report comes from the dedicated vault journal",
+        "Cleanup opens the same vault; side/expanded/keyboard resize and reduced motion retain state"
+      ]
+    },
+    {
+      "name": "visual",
+      "command": "node scripts/m0-electron-visual.mjs main",
+      "proof": "visual/proof.json",
+      "sha256": "0e6ab51bf66ba3b4d8c3d3f3b9ab1e7bf8b87e558b6498e18932982595fdffe5",
+      "ok": true,
+      "screenshots": 179,
+      "views": 176,
+      "routes": 14,
+      "locales": [
+        "en",
+        "ar"
+      ],
+      "directions": [
+        "ltr",
+        "rtl"
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "viewports": [
+        "1366x768",
+        "1672x941",
+        "1920x1080"
+      ],
+      "zoom": [
+        {
+          "factor": 1.25,
+          "devicePixelRatio": 1.25,
+          "cssViewport": "1338x753",
+          "capture": "1672x941",
+          "routes": [
+            "files",
+            "studio",
+            "repair",
+            "services"
+          ]
+        },
+        {
+          "factor": 1.5,
+          "devicePixelRatio": 1.5,
+          "cssViewport": "1115x627",
+          "capture": "1672x941",
+          "routes": [
+            "files",
+            "studio",
+            "repair",
+            "services"
+          ]
+        }
+      ],
+      "cinematicIntro": {
+        "screenshots": 2,
+        "enterWorkspace": "full-window, enabled, dismissed",
+        "skip": "full-window, enabled, dismissed"
+      },
+      "orbital": {
+        "tools": 6,
+        "imagesCategory": true,
+        "filtersPanel": true,
+        "coreFocus": true,
+        "organizeNavigation": true
+      },
+      "liveEntryButtons": {
+        "files-live-organization": "topmost and opens",
+        "storage-live-vault": "topmost and opens",
+        "cleanup-live-vault": "topmost and opens"
+      },
+      "reducedMotion": [
+        "none",
+        "none",
+        "none"
+      ],
+      "rendererPageErrors": 0,
+      "rendererConsoleErrors": 0,
+      "ignoredConsoleWarnings": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+      ],
+      "captureRetries": 0,
+      "geometryIssues": 0
+    },
+    {
+      "name": "packaged",
+      "command": "node --max-old-space-size=160 scripts/storage-vault-electron.mjs --packaged-exe=release-gemini-m0/win-unpacked/KNOuX Smart Gemini Preview.exe",
+      "proof": "packaged/proof.json",
+      "sha256": "d26bc1c5bc2da39117ae01b5f58fa8e0ddc37aa41dad6fb3e88a141505cc534e",
+      "ok": true,
+      "packaged": true,
+      "checks": 6,
+      "screenshots": 12,
+      "confirmations": 2,
+      "executable": {
+        "bytes": 235533824,
+        "sha256": "c03a365c4d73b2d528400e60afc002baf0317aa496269ebd49a9e0da5f87f166",
+        "buildPath": "apps/gemini-ui/release-gemini-m0/win-unpacked/KNOuX Smart Gemini Preview.exe",
+        "externalPath": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\packaged-release-gemini-m0\\win-unpacked\\KNOuX Smart Gemini Preview.exe"
+      },
+      "asar": {
+        "bytes": 21547713,
+        "sha256": "7366b386e79b853d1afc2c61030a37daf42b1524a354c43bf156a70903c417a9",
+        "buildPath": "apps/gemini-ui/release-gemini-m0/win-unpacked/resources/app.asar",
+        "externalPath": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\packaged-release-gemini-m0\\win-unpacked\\resources\\app.asar"
+      },
+      "artifactPath": "packaged/package-path.json"
+    }
+  ],
+  "dispositionVerification": {
+    "path": "../disposition-verification.json",
+    "sha256": "74f150c842c0d4a2b450187a18242ce67a3291b7b54397ff4f969b67490bab86",
+    "ok": true,
+    "failures": 0,
+    "wip": {
+      "entries": 932,
+      "destinationEntries": 916,
+      "blobExact": 439,
+      "worktreeExact": 449,
+      "lineEndingNormalized": 28,
+      "externalCopies": "9/9",
+      "worktreeLinks": "7/7"
+    },
+    "artifacts": {
+      "checked": 1815,
+      "archives": "5/5"
+    },
+    "visualConflicts": {
+      "checked": 70,
+      "archives": "70/70",
+      "currentMatched": 58,
+      "evolvedAfterReconciliation": 12
+    },
+    "rootCheckpoint": {
+      "paths": 458,
+      "present": 458
+    }
+  },
+  "lineEndingNote": "Git autocrlf may normalize text line endings at commit. All 916 WIP destination files exist. 439 match the recorded source in the committed blob, 449 match the current CRLF worktree bytes, and 28 Markdown files differ from the source only by two CR bytes on two lines; after CR/LF normalization their bytes are identical. The exact source bytes of every WIP entry remain in the external preservation backup. No unique content is missing.",
+  "externalPreservation": {
+    "root": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802",
+    "preMainUntrackedManifest": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\root-untracked-pre-main\\manifest.json"
+  },
+  "packagedBuild": {
+    "command": "node node_modules/electron-builder/out/cli/cli.js --config electron-builder.config.cjs --dir --publish never -c.directories.output=release-gemini-m0",
+    "signed": false,
+    "note": "First packaging attempt to release-gemini was blocked by an external directory handle (EPERM); the fresh output directory completed normally. The packaged renderer passed the same 6 vault checks with isPackaged=true.",
+    "output": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\packaged-release-gemini-m0"
+  },
+  "result": {
+    "unresolvedConflicts": 0,
+    "missingUniqueFiles": 0,
+    "typeScript": "PASS",
+    "build": "PASS",
+    "nativeContracts": "PASS",
+    "studioFilesExecutionUndo": "PASS",
+    "storageCleanupRestore": "PASS",
+    "electronMainPreloadRenderer": "PASS",
+    "visualDayNight": "PASS",
+    "rtlReducedMotion": "PASS",
+    "packagedElectron": "PASS",
+    "securityPermissions": "PASS"
+  }
+}
