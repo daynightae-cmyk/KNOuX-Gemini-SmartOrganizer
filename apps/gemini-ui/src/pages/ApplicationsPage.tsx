@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Applications Software Register (Mission 05).
  *
@@ -19,7 +20,7 @@ import {
 import type { AppRecord } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { ApplicationsHero } from '../apps/ApplicationsHero';
+import { ApplicationsHero, ApplicationsMetrics } from '../apps/ApplicationsHero';
 import { AppRegister } from '../apps/AppRegister';
 import { AppDossier } from '../apps/AppDossier';
 import { ApplicationServices } from '../apps/ApplicationServices';
@@ -231,12 +232,16 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
             data-testid="apps-workspace"
             className="apps-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
+          <CommandCanvas locale={locale} heroTypes={[ApplicationsHero]} metricTypes={[ApplicationsMetrics]} toolTypes={[ApplicationServices]} toolPlacement="rail">
             <ApplicationsHero
               locale={locale}
               controller={controller}
               selectedCount={checkedIds.size}
               onBuildPlan={buildPlanFromSelection}
+              onOpenService={setActiveService}
             />
+
+            <ApplicationsMetrics locale={locale} controller={controller} />
 
             {!controller.nativeAvailable ? (
               <div className="apps-native-banner apps-native-required" data-testid="apps-native-required">
@@ -325,6 +330,8 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
                 </span>
               ) : null}
             </div>
+
+          </CommandCanvas>
           </main>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Boot Control (Mission 09).
  *
@@ -22,7 +23,7 @@ import {
 import type { StartupEntry, StartupPlan } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { StartupHero } from '../startup/StartupHero';
+import { StartupBootline, StartupHero, StartupMetrics } from '../startup/StartupHero';
 import { AutorunRegister } from '../startup/AutorunRegister';
 import { AutorunInspector } from '../startup/AutorunInspector';
 import { ServiceRail } from '../startup/ServiceRail';
@@ -268,7 +269,12 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
             data-testid="startup-workspace"
             className="stp-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
+          <CommandCanvas locale={locale} heroTypes={[StartupHero]} metricTypes={[StartupMetrics]} statusTypes={[StartupBootline]} toolTypes={[ServiceRail]} toolPlacement="rail">
             <StartupHero locale={locale} controller={controller} onOpenService={openService} />
+
+            <StartupMetrics locale={locale} controller={controller} />
+
+            <StartupBootline locale={locale} controller={controller} onOpenService={openService} />
 
             {!controller.nativeAvailable ? (
               <div className="stp-native-banner stp-native-required" data-testid="startup-native-required">
@@ -362,6 +368,8 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
                 </span>
               ) : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="stp-actionbar" data-testid="startup-actionbar">

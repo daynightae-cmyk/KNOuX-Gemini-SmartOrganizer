@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -69,6 +70,8 @@ import { StorageServiceFocus, storageServiceLabel } from '../storage/StorageServ
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
 import '../storage.css';
+import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 
 interface StoragePageProps {
   onNavigateSection?: (section: string) => void;
@@ -83,7 +86,8 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [treemapZoomNode, setTreemapZoomNode] = useState<string | null>(null);
   const [selectedTreemapItem, setSelectedTreemapItem] = useState<string>('Windows (93.6 GB)');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
-  const [activeService, setActiveService] = useState<string | null>(null);
+  const [activeService, setLegacyActiveService] = useState<string | null>(null);
+  const setActiveService=(id:string|null)=>{if(id&&['storage-large-files', 'storage-duplicates', 'storage-treemap', 'storage-top-folders', 'storage-filetypes', 'storage-reclaim'].includes(id)){setLegacyActiveService(null);window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live',{detail:{serviceId:id}}));}else setLegacyActiveService(id);};
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.storage.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -317,30 +321,52 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
         {/* 3. Main Scrollable Canvas (Hero + Top Strip + Volume Bays + Analysis + Inspector + Services) */}
         <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
+          <CommandCanvas locale={isArabic ? 'ar' : 'en'} statusTypes={[StorageBanner]}>
           {/* Hero Section */}
-          <div className="flex items-start justify-between relative z-10 pb-1">
+          <div className="knx-storage-hero relative z-10">
             <div>
+              <div className="knx-eyebrow">KNOuX / {isArabic ? 'التخزين' : 'STORAGE ATLAS'}</div>
               <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                <span>{isArabic ? 'أطلس التخزين والمساحة' : 'The Volume Atlas'}</span>
+                <span>{isArabic ? 'أطلس الأقراص' : 'Volume Atlas'}</span>
               </h1>
               <p className="text-xs text-slate-300 mt-0.5">
-                {isArabic ? 'شاهد أين تذهب كل بايت قابلة للقياس.' : 'See where every measurable byte goes.'}
+                {isArabic ? 'تصوّر تخزينك واعرف ما يستهلك المساحة، ثم راجع توصيات الاستعادة الآمنة.' : 'Visualize your storage, find what is taking space, and review safe reclamation opportunities.'}
               </p>
+              <HeroFeatures
+                items={[
+                  {
+                    icon: <HardDrive className="w-4 h-4" />,
+                    title: isArabic ? 'استكشف تخزينك' : 'Explore your storage',
+                    detail: isArabic ? 'شاهد كيف تُستخدم المساحة عبر الأقراص والمجلدات المقيسة.' : 'See how space is used across measured drives and folders.',
+                    tone: '#3b82f6',
+                  },
+                  {
+                    icon: <FolderTree className="w-4 h-4" />,
+                    title: isArabic ? 'اكتشف الملفات الكبيرة' : 'Find space hogs',
+                    detail: isArabic ? 'حدّد الملفات والمجلدات الكبيرة من الفحص المصرح به.' : 'Identify large files and folders from the authorized scan.',
+                    tone: '#a855f7',
+                  },
+                  {
+                    icon: <Layers className="w-4 h-4" />,
+                    title: isArabic ? 'استعد المساحة' : 'Reclaim space',
+                    detail: isArabic ? 'التوصيات للقراءة فقط حتى توافق على إجراء منفصل.' : 'Recommendations stay read-only until a separate action is approved.',
+                    tone: '#10b981',
+                  },
+                ]}
+              />
             </div>
 
-            {/* Breadcrumb / Phase Indicators on top right */}
-            <div className="flex items-center gap-4 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-              <span className="hover:text-slate-200 cursor-pointer">{isArabic ? 'استكشاف' : 'EXPLORE'}</span>
-              <span className="text-slate-600">/</span>
-              <span className="hover:text-slate-200 cursor-pointer">{isArabic ? 'قياس' : 'MEASURE'}</span>
-              <span className="text-slate-600">/</span>
-              <span className="hover:text-slate-200 cursor-pointer">{isArabic ? 'فهم' : 'UNDERSTAND'}</span>
-              <span className="text-slate-600">/</span>
-              <span className="text-cyan-400 font-bold border-b border-cyan-400 pb-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 inline-block animate-pulse" />
-                {isArabic ? 'استعادة' : 'RECLAIM'}
-              </span>
-            </div>
+            <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}
+              eyebrow={isArabic ? 'نطاقات التخزين' : 'Storage scopes'}
+              onActivate={() => void storageNative.chooseSource()} disabled={!nativeAvailable || storageNative.scanning} running={storageNative.scanning}
+              tools={[
+                { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
+                { id: 'map', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, onClick: () => setActiveTab('treemap'), active: activeTab === 'treemap' },
+                { id: 'large', label: isArabic ? 'الكبيرة' : 'Large files', icon: Folder, onClick: () => setActiveTab('large'), active: activeTab === 'large' },
+                { id: 'disks', label: isArabic ? 'الأقراص' : 'Disk details', icon: Server, onClick: () => setActiveService('storage-disks') },
+                { id: 'duplicates', label: isArabic ? 'المكررات' : 'Duplicates', icon: Copy, onClick: () => setActiveService('storage-duplicates') },
+                { id: 'folders', label: isArabic ? 'المجلدات' : 'Top folders', icon: FolderTree, onClick: () => setActiveService('storage-top-folders') },
+              ]} />
           </div>
 
           <StorageBanner
@@ -363,7 +389,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           />
 
           {/* 4. Top Measurement Strip (5 Cards) */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="knx-storage-metrics grid grid-cols-2 md:grid-cols-5 gap-3">
             {/* 1. Connected Volumes */}
             <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-slate-700/60 flex items-center gap-3 shadow-lg shadow-black/20">
               <div className="p-2.5 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300">
@@ -421,7 +447,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           </div>
 
           {/* 5. Main Volume Bays (3 Columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="knx-storage-volumes grid grid-cols-1 md:grid-cols-3 gap-3">
             {filteredVolumes.map((vol) => {
               const isSelected = vol.id === selectedVolume?.id;
               return (
@@ -541,7 +567,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           </div>
 
           {/* 6. Lower Analysis Workspace (Left 2/3) + Volume Inspector (Right 1/3) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="knx-storage-analysis-grid grid grid-cols-1 lg:grid-cols-12 gap-4">
             {/* Left 8 Cols: Space Map Treemap & Largest Items */}
             <div className="lg:col-span-8 flex flex-col bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl">
               {/* Tab Bar Header */}
@@ -844,13 +870,14 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1.5">
+            <div className="knx-storage-tools grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {STORAGE_SERVICES_CATALOG.map((srv) => (
-                <div
+                <button
+                  type="button"
                   key={srv.id}
                   data-service-key={srv.serviceKey}
                   onClick={() => setActiveService(srv.serviceKey)}
-                  className="p-1 rounded-xl bg-[#08152e] hover:bg-[#0c1f44] border border-slate-700/60 hover:border-cyan-500/50 cursor-pointer transition shadow-md group flex flex-col justify-between"
+                  className="text-start p-4 rounded-xl bg-[#08152e] hover:bg-[#0c1f44] border border-slate-700/60 hover:border-cyan-500/50 cursor-pointer transition shadow-md group flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <div className="p-0.5 rounded-lg bg-slate-900 border border-slate-700/70 text-cyan-400 group-hover:text-cyan-300 group-hover:border-cyan-500/40 transition">
@@ -864,18 +891,18 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                     <h4 className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
                       {srv.name}
                     </h4>
-                    <p className="hidden min-[1800px]:block text-[9px] text-slate-400 mt-0.5 line-clamp-1">
+                    <p className="text-xs text-slate-400 mt-2">
                       {srv.subtitle}
                     </p>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
             </div>
 
             {/* Right 4 Cols: Volume Inspector & Analysis Workflow */}
-            <div className="lg:col-span-4 flex flex-col gap-3">
+            <div className="knx-storage-inspector lg:col-span-4 flex flex-col gap-3">
               {/* Volume Inspector Card */}
               {selectedVolume ? (
               <div className="bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] overflow-y-auto storage-scrollbar">
@@ -1057,7 +1084,9 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             </div>
           </div>
 
-        </main>
+
+          </CommandCanvas>
+          </main>
       </div>
 
       {/* 8. Sticky Action Footer */}
@@ -1072,6 +1101,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         </div>
 
         <div className="flex items-center gap-2.5">
+          <button data-testid="storage-live-vault" className="knx-files-primary" onClick={()=>setActiveService('storage-duplicates')}>{isArabic?'استرداد حي آمن':'Live safe reclaim'}</button>
           <button
             data-testid="storage-inspect"
             onClick={() => setActiveService('storage-disks')}

@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "packaged": false,
+  "checks": [
+    "Typed production IPC rejects raw path injection",
+    "Native folder discovery finds three SHA-256 groups, selects no keeper/candidate automatically",
+    "Exact approval produces three actual quarantines with hashes; physical reclaimed bytes remain zero",
+    "UI restore refuses a conflicting original path without overwriting",
+    "Native restore recovers every original hash; report is generated from the dedicated journal",
+    "Cleanup opens the same native vault; side/expanded/keyboard resize and reduced motion retain state"
+  ],
+  "errors": []
+}

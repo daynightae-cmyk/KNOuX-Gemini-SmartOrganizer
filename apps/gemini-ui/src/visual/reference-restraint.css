@@ -1,0 +1,185 @@
+/**
+ * KNOuX SmartOrganizer — reference-shell restraint layer
+ *
+ * The paired references define a deep-navy night instrument with violet used
+ * only as an accent. The reconstructed shells had drifted: the Studio canvas
+ * went fully violet, and the orbital dial stacked a blurred aura, a conic
+ * gradient ring, two halo rings and a 42px outer glow on top of itself, which
+ * read as fog rather than an instrument.
+ *
+ * This layer corrects materials only. Structure, orbit destinations, controls
+ * and behaviour are untouched, and daylight keeps its own lighter treatment.
+ * Loads last so it wins the cascade without editing each screen's stylesheet.
+ */
+
+/* ==========================================================================
+   Night canvas — deep navy, violet demoted to accent
+   ========================================================================== */
+
+.visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) {
+  --ref-ink: #f4f6ff;
+  --ref-muted: #aab4d4;
+  --ref-border: #2c3a63;
+  --ref-card: linear-gradient(160deg, #101a33 0%, #0c142a 55%, #0a1124 100%);
+  --ref-inset: linear-gradient(120deg, #0e1830, #0b1326);
+  --ref-strong: #cbbaff;
+  --ref-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 6px 18px rgba(2, 5, 14, 0.5);
+  background: #070b18;
+}
+
+.visual-sprint[data-visual-section='studio'] main > .knx-studio-reference {
+  background:
+    radial-gradient(ellipse 60% 45% at 78% 6%, rgba(124, 92, 255, 0.16), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 4% 92%, rgba(56, 132, 255, 0.1), transparent 62%),
+    linear-gradient(150deg, #080d1c 0%, #0a1122 55%, #070b18 100%) !important;
+}
+
+/* Daylight keeps the approved soft lavender; only the fog comes down. */
+html[data-theme='light'] .visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) {
+  --ref-border: #e0e5f5;
+  --ref-shadow: 0 6px 18px rgba(30, 38, 90, 0.07), 0 1px 2px rgba(30, 38, 90, 0.05);
+}
+
+/* ==========================================================================
+   Atmosphere — present, but quiet
+   ========================================================================== */
+
+.visual-sprint[data-reference-shell='true'] .knx-reference-atmosphere {
+  opacity: 0.32;
+}
+
+.visual-sprint[data-reference-shell='true'] .knx-reference-atmosphere svg {
+  filter: none;
+}
+
+.visual-sprint[data-reference-shell='true'] .knx-starbursts {
+  filter: none;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Shell surround — the night references sit on near-black navy, not violet
+   ========================================================================== */
+
+/* Only the night tokens are set here. The daylight pair is declared with a
+   more specific html[data-theme='light'] selector in reference-controls.css,
+   so it still wins and this cannot leak into day. */
+.visual-sprint[data-reference-shell='true'] {
+  --v-bg: #070b18;
+  --v-panel: rgba(15, 24, 47, 0.88);
+  --v-panel-soft: rgba(11, 18, 38, 0.6);
+  --v-line: #24314f;
+}
+
+.visual-sprint[data-reference-shell='true'] {
+  background: radial-gradient(ellipse 55% 40% at 80% 0%, rgba(124, 92, 255, 0.12), transparent 60%), #070b18 !important;
+}
+
+/* ==========================================================================
+   System service register — readable titles
+   ========================================================================== */
+
+/* The register shipped as four columns with an 8.5px nowrap title beside a
+   22px icon, an index and a state chip, which left about thirty pixels of text
+   and ellipsized every service name down to one or two characters. Two columns
+   and a wrapping label restore a readable name without touching the page's own
+   stylesheet. */
+.visual-sprint[data-reference-shell='true'] .sys-service-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.visual-sprint[data-reference-shell='true'] .sys-service-copy strong {
+  font-size: 13px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.3;
+}
+
+.visual-sprint[data-reference-shell='true'] .sys-service-copy em {
+  font-size: 11.5px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.35;
+}
+
+.visual-sprint[data-reference-shell='true'] .sys-service-card {
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 11px;
+}
+
+.visual-sprint[data-reference-shell='true'] .sys-service-index {
+  font-size: 10px;
+  padding-top: 3px;
+}
+
+/* ==========================================================================
+   The dial is navigation, so it must never be hidden on a smaller viewport
+   ========================================================================== */
+
+/*
+ * Six reference screens dropped their orbital dial entirely below a 1370-1500px
+ * breakpoint: Applications, Cleanup, Smart Scan, Startup, Storage and System.
+ * Every one of those thresholds sits above the 1366x768 evidence viewport, so on
+ * a standard laptop the page silently lost its whole set of planned destinations
+ * and fell out of structural parity with its own 1672px layout.
+ *
+ * Only the removal is undone. The satellite set is untouched, so no screen gains
+ * or loses a destination and no second toolbar is introduced, and each hero
+ * keeps its own layout. The first attempt also forced a grid row and a width,
+ * which re-placed the dial on top of the Smart Scan source chooser at 1366px;
+ * that is why this override now changes nothing but `display`. The engine then
+ * compacts the geometry from its own container query.
+ */
+@media (max-width: 1500px) {
+  .visual-sprint[data-reference-shell='true'] .knx-orbit {
+    display: block !important;
+    max-width: 430px;
+  }
+}
+
+/* ==========================================================================
+   Sidebar — the references show a navy rail with a violet active pill,
+   not a violet panel. Studio duplicates this rule, so both are covered.
+   ========================================================================== */
+
+.visual-sprint[data-reference-shell='true'] aside[class*='w-56'],
+.visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) aside[class*='w-56'] {
+  background: linear-gradient(165deg, #101a33 0%, #0b1226 60%, #091021 100%) !important;
+  border-color: rgba(126, 108, 205, 0.32) !important;
+  box-shadow: 0 8px 22px rgba(2, 5, 14, 0.5) !important;
+  backdrop-filter: none;
+}
+
+.visual-sprint[data-reference-shell='true'] aside nav button[aria-current='page'],
+.visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) aside nav button[aria-current='page'] {
+  background: linear-gradient(120deg, #8b5cf6, #6d28d9) !important;
+  border-color: rgba(196, 169, 255, 0.6);
+  box-shadow: 0 3px 12px rgba(109, 40, 217, 0.35) !important;
+}
+
+/* Daylight rail keeps the approved white card with a soft violet edge. */
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] aside[class*='w-56'] {
+  background: linear-gradient(145deg, #ffffff, #f6f3ff) !important;
+  border-color: #e2dcf8 !important;
+  box-shadow: 0 4px 18px rgba(96, 76, 210, 0.08) !important;
+}
+
+/* ==========================================================================
+   Cards — remove the blur fog that flattened the night hierarchy
+   ========================================================================== */
+
+.visual-sprint[data-reference-shell='true'] .knx-ref-card {
+  backdrop-filter: none;
+}
+
+.visual-sprint[data-reference-shell='true'] .knx-ref-card-head h2 > svg {
+  box-shadow: none;
+}
+
+.visual-sprint[data-reference-shell='true'] .knx-ref-values svg {
+  box-shadow: none;
+}

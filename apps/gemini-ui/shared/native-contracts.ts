@@ -236,6 +236,8 @@ export interface StudioPlanFile {
 }
 
 export interface StudioPlanPreview {
+  planId: string;
+  executable: boolean;
   planHash: string;
   operation: string;
   structure: string;

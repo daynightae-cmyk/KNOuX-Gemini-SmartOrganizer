@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Smart Scan master workspace (measured only).
  *
@@ -21,7 +22,7 @@ import {
 import type { ScanServiceResult } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
-import { SmartScanHero } from './SmartScanHero';
+import { SmartScanHero, SmartScanSourceBar } from './SmartScanHero';
 import { ScanMetrics } from './ScanMetrics';
 import { ScanServices } from './ScanServices';
 import { ScanResults } from './ScanResults';
@@ -295,6 +296,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
 
         <div className="flex-1 flex flex-col min-h-0">
           <main data-testid="scan-workspace" className="scan-main flex-1 flex flex-col overflow-y-auto 2xl:overflow-hidden bg-gradient-to-b from-[#040b18] via-[#06142a] to-[#040b18] p-3 gap-3 knx-custom-scrollbar min-h-0">
+          <CommandCanvas locale={isArabic ? 'ar' : 'en'} heroTypes={[SmartScanHero]} metricTypes={[ScanMetrics]} primaryTypes={[ScanServices]}>
             <SmartScanHero
               isArabic={isArabic}
               nativeAvailable={scan.nativeAvailable}
@@ -312,15 +314,42 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               onRunQuick={handleRunQuick}
               onRunDeep={handleRunDeep}
               onCancel={() => void scan.cancelActive()}
+              onOpenService={scan.capabilities ? (serviceId) => setActiveServiceId(serviceId) : undefined}
             />
+            <aside className="knx-scan-status">
+              <h2>{isArabic ? 'حالة الفحص المباشرة' : 'Live Scan Status'}</h2>
+              <p>{scan.active ? (isArabic ? 'الفحص جارٍ على النطاق المصرح.' : 'Measuring the authorized scope.') : (isArabic ? 'بانتظار فحص يبدأ باختيارك.' : 'Ready when you choose to scan.')}</p>
+              <SmartScanSourceBar
+                isArabic={isArabic}
+                nativeAvailable={scan.nativeAvailable}
+                sources={scan.sources}
+                selectedSource={scan.selectedSource}
+                active={scan.active}
+                session={scan.session}
+                busy={scan.busy}
+                onSelectSource={scan.setSelectedSourceId}
+                onAuthorizeSource={() => void scan.authorizeSource()}
+                onIndexSource={() => {
+                  if (scan.selectedSource) void scan.indexSource(scan.selectedSource.id);
+                }}
+                onRefreshSources={() => void scan.refreshSources()}
+                onRunQuick={handleRunQuick}
+                onRunDeep={handleRunDeep}
+                onCancel={() => void scan.cancelActive()}
+              />
+              <ScanStageConsole active={scan.active} summary={scan.session?.summary || null} stages={stages} isArabic={isArabic} />
+              {!scan.active && !scan.session && <div className="knx-ref-empty"><ShieldCheck/><strong>{isArabic ? 'لم يبدأ الفحص' : 'No scan has started'}</strong><small>{isArabic ? 'لا تُعرض نتائج أو نسبة نجاح قبل القياس.' : 'Results and progress appear only after measurement.'}</small></div>}
+              <FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)} />
+              <RecentScans records={recent} isArabic={isArabic} selectedId={scan.session?.id || null} onSelect={sessionId => void handleSelectHistory(sessionId)} loading={scan.busy} />
+            </aside>
 
             {!scan.nativeAvailable ? (
               <div className="flex items-start gap-2 rounded-xl border border-amber-500/35 bg-amber-950/20 px-3 py-2 text-[10px] text-amber-200 shrink-0">
                 <FolderLock className="w-4 h-4 shrink-0 mt-0.5" />
                 <span>
                   {isArabic
-                    ? 'هذه معاينة متصفح. جسر الفحص الأصلي غير متاح، لذلك لا توجد أرقام مقيسة. افتح تطبيق Electron الأصلي لتصريح مجلد وتشغيل فحص حقيقي.'
-                    : 'This is a browser preview. The native scan bridge is unavailable, so there are no measured numbers. Open the native Electron app to authorize a folder and run a real scan.'}
+                    ? 'جسر الفحص الأصلي غير متاح. افتح Electron لتصريح مجلد وقياس هذا الجهاز.'
+                    : 'Native scan bridge unavailable. Authorize a folder in Electron to measure this device.'}
                 </span>
               </div>
             ) : null}
@@ -350,30 +379,16 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
                 />
               </div>
 
-              <div className="scan-side-column lg:col-span-1 2xl:col-span-3 flex flex-col gap-3 h-[360px] 2xl:h-full min-h-0 overflow-y-auto knx-custom-scrollbar pr-0.5">
-                <FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)} />
-                <RecentScans
-                  records={recent}
-                  isArabic={isArabic}
-                  selectedId={scan.session?.id || null}
-                  onSelect={(sessionId) => void handleSelectHistory(sessionId)}
-                  loading={scan.busy}
-                />
-              </div>
 
               <div className="scan-inspector-column lg:col-span-1 2xl:col-span-3 h-[360px] 2xl:h-full min-h-0">
                 <ScanReviewInspector selectedItem={selectedItem} isArabic={isArabic} hasSession={Boolean(scan.session)} />
               </div>
             </div>
+
+          </CommandCanvas>
           </main>
 
           <div className="shrink-0 flex flex-col gap-2 px-3 sm:px-4 pb-3 pt-2 bg-[#050e1f]/90 border-t border-[#11294a] backdrop-blur-md z-30">
-            <ScanStageConsole
-              active={scan.active}
-              summary={scan.session?.summary || null}
-              stages={stages}
-              isArabic={isArabic}
-            />
             <ScanCommandBar
               session={scan.session}
               active={scan.active}

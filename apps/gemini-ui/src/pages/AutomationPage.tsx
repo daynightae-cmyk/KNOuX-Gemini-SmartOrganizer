@@ -1,3 +1,5 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
+import { OrbitalControl } from '../visual/OrbitalControl';
 /**
  * KNOuX SmartOrganizer - Flow Studio (Mission 13).
  *
@@ -243,6 +245,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
         <KNOuXSidebar activeSection="automation" onNavigate={navigate} isArabic={locale === 'ar'} />
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar auto-main" data-testid="automation-workspace">
+          <CommandCanvas locale={locale}>
             <section className="sys-hero auto-hero" data-testid="automation-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -271,6 +274,13 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   <button type="button" className="sys-btn sys-btn-quiet" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}><Download aria-hidden="true" />{t(locale, 'Export report', 'تصدير التقرير')}</button>
                 </div>
               </div>
+              <OrbitalControl title={t(locale, 'Flow Studio', 'استوديو التدفق')} subtitle={t(locale, 'Compose · Preview · Review', 'أنشئ · عاين · راجع')}
+                onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
+                tools={[
+                  {id:'templates', label:t(locale,'Templates','القوالب'), icon:LayoutTemplate, onClick:() => openTool('auto-templates'), disabled:!snapshot},
+                  {id:'schedule', label:t(locale,'Schedule','الجدولة'), icon:Clock3, onClick:() => openTool('auto-schedule-plan'), disabled:!snapshot},
+                  {id:'history', label:t(locale,'History','السجل'), icon:History, onClick:() => openTool('auto-run-history'), disabled:!snapshot},
+                ]}/>
               <aside className="sys-source-card auto-source-card" data-testid="automation-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
                 <div className="sys-source-copy"><span>{t(locale, 'Evidence source', 'مصدر الأدلة')}</span><strong>KNOuX AutomationBridge v1</strong><em>{scanStatus}</em><em>{snapshot ? formatTimestamp(snapshot.generatedAt, locale) : controller.nativeAvailable ? t(locale, 'Bounded local discovery', 'اكتشاف محلي محدود') : t(locale, 'Browser preview', 'معاينة متصفح')}</em></div>
@@ -406,6 +416,8 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
               <span><Lock aria-hidden="true" />{t(locale, 'No file delete, registry write, privileged action or external notification exists in Mission 13.', 'لا حذف ملفات أو كتابة تسجيل أو إجراء مرفوع أو إشعار خارجي في المهمة 13.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="sys-actionbar auto-actionbar" data-testid="automation-actionbar">

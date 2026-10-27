@@ -1,3 +1,4 @@
+import { OrganizationLiveLauncher } from '../../operations/OrganizationLiveLauncher';
 /**
  * KNOuX SmartOrganizer — Plan Review Workspace (Stage 6)
  *
@@ -80,6 +81,7 @@ export function PlanReviewWorkspace() {
 
   return (
     <div className="flex-1 px-6 py-2 overflow-y-auto studio-scrollbar select-none">
+      {window.knouxOperationsV1 && <OrganizationLiveLauncher ar={locale === 'ar'} />}
       <div className="max-w-5xl mx-auto space-y-4">
         <div className="studio-glass-panel rounded-xl p-5 border border-[#132c52] flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -96,7 +98,7 @@ export function PlanReviewWorkspace() {
             <p className="text-xs text-slate-300 mt-1 max-w-2xl">
               {measured
                 ? locale === 'en'
-                  ? 'This plan was built from the measured inventory and immutable source identities. Review targets and collisions. Execution is blocked because no write capability is exposed in this build.'
+                  ? 'This plan was built from the measured inventory and immutable source identities. Review targets and collisions. This legacy preview is read-only. Open the live organization workbench to build a content-bound plan for native execution.'
                   : 'بُنيت هذه الخطة من الفهرس المقيس وهوية المصادر غير القابلة للتعديل. راجع المسارات والتعارضات. التنفيذ محظور لعدم كشف قدرة كتابة في هذا البناء.'
                 : locale === 'en'
                 ? 'Fixture preview only. Nothing here describes this device; add a native source in Electron for a measured plan.'

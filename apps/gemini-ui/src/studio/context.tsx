@@ -502,7 +502,7 @@ export function StudioProvider({ children }: { children: ReactNode }) {
         setNativeError(event.message || 'The source could not be indexed.');
       }
     });
-    void (async () => {
+    const refreshLiveInventory = () => { void (async () => {
       const sources = await listStudioSources();
       if (!active) return;
       if (sources?.status === 'complete' && Array.isArray(sources.data) && sources.data.length) {
@@ -514,10 +514,13 @@ export function StudioProvider({ children }: { children: ReactNode }) {
         setNativeSourceId(null);
       }
       await refreshNativeHistory();
-    })();
+    })().catch(error => console.error(error)); };
+    refreshLiveInventory();
+    window.addEventListener('knoux:organization-updated', refreshLiveInventory);
     return () => {
       active = false;
       unsubscribe();
+      window.removeEventListener('knoux:organization-updated', refreshLiveInventory);
     };
   }, []);
 

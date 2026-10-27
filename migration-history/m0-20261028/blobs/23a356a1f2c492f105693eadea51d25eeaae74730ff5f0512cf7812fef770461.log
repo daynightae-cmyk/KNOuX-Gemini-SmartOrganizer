@@ -1,0 +1,103 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 2,
+  "darkSurfaces": [
+    {
+      "cls": "bg-[#071429]/90 border border-[#112a4e] rounded-2xl p-2 flex flex-wrap items-center gap-1.5 shadow-md",
+      "bg": "oklab(0.192698 -0.00875332 -0.0458071 / 0.9)",
+      "area": 129536,
+      "text": "Engine & Turbo Hardware AI Copilot & OpenRouter Keys Google "
+    },
+    {
+      "cls": "p-4 rounded-xl border cursor-pointer transition flex flex-col justify-between bg-[#0d254c] border-cyan-400 shadow-[0_0_15px_rgba(38,198,218,0.3)]",
+      "bg": "rgb(13, 37, 76)",
+      "area": 34683,
+      "text": "Maximum Turbo Engine Max multi-threading & instant sector sc"
+    }
+  ],
+  "lowContrastCount": 2,
+  "lowContrast": [
+    {
+      "c": 1.24,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(13,37,76)",
+      "size": "14px",
+      "cls": "font-extrabold text-white text-sm",
+      "text": "Maximum Turbo Engine"
+    },
+    {
+      "c": 1.46,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(13,37,76)",
+      "size": "12px",
+      "cls": "text-xs text-slate-300",
+      "text": "Max multi-threading & instant sector scans"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 17,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [
+    {
+      "tag": "div",
+      "cls": "absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-n",
+      "text": "",
+      "rect": [
+        1403,
+        21,
+        288,
+        288
+      ]
+    }
+  ],
+  "scrollers": [],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      840
+    ],
+    "footer": [
+      224,
+      880,
+      1448,
+      61
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: <workspace>/KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-settings-1672.png

@@ -1,0 +1,26 @@
+/* Keep effects inside illustration slots; form controls always have clear surfaces. */
+.knx-official-mark { width:72px; height:72px; object-fit:contain; flex-shrink:0; border-radius:50%; }
+.knx-title-official-mark { display:none; }
+.visual-sprint[data-reference-shell='true'] .knx-title-official-mark { display:block; width:30px; height:30px; }
+.visual-sprint[data-reference-shell='true'] .knx-title-brand-emblem { width:30px; height:30px; background:transparent !important; border:0; box-shadow:none; }
+.visual-sprint .knx-orbit-core > .knx-official-mark { width:54px; height:54px; margin-bottom:3px; }
+.visual-sprint .knx-orbit { height:290px; overflow:hidden; isolation:isolate; }
+.visual-sprint .knx-orbit-track { top:25px; }.visual-sprint .knx-orbit-track-inner { top:37.5px; }.visual-sprint .knx-orbit-core { top:48px; }
+.visual-sprint .knx-orbit-tool { left:calc(50% + 135px * cos((var(--orbit-index) * 360deg / var(--orbit-count)) - 90deg)); top:calc(47% + 96px * sin((var(--orbit-index) * 360deg / var(--orbit-count)) - 90deg)); }
+.knx-reference-orbit-core > .knx-official-mark { width:79px; height:79px; margin-bottom:5px; }
+.visual-sprint[data-reference-shell='true'] .knx-sidebar-brand-emblem { width:49px; height:49px; }
+.visual-sprint[data-reference-shell='true'] .knx-shell-ribbonmark { width:49px; height:49px; filter:drop-shadow(0 3px 7px #110a3333); }
+.visual-sprint[data-reference-shell='true'] { --v-panel:rgba(57,48,107,.86); --v-panel-soft:rgba(61,51,116,.55); --v-line:#b2a1d94d; --v-shadow:inset 0 1px 0 #ffffff1a,0 5px 16px #120b2b33; }
+.visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) { --ref-border:#b4a4d960; --ref-card:linear-gradient(145deg,#51458388,#302959eb); --ref-inset:linear-gradient(120deg,#65538c42,#3d32644a); --ref-shadow:inset 0 1px 0 #fff2,0 5px 16px #130c2b33; }
+.visual-sprint[data-visual-section='studio'] main > .knx-studio-reference { background:radial-gradient(ellipse at 52% 35%,#8952bc40,transparent 48%),radial-gradient(ellipse at 3% 80%,#5f49a54d,transparent 50%),linear-gradient(130deg,#201b49,#302452 58%,#2b234f) !important; }
+.knx-reference-atmosphere { opacity:.35; mask-image:linear-gradient(to bottom,#0009,transparent 98%); }
+.knx-neural-lines { opacity:.22; }.knx-starbursts { opacity:.65; }
+.knx-ref-card { border-radius:15px; }.knx-ref-right { box-shadow:0 0 0 3px #7852a916,0 0 14px #9a76c933; }
+.knx-ref-primary { box-shadow:inset 0 0 7px #ffffff66,0 3px 10px #9b64c855; }
+.knx-reference-ring { box-shadow:0 0 7px #efe0ff88,0 0 20px #ae75e166,inset 0 0 20px #b88ce166; }
+.knx-orbit-equator { opacity:.65; box-shadow:0 0 8px #efd8ff88,0 0 16px #a77bd666,inset 0 0 10px #ba8bde66; }
+.visual-sprint .knx-orbit-floor { box-shadow:0 0 6px #edd6ff77,0 0 14px #a575d866,inset 0 0 10px #b387d866; }
+.visual-sprint[data-reference-shell='true'] aside nav button[aria-current='page'] { background:linear-gradient(120deg,#a779df,#7843be) !important; box-shadow:inset 0 0 8px #fff3,0 0 10px #a67bcc55; }
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] { --v-panel:#ffffffdd; --v-panel-soft:#faf7ffcc; --v-line:#cfc0e780; --v-shadow:inset 0 1px #fff,0 5px 18px #7e659c12; }
+html[data-theme='light'] .visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) { --ref-border:#cfc0e780; --ref-card:linear-gradient(135deg,#ffffffed,#faf7ffd9); --ref-inset:linear-gradient(120deg,#ffffffcc,#f1ebfa99); --ref-shadow:inset 0 1px #fff,0 5px 18px #7e659c12; }
+html[data-theme='light'] .visual-sprint[data-visual-section='studio'] main > .knx-studio-reference { background:radial-gradient(ellipse at 50% 20%,#ffffff,transparent 64%),linear-gradient(125deg,#f9f7fc,#eee8f7 52%,#f3eef9) !important; }

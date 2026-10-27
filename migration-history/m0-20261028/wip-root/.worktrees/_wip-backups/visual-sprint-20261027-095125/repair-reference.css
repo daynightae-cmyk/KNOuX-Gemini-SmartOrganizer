@@ -1,0 +1,13 @@
+.visual-sprint[data-visual-section='repair'] :is(.rep-tools-panel,.rep-brief,.rep-history-panel) { padding:18px; gap:16px; border-radius:18px; background:var(--v-panel); border-color:var(--v-line); box-shadow:var(--v-shadow); }
+.visual-sprint[data-visual-section='repair'] .rep-workspace-grid { grid-template-columns:minmax(0,1.8fr) minmax(330px,1fr); gap:16px; }
+.visual-sprint[data-visual-section='repair'] .rep-tool-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.visual-sprint[data-visual-section='repair'] .rep-tool-card { grid-template-columns:38px minmax(0,1fr); gap:12px; padding:17px; min-height:145px; border-radius:14px; background:var(--v-panel-soft); }
+.visual-sprint[data-visual-section='repair'] .rep-tool-index { position:absolute; top:7px; inset-inline-end:9px; font-size:10px; }
+.visual-sprint[data-visual-section='repair'] .rep-tool-icon { grid-column:1; width:36px; height:36px; border-radius:12px; }.visual-sprint[data-visual-section='repair'] .rep-tool-icon svg { width:20px; height:20px; }
+.visual-sprint[data-visual-section='repair'] .rep-tool-copy { grid-column:2; overflow:visible; }.visual-sprint[data-visual-section='repair'] .rep-tool-copy strong { font-size:14px; white-space:normal; overflow:visible; }.visual-sprint[data-visual-section='repair'] .rep-tool-copy em { font-size:12px; white-space:normal; overflow-wrap:anywhere; }
+.visual-sprint[data-visual-section='repair'] .rep-tool-badges { grid-column:1/-1; gap:6px; }
+.visual-sprint[data-visual-section='repair'] :is(.rep-panel-head h2,.rep-brief-head h2) { font-size:18px; }.visual-sprint[data-visual-section='repair'] :is(.rep-panel-head p,.rep-brief-head p,.rep-brief-block h3,.rep-brief .rep-guided-step strong) { font-size:14px; line-height:1.5; }
+.visual-sprint[data-visual-section='repair'] :is(.rep-brief .rep-guided-step em,.rep-brief .rep-prereq em,.rep-kpi em,.rep-history-row,.rep-history-head) { font-size:12px; line-height:1.5; }.visual-sprint[data-visual-section='repair'] .rep-kpi strong { font-size:23px; white-space:normal; }.visual-sprint[data-visual-section='repair'] .rep-kpi-head { font-size:14px; }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step { min-height:60px; padding:12px; }.visual-sprint[data-visual-section='repair'] .rep-command { font-size:12px; padding:14px; overflow:auto; }
+@media(max-width:1200px) { .visual-sprint[data-visual-section='repair'] .rep-tool-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:1050px) { .visual-sprint[data-visual-section='repair'] .rep-workspace-grid { grid-template-columns:1fr; } }

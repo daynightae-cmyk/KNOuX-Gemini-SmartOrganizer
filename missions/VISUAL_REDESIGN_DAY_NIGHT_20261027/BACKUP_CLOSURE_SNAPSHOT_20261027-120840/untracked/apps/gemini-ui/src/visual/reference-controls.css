@@ -1,0 +1,22 @@
+/* Shared dimensional controls, built from actual buttons and procedural light. */
+.visual-sprint[data-reference-shell='true'] {
+  --v-bg:#20175c; --v-panel:rgba(57,43,126,.65); --v-panel-soft:rgba(82,61,157,.35);
+  --v-line:#b79bea77; --v-ink:#fbf7ff; --v-muted:#d2c9ef; --v-accent:#d4b0ff;
+  --v-shadow:inset 0 1px 1px #ffffff35,inset 0 0 16px #b287ff12,0 5px 18px #16072b55,0 0 14px #b67aff25;
+}
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] { --v-bg:#eee8fc; --v-panel:#ffffffb8; --v-panel-soft:#faf6ff99; --v-line:#cdbcf38c; --v-ink:#24114f; --v-muted:#726293; --v-accent:#7131d8; --v-shadow:inset 0 1px #fff,0 5px 20px #8b69bd16; }
+.visual-sprint[data-reference-shell='true'] .knoux-titlebar { min-height:58px; background:linear-gradient(110deg,#28206fdd,#31207fbb) !important; border-color:#bd8eff66 !important; box-shadow:0 1px 12px #d4a8ff44; }
+.visual-sprint[data-reference-shell='true'] .knoux-titlebar > div:nth-child(2) { width:min(42vw,620px); min-height:39px; border-color:#b89be9aa; background:#7050c044; box-shadow:inset 0 0 12px #fff1,0 0 12px #a575e52b; }
+.visual-sprint[data-reference-shell='true'] .knoux-titlebar input { font-size:13px; }
+.visual-sprint[data-reference-shell='true'] aside[class*='w-56'] { width:230px; margin:8px 0 10px 10px; height:auto; border:1px solid #cda6ffbb !important; border-radius:19px; background:linear-gradient(135deg,#6a4ed077,#372b87b0) !important; box-shadow:inset 0 0 18px #b68aff22,0 0 14px #bd88ff77; backdrop-filter:blur(15px); }
+.visual-sprint[data-reference-shell='true'] aside nav button { min-height:44px; color:#f0eaff; font-weight:500; margin-block:3px; padding-inline:14px; }
+.visual-sprint[data-reference-shell='true'] aside nav button > svg { width:20px; height:20px; color:#f1eaff; }
+.visual-sprint[data-reference-shell='true'] aside nav button[aria-current='page'] { border:1px solid #efd4ff; background:linear-gradient(120deg,#bd86ff,#8138f1) !important; box-shadow:inset 0 0 15px #fff5,0 0 13px #b16aff,0 0 22px #c38dff66; }
+.visual-sprint[data-reference-shell='true'] aside > div > div:first-child { min-height:105px; background:transparent !important; border-color:#c6a1ff55; }
+.visual-sprint[data-reference-shell='true'] .knx-shell-lettermark { display:none; }.visual-sprint[data-reference-shell='true'] .knx-shell-ribbonmark { display:block; width:49px; height:64px; filter:drop-shadow(0 0 9px #b580ff99); }
+.visual-sprint[data-reference-shell='true'] .knx-sidebar-brand-emblem { background:transparent !important; border:0; box-shadow:none; width:48px; height:65px; }
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] .knoux-titlebar { background:#fbfaffdd !important; border-color:#d2c6f1 !important; box-shadow:0 3px 18px #7e60bc15; }
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] aside[class*='w-56'] { background:linear-gradient(145deg,#ffffffbb,#f2edffbb) !important; border-color:#d8cbf8 !important; box-shadow:0 4px 24px #7452be1a; }
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] aside nav button,html[data-theme='light'] .visual-sprint[data-reference-shell='true'] aside nav button > svg { color:#51428a; }
+html[data-theme='light'] .visual-sprint[data-reference-shell='true'] aside nav button[aria-current='page'],html[data-theme='light'] .visual-sprint[data-reference-shell='true'] aside nav button[aria-current='page'] > svg { color:white !important; }
+/* Orbit surface rules moved to orbital-engine.css (single source of truth). */

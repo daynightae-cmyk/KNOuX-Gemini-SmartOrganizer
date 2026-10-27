@@ -1,0 +1,124 @@
+{
+  "head": "5b5018801dd9fc00fbe843ecf430c4302d664461",
+  "branch": "integration/knoux-unified-20261028",
+  "generatedAt": "2026-10-27T22:33:14Z",
+  "electronVersion": "43.4.1",
+  "hashScope": "SHA-256 values are of the committed Git blob bytes (LF-normalized). PNG captures are binary and byte-exact. Python-written JSON can appear CRLF in a Windows worktree; hash the committed blob, not the worktree copy.",
+  "isolation": "Each suite launches apps/gemini-ui/electron/main.cjs with an isolated --knoux-user-data profile; fixtures live under %TEMP%; no owner paths are touched.",
+  "testHarnessFixes": [
+    "Restored the UTF-8 em dash in the exact-approval dialog mock; commit d12b488 had stored mojibake and the mock rejected the real dialog.",
+    "Visual runner captures through webContents.capturePage with bounded retries; Playwright page.screenshot intermittently failed with CDP Page.captureScreenshot errors and also reset the Electron zoom factor.",
+    "Visual runner removes the artificial 160 MB renderer heap cap; the Node runner keeps its own 160 MB limit."
+  ],
+  "suites": [
+    {
+      "name": "live-organization",
+      "command": "node --max-old-space-size=160 scripts/live-organization-electron.mjs",
+      "proof": "organization/proof.json",
+      "sha256": "e2561b1d97773d95eeb54501113ce93c74f1efc6648548a59e2744216e15cbec",
+      "ok": true,
+      "checks": 7,
+      "screenshots": 14,
+      "verified": [
+        "Untrusted BrowserWindow denied by the production sender guard",
+        "Fixed IPC allowlist rejects raw path payloads",
+        "Real folder pickers -> native inventory -> exact SHA-256 before/after plan",
+        "UI exact approval -> native copy/hash/verify/unlink -> 40 verified moves",
+        "UI undo preview -> separate native confirmation -> all 40 source hashes restored",
+        "Files row selection survives a fresh native scan and limits the plan to one file",
+        "Files and Studio open the same live workbench; side/expanded mode retains the plan",
+        "Reduced motion leaves particle animations at none"
+      ],
+      "confirmations": 2,
+      "receipts": 1
+    },
+    {
+      "name": "storage-vault",
+      "command": "node --max-old-space-size=160 scripts/storage-vault-electron.mjs",
+      "proof": "vault/proof.json",
+      "sha256": "c8d623ce34d5ac6b489f2af6300d9b6e79a9cf959ee2bb442b424b84149d147d",
+      "ok": true,
+      "checks": 6,
+      "screenshots": 12,
+      "verified": [
+        "Typed production IPC rejects raw path injection",
+        "Native discovery finds three SHA-256 duplicate groups and selects no keeper automatically",
+        "Exact approval performs three real quarantines with hashes; verifiedReclaimedBytes remains zero",
+        "Restore refuses an occupied original path without overwrite",
+        "Native restore recovers every original hash; report comes from the dedicated vault journal",
+        "Cleanup opens the same native vault; side/expanded/keyboard resize and reduced motion retain state",
+        "Estimated savings remain separate from actual freed bytes"
+      ],
+      "confirmations": 2
+    },
+    {
+      "name": "visual",
+      "command": "node scripts/m0-electron-visual.mjs electron",
+      "proof": "visual/proof.json",
+      "sha256": "4000ee78a52066d18dff8b03815a4570e883e72c6de39232eb22cfe01173cc7d",
+      "ok": true,
+      "screenshots": 179,
+      "views": 176,
+      "routes": 14,
+      "locales": ["en", "ar"],
+      "directions": ["ltr", "rtl"],
+      "themes": ["light", "dark"],
+      "viewports": ["1366x768", "1672x941", "1920x1080"],
+      "zoom": [
+        {"factor": 1.25, "devicePixelRatio": 1.25, "cssViewport": "1338x753", "capture": "1672x941", "routes": ["files", "studio", "repair", "services"]},
+        {"factor": 1.5, "devicePixelRatio": 1.5, "cssViewport": "1115x627", "capture": "1672x941", "routes": ["files", "studio", "repair", "services"]}
+      ],
+      "cinematicIntro": {
+        "screenshots": 2,
+        "enterWorkspace": "full-window overlay, button enabled, overlay dismissed",
+        "skip": "full-window overlay, button enabled, overlay dismissed"
+      },
+      "orbital": {
+        "tools": 6,
+        "imagesCategory": true,
+        "filtersPanel": true,
+        "coreFocus": true,
+        "organizeNavigation": true
+      },
+      "liveEntryButtons": {
+        "files-live-organization": "topmost and opens the workbench",
+        "storage-live-vault": "topmost and opens the workbench",
+        "cleanup-live-vault": "topmost and opens the workbench"
+      },
+      "reducedMotion": ["none", "none", "none"],
+      "rendererPageErrors": 0,
+      "rendererConsoleErrors": 0,
+      "ignoredConsoleWarnings": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+      ],
+      "captureRetries": 1,
+      "geometryIssues": 0
+    }
+  ],
+  "m0Checks": {
+    "path": "../staging/checks.json",
+    "sha256": "c0529cbe4579914a47c43ca8a3e647397cf93b6ff6d3954550322d2f68b3ffe6",
+    "head": "5b5018801dd9fc00fbe843ecf430c4302d664461",
+    "passed": 25,
+    "failed": 0
+  },
+  "dispositionVerification": {
+    "path": "../staging/disposition-verification.json",
+    "sha256": "6093bb963aa1924d51d6e5914f112688590ee2e6d225638f28b60e8bb5d059a5",
+    "ok": true,
+    "failures": 0,
+    "wipEntries": 932,
+    "wipDestinationFilesMatched": 916,
+    "wipExternalCopiesMatched": 9,
+    "wipWorktreeLinksPresent": 7,
+    "artifactEntriesChecked": 1815,
+    "artifactArchivesMatched": 5,
+    "visualConflictArchivesMatched": 70,
+    "visualConflictCurrentChangedAfterReconciliation": 17,
+    "rootCheckpointPathsPresent": 458
+  },
+  "packaged": {
+    "status": "NOT_TESTED_IN_THIS_PASS",
+    "reason": "The packaged app is rebuilt and retested after the main cutover. Earlier packaged wave2 evidence is bound to an older SHA and is not claimed here."
+  }
+}

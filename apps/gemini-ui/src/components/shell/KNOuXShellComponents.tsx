@@ -8,6 +8,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSection, useNavigation } from '../../context/NavigationContext';
+import { KnouxMark, KnouxCircularEmblem } from '../../visual/ReferenceAtmosphere';
 import { NativeBridgePanel } from '../../native/NativeBridgePanel';
 import { controlNativeWindow, getNativeShell, readBridgeStatus } from '../../native/client';
 import type { BridgeStatusData } from '../../../shared/native-contracts';
@@ -144,7 +145,11 @@ export interface KNOuXLogoProps {
 
 /**
  * Canonical KNOuX Logo Emblem
- * Vibrant royal-to-cyan gradient shield with bold white 'K'
+ *
+ * The default presentation is the approved circular brand mark on a transparent
+ * field. Reference-shell screens keep their own established mark treatment via
+ * `.visual-sprint[data-reference-shell='true']`, and Home opts into the circular
+ * emblem through `.knx-home-root`; neither path adds a square tile or border.
  */
 export const KNOuXLogo: React.FC<KNOuXLogoProps> = ({
   size = 'sm',
@@ -169,9 +174,11 @@ export const KNOuXLogo: React.FC<KNOuXLogoProps> = ({
       className={`flex items-center gap-2.5 select-none ${onClick ? 'cursor-pointer' : ''} ${className}`}
     >
       <div
-        className={`${badgeClass} bg-gradient-to-tr from-[#1d4ed8] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shrink-0 border border-cyan-400/30`}
+        className={`${badgeClass} knx-title-brand-emblem bg-gradient-to-tr from-[#1d4ed8] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shrink-0 border border-cyan-400/30`}
       >
-        <span className={`${textKClass} text-white leading-none tracking-tight`}>K</span>
+        <span className={`${textKClass} knx-shell-lettermark text-white leading-none tracking-tight`}>K</span>
+        <KnouxMark className="knx-title-official-mark" />
+        <KnouxCircularEmblem className="knx-circular-mark knx-title-circular-mark" />
       </div>
       {showText && (
         <div className="leading-tight">
@@ -259,8 +266,10 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
           onClick={() => onNavigate('home')}
           className="p-3.5 pb-2.5 flex items-center gap-3 border-b border-[#0e223d]/70 cursor-pointer hover:bg-[#07152b] transition-colors"
         >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_16px_rgba(37,99,235,0.7)] shrink-0 border border-cyan-400/40">
-            <span className="text-base font-black text-white">K</span>
+          <div className="knx-sidebar-brand-emblem w-9 h-9 rounded-xl bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_16px_rgba(37,99,235,0.7)] shrink-0 border border-cyan-400/40">
+            <span className="knx-shell-lettermark text-base font-black text-white">K</span>
+            <KnouxMark className="knx-shell-ribbonmark" />
+            <KnouxCircularEmblem className="knx-circular-mark knx-sidebar-circular-mark" />
           </div>
           <div className="leading-tight">
             <div className="text-sm font-bold text-white tracking-wide">KNOuX</div>
@@ -278,10 +287,12 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
 
             if (isItemActive) {
               return (
-                <div
+                <button
+                  type="button"
+                  aria-current="page"
                   key={item.id}
                   onClick={() => onNavigate(item.target)}
-                  className="relative flex items-center gap-2.5 px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold text-xs shadow-[0_0_16px_rgba(37,99,235,0.6)] border border-cyan-400/50 cursor-pointer transition-all"
+                  className="w-full text-start relative flex items-center gap-2.5 px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold text-xs shadow-[0_0_16px_rgba(37,99,235,0.6)] border border-cyan-400/50 cursor-pointer transition-all"
                 >
                   <Icon className="w-4 h-4 text-white shrink-0" />
                   <span className="truncate flex-1">{label}</span>
@@ -290,15 +301,16 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
                       {item.badge}
                     </span>
                   )}
-                </div>
+                </button>
               );
             }
 
             return (
-              <div
+              <button
+                type="button"
                 key={item.id}
                 onClick={() => onNavigate(item.target)}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-[#0a182d] text-xs font-medium transition-colors cursor-pointer group"
+                className="w-full text-start flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-[#0a182d] text-xs font-medium transition-colors cursor-pointer group"
               >
                 <Icon className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 shrink-0 transition-colors" />
                 <span className="truncate flex-1">{label}</span>
@@ -307,7 +319,7 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
                     {item.badge}
                   </span>
                 )}
-              </div>
+              </button>
             );
           })}
         </nav>

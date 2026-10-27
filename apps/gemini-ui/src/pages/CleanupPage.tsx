@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Clean Room (Mission 08).
  *
@@ -22,7 +23,7 @@ import {
 import type { CleanupCandidate } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { CleanupHero } from '../cleanup/CleanupHero';
+import { CleanupHero, CleanupMetrics } from '../cleanup/CleanupHero';
 import { CandidateRegister } from '../cleanup/CandidateRegister';
 import { CandidateInspector } from '../cleanup/CandidateInspector';
 import { ServiceRail } from '../cleanup/ServiceRail';
@@ -58,7 +59,8 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   const [filters, setFilters] = useState<CleanupFilters>(DEFAULT_FILTERS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
-  const [activeService, setActiveService] = useState<CleanupServiceId | null>(null);
+  const [activeService, setLegacyActiveService] = useState<CleanupServiceId | null>(null);
+  const setActiveService=(id:CleanupServiceId|null)=>{if(id&&['cleanup-temp-preview', 'cleanup-temp-quarantine', 'cleanup-temp-undo', 'cleanup-quarantine-list', 'cleanup-estimate', 'cleanup-reports'].includes(id)){setLegacyActiveService(null);window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live',{detail:{serviceId:id}}));}else setLegacyActiveService(id);};
   const [planOpen, setPlanOpen] = useState(false);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.cleanup.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
@@ -264,12 +266,15 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
             data-testid="cleanup-workspace"
             className="cln-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
+          <CommandCanvas locale={locale} heroTypes={[CleanupHero]} metricTypes={[CleanupMetrics]} toolTypes={[ServiceRail]} toolPlacement="rail">
             <CleanupHero
               locale={locale}
               controller={controller}
               selectedCount={checkedIds.size}
               onReviewSelection={reviewSelection}
             />
+
+            <CleanupMetrics locale={locale} controller={controller} />
 
             {!controller.nativeAvailable ? (
               <div className="cln-native-banner cln-native-required" data-testid="cleanup-native-required">
@@ -355,6 +360,8 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
                 </span>
               ) : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="cln-actionbar" data-testid="cleanup-actionbar">
@@ -370,6 +377,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               ) : null}
             </div>
             <div className="cln-actionbar-actions">
+              <button data-testid="cleanup-live-vault" className="cln-btn cln-btn-primary" onClick={()=>setActiveService('cleanup-temp-preview')}>{locale==='ar'?'خزنة حية آمنة':'Live Safety Vault'}</button>
               <button
                 type="button"
                 className="cln-btn cln-btn-primary"

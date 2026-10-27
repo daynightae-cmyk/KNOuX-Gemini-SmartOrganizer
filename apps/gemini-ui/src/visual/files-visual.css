@@ -1,0 +1,9 @@
+/* Files typography/selection only. Geometry belongs to files-reference.css. */
+.visual-sprint[data-visual-section='files'] [class*='text-[8px]'],
+.visual-sprint[data-visual-section='files'] [class*='text-[9px]'],
+.visual-sprint[data-visual-section='files'] [class*='text-[10px]'],
+.visual-sprint[data-visual-section='files'] [class*='text-[11px]'] { font-size:12px; line-height:1.4; }
+.visual-sprint[data-visual-section='files'] .text-xs { font-size:14px; line-height:1.4; }
+.visual-sprint[data-visual-section='files'] h1 span { background:none; color:var(--v-ink); }
+.visual-sprint[data-visual-section='files'] .file-row-selected { background:linear-gradient(90deg,#9873ff28,#9873ff09); box-shadow:inset 3px 0 var(--v-accent); }
+.visual-sprint[data-visual-section='files'] .files-scrollbar { scrollbar-color:#8c74bc66 transparent; scrollbar-width:thin; }

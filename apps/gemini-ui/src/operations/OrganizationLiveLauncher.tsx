@@ -1,0 +1,3 @@
+export function OrganizationLiveLauncher({ar=false}:{ar?:boolean}) {
+ return <section className="p-4"><h2>{ar?'تنظيم حي بخطة وموافقة وإيصال وتراجع':'Live organization · exact plan, approval, receipt & undo'}</h2><p>{ar?'اختر المصدر والوجهة في مساحة العمل الحية. كل تنفيذ واستعادة يطلب تأكيد Native مستقل.':'Choose the source and destination in the live workbench. Every execution and restore asks for separate native approval.'}</p><button className="knx-ref-pill" onClick={()=>window.dispatchEvent(new Event('knoux:live-organization'))}>{ar?'فتح مساحة التنظيم الحية':'Open live organization workbench'}</button></section>;
+}

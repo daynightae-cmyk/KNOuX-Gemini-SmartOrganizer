@@ -1,7 +1,7 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * 
+ *
  * KNOuX SmartOrganizer — Home Command Center Upper Section
  * Region A: Hero & Master Command Search with Earth Horizon Scene
  * Region B: 6 KPI Cards (System Health, Indexed Files, Space Reclaimable, Active Automations, Apps Monitored, Services Healthy)
@@ -9,6 +9,7 @@
  */
 
 import React, { useState } from 'react';
+import { OrbitParticles } from '../../visual/OrbitParticles';
 import {
   Search,
   Shield,
@@ -388,11 +389,12 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
     <div className="flex flex-col gap-3 relative z-10 shrink-0">
       {/* REGION A: HERO BANNER WITH ATMOSPHERIC EARTH HORIZON */}
       <section className="relative min-h-[96px] pt-1 pb-1 flex flex-col justify-between overflow-hidden" aria-label="Hero Command Center">
+        <OrbitParticles className="knx-home-particles" />
         {/* Full-width curved Earth Horizon scene across the top */}
-        <EarthHorizonScene isAr={isAr} />
+        <EarthHorizonScene isAr={isAr} className="knx-home-cosmic" />
 
         {/* Top Header Row inside Hero: Title, Subtitle, and Right Tagline */}
-        <div className="flex items-start justify-between relative z-10">
+        <div className="knx-home-hero-heading flex items-start justify-between relative z-10">
           <div>
             <h1 className="text-2xl sm:text-[27px] font-extrabold text-white tracking-tight leading-tight">
               {isAr ? 'مركز قيادة KNOuX الذكي' : 'Home Command Center'}
@@ -467,12 +469,8 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center border shadow-sm"
-                    style={{
-                      borderColor: `${kpi.color}40`,
-                      backgroundColor: `${kpi.color}15`,
-                      color: kpi.color,
-                    }}
+                    className="knx-kpi-chip w-7 h-7 rounded-lg flex items-center justify-center border shadow-sm"
+                    style={{ '--knx-chip': kpi.color } as React.CSSProperties}
                   >
                     {renderIcon(kpi.icon, 'w-3.5 h-3.5')}
                   </div>
@@ -481,7 +479,10 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                       {isAr ? kpi.titleAr : kpi.title}
                     </div>
                     {kpi.badge && (
-                      <span className="text-[10px] font-medium flex items-center gap-1" style={{ color: kpi.badgeColor || '#10b981' }}>
+                      <span
+                        className="knx-kpi-badge text-[10px] font-medium flex items-center gap-1"
+                        style={{ '--knx-chip': kpi.badgeColor || '#10b981' } as React.CSSProperties}
+                      >
                         {kpi.badge}
                       </span>
                     )}
@@ -489,7 +490,11 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                 </div>
 
                 {/* No fabricated trend: a single measured-status dot only. */}
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: kpi.badgeColor || kpi.color }} title={kpi.badge || 'Not measured'} />
+                <span
+                  className="knx-kpi-dot w-2 h-2 rounded-full shrink-0"
+                  style={{ '--knx-chip': kpi.badgeColor || kpi.color } as React.CSSProperties}
+                  title={kpi.badge || 'Not measured'}
+                />
               </div>
 
               {/* Metric Value & Subtext */}

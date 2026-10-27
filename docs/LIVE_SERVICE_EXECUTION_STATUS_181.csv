@@ -1,0 +1,182 @@
+mission,service_id,name,class,baseline_status,current_slice_status,implementation_sha,evidence,remaining_gate
+01,mission-01-01,Smart Scan,B,PARTIAL — real scan KPI/insight; scan execution belongs to the service,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-02,Organize Files,B,PARTIAL — measured Home card; organization execution belongs to Studio,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-03,Applications,B,PARTIAL — measured count displayed; management belongs to Applications,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-04,Storage,A,MEASURED_READ_ONLY,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-05,Cleanup,B,PARTIAL — measured candidate review; cleanup executor is separate,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-06,Startup Control,B,PARTIAL — navigation and measured context; startup changes are separate,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-07,System Live Pulse,A,MEASURED_READ_ONLY,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-08,Repair Lab,B,PARTIAL — navigation only; repairs are separately approved,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-09,Global Search,A,PARTIAL — real workspace navigation; global indexed search not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-10,KNOuX Insight,A,MEASURED_READ_ONLY,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-11,Recent Activity,A,MEASURED_READ_ONLY,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+01,mission-01-12,Pending Safe Actions,B,PARTIAL — review-only from Home; no executor,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-01,Quick Scan,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-02,Deep Scan,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-03,Duplicate Finder,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-04,Large Files,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-05,Junk Cleaner,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-06,Privacy Trace Check,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-07,Startup Impact,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-08,App Health,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-09,System Health Pulse,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+02,mission-02-10,Smart Recommendations,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+03,mission-03-01,Sources,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+03,mission-03-02,Visual Library,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+03,mission-03-03,Collections,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+03,mission-03-04,Organization Builder,B,AUDIT_REQUIRED,PARTIAL,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+03,mission-03-05,Destinations,B,AUDIT_REQUIRED,PARTIAL,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+03,mission-03-06,Plan Review,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+03,mission-03-07,Execution,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+03,mission-03-08,History & Undo,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+03,mission-03-09,Suggestions,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-01,Google Sheets,D,CONNECTABLE_AWAITING_CONSENT — offline-tested; live browser consent and real Sheets read await owner approval,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-02,Gmail,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-03,Google Tasks,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-04,Google Forms,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-05,Google Contacts,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-06,Google Calendar,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-07,Google Picker,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-08,Google Slides,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-09,Google Chat,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+04,mission-04-10,Google Classroom,D,BLOCKED — fixture preview only; live provider and scope not implemented,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-inventory,Installed Applications Register,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-identity,App Identity & Authenticode Trust,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-search,Multi-Parameter Software Search,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-publisher,Publisher Intelligence & Reputation,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-recent,Recently Changed Applications,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-uninstall-queue,Bulk Uninstall Queue & Batch Manager,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-leftovers,Orphaned Leftover Trace Analysis,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-updates,Software Update Center,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-size,Software Storage Footprint Treemap,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-store-packages,Package Center & WinGet Browser,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-associations,File Extension & Protocol Matrix,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+05,app-startup-impact,Software Boot Impact Analyzer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-downloads-inventory,Downloads Folder Inventory,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-organize-preview,Visual Rule Builder & Organization Studio,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+06,file-organize-apply,Organization Staging & Change Review,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+06,file-organize-undo,File Organization Undo Timeline,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,e819b2cad6c3437b2348a981600298fbda2a5e63,docs/evidence/live-organization/electron/proof.json,Packaged/manual owner consent/scale/RTL; broader rules or per-category destinations where applicable
+06,file-empty-folders,Sparse Empty Folder Explorer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-hash,Cryptographic Hash Inspector,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-search,Instant Everything-Style File Search,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-type-map,File Format Type Distribution,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-recents,Recent File Timeline Histogram,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-largest,Ranked Large File Explorer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-metadata,Deep File Metadata & Attributes Dossier,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+06,file-provenance,Trust Evidence & Provenance Board,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+07,storage-disks,Volume Bays & Partition Manager,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+07,storage-large-files,Heavy-File Storage Ledger,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+07,storage-duplicates,Byte-Exact Duplicate Hash Groups,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+07,storage-treemap,Interactive Storage Space Treemap,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+07,storage-top-folders,Folder Ranking Waterfall,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+07,storage-filetypes,Storage Byte Distribution by Category,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+07,storage-scan-overview,Drive Coverage & Scan Dashboard,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+07,storage-fragmentation,Drive Optimization & TRIM Dossier,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+07,storage-smart,Disk Reliability & S.M.A.R.T. Health,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+07,storage-reclaim,Storage Reclaim Planner & Basket,C,AUDIT_REQUIRED,PARTIAL,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+07,storage-history,Capacity Trend Timeline,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+07,storage-removable,Removable USB & External Volume Dock,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-temp-preview,Temporary Files Candidate Safety Ledger,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+08,cleanup-temp-quarantine,Quarantine Review & Safety Vault,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+08,cleanup-temp-undo,Cleanup Recovery Console & Journal,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+08,cleanup-quarantine-list,Quarantine Vault File Inspector,B,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+08,cleanup-estimate,Space Savings Breakdown & Calculator,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+08,cleanup-recycle,Recycle Bin Multi-Volume Inspector,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-unused,Dormancy & Unused Files Explorer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-update-cache,Windows Update & Servicing Cache Gateway,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-browser-cache,Web Browser Profile Cache Inspector,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-logs,Log Retention & Dump Explorer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-schedule,Automated Cleanup Schedule Composer,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+08,cleanup-reports,Before/After Cleanup Report Studio,A,AUDIT_REQUIRED,IMPLEMENTED_AND_TESTED_FIXTURES,2a7fcbdcde400600a54aad5c737535eaf4f09c6b,docs/evidence/storage-cleanup-wave2/packaged/proof.json,"Authorized-folder scope; manual dialogs, system cleanup, high-volume/RTL/scaling not verified. Same-volume quarantine frees no physical disk bytes. Receipt list is journal-based; live content verification occurs at restore preview."
+09,startup-overview,Windows Boot Autorun Register,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-disable,Autorun State Change Preview,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-restore,Startup Restoration & Rollback,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-sources,Autorun Source Coverage Map,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-journal,Startup Change Audit Journal,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-filter,Keyboard-First Autorun Query Console,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-impact,Boot Sequence Impact Timeline,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-services,Service Boot Policy Matrix,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-tasks,Logon Scheduled Task Timeline,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-delay,Delayed Launch Planner,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-batch,Autorun Batch Staging Tray,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+09,startup-undo-all,Batch Recovery & Mass Rollback Workspace,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-health-check,System Pulse Overview Console,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-events,Windows Event Log Severity Ledger,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-processes,Active Process Register & Resources,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-signatures,System Binary Certificate Inspector,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-uptime,System Boot & Session Clock Timeline,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-perf,Live Performance Pulse Charts,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-drivers,Device Driver Inventory & Signatures,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-logs,Event Log Channel Explorer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-resources,Top Resource Consuming Processes,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-autostart,App-to-Process Cross-Service Links,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-services-map,System Service Dependency Graph,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,system-timeline,Unified System Event Timeline,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-interfaces,Network Interfaces Console,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-dns-config,DNS Resolver Configuration Dossier,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-adapters,Network Hardware Atlas & NIC Rack,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-connectivity,Connectivity Diagnostic Step Sequence,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-throughput,Real-Time Traffic & Throughput Chart,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-traceroute,Hop Route & Latency Visualizer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-topology,LAN Topology & Node Relationship Map,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-ports,Active Socket & Port Explorer,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-wifi,Wireless Wi-Fi Status & Signal Instrument,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-hosts,Windows Hosts File Inspector,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-proxies,Proxy & WinHTTP Configuration Graph,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,network-repair-link,Network Recovery & Reset Gateway,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-inventory,Device Hardware Atlas & Components,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-battery,Battery Charge & Health Instrument,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-cpu,Processor Architecture & Core Die,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-gpu,Graphics Adapter Bay & VRAM,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-memory,DIMM RAM Slots & Memory Layout,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-cycles,Battery Wear & Cycle Count Ledger,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-thermal,Thermal Sensors & Temperature Board,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-disks,Physical Disk Drives & Bus Interface,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-usb,USB Controller & Device Topology Tree,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-display,Monitor Topology & Resolution Canvas,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-audio,Audio Endpoint Mixer & Devices,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+10,hardware-health-report,Hardware Evidence & Diagnostic Report,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-component-check,DISM CheckHealth Diagnostic Console,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-component-scan,DISM ScanHealth 7-Stage Console,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-component-restore,DISM RestoreHealth System Repair Wizard,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-files-verify,SFC VerifyOnly File Integrity Shield,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-files-repair,SFC ScanNow Protected File Repair Wizard,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-dns-flush,DNS Resolver Cache Refresh Preview,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-winsock-reset,Winsock Catalog Disruption Risk Review,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-tcpip-reset,TCP/IP Stack Reset Configuration Diff,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-history,System Repair Audit Journal,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-troubleshooters,Windows Troubleshooter Gateway,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-restore-point,System Restore Point Inspector,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+11,repair-update-reset,Windows Update Servicing Reset Wizard,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-inventory,Windows SCM Service Register,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-control,Service State Change Review & Guard,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-undo,Service Startup Policy Undo Journal,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-dependencies,Interactive Service Dependency Network,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-protected,Protected Windows Core Services Atlas,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-search,SCM Keyboard-First Query Console,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-startup-report,Startup Policy Distribution Analytics,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-state-history,Service Transition State History,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-dependents,Cascade Service Dependency Impact Tree,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-diagnose,SCM Fault Investigation & Diagnostics,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-config,Startup Policy Configuration Diff,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+12,services-perf,Shared-Process svchost.exe Monitor,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-smart-scan,Smart Scan Automated Workflow Flow,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-schedule-manager,Weekly Automation Calendar & Task Manager,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-run-history,Automation Run History Timeline,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-templates,Workflow Template Gallery & Library,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-schedule-plan,Recurrence Composer & Cron Preview,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-cleanup-plan,Safe Automated Cleanup Pipeline,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-notify,Notification Channel Routing Board,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-quiet-hours,Quiet Hours 24-Hour Dial,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-battery-policy,Power-Aware Scheduler & Battery Gating,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-retention,Artifact Retention Policy Timeline,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-export,Workflow Export & Schema Transfer,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-backup-plan,Backup Flow & Verification Designer,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-01,Engine & Turbo Hardware,B,PARTIAL — preferences only; no engine executor,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-02,AI Copilot & Provider Keys,D,BLOCKED — session-only key; no native vault/proxy,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-03,Google Workspace Hub,D,BLOCKED_REQUIRES_USER_ACTION — no OAuth connection,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-04,Automated Protection & Guards,B,UNSUPPORTED — no guard engine; controls intentionally off,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-05,Neon Glass Customization,A,PARTIAL — local preference; global theming/light parity incomplete,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-06,Language & Locale,A,PARTIAL — live EN/AR and persisted; full light/RTL route coverage pending,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-07,Profile Backup & System Restore,B,PARTIAL — non-secret preferences backup works; Windows restore not here,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+14,mission-14-08,AI Assistant Chat,D,BLOCKED — no secure provider proxy/consent/allowlist,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec

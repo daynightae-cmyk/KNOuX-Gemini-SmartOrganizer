@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer - Service Commander (Mission 12).
  *
@@ -20,11 +21,15 @@ import {
   List,
   Loader2,
   Lock,
+  PlayCircle,
   RefreshCw,
+  RotateCcw,
   Search,
   ShieldAlert,
   ShieldCheck,
+  SlidersHorizontal,
   Sparkles,
+  Square,
   Wrench,
   X,
 } from 'lucide-react';
@@ -50,6 +55,8 @@ import {
   ServiceStateChip,
 } from '../services/ui';
 import { Chip, DataRows, Panel, downloadJson, cx } from '../system/ui';
+import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import '../services.css';
 
 export interface ServicesPageProps {
@@ -184,6 +191,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
         <KNOuXSidebar activeSection="services" onNavigate={navigate} isArabic={locale === AR} />
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar svc-main" data-testid="services-workspace">
+          <CommandCanvas locale={locale} toolPlacement="rail">
             <section className="sys-hero svc-hero" data-testid="services-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -199,9 +207,31 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 </svg>
               </div>
               <div className="sys-hero-copy">
-                <span className="sys-hero-eyebrow">{t(locale, 'SERVICE COMMANDER · READ-ONLY · NO SCM WRITES', 'قائد الخدمات · للقراءة فقط · بلا كتابة SCM')}</span>
+                <span className="sys-hero-eyebrow">{t(locale, 'SERVICE COMMANDER · READ-ONLY', 'قائد الخدمات · للقراءة فقط')}</span>
                 <h1>{t(locale, 'Service', 'قائد')} <span>{t(locale, 'Commander', 'الخدمات')}</span></h1>
-                <p>{t(locale, 'Inspect Windows services through the measured SCM register, understand dependency impact and review every operation before authorizing it.', 'افحص خدمات Windows عبر سجل SCM المقيس، وافهم أثر الاعتماديات، وراجع كل عملية قبل اعتمادها.')}</p>
+                <p>{t(locale, 'View, manage, and understand Windows services for better performance, stability, and control over your system — without an SCM write.', 'اعرض خدمات Windows وافهمها لإدارة أفضل للأداء والاستقرار والتحكم في نظامك — دون أي كتابة في SCM.')}</p>
+                <HeroFeatures
+                  items={[
+                    {
+                      icon: <Wrench className="w-4 h-4" />,
+                      title: t(locale, 'Full control', 'تحكم كامل'),
+                      detail: t(locale, 'Review measured start, stop and dependency evidence; actions stay gated.', 'راجع أدلة التشغيل والإيقاف والاعتماديات المقيسة؛ الإجراءات تبقى محجوبة.'),
+                      tone: '#7c5cff',
+                    },
+                    {
+                      icon: <PlayCircle className="w-4 h-4" />,
+                      title: t(locale, 'Improve performance', 'تحسين الأداء'),
+                      detail: t(locale, 'Spot startup types and noisy services in the measured SCM register.', 'اكتشف أنواع البدء والخدمات المزدحمة في سجل SCM المقيس.'),
+                      tone: '#3b82f6',
+                    },
+                    {
+                      icon: <ShieldCheck className="w-4 h-4" />,
+                      title: t(locale, 'Stay secure', 'ابقَ آمنًا'),
+                      detail: t(locale, 'Protected services and policy denials remain visible and untouched.', 'الخدمات المحمية ورفض السياسة يبقون ظاهرين ودون تغيير.'),
+                      tone: '#10b981',
+                    },
+                  ]}
+                />
                 <div className="sys-hero-chips">
                   <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
                   <Chip tone="info" icon={List}>{formatCount(SERVICES_TOOLS.length)} {t(locale, 'service tools', 'أداة خدمات')}</Chip>
@@ -212,15 +242,30 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 <div className="sys-hero-actions">
                   <button type="button" className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')} onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())} disabled={!controller.nativeAvailable || controller.cancelling}>
                     {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
-                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start measured discovery', 'بدء الاكتشاف المقيس')}
-                  </button>
-                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}>
-                    <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh register', 'تحديث السجل')}
+                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start discovery', 'بدء الاكتشاف')}
                   </button>
                   <button type="button" className="sys-btn sys-btn-quiet" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}>
                     <Download aria-hidden="true" />{t(locale, 'Export report', 'تصدير التقرير')}
                   </button>
                 </div>
+              </div>
+              <div className="svc-hero-orbit">
+                <OrbitalControl
+                  title={t(locale, 'Service Commander', 'قائد الخدمات')}
+                  subtitle={t(locale, 'Review the measured SCM register', 'راجع سجل SCM المقيس')}
+                  eyebrow={t(locale, 'Service Commander scopes', 'نطاقات قائد الخدمات')}
+                  state={controller.scanning ? 'loading' : controller.nativeAvailable ? 'ready' : 'unavailable'}
+                  disabled={!snapshot}
+                  onActivate={() => openTool('services-inventory')}
+                  tools={[
+                    { id: 'running', label: t(locale, 'Running', 'تعمل'), icon: PlayCircle, onClick: () => openTool('services-inventory'), hint: t(locale, 'Measured running states', 'حالات التشغيل المقيسة') },
+                    { id: 'stopped', label: t(locale, 'Stopped', 'متوقفة'), icon: Square, onClick: () => openTool('services-search'), hint: t(locale, 'Status query, read-only', 'استعلام الحالة، للقراءة فقط') },
+                    { id: 'dependencies', label: t(locale, 'Dependencies', 'الاعتماديات'), icon: GitBranch, onClick: () => openTool('services-dependencies'), hint: t(locale, 'Measured dependency edges', 'حواف اعتماديات مقيسة') },
+                    { id: 'recovery', label: t(locale, 'Recovery', 'الاستعادة'), icon: RotateCcw, onClick: () => openTool('services-diagnose'), hint: t(locale, 'Fault diagnostics, no repair runs', 'تشخيص الأعطال، دون إصلاح') },
+                    { id: 'events', label: t(locale, 'Events', 'الأحداث'), icon: History, onClick: () => openTool('services-state-history'), hint: t(locale, 'Bounded SCM events', 'أحداث SCM محدودة') },
+                    { id: 'startup-type', label: t(locale, 'Startup Type', 'نوع البدء'), icon: SlidersHorizontal, onClick: () => openTool('services-config'), hint: t(locale, 'Policy preview only', 'معاينة السياسة فقط') },
+                  ]}
+                />
               </div>
               <aside className="sys-source-card svc-source-card" data-testid="services-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
@@ -368,6 +413,8 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
               <span><Lock aria-hidden="true" />{t(locale, 'No StartService/StopService/ChangeServiceConfig or sc.exe channel exists in Mission 12.', 'لا توجد قناة StartService/StopService/ChangeServiceConfig أو sc.exe في المهمة 12.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="sys-actionbar svc-actionbar" data-testid="services-actionbar">

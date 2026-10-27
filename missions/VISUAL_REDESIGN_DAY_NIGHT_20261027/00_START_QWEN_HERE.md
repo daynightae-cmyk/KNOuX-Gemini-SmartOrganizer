@@ -1,0 +1,7 @@
+# 2026-10-27 OWNER PRIORITY OVERRIDE â€” HOME + ROUND LOGO FIRST
+Read 00_START_HOME_FIRST_QWEN.md, 00_HOME_FIRST_IMPLEMENTATION.md, and 00_BRAND_CIRCULAR_LOGO.md. Two new assets are installed locally at references/day/00_home-command-center.png and references/brand/00_knoux-circular-logo-day.png. Preserve current Codex WIP. Implement HOME day/night as the SAME semantic layout, integrate transparent circular logo without square framing, then screenshot/build/commit/push HOME. Only THEN continue the ten original visual recovery screens 01..10. The old 01-first or cinematic-first instruction is superseded for this already-active visual branch. No ref regeneration needed; no auto-merge to main; no new native executors.
+
+---
+# QWEN RECOVERY PRIORITY NOTICE
+**The old FAST SPRINT means speed, NOT superficial palette tweaks.** Read `00_QWEN_VISUAL_RECOVERY_FIRST.md` and `QWEN_PRIORITY_SCREEN_TASKS.md` before running the original queue. The 20 current images are intact and confirmed equivalent to supplied references.rar; do NOT rewrite them. **Reference DAY is the layout contract; NIGHT is the same layout with new materials.** Preserve current Codex work and uncommitted files in .worktrees/visual-sprint. Fix 10 sections using real code, not replace screenshot backgrounds. Complete Repair WIP and missing Services, keep actual Native safety constraints. No merges to main, no destructive commands.
+

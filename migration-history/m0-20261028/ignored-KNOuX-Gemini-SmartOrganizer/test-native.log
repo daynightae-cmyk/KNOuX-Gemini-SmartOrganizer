@@ -1,0 +1,82 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:native
+> npm run test:native --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:native
+> node scripts/native-contract-test.cjs
+
+{
+  "ok": true,
+  "contractVersion": 1,
+  "capabilities": [
+    "bridge.status",
+    "system.summary",
+    "services.summary",
+    "folder.choose",
+    "studio.sources",
+    "studio.source.choose",
+    "studio.source.remove",
+    "studio.inventory.scan",
+    "studio.inventory.cancel",
+    "studio.inventory.query",
+    "studio.thumbnails",
+    "studio.destination.choose",
+    "studio.plan.preview",
+    "studio.preview.history",
+    "files.sources",
+    "files.source.choose",
+    "files.inventory.scan",
+    "files.inventory.cancel",
+    "files.inventory.query",
+    "files.thumbnails",
+    "files.overview",
+    "files.metadata",
+    "files.hash",
+    "files.emptyFolders",
+    "files.open",
+    "files.reveal",
+    "storage.volumes",
+    "storage.history",
+    "storage.analysis",
+    "storage.duplicates.verify"
+  ],
+  "channels": [
+    "status",
+    "systemSummary",
+    "servicesSummary",
+    "chooseFolder",
+    "windowControl",
+    "studioSources",
+    "studioSourceChoose",
+    "studioSourceRemove",
+    "studioInventoryScan",
+    "studioInventoryCancel",
+    "studioInventoryQuery",
+    "studioThumbnails",
+    "studioDestinationChoose",
+    "studioPlanPreview",
+    "studioPreviewHistory",
+    "studioEvent",
+    "filesSources",
+    "filesSourceChoose",
+    "filesInventoryScan",
+    "filesInventoryCancel",
+    "filesInventoryQuery",
+    "filesThumbnails",
+    "filesOverview",
+    "filesMetadata",
+    "filesHash",
+    "filesEmptyFolders",
+    "filesOpen",
+    "filesReveal",
+    "storageVolumes",
+    "storageHistory",
+    "storageAnalysis",
+    "storageDuplicates"
+  ],
+  "buildCspPresent": true,
+  "aiStorageHits": [],
+  "failures": []
+}
+[native-contract] PASS

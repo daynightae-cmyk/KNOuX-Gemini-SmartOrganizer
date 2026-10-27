@@ -1,10 +1,12 @@
+import { StorageCleanupLiveWorkbench } from './operations/StorageCleanupLiveWorkbench';
+import { OrganizationLiveWorkbench } from './operations/OrganizationLiveWorkbench';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useState, useEffect } from 'react';
-import { NavigationProvider, useNavigation, type AppSection } from './context/NavigationContext';
+import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { StudioProvider } from './studio/context';
 import { StudioPage } from './studio/StudioPage';
 import { HomePage } from './pages/HomePage';
@@ -21,7 +23,6 @@ import { SmartScanPage } from './pages/SmartScanPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { GoogleWorkspaceHub } from './components/workspace/GoogleWorkspaceHub';
 
-import { KNOuXTitleBar, KNOuXSidebar } from './components/shell/KNOuXShellComponents';
 import { KNOuXAssistantChat } from './components/chat/KNOuXAssistantChat';
 import { ApiKeySetupModal } from './components/chat/ApiKeySetupModal';
 import { setAiSession } from './lib/ai-session';
@@ -40,13 +41,41 @@ import './automation.css';
 import './home-command-center.css';
 // Light-workstation palette bridge must load after every page stylesheet.
 import './theme-light.css';
+import './visual/visual-sprint.css';
+import './visual/files-visual.css';
+import './visual/scan-visual.css';
+import './visual/apps-visual.css';
+import './visual/storage-visual.css';
+import './visual/studio-reference.css';
+import './visual/reference-controls.css';
+import './visual/files-reference.css';
+import './visual/reference-polish.css';
+import './visual/scan-reference.css';
+import './visual/apps-reference.css';
+import './visual/storage-reference.css';
+import './visual/cleanup-reference.css';
+import './visual/startup-reference.css';
+import './visual/system-reference.css';
+import './visual/repair-reference.css';
+// Home's day/night material layer: re-maps the literal dark utilities inside
+// .knx-home-root only, so it must come after the global light bridge.
+import './visual/home-reference.css';
+// Restraint pass over the reference shells: restores the navy night identity,
+// the rail and the System register. Materials only, no structural change, and
+// deliberately no .knx-orbit rules now that the engine owns that surface.
+import './visual/reference-restraint.css';
+// Orbital Service Engine is the single source of truth for every .knx-orbit
+// surface, so it loads last and nothing re-styles the dial behind its back.
+import './visual/orbital-engine.css';
+import './visual/command-canvas.css';
+import './visual/section-fidelity.css';
+import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
-export type { AppSection };
+export type { AppSection } from './context/NavigationContext';
 
 function AppContent() {
-  const { currentSection, navigateTo, isActive, locale, isArabic, setLocale, toggleLocale } = useNavigation();
+  const { currentSection, navigateTo, isArabic } = useNavigation();
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -69,26 +98,6 @@ function AppContent() {
   };
 
   const isAr = isArabic;
-
-  const sectionTitles: Record<string, { en: string; ar: string }> = {
-    home: { en: 'Home', ar: 'الرئيسية' },
-    smart_scan: { en: 'Smart Scan', ar: 'الفحص الذكي' },
-    scan: { en: 'Smart Scan', ar: 'الفحص الذكي' },
-    studio: { en: 'Organization Studio', ar: 'استوديو التنظيم' },
-    applications: { en: 'Applications', ar: 'التطبيقات' },
-    files: { en: 'Files', ar: 'الملفات الذكية' },
-    storage: { en: 'Storage', ar: 'أطلس التخزين' },
-    cleanup: { en: 'Cleanup', ar: 'معمل التنظيف' },
-    startup: { en: 'Startup', ar: 'بدء التشغيل' },
-    system: { en: 'System', ar: 'نبض النظام' },
-    repair: { en: 'Repair', ar: 'معمل الإصلاح' },
-    services: { en: 'Services', ar: 'خدمات ويندوز' },
-    automation: { en: 'Automation', ar: 'أتمتة العمليات' },
-    workspace: { en: 'Google Workspace', ar: 'خدمات Google' },
-    settings: { en: 'Settings', ar: 'الإعدادات' },
-  };
-
-  const currentMeta = sectionTitles[currentSection] || { en: 'Workspace', ar: 'مساحة العمل' };
 
   // Active workspace injector into shared workspace container
   const renderActiveWorkspace = () => {
@@ -131,7 +140,9 @@ function AppContent() {
 
   return (
     <>
-      {renderActiveWorkspace()}
+      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['home', 'automation', 'studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair', 'services'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+      <OrganizationLiveWorkbench />
+      <StorageCleanupLiveWorkbench />
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}
@@ -146,7 +157,7 @@ function AppContent() {
 export default function App() {
   return (
     <NavigationProvider initialSection="home">
-      <AppContent />
+      <CinematicEntry><AppContent /></CinematicEntry>
     </NavigationProvider>
   );
 }

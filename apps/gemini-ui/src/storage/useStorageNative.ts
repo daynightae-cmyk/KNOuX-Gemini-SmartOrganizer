@@ -191,21 +191,27 @@ export function useStorageNative() {
       if (event.type === 'scan-failed') setError(event.message || 'The scope scan failed.');
     });
     void loadVolumes();
-    void (async () => {
+    const refreshLiveScope = (event?: Event) => {
+      const preferred = (event as CustomEvent<{ sourceId?: string }> | undefined)?.detail?.sourceId || sourceRef.current?.id;
+      void (async () => {
       const listed = await listFilesSources();
       if (!active) return;
       if (listed?.status === 'complete' && Array.isArray(listed.data)) {
         setSources(listed.data);
-        const ready = listed.data.find((entry) => entry.status === 'ready' || entry.status === 'partial');
+        const ready = listed.data.find(entry=>entry.id===preferred && ['ready','partial'].includes(entry.status)) || listed.data.find(entry=>['ready','partial'].includes(entry.status));
         if (ready) {
           setActiveSource(ready);
           await loadAnalysis(ready);
         }
       }
-    })();
+      })().catch(error => { if (active) setError(String(error)); });
+    };
+    refreshLiveScope();
+    window.addEventListener('knoux:organization-updated',refreshLiveScope);
     return () => {
       active = false;
       unsubscribe();
+      window.removeEventListener('knoux:organization-updated',refreshLiveScope);
     };
   }, [loadAnalysis, loadVolumes, setActiveSource]);
 

@@ -1,0 +1,37 @@
+.visual-sprint[data-reference-shell='true'] .sys-viewport { --sys-bg:var(--v-bg); --sys-bg-2:var(--v-bg); --sys-surface:var(--v-panel); --sys-surface-2:var(--v-panel-soft); --sys-surface-3:var(--v-panel-soft); --sys-line:var(--v-line); --sys-line-2:var(--v-line); --sys-line-strong:var(--v-accent); --sys-ink:var(--v-ink); --sys-ink-2:var(--v-muted); --sys-muted:var(--v-muted); --sys-muted-2:var(--v-muted); --sys-cyan:var(--v-accent); background:var(--v-bg) !important; }
+.visual-sprint[data-reference-shell='true'] .sys-main { padding:14px; gap:16px; background:radial-gradient(ellipse at 60% 0%,#8b61b522,transparent 60%),var(--v-bg) !important; }
+.visual-sprint[data-reference-shell='true'] .sys-hero { grid-template-columns:minmax(0,1fr) 360px 290px; align-items:center; gap:16px; padding:20px; border-radius:20px; border-color:var(--v-line); background:var(--v-panel-soft) !important; box-shadow:var(--v-shadow); height:max-content; flex-shrink:0; }
+.visual-sprint[data-reference-shell='true'] .sys-hero-arc { display:none; }
+.visual-sprint[data-reference-shell='true'] .sys-hero h1 { font-size:36px !important; line-height:1.12; color:var(--v-ink); margin:12px 0; }
+.visual-sprint[data-reference-shell='true'] .sys-hero h1 span { color:var(--v-accent); }
+.visual-sprint[data-reference-shell='true'] .sys-hero-copy > p { font-size:14px !important; line-height:1.6; color:var(--v-muted); }
+.visual-sprint[data-reference-shell='true'] :is(.sys-hero-eyebrow,.sys-chip,.sys-source-copy,.sys-source-badge,.sys-banner,.sys-loading-copy,.sys-foot-strip) { font-size:12px !important; line-height:1.5; }
+.visual-sprint[data-reference-shell='true'] .sys-source-card { background:var(--v-panel) !important; border-color:var(--v-line); border-radius:17px; padding:18px; min-height:205px; }
+.visual-sprint[data-reference-shell='true'] .sys-source-copy strong { font-size:14px; white-space:normal; }.visual-sprint[data-reference-shell='true'] .sys-source-copy em { font-size:12px; line-height:1.5; }
+.visual-sprint[data-reference-shell='true'] .sys-btn { min-height:36px; font-size:13px; padding:8px 12px; border-radius:10px; }
+.visual-sprint[data-reference-shell='true'] :is(.sys-panel,.sys-instrument,.sys-service-card,.sys-loading-grid > *) { background:var(--v-panel) !important; border-color:var(--v-line); border-radius:17px; box-shadow:var(--v-shadow); }
+.visual-sprint[data-reference-shell='true'] .sys-kpi-row { gap:14px; }
+/* Services keeps the compact register instrument row; the tall 165px card is a
+   System-page composition and would leave six empty slabs on the SCM hero. */
+.visual-sprint[data-reference-shell='true']:not([data-visual-section='services']) .sys-instrument { padding:18px; min-height:165px; }
+.visual-sprint[data-reference-shell='true'] .sys-instrument-copy strong { font-size:15px; }.visual-sprint[data-reference-shell='true'] .sys-instrument-copy em,.visual-sprint[data-reference-shell='true'] .sys-instrument-stats { font-size:12px; }
+.visual-sprint[data-reference-shell='true'] .sys-service-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; padding:12px; }
+.visual-sprint[data-reference-shell='true'] .sys-service-card { min-height:100px; padding:16px; gap:12px; }
+.visual-sprint[data-reference-shell='true'] .sys-service-copy strong { font-size:14px; white-space:normal; }.visual-sprint[data-reference-shell='true'] .sys-service-copy em { font-size:12px; white-space:normal; line-height:1.4; }.visual-sprint[data-reference-shell='true'] .sys-service-icon { width:34px; height:34px; }
+.visual-sprint[data-reference-shell='true'] .sys-service-card { display:grid; grid-template-columns:34px minmax(0,1fr); align-items:start; min-height:126px; gap:8px 10px; position:relative; }
+.visual-sprint[data-reference-shell='true'] .sys-service-index { position:absolute; top:7px; inset-inline-end:8px; font-size:9px; }
+.visual-sprint[data-reference-shell='true'] .sys-service-copy { grid-column:2; min-width:0; overflow:visible; }.visual-sprint[data-reference-shell='true'] .sys-service-copy :is(strong,em) { display:block; white-space:normal !important; overflow:visible !important; text-overflow:clip; }
+.visual-sprint[data-reference-shell='true'] .sys-service-state { grid-column:2; font-size:10px; width:max-content; }
+.visual-sprint[data-reference-shell='true'] .sys-empty-instrument-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; padding:10px 10px 0; }
+.sys-empty-instrument { display:flex; flex-direction:column; gap:1px; padding:8px; border:1px solid var(--v-line); border-radius:11px; background:var(--v-panel-soft); min-width:0; }
+.sys-empty-instrument-dial { width:26px; height:26px; border-radius:50%; border:2px solid var(--v-line); color:var(--v-muted); display:grid; place-items:center; margin-bottom:3px; }
+.sys-empty-instrument-dial svg { width:13px; height:13px; }
+.sys-empty-instrument-value { font-size:16px; font-weight:800; line-height:1.1; color:var(--v-ink); font-family:'JetBrains Mono',ui-monospace,monospace; }
+.sys-empty-instrument-label { font-size:10.5px; font-weight:700; color:var(--v-ink); }
+.sys-empty-instrument-state { font-size:9px; color:var(--v-muted); }
+.visual-sprint[data-reference-shell='true'] .sys-loading-grid { grid-template-columns:minmax(260px,.65fr) minmax(0,2fr); }
+.visual-sprint[data-reference-shell='true'] .sys-panel-head { padding:15px; }.visual-sprint[data-reference-shell='true'] .sys-panel-title,.visual-sprint[data-reference-shell='true'] .sys-services-title h2 { font-size:16px; }
+.visual-sprint[data-reference-shell='true'] .sys-loading-grid { gap:16px; }.visual-sprint[data-reference-shell='true'] .sys-loading-copy { padding:18px; }
+.visual-sprint[data-reference-shell='true'] .sys-overview-grid { gap:16px; }.visual-sprint[data-reference-shell='true'] .sys-ledger :is(th,td) { font-size:12px; padding:10px; }
+@media (max-width:1500px) { .visual-sprint[data-reference-shell='true'] .sys-hero { grid-template-columns:minmax(0,1fr) 310px; }.visual-sprint[data-reference-shell='true'] .sys-hero > .knx-orbit { display:none; }.visual-sprint[data-reference-shell='true'] .sys-service-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:1050px) { .visual-sprint[data-reference-shell='true'] .sys-hero { grid-template-columns:1fr; }.visual-sprint[data-reference-shell='true'] .sys-service-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }

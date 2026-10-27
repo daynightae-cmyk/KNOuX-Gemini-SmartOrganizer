@@ -66,6 +66,8 @@ import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbenc
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import '../files.css';
+import { OrbitalControl } from '../visual/OrbitalControl';
+import { ReferenceAtmosphere } from '../visual/ReferenceAtmosphere';
 
 interface FilesPageProps {
   onNavigateSection?: (section: string) => void;
@@ -100,6 +102,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
     }
   }, [workbenchMode, workbenchWidth]);
   const [previewExpanded, setPreviewExpanded] = useState(false);
+  const [inspectorTab, setInspectorTab] = useState<'details' | 'tools' | 'insights'>('details');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const filesNative = useFilesNative();
   const measured = filesNative.mode === 'measured';
@@ -311,6 +314,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   // Aggregate selected files info
   const selectedCount = checkedFileIds.size;
+  const openLiveOrganization = () => window.dispatchEvent(new CustomEvent('knoux:live-organization', {detail: measured && filesNative.source ? {path:filesNative.source.path,relativeFiles:sourceFiles.filter(f=>checkedFileIds.has(f.id)&&f.nativeRelative).map(f=>f.nativeRelative)} : undefined}));
   const selectedSizeFormatted =
     selectedCount === 1
       ? sourceFiles.find((f) => checkedFileIds.has(f.id))?.sizeFormatted || '0 B'
@@ -461,7 +465,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace">
+        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace" data-workbench-side={Boolean(activeService && workbenchMode === 'side')} style={{ '--files-inspector-width': activeService && workbenchMode === 'side' ? `${workbenchWidth}px` : '350px' } as React.CSSProperties}>
           {/* Toast feedback */}
           {toastMessage && (
             <div className="absolute top-3 right-6 z-50 px-3.5 py-2 rounded-lg bg-cyan-950/95 border border-cyan-400 text-cyan-200 text-xs shadow-xl flex items-center gap-2">
@@ -471,11 +475,13 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
           )}
 
           {/* 1. Hero & Commanding Search Area */}
-          <div className="relative pt-3 pb-2 px-6 shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] select-none overflow-hidden">
+          <div className="knx-files-header relative pt-3 pb-2 px-6 shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] select-none overflow-hidden">
             <div className="absolute inset-0 files-hero-nebula pointer-events-none" />
 
             {/* Breadcrumb & Title */}
-            <div className="relative z-10 mb-2">
+            <div className="knx-files-heading relative z-10 mb-2">
+              <ReferenceAtmosphere />
+              <div className="knx-files-intro">
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-0.5">
                 <Folder className="w-3.5 h-3.5 text-cyan-400" />
                 <span>‹</span>
@@ -483,19 +489,46 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               </div>
 
               <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                <span className="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
-                  {locale === 'en' ? 'Instant Find' : 'البحث الفوري الذكي'}
+                <span>
+                  {locale === 'en' ? 'Files' : 'الملفات'}
                 </span>
               </h1>
               <p className="text-xs text-slate-300 mt-0.5 font-normal">
                 {locale === 'en'
-                  ? 'Every file in focus. Search, discover, inspect and organize.'
-                  : 'كل ملف في متناولك. ابحث، واستكشف، وافحص، ورتّب بذكاء وسرعة فائقة.'}
+                  ? 'Find, organize, and manage your files with intelligent tools. Explore, filter, and take control of your digital content.'
+                  : 'ابحث عن ملفاتك ونظّمها وأدرها بأدوات ذكية. استكشف، وصفّي، وتحكّم في محتواك الرقمي.'}
               </p>
+              <div className="knx-files-values">
+                <span><Search/><span><strong>{locale === 'en' ? 'Quick Search' : 'بحث سريع'}</strong><small>{locale === 'en' ? 'Find files in your authorized index' : 'اعثر على الملفات في الفهرس المصرّح'}</small></span></span>
+                <span><Layers/><span><strong>{locale === 'en' ? 'Smart Organization' : 'تنظيم ذكي'}</strong><small>{locale === 'en' ? 'Explore by type, location, or category' : 'استكشف حسب النوع أو الموقع أو الفئة'}</small></span></span>
+                <span><CheckCircle/><span><strong>{locale === 'en' ? 'Keep It Organized' : 'حافظ على التنظيم'}</strong><small>{locale === 'en' ? 'Inspect first. Review every proposed action.' : 'افحص أولًا وراجع كل إجراء مقترح.'}</small></span></span>
+              </div>
+              </div>
+              <div className="knx-files-orbit">
+                <OrbitalControl coreIcon={FolderOpen} title={locale === 'en' ? 'Explore Files' : 'استكشف الملفات'} subtitle={locale === 'en' ? 'Find, organize and manage' : 'ابحث ونظّم وأدر ملفاتك'}
+                  onActivate={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()}
+                  tools={[
+                    { id: 'search', label: locale === 'en' ? 'Find' : 'بحث', icon: Search, onClick: () => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus() },
+                    { id: 'images', label: locale === 'en' ? 'Images' : 'الصور', icon: ImageIcon, onClick: () => setActiveCategory('images') },
+                    { id: 'plan', label: locale === 'en' ? 'Organize' : 'تنظيم', icon: FolderTree, onClick: handleOpenStudio },
+                    { id: 'filters', label: locale === 'en' ? 'Filters' : 'الفلاتر', icon: Sliders, onClick: () => { const panel = document.querySelector<HTMLDetailsElement>('.knx-files-advanced'); if (panel) panel.open = true; document.querySelector<HTMLSelectElement>('[data-testid="files-extension"]')?.focus(); } },
+                    { id: 'sources', label: locale === 'en' ? 'Sources' : 'المصادر', icon: Folder, onClick: () => void filesNative.addSource(), disabled: !filesNative.available },
+                    { id: 'preview', label: locale === 'en' ? 'Preview' : 'المعاينة', icon: Maximize2, onClick: () => setPreviewExpanded(p => !p) },
+                  ]} />
+              </div>
+            </div>
+
+            <div className="knx-files-metrics" aria-label={locale === 'en' ? 'Index overview' : 'ملخص الفهرس'}>
+              {[
+                {icon:FileText, value:measured ? indexedItemCount.toLocaleString() : '—', label:locale === 'en' ? 'Indexed Files' : 'الملفات المفهرسة', detail:measured ? (locale === 'en' ? 'Authorized index' : 'فهرس مصرّح') : L.fixture},
+                {icon:Folder, value:measured ? measuredOverview?.totals.folders.toLocaleString() ?? '—' : '—', label:locale === 'en' ? 'Indexed Folders' : 'المجلدات المفهرسة', detail:locale === 'en' ? 'Within selected source' : 'داخل المصدر المحدد'},
+                {icon:Clock, value:measured ? measuredOverview?.ages[0]?.count.toLocaleString() ?? '—' : '—', label:locale === 'en' ? 'Recent Changes' : 'التغييرات الحديثة', detail:L.ageDay},
+                {icon:HardDrive, value:measured && measuredOverview ? formatBytes(measuredOverview.totals.bytes) : '—', label:locale === 'en' ? 'Indexed Volume' : 'حجم الفهرس', detail:locale === 'en' ? 'Metadata inventory' : 'جرد البيانات الوصفية'},
+              ].map(({icon:Icon,value,label,detail}) => <div key={label}><Icon/><span><strong>{value}</strong><span>{label}</span><small>{detail}</small></span></div>)}
             </div>
 
             {/* Wide Search Bar with Live Index Status */}
-            <div className="relative mb-2.5">
+            <div className="knx-files-searchbar relative mb-2.5">
               <div className="flex items-center bg-[#07152b] border border-[#173766] rounded-xl px-3.5 py-2 shadow-inner focus-within:border-[#2476ff] transition-all">
                 <Search className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
                 <input
@@ -523,14 +556,14 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                     <span className="font-bold text-white font-mono">
                       {measured
                         ? `${indexedItemCount.toLocaleString()} ${locale === 'en' ? 'items' : 'عنصر'}`
-                        : (locale === 'en' ? 'Indexed 1,248,632 items' : '1,248,632 عنصر مفهرس')}
+                        : (locale === 'en' ? 'Fixture results' : 'نتائج تجريبية')}
                     </span>
                     <div className="text-slate-400 text-[9px]">
                       {measured
                         ? (locale === 'en'
                             ? `${indexedLocations} authorized source • ${measuredOverview?.coverage || 'complete'}`
                             : `${indexedLocations} مصدر مصرح • ${measuredOverview?.coverage === 'partial' ? 'جزئي' : 'مكتمل'}`)
-                        : (locale === 'en' ? `${indexedLocations} locations • Design fixture` : `${indexedLocations} مواقع • بيانات تجريبية`)}
+                        : (locale === 'en' ? 'No device index connected' : 'لا يوجد فهرس جهاز متصل')}
                     </div>
                   </div>
                 </div>
@@ -552,7 +585,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             />
 
             {/* Category Filter Pills (9 categories) */}
-            <div className="flex flex-wrap items-center gap-1.5 pb-1 mb-2">
+            <div className="knx-files-categories flex flex-wrap items-center gap-1.5 pb-1 mb-2">
               {categoryPills.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeCategory === tab.id;
@@ -560,6 +593,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 return (
                   <button
                     key={tab.id}
+                    title={tab.label}
                     data-testid={`files-category-${tab.id}`}
                     onClick={() => setActiveCategory(tab.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap ${
@@ -573,13 +607,14 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                         <Icon className="w-3.5 h-3.5" />
                       </span>
                     )}
-                    <span>{tab.label}</span>
+                    <span>{tab.label.replace(/\s*\([^)]*\)/g, '')}</span>
                   </button>
                 );
               })}
             </div>
 
             {/* Sub-Filters Menus (Extension, Size, Date, Location, Sort) */}
+            <details className="knx-files-advanced"><summary>{locale === 'en' ? 'Filters & view' : 'الفلاتر والعرض'}</summary>
             <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
               <div className="flex flex-wrap items-center gap-2">
                 {/* Extension */}
@@ -716,6 +751,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             </div>
 
             {/* 2. Data Composition Band (Two Horizontal Distribution Gauges) */}
+            </details>
+            <details className="knx-files-distribution"><summary>{locale === 'en' ? 'File type & age breakdown' : 'تفاصيل أنواع الملفات وأعمارها'}</summary>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3 pt-2.5 border-t border-[#0e223d]">
               {/* Distribution 1: File Types */}
               <div className="bg-[#07152b] p-2.5 rounded-lg border border-[#122b50]">
@@ -773,12 +810,12 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </div>
               </div>
             </div>
+            </details>
           </div>
-
           {/* 3. Main Center Split: Table Register & Right Detail Inspector */}
-          <div className="flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
+          <div className="knx-files-split flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
             {/* Left-Center Results Table */}
-            <div className="flex-1 bg-[#061226] rounded-xl border border-[#132c52] overflow-hidden flex flex-col min-h-0 select-none shadow-inner">
+            <div className="knx-files-results flex-1 bg-[#061226] rounded-xl border border-[#132c52] overflow-hidden flex flex-col min-h-0 select-none shadow-inner">
               {/* Table Header */}
               <div className="h-8 bg-[#091a33] border-b border-[#132c52] px-3 flex items-center text-[11px] font-semibold text-slate-400">
                 <div className="w-8 shrink-0 flex items-center">
@@ -837,7 +874,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               )}
 
               {/* Table Rows */}
-              <div className={`${viewMode === 'grid' || filteredFiles.length === 0 ? 'hidden' : 'flex-1 overflow-y-auto'} files-scrollbar divide-y divide-[#0c1f3b]`}>
+              <div data-testid="files-results-scroll" tabIndex={0} aria-label={locale === 'en' ? 'File results' : 'نتائج الملفات'} className={`${viewMode === 'grid' || filteredFiles.length === 0 ? 'hidden' : 'flex-1 overflow-y-auto'} files-scrollbar divide-y divide-[#0c1f3b]`}>
                 {filteredFiles.map((file) => {
                   const isSelected = selectedFile.id === file.id;
                   const isChecked = checkedFileIds.has(file.id);
@@ -980,9 +1017,23 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
             {/* Right Detail Panel / pinned service workbench */}
             <div
-              className={`shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
+              className={`knx-files-inspector shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
               style={activeService && workbenchMode === 'side' ? { width: `${workbenchWidth}px` } : undefined}
             >
+              <div className="knx-files-inspector-head">
+                <h2>{locale === 'en' ? 'Selected File' : 'الملف المحدد'}</h2>
+                <div role="tablist" aria-label={locale === 'en' ? 'File inspector' : 'مفتش الملفات'}>
+                  {(['details','tools','insights'] as const).map((tab, index) => <button key={tab} id={`files-tab-${tab}`} role="tab" aria-controls={`files-panel-${tab}`} aria-selected={inspectorTab === tab} tabIndex={inspectorTab === tab ? 0 : -1} onClick={() => setInspectorTab(tab)} onKeyDown={event => {
+                    if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+                    event.preventDefault();
+                    const tabs = ['details','tools','insights'] as const;
+                    const delta = (event.key === 'ArrowRight' ? 1 : -1) * (isArabic ? -1 : 1);
+                    const next = tabs[event.key === 'Home' ? 0 : event.key === 'End' ? 2 : (index + delta + 3) % 3];
+                    setInspectorTab(next);
+                    document.getElementById(`files-tab-${next}`)?.focus();
+                  }}>{locale === 'en' ? ({details:'Details',tools:'Tools',insights:'Insights'}[tab]) : ({details:'التفاصيل',tools:'الأدوات',insights:'الرؤى'}[tab])}</button>)}
+                </div>
+              </div>
               {activeService && workbenchMode === 'side' ? (
                 <div className="h-[480px] shrink-0" data-testid="files-workbench-side-shell">
                   <ServiceWorkbenchHost
@@ -1016,7 +1067,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </div>
               ) : null}
               {/* Selected File Dossier */}
-              <div className="bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg">
+              <div id="files-panel-details" role="tabpanel" aria-labelledby="files-tab-details" hidden={inspectorTab !== 'details'} className="knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg">
                 {/* Header with Title and Window Controls */}
                 <div className="flex items-center justify-between pb-2 border-b border-[#0f2545]">
                   <div className="flex items-center gap-2 truncate">
@@ -1036,7 +1087,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </div>
 
                 {/* Big Photo Preview */}
-                <div className={`relative w-full rounded-lg overflow-hidden bg-black/60 border border-[#142e56] shadow-md group ${previewExpanded ? 'h-64' : 'h-32 min-[1600px]:h-40'}`}>
+                <div data-preview-expanded={previewExpanded} className={`relative w-full rounded-lg overflow-hidden bg-black/60 border border-[#142e56] shadow-md group ${previewExpanded ? 'h-64' : 'h-32 min-[1600px]:h-40'}`}>
                   {selectedFile.thumbnailUrl ? (
                     <img
                       src={selectedFile.thumbnailUrl}
@@ -1054,7 +1105,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 <div className="grid grid-cols-2 gap-2 pt-1">
                   <button
                     onClick={() => void handleOpenFile()}
-                    className="py-1.5 rounded-lg bg-[#2476ff] hover:bg-[#3282ff] text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(36,118,255,0.4)] cursor-pointer"
+                    className="knx-files-primary py-1.5 rounded-lg bg-[#2476ff] hover:bg-[#3282ff] text-xs font-semibold flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(36,118,255,0.4)] cursor-pointer"
                   >
                     <Play className="w-3.5 h-3.5 fill-white" />
                     <span>{L.open}</span>
@@ -1197,15 +1248,22 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 {/* Add to Organization Plan Button */}
                 <button
                   onClick={handleOpenStudio}
-                  className="w-full py-2 rounded-lg bg-gradient-to-r from-[#713bff] to-[#5123bb] hover:from-[#844dff] hover:to-[#612de0] text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-[0_0_14px_rgba(113,59,255,0.5)] border border-purple-400/50 cursor-pointer"
+                  className="knx-files-primary w-full py-2 rounded-lg bg-gradient-to-r from-[#713bff] to-[#5123bb] hover:from-[#844dff] hover:to-[#612de0] text-xs font-bold flex items-center justify-center gap-1.5 shadow-[0_0_14px_rgba(113,59,255,0.5)] border border-purple-400/50 cursor-pointer"
                 >
                   <FolderTree className="w-3.5 h-3.5" />
                   <span>{L.planStudio}</span>
                 </button>
               </div>
 
+              {inspectorTab === 'details' && !activeService ? <section className="knx-files-recommended">
+                <div><h3>{locale === 'en' ? 'Explore & inspect' : 'استكشف وافحص'}</h3><button onClick={() => setInspectorTab('tools')}>{locale === 'en' ? 'All tools' : 'كل الأدوات'} <ChevronRight size={14}/></button></div>
+                {FILES_DOMAIN_SERVICES.filter(service => ['file-recents','file-largest','file-metadata','file-hash'].includes(service.key)).map(service => <button key={service.key} onClick={() => setActiveService(service.key)}>
+                  {renderServiceIcon(service.iconName)}<span>{locale === 'en' ? service.labelEn : service.labelAr}</span><ChevronRight size={16}/>
+                </button>)}
+              </section> : null}
+
               {/* Sub-Card 1: Live Service Preview */}
-              <div className="bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
+              <div id="files-panel-insights" role="tabpanel" aria-labelledby="files-tab-insights" hidden={inspectorTab !== 'insights'} className="bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
                 <div className="flex items-center justify-between pb-1.5 border-b border-[#0f2545]">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-white">
                     <Cloud className="w-3.5 h-3.5 text-cyan-400" />
@@ -1244,25 +1302,25 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               </div>
 
               {/* Sub-Card 2: KNOuX Services (12 Domain Service Cards Dock) */}
-              <div className="bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
+              <div id="files-panel-tools" role="tabpanel" aria-labelledby="files-tab-tools" hidden={inspectorTab !== 'tools'} className="knx-files-service-panel bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
                 <div className="text-xs font-bold text-white flex items-center justify-between pb-1 border-b border-[#0f2545]">
                   <span>{L.services}</span>
                   <span className="text-[9px] text-slate-500 font-mono">{measured ? 'Measured read-only' : 'Design fixture'}</span>
                 </div>
 
-                <div className="grid grid-cols-6 gap-1.5">
+                <div className="knx-files-tools grid grid-cols-3 gap-2">
                   {FILES_DOMAIN_SERVICES.map((serv) => (
                     <button
                       key={serv.key}
                       data-service-key={serv.key}
                       data-testid={`files-service-${serv.key}`}
-                      onClick={() => setActiveService(serv.key)}
+                      onClick={() => ['file-organize-preview','file-organize-apply','file-organize-undo'].includes(serv.key) ? openLiveOrganization() : setActiveService(serv.key)}
                       className="p-1.5 rounded-lg bg-[#091a33] hover:bg-[#122e57] text-cyan-300 hover:text-white border border-[#142e56] hover:border-[#2476ff]/60 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group"
                       title={serv.labelEn}
                     >
                       {renderServiceIcon(serv.iconName)}
                       <span className="text-[8px] font-mono leading-tight text-center truncate w-full text-slate-400 group-hover:text-cyan-200">
-                        {serv.labelEn.split(' ')[0]}
+                        {locale === 'ar' ? serv.labelAr : serv.labelEn}
                       </span>
                     </button>
                   ))}
@@ -1333,11 +1391,13 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               )}
             </div>
 
+            {/* Opt-in native live workflow; the approved overview stays intact. */}
+            <button data-testid="files-live-organization" className="knx-files-primary" onClick={openLiveOrganization}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
             {/* Right Action Button */}
             <button
               data-testid="files-plan-cta"
               onClick={handleOpenStudio}
-              className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#713bff] via-[#2476ff] to-[#1c5fdb] hover:from-[#844dff] hover:to-[#226cf0] text-white text-xs font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(36,118,255,0.6)] border border-cyan-400/50 cursor-pointer"
+              className="knx-files-primary px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#713bff] via-[#2476ff] to-[#1c5fdb] hover:from-[#844dff] hover:to-[#226cf0] text-xs font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(36,118,255,0.6)] border border-cyan-400/50 cursor-pointer"
             >
               <span>{L.planStudio}</span>
               <ArrowRight className="w-3.5 h-3.5" />

@@ -1,0 +1,342 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 10,
+  "darkSurfaces": [
+    {
+      "cls": "w-full bg-[#050f24] rounded-full h-2.5 overflow-hidden border border-slate-700/60 p-[1px]",
+      "bg": "rgb(5, 15, 36)",
+      "area": 4273,
+      "text": ""
+    },
+    {
+      "cls": "w-full bg-[#050f24] rounded-full h-2.5 overflow-hidden border border-slate-700/60 p-[1px]",
+      "bg": "rgb(5, 15, 36)",
+      "area": 4273,
+      "text": ""
+    },
+    {
+      "cls": "flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-[#091c3d] hover:bg-slate-800 text-slate-200",
+      "bg": "rgb(9, 28, 61)",
+      "area": 7635,
+      "text": "Walk This Volume"
+    },
+    {
+      "cls": "w-full bg-[#050f24] rounded-full h-2.5 overflow-hidden border border-slate-700/60 p-[1px]",
+      "bg": "rgb(5, 15, 36)",
+      "area": 4273,
+      "text": ""
+    },
+    {
+      "cls": "flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-[#091c3d] hover:bg-slate-800 text-slate-200",
+      "bg": "rgb(9, 28, 61)",
+      "area": 7635,
+      "text": "Walk This Volume"
+    },
+    {
+      "cls": "flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#091a3a] border border-slate-700/60 font-mono text-[11px] text-slate-200 ml-1",
+      "bg": "rgb(9, 26, 58)",
+      "area": 5360,
+      "text": "C: > Users > Alex > Documents"
+    },
+    {
+      "cls": "md:col-span-7 flex flex-col gap-1.5 bg-[#030a16] p-2 rounded-xl border border-slate-800",
+      "bg": "rgb(3, 10, 22)",
+      "area": 284908,
+      "text": "Windows 93.6 GB Sys32 31G WinSxS 24G Users 76.2 GB Alex 58.4"
+    },
+    {
+      "cls": "bg-purple-800/90 rounded p-1 border border-purple-400/30",
+      "bg": "oklab(0.438 0.121032 -0.181315 / 0.9)",
+      "area": 4708,
+      "text": "Alex 58.4 GB"
+    },
+    {
+      "cls": "md:col-span-5 flex flex-col bg-[#050f22] border border-slate-800 rounded-xl p-3",
+      "bg": "rgb(5, 15, 34)",
+      "area": 201639,
+      "text": "Largest Items in This Folder See which files and folders tak"
+    },
+    {
+      "cls": "h-14 bg-[#050f24] border-t border-slate-800/90 px-5 flex items-center justify-between z-30 shrink-0",
+      "bg": "rgb(5, 15, 36)",
+      "area": 93632,
+      "text": "Ready to analyze, explore, and reclaim space on your volumes"
+    }
+  ],
+  "lowContrastCount": 33,
+  "lowContrast": [
+    {
+      "c": 1.92,
+      "fg": "oklab(0.81 0.114595 0.0236021 / 0.8)",
+      "bg": "rgb(255,255,255)",
+      "size": "11px",
+      "cls": "text-[11px] text-rose-300/80 mt-1 font-medium",
+      "text": "Low-Space Volumes"
+    },
+    {
+      "c": 1.18,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,26,58)",
+      "size": "11px",
+      "cls": "",
+      "text": "C: > Users > Alex > Documents"
+    },
+    {
+      "c": 2.74,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(20,71,230)",
+      "size": "12px",
+      "cls": "font-extrabold text-xs text-white",
+      "text": "Windows"
+    },
+    {
+      "c": 2.65,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(130,0,219)",
+      "size": "12px",
+      "cls": "font-bold text-xs text-white",
+      "text": "Users"
+    },
+    {
+      "c": 1.01,
+      "fg": "rgb(109, 40, 217)",
+      "bg": "rgb(130,0,219)",
+      "size": "10px",
+      "cls": "text-[10px] font-mono text-purple-200",
+      "text": "76.2 GB"
+    },
+    {
+      "c": 2.16,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(112,15,180)",
+      "size": "10px",
+      "cls": "font-semibold text-[10px] text-white",
+      "text": "Alex"
+    },
+    {
+      "c": 1.22,
+      "fg": "rgb(109, 40, 217)",
+      "bg": "rgb(112,15,180)",
+      "size": "9px",
+      "cls": "text-[9px] font-mono text-purple-200",
+      "text": "58.4 GB"
+    },
+    {
+      "c": 1.02,
+      "fg": "rgb(4, 120, 87)",
+      "bg": "rgb(0,122,85)",
+      "size": "10px",
+      "cls": "text-[10px] font-mono text-emerald-200",
+      "text": "62.9 GB"
+    },
+    {
+      "c": 1.57,
+      "fg": "rgb(180, 83, 9)",
+      "bg": "rgb(225,113,0)",
+      "size": "9px",
+      "cls": "text-[9px] font-mono text-amber-200",
+      "text": "34.7 GB"
+    },
+    {
+      "c": 1.02,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "text-xs font-bold text-white tracking-wide",
+      "text": "Largest Items in This Folder"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "11px",
+      "cls": "text-[11px] text-slate-400",
+      "text": "See which files and folders take up the most space."
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "Windows.iso"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "Disk Image"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "VirtualMachine.vhdx"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "Hard Disk Image"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "Premiere Projects"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "File folder"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "Backup 2024"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "File folder"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "Photos Library"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "File folder"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "Archive.zip"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "Compressed (ZIP)"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "UE5"
+    },
+    {
+      "c": 2.52,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,15,34)",
+      "size": "10px",
+      "cls": "py-1.5 text-right text-slate-400 text-[10px] whitespace-nowrap",
+      "text": "File folder"
+    },
+    {
+      "c": 1.31,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(5,15,34)",
+      "size": "12px",
+      "cls": "truncate group-hover:text-cyan-300",
+      "text": "Installers"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 30,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar p-5 space-y-4",
+      "clientH": 845,
+      "scrollH": 1289
+    },
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-64",
+      "clientH": 256,
+      "scrollH": 310
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      845
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      845
+    ],
+    "footer": [
+      0,
+      885,
+      1672,
+      56
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-storage-1672.png

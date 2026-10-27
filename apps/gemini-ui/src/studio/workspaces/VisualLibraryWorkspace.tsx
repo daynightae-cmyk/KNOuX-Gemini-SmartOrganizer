@@ -12,7 +12,7 @@ import {
 
 export function VisualLibraryWorkspace() {
   return (
-    <div className="flex-1 flex gap-3 px-6 py-2 min-h-0 overflow-hidden">
+    <div className="knx-studio-library flex-1 flex gap-3 px-6 py-2 min-h-0 overflow-hidden">
       {/* 04 — Left Column: Authorized Sources */}
       <AuthorizedSourcesPanel />
 

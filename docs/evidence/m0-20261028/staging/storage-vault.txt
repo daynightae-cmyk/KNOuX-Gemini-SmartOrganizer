@@ -1,0 +1,21 @@
+$ node --max-old-space-size=160 scripts/storage-vault-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+VERIFIED Measured tree/filetype/largest/folder analysis and three SHA-256 duplicate groups
+VERIFIED No automatic keeper; quarantining the keeper is refused
+VERIFIED Tampered plan, missing approval and denied native consent produce no effects
+VERIFIED Three real quarantines verified, explicit keeper retained, physical reclaimed bytes remain zero
+VERIFIED Cleanup receipts are isolated from the organization journal
+VERIFIED Restore refuses occupied original paths without overwrite or automatic rename
+VERIFIED Changed vault content excluded even with same size and restored mtime; safe items restore
+VERIFIED All 40 fixture source hashes are intact after verified recovery
+VERIFIED Report distinguishes estimate, verified vault bytes, restored bytes and physical reclaim
+VERIFIED Dedicated vault journal survives restart
+VERIFIED Revoked source and vault grants refuse apply
+Verified checks: 11
+
+STDERR:
+
+EXIT: 0
+DURATION: 1.34s

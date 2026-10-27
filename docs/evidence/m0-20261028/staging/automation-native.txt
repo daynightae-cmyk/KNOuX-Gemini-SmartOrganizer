@@ -1,0 +1,41 @@
+$ node --max-old-space-size=160 scripts/automation-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+  ✓ 12 tools, 5 stages, 5 gates and 8 templates
+  ✓ snapshot measures storage, templates, runtime and sources
+  ✓ templates are typed drafts without execution
+  ✓ a valid workflow saves as version 1
+  ✓ saving the same workflow increments its version
+  ✓ workflow store reloads the latest version
+  ✓ dry-run is deterministic and blocks action execution
+  ✓ cycles, missing actions and unreachable nodes are rejected
+  ✓ dry-run journal records one preview and no execution
+  ✓ daily schedule preview returns five local occurrences
+  ✓ foreign timezone is refused
+  ✓ import validation accepts a valid workflow
+  ✓ import validation rejects a foreign schema
+  ✓ report states that no workflow ran
+  ✓ bridge exposes no workflow execution method
+  ✓ a new bridge instance reloads persisted versions and journal
+  ✓ cancellation settles without a snapshot
+  ✓ native source contains no executor, shell, scheduler timer or external channel
+  ✓ renderer wires every Flow Studio tool to a specialised workbench
+{
+  "ok": true,
+  "tools": 12,
+  "stages": 5,
+  "gates": 5,
+  "templates": 8,
+  "savedVersion": 2,
+  "dryRunSteps": 4,
+  "occurrences": 5,
+  "journalEntries": 1,
+  "failures": []
+}
+[automation-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.29s

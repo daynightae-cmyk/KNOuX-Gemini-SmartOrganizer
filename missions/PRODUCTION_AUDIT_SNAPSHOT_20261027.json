@@ -1,0 +1,214 @@
+{
+    "generatedAtUtc":  "2026-10-27T10:21:04.1602457Z",
+    "disclaimer":  "Read-only point-in-time filesystem/receipts audit. No tests executed by collector; historical evidence does not imply current run passes.",
+    "repo":  "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+    "branch":  "integration/final-acceptance-20261027",
+    "commit":  "516f0ed0ff41a39e59b98938faa7a14d3d199063",
+    "remote":  "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git",
+    "dirtyTrackedSourceCount":  1,
+    "modifiedEvidenceCount":  87,
+    "totalGitStatusRows":  99,
+    "worktrees":  [
+                      "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer                          516f0ed [integration/final-acceptance-20261027]",
+                      "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/closure       516f0ed [integration/visual-final-closure-20261027]",
+                      "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/integration   96544ec [integration/visual-day-night-20261027]",
+                      "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/qoder-visual  92c103f [feat/knoux-visual-home-follow-20261027]",
+                      "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/visual-sprint c5d93a8 [feat/knoux-visual-day-night-sprint-20261027]"
+                  ],
+    "missions":  {
+                     "missionHeadingCounts":  {
+                                                  "14_SETTINGS_ASSISTANT_FULLSTACK_MISSION.md":  8,
+                                                  "04_GOOGLE_WORKSPACE_FULLSTACK_MISSION.md":  10,
+                                                  "01_HOME_FULLSTACK_MISSION.md":  12,
+                                                  "13_AUTOMATION_FULLSTACK_MISSION.md":  12,
+                                                  "10_SYSTEM_FULLSTACK_MISSION.md":  36,
+                                                  "03_ORGANIZATION_STUDIO_FULLSTACK_MISSION.md":  9,
+                                                  "05_APPLICATIONS_FULLSTACK_MISSION.md":  12,
+                                                  "12_SERVICES_FULLSTACK_MISSION.md":  12,
+                                                  "09_STARTUP_FULLSTACK_MISSION.md":  12,
+                                                  "06_FILES_FULLSTACK_MISSION.md":  12,
+                                                  "07_STORAGE_FULLSTACK_MISSION.md":  12,
+                                                  "02_SMART_SCAN_FULLSTACK_MISSION.md":  10,
+                                                  "11_REPAIR_FULLSTACK_MISSION.md":  12,
+                                                  "08_CLEANUP_FULLSTACK_MISSION.md":  12
+                                              },
+                     "workbenchRows":  181,
+                     "workbenchStates":  {
+                                             "AUDIT_REQUIRED":  92,
+                                             "MEASURED_READ_ONLY":  44,
+                                             "IMPLEMENTED_AND_TESTED":  0,
+                                             "PARTIAL":  25,
+                                             "UNSUPPORTED":  2,
+                                             "CONNECTABLE_AWAITING_CONSENT":  1,
+                                             "BLOCKED":  17
+                                         },
+                     "advertisedMatrixRows":  181
+                 },
+    "visual":  {
+                   "currentEvidenceReports":  {
+                                                  "studio":  {
+                                                                 "simpleRenderFailures":  0,
+                                                                 "orbitVisibleRows":  2,
+                                                                 "rows":  2,
+                                                                 "state":  "FILE_PRESENT"
+                                                             },
+                                                  "smart_scan":  {
+                                                                     "simpleRenderFailures":  0,
+                                                                     "orbitVisibleRows":  4,
+                                                                     "rows":  4,
+                                                                     "state":  "FILE_PRESENT"
+                                                                 },
+                                                  "startup":  {
+                                                                  "simpleRenderFailures":  0,
+                                                                  "orbitVisibleRows":  4,
+                                                                  "rows":  4,
+                                                                  "state":  "FILE_PRESENT"
+                                                              },
+                                                  "home":  {
+                                                               "simpleRenderFailures":  0,
+                                                               "orbitVisibleRows":  0,
+                                                               "rows":  4,
+                                                               "state":  "FILE_PRESENT"
+                                                           },
+                                                  "storage":  {
+                                                                  "simpleRenderFailures":  0,
+                                                                  "orbitVisibleRows":  4,
+                                                                  "rows":  4,
+                                                                  "state":  "FILE_PRESENT"
+                                                              },
+                                                  "services":  {
+                                                                   "simpleRenderFailures":  0,
+                                                                   "orbitVisibleRows":  4,
+                                                                   "rows":  4,
+                                                                   "state":  "FILE_PRESENT"
+                                                               },
+                                                  "repair":  {
+                                                                 "simpleRenderFailures":  0,
+                                                                 "orbitVisibleRows":  4,
+                                                                 "rows":  4,
+                                                                 "state":  "FILE_PRESENT"
+                                                             },
+                                                  "files":  {
+                                                                "simpleRenderFailures":  0,
+                                                                "orbitVisibleRows":  4,
+                                                                "rows":  4,
+                                                                "state":  "FILE_PRESENT"
+                                                            },
+                                                  "automation":  {
+                                                                     "simpleRenderFailures":  0,
+                                                                     "orbitVisibleRows":  0,
+                                                                     "rows":  2,
+                                                                     "state":  "FILE_PRESENT"
+                                                                 },
+                                                  "cleanup":  {
+                                                                  "simpleRenderFailures":  0,
+                                                                  "orbitVisibleRows":  4,
+                                                                  "rows":  4,
+                                                                  "state":  "FILE_PRESENT"
+                                                              },
+                                                  "system":  {
+                                                                 "simpleRenderFailures":  0,
+                                                                 "orbitVisibleRows":  4,
+                                                                 "rows":  4,
+                                                                 "state":  "FILE_PRESENT"
+                                                             },
+                                                  "applications":  {
+                                                                       "simpleRenderFailures":  0,
+                                                                       "orbitVisibleRows":  4,
+                                                                       "rows":  4,
+                                                                       "state":  "FILE_PRESENT"
+                                                                   }
+                                              },
+                   "referenceFiles":  {
+                                          "night":  [
+                                                        "01_organization-studio.png",
+                                                        "02_files-instant-search.png",
+                                                        "03_smart-scan.png",
+                                                        "04_applications.png",
+                                                        "05_storage.png",
+                                                        "06_cleanup.png",
+                                                        "07_startup.png",
+                                                        "08_system.png",
+                                                        "09_repair.png",
+                                                        "10_services.png"
+                                                    ],
+                                          "brand":  [
+                                                        "00_knoux-circular-logo-day.png"
+                                                    ],
+                                          "day":  [
+                                                      "00_home-command-center.png",
+                                                      "01_organization-studio.png",
+                                                      "02_files-instant-search.png",
+                                                      "03_smart-scan.png",
+                                                      "04_applications.png",
+                                                      "05_storage.png",
+                                                      "06_cleanup.png",
+                                                      "07_startup.png",
+                                                      "08_system.png",
+                                                      "09_repair.png",
+                                                      "10_services.png"
+                                                  ]
+                                      }
+               },
+    "nativeSmoke":  {
+                        "exitCode":  1,
+                        "passedChecks":  [
+                                             "securityOk",
+                                             "bridgeOk",
+                                             "providerOk",
+                                             "studioOk",
+                                             "filesOk",
+                                             "storageOk",
+                                             "scanOk",
+                                             "appsOk",
+                                             "cleanupOk",
+                                             "startupOk",
+                                             "systemLayoutOk",
+                                             "repairLayoutOk",
+                                             "automationLayoutOk",
+                                             "workspaceOk",
+                                             "workspaceLayoutOk",
+                                             "googleOk",
+                                             "settingsOk",
+                                             "settingsLayoutOk",
+                                             "homeOk",
+                                             "homeLayoutOk",
+                                             "filesWorkbenchOk",
+                                             "filesWorkbenchLayoutOk",
+                                             "storageWorkbenchOk",
+                                             "storageWorkbenchLayoutOk",
+                                             "scanWorkbenchOk",
+                                             "scanWorkbenchLayoutOk",
+                                             "appsWorkbenchOk",
+                                             "appsWorkbenchLayoutOk",
+                                             "cleanupWorkbenchOk",
+                                             "cleanupWorkbenchLayoutOk",
+                                             "startupWorkbenchOk",
+                                             "startupWorkbenchLayoutOk",
+                                             "windowControlOk"
+                                         ],
+                        "startedAt":  "2026-10-27T09:54:41.773Z",
+                        "failedChecks":  [
+                                             "smartScanLayoutOk",
+                                             "appsLayoutOk",
+                                             "cleanupLayoutOk",
+                                             "startupLayoutOk",
+                                             "systemOk",
+                                             "repairOk",
+                                             "servicesOk",
+                                             "servicesLayoutOk",
+                                             "automationOk",
+                                             "studioWorkbenchOk",
+                                             "studioWorkbenchLayoutOk",
+                                             "screenshotOk"
+                                         ],
+                        "finishedAt":  "2026-10-27T10:05:03.268Z",
+                        "receiptOk":  false
+                    },
+    "package":  {
+                    "configExists":  true,
+                    "signingConfigMentioned":  true,
+                    "packagedOutputExists":  false,
+                    "appVersion":  "0.4.0-gemini.0"
+                }
+}

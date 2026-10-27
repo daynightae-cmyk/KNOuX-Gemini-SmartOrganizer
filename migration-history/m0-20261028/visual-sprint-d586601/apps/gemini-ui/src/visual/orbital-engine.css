@@ -1,0 +1,458 @@
+/* ==========================================================================
+   KNOuX ORBITAL SERVICE ENGINE
+   Single authoritative stylesheet for .knx-orbit.
+
+   Loaded after visual-sprint.css / reference-polish.css so it replaces the
+   earlier layered orbit overrides. One component tree, one geometry; only the
+   design tokens differ between day and night.
+   ========================================================================== */
+
+.visual-sprint .knx-orbit {
+  /* geometry ------------------------------------------------------------ */
+  --orbit-rx: 36%;
+  --orbit-ry: 39%;
+
+  /* material tokens: DAY (canonical) ------------------------------------ */
+  --orbit-ink: var(--v-ink);
+  --orbit-muted: var(--v-muted);
+  --orbit-ring: rgba(124, 58, 237, .13);
+  --orbit-ring-strong: rgba(124, 58, 237, .34);
+  --orbit-accent: #8b5cf6;
+  --orbit-node: #a78bfa;
+  --orbit-chip-bg: linear-gradient(158deg, #ffffff 0%, #fbf8ff 100%);
+  --orbit-chip-border: rgba(124, 58, 237, .16);
+  --orbit-chip-shadow:
+    0 10px 22px rgba(76, 29, 149, .11),
+    0 2px 4px rgba(76, 29, 149, .06),
+    inset 0 1px 0 #ffffff;
+  --orbit-core-bg: radial-gradient(circle at 50% 4%, #ffffff 0%, #f7f1ff 52%, #ece0ff 100%);
+  --orbit-core-border: rgba(124, 58, 237, .22);
+  --orbit-core-shadow:
+    0 26px 54px rgba(76, 29, 149, .14),
+    0 4px 12px rgba(76, 29, 149, .07),
+    inset 0 1px 0 #ffffff;
+  --orbit-halo: radial-gradient(circle, rgba(167, 139, 250, .34), transparent 66%);
+  --orbit-label-shadow: none;
+
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 540px;
+  aspect-ratio: 540 / 344;
+  min-height: 232px;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: none;
+  container-type: inline-size;
+  container-name: orbit;
+  isolation: isolate;
+  color: var(--orbit-ink);
+}
+
+/* NIGHT ------------------------------------------------------------------ */
+html[data-theme='dark'] .visual-sprint .knx-orbit,
+.visual-sprint[data-theme='dark'] .knx-orbit {
+  --orbit-ring: rgba(167, 139, 250, .16);
+  --orbit-ring-strong: rgba(196, 181, 253, .45);
+  --orbit-accent: #b794ff;
+  --orbit-node: #c4b5fd;
+  --orbit-chip-bg: linear-gradient(158deg, rgba(42, 34, 84, .94) 0%, rgba(30, 24, 62, .96) 100%);
+  --orbit-chip-border: rgba(167, 139, 250, .26);
+  --orbit-chip-shadow:
+    0 12px 26px rgba(5, 3, 24, .55),
+    inset 0 1px 0 rgba(255, 255, 255, .09);
+  --orbit-core-bg: radial-gradient(circle at 50% 4%, rgba(60, 46, 116, .96) 0%, rgba(36, 27, 76, .97) 60%, rgba(26, 20, 58, .99) 100%);
+  --orbit-core-border: rgba(167, 139, 250, .32);
+  --orbit-core-shadow:
+    0 0 46px rgba(139, 92, 246, .28),
+    0 26px 54px rgba(3, 2, 18, .6),
+    inset 0 1px 0 rgba(255, 255, 255, .1);
+  --orbit-halo: radial-gradient(circle, rgba(139, 92, 246, .38), transparent 68%);
+  --orbit-label-shadow: 0 1px 6px rgba(4, 2, 20, .85);
+}
+
+/* ambient light --------------------------------------------------------- */
+.visual-sprint .knx-orbit-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 86%;
+  height: 92%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--orbit-halo);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* rings ----------------------------------------------------------------- */
+.visual-sprint .knx-orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--orbit-ring);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.visual-sprint .knx-orbit-ring-outer {
+  width: 74%;
+  height: 78%;
+}
+
+.visual-sprint .knx-orbit-ring-inner {
+  width: 57%;
+  height: 60%;
+  border-color: var(--orbit-ring-strong);
+  opacity: .55;
+}
+
+.visual-sprint .knx-orbit-arc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 57%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: conic-gradient(from -90deg,
+      transparent 0deg 26deg,
+      var(--orbit-accent) 52deg,
+      #c4b5fd 96deg,
+      transparent 132deg 360deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  filter: drop-shadow(0 0 7px rgba(167, 139, 250, .7));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* orbit nodes ----------------------------------------------------------- */
+.visual-sprint .knx-orbit-node {
+  position: absolute;
+  left: calc(50% + var(--orbit-rx) * cos(var(--orbit-angle)));
+  top: calc(50% + var(--orbit-ry) * sin(var(--orbit-angle)));
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--orbit-node);
+  box-shadow: 0 0 9px rgba(139, 92, 246, .6);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.visual-sprint .knx-orbit-node-soft {
+  width: 5px;
+  height: 5px;
+  background: var(--orbit-ring-strong);
+  box-shadow: none;
+  opacity: .62;
+}
+
+/* centre core ----------------------------------------------------------- */
+.visual-sprint .knx-orbit-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 35%;
+  height: auto;
+  aspect-ratio: 1;
+  min-width: 112px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 12px 30px;
+  border-radius: 50%;
+  border: 1px solid var(--orbit-core-border);
+  background: var(--orbit-core-bg);
+  box-shadow: var(--orbit-core-shadow);
+  color: var(--orbit-ink);
+  cursor: pointer;
+  text-align: center;
+  z-index: 4;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.visual-sprint .knx-orbit-core:hover:not(:disabled) {
+  transform: translate(-50%, -50%) scale(1.018);
+}
+
+.visual-sprint .knx-orbit-core:disabled {
+  cursor: not-allowed;
+}
+
+.visual-sprint .knx-orbit-core-mark {
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.visual-sprint .knx-orbit-core-mark .knx-official-mark {
+  width: clamp(24px, 7.4cqw, 38px);
+  height: auto;
+  object-fit: contain;
+}
+
+.visual-sprint .knx-orbit-core strong {
+  font-size: clamp(10.5px, 3.5cqw, 15.5px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -.012em;
+  color: var(--orbit-ink);
+  max-width: 100%;
+  text-wrap: balance;
+}
+
+.visual-sprint .knx-orbit-core-sub {
+  font-size: clamp(8.5px, 2.4cqw, 10.5px);
+  line-height: 1.25;
+  color: var(--orbit-muted);
+  max-width: 92%;
+  text-wrap: balance;
+}
+
+.visual-sprint .knx-orbit-play {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: clamp(30px, 8.6cqw, 42px);
+  height: clamp(30px, 8.6cqw, 42px);
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(140deg, #a78bfa 0%, #7c3aed 52%, #5b21b6 100%);
+  box-shadow:
+    0 8px 20px rgba(91, 33, 182, .42),
+    inset 0 1px 0 rgba(255, 255, 255, .45);
+}
+
+.visual-sprint .knx-orbit-spinner {
+  width: 44%;
+  height: 44%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .35);
+  border-top-color: #fff;
+  animation: knx-orbit-spin .8s linear infinite;
+}
+
+/* satellites ------------------------------------------------------------ */
+.visual-sprint .knx-orbit-tools {
+  display: contents;
+}
+
+.visual-sprint .knx-orbit-tool {
+  position: absolute;
+  left: calc(50% + var(--orbit-rx) * cos(var(--orbit-angle)));
+  top: calc(50% + var(--orbit-ry) * sin(var(--orbit-angle)));
+  transform: translate(-50%, -58%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: clamp(76px, 20cqw, 108px);
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--orbit-ink);
+  cursor: pointer;
+  text-align: center;
+  z-index: 3;
+  transition: transform .18s ease;
+}
+
+.visual-sprint .knx-orbit-tool:hover:not(:disabled) {
+  transform: translate(-50%, -58%) scale(1.05);
+}
+
+.visual-sprint .knx-orbit-tool:disabled {
+  cursor: not-allowed;
+}
+
+.visual-sprint .knx-orbit-chip {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 10.6cqw, 54px);
+  height: clamp(38px, 10.6cqw, 54px);
+  border-radius: 16px;
+  border: 1px solid var(--orbit-chip-border);
+  background: var(--orbit-chip-bg);
+  box-shadow: var(--orbit-chip-shadow);
+  color: var(--orbit-accent);
+  transition: box-shadow .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.visual-sprint .knx-orbit-chip svg {
+  width: 54%;
+  height: 54%;
+}
+
+.visual-sprint .knx-orbit-chip-dot {
+  display: none;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--orbit-core-bg);
+  background: var(--orbit-accent);
+}
+
+.visual-sprint .knx-orbit-label {
+  font-size: clamp(9.5px, 2.55cqw, 11.5px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.005em;
+  color: var(--orbit-ink);
+  text-shadow: var(--orbit-label-shadow);
+  max-width: clamp(76px, 20cqw, 108px);
+  overflow-wrap: anywhere;
+}
+
+/* satellite tones ------------------------------------------------------- */
+.visual-sprint .knx-orbit-tool.tone-violet .knx-orbit-chip { color: #7c3aed; }
+.visual-sprint .knx-orbit-tool.tone-blue   .knx-orbit-chip { color: #2563eb; }
+.visual-sprint .knx-orbit-tool.tone-teal   .knx-orbit-chip { color: #0d9488; }
+.visual-sprint .knx-orbit-tool.tone-amber  .knx-orbit-chip { color: #d97706; }
+.visual-sprint .knx-orbit-tool.tone-emerald .knx-orbit-chip { color: #059669; }
+.visual-sprint .knx-orbit-tool.tone-rose   .knx-orbit-chip { color: #e11d48; }
+.visual-sprint .knx-orbit-tool.tone-indigo .knx-orbit-chip { color: #4f46e5; }
+.visual-sprint .knx-orbit-tool.tone-sky    .knx-orbit-chip { color: #0284c7; }
+
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-violet .knx-orbit-chip { color: #c4b5fd; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-blue   .knx-orbit-chip { color: #7dd3fc; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-teal   .knx-orbit-chip { color: #5eead4; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-amber  .knx-orbit-chip { color: #fcd34d; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-emerald .knx-orbit-chip { color: #6ee7b7; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-rose   .knx-orbit-chip { color: #fda4af; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-indigo .knx-orbit-chip { color: #a5b4fc; }
+html[data-theme='dark'] .visual-sprint .knx-orbit-tool.tone-sky    .knx-orbit-chip { color: #7dd3fc; }
+
+/* satellite states ------------------------------------------------------ */
+.visual-sprint .knx-orbit-tool.is-active .knx-orbit-chip {
+  border-color: var(--orbit-accent);
+  box-shadow: var(--orbit-chip-shadow), 0 0 0 2px rgba(139, 92, 246, .18), 0 0 18px rgba(139, 92, 246, .3);
+}
+
+.visual-sprint .knx-orbit-tool.is-active .knx-orbit-chip-dot { display: block; }
+
+.visual-sprint .knx-orbit-tool.is-active .knx-orbit-label {
+  color: var(--orbit-accent);
+  font-weight: 700;
+}
+
+.visual-sprint .knx-orbit-tool.is-loading .knx-orbit-chip-dot {
+  display: block;
+  background: #f59e0b;
+  animation: knx-orbit-pulse 1.4s ease-in-out infinite;
+}
+
+.visual-sprint .knx-orbit-tool.is-failed .knx-orbit-chip {
+  border-color: rgba(244, 63, 94, .6);
+  color: #e11d48;
+}
+
+.visual-sprint .knx-orbit-tool.is-failed .knx-orbit-chip-dot {
+  display: block;
+  background: #f43f5e;
+}
+
+.visual-sprint .knx-orbit-tool.is-disabled,
+.visual-sprint .knx-orbit-tool.is-unavailable {
+  opacity: .45;
+  filter: saturate(.35);
+}
+
+.visual-sprint .knx-orbit-tool.is-disabled .knx-orbit-label,
+.visual-sprint .knx-orbit-tool.is-unavailable .knx-orbit-label {
+  text-decoration: none;
+}
+
+/* core runtime states --------------------------------------------------- */
+.visual-sprint .knx-orbit.is-loading .knx-orbit-arc,
+.visual-sprint .knx-orbit.is-running .knx-orbit-arc {
+  animation: knx-orbit-spin 9s linear infinite;
+}
+
+.visual-sprint .knx-orbit.is-failed .knx-orbit-core {
+  border-color: rgba(244, 63, 94, .5);
+}
+
+.visual-sprint .knx-orbit.is-unavailable .knx-orbit-core {
+  opacity: .62;
+}
+
+/* compact placements ---------------------------------------------------- */
+.visual-sprint[data-visual-section='files'] .knx-files-orbit .knx-orbit {
+  transform: none;
+  max-width: 320px;
+  min-height: 200px;
+}
+
+/* Studio keeps its own column shell; the wheel now defines the height so the
+   shared engine can never be clipped by a fixed 386px band. */
+.visual-sprint[data-visual-section='studio'] .knx-reference-orbit {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* screen-reader helper -------------------------------------------------- */
+.knx-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* motion ---------------------------------------------------------------- */
+@keyframes knx-orbit-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes knx-orbit-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .45; transform: scale(.72); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-sprint .knx-orbit *,
+  .visual-sprint .knx-orbit *::before,
+  .visual-sprint .knx-orbit *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* narrow workspaces ----------------------------------------------------- */
+/* narrow workspaces: geometry already scales with percentage radii and cqw
+   type; only the soft mid-ring dots drop out when the wheel gets very small. */
+@container orbit (max-width: 340px) {
+  .visual-sprint .knx-orbit-node-soft { display: none; }
+  .visual-sprint .knx-orbit-core { min-width: 92px; padding: 8px 10px 18px; }
+}
+
+/* Very small wheels keep the centre action read, not the supporting line. */
+@container orbit (max-width: 400px) {
+  .visual-sprint .knx-orbit-core-sub { display: none; }
+  .visual-sprint .knx-orbit-core { padding-bottom: 22px; }
+}

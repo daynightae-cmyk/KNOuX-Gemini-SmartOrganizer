@@ -9,12 +9,14 @@ import React from 'react';
 import {
   Activity,
   Ban,
+  Boxes,
   CheckCircle2,
   FolderCheck,
   FolderPlus,
   Loader2,
   Lock,
   RefreshCw,
+  Rocket,
   Search,
   ShieldCheck,
   Target,
@@ -23,6 +25,8 @@ import {
 import type { ScanSession, StudioSource } from '../../shared/native-contracts';
 import { modeLabel, sessionStatusLabel } from './model';
 import type { ActiveScanView } from './smartScan.types';
+import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 
 export interface SmartScanHeroProps {
   isArabic: boolean;
@@ -39,6 +43,8 @@ export interface SmartScanHeroProps {
   onRunQuick: () => void;
   onRunDeep: () => void;
   onCancel: () => void;
+  /** Opens a measured scan service workbench. Omit to hide workbench satellites. */
+  onOpenService?: (serviceId: string) => void;
 }
 
 export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
@@ -56,19 +62,17 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
   onRunQuick,
   onRunDeep,
   onCancel,
+  onOpenService,
 }) => {
   const isScanning = Boolean(active) || busy;
   const sourceReady = Boolean(selectedSource && selectedSource.status === 'ready' && selectedSource.fileCount > 0);
-  const runningStage = active?.stages.find((stage) => stage.status === 'running') || null;
-  const completedStages = active?.stages.filter((stage) => ['complete', 'partial', 'failed', 'skipped', 'unsupported', 'cancelled'].includes(stage.status)).length || 0;
-  const totalStages = active?.stages.length || 0;
 
   return (
-    <div data-testid="scan-hero" className="scan-hero shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-3.5 sm:p-4 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+    <div data-testid="scan-hero" className="scan-hero shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-3.5 sm:p-4 shadow-[0_0_25px_rgba(14,165,233,0.22)] grid grid-cols-1 gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(300px,400px)] xl:items-start">
       <div className="absolute -top-10 -right-10 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
       <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="z-10 flex items-center gap-3.5 min-w-0">
+      <div className="z-10 flex items-center gap-3.5 min-w-0 xl:col-start-1 xl:row-start-1 xl:self-center">
         <div className="relative w-11 h-11 rounded-xl bg-gradient-to-tr from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_18px_rgba(56,189,248,0.6)] border border-cyan-300/60 shrink-0">
           <Target className="w-5 h-5 text-white" />
           <span className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-[#061833] ${isScanning ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`} />
@@ -89,18 +93,93 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
             </span>
           </div>
 
-          <h1 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300 tracking-tight leading-snug">
+          <h1 className="scan-hero-title">
             {isArabic ? 'الفحص الذكي' : 'Smart Scan'}
           </h1>
-          <p className="scan-hero-copy text-[11px] text-slate-300 max-w-2xl font-medium leading-relaxed">
+          <p className="scan-hero-copy">
             {isArabic
-              ? 'قياس حقيقي للمجلد المصرح به، والسعة، وصحة النظام، والمكررات، والإقلاع، والبرامج. لا أرقام تجريبية.'
-              : 'Real measurement of the authorized folder, capacity, system health, duplicates, startup and software. No design numbers.'}
+              ? 'افحص جهازك بحثًا عن مشكلات الأداء ومخاطر الأمان وآثار الخصوصية والملفات غير الضرورية، بقياس آمن للقراءة فقط.'
+              : 'Scan your PC for performance issues, security risks, privacy traces, and unnecessary files with intelligent, safe scanning technology.'}
           </p>
+          <HeroFeatures
+            items={[
+              {
+                icon: <ShieldCheck className="w-4 h-4" />,
+                title: isArabic ? 'فحص شامل' : 'Comprehensive scanning',
+                detail: isArabic ? 'يقيس المجلد المصرح به ومصادر Windows المدعومة في مسار واحد.' : 'Checks the authorized folder and supported Windows sources in one pass.',
+                tone: '#7c5cff',
+              },
+              {
+                icon: <Zap className="w-4 h-4" />,
+                title: isArabic ? 'يكشف المشكلات مبكرًا' : 'Finds issues early',
+                detail: isArabic ? 'كل نتيجة مرتبطة بجلسة مقيسة، لا بأرقام تصميمية.' : 'Every finding stays tied to a measured session, never a design number.',
+                tone: '#f59e0b',
+              },
+              {
+                icon: <Activity className="w-4 h-4" />,
+                title: isArabic ? 'توصيات قابلة للتنفيذ' : 'Actionable recommendations',
+                detail: isArabic ? 'الفحص للقراءة فقط، والتنظيف خطوة منفصلة محجوبة بالموافقة.' : 'Scanning is read-only; cleanup is a separate, approval-gated step.',
+                tone: '#10b981',
+              },
+            ]}
+          />
         </div>
       </div>
 
-      <div className="z-10 w-full xl:w-auto shrink-0">
+      <OrbitalControl title={isArabic ? 'بدء الفحص الذكي' : 'Start Smart Scan'} subtitle={isArabic ? 'تحليل آمن للقراءة فقط' : 'Safe, read-only analysis'}
+        onActivate={sourceReady ? onRunQuick : onAuthorizeSource} disabled={!nativeAvailable || isScanning} running={isScanning}
+        tools={[
+            { id: 'quick', label: isArabic ? 'فحص سريع' : 'Quick Scan', icon: Zap, onClick: onRunQuick, disabled: !nativeAvailable || !sourceReady || isScanning, hint: isArabic ? 'يكتب خطة قياس للقراءة فقط' : 'Measured read-only plan' },
+            { id: 'deep', label: isArabic ? 'فحص عميق' : 'Deep Scan', icon: Search, onClick: onRunDeep, disabled: !nativeAvailable || !sourceReady || isScanning, hint: isArabic ? 'مسح موسّع للقراءة فقط' : 'Extended read-only sweep' },
+            { id: 'startup', label: isArabic ? 'بدء التشغيل' : 'Startup', icon: Rocket, onClick: () => onOpenService?.('startup_impact_check'), disabled: !onOpenService, hint: isArabic ? 'أثر برامج البدء' : 'Startup impact evidence' },
+            { id: 'health', label: isArabic ? 'صحة النظام' : 'System Health', icon: Activity, onClick: () => onOpenService?.('system_health_pulse'), disabled: !onOpenService, hint: isArabic ? 'نبض النظام المقيس' : 'Measured health pulse' },
+            { id: 'apps', label: isArabic ? 'التطبيقات' : 'Applications', icon: Boxes, onClick: () => onOpenService?.('app_health_review'), disabled: !onOpenService, hint: isArabic ? 'صحة التطبيقات' : 'Application health' },
+            { id: 'privacy', label: isArabic ? 'الخصوصية' : 'Privacy', icon: ShieldCheck, onClick: () => onOpenService?.('privacy_trace_check'), disabled: !onOpenService, hint: isArabic ? 'آثار الخصوصية' : 'Privacy traces' },
+        ]} />
+    </div>
+  );
+};
+
+/** Source authorization and measured scan launch, hosted in the status rail. */
+export interface SmartScanSourceBarProps {
+  isArabic: boolean;
+  nativeAvailable: boolean;
+  sources: StudioSource[];
+  selectedSource: StudioSource | null;
+  active: ActiveScanView | null;
+  session: ScanSession | null;
+  busy: boolean;
+  onSelectSource: (sourceId: string) => void;
+  onAuthorizeSource: () => void;
+  onIndexSource: () => void;
+  onRefreshSources: () => void;
+  onRunQuick: () => void;
+  onRunDeep: () => void;
+  onCancel: () => void;
+}
+
+export const SmartScanSourceBar: React.FC<SmartScanSourceBarProps> = ({
+  isArabic,
+  nativeAvailable,
+  sources,
+  selectedSource,
+  active,
+  session,
+  busy,
+  onSelectSource,
+  onAuthorizeSource,
+  onIndexSource,
+  onRefreshSources,
+  onRunQuick,
+  onRunDeep,
+  onCancel,
+}) => {
+  const sourceReady = Boolean(selectedSource && selectedSource.status === 'ready' && selectedSource.fileCount > 0);
+  const runningStage = active?.stages.find((stage) => stage.status === 'running') || null;
+  const completedStages = active?.stages.filter((stage) => ['complete', 'partial', 'failed', 'skipped', 'unsupported', 'cancelled'].includes(stage.status)).length || 0;
+  const totalStages = active?.stages.length || 0;
+  return (
+      <div className="knx-scan-controls knx-scan-source-bar">
         {active ? (
           <div className="rounded-xl border border-cyan-500/35 bg-[#041226]/80 p-2.5 sm:min-w-[340px]">
             <div className="flex items-center justify-between gap-2">
@@ -143,14 +222,14 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
             ) : null}
           </div>
         ) : (
-          <div className="rounded-xl border border-[#16406f] bg-[#041226]/70 p-2.5 space-y-2">
-            <div className="flex items-center gap-1.5 min-w-0">
+          <div className="knx-scan-source rounded-xl border border-[#16406f] bg-[#041226]/70">
+            <div className="knx-scan-source-row">
               <FolderCheck className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
               <select
                 value={selectedSource?.id || ''}
                 onChange={(event) => onSelectSource(event.target.value)}
                 disabled={busy || !nativeAvailable || !sources.length}
-                className="min-w-0 flex-1 rounded-lg bg-[#071731] border border-[#16406f] text-[10px] text-slate-200 px-2 py-1.5 outline-none focus:border-cyan-400/60 disabled:opacity-50 cursor-pointer"
+                className="knx-scan-source-select min-w-0 flex-1 rounded-lg bg-[#071731] border border-[#16406f] text-[10px] text-slate-200 px-2 py-1.5 outline-none focus:border-cyan-400/60 disabled:opacity-50 cursor-pointer"
                 data-testid="scan-source-select"
                 aria-label={isArabic ? 'المجلد المصرح به' : 'Authorized source folder'}
               >
@@ -180,10 +259,28 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
               >
                 <RefreshCw className="w-3.5 h-3.5" />
               </button>
+              <button
+                type="button"
+                onClick={onRunQuick}
+                disabled={busy || !nativeAvailable || !sourceReady}
+                className="knx-scan-run is-quick"
+              >
+                <Zap className="w-3.5 h-3.5" />
+                {isArabic ? 'فحص سريع' : 'Quick Scan'}
+              </button>
+              <button
+                type="button"
+                onClick={onRunDeep}
+                disabled={busy || !nativeAvailable || !sourceReady}
+                className="knx-scan-run is-deep"
+              >
+                <Search className="w-3.5 h-3.5" />
+                {isArabic ? 'فحص عميق' : 'Deep Scan'}
+              </button>
             </div>
 
-            <div className="flex items-center justify-between gap-2 text-[9px]">
-              <span className={`flex items-center gap-1 font-mono truncate ${sourceReady ? 'text-emerald-300' : 'text-amber-300'}`}>
+            <div className="knx-scan-source-hint">
+              <span className={sourceReady ? 'is-good' : 'is-warn'}>
                 {sourceReady ? <ShieldCheck className="w-3 h-3" /> : <Activity className="w-3 h-3" />}
                 {selectedSource
                   ? sourceReady
@@ -196,32 +293,11 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
                   type="button"
                   onClick={onIndexSource}
                   disabled={busy}
-                  className="px-2 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-[9px] font-bold text-amber-200 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                  className="px-2 py-0.5 rounded-md bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-[9px] font-bold text-amber-200 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
                 >
                   {isArabic ? 'فهرسة الآن' : 'Index now'}
                 </button>
               ) : null}
-            </div>
-
-            <div className="grid grid-cols-2 gap-1.5">
-              <button
-                type="button"
-                onClick={onRunQuick}
-                disabled={busy || !nativeAvailable || !sourceReady}
-                className="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-[10px] font-black shadow-[0_0_14px_rgba(37,99,235,0.45)] border border-cyan-300/40 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
-              >
-                <Zap className="w-3.5 h-3.5" />
-                {isArabic ? 'فحص سريع' : 'Quick Scan'}
-              </button>
-              <button
-                type="button"
-                onClick={onRunDeep}
-                disabled={busy || !nativeAvailable || !sourceReady}
-                className="px-2.5 py-1.5 rounded-lg bg-[#0d2748] hover:bg-[#153a63] border border-indigo-400/40 text-indigo-200 text-[10px] font-black transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
-              >
-                <Search className="w-3.5 h-3.5" />
-                {isArabic ? 'فحص عميق' : 'Deep Scan'}
-              </button>
             </div>
           </div>
         )}
@@ -233,6 +309,5 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
           </div>
         ) : null}
       </div>
-    </div>
   );
 };

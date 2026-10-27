@@ -1,0 +1,153 @@
+{
+  "head": "5b5018801dd9fc00fbe843ecf430c4302d664461",
+  "branch": "integration/knoux-unified-20261028",
+  "startedAt": "2026-10-27T22:31:43Z",
+  "failures": [],
+  "counts": {
+    "wip": {
+      "checked": 916,
+      "matched": 916,
+      "external": 9,
+      "externalMatched": 9,
+      "worktreeLinks": 7,
+      "worktreeLinksMatched": 7,
+      "statuses": {
+        "INTEGRATED": 470,
+        "VERIFIED_DUPLICATE": 462
+      }
+    },
+    "artifact": {
+      "archives": 5,
+      "archivesMatched": 5,
+      "checked": 1815,
+      "matched": 1815,
+      "statuses": {
+        "ALL_MEMBERS_ACCOUNTED": 5,
+        "VERIFIED_DUPLICATE": 62,
+        "INTEGRATED": 823
+      }
+    },
+    "visualConflict": {
+      "checked": 70,
+      "archivesMatched": 70,
+      "currentMatched": 53,
+      "currentEvolved": [
+        {
+          "path": "apps/gemini-ui/src/App.tsx",
+          "recorded": "fd43caa317a0bdb1dad876b363987984b96a7d95d4be175a8679c97b9488c3d4",
+          "current": "e8059bf9173c087d008a7bf37d87c1b679070b8eeec23b6b1c4425759198b81d",
+          "reason": "Keep all current reference sections and both real-operation hosts; engine import already resolves last."
+        },
+        {
+          "path": "apps/gemini-ui/src/apps/ApplicationsHero.tsx",
+          "recorded": "7eac76392e8ce36f4860d299bc32e5c092fd28f4c94a4e4581819680858240b7",
+          "current": "3572fbc3de19a8751c60976a71ccf15becbc42e225464bb516ad58e0b3e5e503",
+          "reason": "Keep required typed handler and measured refresh/check/export wheel. Search and all service dossiers remain in ApplicationsTools/register."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+          "recorded": "0bb73fe90d3330c1a32304e3812d042274492467ba6cbe1d8628496b3a337ff7",
+          "current": "8985eae7b0ab54233b68c99955fbd0ede0eaa597cf8173b1631bea3793fae5cc",
+          "reason": "Keep typed setter without unsafe cast."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/RepairPage.tsx",
+          "recorded": "2eb9ea4ec339c3752c2faa38435c378b571608df413aa9eab3939daf728faaf0",
+          "current": "721f8117a6e8cb98bedc68b79e695f0a46a1a69d39a1350efce7e3c7c8069f4b",
+          "reason": "Keep accepted hero/features; combine six Sprint diagnostic/restore/log scopes with current layout and consent boundaries."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/ServicesPage.tsx",
+          "recorded": "0eb17ff0eb1488bf28a39f2f844837a2b6532768bdab274d0c3b5af9b1360e8c",
+          "current": "0da39caadbf2b94c7d879ebfda8fb2e850925423f1194a9b66b142a05b18228b",
+          "reason": "Keep accepted feature copy in addition to shared engine and real SCM wheel."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/StoragePage.tsx",
+          "recorded": "9da3b341206d6443be9c6a7d7bb920f4b1cc9c0505582652641bfb4562201ac3",
+          "current": "c0d3ac0c64e6c842640c092bb174f67914c6d32125480c3264c221c05a0476d3",
+          "reason": "Keep measured refresh and live vault duplicate route. Filetype/age/folder tabs remain directly available in main map controls."
+        },
+        {
+          "path": "apps/gemini-ui/src/pages/SystemPage.tsx",
+          "recorded": "15144ce436e40b64d847e03bbc459ba3c653d81d440c07b1541b0f1a2a864211",
+          "current": "7706e296043c60ddcb15b23aefdd87a0667b039894934a0f9783efdbd9ca5aaa",
+          "reason": "Keep reference GPU/events wheel. Thermal/health/connectivity stay accessible through full native service registry and health cards."
+        },
+        {
+          "path": "apps/gemini-ui/src/services.css",
+          "recorded": "f7fdd124b0962b251f52e90f5b15ceb48d485347180e1e96529fbf10762886e8",
+          "current": "cb104ac7db47f0f038a432a557b3f3a6fcb87beb834cf2b83614ab4f9549d65a",
+          "reason": "Keep accepted wheel size and visible narrow-screen reflow; never restore Sprint display:none regression."
+        },
+        {
+          "path": "apps/gemini-ui/src/smart-scan/SmartScanHero.tsx",
+          "recorded": "97897c7b42858eb63e0819a547904f987a37ef664bbe4a437f8cd2c6527e3f57",
+          "current": "719d3c4567ed6085f09ef56e21eded8bda0d0072fdd6062ad6237d925048dfa8",
+          "reason": "Retain accepted HeroFeatures/source status rail, integrate Sprint six tool-specific scope handlers."
+        },
+        {
+          "path": "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+          "recorded": "02aaae38fd06abf44a6f1974e6c41b5703b73e82cc6f592c2bbdeb46e688b2d5",
+          "current": "94f549753a08d68d84f08293e473f75b10758a790c7709f7b0114ff818387bd9",
+          "reason": "Pass actual capability-backed service IDs to existing workbench."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/OrbitalControl.tsx",
+          "recorded": "69df6516005369fbdd67ffe5af9cc7a7de3a6ffb00eb662c3cf4b212dc14657d",
+          "current": "8b21bc407609b41b22f0248ed2c14cdc042948da975a7fec2cdd6534a41aaaad",
+          "reason": "Combine current coreIcon and Reduced Motion particles with Sprint aria-pressed toggle semantics."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/orbital-engine.css",
+          "recorded": "f173701340ea04e0b163f0feae858cde4eebe4d71f3daca6fdcb2135c5620f0a",
+          "current": "3160e873a368c3972456ea2d3ed312dfc5d1fd17d68d104861c291e8e1c249bb",
+          "reason": "Keep current default-night selectors and Files geometry ownership; shared Sprint engine already in current tree."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/repair-reference.css",
+          "recorded": "513287394873158be984fecc72cd6fb7f2a44349355cd63542d3a406d9038aec",
+          "current": "7c31093506c4a8608d7393656e879a62378c34567d08568d334f9fb6c596e957",
+          "reason": "Integrate vertical seven-step checklist and wrapping; later accepted canvas sizing overrides remain."
+        },
+        {
+          "path": "apps/gemini-ui/src/visual/system-reference.css",
+          "recorded": "1da33763efd7e5a15db7a19c9fa5cc401c63cd68ec3633edc35161613aa10f0e",
+          "current": "170454f9c2cacb6fcf2f3d807537cc988bfbec69460b03f8098c8357739c182d",
+          "reason": "Retain truthful native-unavailable instruments, not removal of accepted instrumentation."
+        },
+        {
+          "path": "docs/evidence/visual-sprint/studio/dark-1672x941.png",
+          "recorded": "719c53300d69ef2703a9f0199e015ff8cb5d1e534ffbafe2835bf0821dbf56f8",
+          "current": "dbf0520875536a4fe0668f1e789567151c2faf5ccde2f0462dfab780e1ee5df0",
+          "reason": "Newest accepted canonical capture retained; divergent Sprint bytes archived separately with original relative name."
+        },
+        {
+          "path": "docs/evidence/visual-sprint/studio/light-1672x941.png",
+          "recorded": "81737c980269e9183e6e0b1a4aca3ab1e6912297e801f68c819c342cdbb7e58e",
+          "current": "08f49a02668518eb092310213b2ae8b2508302ee720f4b93d0033c9d85e67989",
+          "reason": "Newest accepted canonical capture retained; divergent Sprint bytes archived separately with original relative name."
+        },
+        {
+          "path": "docs/evidence/visual-sprint/studio/preview.json",
+          "recorded": "c443ced5f09f23eaaede601f225419765bfaaf8bede143fd470f2d644f8396cb",
+          "current": "76bb0c3f48ae8dd7d5432e36b4f309d3182b6851d8bc8e4747a13828caece5c6",
+          "reason": "Newest accepted canonical capture retained; divergent Sprint bytes archived separately with original relative name."
+        }
+      ],
+      "statuses": {
+        "CONFLICT_RECONCILED": 70
+      }
+    },
+    "rootCheckpoint": {
+      "staged": 458,
+      "stagedPresent": 458,
+      "stagedMissing": []
+    }
+  },
+  "notes": [],
+  "unmergedLocalBranches": [],
+  "finishedAt": "2026-10-27T22:31:49Z",
+  "durationSeconds": 5.9,
+  "ok": true
+}

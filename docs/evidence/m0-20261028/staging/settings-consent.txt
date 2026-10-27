@@ -1,0 +1,24 @@
+$ node --max-old-space-size=160 scripts/settings-consent-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+[settings-consent-test]
+  ✓ the simulated live process inspector and fake telemetry are gone
+  ✓ settings save is real and not a toast-only success
+  ✓ export is credential-free and import is a typed preview
+  ✓ the non-secret profile persists only typed preferences
+  ✓ AI keys remain session-only and are labelled insecure until a native vault exists
+  ✓ unsupported engine and guard controls are explicitly disabled
+  ✓ Google Workspace reporting in Settings is honestly disconnected
+  ✓ no alert or direct credential persistence remains
+{
+  "ok": true,
+  "checks": 8,
+  "failures": []
+}
+[settings-consent-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.07s

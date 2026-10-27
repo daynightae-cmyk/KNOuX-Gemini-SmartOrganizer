@@ -1,0 +1,110 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 0,
+  "darkSurfaces": [],
+  "lowContrastCount": 6,
+  "lowContrast": [
+    {
+      "c": 1.93,
+      "fg": "rgb(219, 234, 254)",
+      "bg": "rgb(155,169,205)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependency",
+      "text": "RPCSS"
+    },
+    {
+      "c": 1.93,
+      "fg": "rgb(219, 234, 254)",
+      "bg": "rgb(155,169,205)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependency text-[10.5px]",
+      "text": "EventLog"
+    },
+    {
+      "c": 2.62,
+      "fg": "rgb(243, 232, 255)",
+      "bg": "rgb(163,135,192)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-selected text-xs px-4 py-1.5",
+      "text": "WinDefend"
+    },
+    {
+      "c": 1.93,
+      "fg": "rgb(219, 234, 254)",
+      "bg": "rgb(155,169,205)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependency text-[10.5px]",
+      "text": "BFE"
+    },
+    {
+      "c": 2.06,
+      "fg": "rgb(252, 231, 243)",
+      "bg": "rgb(195,156,176)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependent text-[10.5px]",
+      "text": "WdFilter"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(100, 116, 139)",
+      "bg": "rgb(159,162,170)",
+      "size": "12px",
+      "cls": "",
+      "text": "Start"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 65,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "overflow-auto flex-1 min-h-0 services-custom-scrollbar",
+      "clientH": 311,
+      "scrollH": 530
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: <workspace>/KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\final-qa\a11y-light-1672-services.png

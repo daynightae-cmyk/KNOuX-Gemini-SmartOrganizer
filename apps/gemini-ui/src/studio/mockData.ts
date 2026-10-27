@@ -10,6 +10,7 @@ import {
   StudioStage,
   StudioSuggestion,
 } from './types';
+import { localFixtureThumb } from '../lib/fixture-thumbnail';
 
 export const INITIAL_STAGES: StudioStage[] = [
   { id: 1, nameEn: 'Sources', nameAr: 'المصادر', status: 'completed' },
@@ -300,7 +301,6 @@ export const FILE_CATEGORIES: CategoryInfo[] = [
   },
 ];
 
-// Curated high-fidelity photographic items matching the reference image screenshot
 export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
   {
     id: 'img-1',
@@ -312,7 +312,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/26 10:14',
     captureDate: '2025/04/26',
     sourcePath: 'C:\\Users\\Alex\\Desktop\\mountain-lake.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(210),
     resolution: '3840 × 2160',
   },
   {
@@ -325,7 +325,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/25 18:03',
     captureDate: '2025/04/25',
     sourcePath: 'C:\\Users\\Alex\\Desktop\\city-skyline.png',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(268),
     resolution: '4096 × 2304',
   },
   {
@@ -338,7 +338,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/24 16:27',
     captureDate: '2025/04/24',
     sourcePath: 'E:\\Media\\forest-mist.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(158),
     resolution: '3420 × 2280',
   },
   {
@@ -351,7 +351,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/23 19:11',
     captureDate: '2025/04/23',
     sourcePath: 'C:\\Users\\Alex\\Desktop\\ocean-sunset.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(28),
     resolution: '3840 × 2160',
   },
   {
@@ -364,7 +364,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/22 21:36',
     captureDate: '2025/04/22',
     sourcePath: 'E:\\Media\\galaxy.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(320),
     resolution: '5120 × 2880',
   },
   {
@@ -377,7 +377,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/21 14:09',
     captureDate: '2025/04/21',
     sourcePath: 'D:\\Projects\\Assets\\flower-macro.png',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(196),
     resolution: '3200 × 2400',
   },
   {
@@ -390,7 +390,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/20 22:17',
     captureDate: '2025/04/20',
     sourcePath: 'E:\\Media\\northern-lights.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(244),
     resolution: '4000 × 2667',
   },
   {
@@ -403,7 +403,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/19 11:28',
     captureDate: '2025/04/19',
     sourcePath: 'C:\\Users\\Alex\\Desktop\\cat.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(96),
     resolution: '2800 × 2100',
   },
   {
@@ -416,7 +416,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/18 15:42',
     captureDate: '2025/04/18',
     sourcePath: 'D:\\Projects\\Photos\\architecture.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(44),
     resolution: '4200 × 2800',
   },
   {
@@ -429,7 +429,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/17 09:36',
     captureDate: '2025/04/17',
     sourcePath: 'E:\\Media\\forest-path.png',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(288),
     resolution: '3600 × 2400',
   },
   {
@@ -442,7 +442,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/16 20:11',
     captureDate: '2025/04/16',
     sourcePath: 'C:\\Users\\Alex\\Desktop\\space-planet.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(172),
     resolution: '5120 × 2880',
   },
   {
@@ -455,7 +455,7 @@ export const IMAGE_GALLERY_FIXTURE: StudioFileItem[] = [
     dateModified: '2025/04/15 13:05',
     captureDate: '2025/04/15',
     sourcePath: 'E:\\Media\\butterfly.jpg',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=600&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(336),
     resolution: '3200 × 2133',
   },
 ];

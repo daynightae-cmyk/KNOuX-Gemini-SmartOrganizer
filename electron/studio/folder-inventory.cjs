@@ -44,6 +44,7 @@ async function scanFolder(folder, options = {}) {
   const {
     signal,
     onProgress = () => {},
+    onFile = () => {},
     maxFiles = DEFAULT_LIMITS.maxFiles,
     maxDepth = DEFAULT_LIMITS.maxDepth,
     exclusions = []
@@ -142,6 +143,7 @@ async function scanFolder(folder, options = {}) {
         hidden: Boolean(stat.attributes & 2) || name.startsWith('.'),
         identity: stat.identity
       });
+      onFile(files[files.length - 1]);
 
       const categoryStat = categoryAcc.get(category) || { category, files: 0, bytes: 0 };
       categoryStat.files += 1;

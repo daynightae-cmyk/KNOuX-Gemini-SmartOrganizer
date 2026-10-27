@@ -250,11 +250,13 @@ class StudioBridge {
     if (isProtectedRoot(sourceRoot)) {
       throw studioError('STUDIO_PROTECTED_ROOT', 'Windows system and application roots cannot be authorized in Studio.');
     }
+    const identity = (await safety.assertSafeRoute(sourceRoot)).identity;
     const existing = this.sources.find((source) => safety.keyOf(source.path) === safety.keyOf(sourceRoot));
-    if (existing) return this.publicSource(existing);
+    if (existing) { existing.identity = identity; return this.publicSource(existing); }
     const source = {
       id: crypto.randomUUID(),
       path: sourceRoot,
+      identity,
       addedAt: nowIso(),
       lastScanned: null,
     };
@@ -286,7 +288,7 @@ class StudioBridge {
     }
   }
 
-  async scanSource(sourceId) {
+  async scanSource(sourceId, { onFile = () => {} } = {}) {
     await this.init();
     const id = safeId(sourceId);
     const source = this.sources.find((entry) => entry.id === id);
@@ -300,6 +302,7 @@ class StudioBridge {
     const startedAt = nowIso();
     try {
       const result = await inventory.scanFolder(root, {
+        onFile,
         signal: controller.signal,
         maxFiles: MAX_FILES,
         maxDepth: MAX_DEPTH,
@@ -440,7 +443,8 @@ class StudioBridge {
     const root = await safety.assertRealDirectory(selected, 'Destination');
     if (isProtectedRoot(root)) throw studioError('STUDIO_PROTECTED_ROOT', 'Windows system and application roots cannot be used as destinations.');
     await safety.assertWritableDirectory(root);
-    const grant = { id: crypto.randomUUID(), label: path.basename(root) || root, root, selectedAt: nowIso() };
+    const identity = (await safety.assertSafeRoute(root)).identity;
+    const grant = { id: crypto.randomUUID(), label: path.basename(root) || root, root, identity, selectedAt: nowIso() };
     this.destinations.set(grant.id, grant);
     return { id: grant.id, path: root };
   }
@@ -502,6 +506,8 @@ class StudioBridge {
     const nextHistory = [historyEntry, ...(Array.isArray(history) ? history : [])].slice(0, MAX_PREVIEW_PLANS);
     await this.writeJson(this.historyPath, nextHistory);
     return {
+      planId: plan.planId,
+      executable: plan.executable,
       planHash: plan.planHash,
       operation,
       structure: plan.structure,

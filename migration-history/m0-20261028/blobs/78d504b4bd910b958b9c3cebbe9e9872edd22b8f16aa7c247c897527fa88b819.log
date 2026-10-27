@@ -1,0 +1,87 @@
+{
+  "viewport": [
+    1920,
+    1080
+  ],
+  "lang": "ar",
+  "dir": "rtl",
+  "theme": "light",
+  "docScroll": [
+    1920,
+    1080
+  ],
+  "bodyScroll": [
+    1920,
+    1080
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 30,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [
+    {
+      "tag": "div",
+      "cls": "absolute -bottom-10 -left-10 w-60 h-60 bg-blue-600/15 rounded-full blur-3xl pointer-events",
+      "text": "",
+      "rect": [
+        -27,
+        -39,
+        240,
+        240
+      ]
+    }
+  ],
+  "scrollers": [
+    {
+      "cls": "scan-results-table flex-1 overflow-x-auto overflow-y-auto knx-custom-s",
+      "clientH": 347,
+      "scrollH": 367
+    },
+    {
+      "cls": "lg:col-span-3 flex flex-col gap-3 h-full min-h-0 overflow-y-auto knx-c",
+      "clientH": 440,
+      "scrollH": 562
+    },
+    {
+      "cls": "bg-[#071329]/90 border border-[#11294a] rounded-2xl p-3.5 sm:p-4 flex ",
+      "clientH": 438,
+      "scrollH": 514
+    },
+    {
+      "cls": "space-y-1.5 max-h-40 overflow-y-auto knx-custom-scrollbar",
+      "clientH": 160,
+      "scrollH": 169
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1920,
+      40
+    ],
+    "aside": [
+      1696,
+      40,
+      224,
+      1040
+    ],
+    "main": [
+      0,
+      40,
+      1696,
+      913
+    ],
+    "[class*=\"titlebar\"]": [
+      0,
+      0,
+      1920,
+      40
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: <workspace>/KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\gate-visual\ar-light-1920-smart_scan.png

@@ -1,0 +1,721 @@
+/**
+ * KNOuX SmartOrganizer — REF-00 Home Command Center day/night material layer
+ *
+ * Structure is authored once. HomeCommandCenter, HomeDashboardPanels and the
+ * shell render identical React for both themes; this file supplies only the
+ * visual materials (surfaces, lines, ink, lighting, contrast) through a token
+ * pair that swaps on `html[data-theme='light']`.
+ *
+ * The Home components were originally written with literal dark Tailwind
+ * utilities. Rather than fork the markup per theme, the finite set of those
+ * utilities is remapped inside `.knx-home-root` only, so no other screen is
+ * affected and the DOM, order, spacing and behaviour stay identical.
+ *
+ * Nothing here invents a measurement: it changes paint, never data.
+ */
+
+/* ==========================================================================
+   1. Tokens
+   ========================================================================== */
+
+/* NIGHT — deep navy instrument deck (default) */
+.knx-home-root {
+  --h-canvas-1: #050c1b;
+  --h-canvas-2: #050a15;
+  --h-canvas-3: #030710;
+  --h-surface: rgba(7, 19, 41, 0.92);
+  --h-surface-solid: #071329;
+  --h-surface-2: #040c1d;
+  --h-surface-3: #0a1a36;
+  --h-line: #152e50;
+  --h-line-soft: #0e223d;
+  --h-line-strong: #1b3f70;
+  --h-ink: #ffffff;
+  --h-ink-2: #cbd5e1;
+  --h-muted: #94a3b8;
+  --h-muted-2: #64748b;
+  --h-shadow: 0 10px 26px rgba(2, 6, 18, 0.55);
+  --h-inset: inset 0 1px 0 rgba(148, 197, 255, 0.06);
+  --h-hero-ink: #ffffff;
+  --h-hero-sub: rgba(203, 213, 225, 0.9);
+  --h-hero-veil: 1;
+  --h-emblem-glow: drop-shadow(0 0 10px rgba(140, 120, 255, 0.45));
+  --h-ring-track: #0f294d;
+  --h-btn-primary-1: #2563eb;
+  --h-btn-primary-2: #4f46e5;
+  --h-btn-primary-ink: #ffffff;
+  --h-chip-bg: #0d213d;
+  --h-chip-line: #1b3f70;
+  --h-scrollbar: #1e3a5f;
+}
+
+/* DAY — white / lavender workbench */
+html[data-theme='light'] .knx-home-root {
+  --h-canvas-1: #f2f4fd;
+  --h-canvas-2: #eef1fb;
+  --h-canvas-3: #e9edf9;
+  --h-surface: #ffffff;
+  --h-surface-solid: #ffffff;
+  --h-surface-2: #f6f8ff;
+  --h-surface-3: #f0f3fd;
+  --h-line: #e4e8f6;
+  --h-line-soft: #eceff9;
+  --h-line-strong: #d3daee;
+  --h-ink: #141a35;
+  --h-ink-2: #2f3a60;
+  --h-muted: #5d6889;
+  --h-muted-2: #8b94b2;
+  --h-shadow: 0 6px 20px rgba(30, 38, 90, 0.07), 0 1px 2px rgba(30, 38, 90, 0.05);
+  --h-inset: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --h-hero-ink: #161d3d;
+  --h-hero-sub: #4a5578;
+  --h-hero-veil: 0.16;
+  --h-emblem-glow: drop-shadow(0 3px 10px rgba(96, 76, 210, 0.22));
+  --h-ring-track: #e6eaf7;
+  --h-btn-primary-1: #6d3ef0;
+  --h-btn-primary-2: #8b5cf6;
+  --h-btn-primary-ink: #ffffff;
+  --h-chip-bg: #f1f3fd;
+  --h-chip-line: #dfe4f6;
+  --h-scrollbar: #c6cde6;
+}
+
+/* ==========================================================================
+   2. Circular brand emblem — approved artwork, zero square backing
+   ========================================================================== */
+
+/* Hidden by default so the nine reference-shell screens keep their own,
+   already-approved mark treatment untouched. */
+.knx-circular-mark {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  /* Alpha outside the circle is the artwork's own; no tile, no frame. */
+  background: none;
+  border: 0;
+  box-shadow: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.knx-home-root .knx-title-brand-emblem,
+.knx-home-root .knx-sidebar-brand-emblem {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.knx-home-root .knx-shell-lettermark,
+.knx-home-root .knx-title-official-mark,
+.knx-home-root .knx-shell-ribbonmark {
+  display: none !important;
+}
+
+.knx-home-root .knx-title-circular-mark,
+.knx-home-root .knx-sidebar-circular-mark {
+  display: block;
+  filter: var(--h-emblem-glow);
+}
+
+/* The reference gives the sidebar a clearly larger emblem than the 36px tile
+   the shell uses elsewhere; the circle is allowed its own padding. */
+.knx-home-root .knx-sidebar-brand-emblem {
+  width: 46px;
+  height: 46px;
+}
+
+html[data-theme='light'] .knx-home-root .knx-sidebar-brand-emblem {
+  filter: none;
+}
+
+/* ==========================================================================
+   3. Page canvas, titlebar and sidebar
+   ========================================================================== */
+
+html[data-theme='light'] .knx-home-root,
+html[data-theme='light'] .knx-home-root main {
+  background-color: var(--h-canvas-2) !important;
+  background-image: linear-gradient(180deg, var(--h-canvas-1) 0%, var(--h-canvas-2) 46%, var(--h-canvas-3) 100%) !important;
+  color: var(--h-ink) !important;
+}
+
+.knx-home-root aside {
+  background-color: var(--h-surface-solid);
+  border-inline-end-color: var(--h-line-soft);
+}
+
+html[data-theme='light'] .knx-home-root aside {
+  background-color: #ffffff;
+  border-inline-end-color: var(--h-line);
+  box-shadow: 1px 0 0 rgba(30, 38, 90, 0.04);
+}
+
+html[data-theme='light'] .knx-home-root aside [class*='bg-[#050e1f]'] {
+  background-color: #ffffff;
+}
+
+/* Brand row */
+html[data-theme='light'] .knx-home-root aside [class*='border-[#0e223d]'] {
+  border-color: var(--h-line);
+}
+
+html[data-theme='light'] .knx-home-root aside .text-white {
+  color: var(--h-ink);
+}
+
+html[data-theme='light'] .knx-home-root aside .text-cyan-400 {
+  color: #6d3ef0;
+}
+
+/* Sidebar nav rows */
+html[data-theme='light'] .knx-home-root aside [class*='text-slate-300'],
+html[data-theme='light'] .knx-home-root aside [class*='text-slate-400'] {
+  color: #46507a;
+}
+
+html[data-theme='light'] .knx-home-root aside [class*='hover:bg-[#']:not(.knx-nav-active) {
+  /* keep hover tints subtle on white */
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Titlebar */
+.knx-home-root header {
+  background-color: var(--h-surface-solid);
+  border-bottom-color: var(--h-line);
+}
+
+html[data-theme='light'] .knx-home-root header {
+  background-color: #ffffff;
+  border-bottom-color: var(--h-line);
+}
+
+html[data-theme='light'] .knx-home-root header [class*='bg-[#'] {
+  background-color: #ffffff;
+}
+
+html[data-theme='light'] .knx-home-root header .text-white {
+  color: var(--h-ink);
+}
+
+html[data-theme='light'] .knx-home-root header [class*='text-slate-400'],
+html[data-theme='light'] .knx-home-root header [class*='text-slate-500'] {
+  color: var(--h-muted);
+}
+
+/* ==========================================================================
+   4. Hero band — restrained orbit, legible in both themes
+   ========================================================================== */
+
+.knx-home-root .knx-earth-horizon-container {
+  opacity: var(--h-hero-veil);
+}
+
+html[data-theme='light'] .knx-home-root .knx-earth-horizon-container {
+  /* The photographic horizon is a night instrument; in daylight the reference
+     uses a soft lilac orbit sweep instead, so the artwork is de-emphasised and
+     the card carries a light gradient. */
+  opacity: 0.1;
+  filter: saturate(0.5) brightness(1.35);
+}
+
+.knx-home-root [aria-label='Hero Command Center'] {
+  border-radius: 16px;
+  isolation: isolate;
+}
+
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center'] {
+  background:
+    radial-gradient(120% 150% at 88% -30%, rgba(167, 139, 250, 0.28) 0%, rgba(167, 139, 250, 0) 58%),
+    radial-gradient(90% 120% at 12% 120%, rgba(96, 165, 250, 0.16) 0%, rgba(96, 165, 250, 0) 60%),
+    linear-gradient(135deg, #ffffff 0%, #f4f2ff 52%, #eef4ff 100%);
+  border: 1px solid var(--h-line);
+  box-shadow: var(--h-shadow);
+  padding: 12px 14px;
+}
+
+.knx-home-root h1 {
+  color: var(--h-hero-ink);
+}
+
+.knx-home-root [aria-label='Hero Command Center'] p {
+  color: var(--h-hero-sub);
+}
+
+html[data-theme='light'] .knx-home-root .knx-hero-tagline {
+  color: #6d3ef0;
+}
+
+html[data-theme='light'] .knx-home-root .knx-hero-tagline .text-slate-400 {
+  color: var(--h-muted);
+}
+
+/* Daylight header motif: one restrained orbit sweep and a glassy orb, echoing
+   the approved concept without repeating the per-section service wheels. Purely
+   decorative, so it is a pseudo-element and never carries content. */
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center'] {
+  position: relative;
+}
+
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center']::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: -132px;
+  right: 132px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 32%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0) 46%),
+    radial-gradient(circle at 62% 66%, rgba(167, 139, 250, 0.5) 0%, rgba(167, 139, 250, 0) 62%),
+    radial-gradient(circle at 50% 50%, rgba(125, 211, 252, 0.42) 0%, rgba(125, 211, 252, 0) 70%);
+}
+
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center']::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: -36px;
+  right: -70px;
+  width: 460px;
+  height: 210px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.1);
+  transform: rotate(-14deg);
+}
+
+/* Master search field */
+html[data-theme='light'] .knx-home-root [class*='bg-[#081226]'] {
+  background-color: #ffffff;
+  border-color: var(--h-line-strong);
+  box-shadow: 0 2px 10px rgba(30, 38, 90, 0.06);
+}
+
+html[data-theme='light'] .knx-home-root [class*='bg-[#081226]'] .text-slate-200 {
+  color: var(--h-ink);
+}
+
+html[data-theme='light'] .knx-home-root [class*='bg-[#0d213d]'] {
+  background-color: var(--h-chip-bg);
+  border-color: var(--h-chip-line);
+  color: #5b3fd0;
+}
+
+/* ==========================================================================
+   5. Shared card / panel surfaces
+   ========================================================================== */
+
+/* Every literal navy panel inside Home resolves to the theme surface. */
+.knx-home-root [class*='bg-[#071329]'],
+.knx-home-root [class*='bg-[#08152e]'],
+.knx-home-root [class*='bg-[#091830]'],
+.knx-home-root [class*='bg-[#0b1b36]'] {
+  background-color: var(--h-surface);
+  border-color: var(--h-line);
+}
+
+.knx-home-root [class*='bg-[#040c1d]'],
+.knx-home-root [class*='bg-[#040b19]'],
+.knx-home-root [class*='bg-[#122847]'] {
+  background-color: var(--h-surface-2);
+}
+
+.knx-home-root [class*='border-[#152e50]'],
+.knx-home-root [class*='border-[#132847]'],
+.knx-home-root [class*='border-[#122847]'],
+.knx-home-root [class*='border-[#0d2342]'],
+.knx-home-root [class*='border-[#17325c]'],
+.knx-home-root [class*='border-[#1b3f70]'],
+.knx-home-root [class*='border-[#163666]'] {
+  border-color: var(--h-line);
+}
+
+html[data-theme='light'] .knx-home-root [class*='bg-[#071329]'],
+html[data-theme='light'] .knx-home-root [class*='bg-[#08152e]'],
+html[data-theme='light'] .knx-home-root [class*='bg-[#091830]'],
+html[data-theme='light'] .knx-home-root [class*='bg-[#0b1b36]'] {
+  box-shadow: var(--h-shadow);
+}
+
+html[data-theme='light'] .knx-home-root [class*='bg-[#040c1d]'],
+html[data-theme='light'] .knx-home-root [class*='bg-[#040b19]'] {
+  background-color: var(--h-surface-2);
+}
+
+/* Panel chrome: radius + hairline consistency across both themes */
+html[data-theme='light'] .knx-home-root .rounded-xl {
+  border-radius: 14px;
+}
+
+html[data-theme='light'] .knx-home-root .knx-deck-panel {
+  background: #ffffff;
+  border: 1px solid var(--h-line);
+  border-radius: 14px;
+  box-shadow: var(--h-shadow);
+  padding: 12px;
+}
+
+/* ==========================================================================
+   6. Ink scale — replace the literal dark text ramp
+   ========================================================================== */
+
+.knx-home-root .text-white {
+  color: var(--h-ink);
+}
+
+.knx-home-root [class*='text-slate-100'] {
+  color: var(--h-ink);
+}
+
+.knx-home-root [class*='text-slate-200'] {
+  color: var(--h-ink-2);
+}
+
+.knx-home-root [class*='text-slate-300'] {
+  color: var(--h-ink-2);
+}
+
+.knx-home-root [class*='text-slate-400'] {
+  color: var(--h-muted);
+}
+
+.knx-home-root [class*='text-slate-500'] {
+  color: var(--h-muted-2);
+}
+
+/* Accent ramp: night uses luminous 300/400 steps, day uses 600/700 steps so
+   every label clears 4.5:1 against a white surface. */
+html[data-theme='light'] .knx-home-root .text-cyan-300,
+html[data-theme='light'] .knx-home-root .text-cyan-400 {
+  color: #0e7490;
+}
+
+html[data-theme='light'] .knx-home-root .text-sky-300,
+html[data-theme='light'] .knx-home-root .text-sky-400 {
+  color: #0369a1;
+}
+
+html[data-theme='light'] .knx-home-root .text-emerald-300,
+html[data-theme='light'] .knx-home-root .text-emerald-400 {
+  color: #047857;
+}
+
+html[data-theme='light'] .knx-home-root .text-amber-300,
+html[data-theme='light'] .knx-home-root .text-amber-400 {
+  color: #b45309;
+}
+
+html[data-theme='light'] .knx-home-root .text-rose-300,
+html[data-theme='light'] .knx-home-root .text-rose-400 {
+  color: #be123c;
+}
+
+html[data-theme='light'] .knx-home-root .text-purple-300,
+html[data-theme='light'] .knx-home-root .text-purple-400,
+html[data-theme='light'] .knx-home-root .text-fuchsia-300,
+html[data-theme='light'] .knx-home-root .text-fuchsia-400 {
+  color: #6d28d9;
+}
+
+html[data-theme='light'] .knx-home-root .text-teal-300,
+html[data-theme='light'] .knx-home-root .text-teal-400 {
+  color: #0f766e;
+}
+
+html[data-theme='light'] .knx-home-root .text-orange-400 {
+  color: #c2410c;
+}
+
+/* hover-to-white affordances must not vanish on white */
+html[data-theme='light'] .knx-home-root [class*='hover:text-white']:hover {
+  color: #0b1020;
+}
+
+html[data-theme='light'] .knx-home-root [class*='group-hover:text-white'] {
+  /* handled by the group rules below */
+}
+
+/* ==========================================================================
+   7. Command deck tiles — pastel material in day, tinted navy at night
+   ========================================================================== */
+
+.knx-home-root [class*='bg-[#061226]'] { background-color: rgba(6, 18, 38, 0.9); }
+.knx-home-root [class*='bg-[#04171d]'] { background-color: rgba(4, 23, 29, 0.9); }
+.knx-home-root [class*='bg-[#0f0e26]'] { background-color: rgba(15, 14, 38, 0.9); }
+.knx-home-root [class*='bg-[#181305]'] { background-color: rgba(24, 19, 5, 0.9); }
+.knx-home-root [class*='bg-[#191008]'] { background-color: rgba(25, 16, 8, 0.9); }
+.knx-home-root [class*='bg-[#160824]'] { background-color: rgba(22, 8, 36, 0.9); }
+.knx-home-root [class*='bg-[#041624]'] { background-color: rgba(4, 22, 36, 0.9); }
+.knx-home-root [class*='bg-[#1c0812]'] { background-color: rgba(28, 8, 18, 0.9); }
+
+html[data-theme='light'] .knx-home-root [class*='bg-[#061226]'] { background-color: #eef4ff; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#04171d]'] { background-color: #e9faf3; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#0f0e26]'] { background-color: #f3efff; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#181305]'] { background-color: #fff6e4; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#191008]'] { background-color: #fff1e8; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#160824]'] { background-color: #fdefff; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#041624]'] { background-color: #e8f7ff; }
+html[data-theme='light'] .knx-home-root [class*='bg-[#1c0812]'] { background-color: #ffedf2; }
+
+/* Tile hairlines follow the pastel, not the neon */
+html[data-theme='light'] .knx-home-root [class*='border-sky-500/30'] { border-color: #cfe0fb; }
+html[data-theme='light'] .knx-home-root [class*='border-teal-500/30'] { border-color: #c6efe0; }
+html[data-theme='light'] .knx-home-root [class*='border-purple-500/30'] { border-color: #ddd2fb; }
+html[data-theme='light'] .knx-home-root [class*='border-amber-500/30'] { border-color: #f7e3bd; }
+html[data-theme='light'] .knx-home-root [class*='border-orange-500/30'] { border-color: #fadfc9; }
+html[data-theme='light'] .knx-home-root [class*='border-fuchsia-500/30'] { border-color: #f4d6fb; }
+html[data-theme='light'] .knx-home-root [class*='border-cyan-500/30'] { border-color: #c9e9f8; }
+html[data-theme='light'] .knx-home-root [class*='border-rose-500/30'] { border-color: #fbd5df; }
+
+/* Icon chips: tinted plate + saturated glyph */
+html[data-theme='light'] .knx-home-root [class*='bg-sky-500/15'] { background-color: #dbeafe; border-color: #b5d3f8; color: #1d4ed8; }
+html[data-theme='light'] .knx-home-root [class*='bg-teal-500/15'] { background-color: #d1f5e8; border-color: #a8e6cf; color: #0f766e; }
+html[data-theme='light'] .knx-home-root [class*='bg-purple-500/15'] { background-color: #e7ddfd; border-color: #cfbcfa; color: #6d28d9; }
+html[data-theme='light'] .knx-home-root [class*='bg-amber-500/15'] { background-color: #fdecc8; border-color: #f6d99a; color: #b45309; }
+html[data-theme='light'] .knx-home-root [class*='bg-orange-500/15'] { background-color: #ffe4d1; border-color: #fbcfae; color: #c2410c; }
+html[data-theme='light'] .knx-home-root [class*='bg-fuchsia-500/15'] { background-color: #fbdff8; border-color: #f4c2ef; color: #a21caf; }
+html[data-theme='light'] .knx-home-root [class*='bg-cyan-500/15'] { background-color: #d3effb; border-color: #ade0f5; color: #0e7490; }
+html[data-theme='light'] .knx-home-root [class*='bg-rose-500/15'] { background-color: #ffdde5; border-color: #fbc0cf; color: #be123c; }
+
+/* The isometric tile artwork is a night motif; keep it present but quiet. */
+html[data-theme='light'] .knx-home-root .knx-tile-art {
+  opacity: 0.5;
+}
+
+html[data-theme='light'] .knx-home-root [class*='shadow-[0_0_12px'] {
+  box-shadow: 0 1px 2px rgba(30, 38, 90, 0.05);
+}
+
+/* ==========================================================================
+   8. KPI tiles
+   ========================================================================== */
+
+/* Only the tile itself is a surface; the value row shares the same data-testid
+   prefix, so the tiles are addressed as the grid's own children. */
+.knx-home-root [aria-label='Key Performance Indicators'] > [data-testid^='home-kpi-'] {
+  background-color: var(--h-surface);
+  border-color: var(--h-line);
+}
+
+html[data-theme='light'] .knx-home-root [aria-label='Key Performance Indicators'] > [data-testid^='home-kpi-'] {
+  box-shadow: var(--h-shadow);
+}
+
+html[data-theme='light'] .knx-home-root [aria-label='Key Performance Indicators'] > [data-testid^='home-kpi-']:hover {
+  border-color: #b9a6f5;
+  background-color: #ffffff;
+}
+
+/* Accent chips. The measured hue arrives as --knx-chip from the component, so
+   night can keep the luminous original while day darkens the same hue for a
+   4.5:1 label instead of swapping it for an unrelated colour. */
+.knx-home-root .knx-kpi-chip {
+  border-color: color-mix(in srgb, var(--knx-chip) 25%, transparent);
+  background-color: color-mix(in srgb, var(--knx-chip) 12%, transparent);
+  color: var(--knx-chip);
+}
+
+html[data-theme='light'] .knx-home-root .knx-kpi-chip {
+  border-color: color-mix(in srgb, var(--knx-chip) 30%, #ffffff);
+  background-color: color-mix(in srgb, var(--knx-chip) 16%, #ffffff);
+  color: color-mix(in srgb, var(--knx-chip) 62%, #141a35);
+}
+
+.knx-home-root .knx-kpi-badge {
+  color: var(--knx-chip);
+}
+
+html[data-theme='light'] .knx-home-root .knx-kpi-badge {
+  color: color-mix(in srgb, var(--knx-chip) 68%, #141a35);
+}
+
+.knx-home-root .knx-kpi-dot {
+  background-color: var(--knx-chip);
+}
+
+html[data-theme='light'] .knx-home-root .knx-kpi-dot {
+  background-color: color-mix(in srgb, var(--knx-chip) 72%, #141a35);
+}
+
+/* Reference scale: taller intro, larger measured values, roomier deck tiles. */
+.knx-home-root [aria-label='Hero Command Center'] {
+  min-height: 232px;
+  padding: 20px 26px;
+}
+.knx-home-root [aria-label='Hero Command Center'] h1 {
+  font-size: 44px;
+  line-height: 1.1;
+}
+.knx-home-root [aria-label='Key Performance Indicators'] > [data-testid^='home-kpi-'] {
+  min-height: 112px;
+  padding: 12px 14px;
+}
+.knx-home-root [data-testid^='home-kpi-'][data-testid$='-value'] {
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+.knx-home-root [data-testid^='home-deck-tile-'] {
+  min-height: 112px;
+  padding: 14px;
+}
+html[data-theme='light'] .knx-home-root .knx-tile-art {
+  opacity: 0.78;
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center'] {
+  background:
+    radial-gradient(120% 150% at 88% -30%, rgba(167, 139, 250, 0.42) 0%, rgba(167, 139, 250, 0) 58%),
+    radial-gradient(90% 120% at 12% 120%, rgba(96, 165, 250, 0.2) 0%, rgba(96, 165, 250, 0) 60%),
+    linear-gradient(135deg, #ffffff 0%, #f4f0ff 52%, #eef4ff 100%);
+  border-color: #e0daf3;
+  box-shadow: 0 8px 24px rgba(46, 34, 112, 0.08);
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center']::before {
+  top: -74px;
+  right: 84px;
+  width: 330px;
+  height: 330px;
+  opacity: 0.8;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 58% 56%, rgba(183, 156, 255, 0.9) 0%, rgba(157, 124, 240, 0.75) 42%, rgba(123, 94, 214, 0.5) 66%, rgba(123, 94, 214, 0) 74%);
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center']::after {
+  top: -24px;
+  right: -66px;
+  width: 540px;
+  height: 240px;
+  border-color: rgba(124, 92, 246, 0.5);
+  box-shadow: inset 0 0 56px rgba(139, 92, 246, 0.18), 0 0 32px rgba(139, 92, 246, 0.14);
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center'] .knx-earth-horizon-container {
+  opacity: 0.22;
+  filter: saturate(0.7) brightness(1.25);
+}
+
+/* ==========================================================================
+   9. Controls — tabs, buttons, segmented, chips
+   ========================================================================== */
+
+.knx-home-root [class*='bg-blue-600'] {
+  background-color: var(--h-btn-primary-1);
+  color: var(--h-btn-primary-ink);
+}
+
+html[data-theme='light'] .knx-home-root [class*='bg-blue-600'] {
+  background-image: linear-gradient(135deg, var(--h-btn-primary-1), var(--h-btn-primary-2));
+  background-color: var(--h-btn-primary-1);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(109, 62, 240, 0.28);
+}
+
+/* Segmented tab strips */
+html[data-theme='light'] .knx-home-root [class*='bg-[#040c1d]'][class*='rounded-lg'] {
+  background-color: #f1f3fd;
+  border-color: var(--h-line);
+}
+
+/* Ghost / secondary buttons */
+html[data-theme='light'] .knx-home-root [class*='bg-[#0a162c]'] {
+  background-color: #f4f6ff;
+  border-color: var(--h-line-strong);
+  color: var(--h-ink-2);
+}
+
+html[data-theme='light'] .knx-home-root [class*='border-slate-700'],
+html[data-theme='light'] .knx-home-root [class*='border-slate-800'] {
+  border-color: var(--h-line);
+}
+
+html[data-theme='light'] .knx-home-root [class*='bg-slate-800'],
+html[data-theme='light'] .knx-home-root [class*='bg-slate-900'] {
+  background-color: #f1f3fd;
+}
+
+/* ==========================================================================
+   10. Instruments — ring gauge and meters
+   ========================================================================== */
+
+/* The unmeasured ring must never paint as a solid black disc on white. */
+html[data-theme='light'] .knx-home-root svg circle[stroke='#0f294d'] {
+  stroke: var(--h-ring-track);
+}
+
+html[data-theme='light'] .knx-home-root svg text {
+  fill: #141a35;
+}
+
+/* ==========================================================================
+   11. Modals (command palette, settings, notifications, customize deck)
+   ========================================================================== */
+
+html[data-theme='light'] .knx-home-root .knx-modal-card {
+  background-color: #ffffff;
+  border-color: var(--h-line-strong);
+  box-shadow: 0 24px 60px rgba(20, 26, 53, 0.22);
+  color: var(--h-ink);
+}
+
+html[data-theme='light'] .knx-home-root .knx-modal-backdrop {
+  background-color: rgba(20, 26, 53, 0.32);
+  backdrop-filter: blur(3px);
+}
+
+/* ==========================================================================
+   12. Scrollbars
+   ========================================================================== */
+
+.knx-home-root .knx-custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--h-scrollbar);
+}
+
+/* ==========================================================================
+   13. Density guard — the reference must breathe at 1366x768
+   ========================================================================== */
+
+@media (max-width: 1440px) {
+  .knx-home-root [aria-label='Key Performance Indicators'] {
+    gap: 8px;
+  }
+}
+
+@media (max-height: 800px) {
+  .knx-home-root [aria-label='Hero Command Center'] {
+    min-height: 0;
+  }
+  .knx-home-root [aria-label='Key Performance Indicators'] > [data-testid^='home-kpi-'],
+  .knx-home-root [data-testid^='home-deck-tile-'] {
+    min-height: 64px;
+  }
+}
+
+/* ==========================================================================
+   14. Focus — the entry sequence parks focus on <main tabindex="-1">
+   ========================================================================== */
+
+/* A landmark is a programmatic focus target, not a control, so it must not
+   paint a page-sized ring. Every real control inside keeps its own ring from
+   visual-sprint.css. */
+.knx-home-root main[tabindex='-1']:focus,
+.knx-home-root main[tabindex='-1']:focus-visible {
+  outline: none;
+}
+
+/* Reduced motion is honoured by the screenshot harness and by the OS setting. */
+@media (prefers-reduced-motion: reduce) {
+  .knx-home-root *,
+  .knx-home-root *::before,
+  .knx-home-root *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

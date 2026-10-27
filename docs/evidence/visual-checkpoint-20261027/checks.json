@@ -1,0 +1,3533 @@
+{
+  "intro": [
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "bottom": 768,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "top": 0,
+      "bottom": 941,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "bottom": 768,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "top": 0,
+      "bottom": 941,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    }
+  ],
+  "rows": [
+    {
+      "route": "files",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Explore FilesFind, organize and manage",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Find",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Images",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Organize",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Filters",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "moved": true,
+          "height": 113,
+          "content": 456
+        },
+        {
+          "className": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-l",
+          "moved": true,
+          "height": 288,
+          "content": 539
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "files",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Explore FilesFind, organize and manage",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Find",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Images",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Organize",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Filters",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "moved": true,
+          "height": 169,
+          "content": 456
+        },
+        {
+          "className": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-l",
+          "moved": true,
+          "height": 459,
+          "content": 503
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "studio",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Build Organization PlanAnalyze · Organize · Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Visual Library",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Execution",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Collections",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Plan Review",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Destinations",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-ref-column knx-ref-left",
+          "moved": true,
+          "height": 686,
+          "content": 870
+        },
+        {
+          "className": "knx-ref-column knx-ref-right",
+          "moved": true,
+          "height": 684,
+          "content": 899
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "studio",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Build Organization PlanAnalyze · Organize · Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Visual Library",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Execution",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Collections",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Plan Review",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Destinations",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-ref-column knx-ref-left",
+          "moved": true,
+          "height": 855,
+          "content": 880
+        },
+        {
+          "className": "knx-ref-column knx-ref-right",
+          "moved": true,
+          "height": 853,
+          "content": 875
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "home",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [],
+      "scrolls": [
+        {
+          "className": "flex-[66] flex flex-col gap-3 min-w-0 overflow-y-auto pr-0.5 knx-custom-scrollbar",
+          "moved": true,
+          "height": 373,
+          "content": 586
+        },
+        {
+          "className": "flex-[34] flex flex-col gap-3 min-w-0 overflow-y-auto pr-0.5 knx-custom-scrollbar",
+          "moved": true,
+          "height": 373,
+          "content": 485
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "home",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [],
+      "scrolls": [
+        {
+          "className": "flex-[66] flex flex-col gap-3 min-w-0 overflow-y-auto pr-0.5 knx-custom-scrollbar",
+          "moved": true,
+          "height": 530,
+          "content": 556
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "smart_scan",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Start Smart ScanSafe, read-only analysis",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Quick (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Deep (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Source (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "scan-results-table flex-1 overflow-x-auto overflow-y-auto knx-custom-scrollbar min-h-0",
+          "moved": true,
+          "height": 0,
+          "content": 167
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 70,
+          "content": 103
+        },
+        {
+          "className": "knx-scan-status",
+          "moved": true,
+          "height": 280,
+          "content": 610
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "smart_scan",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Start Smart ScanSafe, read-only analysis",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Quick (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Deep (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Source (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "scan-results-table flex-1 overflow-x-auto overflow-y-auto knx-custom-scrollbar min-h-0",
+          "moved": true,
+          "height": 105,
+          "content": 167
+        },
+        {
+          "className": "knx-scan-status",
+          "moved": true,
+          "height": 366,
+          "content": 590
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "applications",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze ApplicationsInventory · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Inventory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Updates (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Export (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Publishers",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Footprint",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup links",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 73
+        },
+        {
+          "className": "apps-table-wrap",
+          "moved": true,
+          "height": 4,
+          "content": 179
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 195
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "applications",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze ApplicationsInventory · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Inventory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Updates (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Export (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Publishers",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Footprint",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup links",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "apps-kpi-card",
+          "moved": true,
+          "height": 82,
+          "content": 90
+        },
+        {
+          "className": "apps-kpi-card",
+          "moved": true,
+          "height": 82,
+          "content": 98
+        },
+        {
+          "className": "apps-table-wrap",
+          "moved": true,
+          "height": 65,
+          "content": 179
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 195
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "storage",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StorageChoose a scope. See the detail.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Volumes (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Treemap",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Large files",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk details",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Duplicates",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Top folders",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all volume-bay-selected",
+          "moved": true,
+          "height": 74,
+          "content": 226
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 74,
+          "content": 216
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 74,
+          "content": 216
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 134,
+          "content": 1247
+        },
+        {
+          "className": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-48",
+          "moved": true,
+          "height": 192,
+          "content": 357
+        },
+        {
+          "className": "bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] ",
+          "moved": true,
+          "height": 298,
+          "content": 742
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "storage",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StorageChoose a scope. See the detail.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Volumes (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Treemap",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Large files",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk details",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Duplicates",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Top folders",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all volume-bay-selected",
+          "moved": true,
+          "height": 98,
+          "content": 176
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 98,
+          "content": 178
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 98,
+          "content": 178
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 262,
+          "content": 1198
+        },
+        {
+          "className": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-48",
+          "moved": true,
+          "height": 192,
+          "content": 357
+        },
+        {
+          "className": "bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] ",
+          "moved": true,
+          "height": 298,
+          "content": 670
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "cleanup",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze CleanupDiscover · Review · Confirm",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Analyze (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Review (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Refresh (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 65
+        },
+        {
+          "className": "cln-panel cln-register",
+          "moved": true,
+          "height": 19,
+          "content": 163
+        },
+        {
+          "className": "cln-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 138
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 70,
+          "content": 244
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "cleanup",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze CleanupDiscover · Review · Confirm",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Analyze (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Review (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Refresh (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "cln-panel cln-register",
+          "moved": true,
+          "height": 44,
+          "content": 172
+        },
+        {
+          "className": "cln-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 138
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 244
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "startup",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 1,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StartupMeasure · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Items",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Boot Impact",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Delay",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Tasks",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "stp-bootline",
+          "moved": true,
+          "height": 46,
+          "content": 54
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 65
+        },
+        {
+          "className": "stp-panel stp-register",
+          "moved": true,
+          "height": 0,
+          "content": 160
+        },
+        {
+          "className": "stp-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 145
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 298
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "startup",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StartupMeasure · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Items",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Boot Impact",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Delay",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Tasks",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "stp-panel stp-register",
+          "moved": true,
+          "height": 40,
+          "content": 162
+        },
+        {
+          "className": "stp-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 145
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 298
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "system",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Run Health PulseReal readings. Clear sources.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "CPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "GPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Memory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 139
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "system",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Run Health PulseReal readings. Clear sources.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "CPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "GPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Memory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 190
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 108,
+          "content": 618
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 343,
+          "content": 866
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 247,
+          "content": 585
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 516,
+          "content": 787
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 12,
+          "content": 163
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 206
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 138,
+          "content": 151
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 206
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 96,
+          "content": 101
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "automation",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Flow StudioCompose · Preview · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Templates (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Schedule (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-panel-body sys-panel-body-flush",
+          "moved": true,
+          "height": 10,
+          "content": 87
+        },
+        {
+          "className": "auto-editor-center",
+          "moved": true,
+          "height": 6,
+          "content": 151
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 12,
+          "content": 23
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 12,
+          "content": 23
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 170
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "automation",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Flow StudioCompose · Preview · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Templates (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Schedule (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-panel-body sys-panel-body-flush",
+          "moved": true,
+          "height": 64,
+          "content": 87
+        },
+        {
+          "className": "auto-editor-center",
+          "moved": true,
+          "height": 128,
+          "content": 151
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 14,
+          "content": 25
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 14,
+          "content": 25
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 110,
+          "content": 170
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "files",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Explore FilesFind, organize and manage",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Find",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Images",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Organize",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Filters",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "moved": true,
+          "height": 113,
+          "content": 456
+        },
+        {
+          "className": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-l",
+          "moved": true,
+          "height": 288,
+          "content": 539
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "files",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Explore FilesFind, organize and manage",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Find",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Images",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Organize",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Filters",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "moved": true,
+          "height": 169,
+          "content": 456
+        },
+        {
+          "className": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-l",
+          "moved": true,
+          "height": 459,
+          "content": 503
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "studio",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Build Organization PlanAnalyze · Organize · Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Visual Library",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Execution",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Collections",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Plan Review",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Destinations",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-ref-column knx-ref-left",
+          "moved": true,
+          "height": 686,
+          "content": 870
+        },
+        {
+          "className": "knx-ref-column knx-ref-right",
+          "moved": true,
+          "height": 684,
+          "content": 899
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "studio",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Build Organization PlanAnalyze · Organize · Preview",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Sources",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Visual Library",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Execution",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Collections",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Plan Review",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Destinations",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-ref-column knx-ref-left",
+          "moved": true,
+          "height": 855,
+          "content": 880
+        },
+        {
+          "className": "knx-ref-column knx-ref-right",
+          "moved": true,
+          "height": 853,
+          "content": 875
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "home",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [],
+      "scrolls": [
+        {
+          "className": "flex-[66] flex flex-col gap-3 min-w-0 overflow-y-auto pr-0.5 knx-custom-scrollbar",
+          "moved": true,
+          "height": 391,
+          "content": 582
+        },
+        {
+          "className": "flex-[34] flex flex-col gap-3 min-w-0 overflow-y-auto pr-0.5 knx-custom-scrollbar",
+          "moved": true,
+          "height": 391,
+          "content": 485
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "home",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [],
+      "scrolls": [],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "smart_scan",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Start Smart ScanSafe, read-only analysis",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Quick (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Deep (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Source (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "scan-results-table flex-1 overflow-x-auto overflow-y-auto knx-custom-scrollbar min-h-0",
+          "moved": true,
+          "height": 0,
+          "content": 167
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 70,
+          "content": 103
+        },
+        {
+          "className": "knx-scan-status",
+          "moved": true,
+          "height": 280,
+          "content": 610
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "smart_scan",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Start Smart ScanSafe, read-only analysis",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Quick (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Deep (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Source (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "scan-results-table flex-1 overflow-x-auto overflow-y-auto knx-custom-scrollbar min-h-0",
+          "moved": true,
+          "height": 105,
+          "content": 167
+        },
+        {
+          "className": "knx-scan-status",
+          "moved": true,
+          "height": 366,
+          "content": 590
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "applications",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze ApplicationsInventory · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Inventory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Updates (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Export (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Publishers",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Footprint",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup links",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 73
+        },
+        {
+          "className": "apps-table-wrap",
+          "moved": true,
+          "height": 4,
+          "content": 179
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 195
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "applications",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze ApplicationsInventory · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Inventory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Updates (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Export (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Publishers",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Footprint",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup links",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "apps-kpi-card",
+          "moved": true,
+          "height": 82,
+          "content": 90
+        },
+        {
+          "className": "apps-kpi-card",
+          "moved": true,
+          "height": 82,
+          "content": 98
+        },
+        {
+          "className": "apps-table-wrap",
+          "moved": true,
+          "height": 65,
+          "content": 179
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 195
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "storage",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StorageChoose a scope. See the detail.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Volumes (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Treemap",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Large files",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk details",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Duplicates",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Top folders",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all volume-bay-selected",
+          "moved": true,
+          "height": 74,
+          "content": 226
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 74,
+          "content": 216
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 74,
+          "content": 216
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 134,
+          "content": 1247
+        },
+        {
+          "className": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-48",
+          "moved": true,
+          "height": 192,
+          "content": 357
+        },
+        {
+          "className": "bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] ",
+          "moved": true,
+          "height": 298,
+          "content": 742
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "storage",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StorageChoose a scope. See the detail.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Volumes (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Treemap",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Large files",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk details",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Duplicates",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Top folders",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all volume-bay-selected",
+          "moved": true,
+          "height": 98,
+          "content": 176
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 98,
+          "content": 178
+        },
+        {
+          "className": "volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ",
+          "moved": true,
+          "height": 98,
+          "content": 178
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 262,
+          "content": 1198
+        },
+        {
+          "className": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-48",
+          "moved": true,
+          "height": 192,
+          "content": 357
+        },
+        {
+          "className": "bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] ",
+          "moved": true,
+          "height": 298,
+          "content": 670
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "cleanup",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze CleanupDiscover · Review · Confirm",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Analyze (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Review (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Refresh (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 65
+        },
+        {
+          "className": "cln-panel cln-register",
+          "moved": true,
+          "height": 19,
+          "content": 163
+        },
+        {
+          "className": "cln-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 138
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 70,
+          "content": 244
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "cleanup",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze CleanupDiscover · Review · Confirm",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Analyze (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Review (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Refresh (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "cln-panel cln-register",
+          "moved": true,
+          "height": 44,
+          "content": 172
+        },
+        {
+          "className": "cln-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 138
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 244
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "startup",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 1,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StartupMeasure · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Items",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Boot Impact",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Delay",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Tasks",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "stp-bootline",
+          "moved": true,
+          "height": 46,
+          "content": 54
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 65
+        },
+        {
+          "className": "stp-panel stp-register",
+          "moved": true,
+          "height": 0,
+          "content": 160
+        },
+        {
+          "className": "stp-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 145
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 298
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "startup",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Analyze StartupMeasure · Inspect · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Items",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Boot Impact",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Delay",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Tasks",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "stp-panel stp-register",
+          "moved": true,
+          "height": 40,
+          "content": 162
+        },
+        {
+          "className": "stp-table-wrap knx-custom-scrollbar",
+          "moved": true,
+          "height": 0,
+          "content": 145
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 298
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "system",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Run Health PulseReal readings. Clear sources.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "CPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "GPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Memory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 139
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "system",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Run Health PulseReal readings. Clear sources.",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "CPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "GPU (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Memory (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Disk (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 190
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 108,
+          "content": 618
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 343,
+          "content": 866
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 247,
+          "content": 585
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 516,
+          "content": 787
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 12,
+          "content": 163
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 206
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 138,
+          "content": 151
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 206
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 96,
+          "content": 101
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "automation",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Flow StudioCompose · Preview · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Templates (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Schedule (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-panel-body sys-panel-body-flush",
+          "moved": true,
+          "height": 10,
+          "content": 87
+        },
+        {
+          "className": "auto-editor-center",
+          "moved": true,
+          "height": 6,
+          "content": 151
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 12,
+          "content": 23
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 12,
+          "content": 23
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 170
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "automation",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Flow StudioCompose · Preview · Review",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Templates (disabled)",
+          "disabled": true,
+          "hit": false,
+          "inside": true
+        },
+        {
+          "label": "Schedule (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "History (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-panel-body sys-panel-body-flush",
+          "moved": true,
+          "height": 64,
+          "content": 87
+        },
+        {
+          "className": "auto-editor-center",
+          "moved": true,
+          "height": 128,
+          "content": 151
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 14,
+          "content": 25
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 14,
+          "content": 25
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 110,
+          "content": 170
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    }
+  ],
+  "interactions": [
+    {
+      "theme": "light",
+      "route": "files",
+      "coreFocus": true,
+      "imageFilter": true,
+      "filters": true,
+      "hashWorkbench": true
+    },
+    {
+      "theme": "light",
+      "route": "studio",
+      "planWorkbench": true
+    },
+    {
+      "theme": "light",
+      "reducedIntro": "none",
+      "skipReduced": true
+    },
+    {
+      "theme": "dark",
+      "route": "files",
+      "coreFocus": true,
+      "imageFilter": true,
+      "filters": true,
+      "hashWorkbench": true
+    },
+    {
+      "theme": "dark",
+      "route": "studio",
+      "planWorkbench": true
+    },
+    {
+      "theme": "dark",
+      "reducedIntro": "none",
+      "skipReduced": true
+    }
+  ]
+}

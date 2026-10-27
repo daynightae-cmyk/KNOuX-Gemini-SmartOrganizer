@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer - Recovery Lab (Mission 11).
  *
@@ -30,6 +31,8 @@ import {
   Wrench,
   X,
 } from 'lucide-react';
+import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
@@ -224,6 +227,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
 
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar rep-main" data-testid="repair-workspace">
+          <CommandCanvas locale={locale}>
             <section className="sys-hero rep-hero" data-testid="repair-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -240,15 +244,37 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </div>
 
               <div className="sys-hero-copy">
-                <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · PREVIEW ONLY · NO REPAIR EXECUTION', 'مختبر الاستعادة · معاينة فقط · بلا تنفيذ إصلاح')}</span>
+                <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · READ-ONLY', 'مختبر الاستعادة · للقراءة فقط')}</span>
                 <h1>{t(locale, 'Recovery', 'مختبر')} <span>{t(locale, 'Lab', 'الاستعادة')}</span></h1>
                 <p>
                   {t(
                     locale,
-                    'Diagnose Windows problems from measured evidence. Understand each repair, its scope, privileges and impact before authorizing anything.',
-                    'شخّص مشكلات Windows من أدلة مقيسة. افهم كل إصلاح ونطاقه وصلاحياته وأثره قبل اعتماد أي شيء.',
+                    'Diagnose and repair system issues, restore stability, and get your PC back to peak performance — from measured evidence only.',
+                    'شخّص مشكلات النظام وأصلحها واستعد الاستقرار وأعد جهازك إلى أفضل أداء — من أدلة مقيسة فقط.',
                   )}
                 </p>
+                <HeroFeatures
+                  items={[
+                    {
+                      icon: <Wrench className="w-4 h-4" />,
+                      title: t(locale, 'Fix common problems', 'إصلاح المشكلات الشائعة'),
+                      detail: t(locale, 'Identify failing components from measured evidence.', 'حدّد المكوّنات المتعثرة من أدلة مقيسة.'),
+                      tone: '#7c5cff',
+                    },
+                    {
+                      icon: <Terminal className="w-4 h-4" />,
+                      title: t(locale, 'Advanced repair tools', 'أدوات إصلاح متقدمة'),
+                      detail: t(locale, 'Review SFC, DISM, CHKDSK and network commands before staging.', 'راجع أوامر SFC وDISM وCHKDSK والشبكة قبل التهيئة.'),
+                      tone: '#3b82f6',
+                    },
+                    {
+                      icon: <ShieldCheck className="w-4 h-4" />,
+                      title: t(locale, 'Safe and reversible', 'آمن وقابل للتراجع'),
+                      detail: t(locale, 'No repair executes in this mission; every action stays staged.', 'لا يُنفَّذ أي إصلاح في هذه المهمة؛ كل إجراء يبقى مهيأ للمراجعة.'),
+                      tone: '#10b981',
+                    },
+                  ]}
+                />
                 <div className="sys-hero-chips">
                   <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
                   <Chip tone="info" icon={Wrench}>{formatCount(REPAIR_TOOLS.length)} {t(locale, 'repair tools', 'أداة إصلاح')}</Chip>
@@ -264,10 +290,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                     disabled={!controller.nativeAvailable || controller.cancelling}
                   >
                     {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
-                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start measured discovery', 'بدء الاكتشاف المقيس')}
-                  </button>
-                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}>
-                    <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh evidence', 'تحديث الأدلة')}
+                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start discovery', 'بدء الاكتشاف')}
                   </button>
                   <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void stageSelected()} disabled={!snapshot || controller.busy === 'plan'}>
                     <FileText aria-hidden="true" />{t(locale, 'Stage preview', 'تهيئة معاينة')}
@@ -278,6 +301,17 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                 </div>
               </div>
 
+              <OrbitalControl title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
+                eyebrow={t(locale, 'Repair scopes', 'نطاقات الإصلاح')}
+                onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
+                tools={[
+                  { id: 'files', label: 'SFC', icon: FileText, onClick: () => setSelectedToolId('repair-files-verify'), hint: t(locale, 'Verify system files · preview only', 'تحقق من ملفات النظام · معاينة فقط') },
+                  { id: 'component', label: 'DISM Scan', icon: HardDrive, onClick: () => setSelectedToolId('repair-component-scan'), hint: t(locale, 'Component store scan · preview only', 'فحص مخزن المكونات · معاينة فقط') },
+                  { id: 'component-restore', label: 'DISM Restore', icon: Layers, onClick: () => setSelectedToolId('repair-component-restore'), hint: t(locale, 'Restore health · requires approval', 'استعادة الصحة · تتطلب موافقة') },
+                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Globe2, onClick: () => setSelectedToolId('repair-dns-flush'), hint: t(locale, 'DNS flush · preview only', 'تفريغ DNS · معاينة فقط') },
+                  { id: 'restore', label: t(locale, 'Restore Point', 'نقطة استعادة'), icon: ShieldCheck, onClick: () => setSelectedToolId('repair-restore-point'), hint: t(locale, 'Restore points · never created here', 'نقاط الاستعادة · لا تُنشأ هنا') },
+                  { id: 'history', label: t(locale, 'Repair Logs', 'سجلات الإصلاح'), icon: History, disabled: !snapshot, onClick: () => openWorkbench('repair-history'), hint: t(locale, 'Immutable repair journal', 'سجل إصلاح ثابت') },
+                ]} />
               <aside className="sys-source-card rep-source-card" data-testid="repair-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
                 <div className="sys-source-copy">
@@ -374,6 +408,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </section>
 
               <aside className="rep-brief" data-testid="repair-brief" style={{ '--rep-accent': selectedTool.accent } as React.CSSProperties}>
+                <div className="rep-brief-content">
                 <header className="rep-brief-head">
                   <span className="rep-brief-icon" aria-hidden="true"><SelectedToolIcon /></span>
                   <div>
@@ -430,6 +465,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                   ) : null}
                 </div>
 
+                </div>
                 <div className="rep-brief-actions">
                   <button type="button" className="sys-btn sys-btn-primary" data-testid="repair-open-selected" onClick={() => openWorkbench(selectedToolId)} disabled={!snapshot}>
                     <ArrowRight aria-hidden="true" />{t(locale, 'Review repair', 'مراجعة الإصلاح')}
@@ -507,6 +543,8 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               <span><Lock aria-hidden="true" />{t(locale, 'No DISM, SFC, DNS flush, Winsock/TCPIP reset, service reset, restore or driver command exists in Mission 11.', 'لا يوجد أمر DISM أو SFC أو مسح DNS أو إعادة Winsock/TCPIP أو خدمة أو استعادة أو تعريف في المهمة 11.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="sys-actionbar rep-actionbar" data-testid="repair-actionbar">

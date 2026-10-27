@@ -1,0 +1,1 @@
+Historical UI/probe evidence captured before KNOuX Gemini repository separation. Paths and credential patterns in text outputs are sanitized for private release upload. Original exact-byte files and checksums remain locally in the independent D: repository; earlier tracked app Git blobs remain intact. DO NOT use stale probes as current product acceptance.

@@ -1,0 +1,74 @@
+interaction: CLICKED:Boot Domain Services
+12
+{
+  "viewport": [
+    1366,
+    768
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "(none)",
+  "docScroll": [
+    1366,
+    768
+  ],
+  "bodyScroll": [
+    1366,
+    768
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 31,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [
+    {
+      "tag": "div",
+      "cls": "absolute -top-10 -right-10 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-n",
+      "text": "",
+      "rect": [
+        1069,
+        17,
+        320,
+        320
+      ]
+    }
+  ],
+  "scrollers": [
+    {
+      "cls": "flex-1 min-h-0 overflow-y-auto startup-custom-scrollbar space-y-3 pr-1",
+      "clientH": 176,
+      "scrollH": 360
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1366,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      621
+    ],
+    "main": [
+      224,
+      40,
+      1142,
+      621
+    ],
+    "footer": [
+      0,
+      661,
+      1366,
+      107
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: <workspace>/KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\fix2-startup-services-1366.png

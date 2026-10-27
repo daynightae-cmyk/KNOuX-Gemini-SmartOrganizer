@@ -23,6 +23,9 @@ const {
   fixturesEnabled,
   loadProvider,
 } = require('./native/provider-bridge.cjs');
+const { StorageVault } = require('./native/storage-vault.cjs');
+const { OperationEngine } = require('./native/operation-engine.cjs');
+const { CHANNELS: operationChannels, registerOperationIpc } = require('./native/operation-ipc.cjs');
 const { StudioBridge } = require('./native/studio-bridge.cjs');
 const { FilesBridge } = require('./native/files-bridge.cjs');
 const { StorageBridge } = require('./native/storage-bridge.cjs');
@@ -90,6 +93,7 @@ app.commandLine.appendSwitch('force-color-profile', 'srgb');
 let mainWindow = null;
 let ipcRegistered = false;
 let studioBridge = null;
+let operationBridge = null;
 let filesBridge = null;
 let storageBridge = null;
 let scanBridge = null;
@@ -186,6 +190,7 @@ function convertProviderResult(capability, result) {
 function registerIpc() {
   if (ipcRegistered) return;
   ipcRegistered = true;
+  registerOperationIpc({ipcMain,getBridge:()=>operationBridge,assertSender:event=>assertTrustedSender(event,{mainWindow,isDev,distRoot,devOrigin})});
 
   const guard = async (event, capability, args, work) => {
     try {
@@ -6409,6 +6414,15 @@ app.whenReady().then(async () => {
   });
   try {
     await studioBridge.init();
+    operationBridge = new OperationEngine({studio:studioBridge,
+      emit:payload=>{if(mainWindow&&!mainWindow.isDestroyed())mainWindow.webContents.send(operationChannels.event,payload);},
+      confirm:async action=>{
+        const detail=action.kind==='execute'
+          ? `${action.plan.approvalContext?.kind==='cleanup-quarantine-v1'?'QUARANTINE — preserves bytes, no permanent deletion':action.plan.operation.toUpperCase()} ${action.plan.totals.files} files (${action.plan.totals.bytes} bytes)\nDestination: ${action.plan.destinationSummary}\nPlan SHA-256: ${action.plan.planHash}\nNo existing file will be overwritten. Review every path in the live workbench first.`
+          : `Restore ${action.preview.eligible} verified moved files (${action.preview.bytes} bytes) from receipt ${action.journalId}\nUndo SHA-256: ${action.previewHash}\nConflicts: ${action.resolution}. Changed destinations will be refused.`;
+        const answer=await dialog.showMessageBox(mainWindow,{type:'warning',title:'KNOuX — exact operation approval',message:action.kind==='execute'?'Approve this exact file operation?':'Approve this exact safe restore?',detail,buttons:['Cancel',action.kind==='execute'?'Approve exact plan':'Approve safe restore'],defaultId:0,cancelId:0,noLink:true});
+        return answer.response===1;
+      }});
     filesBridge = new FilesBridge({ studio: studioBridge, shell });
     storageBridge = new StorageBridge({
       studio: studioBridge,
@@ -6416,6 +6430,7 @@ app.whenReady().then(async () => {
       readSystemSummary: () => readSystemSummary({ isPackaged: app.isPackaged, env: process.env }),
       userDataPath: app.getPath('userData'),
     });
+    operationBridge.storageVault=new StorageVault({operations:operationBridge,storage:storageBridge,files:filesBridge,userDataPath:app.getPath('userData')});
     await storageBridge.init();
     try {
       scanBridge = new ScanBridge({
@@ -6552,6 +6567,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  operationBridge?.storageVault?.dispose();
   void systemBridge?.close?.();
   void repairBridge?.close?.();
   void servicesBridge?.close?.();
