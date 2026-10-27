@@ -69,6 +69,7 @@ import { StorageServiceFocus, storageServiceLabel } from '../storage/StorageServ
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
 import '../storage.css';
+import { OrbitalControl } from '../visual/OrbitalControl';
 
 interface StoragePageProps {
   onNavigateSection?: (section: string) => void;
@@ -318,29 +319,24 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         {/* 3. Main Scrollable Canvas (Hero + Top Strip + Volume Bays + Analysis + Inspector + Services) */}
         <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
           {/* Hero Section */}
-          <div className="flex items-start justify-between relative z-10 pb-1">
+          <div className="knx-storage-hero relative z-10">
             <div>
+              <div className="knx-eyebrow">KNOuX / {isArabic ? 'التخزين' : 'STORAGE ATLAS'}</div>
               <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                <span>{isArabic ? 'أطلس التخزين والمساحة' : 'The Volume Atlas'}</span>
+                <span>{isArabic ? 'كل بايت. بوضوح.' : 'See every byte clearly.'}</span>
               </h1>
               <p className="text-xs text-slate-300 mt-0.5">
                 {isArabic ? 'شاهد أين تذهب كل بايت قابلة للقياس.' : 'See where every measurable byte goes.'}
               </p>
             </div>
 
-            {/* Breadcrumb / Phase Indicators on top right */}
-            <div className="flex items-center gap-4 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
-              <span className="hover:text-slate-200 cursor-pointer">{isArabic ? 'استكشاف' : 'EXPLORE'}</span>
-              <span className="text-slate-600">/</span>
-              <span className="hover:text-slate-200 cursor-pointer">{isArabic ? 'قياس' : 'MEASURE'}</span>
-              <span className="text-slate-600">/</span>
-              <span className="hover:text-slate-200 cursor-pointer">{isArabic ? 'فهم' : 'UNDERSTAND'}</span>
-              <span className="text-slate-600">/</span>
-              <span className="text-cyan-400 font-bold border-b border-cyan-400 pb-0.5 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 inline-block animate-pulse" />
-                {isArabic ? 'استعادة' : 'RECLAIM'}
-              </span>
-            </div>
+            <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}
+              onActivate={() => void storageNative.chooseSource()} disabled={!nativeAvailable || storageNative.scanning} running={storageNative.scanning}
+              tools={[
+                { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
+                { id: 'map', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, onClick: () => setActiveTab('treemap'), active: activeTab === 'treemap' },
+                { id: 'large', label: isArabic ? 'الكبيرة' : 'Large files', icon: Folder, onClick: () => setActiveTab('large'), active: activeTab === 'large' },
+              ]} />
           </div>
 
           <StorageBanner
@@ -541,7 +537,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           </div>
 
           {/* 6. Lower Analysis Workspace (Left 2/3) + Volume Inspector (Right 1/3) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="knx-storage-analysis-grid grid grid-cols-1 lg:grid-cols-12 gap-4">
             {/* Left 8 Cols: Space Map Treemap & Largest Items */}
             <div className="lg:col-span-8 flex flex-col bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl">
               {/* Tab Bar Header */}
@@ -844,13 +840,14 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1.5">
+            <div className="knx-storage-tools grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {STORAGE_SERVICES_CATALOG.map((srv) => (
-                <div
+                <button
+                  type="button"
                   key={srv.id}
                   data-service-key={srv.serviceKey}
                   onClick={() => setActiveService(srv.serviceKey)}
-                  className="p-1 rounded-xl bg-[#08152e] hover:bg-[#0c1f44] border border-slate-700/60 hover:border-cyan-500/50 cursor-pointer transition shadow-md group flex flex-col justify-between"
+                  className="text-start p-4 rounded-xl bg-[#08152e] hover:bg-[#0c1f44] border border-slate-700/60 hover:border-cyan-500/50 cursor-pointer transition shadow-md group flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <div className="p-0.5 rounded-lg bg-slate-900 border border-slate-700/70 text-cyan-400 group-hover:text-cyan-300 group-hover:border-cyan-500/40 transition">
@@ -864,18 +861,18 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                     <h4 className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
                       {srv.name}
                     </h4>
-                    <p className="hidden min-[1800px]:block text-[9px] text-slate-400 mt-0.5 line-clamp-1">
+                    <p className="text-xs text-slate-400 mt-2">
                       {srv.subtitle}
                     </p>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
             </div>
 
             {/* Right 4 Cols: Volume Inspector & Analysis Workflow */}
-            <div className="lg:col-span-4 flex flex-col gap-3">
+            <div className="knx-storage-inspector lg:col-span-4 flex flex-col gap-3">
               {/* Volume Inspector Card */}
               {selectedVolume ? (
               <div className="bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] overflow-y-auto storage-scrollbar">

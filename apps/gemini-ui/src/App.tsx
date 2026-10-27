@@ -43,12 +43,14 @@ import './visual/visual-sprint.css';
 import './visual/files-visual.css';
 import './visual/scan-visual.css';
 import './visual/apps-visual.css';
+import './visual/storage-visual.css';
 import './visual/studio-reference.css';
 import './visual/reference-controls.css';
 import './visual/files-reference.css';
 import './visual/reference-polish.css';
 import './visual/scan-reference.css';
 import './visual/apps-reference.css';
+import './visual/storage-reference.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';
@@ -120,7 +122,7 @@ function AppContent() {
 
   return (
     <>
-      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage'].includes(currentSection)}>{renderActiveWorkspace()}</div>
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}
