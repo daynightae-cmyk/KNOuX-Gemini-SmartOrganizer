@@ -1,0 +1,26 @@
+$ node --max-old-space-size=160 scripts/system-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+{
+  "ok": true,
+  "services": 36,
+  "stages": 9,
+  "processes": 3,
+  "servicesMeasured": 2,
+  "drivers": 2,
+  "events": 3,
+  "sockets": 2,
+  "neighbors": 1,
+  "hardwareDisks": 1,
+  "gates": 8,
+  "signaturesVerified": 1,
+  "traceHops": 3,
+  "failures": []
+}
+[system-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.22s

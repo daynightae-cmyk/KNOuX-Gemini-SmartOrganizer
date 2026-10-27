@@ -1,0 +1,28 @@
+$ node --max-old-space-size=160 scripts/workspace-consent-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+[workspace-consent-test]
+  ✓ 10 Workspace services are declared in the approved order
+  ✓ every service declares its least-privilege scope
+  ✓ the fake connected state and simulated banner are gone
+  ✓ no alert, fake success or direct Google API call exists
+  ✓ the header exposes real mutually exclusive Google states
+  ✓ the consent review shows the fixed four-scope set and real connect action
+  ✓ the real Sheets workbench distinguishes live data from fixtures
+  ✓ service actions state that nothing was executed
+  ✓ fixtures and local-only writes remain explicitly labelled
+  ✓ the OAuth dialog is keyboard reachable and Escape closes it
+  ✓ no token or client-secret material is reachable from the renderer
+{
+  "ok": true,
+  "services": 10,
+  "scopes": 10,
+  "failures": []
+}
+[workspace-consent-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.07s

@@ -11,7 +11,7 @@ const app=await electron.launch({executablePath:packaged||require('electron'),ar
 const proof={packaged:!!packaged,fixture:f.root,checks:[],views:[],errors:[]};
 try {
  const runtime=await app.evaluate(({app})=>({profile:app.getPath('userData'),isPackaged:app.isPackaged}));expect(runtime.isPackaged).toBe(!!packaged);expect(path.resolve(runtime.profile)).toBe(path.resolve(f.profile));
- await app.evaluate(({dialog},f)=>{globalThis.__vaultConfirmations=[];dialog.showOpenDialog=async(_window,options)=>({canceled:false,filePaths:[options.title.includes('source')?f.source:f.destination]});dialog.showMessageBox=async(_window,options)=>{if(options.title!=='KNOuX â€” exact operation approval')throw Error('Unexpected dialog in owned test');globalThis.__vaultConfirmations.push(options.detail);return {response:1};};},f);
+ await app.evaluate(({dialog},f)=>{globalThis.__vaultConfirmations=[];dialog.showOpenDialog=async(_window,options)=>({canceled:false,filePaths:[options.title.includes('source')?f.source:f.destination]});dialog.showMessageBox=async(_window,options)=>{if(options.title!=='KNOuX — exact operation approval')throw Error('Unexpected dialog in owned test');globalThis.__vaultConfirmations.push(options.detail);return {response:1};};},f);
  const page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));await page.waitForLoadState('domcontentloaded');
  await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_theme','light');localStorage.setItem('knoux_locale','en');location.hash='storage';});await page.reload();
  await page.getByTestId('storage-live-vault').waitFor({timeout:60000});

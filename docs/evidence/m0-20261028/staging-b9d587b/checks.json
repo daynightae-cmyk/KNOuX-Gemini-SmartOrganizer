@@ -1,0 +1,256 @@
+[
+  {
+    "name": "guard",
+    "command": [
+      "python",
+      "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\.worktrees\\unified-20261028\\scripts\\verify-workspace.py"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:04.756559+00:00"
+  },
+  {
+    "name": "types",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:08.616341+00:00"
+  },
+  {
+    "name": "build",
+    "command": [
+      "node",
+      "--single-threaded",
+      "--v8-pool-size=1",
+      "--max-old-space-size=160",
+      "--optimize-for-size",
+      "node_modules/vite/bin/vite.js",
+      "build"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:13.691043+00:00"
+  },
+  {
+    "name": "native-contract",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/native-contract-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:14.085290+00:00"
+  },
+  {
+    "name": "studio-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/studio-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:14.723067+00:00"
+  },
+  {
+    "name": "files-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/files-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:15.611704+00:00"
+  },
+  {
+    "name": "storage-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/storage-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:16.040452+00:00"
+  },
+  {
+    "name": "scan-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/scan-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:18.714561+00:00"
+  },
+  {
+    "name": "apps-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/apps-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:18.847087+00:00"
+  },
+  {
+    "name": "cleanup-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/cleanup-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:19.301416+00:00"
+  },
+  {
+    "name": "startup-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/startup-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:19.691694+00:00"
+  },
+  {
+    "name": "system-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/system-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:19.958348+00:00"
+  },
+  {
+    "name": "repair-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/repair-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:20.475007+00:00"
+  },
+  {
+    "name": "services-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/services-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:20.832706+00:00"
+  },
+  {
+    "name": "automation-native",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/automation-native-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:21.083698+00:00"
+  },
+  {
+    "name": "workspace-consent",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/workspace-consent-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:21.148354+00:00"
+  },
+  {
+    "name": "google-oauth",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/google-oauth-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:21.918604+00:00"
+  },
+  {
+    "name": "settings-consent",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/settings-consent-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:21.984781+00:00"
+  },
+  {
+    "name": "home-live",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/home-live-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:22.077815+00:00"
+  },
+  {
+    "name": "workbench-host",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/workbench-host-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:22.246376+00:00"
+  },
+  {
+    "name": "navigation-route",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/navigation-route-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:22.332883+00:00"
+  },
+  {
+    "name": "live-organization",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/live-organization-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:30.803092+00:00"
+  },
+  {
+    "name": "live-organization-negative",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/live-organization-negative.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:32.966588+00:00"
+  },
+  {
+    "name": "storage-vault",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/storage-vault-test.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:34.489613+00:00"
+  },
+  {
+    "name": "storage-vault-negative",
+    "command": [
+      "node",
+      "--max-old-space-size=160",
+      "scripts/storage-vault-negative.cjs"
+    ],
+    "exitCode": 0,
+    "at": "2026-10-27T21:37:37.884875+00:00"
+  }
+]
