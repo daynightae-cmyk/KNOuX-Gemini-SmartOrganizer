@@ -1,3 +1,6 @@
+# OWNER OVERRIDE 2026-10-28: FINAL BRANCH IS MAIN
+The owner requires all unique local work to be reconciled into main FIRST and future full domain work DIRECTLY in canonical local main, with normal protected origin/main synchronization. Integration/knoux-unified-20261028 is temporary merge staging only. Read missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/08_MAIN_FIRST_MANDATE.md before changes. No next domain until M0 fully reconciled/tested/main cutover. Do not overwrite any WIP, blanket-resolve conflicts or force-push.
+
 # KNOuX UNIFIED DELIVERY — OWNER RULES (2026-10-28)
 You MUST read missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/04_OWNER_RULES_PERMANENT.md and 01_LOCAL_MERGE_GATE.md before project changes.
 No parked feature branches: one fully complete domain at a time, 181 exact service IDs accounted for; locally integrate each domain in integration/knoux-unified-20261028 before the next. Preserve all uniquely valuable WIP, no destructive Git cleanup; no push/main merge without separate authorization. M0 initial branch/WIP consolidation remains INCOMPLETE until verified.

@@ -1,3 +1,5 @@
+OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
+
 # FULL DOMAIN DELIVERY 01: Home Command Center
 
 THIS IS ONE COMPLETE EXECUTABLE DOMAIN ASSIGNMENT; ALL 12 EXACT SERVICES IN SCOPE. NO SUBMISSION OF ONLY FIRST 2-3 SERVICES AS FINAL.
@@ -121,7 +123,7 @@ Acceptance obligation: verify source, controls, preview, failure/cancel, native 
 2. Implement ALL native/visual/actions of this domain, including unique preview and controls per service; solve in internal logical commits while status remains IN_PROGRESS.
 3. Run native fixture/negative tests, security allowlist and application Main+Preload+Renderer E2E, DAY/NIGHT EN/AR RTL responsive captures, reduced-motion, performance.
 4. Inspect previous integrated domains for regression; no visual fixes are allowed to break their actions/consent/source identities.
-5. Commit named source code, tests, screenshots, receipts and updated exact service acceptance rows on local integration branch; avoid committing generated sensitive data/keys or uncontrolled evidence.
+5. Commit named source code, tests, screenshots, receipts and updated exact service acceptance rows on local main branch; avoid committing generated sensitive data/keys or uncontrolled evidence.
 6. If development occurred elsewhere, reconcile merge conflicts manually and merge before moving to next domain. Verify final ancestry+HEAD and run tests post-merge.
 7. Report actual count implemented / externally blocked, action receipts, error paths, non-testable manual gates, final unified SHA. No DONE with missing items.
 

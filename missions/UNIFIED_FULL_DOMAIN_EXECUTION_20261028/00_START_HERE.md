@@ -1,3 +1,5 @@
+OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
+
 # KNOuX Unified Atomic Domains
 KNOuX — LOCAL UNIFIED INTEGRATION & FULL ATOMIC DOMAINS
 Owner decision: Stop parking thousands of feature branches. Preserve ALL locally unique work and merge it into ONE local integration line. Every section is ONE comprehensive assignment, not little slices. After full visual+functional+native+testing+evidence acceptance, locally integrate the completed section BEFORE starting another.

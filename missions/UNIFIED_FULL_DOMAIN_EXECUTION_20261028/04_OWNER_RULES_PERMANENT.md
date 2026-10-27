@@ -1,3 +1,5 @@
+OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
+
 # PERMANENT OWNER REQUIREMENTS / DO NOT FORGET
 1. Merge all unique LOCAL branch work including safe unique WIP into unified line; record source-to-commit proof, never park a completed branch.
 2. After this merge gate, each domain is a single complete assignment spanning ALL its services. No stop at one subsection. No creating ten apps or one generic mock dashboard.

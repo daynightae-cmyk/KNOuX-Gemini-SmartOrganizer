@@ -1,3 +1,5 @@
+OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
+
 # FULL SECTION MISSION = one indivisible shipment
 No tiny follow-up tasks replacing domain completion. Every section domain includes all its service IDs, with unique native or source-backed operation, real-time visualization, UI controls, error/empty/partial/denied states, before/after, consent, test and final merge receipt. Partial commits permitted for resilience; section remains IN_PROGRESS until ALL its IDs reconciled.
 - Class A measured tools: real query/refresh/filter/sampling/export/controlled handoff, never dead cards; not forced into unsafe OS mutations.

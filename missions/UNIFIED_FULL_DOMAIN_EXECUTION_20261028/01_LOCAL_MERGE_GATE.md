@@ -1,3 +1,5 @@
+OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
+
 # M0 — Safe complete LOCAL merge, including work in progress
 1. Stop simultaneous writers by agreement; never kill other tasks or reset/clean/stash. Identify branch, HEAD, remote and guard in every checkout.
 2. Preserve all dirty tracked/untracked files, including code/evidence/assets/mission documents, with byte-for-byte SHA-256 inventory and diff snapshots outside repository. Existing snapshot D:/KNOUX-Workspace/KNOuX_LOCAL_INTEGRATION_BACKUP_20261028/snapshot-summary.json is first recovery checkpoint; refresh for edits made later.

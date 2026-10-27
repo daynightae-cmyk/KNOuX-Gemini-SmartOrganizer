@@ -5,7 +5,7 @@ import subprocess,json,sys
 ROOT=Path(__file__).resolve().parent.parent
 EXPECTED=Path(r"D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer")
 REMOTE="https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git"
-BRANCH="feat/gemini-missions"
+BRANCH="main"
 # Explicit, fail-closed design-only exception: real Git worktree of the same D: repo.
 VISUAL_WORKTREE=(EXPECTED/".worktrees"/"visual-owner-rebuild")
 VISUAL_BRANCH="feat/knoux-visual-studio-rebuild-20261027"
