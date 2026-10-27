@@ -98,3 +98,25 @@ The consent/honesty increment is committed on `feat/gemini-missions` at
 `40373180335` is SUCCESS, including the new `test:workspace` gate and every
 prior native suite. Mission 04 is still not accepted; `main` integration and
 the remaining blocked work are tracked in `missions/MISSION_SEQUENCE_PROGRESS.md`.
+
+
+## 8. 2026-10-27 OAuth implementation update
+
+The earlier "not implemented" statements are superseded for Google Sheets only:
+
+- Main-process Authorization Code + PKCE S256, loopback callback, token exchange,
+  refresh, revocation, DPAPI-backed safeStorage vault and bounded Sheets v4
+  read-only adapters are implemented in
+  `apps/gemini-ui/electron/native/google-auth.cjs`.
+- Eight fixed `knoux:google:v1:*` channels are mirrored in the contract,
+  preload and main process. No token or client-secret field crosses the bridge.
+- The hub preserves its visual layout and presents real Not connected /
+  Connecting / Connected / Permission missing / Error states. Sheets supports
+  add-by-URL/ID, explicit metadata refresh, explicit bounded read and
+  disconnect. The other nine services remain labelled fixture previews.
+- Offline `test:google` covers PKCE/state mismatch, timeout, malformed/missing
+  client, network failure, stale token, no renderer/Git leakage, encrypted
+  storage and a full mock loopback round trip.
+- Live browser consent, real token issuance and a real Sheets read remain
+  **NOT PERFORMED** pending explicit owner approval. No account is connected and
+  no Google request was made. See `docs/GOOGLE_OAUTH_SHEETS_AUDIT.md`.

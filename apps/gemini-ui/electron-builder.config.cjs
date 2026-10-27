@@ -20,6 +20,8 @@ module.exports = {
     'electron/**/*',
     'shared/**/*',
     'package.json',
+    '!**/google-desktop-client*.json',
+    '!**/oauth/*.bin',
     '!node_modules/**/*',
   ],
   extraResources: [

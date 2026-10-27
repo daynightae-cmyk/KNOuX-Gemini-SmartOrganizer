@@ -123,7 +123,15 @@
     "automationSchedulePreview": "knoux:automation:v1:schedule-preview",
     "automationValidateImport": "knoux:automation:v1:validate-import",
     "automationJournal": "knoux:automation:v1:journal",
-    "automationReport": "knoux:automation:v1:report"
+    "automationReport": "knoux:automation:v1:report",
+    "googleStatus": "knoux:google:v1:status",
+    "googleConnect": "knoux:google:v1:connect",
+    "googleCancel": "knoux:google:v1:cancel",
+    "googleDisconnect": "knoux:google:v1:disconnect",
+    "googleSheetsList": "knoux:google:v1:sheets",
+    "googleSheetAdd": "knoux:google:v1:sheet-add",
+    "googleSheetRemove": "knoux:google:v1:sheet-remove",
+    "googleSheetRead": "knoux:google:v1:sheet-read"
   },
   "capabilities": {
     "bridge.status": {
@@ -839,6 +847,54 @@
       "title": "Build a redacted read-only workflow report",
       "mode": "read-only",
       "channel": "knoux:automation:v1:report"
+    },
+    "google.status": {
+      "id": "google.status",
+      "title": "Read the minimized Google connection state without token material",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:status"
+    },
+    "google.connect": {
+      "id": "google.connect",
+      "title": "Open the reviewed Google desktop consent URL in the system browser",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:connect"
+    },
+    "google.cancel": {
+      "id": "google.cancel",
+      "title": "Cancel an in-progress Google loopback authorization",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:cancel"
+    },
+    "google.disconnect": {
+      "id": "google.disconnect",
+      "title": "Revoke and delete the locally stored Google grant",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:disconnect"
+    },
+    "google.sheets.list": {
+      "id": "google.sheets.list",
+      "title": "Read metadata for user-selected spreadsheets only",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:sheets"
+    },
+    "google.sheets.add": {
+      "id": "google.sheets.add",
+      "title": "Remember a validated user-selected spreadsheet URL or ID",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:sheet-add"
+    },
+    "google.sheets.remove": {
+      "id": "google.sheets.remove",
+      "title": "Remove a spreadsheet from the local selection",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:sheet-remove"
+    },
+    "google.sheets.read": {
+      "id": "google.sheets.read",
+      "title": "Read bounded values from a selected spreadsheet after explicit action",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:sheet-read"
     }
   },
   "windowActions": [

@@ -34,7 +34,9 @@
     "test:workspace": "node scripts/workspace-consent-test.cjs",
     "test:settings": "node scripts/settings-consent-test.cjs",
     "test:home": "node scripts/home-live-test.cjs",
-    "test:workbench": "node scripts/workbench-host-test.cjs"
+    "test:workbench": "node scripts/workbench-host-test.cjs",
+    "test:google": "node scripts/google-oauth-test.cjs",
+    "test:navigation": "node scripts/navigation-route-test.cjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

@@ -95,6 +95,7 @@ export interface ServiceWorkspaceProps {
   onClose: () => void;
   onNotice: (message: string) => void;
   onNavigateSection?: (section: string) => void;
+  embedded?: boolean;
 }
 
 interface SubPanelProps {
@@ -349,6 +350,7 @@ export function ServiceWorkspace({
   onClose,
   onNotice,
   onNavigateSection,
+  embedded = false,
 }: ServiceWorkspaceProps) {
   const capability = controller.capabilities?.services.find((item) => item.id === service);
   const fallback = SERVICE_FALLBACK_META[service];
@@ -1446,6 +1448,19 @@ export function ServiceWorkspace({
       default: return null;
     }
   };
+
+  if (embedded) {
+    return (
+      <div data-testid="startup-service-focus" className="flex flex-col gap-2">
+        <p className="text-[10px] text-slate-400">{description}</p>
+        {renderService()}
+        <div className="stp-gate-note">
+          <Lock className="w-3 h-3" />
+          {t(locale, 'Read-only workbench · no startup, task or registry write', 'ورشة للقراءة فقط · لا كتابة إقلاع أو مهمة أو سجل')}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="stp-service-workspace" data-testid={`startup-service-workspace-${service}`} style={{ '--stp-accent': accent } as React.CSSProperties}>

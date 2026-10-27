@@ -26,6 +26,8 @@ jobs:
       - run: npm run test:services
       - run: npm run test:automation
       - run: npm run test:workspace
+      - run: npm run test:google
       - run: npm run test:settings
       - run: npm run test:home
       - run: npm run test:workbench
+      - run: npm run test:navigation

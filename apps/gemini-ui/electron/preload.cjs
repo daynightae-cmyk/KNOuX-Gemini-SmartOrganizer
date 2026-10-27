@@ -135,8 +135,38 @@ const CHANNELS = Object.freeze({
   automationValidateImport: 'knoux:automation:v1:validate-import',
   automationJournal: 'knoux:automation:v1:journal',
   automationReport: 'knoux:automation:v1:report',
+  googleStatus: 'knoux:google:v1:status',
+  googleConnect: 'knoux:google:v1:connect',
+  googleCancel: 'knoux:google:v1:cancel',
+  googleDisconnect: 'knoux:google:v1:disconnect',
+  googleSheetsList: 'knoux:google:v1:sheets',
+  googleSheetAdd: 'knoux:google:v1:sheet-add',
+  googleSheetRemove: 'knoux:google:v1:sheet-remove',
+  googleSheetRead: 'knoux:google:v1:sheet-read',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
+
+/* Google Workspace v1 is the only network-capable namespace. It exposes
+   named status/connect/cancel/disconnect and bounded Sheets actions; token
+   and client-secret material never cross this bridge. */
+contextBridge.exposeInMainWorld(
+  'knouxGoogleV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    getStatus: () => ipcRenderer.invoke(CHANNELS.googleStatus),
+    connect: () => ipcRenderer.invoke(CHANNELS.googleConnect),
+    cancel: () => ipcRenderer.invoke(CHANNELS.googleCancel),
+    disconnect: () => ipcRenderer.invoke(CHANNELS.googleDisconnect),
+    listSheets: () => ipcRenderer.invoke(CHANNELS.googleSheetsList),
+    addSpreadsheet: (input) => ipcRenderer.invoke(CHANNELS.googleSheetAdd, { input: String(input || '') }),
+    removeSpreadsheet: (id) => ipcRenderer.invoke(CHANNELS.googleSheetRemove, { id: String(id || '') }),
+    readSheet: (request) => ipcRenderer.invoke(CHANNELS.googleSheetRead, {
+      id: String(request?.id || ''),
+      range: typeof request?.range === 'string' ? request.range : undefined,
+      majorDimension: request?.majorDimension === 'COLUMNS' ? 'COLUMNS' : 'ROWS',
+    }),
+  })
+);
 
 contextBridge.exposeInMainWorld(
   'knouxShell',
