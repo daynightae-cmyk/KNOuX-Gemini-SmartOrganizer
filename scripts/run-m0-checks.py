@@ -59,7 +59,7 @@ for name, command, cwd, env in checks:
         stderr = (error.stderr or "") + "\nTIMEOUT after 900s"
     seconds = round(time.time() - started, 2)
     log = f"$ {' '.join(str(part) for part in command)}\n(cwd: {cwd})\n\nSTDOUT:\n{stdout}\nSTDERR:\n{stderr}\nEXIT: {code}\nDURATION: {seconds}s\n"
-    (OUT / f"{name}.txt").write_text(log, encoding="utf-8")
+    (OUT / f"{name}.txt").write_text(log, encoding="utf-8", newline="\n")
     results.append({"name": name, "command": [str(part) for part in command], "cwd": str(cwd), "exitCode": code, "durationSeconds": seconds})
     print(f"[{name}] exit={code} {seconds}s", flush=True)
 
@@ -71,6 +71,6 @@ record = {
     "ok": all(item["exitCode"] == 0 for item in results),
     "checks": results,
 }
-(OUT / "checks.json").write_text(json.dumps(record, indent=2), encoding="utf-8")
+(OUT / "checks.json").write_text(json.dumps(record, indent=2), encoding="utf-8", newline="\n")
 print(json.dumps({"ok": record["ok"], "head": record["head"], "branch": record["branch"], "passed": sum(item["exitCode"] == 0 for item in results), "total": len(results), "output": str(OUT)}, indent=2))
 sys.exit(0 if record["ok"] else 1)

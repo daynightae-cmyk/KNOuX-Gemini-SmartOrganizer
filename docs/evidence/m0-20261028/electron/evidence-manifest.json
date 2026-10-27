@@ -3,7 +3,7 @@
   "branch": "integration/knoux-unified-20261028",
   "generatedAt": "2026-10-27T22:33:14Z",
   "electronVersion": "43.4.1",
-  "hashScope": "SHA-256 values are of the committed Git blob bytes (LF-normalized). PNG captures are binary and byte-exact.",
+  "hashScope": "SHA-256 values are of the committed Git blob bytes (LF-normalized). PNG captures are binary and byte-exact. Python-written JSON can appear CRLF in a Windows worktree; hash the committed blob, not the worktree copy.",
   "isolation": "Each suite launches apps/gemini-ui/electron/main.cjs with an isolated --knoux-user-data profile; fixtures live under %TEMP%; no owner paths are touched.",
   "testHarnessFixes": [
     "Restored the UTF-8 em dash in the exact-approval dialog mock; commit d12b488 had stored mojibake and the mock rejected the real dialog.",
@@ -97,14 +97,14 @@
   ],
   "m0Checks": {
     "path": "../staging/checks.json",
-    "sha256": "044b8e2084652441af7747d31a49c3b58849f1e0d9bec529f19f76ac60e6d2a4",
+    "sha256": "c0529cbe4579914a47c43ca8a3e647397cf93b6ff6d3954550322d2f68b3ffe6",
     "head": "5b5018801dd9fc00fbe843ecf430c4302d664461",
     "passed": 25,
     "failed": 0
   },
   "dispositionVerification": {
     "path": "../staging/disposition-verification.json",
-    "sha256": "30d66752518fdfcfb33e35b58d44dbcd656c53b45275c0726f2d058065ec3e5c",
+    "sha256": "6093bb963aa1924d51d6e5914f112688590ee2e6d225638f28b60e8bb5d059a5",
     "ok": true,
     "failures": 0,
     "wipEntries": 932,
