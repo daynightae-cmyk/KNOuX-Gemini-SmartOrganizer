@@ -466,9 +466,68 @@
   },
   {
     "section": "services",
-    "orbit": false,
-    "satellites": 0,
-    "note": "no orbital dial on this screen"
+    "orbit": true,
+    "satellites": 6,
+    "enabled": 6,
+    "disabled": 0,
+    "navigated": 6,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Service CommanderReview the measured SCM register",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Running",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": "Running — Measured running states",
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 1,
+        "label": "Stopped",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": "Stopped — Status query, read-only",
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 2,
+        "label": "Dependencies",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": "Dependencies — Measured dependency edges",
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 3,
+        "label": "Recovery",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": "Recovery — Fault diagnostics, no repair runs",
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 4,
+        "label": "Events",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": "Events — Bounded SCM events",
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 5,
+        "label": "Startup Type",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": "Startup Type — Policy preview only",
+        "outcome": "NAVIGATED"
+      }
+    ],
+    "errors": []
   },
   {
     "section": "home",

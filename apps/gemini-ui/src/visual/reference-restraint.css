@@ -117,6 +117,31 @@ html[data-theme='light'] .visual-sprint[data-visual-section='studio']:has(.knx-s
 }
 
 /* ==========================================================================
+   The dial is navigation, so it must never be hidden on a smaller viewport
+   ========================================================================== */
+
+/*
+ * Six reference screens dropped their orbital dial entirely below a 1370-1500px
+ * breakpoint: Applications, Cleanup, Smart Scan, Startup, Storage and System.
+ * Every one of those thresholds sits above the 1366x768 evidence viewport, so on
+ * a standard laptop the page silently lost its whole set of planned destinations
+ * and fell out of structural parity with its own 1672px layout.
+ *
+ * Only the removal is undone. The satellite set is untouched, so no screen gains
+ * or loses a destination and no second toolbar is introduced, and each hero
+ * keeps its own layout. The first attempt also forced a grid row and a width,
+ * which re-placed the dial on top of the Smart Scan source chooser at 1366px;
+ * that is why this override now changes nothing but `display`. The engine then
+ * compacts the geometry from its own container query.
+ */
+@media (max-width: 1500px) {
+  .visual-sprint[data-reference-shell='true'] .knx-orbit {
+    display: block !important;
+    max-width: 430px;
+  }
+}
+
+/* ==========================================================================
    Sidebar — the references show a navy rail with a violet active pill,
    not a violet panel. Studio duplicates this rule, so both are covered.
    ========================================================================== */

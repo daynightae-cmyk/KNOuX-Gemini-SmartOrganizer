@@ -3,6 +3,8 @@
  * Section 03: Files / Instant Find & Visual Intelligence
  */
 
+import { localFixtureThumb } from './fixture-thumbnail';
+
 export type FileCategoryFilter =
   | 'all'
   | 'files'
@@ -198,7 +200,7 @@ export const FILES_INSTANT_FIND_FIXTURE: FileResultItem[] = [
     dateModifiedRaw: '2024-10-26T14:17:00',
     source: 'Local Disk (C:)',
     dimensions: '3840 × 2160 (4K)',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(212),
     hashSha256: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
     isOrganized: false,
     suggestedAction: 'Move to Pictures\\Landscapes\\4K\\',
@@ -216,7 +218,7 @@ export const FILES_INSTANT_FIND_FIXTURE: FileResultItem[] = [
     dateModifiedRaw: '2024-10-24T20:03:00',
     source: 'Local Disk (C:)',
     dimensions: '3840 × 2160 (4K)',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1000&auto=format&fit=crop&q=85',
+    thumbnailUrl: localFixtureThumb(166),
     hashSha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
     isOrganized: false,
     suggestedAction: 'Move to Pictures\\Nature\\ and rename using YYYY-MM-DD_Location format.',
@@ -248,7 +250,7 @@ export const FILES_INSTANT_FIND_FIXTURE: FileResultItem[] = [
     dateModifiedRaw: '2024-10-20T16:33:00',
     source: 'Local Disk (C:)',
     dimensions: '1920 × 1080 (FHD)',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(286),
     hashSha256: '4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a',
     isOrganized: false,
     suggestedAction: 'Route to Videos\\Captures\\2024\\',
@@ -322,7 +324,7 @@ export const FILES_INSTANT_FIND_FIXTURE: FileResultItem[] = [
     dateModifiedRaw: '2024-10-09T10:18:00',
     source: 'Local Disk (C:)',
     dimensions: '2048 × 2048',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(38),
     hashSha256: '2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3',
     isOrganized: true,
   },
@@ -367,7 +369,7 @@ export const FILES_INSTANT_FIND_FIXTURE: FileResultItem[] = [
     dateModifiedRaw: '2024-10-03T09:36:00',
     source: 'Local Disk (C:)',
     dimensions: '7680 × 4320 (8K)',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?w=800&auto=format&fit=crop&q=80',
+    thumbnailUrl: localFixtureThumb(318),
     hashSha256: '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',
     isOrganized: false,
     suggestedAction: 'Route to Wallpapers\\8K\\',

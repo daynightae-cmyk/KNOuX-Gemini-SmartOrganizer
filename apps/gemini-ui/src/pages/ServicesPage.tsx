@@ -20,11 +20,15 @@ import {
   List,
   Loader2,
   Lock,
+  PlayCircle,
   RefreshCw,
+  RotateCcw,
   Search,
   ShieldAlert,
   ShieldCheck,
+  SlidersHorizontal,
   Sparkles,
+  Square,
   Wrench,
   X,
 } from 'lucide-react';
@@ -50,6 +54,7 @@ import {
   ServiceStateChip,
 } from '../services/ui';
 import { Chip, DataRows, Panel, downloadJson, cx } from '../system/ui';
+import { OrbitalControl } from '../visual/OrbitalControl';
 import '../services.css';
 
 export interface ServicesPageProps {
@@ -221,6 +226,24 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                     <Download aria-hidden="true" />{t(locale, 'Export report', 'تصدير التقرير')}
                   </button>
                 </div>
+              </div>
+              <div className="svc-hero-orbit">
+                <OrbitalControl
+                  title={t(locale, 'Service Commander', 'قائد الخدمات')}
+                  subtitle={t(locale, 'Review the measured SCM register', 'راجع سجل SCM المقيس')}
+                  eyebrow={t(locale, 'Service Commander scopes', 'نطاقات قائد الخدمات')}
+                  state={controller.scanning ? 'loading' : controller.nativeAvailable ? 'ready' : 'unavailable'}
+                  disabled={!snapshot}
+                  onActivate={() => openTool('services-inventory')}
+                  tools={[
+                    { id: 'running', label: t(locale, 'Running', 'تعمل'), icon: PlayCircle, onClick: () => openTool('services-inventory'), hint: t(locale, 'Measured running states', 'حالات التشغيل المقيسة') },
+                    { id: 'stopped', label: t(locale, 'Stopped', 'متوقفة'), icon: Square, onClick: () => openTool('services-search'), hint: t(locale, 'Status query, read-only', 'استعلام الحالة، للقراءة فقط') },
+                    { id: 'dependencies', label: t(locale, 'Dependencies', 'الاعتماديات'), icon: GitBranch, onClick: () => openTool('services-dependencies'), hint: t(locale, 'Measured dependency edges', 'حواف اعتماديات مقيسة') },
+                    { id: 'recovery', label: t(locale, 'Recovery', 'الاستعادة'), icon: RotateCcw, onClick: () => openTool('services-diagnose'), hint: t(locale, 'Fault diagnostics, no repair runs', 'تشخيص الأعطال، دون إصلاح') },
+                    { id: 'events', label: t(locale, 'Events', 'الأحداث'), icon: History, onClick: () => openTool('services-state-history'), hint: t(locale, 'Bounded SCM events', 'أحداث SCM محدودة') },
+                    { id: 'startup-type', label: t(locale, 'Startup Type', 'نوع البدء'), icon: SlidersHorizontal, onClick: () => openTool('services-config'), hint: t(locale, 'Policy preview only', 'معاينة السياسة فقط') },
+                  ]}
+                />
               </div>
               <aside className="sys-source-card svc-source-card" data-testid="services-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>

@@ -136,7 +136,7 @@ function AppContent() {
 
   return (
     <>
-      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair', 'services'].includes(currentSection)}>{renderActiveWorkspace()}</div>
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

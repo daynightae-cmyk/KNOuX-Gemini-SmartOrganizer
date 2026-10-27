@@ -38,26 +38,28 @@ try {
       horizontalOverflow: document.documentElement.scrollWidth > innerWidth,
       headings: [...document.querySelectorAll('h1')].map(e => e.textContent),
       officialLogoLoaded: [...document.querySelectorAll('img.knx-official-mark')].every(img => img.complete && img.naturalWidth > 0),
-      // Brand integrity: the approved artwork must be a bare circle. Any opaque
-      // tile or hairline behind it re-creates the square backing the brand rules
-      // forbid, so it is measured rather than assumed.
+      // Brand integrity: the approved artwork must sit on a bare, transparent
+      // field. Any opaque tile or hairline behind it re-creates the square
+      // backing the brand rules forbid, so it is measured rather than assumed.
+      //
+      // This is deliberately emblem-agnostic: Home renders .knx-circular-mark
+      // while the reference-shell screens (including Services) render the
+      // ribbon mark, and both must be square-backing free.
       brand: (() => {
         const visible = (el) => Boolean(el) && Boolean(el.offsetParent) && el.getBoundingClientRect().width > 0;
-        const emblems = [...document.querySelectorAll('img.knx-circular-mark')].filter(visible);
+        const emblems = [...document.querySelectorAll('img.knx-circular-mark, img.knx-shell-ribbonmark, img.knx-official-mark')].filter(visible);
         const loaded = emblems.filter(img => img.complete && img.naturalWidth > 0);
-        const framed = emblems.filter(img => {
-          const host = img.parentElement;
-          if (!host) return false;
+        const squaredHosts = [...document.querySelectorAll('.knx-title-brand-emblem, .knx-sidebar-brand-emblem')].filter(visible).filter(host => {
           const s = getComputedStyle(host);
           const opaque = s.backgroundColor !== 'rgba(0, 0, 0, 0)' && s.backgroundColor !== 'transparent';
           const bordered = parseFloat(s.borderTopWidth) > 0 || parseFloat(s.borderLeftWidth) > 0;
           const painted = s.backgroundImage !== 'none';
           return opaque || bordered || painted;
-        }).map(img => img.parentElement.getAttribute('class') || img.parentElement.tagName);
+        }).map(host => (host.getAttribute('class') || '').slice(0, 60));
         return {
-          circularEmblemsVisible: emblems.length,
-          circularEmblemsLoaded: loaded.length,
-          circularEmblemsSquared: framed,
+          emblemsVisible: emblems.length,
+          emblemsLoaded: loaded.length,
+          squaredEmblemHosts: squaredHosts,
           lettermarkVisible: [...document.querySelectorAll('.knx-shell-lettermark')].filter(visible).length,
         };
       })(),
@@ -77,16 +79,25 @@ try {
       // The orbital dial is the signature control, so its theme tokens are
       // asserted rather than eyeballed: a night dial that silently keeps the
       // daylight palette is the failure this catches.
+      //
+      // Visibility is measured too, not just presence. Counting satellites in
+      // the DOM reported six dials that were display:none below a 1370-1500px
+      // breakpoint, i.e. absent at the 1366x768 viewport while still "present".
       orbit: (() => {
         const el = document.querySelector('.knx-orbit');
         if (!el) return null;
         const core = document.querySelector('.knx-orbit-core');
         const cs = getComputedStyle(el);
+        const tools = [...document.querySelectorAll('.knx-orbit-tool')];
+        const toolsVisible = tools.filter(t => t.offsetParent !== null && t.getBoundingClientRect().width > 0);
         return {
           ink: cs.getPropertyValue('--orbit-ink').trim(),
           coreBg: core ? getComputedStyle(core).backgroundImage.slice(0, 60) : null,
-          satellites: document.querySelectorAll('.knx-orbit-tool').length,
-          disabledSatellites: [...document.querySelectorAll('.knx-orbit-tool')].filter(b => b.disabled).length,
+          display: cs.display,
+          visible: el.offsetParent !== null,
+          satellites: tools.length,
+          satellitesVisible: toolsVisible.length,
+          disabledSatellites: tools.filter(b => b.disabled).length,
         };
       })(),
       illustrationOverlapsSearch: (() => { const orbit = document.querySelector('.knx-files-orbit'); const field = document.querySelector('[data-testid="files-search"]'); return Boolean(orbit && field && orbit.getBoundingClientRect().bottom > field.getBoundingClientRect().top); })(),
@@ -105,10 +116,20 @@ try {
 } finally { await browser.close(); }
 await writeFile(path.join(folder, 'preview.json'), JSON.stringify(observations, null, 2));
 console.log(JSON.stringify(observations));
-// Home is the screen that must carry the circular emblem; other sections keep
-// their own already-approved mark treatment and are not gated on it.
+// Home and Services are the two screens the brand review calls out by name, so
+// both must show a loaded emblem with no square backing. The remaining sections
+// keep their own already-approved mark treatment and are not gated on it.
+const brandGated = ['home', 'services'];
 const brandFailures = observations.filter(o =>
   o.errors.length || o.horizontalOverflow || !o.officialLogoLoaded || o.illustrationOverlapsSearch || o.coveredFields.length
-  || (section === 'home' && (o.brand.circularEmblemsVisible === 0 || o.brand.circularEmblemsLoaded !== o.brand.circularEmblemsVisible || o.brand.circularEmblemsSquared.length > 0))
+  || (brandGated.includes(section) && (o.brand.emblemsVisible === 0 || o.brand.emblemsLoaded !== o.brand.emblemsVisible || o.brand.squaredEmblemHosts.length > 0))
 );
-if (brandFailures.length) process.exitCode = 1;
+// Any screen that shows a dial must not show a squared emblem host either.
+const squareBacked = observations.filter(o => o.brand.squaredEmblemHosts.length > 0);
+// A dial that exists in the DOM but is hidden, or that has lost satellites at a
+// viewport we evidence, is a silent loss of navigation rather than a pass.
+const dialHidden = observations.filter(o => o.orbit && (!o.orbit.visible || o.orbit.satellitesVisible !== o.orbit.satellites));
+if (brandFailures.length || squareBacked.length || dialHidden.length) process.exitCode = 1;
+if (dialHidden.length) {
+  console.error('HIDDEN DIAL: ' + dialHidden.map(o => `${o.theme}/${o.viewport} ${o.orbit.satellitesVisible}/${o.orbit.satellites}`).join(', '));
+}

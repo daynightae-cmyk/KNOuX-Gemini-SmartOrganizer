@@ -34,7 +34,7 @@ html[data-theme='light'] .svc-hero h1 span {
 .svc-source-card { border-color: rgba(129, 140, 248, 0.3); }
 
 /* KPIs */
-.svc-kpi-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.svc-kpi-row { grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: start; }
 .svc-kpi {
   min-height: 76px;
   padding: 6px 8px;
@@ -475,3 +475,40 @@ html[data-theme='light'] .svc-graph { background: radial-gradient(ellipse 30% 60
 html[data-theme='light'] .svc-policy-kpi,
 html[data-theme='light'] .svc-op-card,
 html[data-theme='light'] .svc-op-facts > div { background: #f8fbff; }
+
+/* --------------------------------------------------------------------------
+   Orbital Service Engine placement
+   The hero becomes copy | orbital wheel | evidence card, mirroring the
+   approved day/night references. Same markup at every theme.
+   -------------------------------------------------------------------------- */
+.svc-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 1.08fr) minmax(196px, 0.5fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.svc-hero .sys-hero-arc { display: none; }
+
+.svc-hero-orbit {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svc-hero-orbit .knx-orbit { max-width: 430px; }
+
+@media (max-width: 1500px) {
+  .svc-hero { grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr); }
+  .svc-hero .svc-source-card { display: none; }
+}
+
+@media (max-width: 1120px) {
+  .svc-hero { grid-template-columns: 1fr; }
+  /* The wheel is this page's primary navigation, so on narrow viewports it
+     reflows to full width instead of disappearing. The engine drives its own
+     geometry from container queries, so it compacts in place and every one of
+     the six scopes stays reachable by pointer and keyboard. */
+  .svc-hero-orbit { display: flex; width: 100%; }
+  .svc-hero-orbit .knx-orbit { max-width: 420px; }
+}
