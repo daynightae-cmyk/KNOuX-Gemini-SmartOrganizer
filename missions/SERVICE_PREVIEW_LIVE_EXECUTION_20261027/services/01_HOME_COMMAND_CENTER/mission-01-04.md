@@ -1,0 +1,49 @@
+# Storage — SERVICE EXPERIENCE SPEC
+**Exact ID:** mission-01-04 | **Mission:** 01 — Home / Command Deck | **Provisional class:** A
+
+## الفكرة المميزة / Why this service feels alive
+خدمة Storage تفتح تجربة مستقلة في Mission Control Bridge، وليس مجرد Card رقمية. بدلاً من مشاهدة تقرير جامد، يحدد المستخدم نطاق الخدمة، يرى ما يُفحص أو يتغير وما مصدر المعلومة، ويتخذ إجراءً واضحًا في نفس مساحة العمل.
+
+## المسرح والتفاعل الخاص بالخدمة
+- **Primary live preview:** لوحة تشغيل مفصلة تقدم قياسات وأحداث خدمة Storage مع اختيار النطاق والنتائج الفعلية.
+- **الشخصية البصرية للقسم:** ساحة قيادة KPI حقيقية ولوحة قرارات وشريط نشاط مستمر يفتح خدمة التنفيذ المالكة.
+- **Microanimation مرتبطة بالواقع:** نقاط حركة بين عناصر Command Deck حسب الأحداث الحقيقية.
+- **Inspector سياقي:** المؤشرات، مصدر الرقم، آخر تحديث، حالة المهمة المنتظرة.
+- **عرض المصدر:** اسم provider، توقيت آخر عينة، النطاق، حالات denied/unavailable، Badge يميز LIVE NATIVE عن TEST FIXTURE أو DESIGN DEMO.
+- **مسار بصري:** قبل → أثناء → بعد؛ أي تغير في البيانات يجب أن يأتي من حدث فعلي، وليس Timer شكلي.
+- **الأوضاع:** Day/Night بنفس بنية JSX، Arabic/English RTL، Low/Reduced motion، 1366×768 دون Page Scroll، الجداول فقط بتمرير داخلي.
+
+## أزرار العمل الموصولة المطلوبة لهذه الخدمة
+1. **Choose Scope:** CTA واضح مرتبط بمنطق Storage، يبيّن ما إذا كانت العملية جاهزة، أو تحتاج موافقة، أو مفقود native handler؛ لا يعلن نجاحًا دون receipt.
+2. **Start Real Operation:** CTA واضح مرتبط بمنطق Storage، يبيّن ما إذا كانت العملية جاهزة، أو تحتاج موافقة، أو مفقود native handler؛ لا يعلن نجاحًا دون receipt.
+3. **Inspect Result:** CTA واضح مرتبط بمنطق Storage، يبيّن ما إذا كانت العملية جاهزة، أو تحتاج موافقة، أو مفقود native handler؛ لا يعلن نجاحًا دون receipt.
+4. **Export / Open Owning Service:** CTA واضح مرتبط بمنطق Storage، يبيّن ما إذا كانت العملية جاهزة، أو تحتاج موافقة، أو مفقود native handler؛ لا يعلن نجاحًا دون receipt.
+
+## رحلة المستخدم
+1. **Select:** اختَر المصدر والعنصر أو القاعدة الخاصة بـ Storage، واعرض Preview لما سيُقاس أو يتغير.
+2. **Measure:** احصل على قياسات/عناصر حقيقية من Provider معروف؛ تحديث أحداث Incremental وإيقاف Cancel.
+3. **Review:** اعرض item count وCoverage وDiff وRisk قبل أي أثر.
+4. **Act:** Actionable observation: sampling, filtering, scope selection, exporting, drilldown and verified handoff are actual actions; do not force destructive mutation on read-only instrumentation.
+5. **Follow:** timeline للحالات idle/scoping/measuring/preview/consent/running/verifying/success/partial/cancelled/failed.
+6. **Finish:** سجل نتائج مؤرخ، Postcondition موضوعي، Undo فقط إذا أثبت السجل عكس العملية بأمان.
+7. **Next:** اقترح خدمة مرتبطة تؤدي العملية التالية مع نقل النطاق المختار، دون تشغيل غير مصرّح به تلقائيًا.
+
+## الربط بالواقع الحالي — من جرد المستودع، ليس اختراعًا
+- **المزوّد المسجل:** system summary measured volumes
+- **UI/Executor المسجل:** measured volume snapshot + link to Volume Atlas
+- **موافقة/استعادة مسجلة:** read-only
+- **دليل سابق مسجل:** test:home + dev/packaged smoke
+- **حالة المنتج المسجلة:** MEASURED_READ_ONLY
+- **Workbench ledger:** AUDIT_REQUIRED
+- أعد فحص provider وIPC الحي في الكود عند التنفيذ؛ كلمات AUDIT_REQUIRED أو NONE ليست مصدر API تخميني.
+
+## إثبات القبول المطلوب لهذا المعرف
+- النتيجة مرتبطة بمزود حقيقي ومثبتة بإيصال Postcondition.
+- أزرار الخدمة متصلة بوظائفها الحقيقية أو BLOCKED وسبب محدد وزر بديل مفيد، وليس Placeholder.
+- Fixture E2E: correct result + empty + denied + interrupted + retry + partial + stale plan + disabled permission + optional recovery.
+- اختبر عجلة القسم وفتح Workbench side/expanded، حفظ selection والتمرير الداخلي، keyboard/Escape، aria-live وReduced Motion.
+- للعمل المؤثر: خطّة ثابتة البصمة، الموافقة المباشرة وقت التنفيذ، تحقق native postcondition والإيصال/التراجع الحقيقي.
+- اختم بحالة SPEC_DEFINED أولًا، ولا ترفع إلى IMPLEMENTED_VERIFIED دون commit/fixture proof/screenshots/Windows packaging evidence.
+
+## حدود الأمان
+هذه مواصفات تنفيذ لا تصريح لتغيير ملفات المالك أو Registry أو Services أو البرامج أو حساباته. اختبر آثار Windows على disposable fixtures وMock/VM، وأطلب الموافقة في وقت العملية. Class A لا يحتاج mutation لكنه يحتاج تفاعلًا حقيقيًا ولا يبقى Dashboard خاملة.

@@ -236,7 +236,9 @@ export interface StudioPlanFile {
 }
 
 export interface StudioPlanPreview {
+  planId: string;
   planHash: string;
+  executable: boolean;
   operation: string;
   structure: string;
   collisionPolicy: string;
@@ -271,13 +273,18 @@ export interface StudioPreviewHistoryEntry {
 }
 
 export interface StudioProgressEvent {
-  type: 'scan-progress' | 'scan-complete' | 'scan-cancelled' | 'scan-failed';
-  sourceId: string;
+  type: 'scan-progress' | 'scan-complete' | 'scan-cancelled' | 'scan-failed' | 'execution' | 'undo';
+  sourceId?: string;
+  operationId?: string;
+  planId?: string;
+  journalId?: string;
+  phase?: string;
   at: string;
   files?: number;
   bytes?: number;
   folders?: number;
   message?: string;
+  [key: string]: unknown;
 }
 
 export interface StudioShellApi {
@@ -312,6 +319,22 @@ export interface StudioShellApi {
     destinationId?: string;
     relativePath?: string;
   }) => Promise<NativeEnvelope<StudioPlanPreview>>;
+  executePlan: (request: {
+    planId: string;
+    planHash: string;
+    approved: true;
+    operation: 'copy' | 'move' | 'virtual';
+    destinationSummary: string;
+  }) => Promise<NativeEnvelope<unknown>>;
+  cancelExecution: (operationId: string) => Promise<NativeEnvelope<{ cancelled: boolean }>>;
+  undoPreview: (journalId: string) => Promise<NativeEnvelope<unknown>>;
+  undoApply: (request: {
+    journalId: string;
+    previewId: string;
+    previewHash: string;
+    resolution: 'skip' | 'rename';
+    approved: true;
+  }) => Promise<NativeEnvelope<unknown>>;
   previewHistory: () => Promise<NativeEnvelope<StudioPreviewHistoryEntry[]>>;
   onEvent: (callback: (event: StudioProgressEvent) => void) => () => void;
 }

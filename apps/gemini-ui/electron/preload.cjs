@@ -27,6 +27,10 @@ const CHANNELS = Object.freeze({
   studioThumbnails: 'knoux:studio:v1:thumbnails',
   studioDestinationChoose: 'knoux:studio:v1:destination-choose',
   studioPlanPreview: 'knoux:studio:v1:plan-preview',
+  studioPlanExecute: 'knoux:studio:v1:plan-execute',
+  studioExecutionCancel: 'knoux:studio:v1:execution-cancel',
+  studioUndoPreview: 'knoux:studio:v1:undo-preview',
+  studioUndoApply: 'knoux:studio:v1:undo-apply',
   studioPreviewHistory: 'knoux:studio:v1:preview-history',
   studioEvent: 'knoux:studio:v1:event',
   filesSources: 'knoux:files:v1:sources',
@@ -206,6 +210,10 @@ contextBridge.exposeInMainWorld(
     thumbnails: (sourceId, fileIds) => ipcRenderer.invoke(CHANNELS.studioThumbnails, { sourceId, fileIds }),
     chooseDestination: () => ipcRenderer.invoke(CHANNELS.studioDestinationChoose),
     previewPlan: (request) => ipcRenderer.invoke(CHANNELS.studioPlanPreview, request),
+    executePlan: (request) => ipcRenderer.invoke(CHANNELS.studioPlanExecute, request),
+    cancelExecution: (operationId) => ipcRenderer.invoke(CHANNELS.studioExecutionCancel, { operationId }),
+    undoPreview: (journalId) => ipcRenderer.invoke(CHANNELS.studioUndoPreview, { journalId }),
+    undoApply: (request) => ipcRenderer.invoke(CHANNELS.studioUndoApply, request),
     previewHistory: () => ipcRenderer.invoke(CHANNELS.studioPreviewHistory),
     onEvent: (callback) => {
       const listener = (_event, payload) => callback(payload);

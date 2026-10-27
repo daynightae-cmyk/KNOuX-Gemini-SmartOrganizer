@@ -1,0 +1,3 @@
+# QWEN RECOVERY PRIORITY NOTICE
+**The old FAST SPRINT means speed, NOT superficial palette tweaks.** Read `00_QWEN_VISUAL_RECOVERY_FIRST.md` and `QWEN_PRIORITY_SCREEN_TASKS.md` before running the original queue. The 20 current images are intact and confirmed equivalent to supplied references.rar; do NOT rewrite them. **Reference DAY is the layout contract; NIGHT is the same layout with new materials.** Preserve current Codex work and uncommitted files in .worktrees/visual-sprint. Fix 10 sections using real code, not replace screenshot backgrounds. Complete Repair WIP and missing Services, keep actual Native safety constraints. No merges to main, no destructive commands.
+

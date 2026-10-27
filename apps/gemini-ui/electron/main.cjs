@@ -315,6 +315,18 @@ function registerIpc() {
   ipcMain.handle(contract.channels.studioPlanPreview, (event, ...args) =>
     studioGuard(event, 'studio.plan.preview', 'read-only', () => studioBridge.previewPlan(studioArg(args)))
   );
+  ipcMain.handle(contract.channels.studioPlanExecute, (event, ...args) =>
+    studioGuard(event, 'studio.plan.execute', 'user-initiated', () => studioBridge.executePlan(studioArg(args)))
+  );
+  ipcMain.handle(contract.channels.studioExecutionCancel, (event, ...args) =>
+    studioGuard(event, 'studio.execution.cancel', 'user-initiated', () => studioBridge.cancelExecution(studioArg(args)?.operationId))
+  );
+  ipcMain.handle(contract.channels.studioUndoPreview, (event, ...args) =>
+    studioGuard(event, 'studio.undo.preview', 'read-only', () => studioBridge.undoPreview(studioArg(args)?.journalId))
+  );
+  ipcMain.handle(contract.channels.studioUndoApply, (event, ...args) =>
+    studioGuard(event, 'studio.undo.apply', 'user-initiated', () => studioBridge.undoApply(studioArg(args)))
+  );
   ipcMain.handle(contract.channels.studioPreviewHistory, (event) =>
     studioGuard(event, 'studio.preview.history', 'read-only', () => studioBridge.previewHistory())
   );

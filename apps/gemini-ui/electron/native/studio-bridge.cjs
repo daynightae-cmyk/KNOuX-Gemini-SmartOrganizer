@@ -250,11 +250,16 @@ class StudioBridge {
     if (isProtectedRoot(sourceRoot)) {
       throw studioError('STUDIO_PROTECTED_ROOT', 'Windows system and application roots cannot be authorized in Studio.');
     }
+    const identity = (await safety.assertSafeRoute(sourceRoot)).identity;
     const existing = this.sources.find((source) => safety.keyOf(source.path) === safety.keyOf(sourceRoot));
-    if (existing) return this.publicSource(existing);
+    if (existing) {
+      existing.identity = identity;
+      return this.publicSource(existing);
+    }
     const source = {
       id: crypto.randomUUID(),
       path: sourceRoot,
+      identity,
       addedAt: nowIso(),
       lastScanned: null,
     };
@@ -440,7 +445,8 @@ class StudioBridge {
     const root = await safety.assertRealDirectory(selected, 'Destination');
     if (isProtectedRoot(root)) throw studioError('STUDIO_PROTECTED_ROOT', 'Windows system and application roots cannot be used as destinations.');
     await safety.assertWritableDirectory(root);
-    const grant = { id: crypto.randomUUID(), label: path.basename(root) || root, root, selectedAt: nowIso() };
+    const identity = (await safety.assertSafeRoute(root)).identity;
+    const grant = { id: crypto.randomUUID(), label: path.basename(root) || root, root, identity, selectedAt: nowIso() };
     this.destinations.set(grant.id, grant);
     return { id: grant.id, path: root };
   }
@@ -502,7 +508,9 @@ class StudioBridge {
     const nextHistory = [historyEntry, ...(Array.isArray(history) ? history : [])].slice(0, MAX_PREVIEW_PLANS);
     await this.writeJson(this.historyPath, nextHistory);
     return {
+      planId: plan.planId,
       planHash: plan.planHash,
+      executable: plan.executable,
       operation,
       structure: plan.structure,
       collisionPolicy: plan.collisionPolicy,
@@ -544,6 +552,54 @@ class StudioBridge {
     const source = await this.addSource(folder);
     await this.scanSource(source.id);
     return source;
+  }
+
+  async executePlan(request = {}) {
+    await this.init();
+    const result = await this.engine.execute({
+      owner: 'gemini-studio',
+      request: {
+        planId: request.planId,
+        planHash: request.planHash,
+        approved: request.approved === true,
+        operation: request.operation,
+        destinationSummary: request.destinationSummary || '',
+      },
+      emit: (payload) => this.emit(payload),
+    });
+    return result;
+  }
+
+  async cancelExecution(operationId) {
+    await this.init();
+    return this.engine.cancel({ owner: 'gemini-studio', operationId });
+  }
+
+  authorizeRoot(root, kind) {
+    const records = kind === 'source' ? this.sources : Array.from(this.destinations.values());
+    return records.find((record) => {
+      const recordRoot = record.path || record.root;
+      return recordRoot && safety.keyOf(recordRoot) === safety.keyOf(root);
+    }) || null;
+  }
+
+  async undoPreview(journalId) {
+    await this.init();
+    return this.engine.undoPreview({ journalId, owner: 'gemini-studio', authorizeRoot: (root, kind) => this.authorizeRoot(root, kind) });
+  }
+
+  async undoApply(request = {}) {
+    await this.init();
+    return this.engine.undoApply({
+      journalId: request.journalId,
+      previewId: request.previewId,
+      previewHash: request.previewHash,
+      resolution: request.resolution || 'skip',
+      owner: 'gemini-studio',
+      authorizeRoot: (root, kind) => this.authorizeRoot(root, kind),
+      emit: (payload) => this.emit(payload),
+      approved: request.approved === true,
+    });
   }
 
   async dispose() {

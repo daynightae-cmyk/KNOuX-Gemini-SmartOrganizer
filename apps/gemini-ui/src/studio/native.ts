@@ -105,6 +105,30 @@ export async function loadStudioPreviewHistory(): Promise<NativeEnvelope<StudioP
   return assertEnvelope(await api.previewHistory(), 'studio.preview.history');
 }
 
+export async function executeStudioPlan(request: Parameters<StudioShellApi['executePlan']>[0]): Promise<NativeEnvelope<unknown> | null> {
+  const api = getStudioShell();
+  if (!api) return null;
+  return assertEnvelope(await api.executePlan(request), 'studio.plan.execute');
+}
+
+export async function cancelStudioExecution(operationId: string): Promise<NativeEnvelope<{ cancelled: boolean }> | null> {
+  const api = getStudioShell();
+  if (!api) return null;
+  return assertEnvelope(await api.cancelExecution(operationId), 'studio.execution.cancel');
+}
+
+export async function previewStudioUndo(journalId: string): Promise<NativeEnvelope<unknown> | null> {
+  const api = getStudioShell();
+  if (!api) return null;
+  return assertEnvelope(await api.undoPreview(journalId), 'studio.undo.preview');
+}
+
+export async function applyStudioUndo(request: Parameters<StudioShellApi['undoApply']>[0]): Promise<NativeEnvelope<unknown> | null> {
+  const api = getStudioShell();
+  if (!api) return null;
+  return assertEnvelope(await api.undoApply(request), 'studio.undo.apply');
+}
+
 export function subscribeStudioEvents(callback: (event: StudioProgressEvent) => void): () => void {
   return getStudioShell()?.onEvent(callback) || (() => {});
 }
