@@ -170,9 +170,10 @@ export const KNOuXLogo: React.FC<KNOuXLogoProps> = ({
       className={`flex items-center gap-2.5 select-none ${onClick ? 'cursor-pointer' : ''} ${className}`}
     >
       <div
-        className={`${badgeClass} bg-gradient-to-tr from-[#1d4ed8] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shrink-0 border border-cyan-400/30`}
+        className={`${badgeClass} knx-title-brand-emblem bg-gradient-to-tr from-[#1d4ed8] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shrink-0 border border-cyan-400/30`}
       >
-        <span className={`${textKClass} text-white leading-none tracking-tight`}>K</span>
+        <span className={`${textKClass} knx-shell-lettermark text-white leading-none tracking-tight`}>K</span>
+        <KnouxMark className="knx-title-official-mark" />
       </div>
       {showText && (
         <div className="leading-tight">

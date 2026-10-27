@@ -28,6 +28,15 @@ try {
     const layout = await page.evaluate(() => ({
       horizontalOverflow: document.documentElement.scrollWidth > innerWidth,
       headings: [...document.querySelectorAll('h1')].map(e => e.textContent),
+      officialLogoLoaded: [...document.querySelectorAll('img.knx-official-mark')].every(img => img.complete && img.naturalWidth > 0),
+      illustrationOverlapsSearch: (() => { const orbit = document.querySelector('.knx-files-orbit'); const field = document.querySelector('[data-testid="files-search"]'); return Boolean(orbit && field && orbit.getBoundingClientRect().bottom > field.getBoundingClientRect().top); })(),
+      coveredFields: [...document.querySelectorAll('input,select,textarea')].filter(element => {
+        if (!element.offsetParent || element.closest('details:not([open])')) return false;
+        const r = element.getBoundingClientRect();
+        if (r.width < 5 || r.height < 5 || r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) return false;
+        const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return hit && hit !== element && !element.contains(hit);
+      }).map(element => element.getAttribute('data-testid') || element.getAttribute('aria-label') || element.tagName),
     }));
     observations.push({ theme, errors, ...layout });
     await context.close();
@@ -35,4 +44,4 @@ try {
 } finally { await browser.close(); }
 await writeFile(path.join(folder, 'preview.json'), JSON.stringify(observations, null, 2));
 console.log(JSON.stringify(observations));
-if (observations.some(o => o.errors.length || o.horizontalOverflow)) process.exitCode = 1;
+if (observations.some(o => o.errors.length || o.horizontalOverflow || !o.officialLogoLoaded || o.illustrationOverlapsSearch || o.coveredFields.length)) process.exitCode = 1;

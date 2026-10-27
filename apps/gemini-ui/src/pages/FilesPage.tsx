@@ -474,12 +474,12 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
           {/* 1. Hero & Commanding Search Area */}
           <div className="knx-files-header relative pt-3 pb-2 px-6 shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] select-none overflow-hidden">
-            <ReferenceAtmosphere />
             <div className="absolute inset-0 files-hero-nebula pointer-events-none" />
 
             {/* Breadcrumb & Title */}
             <div className="knx-files-heading relative z-10 mb-2">
-              <div>
+              <ReferenceAtmosphere />
+              <div className="knx-files-intro">
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-0.5">
                 <Folder className="w-3.5 h-3.5 text-cyan-400" />
                 <span>‹</span>

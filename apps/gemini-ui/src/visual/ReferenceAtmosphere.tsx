@@ -1,14 +1,7 @@
-import React, { useId } from 'react';
+import React from 'react';
 
 export function KnouxMark({ className = '' }: { className?: string }) {
-  const id = useId().replace(/:/g, '');
-  return <svg className={className} viewBox="0 0 72 92" fill="none" aria-hidden="true">
-    <defs><linearGradient id={id} x1="12" y1="7" x2="64" y2="82" gradientUnits="userSpaceOnUse"><stop stopColor="#fbf0ff"/><stop offset=".3" stopColor="#a66aff"/><stop offset=".63" stopColor="#6422e9"/><stop offset="1" stopColor="#b388ff"/></linearGradient></defs>
-    <path d="M26 5c5-3 11-1 15 4l12 16c4 5 3 12-2 16L34 55c-5 4-12 3-16-2l-4-5c-4-5-3-12 2-16l13-11-9-3c-4-5-2-10 6-13Z" fill={`url(#${id})`}/>
-    <path d="m30 45 15 18c4 5 3 12-2 16l-7 6c-5 4-12 3-16-2L8 68c-4-5-3-12 2-16l7-6c4-4 9-4 13-1Z" fill={`url(#${id})`}/>
-    <circle cx="58" cy="53" r="10" fill={`url(#${id})`}/>
-    <path d="M26 6c6-2 10 1 14 6l8 11M13 55c-4 4-4 9-1 14" stroke="white" strokeOpacity=".65" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>;
+  return <img className={`knx-official-mark ${className}`} src={new URL('./assets/knoux-official-logo.png', import.meta.url).href} alt="" aria-hidden="true" draggable={false} />;
 }
 
 /** Procedural decorative light; contains no telemetry or simulated operation state. */

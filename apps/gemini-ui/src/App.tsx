@@ -46,6 +46,7 @@ import './visual/apps-visual.css';
 import './visual/studio-reference.css';
 import './visual/reference-controls.css';
 import './visual/files-reference.css';
+import './visual/reference-polish.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';
