@@ -23,6 +23,7 @@ import {
   updateStatusLabel,
 } from './model';
 import type { ApplicationsController } from './useApplications';
+import { OrbitalControl } from '../visual/OrbitalControl';
 
 interface ApplicationsHeroProps {
   locale: AppsLocale;
@@ -100,7 +101,7 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
       <div className="apps-hero-arc" aria-hidden="true" />
       <div className="apps-hero-beam" aria-hidden="true" />
 
-      <div className="relative z-10 flex flex-wrap items-start justify-between gap-3">
+      <div className="knx-apps-hero-layout relative z-10">
         <div className="min-w-0">
           <div className="apps-breadcrumb">
             <span>{t(locale, 'Workspace', 'مساحة العمل')}</span>
@@ -108,7 +109,7 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
             <span>{t(locale, 'Applications', 'التطبيقات')}</span>
           </div>
           <h1 id="apps-hero-title" className="apps-hero-title">
-            {t(locale, 'Software Register', 'سجل البرمجيات')}
+            {t(locale, 'Master every app.', 'كل تطبيق. تحت سيطرتك.')}
           </h1>
           <p className="apps-hero-copy">
             {t(
@@ -119,7 +120,14 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <OrbitalControl title={t(locale, 'Analyze Applications', 'تحليل التطبيقات')} subtitle={t(locale, 'Inventory · Inspect · Review', 'جرد · فحص · مراجعة')}
+          onActivate={() => void controller.refreshInventory(true)} disabled={refreshing || !controller.nativeAvailable} running={refreshing}
+          tools={[
+            { id: 'inventory', label: t(locale, 'Inventory', 'الجرد'), icon: LayoutGrid, onClick: () => void controller.refreshInventory(true), disabled: refreshing || !controller.nativeAvailable },
+            { id: 'updates', label: t(locale, 'Updates', 'التحديثات'), icon: RefreshCw, onClick: () => void controller.checkUpdates(), disabled: !controller.nativeAvailable },
+            { id: 'export', label: t(locale, 'Export', 'تصدير'), icon: Download, onClick: controller.exportInventory, disabled: !inventory },
+          ]} />
+        <div className="knx-apps-hero-actions flex flex-wrap items-center justify-end gap-2">
           {selectedCount > 0 ? (
             <button
               type="button"
