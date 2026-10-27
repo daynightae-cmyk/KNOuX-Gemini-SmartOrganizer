@@ -1,0 +1,90 @@
+{
+  "checks": [
+    {
+      "name": "Native discovery and per-file category events",
+      "files": 40,
+      "categories": [
+        {
+          "key": "document",
+          "count": 10,
+          "bytes": 1483
+        },
+        {
+          "key": "code",
+          "count": 5,
+          "bytes": 749
+        },
+        {
+          "key": "audio",
+          "count": 5,
+          "bytes": 744
+        },
+        {
+          "key": "archive",
+          "count": 5,
+          "bytes": 739
+        },
+        {
+          "key": "pdf",
+          "count": 5,
+          "bytes": 734
+        },
+        {
+          "key": "video",
+          "count": 5,
+          "bytes": 723
+        },
+        {
+          "key": "image",
+          "count": 5,
+          "bytes": 718
+        }
+      ]
+    },
+    {
+      "name": "Collision review refuses mutation and preserves source"
+    },
+    {
+      "name": "Missing approval, tampered hash and declined native consent refuse effects"
+    },
+    {
+      "name": "40 real moves: exact hashes, source removal, collision keeper preserved",
+      "receiptId": "d69d6c3a-a753-466a-ba70-4ecc3ed326a7",
+      "planHash": "08a6688761d3e18f14131541a31b16450e43e84132bba8f120886bdf8bf6fc9c"
+    },
+    {
+      "name": "Plan replay refused"
+    },
+    {
+      "name": "Undo refuses modified destination and safely restores other 39 files"
+    },
+    {
+      "name": "All 40 original source hashes restored exactly"
+    },
+    {
+      "name": "Journal and undo results survive engine reload"
+    },
+    {
+      "name": "Same-size content change with restored mtime invalidates approval before effects"
+    },
+    {
+      "name": "Traversal and revoked session scope refused"
+    },
+    {
+      "name": "Revoking a source through the existing Studio bridge invalidates live execution"
+    },
+    {
+      "name": "Native cancellation reaches worker before mutation"
+    },
+    {
+      "name": "Junction escape excluded from measured scope"
+    }
+  ],
+  "fixtures": [
+    "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-RBdx7M",
+    "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-h259BI",
+    "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-fRxCv2",
+    "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-ooEfyZ"
+  ],
+  "ownerDataTouched": false
+}

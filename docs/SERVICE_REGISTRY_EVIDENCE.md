@@ -1,5 +1,7 @@
 # KNOuX Service Registry Evidence
 
+Live organization amendment 2026-10-27 (e819b2c): `file-organize-preview`, `file-organize-apply` and `file-organize-undo` now have a shared native executor/receipt/undo workbench proven on temporary Windows files and isolated Electron. Their former plan-only/absent-executor rows and the dated aggregate counts below are historical. Current status: IMPLEMENTED_AND_TESTED on disposable fixtures; packaged and owner-data gates remain UNVERIFIED. See the updated capability matrix and LIVE_SERVICE_EXECUTION_STATUS_181.csv.
+
 Updated: 2026-10-26
 Repository: `D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer`
 Branch: `feat/gemini-missions`

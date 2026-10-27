@@ -1,5 +1,7 @@
 # KNOuX — Service Workbench UI & Actual Action Acceptance
 
+2026-10-27 live execution amendment (e819b2c): Files organization preview/apply/undo and Studio execution/history now open the shared native live organization workbench. Exact approval, real effects and undo are fixture-tested in isolated Electron; packaging and manual owner-file acceptance remain unverified. Other historical blocked-write statements below still apply to the other domains. See LIVE_ORGANIZATION_FIRST_DELIVERY_20261027.md.
+
 This is a starting audit inventory, **NOT TEST EVIDENCE** and not an assertion of delivered workbenches.
 Source of advertised scope: docs/SERVICE_CAPABILITY_MATRIX.md (181 entries). Existing service/surface IDs: docs/SERVICE_REGISTRY_EVIDENCE.md (150 entries). Counts overlap; not 331 distinct engines. Use missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md and missions/15_REAL_SERVICE_ACTIVATION_MISSION.md.
 
