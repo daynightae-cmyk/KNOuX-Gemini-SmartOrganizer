@@ -1,0 +1,136 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 5,
+  "darkSurfaces": [
+    {
+      "cls": "files-distribution-bar mb-2",
+      "bg": "rgb(5, 13, 26)",
+      "area": 5376,
+      "text": ""
+    },
+    {
+      "cls": "files-distribution-bar mb-2",
+      "bg": "rgb(5, 13, 26)",
+      "area": 5376,
+      "text": ""
+    },
+    {
+      "cls": "relative aspect-video w-full rounded-lg overflow-hidden bg-black/60 border border-[#142e56] shadow-md group",
+      "bg": "oklab(0 0 0 / 0.6)",
+      "area": 70490,
+      "text": ""
+    },
+    {
+      "cls": "py-1 rounded bg-[#08162b] hover:bg-[#10274a] text-slate-300 hover:text-white text-[11px] flex items-center justify-center gap-1 border border-[#132c52",
+      "bg": "rgb(8, 22, 43)",
+      "area": 4585,
+      "text": "Copy Path"
+    },
+    {
+      "cls": "py-1 rounded bg-[#08162b] hover:bg-[#10274a] text-slate-300 hover:text-white text-[11px] flex items-center justify-center gap-1 border border-[#132c52",
+      "bg": "rgb(8, 22, 43)",
+      "area": 4585,
+      "text": "Calculate Hash"
+    }
+  ],
+  "lowContrastCount": 3,
+  "lowContrast": [
+    {
+      "c": 2.47,
+      "fg": "rgb(3, 105, 161)",
+      "bg": "rgb(31,41,55)",
+      "size": "9px",
+      "cls": "w-4 h-4 rounded bg-[#1F2937] border border-slate-600 flex items-center justify-center text-cyan-300 font-black",
+      "text": "M↓"
+    },
+    {
+      "c": 1.75,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(8,22,43)",
+      "size": "11px",
+      "cls": "",
+      "text": "Copy Path"
+    },
+    {
+      "c": 1.75,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(8,22,43)",
+      "size": "11px",
+      "cls": "",
+      "text": "Calculate Hash"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 32,
+  "coveredCount": 1,
+  "covered": [
+    {
+      "tag": "button",
+      "text": "Add to Organization Plan",
+      "top": "button",
+      "topText": "Review Organization Plan",
+      "rect": [
+        1279,
+        896,
+        354,
+        34
+      ]
+    }
+  ],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "w-80 xl:w-96 shrink-0 flex flex-col gap-2.5 select-none overflow-y-aut",
+      "clientH": 495,
+      "scrollH": 873
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ],
+    "footer": [
+      224,
+      893,
+      1448,
+      48
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-files-1672.png

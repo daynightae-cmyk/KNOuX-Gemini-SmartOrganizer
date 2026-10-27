@@ -1,0 +1,227 @@
+{
+  "project": "KNOuX SmartOrganizer",
+  "date": "2026-10-27",
+  "note": "Updated day/night bundle with mandatory initial Codex branch integration step.",
+  "images": [
+    {
+      "order": 1,
+      "theme": "night",
+      "section": "Organization Studio",
+      "route": "organization-studio",
+      "file": "references/night/01_organization-studio.png",
+      "sha256": "51704f881b05417084934b4ebb3454d0470012caec66eb35c2077bf540bf44c2",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 1,
+      "theme": "day",
+      "section": "Organization Studio",
+      "route": "organization-studio",
+      "file": "references/day/01_organization-studio.png",
+      "sha256": "5d286762a7badb97b32b038c61b1817e0ede39735a0da0dec1976e23982a754c",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 2,
+      "theme": "night",
+      "section": "Files",
+      "route": "files-instant-search",
+      "file": "references/night/02_files-instant-search.png",
+      "sha256": "62931fa01254b80f4ba47c1148fc15b7f8630d850eda5bba9cf8ff15fa269723",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 2,
+      "theme": "day",
+      "section": "Files",
+      "route": "files-instant-search",
+      "file": "references/day/02_files-instant-search.png",
+      "sha256": "7972b90e1e46e4f9074d46713692739dae67ff6a42073286ba333cde9f5a0bd8",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 3,
+      "theme": "night",
+      "section": "Smart Scan",
+      "route": "smart-scan",
+      "file": "references/night/03_smart-scan.png",
+      "sha256": "a639ec0cea7449deb9e41bd237bb8608f74ca656024203b111e1f25a3b3ee370",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 3,
+      "theme": "day",
+      "section": "Smart Scan",
+      "route": "smart-scan",
+      "file": "references/day/03_smart-scan.png",
+      "sha256": "e182ccabb0bdd25e6986f58758364bae40fd9adfdf01a9e07d2b45044dd9c977",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 4,
+      "theme": "night",
+      "section": "Applications",
+      "route": "applications",
+      "file": "references/night/04_applications.png",
+      "sha256": "6c0073f9be2389a68dbe546a6f8b543380e45d762c1b571da8fd8646b9b17928",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 4,
+      "theme": "day",
+      "section": "Applications",
+      "route": "applications",
+      "file": "references/day/04_applications.png",
+      "sha256": "524846173c326959354ffe81ec5893b3846c564ed0a51d9b0e29a124810971ea",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 5,
+      "theme": "night",
+      "section": "Storage",
+      "route": "storage",
+      "file": "references/night/05_storage.png",
+      "sha256": "0b50d35d5574de1a8e8a6d31110f209a95056800f1b80392f6bc40864d7163a7",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 5,
+      "theme": "day",
+      "section": "Storage",
+      "route": "storage",
+      "file": "references/day/05_storage.png",
+      "sha256": "23e75b7f439bae65c1f315224155f383d9d8d4d8c8443ecfd7929f6fa0b7f89f",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 6,
+      "theme": "night",
+      "section": "Cleanup",
+      "route": "cleanup",
+      "file": "references/night/06_cleanup.png",
+      "sha256": "4db069f42838175ba4cd25e9d5997103b2a04296cd6171c31736328146e3867f",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 6,
+      "theme": "day",
+      "section": "Cleanup",
+      "route": "cleanup",
+      "file": "references/day/06_cleanup.png",
+      "sha256": "2cd4bc3edaab0d8538f815a4a5c7bfebb6ecfa0457f3d67f78baa1c16a66158b",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 7,
+      "theme": "night",
+      "section": "Startup",
+      "route": "startup",
+      "file": "references/night/07_startup.png",
+      "sha256": "fec5fbec65a57b197226ad1c929065583e02d886473cf496f7e645601b68cf8f",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 7,
+      "theme": "day",
+      "section": "Startup",
+      "route": "startup",
+      "file": "references/day/07_startup.png",
+      "sha256": "41556afa91d03b0b26976aa0973c19286359c712a61391311c4adb6165d11bf5",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 8,
+      "theme": "night",
+      "section": "System",
+      "route": "system",
+      "file": "references/night/08_system.png",
+      "sha256": "2305cc801c30d8a7c29fcf98d7c944d0653d83535bba2f4c8a6aba2068b14037",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 8,
+      "theme": "day",
+      "section": "System",
+      "route": "system",
+      "file": "references/day/08_system.png",
+      "sha256": "3763cb8e8190284c207e7e92895de517e4d19ed086761a973ef795c36caef20e",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 9,
+      "theme": "night",
+      "section": "Repair Lab",
+      "route": "repair",
+      "file": "references/night/09_repair.png",
+      "sha256": "328ce8107b4c79076a28fc1f6512bddd35bedcd411ccba8d582bcef00aab17a2",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 9,
+      "theme": "day",
+      "section": "Repair Lab",
+      "route": "repair",
+      "file": "references/day/09_repair.png",
+      "sha256": "056ba52105cd668e2be9cda111f61f5271a6d69d55e665e327ea4cc4ea0a1f80",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    },
+    {
+      "order": 10,
+      "theme": "night",
+      "section": "Services",
+      "route": "services",
+      "file": "references/night/10_services.png",
+      "sha256": "f3388b9f8426308be65a80c461ddd2535e7e445c7e2aadc6aba8f96cdb42251b",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; dark-mode target reference"
+    },
+    {
+      "order": 10,
+      "theme": "day",
+      "section": "Services",
+      "route": "services",
+      "file": "references/day/10_services.png",
+      "sha256": "f29717a91d6a88fa646e037b20055c829d2db628a743898b71f02380beddc337",
+      "width": 1672,
+      "height": 941,
+      "kind": "visual concept only; light/day-mode target reference"
+    }
+  ]
+}

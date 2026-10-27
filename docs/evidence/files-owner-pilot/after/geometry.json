@@ -1,0 +1,5836 @@
+[
+  {
+    "theme": "light",
+    "locale": "en",
+    "width": 1366,
+    "height": 768,
+    "physicalWidth": 1366,
+    "physicalHeight": 768,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1126,
+          "h": 710,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 710,
+          "scrollHeight": 710,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 250,
+          "y": 68,
+          "w": 796,
+          "h": 469.1875,
+          "bottom": 537.1875,
+          "right": 1046,
+          "clientHeight": 468,
+          "scrollHeight": 468,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 263,
+          "y": 81,
+          "w": 770,
+          "h": 244,
+          "bottom": 325,
+          "right": 1033,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 654,
+          "y": 81,
+          "w": 379,
+          "h": 244,
+          "bottom": 325,
+          "right": 1033,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 250,
+          "y": 537.1875,
+          "w": 796,
+          "h": 172.8125,
+          "bottom": 710,
+          "right": 1046,
+          "clientHeight": 171,
+          "scrollHeight": 171,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1056,
+          "y": 68,
+          "w": 300,
+          "h": 642,
+          "bottom": 710,
+          "right": 1356,
+          "clientHeight": 640,
+          "scrollHeight": 640,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 250,
+          "y": 720,
+          "w": 1106,
+          "h": 48,
+          "bottom": 768,
+          "right": 1356,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 298,
+          "y": 450.390625,
+          "w": 539.453125,
+          "h": 26,
+          "bottom": 476.390625,
+          "right": 837.453125,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1108.390625,
+          "y": 727.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 761.296875,
+          "right": 1344,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 263,
+          "y": 84.453125,
+          "w": 379,
+          "h": 237.078125,
+          "bottom": 321.53125,
+          "right": 642,
+          "clientHeight": 237,
+          "scrollHeight": 237,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 263,
+          "y": 333,
+          "w": 770,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1033,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 767.703125,
+          "y": 127.203125,
+          "w": 151.59375,
+          "h": 151.59375,
+          "bottom": 278.796875,
+          "right": 919.296875,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 700.953125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 788.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 898.03125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 986.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 958.671875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 1046.671875,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 898.03125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 986.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 700.953125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 788.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 640.3125,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 728.3125,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 251,
+          "y": 570.1875,
+          "w": 794,
+          "h": 138.8125,
+          "bottom": 709,
+          "right": 1045,
+          "clientHeight": 139,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 1069,
+          "y": 183,
+          "w": 274,
+          "h": 290,
+          "bottom": 473,
+          "right": 1343,
+          "clientHeight": 288,
+          "scrollHeight": 491
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "en",
+    "width": 1672,
+    "height": 941,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1672,
+        "height": 941
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1432,
+          "h": 883,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 883,
+          "scrollHeight": 883,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 252,
+          "y": 70,
+          "w": 1046,
+          "h": 592.125,
+          "bottom": 662.125,
+          "right": 1298,
+          "clientHeight": 591,
+          "scrollHeight": 591,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 265,
+          "y": 83,
+          "w": 1020,
+          "h": 329.34375,
+          "bottom": 412.34375,
+          "right": 1285,
+          "clientHeight": 329,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 705.390625,
+          "y": 83,
+          "w": 579.609375,
+          "h": 331.25,
+          "bottom": 414.25,
+          "right": 1285,
+          "clientHeight": 331,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 252,
+          "y": 662.125,
+          "w": 1046,
+          "h": 220.875,
+          "bottom": 883,
+          "right": 1298,
+          "clientHeight": 219,
+          "scrollHeight": 219,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1310,
+          "y": 70,
+          "w": 350,
+          "h": 813,
+          "bottom": 883,
+          "right": 1660,
+          "clientHeight": 811,
+          "scrollHeight": 811,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 252,
+          "y": 893,
+          "w": 1408,
+          "h": 48,
+          "bottom": 941,
+          "right": 1660,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 300,
+          "y": 573.328125,
+          "w": 710.671875,
+          "h": 26,
+          "bottom": 599.328125,
+          "right": 1010.671875,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1412.390625,
+          "y": 900.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 934.296875,
+          "right": 1648,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 265,
+          "y": 83,
+          "w": 428.390625,
+          "h": 331.25,
+          "bottom": 414.25,
+          "right": 693.390625,
+          "clientHeight": 331,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 265,
+          "y": 422.34375,
+          "w": 1020,
+          "h": 91.390625,
+          "bottom": 513.734375,
+          "right": 1285,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 887.1875,
+          "y": 140.625,
+          "w": 216,
+          "h": 216,
+          "bottom": 356.625,
+          "right": 1103.1875,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 810.78125,
+          "y": 88.09562683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.6893768310547,
+          "right": 898.78125,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 1091.578125,
+          "y": 88.09562683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.6893768310547,
+          "right": 1179.578125,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 1177.984375,
+          "y": 194.0956268310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 276.68939208984375,
+          "right": 1265.984375,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 1091.578125,
+          "y": 306.72064208984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 389.31439208984375,
+          "right": 1179.578125,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 810.78125,
+          "y": 306.72064208984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 389.31439208984375,
+          "right": 898.78125,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 724.375,
+          "y": 194.0956268310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 276.68939208984375,
+          "right": 812.375,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 253,
+          "y": 695.125,
+          "w": 1044,
+          "h": 186.875,
+          "bottom": 882,
+          "right": 1297,
+          "clientHeight": 187,
+          "scrollHeight": 456
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "en",
+    "width": 1920,
+    "height": 1080,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1680,
+          "h": 1022,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1022,
+          "scrollHeight": 1022,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 252,
+          "y": 70,
+          "w": 1294,
+          "h": 607.78125,
+          "bottom": 677.78125,
+          "right": 1546,
+          "clientHeight": 607,
+          "scrollHeight": 607,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 265,
+          "y": 83,
+          "w": 1268,
+          "h": 345,
+          "bottom": 428,
+          "right": 1533,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 810.796875,
+          "y": 83,
+          "w": 722.203125,
+          "h": 345,
+          "bottom": 428,
+          "right": 1533,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 252,
+          "y": 677.78125,
+          "w": 1294,
+          "h": 344.21875,
+          "bottom": 1022,
+          "right": 1546,
+          "clientHeight": 342,
+          "scrollHeight": 342,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1558,
+          "y": 70,
+          "w": 350,
+          "h": 952,
+          "bottom": 1022,
+          "right": 1908,
+          "clientHeight": 950,
+          "scrollHeight": 950,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 252,
+          "y": 1032,
+          "w": 1656,
+          "h": 48,
+          "bottom": 1080,
+          "right": 1908,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 300,
+          "y": 588.984375,
+          "w": 958.671875,
+          "h": 26,
+          "bottom": 614.984375,
+          "right": 1258.671875,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1660.390625,
+          "y": 1039.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 1073.296875,
+          "right": 1896,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 265,
+          "y": 89.875,
+          "w": 533.796875,
+          "h": 331.25,
+          "bottom": 421.125,
+          "right": 798.796875,
+          "clientHeight": 331,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 265,
+          "y": 438,
+          "w": 1268,
+          "h": 91.390625,
+          "bottom": 529.390625,
+          "right": 1533,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 1063.890625,
+          "y": 147.5,
+          "w": 216,
+          "h": 216,
+          "bottom": 363.5,
+          "right": 1279.890625,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 987.484375,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 1075.484375,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 1268.28125,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 1356.28125,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 1354.6875,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 1442.6875,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 1268.28125,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 1356.28125,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 987.484375,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 1075.484375,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 901.078125,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 989.078125,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 253,
+          "y": 710.78125,
+          "w": 1292,
+          "h": 310.21875,
+          "bottom": 1021,
+          "right": 1545,
+          "clientHeight": 310,
+          "scrollHeight": 456
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "en",
+    "width": 1338,
+    "height": 753,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1.25,
+    "geometry": {
+      "viewport": {
+        "width": 1338,
+        "height": 753
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1098,
+          "h": 695,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 695,
+          "scrollHeight": 695,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 250,
+          "y": 68,
+          "w": 768,
+          "h": 469.1875,
+          "bottom": 537.1875,
+          "right": 1018,
+          "clientHeight": 468,
+          "scrollHeight": 468,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 263,
+          "y": 81,
+          "w": 742,
+          "h": 244,
+          "bottom": 325,
+          "right": 1005,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 640,
+          "y": 81,
+          "w": 365,
+          "h": 244,
+          "bottom": 325,
+          "right": 1005,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 250,
+          "y": 537.1875,
+          "w": 768,
+          "h": 157.8125,
+          "bottom": 695,
+          "right": 1018,
+          "clientHeight": 156,
+          "scrollHeight": 156,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1028,
+          "y": 68,
+          "w": 300,
+          "h": 627,
+          "bottom": 695,
+          "right": 1328,
+          "clientHeight": 625,
+          "scrollHeight": 625,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 250,
+          "y": 705,
+          "w": 1078,
+          "h": 48,
+          "bottom": 753,
+          "right": 1328,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 298,
+          "y": 450.390625,
+          "w": 511.453125,
+          "h": 26,
+          "bottom": 476.390625,
+          "right": 809.453125,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1080.390625,
+          "y": 712.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 746.296875,
+          "right": 1316,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 263,
+          "y": 84.984375,
+          "w": 365,
+          "h": 236.03125,
+          "bottom": 321.015625,
+          "right": 628,
+          "clientHeight": 236,
+          "scrollHeight": 236,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 263,
+          "y": 333,
+          "w": 742,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1005,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 749.5,
+          "y": 130,
+          "w": 146,
+          "h": 146,
+          "bottom": 276,
+          "right": 895.5,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 683.59375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 771.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 873.390625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 961.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 931.796875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 1019.796875,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 873.390625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 961.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 683.59375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 771.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 625.1875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 713.1875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 251,
+          "y": 570.1875,
+          "w": 766,
+          "h": 123.8125,
+          "bottom": 694,
+          "right": 1017,
+          "clientHeight": 124,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 1041,
+          "y": 183,
+          "w": 274,
+          "h": 275,
+          "bottom": 458,
+          "right": 1315,
+          "clientHeight": 273,
+          "scrollHeight": 491
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "en",
+    "width": 1280,
+    "height": 720,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1.5,
+    "geometry": {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1040,
+          "h": 662,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 662,
+          "scrollHeight": 662,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 250,
+          "y": 68,
+          "w": 710,
+          "h": 510.984375,
+          "bottom": 578.984375,
+          "right": 960,
+          "clientHeight": 510,
+          "scrollHeight": 510,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 263,
+          "y": 81,
+          "w": 684,
+          "h": 244,
+          "bottom": 325,
+          "right": 947,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 611,
+          "y": 81,
+          "w": 336,
+          "h": 244,
+          "bottom": 325,
+          "right": 947,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 250,
+          "y": 578.984375,
+          "w": 710,
+          "h": 83.015625,
+          "bottom": 662,
+          "right": 960,
+          "clientHeight": 81,
+          "scrollHeight": 81,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 970,
+          "y": 68,
+          "w": 300,
+          "h": 594,
+          "bottom": 662,
+          "right": 1270,
+          "clientHeight": 592,
+          "scrollHeight": 592,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 250,
+          "y": 672,
+          "w": 1020,
+          "h": 48,
+          "bottom": 720,
+          "right": 1270,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 298,
+          "y": 492.1875,
+          "w": 453.453125,
+          "h": 26,
+          "bottom": 518.1875,
+          "right": 751.453125,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1022.390625,
+          "y": 679.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 713.296875,
+          "right": 1258,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 263,
+          "y": 86.046875,
+          "w": 336,
+          "h": 233.90625,
+          "bottom": 319.953125,
+          "right": 599,
+          "clientHeight": 234,
+          "scrollHeight": 234,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 263,
+          "y": 333,
+          "w": 684,
+          "h": 82.796875,
+          "bottom": 415.796875,
+          "right": 947,
+          "clientHeight": 83,
+          "scrollHeight": 83,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 711.8046875,
+          "y": 135.8046875,
+          "w": 134.390625,
+          "h": 134.390625,
+          "bottom": 270.1953125,
+          "right": 846.1953125,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 647.625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 735.625,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 822.359375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 910.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 876.109375,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 964.109375,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 822.359375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 910.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 647.625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 735.625,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 593.875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 681.875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 251,
+          "y": 611.984375,
+          "w": 708,
+          "h": 49.015625,
+          "bottom": 661,
+          "right": 959,
+          "clientHeight": 49,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 983,
+          "y": 183,
+          "w": 274,
+          "h": 242,
+          "bottom": 425,
+          "right": 1257,
+          "clientHeight": 240,
+          "scrollHeight": 491
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "ar",
+    "width": 1366,
+    "height": 768,
+    "physicalWidth": 1366,
+    "physicalHeight": 768,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1126,
+          "h": 710,
+          "bottom": 768,
+          "right": 1126,
+          "clientHeight": 710,
+          "scrollHeight": 710,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 320,
+          "y": 68,
+          "w": 796,
+          "h": 470.1875,
+          "bottom": 538.1875,
+          "right": 1116,
+          "clientHeight": 469,
+          "scrollHeight": 469,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 333,
+          "y": 81,
+          "w": 770,
+          "h": 244,
+          "bottom": 325,
+          "right": 1103,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 333,
+          "y": 81,
+          "w": 379,
+          "h": 244,
+          "bottom": 325,
+          "right": 712,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 320,
+          "y": 538.1875,
+          "w": 796,
+          "h": 171.8125,
+          "bottom": 710,
+          "right": 1116,
+          "clientHeight": 170,
+          "scrollHeight": 170,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 10,
+          "y": 68,
+          "w": 300,
+          "h": 642,
+          "bottom": 710,
+          "right": 310,
+          "clientHeight": 640,
+          "scrollHeight": 640,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 10,
+          "y": 720,
+          "w": 1106,
+          "h": 48,
+          "bottom": 768,
+          "right": 1116,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 502.734375,
+          "y": 450.890625,
+          "w": 565.265625,
+          "h": 26,
+          "bottom": 476.890625,
+          "right": 1068,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 22,
+          "y": 727.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 761.296875,
+          "right": 229.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 724,
+          "y": 104.40625,
+          "w": 379,
+          "h": 197.1875,
+          "bottom": 301.59375,
+          "right": 1103,
+          "clientHeight": 197,
+          "scrollHeight": 198,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 333,
+          "y": 333,
+          "w": 770,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1103,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 446.703125,
+          "y": 127.203125,
+          "w": 151.59375,
+          "h": 151.59375,
+          "bottom": 278.796875,
+          "right": 598.296875,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 379.953125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 467.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 577.03125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 665.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 637.671875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 725.671875,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 577.03125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 665.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 379.953125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 467.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 319.3125,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 407.3125,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 321,
+          "y": 571.1875,
+          "w": 794,
+          "h": 137.8125,
+          "bottom": 709,
+          "right": 1115,
+          "clientHeight": 138,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 23,
+          "y": 183,
+          "w": 274,
+          "h": 290,
+          "bottom": 473,
+          "right": 297,
+          "clientHeight": 288,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "ar",
+    "width": 1672,
+    "height": 941,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1672,
+        "height": 941
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1432,
+          "h": 883,
+          "bottom": 941,
+          "right": 1432,
+          "clientHeight": 883,
+          "scrollHeight": 883,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 374,
+          "y": 70,
+          "w": 1046,
+          "h": 593.125,
+          "bottom": 663.125,
+          "right": 1420,
+          "clientHeight": 592,
+          "scrollHeight": 592,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 387,
+          "y": 83,
+          "w": 1020,
+          "h": 329.34375,
+          "bottom": 412.34375,
+          "right": 1407,
+          "clientHeight": 329,
+          "scrollHeight": 329,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 387,
+          "y": 83,
+          "w": 579.609375,
+          "h": 329.34375,
+          "bottom": 412.34375,
+          "right": 966.609375,
+          "clientHeight": 329,
+          "scrollHeight": 329,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 374,
+          "y": 663.125,
+          "w": 1046,
+          "h": 219.875,
+          "bottom": 883,
+          "right": 1420,
+          "clientHeight": 218,
+          "scrollHeight": 218,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 12,
+          "y": 70,
+          "w": 350,
+          "h": 813,
+          "bottom": 883,
+          "right": 362,
+          "clientHeight": 811,
+          "scrollHeight": 811,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 12,
+          "y": 893,
+          "w": 1408,
+          "h": 48,
+          "bottom": 941,
+          "right": 1420,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 635.515625,
+          "y": 573.828125,
+          "w": 736.484375,
+          "h": 26,
+          "bottom": 599.828125,
+          "right": 1372,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 24,
+          "y": 900.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 934.296875,
+          "right": 231.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 978.609375,
+          "y": 93.640625,
+          "w": 428.390625,
+          "h": 308.0625,
+          "bottom": 401.703125,
+          "right": 1407,
+          "clientHeight": 308,
+          "scrollHeight": 308,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 387,
+          "y": 422.34375,
+          "w": 1020,
+          "h": 91.390625,
+          "bottom": 513.734375,
+          "right": 1407,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 568.8125,
+          "y": 139.671875,
+          "w": 216,
+          "h": 216,
+          "bottom": 355.671875,
+          "right": 784.8125,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 492.40625,
+          "y": 87.78312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.3768768310547,
+          "right": 580.40625,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 773.203125,
+          "y": 87.78312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.3768768310547,
+          "right": 861.203125,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 859.609375,
+          "y": 193.1737518310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 275.76751708984375,
+          "right": 947.609375,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 773.203125,
+          "y": 305.14251708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 387.73626708984375,
+          "right": 861.203125,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 492.40625,
+          "y": 305.14251708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 387.73626708984375,
+          "right": 580.40625,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 406,
+          "y": 193.1737518310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 275.76751708984375,
+          "right": 494,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 375,
+          "y": 696.125,
+          "w": 1044,
+          "h": 185.875,
+          "bottom": 882,
+          "right": 1419,
+          "clientHeight": 186,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 25,
+          "y": 185,
+          "w": 324,
+          "h": 461,
+          "bottom": 646,
+          "right": 349,
+          "clientHeight": 459,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "ar",
+    "width": 1920,
+    "height": 1080,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1680,
+          "h": 1022,
+          "bottom": 1080,
+          "right": 1680,
+          "clientHeight": 1022,
+          "scrollHeight": 1022,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 374,
+          "y": 70,
+          "w": 1294,
+          "h": 608.78125,
+          "bottom": 678.78125,
+          "right": 1668,
+          "clientHeight": 608,
+          "scrollHeight": 608,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 387,
+          "y": 83,
+          "w": 1268,
+          "h": 345,
+          "bottom": 428,
+          "right": 1655,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 387,
+          "y": 83,
+          "w": 722.203125,
+          "h": 345,
+          "bottom": 428,
+          "right": 1109.203125,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 374,
+          "y": 678.78125,
+          "w": 1294,
+          "h": 343.21875,
+          "bottom": 1022,
+          "right": 1668,
+          "clientHeight": 341,
+          "scrollHeight": 341,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 12,
+          "y": 70,
+          "w": 350,
+          "h": 952,
+          "bottom": 1022,
+          "right": 362,
+          "clientHeight": 950,
+          "scrollHeight": 950,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 12,
+          "y": 1032,
+          "w": 1656,
+          "h": 48,
+          "bottom": 1080,
+          "right": 1668,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 635.515625,
+          "y": 589.484375,
+          "w": 984.484375,
+          "h": 26,
+          "bottom": 615.484375,
+          "right": 1620,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 24,
+          "y": 1039.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 1073.296875,
+          "right": 231.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 1121.203125,
+          "y": 101.46875,
+          "w": 533.796875,
+          "h": 308.0625,
+          "bottom": 409.53125,
+          "right": 1655,
+          "clientHeight": 308,
+          "scrollHeight": 308,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 387,
+          "y": 438,
+          "w": 1268,
+          "h": 91.390625,
+          "bottom": 529.390625,
+          "right": 1655,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 640.109375,
+          "y": 147.5,
+          "w": 216,
+          "h": 216,
+          "bottom": 363.5,
+          "right": 856.109375,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 563.703125,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 651.703125,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 844.5,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 932.5,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 930.90625,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 1018.90625,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 844.5,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 932.5,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 563.703125,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 651.703125,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 477.296875,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 565.296875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 375,
+          "y": 711.78125,
+          "w": 1292,
+          "h": 309.21875,
+          "bottom": 1021,
+          "right": 1667,
+          "clientHeight": 309,
+          "scrollHeight": 456
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "ar",
+    "width": 1338,
+    "height": 753,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1.25,
+    "geometry": {
+      "viewport": {
+        "width": 1338,
+        "height": 753
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1098,
+          "h": 695,
+          "bottom": 753,
+          "right": 1098,
+          "clientHeight": 695,
+          "scrollHeight": 695,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 320,
+          "y": 68,
+          "w": 768,
+          "h": 470.1875,
+          "bottom": 538.1875,
+          "right": 1088,
+          "clientHeight": 469,
+          "scrollHeight": 469,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 333,
+          "y": 81,
+          "w": 742,
+          "h": 244,
+          "bottom": 325,
+          "right": 1075,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 333,
+          "y": 81,
+          "w": 365,
+          "h": 244,
+          "bottom": 325,
+          "right": 698,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 320,
+          "y": 538.1875,
+          "w": 768,
+          "h": 156.8125,
+          "bottom": 695,
+          "right": 1088,
+          "clientHeight": 155,
+          "scrollHeight": 155,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 10,
+          "y": 68,
+          "w": 300,
+          "h": 627,
+          "bottom": 695,
+          "right": 310,
+          "clientHeight": 625,
+          "scrollHeight": 625,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 10,
+          "y": 705,
+          "w": 1078,
+          "h": 48,
+          "bottom": 753,
+          "right": 1088,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 502.734375,
+          "y": 450.890625,
+          "w": 537.265625,
+          "h": 26,
+          "bottom": 476.890625,
+          "right": 1040,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 22,
+          "y": 712.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 746.296875,
+          "right": 229.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 710,
+          "y": 104.921875,
+          "w": 365,
+          "h": 196.140625,
+          "bottom": 301.0625,
+          "right": 1075,
+          "clientHeight": 196,
+          "scrollHeight": 197,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 333,
+          "y": 333,
+          "w": 742,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1075,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 442.5,
+          "y": 130,
+          "w": 146,
+          "h": 146,
+          "bottom": 276,
+          "right": 588.5,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 376.59375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 464.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 566.390625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 654.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 624.796875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 712.796875,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 566.390625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 654.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 376.59375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 464.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 318.1875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 406.1875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 321,
+          "y": 571.1875,
+          "w": 766,
+          "h": 122.8125,
+          "bottom": 694,
+          "right": 1087,
+          "clientHeight": 123,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 23,
+          "y": 183,
+          "w": 274,
+          "h": 275,
+          "bottom": 458,
+          "right": 297,
+          "clientHeight": 273,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "light",
+    "locale": "ar",
+    "width": 1280,
+    "height": 720,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1.5,
+    "geometry": {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1040,
+          "h": 662,
+          "bottom": 720,
+          "right": 1040,
+          "clientHeight": 662,
+          "scrollHeight": 662,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 320,
+          "y": 68,
+          "w": 710,
+          "h": 511.984375,
+          "bottom": 579.984375,
+          "right": 1030,
+          "clientHeight": 511,
+          "scrollHeight": 511,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 333,
+          "y": 81,
+          "w": 684,
+          "h": 244,
+          "bottom": 325,
+          "right": 1017,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 333,
+          "y": 81,
+          "w": 336,
+          "h": 244,
+          "bottom": 325,
+          "right": 669,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 320,
+          "y": 579.984375,
+          "w": 710,
+          "h": 82.015625,
+          "bottom": 662,
+          "right": 1030,
+          "clientHeight": 80,
+          "scrollHeight": 80,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 10,
+          "y": 68,
+          "w": 300,
+          "h": 594,
+          "bottom": 662,
+          "right": 310,
+          "clientHeight": 592,
+          "scrollHeight": 592,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 10,
+          "y": 672,
+          "w": 1020,
+          "h": 48,
+          "bottom": 720,
+          "right": 1030,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 502.734375,
+          "y": 492.6875,
+          "w": 479.265625,
+          "h": 26,
+          "bottom": 518.6875,
+          "right": 982,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 22,
+          "y": 679.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 713.296875,
+          "right": 229.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 681,
+          "y": 96.1875,
+          "w": 336,
+          "h": 213.609375,
+          "bottom": 309.796875,
+          "right": 1017,
+          "clientHeight": 214,
+          "scrollHeight": 214,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 333,
+          "y": 333,
+          "w": 684,
+          "h": 82.796875,
+          "bottom": 415.796875,
+          "right": 1017,
+          "clientHeight": 83,
+          "scrollHeight": 83,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 433.8046875,
+          "y": 135.8046875,
+          "w": 134.390625,
+          "h": 134.390625,
+          "bottom": 270.1953125,
+          "right": 568.1953125,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 369.625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 457.625,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 544.359375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 632.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 598.109375,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 686.109375,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 544.359375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 632.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 369.625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 457.625,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 315.875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 403.875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 321,
+          "y": 612.984375,
+          "w": 708,
+          "h": 48.015625,
+          "bottom": 661,
+          "right": 1029,
+          "clientHeight": 48,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 23,
+          "y": 183,
+          "w": 274,
+          "h": 242,
+          "bottom": 425,
+          "right": 297,
+          "clientHeight": 240,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "en",
+    "width": 1366,
+    "height": 768,
+    "physicalWidth": 1366,
+    "physicalHeight": 768,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1126,
+          "h": 710,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 710,
+          "scrollHeight": 710,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 250,
+          "y": 68,
+          "w": 796,
+          "h": 469.1875,
+          "bottom": 537.1875,
+          "right": 1046,
+          "clientHeight": 468,
+          "scrollHeight": 468,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 263,
+          "y": 81,
+          "w": 770,
+          "h": 244,
+          "bottom": 325,
+          "right": 1033,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 654,
+          "y": 81,
+          "w": 379,
+          "h": 244,
+          "bottom": 325,
+          "right": 1033,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 250,
+          "y": 537.1875,
+          "w": 796,
+          "h": 172.8125,
+          "bottom": 710,
+          "right": 1046,
+          "clientHeight": 171,
+          "scrollHeight": 171,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1056,
+          "y": 68,
+          "w": 300,
+          "h": 642,
+          "bottom": 710,
+          "right": 1356,
+          "clientHeight": 640,
+          "scrollHeight": 640,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 250,
+          "y": 720,
+          "w": 1106,
+          "h": 48,
+          "bottom": 768,
+          "right": 1356,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 298,
+          "y": 450.390625,
+          "w": 539.453125,
+          "h": 26,
+          "bottom": 476.390625,
+          "right": 837.453125,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1108.390625,
+          "y": 727.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 761.296875,
+          "right": 1344,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 263,
+          "y": 84.453125,
+          "w": 379,
+          "h": 237.078125,
+          "bottom": 321.53125,
+          "right": 642,
+          "clientHeight": 237,
+          "scrollHeight": 237,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 263,
+          "y": 333,
+          "w": 770,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1033,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 767.703125,
+          "y": 127.203125,
+          "w": 151.59375,
+          "h": 151.59375,
+          "bottom": 278.796875,
+          "right": 919.296875,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 700.953125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 788.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 898.03125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 986.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 958.671875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 1046.671875,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 898.03125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 986.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 700.953125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 788.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 640.3125,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 728.3125,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 251,
+          "y": 570.1875,
+          "w": 794,
+          "h": 138.8125,
+          "bottom": 709,
+          "right": 1045,
+          "clientHeight": 139,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 1069,
+          "y": 183,
+          "w": 274,
+          "h": 290,
+          "bottom": 473,
+          "right": 1343,
+          "clientHeight": 288,
+          "scrollHeight": 491
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "en",
+    "width": 1672,
+    "height": 941,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1672,
+        "height": 941
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1432,
+          "h": 883,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 883,
+          "scrollHeight": 883,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 252,
+          "y": 70,
+          "w": 1046,
+          "h": 592.125,
+          "bottom": 662.125,
+          "right": 1298,
+          "clientHeight": 591,
+          "scrollHeight": 591,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 265,
+          "y": 83,
+          "w": 1020,
+          "h": 329.34375,
+          "bottom": 412.34375,
+          "right": 1285,
+          "clientHeight": 329,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 705.390625,
+          "y": 83,
+          "w": 579.609375,
+          "h": 331.25,
+          "bottom": 414.25,
+          "right": 1285,
+          "clientHeight": 331,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 252,
+          "y": 662.125,
+          "w": 1046,
+          "h": 220.875,
+          "bottom": 883,
+          "right": 1298,
+          "clientHeight": 219,
+          "scrollHeight": 219,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1310,
+          "y": 70,
+          "w": 350,
+          "h": 813,
+          "bottom": 883,
+          "right": 1660,
+          "clientHeight": 811,
+          "scrollHeight": 811,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 252,
+          "y": 893,
+          "w": 1408,
+          "h": 48,
+          "bottom": 941,
+          "right": 1660,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 300,
+          "y": 573.328125,
+          "w": 710.671875,
+          "h": 26,
+          "bottom": 599.328125,
+          "right": 1010.671875,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1412.390625,
+          "y": 900.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 934.296875,
+          "right": 1648,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 265,
+          "y": 83,
+          "w": 428.390625,
+          "h": 331.25,
+          "bottom": 414.25,
+          "right": 693.390625,
+          "clientHeight": 331,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 265,
+          "y": 422.34375,
+          "w": 1020,
+          "h": 91.390625,
+          "bottom": 513.734375,
+          "right": 1285,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 887.1875,
+          "y": 140.625,
+          "w": 216,
+          "h": 216,
+          "bottom": 356.625,
+          "right": 1103.1875,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 810.78125,
+          "y": 88.09562683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.6893768310547,
+          "right": 898.78125,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 1091.578125,
+          "y": 88.09562683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.6893768310547,
+          "right": 1179.578125,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 1177.984375,
+          "y": 194.0956268310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 276.68939208984375,
+          "right": 1265.984375,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 1091.578125,
+          "y": 306.72064208984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 389.31439208984375,
+          "right": 1179.578125,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 810.78125,
+          "y": 306.72064208984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 389.31439208984375,
+          "right": 898.78125,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 724.375,
+          "y": 194.0956268310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 276.68939208984375,
+          "right": 812.375,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 253,
+          "y": 695.125,
+          "w": 1044,
+          "h": 186.875,
+          "bottom": 882,
+          "right": 1297,
+          "clientHeight": 187,
+          "scrollHeight": 456
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "en",
+    "width": 1920,
+    "height": 1080,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1680,
+          "h": 1022,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1022,
+          "scrollHeight": 1022,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 252,
+          "y": 70,
+          "w": 1294,
+          "h": 607.78125,
+          "bottom": 677.78125,
+          "right": 1546,
+          "clientHeight": 607,
+          "scrollHeight": 607,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 265,
+          "y": 83,
+          "w": 1268,
+          "h": 345,
+          "bottom": 428,
+          "right": 1533,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 810.796875,
+          "y": 83,
+          "w": 722.203125,
+          "h": 345,
+          "bottom": 428,
+          "right": 1533,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 252,
+          "y": 677.78125,
+          "w": 1294,
+          "h": 344.21875,
+          "bottom": 1022,
+          "right": 1546,
+          "clientHeight": 342,
+          "scrollHeight": 342,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1558,
+          "y": 70,
+          "w": 350,
+          "h": 952,
+          "bottom": 1022,
+          "right": 1908,
+          "clientHeight": 950,
+          "scrollHeight": 950,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 252,
+          "y": 1032,
+          "w": 1656,
+          "h": 48,
+          "bottom": 1080,
+          "right": 1908,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 300,
+          "y": 588.984375,
+          "w": 958.671875,
+          "h": 26,
+          "bottom": 614.984375,
+          "right": 1258.671875,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1660.390625,
+          "y": 1039.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 1073.296875,
+          "right": 1896,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 265,
+          "y": 89.875,
+          "w": 533.796875,
+          "h": 331.25,
+          "bottom": 421.125,
+          "right": 798.796875,
+          "clientHeight": 331,
+          "scrollHeight": 331,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 265,
+          "y": 438,
+          "w": 1268,
+          "h": 91.390625,
+          "bottom": 529.390625,
+          "right": 1533,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 1063.890625,
+          "y": 147.5,
+          "w": 216,
+          "h": 216,
+          "bottom": 363.5,
+          "right": 1279.890625,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 987.484375,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 1075.484375,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 1268.28125,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 1356.28125,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 1354.6875,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 1442.6875,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 1268.28125,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 1356.28125,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 987.484375,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 1075.484375,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 901.078125,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 989.078125,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 253,
+          "y": 710.78125,
+          "w": 1292,
+          "h": 310.21875,
+          "bottom": 1021,
+          "right": 1545,
+          "clientHeight": 310,
+          "scrollHeight": 456
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "en",
+    "width": 1338,
+    "height": 753,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1.25,
+    "geometry": {
+      "viewport": {
+        "width": 1338,
+        "height": 753
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1098,
+          "h": 695,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 695,
+          "scrollHeight": 695,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 250,
+          "y": 68,
+          "w": 768,
+          "h": 469.1875,
+          "bottom": 537.1875,
+          "right": 1018,
+          "clientHeight": 468,
+          "scrollHeight": 468,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 263,
+          "y": 81,
+          "w": 742,
+          "h": 244,
+          "bottom": 325,
+          "right": 1005,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 640,
+          "y": 81,
+          "w": 365,
+          "h": 244,
+          "bottom": 325,
+          "right": 1005,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 250,
+          "y": 537.1875,
+          "w": 768,
+          "h": 157.8125,
+          "bottom": 695,
+          "right": 1018,
+          "clientHeight": 156,
+          "scrollHeight": 156,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 1028,
+          "y": 68,
+          "w": 300,
+          "h": 627,
+          "bottom": 695,
+          "right": 1328,
+          "clientHeight": 625,
+          "scrollHeight": 625,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 250,
+          "y": 705,
+          "w": 1078,
+          "h": 48,
+          "bottom": 753,
+          "right": 1328,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 298,
+          "y": 450.390625,
+          "w": 511.453125,
+          "h": 26,
+          "bottom": 476.390625,
+          "right": 809.453125,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1080.390625,
+          "y": 712.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 746.296875,
+          "right": 1316,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 263,
+          "y": 84.984375,
+          "w": 365,
+          "h": 236.03125,
+          "bottom": 321.015625,
+          "right": 628,
+          "clientHeight": 236,
+          "scrollHeight": 236,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 263,
+          "y": 333,
+          "w": 742,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1005,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 749.5,
+          "y": 130,
+          "w": 146,
+          "h": 146,
+          "bottom": 276,
+          "right": 895.5,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 683.59375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 771.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 873.390625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 961.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 931.796875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 1019.796875,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 873.390625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 961.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 683.59375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 771.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 625.1875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 713.1875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 251,
+          "y": 570.1875,
+          "w": 766,
+          "h": 123.8125,
+          "bottom": 694,
+          "right": 1017,
+          "clientHeight": 124,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 1041,
+          "y": 183,
+          "w": 274,
+          "h": 275,
+          "bottom": 458,
+          "right": 1315,
+          "clientHeight": 273,
+          "scrollHeight": 491
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "en",
+    "width": 1280,
+    "height": 720,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1.5,
+    "geometry": {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 240,
+          "y": 58,
+          "w": 1040,
+          "h": 662,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 662,
+          "scrollHeight": 662,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 250,
+          "y": 68,
+          "w": 710,
+          "h": 510.984375,
+          "bottom": 578.984375,
+          "right": 960,
+          "clientHeight": 510,
+          "scrollHeight": 510,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 263,
+          "y": 81,
+          "w": 684,
+          "h": 244,
+          "bottom": 325,
+          "right": 947,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 611,
+          "y": 81,
+          "w": 336,
+          "h": 244,
+          "bottom": 325,
+          "right": 947,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 250,
+          "y": 578.984375,
+          "w": 710,
+          "h": 83.015625,
+          "bottom": 662,
+          "right": 960,
+          "clientHeight": 81,
+          "scrollHeight": 81,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 970,
+          "y": 68,
+          "w": 300,
+          "h": 594,
+          "bottom": 662,
+          "right": 1270,
+          "clientHeight": 592,
+          "scrollHeight": 592,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 250,
+          "y": 672,
+          "w": 1020,
+          "h": 48,
+          "bottom": 720,
+          "right": 1270,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 298,
+          "y": 492.1875,
+          "w": 453.453125,
+          "h": 26,
+          "bottom": 518.1875,
+          "right": 751.453125,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 1022.390625,
+          "y": 679.703125,
+          "w": 235.609375,
+          "h": 33.59375,
+          "bottom": 713.296875,
+          "right": 1258,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 263,
+          "y": 86.046875,
+          "w": 336,
+          "h": 233.90625,
+          "bottom": 319.953125,
+          "right": 599,
+          "clientHeight": 234,
+          "scrollHeight": 234,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 263,
+          "y": 333,
+          "w": 684,
+          "h": 82.796875,
+          "bottom": 415.796875,
+          "right": 947,
+          "clientHeight": 83,
+          "scrollHeight": 83,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "Explore FilesFind, organize and manage",
+          "x": 711.8046875,
+          "y": 135.8046875,
+          "w": 134.390625,
+          "h": 134.390625,
+          "bottom": 270.1953125,
+          "right": 846.1953125,
+          "labelVisible": true
+        },
+        {
+          "text": "Find",
+          "x": 647.625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 735.625,
+          "labelVisible": true
+        },
+        {
+          "text": "Images",
+          "x": 822.359375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 910.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "Organize",
+          "x": 876.109375,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 964.109375,
+          "labelVisible": true
+        },
+        {
+          "text": "Filters",
+          "x": 822.359375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 910.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "Sources (disabled)",
+          "x": 647.625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 735.625,
+          "labelVisible": true
+        },
+        {
+          "text": "Preview",
+          "x": 593.875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 681.875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 251,
+          "y": 611.984375,
+          "w": 708,
+          "h": 49.015625,
+          "bottom": 661,
+          "right": 959,
+          "clientHeight": 49,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 983,
+          "y": 183,
+          "w": 274,
+          "h": 242,
+          "bottom": 425,
+          "right": 1257,
+          "clientHeight": 240,
+          "scrollHeight": 491
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "ar",
+    "width": 1366,
+    "height": 768,
+    "physicalWidth": 1366,
+    "physicalHeight": 768,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 768,
+          "bottom": 768,
+          "right": 1366,
+          "clientHeight": 768,
+          "scrollHeight": 768,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1126,
+          "h": 710,
+          "bottom": 768,
+          "right": 1126,
+          "clientHeight": 710,
+          "scrollHeight": 710,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 320,
+          "y": 68,
+          "w": 796,
+          "h": 470.1875,
+          "bottom": 538.1875,
+          "right": 1116,
+          "clientHeight": 469,
+          "scrollHeight": 469,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 333,
+          "y": 81,
+          "w": 770,
+          "h": 244,
+          "bottom": 325,
+          "right": 1103,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 333,
+          "y": 81,
+          "w": 379,
+          "h": 244,
+          "bottom": 325,
+          "right": 712,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 320,
+          "y": 538.1875,
+          "w": 796,
+          "h": 171.8125,
+          "bottom": 710,
+          "right": 1116,
+          "clientHeight": 170,
+          "scrollHeight": 170,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 10,
+          "y": 68,
+          "w": 300,
+          "h": 642,
+          "bottom": 710,
+          "right": 310,
+          "clientHeight": 640,
+          "scrollHeight": 640,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 10,
+          "y": 720,
+          "w": 1106,
+          "h": 48,
+          "bottom": 768,
+          "right": 1116,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 502.734375,
+          "y": 450.890625,
+          "w": 565.265625,
+          "h": 26,
+          "bottom": 476.890625,
+          "right": 1068,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 22,
+          "y": 727.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 761.296875,
+          "right": 229.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 724,
+          "y": 104.40625,
+          "w": 379,
+          "h": 197.1875,
+          "bottom": 301.59375,
+          "right": 1103,
+          "clientHeight": 197,
+          "scrollHeight": 198,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 333,
+          "y": 333,
+          "w": 770,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1103,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 446.703125,
+          "y": 127.203125,
+          "w": 151.59375,
+          "h": 151.59375,
+          "bottom": 278.796875,
+          "right": 598.296875,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 379.953125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 467.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 577.03125,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 665.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 637.671875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 725.671875,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 577.03125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 665.03125,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 379.953125,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 467.953125,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 319.3125,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 407.3125,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 321,
+          "y": 571.1875,
+          "w": 794,
+          "h": 137.8125,
+          "bottom": 709,
+          "right": 1115,
+          "clientHeight": 138,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 23,
+          "y": 183,
+          "w": 274,
+          "h": 290,
+          "bottom": 473,
+          "right": 297,
+          "clientHeight": 288,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "ar",
+    "width": 1672,
+    "height": 941,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1672,
+        "height": 941
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 941,
+          "bottom": 941,
+          "right": 1672,
+          "clientHeight": 941,
+          "scrollHeight": 941,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1432,
+          "h": 883,
+          "bottom": 941,
+          "right": 1432,
+          "clientHeight": 883,
+          "scrollHeight": 883,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 374,
+          "y": 70,
+          "w": 1046,
+          "h": 593.125,
+          "bottom": 663.125,
+          "right": 1420,
+          "clientHeight": 592,
+          "scrollHeight": 592,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 387,
+          "y": 83,
+          "w": 1020,
+          "h": 329.34375,
+          "bottom": 412.34375,
+          "right": 1407,
+          "clientHeight": 329,
+          "scrollHeight": 329,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 387,
+          "y": 83,
+          "w": 579.609375,
+          "h": 329.34375,
+          "bottom": 412.34375,
+          "right": 966.609375,
+          "clientHeight": 329,
+          "scrollHeight": 329,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 374,
+          "y": 663.125,
+          "w": 1046,
+          "h": 219.875,
+          "bottom": 883,
+          "right": 1420,
+          "clientHeight": 218,
+          "scrollHeight": 218,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 12,
+          "y": 70,
+          "w": 350,
+          "h": 813,
+          "bottom": 883,
+          "right": 362,
+          "clientHeight": 811,
+          "scrollHeight": 811,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 12,
+          "y": 893,
+          "w": 1408,
+          "h": 48,
+          "bottom": 941,
+          "right": 1420,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 635.515625,
+          "y": 573.828125,
+          "w": 736.484375,
+          "h": 26,
+          "bottom": 599.828125,
+          "right": 1372,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 24,
+          "y": 900.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 934.296875,
+          "right": 231.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 978.609375,
+          "y": 93.640625,
+          "w": 428.390625,
+          "h": 308.0625,
+          "bottom": 401.703125,
+          "right": 1407,
+          "clientHeight": 308,
+          "scrollHeight": 308,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 387,
+          "y": 422.34375,
+          "w": 1020,
+          "h": 91.390625,
+          "bottom": 513.734375,
+          "right": 1407,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 568.8125,
+          "y": 139.671875,
+          "w": 216,
+          "h": 216,
+          "bottom": 355.671875,
+          "right": 784.8125,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 492.40625,
+          "y": 87.78312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.3768768310547,
+          "right": 580.40625,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 773.203125,
+          "y": 87.78312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 170.3768768310547,
+          "right": 861.203125,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 859.609375,
+          "y": 193.1737518310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 275.76751708984375,
+          "right": 947.609375,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 773.203125,
+          "y": 305.14251708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 387.73626708984375,
+          "right": 861.203125,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 492.40625,
+          "y": 305.14251708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 387.73626708984375,
+          "right": 580.40625,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 406,
+          "y": 193.1737518310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 275.76751708984375,
+          "right": 494,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 375,
+          "y": 696.125,
+          "w": 1044,
+          "h": 185.875,
+          "bottom": 882,
+          "right": 1419,
+          "clientHeight": 186,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 25,
+          "y": 185,
+          "w": 324,
+          "h": 461,
+          "bottom": 646,
+          "right": 349,
+          "clientHeight": 459,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "ar",
+    "width": 1920,
+    "height": 1080,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1,
+    "geometry": {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "bottom": 1080,
+          "right": 1920,
+          "clientHeight": 1080,
+          "scrollHeight": 1080,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1680,
+          "h": 1022,
+          "bottom": 1080,
+          "right": 1680,
+          "clientHeight": 1022,
+          "scrollHeight": 1022,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 374,
+          "y": 70,
+          "w": 1294,
+          "h": 608.78125,
+          "bottom": 678.78125,
+          "right": 1668,
+          "clientHeight": 608,
+          "scrollHeight": 608,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 387,
+          "y": 83,
+          "w": 1268,
+          "h": 345,
+          "bottom": 428,
+          "right": 1655,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 387,
+          "y": 83,
+          "w": 722.203125,
+          "h": 345,
+          "bottom": 428,
+          "right": 1109.203125,
+          "clientHeight": 345,
+          "scrollHeight": 345,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 374,
+          "y": 678.78125,
+          "w": 1294,
+          "h": 343.21875,
+          "bottom": 1022,
+          "right": 1668,
+          "clientHeight": 341,
+          "scrollHeight": 341,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 12,
+          "y": 70,
+          "w": 350,
+          "h": 952,
+          "bottom": 1022,
+          "right": 362,
+          "clientHeight": 950,
+          "scrollHeight": 950,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 12,
+          "y": 1032,
+          "w": 1656,
+          "h": 48,
+          "bottom": 1080,
+          "right": 1668,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 635.515625,
+          "y": 589.484375,
+          "w": 984.484375,
+          "h": 26,
+          "bottom": 615.484375,
+          "right": 1620,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 24,
+          "y": 1039.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 1073.296875,
+          "right": 231.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 1121.203125,
+          "y": 101.46875,
+          "w": 533.796875,
+          "h": 308.0625,
+          "bottom": 409.53125,
+          "right": 1655,
+          "clientHeight": 308,
+          "scrollHeight": 308,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 387,
+          "y": 438,
+          "w": 1268,
+          "h": 91.390625,
+          "bottom": 529.390625,
+          "right": 1655,
+          "clientHeight": 91,
+          "scrollHeight": 91,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 640.109375,
+          "y": 147.5,
+          "w": 216,
+          "h": 216,
+          "bottom": 363.5,
+          "right": 856.109375,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 563.703125,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 651.703125,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 844.5,
+          "y": 90.28312683105469,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 172.8768768310547,
+          "right": 932.5,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 930.90625,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 1018.90625,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 844.5,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 932.5,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 563.703125,
+          "y": 317.98626708984375,
+          "w": 88,
+          "h": 82.59375,
+          "bottom": 400.58001708984375,
+          "right": 651.703125,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 477.296875,
+          "y": 200.6893768310547,
+          "w": 88,
+          "h": 82.59376525878906,
+          "bottom": 283.28314208984375,
+          "right": 565.296875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 375,
+          "y": 711.78125,
+          "w": 1292,
+          "h": 309.21875,
+          "bottom": 1021,
+          "right": 1667,
+          "clientHeight": 309,
+          "scrollHeight": 456
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "ar",
+    "width": 1338,
+    "height": 753,
+    "physicalWidth": 1672,
+    "physicalHeight": 941,
+    "zoom": 1.25,
+    "geometry": {
+      "viewport": {
+        "width": 1338,
+        "height": 753
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1338,
+          "h": 753,
+          "bottom": 753,
+          "right": 1338,
+          "clientHeight": 753,
+          "scrollHeight": 753,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1098,
+          "h": 695,
+          "bottom": 753,
+          "right": 1098,
+          "clientHeight": 695,
+          "scrollHeight": 695,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 320,
+          "y": 68,
+          "w": 768,
+          "h": 470.1875,
+          "bottom": 538.1875,
+          "right": 1088,
+          "clientHeight": 469,
+          "scrollHeight": 469,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 333,
+          "y": 81,
+          "w": 742,
+          "h": 244,
+          "bottom": 325,
+          "right": 1075,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 333,
+          "y": 81,
+          "w": 365,
+          "h": 244,
+          "bottom": 325,
+          "right": 698,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 320,
+          "y": 538.1875,
+          "w": 768,
+          "h": 156.8125,
+          "bottom": 695,
+          "right": 1088,
+          "clientHeight": 155,
+          "scrollHeight": 155,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 10,
+          "y": 68,
+          "w": 300,
+          "h": 627,
+          "bottom": 695,
+          "right": 310,
+          "clientHeight": 625,
+          "scrollHeight": 625,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 10,
+          "y": 705,
+          "w": 1078,
+          "h": 48,
+          "bottom": 753,
+          "right": 1088,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 502.734375,
+          "y": 450.890625,
+          "w": 537.265625,
+          "h": 26,
+          "bottom": 476.890625,
+          "right": 1040,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 22,
+          "y": 712.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 746.296875,
+          "right": 229.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 710,
+          "y": 104.921875,
+          "w": 365,
+          "h": 196.140625,
+          "bottom": 301.0625,
+          "right": 1075,
+          "clientHeight": 196,
+          "scrollHeight": 197,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 333,
+          "y": 333,
+          "w": 742,
+          "h": 61.796875,
+          "bottom": 394.796875,
+          "right": 1075,
+          "clientHeight": 62,
+          "scrollHeight": 62,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 442.5,
+          "y": 130,
+          "w": 146,
+          "h": 146,
+          "bottom": 276,
+          "right": 588.5,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 376.59375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 464.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 566.390625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 654.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 624.796875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 712.796875,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 566.390625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 654.390625,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 376.59375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 464.59375,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 318.1875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 406.1875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 321,
+          "y": 571.1875,
+          "w": 766,
+          "h": 122.8125,
+          "bottom": 694,
+          "right": 1087,
+          "clientHeight": 123,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 23,
+          "y": 183,
+          "w": 274,
+          "h": 275,
+          "bottom": 458,
+          "right": 297,
+          "clientHeight": 273,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  },
+  {
+    "theme": "dark",
+    "locale": "ar",
+    "width": 1280,
+    "height": 720,
+    "physicalWidth": 1920,
+    "physicalHeight": 1080,
+    "zoom": 1.5,
+    "geometry": {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "elements": [
+        {
+          "selector": "html",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "body",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": "#root",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".visual-sprint",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "bottom": 720,
+          "right": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-workspace\"]",
+          "x": 0,
+          "y": 58,
+          "w": 1040,
+          "h": 662,
+          "bottom": 720,
+          "right": 1040,
+          "clientHeight": 662,
+          "scrollHeight": 662,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-header",
+          "x": 320,
+          "y": 68,
+          "w": 710,
+          "h": 511.984375,
+          "bottom": 579.984375,
+          "right": 1030,
+          "clientHeight": 511,
+          "scrollHeight": 511,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-heading",
+          "x": 333,
+          "y": 81,
+          "w": 684,
+          "h": 244,
+          "bottom": 325,
+          "right": 1017,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-orbit",
+          "x": 333,
+          "y": 81,
+          "w": 336,
+          "h": 244,
+          "bottom": 325,
+          "right": 669,
+          "clientHeight": 244,
+          "scrollHeight": 244,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-results",
+          "x": 320,
+          "y": 579.984375,
+          "w": 710,
+          "h": 82.015625,
+          "bottom": 662,
+          "right": 1030,
+          "clientHeight": 80,
+          "scrollHeight": 80,
+          "overflowY": "hidden"
+        },
+        {
+          "selector": ".knx-files-inspector",
+          "x": 10,
+          "y": 68,
+          "w": 300,
+          "h": 594,
+          "bottom": 662,
+          "right": 310,
+          "clientHeight": 592,
+          "scrollHeight": 592,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-footer\"]",
+          "x": 10,
+          "y": 672,
+          "w": 1020,
+          "h": 48,
+          "bottom": 720,
+          "right": 1030,
+          "clientHeight": 47,
+          "scrollHeight": 47,
+          "overflowY": "visible"
+        },
+        {
+          "selector": "[data-testid=\"files-search\"]",
+          "x": 502.734375,
+          "y": 492.6875,
+          "w": 479.265625,
+          "h": 26,
+          "bottom": 518.6875,
+          "right": 982,
+          "clientHeight": 26,
+          "scrollHeight": 26,
+          "overflowY": "clip"
+        },
+        {
+          "selector": "[data-testid=\"files-plan-cta\"]",
+          "x": 22,
+          "y": 679.703125,
+          "w": 207.609375,
+          "h": 33.59375,
+          "bottom": 713.296875,
+          "right": 229.609375,
+          "clientHeight": 32,
+          "scrollHeight": 32,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-intro",
+          "x": 681,
+          "y": 96.1875,
+          "w": 336,
+          "h": 213.609375,
+          "bottom": 309.796875,
+          "right": 1017,
+          "clientHeight": 214,
+          "scrollHeight": 214,
+          "overflowY": "visible"
+        },
+        {
+          "selector": ".knx-files-metrics",
+          "x": 333,
+          "y": 333,
+          "w": 684,
+          "h": 82.796875,
+          "bottom": 415.796875,
+          "right": 1017,
+          "clientHeight": 83,
+          "scrollHeight": 83,
+          "overflowY": "visible"
+        }
+      ],
+      "orbit": [
+        {
+          "text": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+          "x": 433.8046875,
+          "y": 135.8046875,
+          "w": 134.390625,
+          "h": 134.390625,
+          "bottom": 270.1953125,
+          "right": 568.1953125,
+          "labelVisible": true
+        },
+        {
+          "text": "بحث",
+          "x": 369.625,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 457.625,
+          "labelVisible": true
+        },
+        {
+          "text": "الصور",
+          "x": 544.359375,
+          "y": 80.24687194824219,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 148.8406219482422,
+          "right": 632.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "تنظيم",
+          "x": 598.109375,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 686.109375,
+          "labelVisible": true
+        },
+        {
+          "text": "الفلاتر",
+          "x": 544.359375,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 632.359375,
+          "labelVisible": true
+        },
+        {
+          "text": "المصادر (disabled)",
+          "x": 369.625,
+          "y": 241.2937469482422,
+          "w": 88,
+          "h": 68.59376525878906,
+          "bottom": 309.88751220703125,
+          "right": 457.625,
+          "labelVisible": true
+        },
+        {
+          "text": "المعاينة",
+          "x": 315.875,
+          "y": 158.3249969482422,
+          "w": 88,
+          "h": 68.59375,
+          "bottom": 226.9187469482422,
+          "right": 403.875,
+          "labelVisible": true
+        }
+      ],
+      "scrollers": [
+        {
+          "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+          "x": 321,
+          "y": 612.984375,
+          "w": 708,
+          "h": 48.015625,
+          "bottom": 661,
+          "right": 1029,
+          "clientHeight": 48,
+          "scrollHeight": 456
+        },
+        {
+          "class": "knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg",
+          "x": 23,
+          "y": 183,
+          "w": 274,
+          "h": 242,
+          "bottom": 425,
+          "right": 297,
+          "clientHeight": 240,
+          "scrollHeight": 474
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    "failures": []
+  }
+]

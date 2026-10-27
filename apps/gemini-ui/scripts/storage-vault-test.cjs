@@ -4,7 +4,7 @@ const {makeFixture,create,selection,sourceHashes,sha}=require('./storage-vault-f
 async function main(){
  const f=await makeFixture(),b=await create(f),checks=[];
  const check=(name,data={})=>{checks.push({name,...data});console.log('VERIFIED',name);};
- const out=path.resolve(__dirname,'../../../docs/evidence/storage-cleanup-wave2');await fs.mkdir(out,{recursive:true});
+ const out=path.resolve(process.env.KNOUX_VAULT_EVIDENCE_DIR||path.resolve(__dirname,'../../../docs/evidence/storage-cleanup-wave2'));await fs.mkdir(out,{recursive:true});
  try {
   const scan=await b.vault.storageScan({sourceId:b.source.id});assert.equal(scan.analysis.totals.files,40);assert.equal(scan.duplicates.groups.length,3);assert.equal(scan.tempCandidates.length,4);assert.equal(scan.duplicates.groups.reduce((n,g)=>n+g.count,0),9);
   assert.equal(scan.analysis.tree.sizeBytes,Object.values(f.originals).length&&Object.values(b.studio.getInventory(b.source.id).files).reduce((n,r)=>n+r.size,0));assert.equal(scan.analysis.categories.reduce((n,c)=>n+c.bytes,0),scan.analysis.totals.bytes);assert.equal(scan.analysis.folders.length,3);assert.equal(scan.analysis.largest[0].size,Math.max(...b.studio.getInventory(b.source.id).files.map(f=>f.size)));check('Measured tree/filetype/largest/folder analysis and three SHA-256 duplicate groups',{files:40,groups:3});

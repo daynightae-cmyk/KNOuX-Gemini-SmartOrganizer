@@ -1,0 +1,39 @@
+{
+  "intro": 4,
+  "views": 8,
+  "interactions": [
+    {
+      "theme": "light",
+      "route": "repair",
+      "repairWheelSelection": true
+    },
+    {
+      "theme": "light",
+      "route": "services",
+      "nativeGateNotice": true
+    },
+    {
+      "theme": "light",
+      "reducedIntro": "none",
+      "skipReduced": true
+    },
+    {
+      "theme": "dark",
+      "route": "repair",
+      "repairWheelSelection": true
+    },
+    {
+      "theme": "dark",
+      "route": "services",
+      "nativeGateNotice": true
+    },
+    {
+      "theme": "dark",
+      "reducedIntro": "none",
+      "skipReduced": true
+    }
+  ],
+  "errors": [],
+  "overflow": [],
+  "wheelObstruction": []
+}

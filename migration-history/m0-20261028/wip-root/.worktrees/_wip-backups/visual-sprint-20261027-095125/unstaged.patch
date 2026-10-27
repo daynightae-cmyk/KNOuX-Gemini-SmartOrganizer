@@ -1,0 +1,80 @@
+diff --git a/apps/gemini-ui/src/App.tsx b/apps/gemini-ui/src/App.tsx
+index 52a4400..01ad4f3 100644
+--- a/apps/gemini-ui/src/App.tsx
++++ b/apps/gemini-ui/src/App.tsx
+@@ -54,6 +54,7 @@ import './visual/storage-reference.css';
+ import './visual/cleanup-reference.css';
+ import './visual/startup-reference.css';
+ import './visual/system-reference.css';
++import './visual/repair-reference.css';
+ import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
+ 
+ export type { AppSection } from './context/NavigationContext';
+@@ -125,7 +126,7 @@ function AppContent() {
+ 
+   return (
+     <>
+-      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system'].includes(currentSection)}>{renderActiveWorkspace()}</div>
++      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
+       <ApiKeySetupModal
+         isOpen={isApiKeyModalOpen}
+diff --git a/apps/gemini-ui/src/pages/RepairPage.tsx b/apps/gemini-ui/src/pages/RepairPage.tsx
+index 5134793..ee377ed 100644
+--- a/apps/gemini-ui/src/pages/RepairPage.tsx
++++ b/apps/gemini-ui/src/pages/RepairPage.tsx
+@@ -30,6 +30,7 @@ import {
+   Wrench,
+   X,
+ } from 'lucide-react';
++import { OrbitalControl } from '../visual/OrbitalControl';
+ import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
+ import { useNavigation } from '../context/NavigationContext';
+ import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
+@@ -241,7 +242,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
+ 
+               <div className="sys-hero-copy">
+                 <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · PREVIEW ONLY · NO REPAIR EXECUTION', 'مختبر الاستعادة · معاينة فقط · بلا تنفيذ إصلاح')}</span>
+-                <h1>{t(locale, 'Recovery', 'مختبر')} <span>{t(locale, 'Lab', 'الاستعادة')}</span></h1>
++                <h1>{t(locale, 'Diagnose. Repair.', 'شخّص. أصلح.')} <span>{t(locale, 'Recover.', 'استعد.')}</span></h1>
+                 <p>
+                   {t(
+                     locale,
+@@ -278,6 +279,15 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
+                 </div>
+               </div>
+ 
++              <OrbitalControl title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
++                onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
++                tools={[
++                  { id: 'component', label: 'DISM', icon: HardDrive, onClick: () => setSelectedToolId('repair-component-scan') },
++                  { id: 'files', label: 'SFC', icon: FileText, onClick: () => setSelectedToolId('repair-files-verify') },
++                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Globe2, onClick: () => setSelectedToolId('repair-dns-flush') },
++                  { id: 'restore', label: t(locale, 'Restore', 'الاستعادة'), icon: ShieldCheck, onClick: () => setSelectedToolId('repair-restore-point') },
++                  { id: 'history', label: t(locale, 'Journal', 'السجل'), icon: History, disabled: !snapshot, onClick: () => openWorkbench('repair-history') },
++                ]} />
+               <aside className="sys-source-card rep-source-card" data-testid="repair-source-card">
+                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
+                 <div className="sys-source-copy">
+diff --git a/apps/gemini-ui/src/visual/system-reference.css b/apps/gemini-ui/src/visual/system-reference.css
+index 93f3091..08b1326 100644
+--- a/apps/gemini-ui/src/visual/system-reference.css
++++ b/apps/gemini-ui/src/visual/system-reference.css
+@@ -15,6 +15,11 @@
+ .visual-sprint[data-reference-shell='true'] .sys-service-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; padding:12px; }
+ .visual-sprint[data-reference-shell='true'] .sys-service-card { min-height:100px; padding:16px; gap:12px; }
+ .visual-sprint[data-reference-shell='true'] .sys-service-copy strong { font-size:14px; white-space:normal; }.visual-sprint[data-reference-shell='true'] .sys-service-copy em { font-size:12px; white-space:normal; line-height:1.4; }.visual-sprint[data-reference-shell='true'] .sys-service-icon { width:34px; height:34px; }
++.visual-sprint[data-reference-shell='true'] .sys-service-card { display:grid; grid-template-columns:34px minmax(0,1fr); align-items:start; min-height:126px; gap:8px 10px; position:relative; }
++.visual-sprint[data-reference-shell='true'] .sys-service-index { position:absolute; top:7px; inset-inline-end:8px; font-size:9px; }
++.visual-sprint[data-reference-shell='true'] .sys-service-copy { grid-column:2; min-width:0; overflow:visible; }.visual-sprint[data-reference-shell='true'] .sys-service-copy :is(strong,em) { display:block; white-space:normal !important; overflow:visible !important; text-overflow:clip; }
++.visual-sprint[data-reference-shell='true'] .sys-service-state { grid-column:2; font-size:10px; width:max-content; }
++.visual-sprint[data-reference-shell='true'] .sys-loading-grid { grid-template-columns:minmax(260px,.65fr) minmax(0,2fr); }
+ .visual-sprint[data-reference-shell='true'] .sys-panel-head { padding:15px; }.visual-sprint[data-reference-shell='true'] .sys-panel-title,.visual-sprint[data-reference-shell='true'] .sys-services-title h2 { font-size:16px; }
+ .visual-sprint[data-reference-shell='true'] .sys-loading-grid { gap:16px; }.visual-sprint[data-reference-shell='true'] .sys-loading-copy { padding:18px; }
+ .visual-sprint[data-reference-shell='true'] .sys-overview-grid { gap:16px; }.visual-sprint[data-reference-shell='true'] .sys-ledger :is(th,td) { font-size:12px; padding:10px; }
+diff --git a/docs/evidence/visual-sprint/system/dark-1672x941.png b/docs/evidence/visual-sprint/system/dark-1672x941.png
+index b257a43..133b529 100644
+Binary files a/docs/evidence/visual-sprint/system/dark-1672x941.png and b/docs/evidence/visual-sprint/system/dark-1672x941.png differ
+diff --git a/docs/evidence/visual-sprint/system/light-1672x941.png b/docs/evidence/visual-sprint/system/light-1672x941.png
+index ba102c2..675dfd5 100644
+Binary files a/docs/evidence/visual-sprint/system/light-1672x941.png and b/docs/evidence/visual-sprint/system/light-1672x941.png differ

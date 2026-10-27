@@ -1,0 +1,128 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 1,
+  "darkSurfaces": [
+    {
+      "cls": "bg-purple-800/90 rounded p-1 border border-purple-400/30",
+      "bg": "oklab(0.438 0.121032 -0.181315 / 0.9)",
+      "area": 4708,
+      "text": "Alex 58.4 GB"
+    }
+  ],
+  "lowContrastCount": 6,
+  "lowContrast": [
+    {
+      "c": 2.74,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(20,71,230)",
+      "size": "12px",
+      "cls": "font-extrabold text-xs text-white",
+      "text": "Windows"
+    },
+    {
+      "c": 2.65,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(130,0,219)",
+      "size": "12px",
+      "cls": "font-bold text-xs text-white",
+      "text": "Users"
+    },
+    {
+      "c": 1.01,
+      "fg": "rgb(109, 40, 217)",
+      "bg": "rgb(130,0,219)",
+      "size": "10px",
+      "cls": "text-[10px] font-mono text-purple-200",
+      "text": "76.2 GB"
+    },
+    {
+      "c": 1.02,
+      "fg": "rgb(4, 120, 87)",
+      "bg": "rgb(0,122,85)",
+      "size": "10px",
+      "cls": "text-[10px] font-mono text-emerald-200",
+      "text": "62.9 GB"
+    },
+    {
+      "c": 1.57,
+      "fg": "rgb(180, 83, 9)",
+      "bg": "rgb(225,113,0)",
+      "size": "9px",
+      "cls": "text-[9px] font-mono text-amber-200",
+      "text": "34.7 GB"
+    },
+    {
+      "c": 1.72,
+      "fg": "oklab(0.828 0.0183479 0.188107 / 0.9)",
+      "bg": "rgb(255,255,255)",
+      "size": "10px",
+      "cls": "text-amber-400/90 text-[10px] text-right truncate max-w-[160px]",
+      "text": "Some system files restricted (Administrator privileges)"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 30,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar p-5 space-y-4",
+      "clientH": 845,
+      "scrollH": 1289
+    },
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-64",
+      "clientH": 256,
+      "scrollH": 310
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      845
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      845
+    ],
+    "footer": [
+      0,
+      885,
+      1672,
+      56
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light8-storage-1672.png

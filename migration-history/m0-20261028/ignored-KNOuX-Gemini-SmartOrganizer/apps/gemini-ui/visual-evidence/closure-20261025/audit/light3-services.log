@@ -1,0 +1,294 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 1,
+  "darkSurfaces": [
+    {
+      "cls": "p-2 rounded-lg border text-left transition-all flex items-center gap-3 bg-[#0e1d3d] border-cyan-400/80 shadow-[0_0_14px_rgba(56,189,248,0.25)]",
+      "bg": "rgb(14, 29, 61)",
+      "area": 11939,
+      "text": "Services Discovered 271"
+    }
+  ],
+  "lowContrastCount": 10,
+  "lowContrast": [
+    {
+      "c": 2.2,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(14,29,61)",
+      "size": "10.5px",
+      "cls": "text-[10.5px] text-slate-400 block truncate",
+      "text": "Services Discovered"
+    },
+    {
+      "c": 1.12,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(14,29,61)",
+      "size": "17px",
+      "cls": "text-[17px] font-bold text-slate-100 font-mono leading-none mt-0.5 block",
+      "text": "271"
+    },
+    {
+      "c": 1.48,
+      "fg": "rgb(3, 105, 161)",
+      "bg": "rgb(127,127,127)",
+      "size": "10.5px",
+      "cls": "p-1.5 rounded bg-black/50 border border-slate-800 text-[10.5px] font-mono text-cyan-300 break-all select-all",
+      "text": "C:\\Program Files\\Windows Defender\\MsMpEng.exe"
+    },
+    {
+      "c": 2.76,
+      "fg": "oklch(0.718 0.202 349.761)",
+      "bg": "rgb(255,255,255)",
+      "size": "9px",
+      "cls": "flex items-center gap-1 text-pink-400",
+      "text": "Dependent"
+    },
+    {
+      "c": 1.93,
+      "fg": "rgb(219, 234, 254)",
+      "bg": "rgb(155,169,205)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependency",
+      "text": "RPCSS"
+    },
+    {
+      "c": 1.93,
+      "fg": "rgb(219, 234, 254)",
+      "bg": "rgb(155,169,205)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependency text-[10.5px]",
+      "text": "EventLog"
+    },
+    {
+      "c": 2.62,
+      "fg": "rgb(243, 232, 255)",
+      "bg": "rgb(163,135,192)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-selected text-xs px-4 py-1.5",
+      "text": "WinDefend"
+    },
+    {
+      "c": 1.93,
+      "fg": "rgb(219, 234, 254)",
+      "bg": "rgb(155,169,205)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependency text-[10.5px]",
+      "text": "BFE"
+    },
+    {
+      "c": 2.06,
+      "fg": "rgb(252, 231, 243)",
+      "bg": "rgb(195,156,176)",
+      "size": "11.5px",
+      "cls": "dep-node dep-node-dependent text-[10.5px]",
+      "text": "WdFilter"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(100, 116, 139)",
+      "bg": "rgb(159,162,170)",
+      "size": "12px",
+      "cls": "",
+      "text": "Start"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 83,
+  "coveredCount": 18,
+  "covered": [
+    {
+      "tag": "button",
+      "text": "Start Service",
+      "top": "div",
+      "topText": "Dependency Explorer",
+      "rect": [
+        1098,
+        572,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Restart Service",
+      "top": "div",
+      "topText": "Dependency Explorer",
+      "rect": [
+        1122,
+        572,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Configure Startup Policy",
+      "top": "div",
+      "topText": "Dependency Explorer",
+      "rect": [
+        1146,
+        572,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Start Service",
+      "top": "button",
+      "topText": "State History\n\nTrack service state changes.",
+      "rect": [
+        1098,
+        605,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Restart Service",
+      "top": "button",
+      "topText": "State History\n\nTrack service state changes.",
+      "rect": [
+        1122,
+        605,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Configure Startup Policy",
+      "top": "button",
+      "topText": "State History\n\nTrack service state changes.",
+      "rect": [
+        1146,
+        605,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Start Service",
+      "top": "p",
+      "topText": "Track service state changes.",
+      "rect": [
+        1098,
+        638,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Restart Service",
+      "top": "p",
+      "topText": "Track service state changes.",
+      "rect": [
+        1122,
+        638,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Configure Startup Policy",
+      "top": "p",
+      "topText": "Track service state changes.",
+      "rect": [
+        1146,
+        638,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Stop Service",
+      "top": "div",
+      "topText": "Service Performance",
+      "rect": [
+        1098,
+        671,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Restart Service",
+      "top": "div",
+      "topText": "Service Performance",
+      "rect": [
+        1122,
+        671,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Configure Startup Policy",
+      "top": "div",
+      "topText": "Service Performance",
+      "rect": [
+        1146,
+        671,
+        20,
+        20
+      ]
+    }
+  ],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "overflow-auto flex-1 min-h-0 services-custom-scrollbar",
+      "clientH": 311,
+      "scrollH": 530
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-services-1672.png

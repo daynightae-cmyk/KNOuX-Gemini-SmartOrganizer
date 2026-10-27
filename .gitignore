@@ -21,3 +21,10 @@
 
 # Google OAuth desktop client credentials (local/private)
 **/google-desktop-client*.json
+
+# M0: nested worktree administration and regenerated Python bytecode stay local.
+/.worktrees/
+**/__pycache__/
+# Reviewed archives: every unique member is versioned; original containers preserved outside Git.
+/missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/references.rar
+/missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references_backups/**/references.rar

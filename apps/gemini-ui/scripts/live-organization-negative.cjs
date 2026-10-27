@@ -25,6 +25,6 @@ async function main(){
   const result=await recovered.engine.undo({...preview,approved:true,resolution:'skip'});assert.equal(result.result.restored,1);assert.deepEqual(await hashSources(interrupted),interrupted.originals);
   checks.push('Actual worker process interruption persisted journal; restart detects interrupted state and safely undoes the completed move');
  }finally{await recovered.studio.dispose();}
- const out=path.resolve(__dirname,'../../../docs/evidence/live-organization/negative-checks.json');await fs.writeFile(out,JSON.stringify({checks,fixtures:[f.root,interrupted.root],ownerDataTouched:false},null,2));console.log(JSON.stringify({checks},null,2));
+ const out=path.join(process.env.KNOUX_ORGANIZATION_EVIDENCE_DIR||path.resolve(__dirname,'../../../docs/evidence/live-organization'),'negative-checks.json');await fs.writeFile(out,JSON.stringify({checks,fixtures:[f.root,interrupted.root],ownerDataTouched:false},null,2));console.log(JSON.stringify({checks},null,2));
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});

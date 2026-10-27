@@ -1,0 +1,41 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:studio
+> npm run test:studio --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:studio
+> node scripts/studio-native-test.cjs
+
+Downloading Electron binary...
+{
+  "ok": true,
+  "sourceIdPrefix": "91102df2",
+  "files": 5,
+  "categories": [
+    {
+      "key": "document",
+      "count": 2,
+      "bytes": 28
+    },
+    {
+      "key": "image",
+      "count": 1,
+      "bytes": 88653
+    },
+    {
+      "key": "code",
+      "count": 1,
+      "bytes": 24
+    },
+    {
+      "key": "spreadsheet",
+      "count": 1,
+      "bytes": 8
+    }
+  ],
+  "planHash": "13e28e712e11",
+  "planFiles": 5,
+  "previewHistory": 1,
+  "failures": []
+}
+[studio-native-test] PASS
