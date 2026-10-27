@@ -31,6 +31,7 @@ import { ScanReviewInspector } from './ScanReviewInspector';
 import { ScanCommandBar } from './ScanCommandBar';
 import { ScanServiceWorkspace } from './ScanServiceWorkspace';
 import { ScanStageConsole } from './ScanStageConsole';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useSmartScan } from './useSmartScan';
 import {
   formatBytes,
@@ -62,6 +63,20 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
   const [customOpen, setCustomOpen] = useState(false);
   const [customServiceIds, setCustomServiceIds] = useState<string[]>([]);
   const [cleanupOpen, setCleanupOpen] = useState(false);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.scan.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.scan.workbench.width')); return Number.isFinite(value) && value >= 340 ? Math.min(720, value) : 480; } catch { return 480; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.scan.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.scan.workbench.width', String(workbenchWidth));
+    } catch {
+      // In-memory only when storage is unavailable.
+    }
+  }, [workbenchMode, workbenchWidth]);
 
   const services = useMemo(() => toServiceTiles(scan.capabilities, isArabic), [scan.capabilities, isArabic]);
   const results = useMemo(() => toResultItems(scan.session), [scan.session]);
@@ -199,6 +214,45 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
   const measuredEmptyFolders = junkResult?.data.emptyFolders?.summary.emptyFolders ?? null;
   const customSelectedNeedsSource = customServiceIds.some((id) => scan.capabilities?.services.find((entry) => entry.id === id)?.requiresSource);
 
+  const closeWorkbench = () => {
+    if (!customOpen && !cleanupOpen) setActiveServiceId(null);
+  };
+
+  const renderScanServiceBody = () => activeService ? (
+    <ScanServiceWorkspace
+      service={activeService}
+      result={activeServiceResult}
+      session={scan.session}
+      isArabic={isArabic}
+      busy={scan.busy}
+      scanActive={scanActive}
+      canRun={serviceRunState(activeService).canRun}
+      runBlockedReason={serviceRunState(activeService).reason}
+      onClose={closeWorkbench}
+      onRunService={handleRunService}
+      onNavigateToWorkspace={(workspace) => {
+        setActiveServiceId(null);
+        handleNavigate(workspace);
+      }}
+      onOpenCleanupGate={() => setCleanupOpen(true)}
+      embedded
+    />
+  ) : null;
+
+  const scanWorkbenchToolSelector = (
+    <select
+      data-testid="scan-workbench-tool-select"
+      aria-label={isArabic ? 'تبديل خدمة الفحص' : 'Switch scan service'}
+      value={activeServiceId || ''}
+      onChange={(event) => setActiveServiceId(event.target.value)}
+      className="max-w-[140px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {services.map((entry) => (
+        <option key={entry.id} value={entry.id}>{isArabic ? entry.titleAr : entry.titleEn}</option>
+      ))}
+    </select>
+  );
+
   return (
     <div className={`smart-scan-viewport relative text-slate-100 font-sans select-none ${isArabic ? 'rtl' : 'ltr'}`}>
       <KNOuXTitleBar
@@ -335,23 +389,44 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
       </div>
 
       {activeService ? (
-        <ScanServiceWorkspace
-          service={activeService}
-          result={activeServiceResult}
-          session={scan.session}
-          isArabic={isArabic}
-          busy={scan.busy}
-          scanActive={scanActive}
-          canRun={serviceRunState(activeService).canRun}
-          runBlockedReason={serviceRunState(activeService).reason}
-          onClose={() => setActiveServiceId(null)}
-          onRunService={handleRunService}
-          onNavigateToWorkspace={(workspace) => {
-            setActiveServiceId(null);
-            handleNavigate(workspace);
-          }}
-          onOpenCleanupGate={() => setCleanupOpen(true)}
-        />
+        workbenchMode === 'side' ? (
+          <div className="fixed end-3 top-14 bottom-28 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="scan-workbench-side-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService.id}
+              title={isArabic ? activeService.titleAr : activeService.titleEn}
+              subtitle={isArabic ? 'خدمة فحص مقيسة · للقراءة فقط' : 'Measured scan service · read-only'}
+              locale={isArabic ? 'ar' : 'en'}
+              mode="side"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              onResize={(width) => setWorkbenchWidth(width)}
+              minWidth={340}
+              maxWidth={720}
+              testId="scan-workbench"
+              toolSelector={scanWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{isArabic ? 'قياس فقط · لا حذف أو إصلاح' : 'Measure only · no delete or repair'}</span>}
+            >
+              {renderScanServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        ) : (
+          <div className="fixed inset-x-3 top-14 bottom-28 z-50" data-testid="scan-workbench-expanded-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService.id}
+              title={isArabic ? activeService.titleAr : activeService.titleEn}
+              subtitle={isArabic ? 'خدمة فحص مقيسة · للقراءة فقط' : 'Measured scan service · read-only'}
+              locale={isArabic ? 'ar' : 'en'}
+              mode="expanded"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              testId="scan-workbench-expanded"
+              toolSelector={scanWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{isArabic ? 'قياس فقط · لا حذف أو إصلاح' : 'Measure only · no delete or repair'}</span>}
+            >
+              {renderScanServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        )
       ) : null}
 
       {customOpen ? (

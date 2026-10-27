@@ -219,6 +219,10 @@ async function main() {
     studioWorkbench1366ShotPath: receipt?.studioWorkbench1366Screenshot || '',
     storageWorkbenchShotPath: receipt?.storageWorkbenchScreenshot || '',
     storageWorkbenchExpandedShotPath: receipt?.storageWorkbenchExpandedScreenshot || '',
+    scanWorkbenchShotPath: receipt?.scanWorkbenchScreenshot || '',
+    scanWorkbenchExpandedShotPath: receipt?.scanWorkbenchExpandedScreenshot || '',
+    appsWorkbenchShotPath: receipt?.appsWorkbenchScreenshot || '',
+    appsWorkbenchExpandedShotPath: receipt?.appsWorkbenchExpandedScreenshot || '',
     lightShotBytes: receipt?.lightScreenshotBytes || 0,
     arabicShotBytes: receipt?.arabicScreenshotBytes || 0,
     studioShotBytes: receipt?.studioScreenshotBytes || 0,
@@ -287,6 +291,10 @@ async function main() {
     studioWorkbench1366ShotBytes: receipt?.studioWorkbench1366ScreenshotBytes || 0,
     storageWorkbenchShotBytes: receipt?.storageWorkbenchScreenshotBytes || 0,
     storageWorkbenchExpandedShotBytes: receipt?.storageWorkbenchExpandedScreenshotBytes || 0,
+    scanWorkbenchShotBytes: receipt?.scanWorkbenchScreenshotBytes || 0,
+    scanWorkbenchExpandedShotBytes: receipt?.scanWorkbenchExpandedScreenshotBytes || 0,
+    appsWorkbenchShotBytes: receipt?.appsWorkbenchScreenshotBytes || 0,
+    appsWorkbenchExpandedShotBytes: receipt?.appsWorkbenchExpandedScreenshotBytes || 0,
     receiptOk: receipt?.ok === true,
     checks: receipt?.checks || null,
     stdoutTail: stdout.slice(-2000),
@@ -365,7 +373,11 @@ async function main() {
     summary.studioWorkbenchExpandedShotBytes > 20000 &&
     summary.studioWorkbench1366ShotBytes > 20000 &&
     summary.storageWorkbenchShotBytes > 20000 &&
-    summary.storageWorkbenchExpandedShotBytes > 20000;
+    summary.storageWorkbenchExpandedShotBytes > 20000 &&
+    summary.scanWorkbenchShotBytes > 20000 &&
+    summary.scanWorkbenchExpandedShotBytes > 20000 &&
+    summary.appsWorkbenchShotBytes > 20000 &&
+    summary.appsWorkbenchExpandedShotBytes > 20000;
   console.log(JSON.stringify({ ok: summary.receiptOk && exitCode === 0 && shotsOk, ...safeSummary }, null, 2));
   if (!summary.receiptOk || exitCode !== 0 || !shotsOk) {
     console.error('[native-smoke] FAILED — inspect native-smoke-dev.json and native-bridge-dev.png');

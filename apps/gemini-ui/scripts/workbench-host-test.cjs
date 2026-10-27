@@ -22,6 +22,10 @@ const studioContext = read('src/studio/StudioStageContextPanel.tsx');
 const studioParts = read('src/studio/parts.tsx');
 const storagePage = read('src/pages/StoragePage.tsx');
 const storageFocus = read('src/storage/StorageServiceFocus.tsx');
+const scanPage = read('src/smart-scan/SmartScanPage.tsx');
+const scanBody = read('src/smart-scan/ScanServiceWorkspace.tsx');
+const appsPage = read('src/pages/ApplicationsPage.tsx');
+const appsBody = read('src/apps/AppServiceWorkspace.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -107,13 +111,41 @@ check('Storage integrates a pinned/expanded workbench with measured bodies', () 
   assert.match(storageFocus, /storage-service-focus/);
 });
 
-check('no old generic ServiceWorkspaceHost is imported by Files, Studio or Storage', () => {
+check('Scan integrates a pinned/expanded workbench with measured service bodies', () => {
+  assert.match(scanPage, /ServiceWorkbenchHost/);
+  assert.match(scanPage, /testId="scan-workbench"/);
+  assert.match(scanPage, /testId="scan-workbench-expanded"/);
+  assert.match(scanPage, /scan-workbench-tool-select/);
+  assert.match(scanPage, /knoux\.scan\.workbench\.mode/);
+  assert.match(scanPage, /knoux\.scan\.workbench\.width/);
+  assert.match(scanPage, /data-testid="scan-workspace"/);
+  assert.match(scanBody, /embedded\?: boolean/);
+  assert.match(scanBody, /scan-service-focus/);
+  assert.match(scanBody, /scan-service-run/);
+  assert.match(scanBody, /onOpenCleanupGate/);
+});
+
+check('Applications integrates a pinned/expanded workbench over the register', () => {
+  assert.match(appsPage, /ServiceWorkbenchHost/);
+  assert.match(appsPage, /testId="apps-workbench"/);
+  assert.match(appsPage, /testId="apps-workbench-expanded"/);
+  assert.match(appsPage, /apps-workbench-tool-select/);
+  assert.match(appsPage, /knoux\.apps\.workbench\.mode/);
+  assert.match(appsPage, /knoux\.apps\.workbench\.width/);
+  assert.match(appsPage, /data-testid="apps-workspace"/);
+  assert.match(appsBody, /embedded\?: boolean/);
+  assert.match(appsBody, /app-service-focus/);
+});
+
+check('no old generic ServiceWorkspaceHost is imported by any migrated domain', () => {
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(storagePage), 'old generic host must not be used by Storage');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(scanPage), 'old generic host must not be used by Scan');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(appsPage), 'old generic host must not be used by Applications');
 });
 
-const result = { ok: failures.length === 0, checks: 8, failures };
+const result = { ok: failures.length === 0, checks: 10, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');

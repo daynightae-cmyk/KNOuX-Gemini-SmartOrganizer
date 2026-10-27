@@ -95,6 +95,7 @@ export const ScanServices: React.FC<ScanServicesProps> = ({
               <button
                 type="button"
                 key={service.id}
+                data-testid={`scan-service-${service.id}`}
                 onClick={() => onSelectService(service)}
                 className={`scan-service-card group relative bg-[#091a38]/80 hover:bg-[#0f2852] border rounded-xl p-2.5 flex items-center justify-between gap-2 transition-all duration-200 cursor-pointer shadow-sm text-start ${
                   isSelected

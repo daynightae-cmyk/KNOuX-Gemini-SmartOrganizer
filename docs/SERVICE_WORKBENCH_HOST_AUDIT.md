@@ -76,12 +76,50 @@ explicitly unsupported/blocked.
 screenshots `storage-workbench-dev.png` / `storage-workbench-expanded-dev.png`
 and packaged equivalents. CI is recorded in the mission ledger.
 
+## 3d. Smart Scan integration (10/10 measured services)
+
+Smart Scan's ten capability services open in a pinned fixed side dock
+(340–720 px, persisted in `knoux.scan.workbench.mode|width`) with the measured
+overview, service tiles, findings, recent scans and command bar still visible.
+Expanded mode fills the content above the command bar. Bodies reuse
+`ScanServiceWorkspace` in an `embedded` mode: each service keeps its measured
+renderer plus a real Run/Re-measure control, source/index prerequisite text and
+the Mission 08 cleanup gate for the junk service. No scan service can delete,
+repair or write.
+
+The initial route navigation was hardened in the smoke after a run reproduced
+the page remaining on a previously visited route; the probe now forces a
+`home` hash before `smart_scan` and waits for a visible tile and mounted host.
+This is a test-harness fix, not a relaxation of product assertions.
+
+`scanWorkbenchOk`/`scanWorkbenchLayoutOk` PASS in dev and packaged smoke;
+screenshots `scan-workbench-dev.png` / `scan-workbench-expanded-dev.png` and
+packaged equivalents.
+
+## 3e. Applications integration (12/12 measured services)
+
+Applications' twelve services open in the same host as a pinned side dock
+(360–760 px, persisted in `knoux.apps.workbench.mode|width`) while the measured
+register and dossier remain visible. The embedded `AppServiceWorkspace`
+preserves every existing real control: inventory KPIs/coverage, Authenticode
+verification, multi-parameter search, publisher evidence, date filters,
+immutable uninstall review plan, bounded leftover measurement, bounded WinGet
+feed, footprint measurement with cancel, package rows, association sampling and
+startup evidence. Uninstall/update/association/startup writes remain blocked.
+
+The smoke waits for measured register rows before opening the workbench so the
+side/expanded evidence shows real inventory instead of an in-flight loader.
+`appsWorkbenchOk`/`appsWorkbenchLayoutOk` PASS in dev and packaged smoke;
+screenshots `apps-workbench-dev.png` / `apps-workbench-expanded-dev.png` and
+packaged equivalents.
+
 ## 4. Honest limits / next
 
-- Scan, Applications, Cleanup, Startup, System, Repair, Services, Automation,
-  Workspace, Settings and Home still use their existing specialized panels/modal
-  sheets and must be migrated next.
-- No file apply/undo executor was added; those remain blocked in Files.
+- Cleanup, Startup, System, Repair, Services, Automation, Workspace, Settings
+  and Home still use their existing specialized panels/modal sheets and must be
+  migrated next.
+- No file apply/undo or application uninstall/update executor was added; those
+  remain blocked.
 - No real user file, account, service, registry, startup, Windows setting or
   paid API was touched.
 

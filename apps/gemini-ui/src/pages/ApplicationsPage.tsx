@@ -24,9 +24,11 @@ import { AppRegister } from '../apps/AppRegister';
 import { AppDossier } from '../apps/AppDossier';
 import { ApplicationServices } from '../apps/ApplicationServices';
 import { AppServiceWorkspace } from '../apps/AppServiceWorkspace';
-import { DEFAULT_FILTERS, filterApps, formatBytes, formatCount, formatTimestamp, t } from '../apps/model';
+import { DEFAULT_FILTERS, filterApps, formatBytes, formatCount, formatTimestamp, serviceTitle, t } from '../apps/model';
 import type { AppsFilters, AppsLocale } from '../apps/model';
+import { DOMAIN_SERVICES_META } from '../apps/catalog';
 import type { DomainServiceKey } from '../apps/catalog';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useApplications } from '../apps/useApplications';
 import '../applications.css';
 
@@ -52,6 +54,20 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<DomainServiceKey | null>(null);
   const [planOpen, setPlanOpen] = useState(false);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.apps.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.apps.workbench.width')); return Number.isFinite(value) && value >= 360 ? Math.min(760, value) : 540; } catch { return 540; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.apps.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.apps.workbench.width', String(workbenchWidth));
+    } catch {
+      // In-memory only when storage is unavailable.
+    }
+  }, [workbenchMode, workbenchWidth]);
 
   const filteredApps = useMemo(() => filterApps(apps, filters), [apps, filters]);
   const selectedApp = apps.find((app) => app.id === selectedAppId) || null;
@@ -136,6 +152,38 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
 
   const errorText = appsErrorMessage(controller.actionError, locale);
   const warm = Boolean(inventory?.warnings?.length);
+
+  const closeWorkbench = () => {
+    if (!planOpen) setActiveService(null);
+  };
+
+  const renderAppServiceBody = () => activeService ? (
+    <AppServiceWorkspace
+      service={activeService}
+      locale={locale}
+      controller={controller}
+      selectedApp={selectedApp}
+      selectedIds={[...checkedIds]}
+      onSelectApp={setSelectedAppId}
+      onClose={closeWorkbench}
+      onOpenPlan={() => setPlanOpen(true)}
+      embedded
+    />
+  ) : null;
+
+  const appsWorkbenchToolSelector = (
+    <select
+      data-testid="apps-workbench-tool-select"
+      aria-label={t(locale, 'Switch application service', 'تبديل خدمة التطبيقات')}
+      value={activeService || ''}
+      onChange={(event) => setActiveService(event.target.value as DomainServiceKey)}
+      className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {DOMAIN_SERVICES_META.map((entry) => (
+        <option key={entry.key} value={entry.key}>{serviceTitle(entry.key, locale)}</option>
+      ))}
+    </select>
+  );
 
   return (
     <div className={`apps-viewport relative text-slate-100 font-sans select-none ${locale === 'ar' ? 'rtl' : 'ltr'}`}>
@@ -282,16 +330,44 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
       </div>
 
       {activeService ? (
-        <AppServiceWorkspace
-          service={activeService}
-          locale={locale}
-          controller={controller}
-          selectedApp={selectedApp}
-          selectedIds={[...checkedIds]}
-          onSelectApp={setSelectedAppId}
-          onClose={() => setActiveService(null)}
-          onOpenPlan={() => setPlanOpen(true)}
-        />
+        workbenchMode === 'side' ? (
+          <div className="fixed end-3 top-14 bottom-5 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="apps-workbench-side-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={serviceTitle(activeService, locale)}
+              subtitle={t(locale, 'Measured applications context · read-only', 'سياق التطبيقات المقيس · للقراءة فقط')}
+              locale={locale}
+              mode="side"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              onResize={(width) => setWorkbenchWidth(width)}
+              minWidth={360}
+              maxWidth={760}
+              testId="apps-workbench"
+              toolSelector={appsWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{t(locale, 'Review only · no uninstall, update or association write', 'مراجعة فقط · لا إزالة أو تحديث أو كتابة ارتباط')}</span>}
+            >
+              {renderAppServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        ) : (
+          <div className="fixed inset-x-3 top-14 bottom-5 z-50" data-testid="apps-workbench-expanded-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={serviceTitle(activeService, locale)}
+              subtitle={t(locale, 'Measured applications context · read-only', 'سياق التطبيقات المقيس · للقراءة فقط')}
+              locale={locale}
+              mode="expanded"
+              onModeChange={setWorkbenchMode}
+              onClose={closeWorkbench}
+              testId="apps-workbench-expanded"
+              toolSelector={appsWorkbenchToolSelector}
+              footer={<span className="text-amber-300">{t(locale, 'Review only · no uninstall, update or association write', 'مراجعة فقط · لا إزالة أو تحديث أو كتابة ارتباط')}</span>}
+            >
+              {renderAppServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        )
       ) : null}
 
       {planOpen && controller.plan ? (
