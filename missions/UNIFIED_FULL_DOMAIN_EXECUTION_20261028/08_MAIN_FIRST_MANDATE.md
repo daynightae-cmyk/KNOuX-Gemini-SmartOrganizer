@@ -1,3 +1,4 @@
+REFRESHED WIP SNAPSHOT: D:\KNOUX-Workspace\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108 (981 recorded status paths, 974 regular files copied, 0 copy errors, 0 source-change warnings). This snapshot is an immutable preservation checkpoint, not proof that those files were merged. Re-check active writer and new diffs immediately before M0 cutover.
 # KNOuX MAIN FIRST — FULL LOCAL CONSOLIDATION BEFORE ANY DOMAIN
 
 OWNER OVERRIDE (2026-10-28): The temporary integration/knoux-unified-20261028 branch must NOT become a permanent destination. Owner requires all unique local work, branches, code, documents, reference art, missions, tests and meaningful evidence to be safely reconciled into local MAIN first, then to continue coding directly on local MAIN in the canonical Windows repo. Remote origin/main should be synchronized through normal non-force protected GitHub workflow once ready.
