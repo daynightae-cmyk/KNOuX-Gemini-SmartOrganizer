@@ -26,6 +26,7 @@ import {
   t,
 } from './model';
 import type { CleanupLocale } from './model';
+import { OrbitalControl } from '../visual/OrbitalControl';
 
 export interface CleanupHeroProps {
   locale: CleanupLocale;
@@ -80,7 +81,7 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
             <span>{t(locale, 'Clean Room', 'غرفة التنظيف')}</span>
             <span className="cln-breadcrumb-tag">{t(locale, 'MISSION 08', 'المهمة 08')}</span>
           </div>
-          <h1 className="cln-hero-title">{t(locale, 'Clean Room', 'غرفة التنظيف')}</h1>
+          <h1 className="cln-hero-title">{t(locale, 'Clean safely. Recover space.', 'نظّف بأمان. واستعد المساحة.')}</h1>
           <p className="cln-hero-copy">
             {t(
               locale,
@@ -89,6 +90,13 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
             )}
           </p>
         </div>
+        <OrbitalControl title={t(locale, 'Analyze Cleanup', 'تحليل التنظيف')} subtitle={t(locale, 'Discover · Review · Confirm', 'استكشف · راجع · وافق')}
+          onActivate={() => void controller.startScan(categories, ageDays)} disabled={!controller.nativeAvailable || !canScan} running={scanning}
+          tools={[
+            { id: 'analyze', label: t(locale, 'Analyze', 'تحليل'), icon: FlaskConical, onClick: () => void controller.startScan(categories, ageDays), disabled: !controller.nativeAvailable || !canScan },
+            { id: 'review', label: t(locale, 'Review', 'مراجعة'), icon: FileText, onClick: onReviewSelection, disabled: selectedCount === 0 },
+            { id: 'refresh', label: t(locale, 'Refresh', 'تحديث'), icon: RotateCcw, onClick: () => void controller.refresh(true), disabled: !controller.nativeAvailable || scanning },
+          ]} />
         <div className="cln-hero-actions">
           <button
             type="button"
