@@ -23,7 +23,7 @@ import {
 import type { CleanupCandidate } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { CleanupHero } from '../cleanup/CleanupHero';
+import { CleanupHero, CleanupMetrics } from '../cleanup/CleanupHero';
 import { CandidateRegister } from '../cleanup/CandidateRegister';
 import { CandidateInspector } from '../cleanup/CandidateInspector';
 import { ServiceRail } from '../cleanup/ServiceRail';
@@ -265,13 +265,15 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
             data-testid="cleanup-workspace"
             className="cln-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
-          <CommandCanvas locale={locale} heroTypes={[CleanupHero]} toolTypes={[ServiceRail]}>
+          <CommandCanvas locale={locale} heroTypes={[CleanupHero]} metricTypes={[CleanupMetrics]} toolTypes={[ServiceRail]} toolPlacement="rail">
             <CleanupHero
               locale={locale}
               controller={controller}
               selectedCount={checkedIds.size}
               onReviewSelection={reviewSelection}
             />
+
+            <CleanupMetrics locale={locale} controller={controller} />
 
             {!controller.nativeAvailable ? (
               <div className="cln-native-banner cln-native-required" data-testid="cleanup-native-required">

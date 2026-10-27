@@ -32,6 +32,7 @@ import {
   X,
 } from 'lucide-react';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
@@ -243,15 +244,37 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </div>
 
               <div className="sys-hero-copy">
-                <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · PREVIEW ONLY · NO REPAIR EXECUTION', 'مختبر الاستعادة · معاينة فقط · بلا تنفيذ إصلاح')}</span>
-                <h1>{t(locale, 'Diagnose. Repair.', 'شخّص. أصلح.')} <span>{t(locale, 'Recover.', 'استعد.')}</span></h1>
+                <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · READ-ONLY', 'مختبر الاستعادة · للقراءة فقط')}</span>
+                <h1>{t(locale, 'Recovery', 'مختبر')} <span>{t(locale, 'Lab', 'الاستعادة')}</span></h1>
                 <p>
                   {t(
                     locale,
-                    'Diagnose Windows problems from measured evidence. Understand each repair, its scope, privileges and impact before authorizing anything.',
-                    'شخّص مشكلات Windows من أدلة مقيسة. افهم كل إصلاح ونطاقه وصلاحياته وأثره قبل اعتماد أي شيء.',
+                    'Diagnose and repair system issues, restore stability, and get your PC back to peak performance — from measured evidence only.',
+                    'شخّص مشكلات النظام وأصلحها واستعد الاستقرار وأعد جهازك إلى أفضل أداء — من أدلة مقيسة فقط.',
                   )}
                 </p>
+                <HeroFeatures
+                  items={[
+                    {
+                      icon: <Wrench className="w-4 h-4" />,
+                      title: t(locale, 'Fix common problems', 'إصلاح المشكلات الشائعة'),
+                      detail: t(locale, 'Identify failing components from measured evidence.', 'حدّد المكوّنات المتعثرة من أدلة مقيسة.'),
+                      tone: '#7c5cff',
+                    },
+                    {
+                      icon: <Terminal className="w-4 h-4" />,
+                      title: t(locale, 'Advanced repair tools', 'أدوات إصلاح متقدمة'),
+                      detail: t(locale, 'Review SFC, DISM, CHKDSK and network commands before staging.', 'راجع أوامر SFC وDISM وCHKDSK والشبكة قبل التهيئة.'),
+                      tone: '#3b82f6',
+                    },
+                    {
+                      icon: <ShieldCheck className="w-4 h-4" />,
+                      title: t(locale, 'Safe and reversible', 'آمن وقابل للتراجع'),
+                      detail: t(locale, 'No repair executes in this mission; every action stays staged.', 'لا يُنفَّذ أي إصلاح في هذه المهمة؛ كل إجراء يبقى مهيأ للمراجعة.'),
+                      tone: '#10b981',
+                    },
+                  ]}
+                />
                 <div className="sys-hero-chips">
                   <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
                   <Chip tone="info" icon={Wrench}>{formatCount(REPAIR_TOOLS.length)} {t(locale, 'repair tools', 'أداة إصلاح')}</Chip>
@@ -267,10 +290,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                     disabled={!controller.nativeAvailable || controller.cancelling}
                   >
                     {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
-                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start measured discovery', 'بدء الاكتشاف المقيس')}
-                  </button>
-                  <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}>
-                    <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh evidence', 'تحديث الأدلة')}
+                    {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start discovery', 'بدء الاكتشاف')}
                   </button>
                   <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void stageSelected()} disabled={!snapshot || controller.busy === 'plan'}>
                     <FileText aria-hidden="true" />{t(locale, 'Stage preview', 'تهيئة معاينة')}

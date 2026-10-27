@@ -545,6 +545,62 @@ html[data-theme='light'] .knx-home-root .knx-kpi-dot {
   background-color: color-mix(in srgb, var(--knx-chip) 72%, #141a35);
 }
 
+/* Reference scale: taller intro, larger measured values, roomier deck tiles. */
+.knx-home-root [aria-label='Hero Command Center'] {
+  min-height: 232px;
+  padding: 20px 26px;
+}
+.knx-home-root [aria-label='Hero Command Center'] h1 {
+  font-size: 44px;
+  line-height: 1.1;
+}
+.knx-home-root [aria-label='Key Performance Indicators'] > [data-testid^='home-kpi-'] {
+  min-height: 112px;
+  padding: 12px 14px;
+}
+.knx-home-root [data-testid^='home-kpi-'][data-testid$='-value'] {
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 800;
+}
+.knx-home-root [data-testid^='home-deck-tile-'] {
+  min-height: 112px;
+  padding: 14px;
+}
+html[data-theme='light'] .knx-home-root .knx-tile-art {
+  opacity: 0.78;
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center'] {
+  background:
+    radial-gradient(120% 150% at 88% -30%, rgba(167, 139, 250, 0.42) 0%, rgba(167, 139, 250, 0) 58%),
+    radial-gradient(90% 120% at 12% 120%, rgba(96, 165, 250, 0.2) 0%, rgba(96, 165, 250, 0) 60%),
+    linear-gradient(135deg, #ffffff 0%, #f4f0ff 52%, #eef4ff 100%);
+  border-color: #e0daf3;
+  box-shadow: 0 8px 24px rgba(46, 34, 112, 0.08);
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center']::before {
+  top: -74px;
+  right: 84px;
+  width: 330px;
+  height: 330px;
+  opacity: 0.8;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 58% 56%, rgba(183, 156, 255, 0.9) 0%, rgba(157, 124, 240, 0.75) 42%, rgba(123, 94, 214, 0.5) 66%, rgba(123, 94, 214, 0) 74%);
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center']::after {
+  top: -24px;
+  right: -66px;
+  width: 540px;
+  height: 240px;
+  border-color: rgba(124, 92, 246, 0.5);
+  box-shadow: inset 0 0 56px rgba(139, 92, 246, 0.18), 0 0 32px rgba(139, 92, 246, 0.14);
+}
+html[data-theme='light'] .knx-home-root [aria-label='Hero Command Center'] .knx-earth-horizon-container {
+  opacity: 0.22;
+  filter: saturate(0.7) brightness(1.25);
+}
+
 /* ==========================================================================
    9. Controls — tabs, buttons, segmented, chips
    ========================================================================== */

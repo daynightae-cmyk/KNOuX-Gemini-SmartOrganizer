@@ -71,6 +71,7 @@ import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbenc
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
 import '../storage.css';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 
 interface StoragePageProps {
   onNavigateSection?: (section: string) => void;
@@ -325,11 +326,33 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             <div>
               <div className="knx-eyebrow">KNOuX / {isArabic ? 'التخزين' : 'STORAGE ATLAS'}</div>
               <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-                <span>{isArabic ? 'كل بايت. بوضوح.' : 'See every byte clearly.'}</span>
+                <span>{isArabic ? 'أطلس الأقراص' : 'Volume Atlas'}</span>
               </h1>
               <p className="text-xs text-slate-300 mt-0.5">
-                {isArabic ? 'شاهد أين تذهب كل بايت قابلة للقياس.' : 'See where every measurable byte goes.'}
+                {isArabic ? 'تصوّر تخزينك واعرف ما يستهلك المساحة، ثم راجع توصيات الاستعادة الآمنة.' : 'Visualize your storage, find what is taking space, and review safe reclamation opportunities.'}
               </p>
+              <HeroFeatures
+                items={[
+                  {
+                    icon: <HardDrive className="w-4 h-4" />,
+                    title: isArabic ? 'استكشف تخزينك' : 'Explore your storage',
+                    detail: isArabic ? 'شاهد كيف تُستخدم المساحة عبر الأقراص والمجلدات المقيسة.' : 'See how space is used across measured drives and folders.',
+                    tone: '#3b82f6',
+                  },
+                  {
+                    icon: <FolderTree className="w-4 h-4" />,
+                    title: isArabic ? 'اكتشف الملفات الكبيرة' : 'Find space hogs',
+                    detail: isArabic ? 'حدّد الملفات والمجلدات الكبيرة من الفحص المصرح به.' : 'Identify large files and folders from the authorized scan.',
+                    tone: '#a855f7',
+                  },
+                  {
+                    icon: <Layers className="w-4 h-4" />,
+                    title: isArabic ? 'استعد المساحة' : 'Reclaim space',
+                    detail: isArabic ? 'التوصيات للقراءة فقط حتى توافق على إجراء منفصل.' : 'Recommendations stay read-only until a separate action is approved.',
+                    tone: '#10b981',
+                  },
+                ]}
+              />
             </div>
 
             <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}

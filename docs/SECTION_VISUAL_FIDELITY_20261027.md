@@ -1,6 +1,6 @@
 # Section visual fidelity correction — 2026-10-27
 
-Status: **PARTIALLY VERIFIED**. These are implemented visual corrections with renderer evidence, not a claim of pixel equality or native product acceptance.
+Status: **PARTIALLY VERIFIED — round 2 renderer pass**. These are implemented visual corrections with renderer evidence, not a claim of pixel equality or native product acceptance.
 
 ## REALITY
 
@@ -60,3 +60,45 @@ Source changes and evidence saved locally on the visual branch. No push, PR, mai
 The original references contain populated device charts, application details and service data; unavailable-native previews intentionally retain empty states. Current hero copy, some card sizes, tool counts and the compact horizontal tool rails differ from the reference assets. Secondary history/details and compact Cleanup scope use disclosures. These differences are visible in the reference boards and require owner visual judgment; they are not described as exact fidelity.
 
 No installed Automation reference (either mode) or Home NIGHT reference was found in the supplied reference set; boards label those cells explicitly. Automation therefore follows Files materials and the existing functional composition without claiming comparison to a missing image.
+
+## ROUND 2 — SHARED CANVAS COMPOSITION REBUILD (2026-10-27)
+
+The owner rejected the previous pass because the sections still behaved as one
+generic canvas with only the heading changed. This round rebuilt the composition
+inside the existing measured-only system:
+
+- Shared canvas now supports a one-column, readable tool rail in the reference
+  right column; the old clipped horizontal tool dock is no longer used by the
+  nine referenced sections.
+- A shared three-row capability block was added under each reference intro.
+- Applications, Cleanup and Startup metric strips were moved out of the hero.
+- Startup's boot evidence moved to a compact status strip; Smart Scan's source
+  authorization moved to the Live Scan Status rail with five wheel destinations.
+- System now shows four explicit empty instruments in the rail; Services and
+  Repair no longer duplicate their bottom-bar refresh action in the hero.
+- Cleanup/Startup scope modules remain a bounded disclosure; the four measured
+  KPI cards are the visible discovery modules in the current implementation.
+- Startup/Repair/Services ledgers, the Cleanup candidate table and the
+  Applications register now receive the extra height from the compact status/tab
+  row.
+
+Verification for this round:
+
+- Vite build passed with **1862 modules transformed**; only the existing
+  large-chunk warning remains.
+- [Round 2 receipt](evidence/visual-fidelity-20261027/checks.json): **36 views**
+  (9 sections × DAY/NIGHT × 1672×941 and 1366×768), zero outer page overflow,
+  zero horizontal overflow, no page errors, no obstructed wheel targets, and
+  every nested scroll container responded.
+- Existing `visual-preview.mjs` was rerun without modification. Smart Scan is
+  clean; Cleanup/Startup/Services retain a `Primary tools` internal-scroll flag
+  because the 12-tool rail intentionally scrolls. The 1366 select-all controls
+  in Cleanup/Startup are below the register's internal viewport and are reached
+  by scrolling the ledger.
+- Current compact body heights are tight but non-scrolling: Smart Scan ≈154 px,
+  Cleanup ≈117 px, Startup ≈133 px, Repair ≈192 px at 1366×768.
+- Evidence: [round 2 README and boards](evidence/visual-fidelity-20261027/README.md).
+  Each comparison row reads DAY reference, DAY actual, NIGHT reference, NIGHT actual.
+- **Native Electron acceptance is still not claimed.** Browser previews cannot
+  populate the native registers/charts, and none of the empty states was replaced
+  with a fixture.

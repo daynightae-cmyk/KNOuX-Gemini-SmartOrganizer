@@ -27,6 +27,7 @@ import {
 } from './model';
 import type { CleanupLocale } from './model';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 
 export interface CleanupHeroProps {
   locale: CleanupLocale;
@@ -50,8 +51,6 @@ function coveragePercent(controller: CleanupController): number | null {
 export function CleanupHero({ locale, controller, selectedCount, onReviewSelection }: CleanupHeroProps) {
   const [categories, setCategories] = useState<CleanupCategory[]>([...SCAN_CATEGORIES]);
   const [ageDays, setAgeDays] = useState(1);
-  const summary = controller.inventory?.summary;
-  const coverage = coveragePercent(controller);
   const scanning = controller.scanning;
   const runningStage = controller.session?.categories.find((stage) => stage.status === 'running')?.key || null;
 
@@ -81,14 +80,36 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
             <span>{t(locale, 'Clean Room', 'غرفة التنظيف')}</span>
             <span className="cln-breadcrumb-tag">{t(locale, 'MISSION 08', 'المهمة 08')}</span>
           </div>
-          <h1 className="cln-hero-title">{t(locale, 'Clean safely. Recover space.', 'نظّف بأمان. واستعد المساحة.')}</h1>
+          <h1 className="cln-hero-title">{t(locale, 'Smart Cleanup', 'التنظيف الذكي')}</h1>
           <p className="cln-hero-copy">
             {t(
               locale,
-              'Understand what can be cleaned before changing anything. Discovery is measured, quarantine is staged, and every destructive action is gated.',
-              'افهم ما يمكن تنظيفه قبل تغيير أي شيء. الاستكشاف مقيس، والحجر مُهيَّأ، وكل إجراء تدميري محجوب حتى الموافقة.'
+              'Remove junk, clear unnecessary files, and protect your privacy with measured, safe cleanup tools.',
+              'أزل الملفات غير الضرورية ونظّف الفوضى واحمِ خصوصيتك بأدوات تنظيف مقيسة وآمنة.'
             )}
           </p>
+          <HeroFeatures
+            items={[
+              {
+                icon: <ShieldCheck className="w-4 h-4" />,
+                title: t(locale, 'Safe & secure', 'آمن ومحمي'),
+                detail: t(locale, 'Discovery is read-only; quarantine and deletion stay gated.', 'الاستكشاف للقراءة فقط؛ الحجر والحذف محجوبان حتى الموافقة.'),
+                tone: '#7c5cff',
+              },
+              {
+                icon: <HardDrive className="w-4 h-4" />,
+                title: t(locale, 'Frees up space', 'يوفّر المساحة'),
+                detail: t(locale, 'Every reclaim figure comes from a measured candidate.', 'كل رقم مساحة مستعادة يأتي من مرشح مقيس.'),
+                tone: '#f59e0b',
+              },
+              {
+                icon: <FileText className="w-4 h-4" />,
+                title: t(locale, 'Keeps you private', 'يحفظ خصوصيتك'),
+                detail: t(locale, 'Review browser, log and temporary-file evidence before acting.', 'راجع أدلة المتصفح والسجلات والملفات المؤقتة قبل الإجراء.'),
+                tone: '#10b981',
+              },
+            ]}
+          />
         </div>
         <OrbitalControl title={t(locale, 'Analyze Cleanup', 'تحليل التنظيف')} subtitle={t(locale, 'Discover · Review · Confirm', 'استكشف · راجع · وافق')}
           onActivate={() => void controller.startScan(categories, ageDays)} disabled={!controller.nativeAvailable || !canScan} running={scanning}
@@ -129,78 +150,6 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
               {t(locale, 'Run measured discovery', 'تشغيل استكشاف مقيس')}
             </button>
           )}
-        </div>
-      </div>
-
-      <div className="cln-kpis">
-        <div className="cln-kpi cln-kpi-coverage">
-          <div className="cln-gauge" aria-hidden="true">
-            <svg viewBox="0 0 36 36" className="cln-gauge-svg">
-              <path className="cln-gauge-track" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              <path
-                className="cln-gauge-value"
-                strokeDasharray={`${coverage ?? 0}, 100`}
-                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-            </svg>
-            <span>{coverage == null ? '—' : formatPercent(coverage)}</span>
-          </div>
-          <div className="min-w-0">
-            <div className="cln-kpi-title">{t(locale, 'Scan Coverage', 'تغطية الفحص')}</div>
-            <div className="cln-kpi-sub">
-              {controller.inventory?.coverage
-                ? `${formatCount(controller.inventory.coverage.rootsScanned)} ${t(locale, 'roots measured', 'جذرًا مقيسًا')} · ${formatCount(controller.inventory.coverage.rootsUnavailable)} ${t(locale, 'unavailable', 'غير متاح')}`
-                : t(locale, 'No measured discovery yet', 'لا يوجد استكشاف مقيس بعد')}
-            </div>
-            {controller.inventory?.coverage?.truncated ? (
-              <div className="cln-kpi-note cln-warn">{t(locale, 'A bounded budget truncated a tree; bytes are a lower bound.', 'ميزانية محدودة قطعت شجرة؛ الأحجام حد أدنى.')}</div>
-            ) : null}
-          </div>
-        </div>
-
-        <div className="cln-kpi cln-kpi-candidates">
-          <div className="cln-kpi-icon"><FileText className="w-5 h-5" /></div>
-          <div className="min-w-0">
-            <div className="cln-kpi-value" data-testid="cleanup-kpi-candidates-value">
-              {summary ? formatCount(summary.candidates) : '—'}
-            </div>
-            <div className="cln-kpi-title">{t(locale, 'Candidate Files', 'ملفات مرشحة')}</div>
-            <div className="cln-kpi-sub">
-              {summary
-                ? `${formatCount(summary.eligibleCount)} ${t(locale, 'eligible', 'مؤهل')} · ${formatCount(summary.reviewCount)} ${t(locale, 'review', 'مراجعة')}`
-                : t(locale, 'Awaiting measured discovery', 'بانتظار استكشاف مقيس')}
-            </div>
-          </div>
-        </div>
-
-        <div className="cln-kpi cln-kpi-reclaim">
-          <div className="cln-kpi-icon"><HardDrive className="w-5 h-5" /></div>
-          <div className="min-w-0">
-            <div className="cln-kpi-value cln-amber" data-testid="cleanup-kpi-eligible-value">
-              {summary ? formatBytes(summary.eligibleBytes) : '—'}
-            </div>
-            <div className="cln-kpi-title">{t(locale, 'Eligible Reclaim Evidence', 'دليل المساحة المؤهلة')}</div>
-            <div className="cln-kpi-sub">
-              {summary
-                ? `${formatBytes(summary.reviewBytes)} ${t(locale, 'needs review', 'تحتاج مراجعة')} · ${formatBytes(summary.blockedBytes)} ${t(locale, 'blocked', 'محجوب')}`
-                : t(locale, 'Measured sizes only; never a reclaimed claim', 'أحجام مقيسة فقط؛ ليست مطالبة باستعادة')}
-            </div>
-          </div>
-        </div>
-
-        <div className="cln-kpi cln-kpi-review">
-          <div className="cln-kpi-icon"><AlertTriangle className="w-5 h-5" /></div>
-          <div className="min-w-0">
-            <div className="cln-kpi-value cln-rose" data-testid="cleanup-kpi-review-value">
-              {summary ? formatCount(summary.reviewCount) : '—'}
-            </div>
-            <div className="cln-kpi-title">{t(locale, 'Items Requiring Review', 'عناصر تحتاج مراجعة')}</div>
-            <div className="cln-kpi-sub">
-              {summary
-                ? `${formatCount(summary.blockedCount)} ${t(locale, 'protected by policy', 'محمية بالسياسة')}`
-                : t(locale, 'Windows-owned roots stay blocked', 'جذور Windows تبقى محجوبة')}
-            </div>
-          </div>
         </div>
       </div>
 
@@ -273,5 +222,84 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
       </div>
       </details>
     </section>
+  );
+}
+
+/** Reference metrics row below the intro card. Values stay measured or empty. */
+export function CleanupMetrics({ locale, controller }: { locale: CleanupLocale; controller: CleanupController }) {
+  const summary = controller.inventory?.summary;
+  const coverage = coveragePercent(controller);
+  return (
+    <div className="cln-kpis">
+      <div className="cln-kpi cln-kpi-coverage">
+        <div className="cln-gauge" aria-hidden="true">
+          <svg viewBox="0 0 36 36" className="cln-gauge-svg">
+            <path className="cln-gauge-track" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            <path
+              className="cln-gauge-value"
+              strokeDasharray={`${coverage ?? 0}, 100`}
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+          </svg>
+          <span>{coverage == null ? '—' : formatPercent(coverage)}</span>
+        </div>
+        <div className="min-w-0">
+          <div className="cln-kpi-title">{t(locale, 'Scan Coverage', 'تغطية الفحص')}</div>
+          <div className="cln-kpi-sub">
+            {controller.inventory?.coverage
+              ? `${formatCount(controller.inventory.coverage.rootsScanned)} ${t(locale, 'roots measured', 'جذرًا مقيسًا')} · ${formatCount(controller.inventory.coverage.rootsUnavailable)} ${t(locale, 'unavailable', 'غير متاح')}`
+              : t(locale, 'No measured discovery yet', 'لا يوجد استكشاف مقيس بعد')}
+          </div>
+          {controller.inventory?.coverage?.truncated ? (
+            <div className="cln-kpi-note cln-warn">{t(locale, 'A bounded budget truncated a tree; bytes are a lower bound.', 'ميزانية محدودة قطعت شجرة؛ الأحجام حد أدنى.')}</div>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="cln-kpi cln-kpi-candidates">
+        <div className="cln-kpi-icon"><FileText className="w-5 h-5" /></div>
+        <div className="min-w-0">
+          <div className="cln-kpi-value" data-testid="cleanup-kpi-candidates-value">
+            {summary ? formatCount(summary.candidates) : '—'}
+          </div>
+          <div className="cln-kpi-title">{t(locale, 'Candidate Files', 'ملفات مرشحة')}</div>
+          <div className="cln-kpi-sub">
+            {summary
+              ? `${formatCount(summary.eligibleCount)} ${t(locale, 'eligible', 'مؤهل')} · ${formatCount(summary.reviewCount)} ${t(locale, 'review', 'مراجعة')}`
+              : t(locale, 'Awaiting measured discovery', 'بانتظار استكشاف مقيس')}
+          </div>
+        </div>
+      </div>
+
+      <div className="cln-kpi cln-kpi-reclaim">
+        <div className="cln-kpi-icon"><HardDrive className="w-5 h-5" /></div>
+        <div className="min-w-0">
+          <div className="cln-kpi-value cln-amber" data-testid="cleanup-kpi-eligible-value">
+            {summary ? formatBytes(summary.eligibleBytes) : '—'}
+          </div>
+          <div className="cln-kpi-title">{t(locale, 'Eligible Reclaim Evidence', 'دليل المساحة المؤهلة')}</div>
+          <div className="cln-kpi-sub">
+            {summary
+              ? `${formatBytes(summary.reviewBytes)} ${t(locale, 'needs review', 'تحتاج مراجعة')} · ${formatBytes(summary.blockedBytes)} ${t(locale, 'blocked', 'محجوب')}`
+              : t(locale, 'Measured sizes only; never a reclaimed claim', 'أحجام مقيسة فقط؛ ليست مطالبة باستعادة')}
+          </div>
+        </div>
+      </div>
+
+      <div className="cln-kpi cln-kpi-review">
+        <div className="cln-kpi-icon"><AlertTriangle className="w-5 h-5" /></div>
+        <div className="min-w-0">
+          <div className="cln-kpi-value cln-rose" data-testid="cleanup-kpi-review-value">
+            {summary ? formatCount(summary.reviewCount) : '—'}
+          </div>
+          <div className="cln-kpi-title">{t(locale, 'Items Requiring Review', 'عناصر تحتاج مراجعة')}</div>
+          <div className="cln-kpi-sub">
+            {summary
+              ? `${formatCount(summary.blockedCount)} ${t(locale, 'protected by policy', 'محمية بالسياسة')}`
+              : t(locale, 'Windows-owned roots stay blocked', 'جذور Windows تبقى محجوبة')}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

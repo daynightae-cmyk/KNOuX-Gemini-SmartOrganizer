@@ -19,7 +19,7 @@ const PLACEHOLDERS: Array<Pick<KpiMetric, 'id' | 'labelEn' | 'labelAr' | 'indica
   { id: 'coverage', labelEn: 'Stage coverage', labelAr: 'تغطية المراحل', indicatorType: 'ring', accentColor: 'cyan' },
   { id: 'files', labelEn: 'Files indexed', labelAr: 'الملفات المفهرسة', indicatorType: 'stack', accentColor: 'blue' },
   { id: 'issues', labelEn: 'Findings', labelAr: 'النتائج', indicatorType: 'alert', accentColor: 'red' },
-  { id: 'space', labelEn: 'Verified duplicate bytes', labelAr: 'بايتات مكررة متحقق منها', indicatorType: 'disk', accentColor: 'purple' },
+  { id: 'space', labelEn: 'Verified duplicates', labelAr: 'مكررات متحقق منها', indicatorType: 'disk', accentColor: 'purple' },
   { id: 'privacy', labelEn: 'Origin markers', labelAr: 'علامات الأصل', indicatorType: 'shield', accentColor: 'teal' },
   { id: 'health', labelEn: 'Measured health score', labelAr: 'درجة الصحة المقيسة', indicatorType: 'sparkline', accentColor: 'green' },
 ];

@@ -2,7 +2,8 @@ import React, { Children, Fragment, cloneElement, isValidElement, useState, type
 import { useNavigation } from '../context/NavigationContext';
 
 type Region = 'hero' | 'status' | 'metrics' | 'overview' | 'inspector' | 'tools' | 'details';
-type Props = { children: ReactNode; locale: 'en' | 'ar'; heroTypes?: ElementType[]; statusTypes?: ElementType[]; metricTypes?: ElementType[]; primaryTypes?: ElementType[]; toolTypes?: ElementType[] };
+type ToolPlacement = 'dock' | 'rail';
+type Props = { children: ReactNode; locale: 'en' | 'ar'; heroTypes?: ElementType[]; statusTypes?: ElementType[]; metricTypes?: ElementType[]; primaryTypes?: ElementType[]; toolTypes?: ElementType[]; toolPlacement?: ToolPlacement };
 
 function flatten(children: ReactNode): ReactNode[] {
   return Children.toArray(children).flatMap(child => isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment ? flatten(child.props.children) : [child]);
@@ -11,7 +12,7 @@ function flatten(children: ReactNode): ReactNode[] {
 /** Keeps existing domain components mounted, with bounded operating panels.
  * Component references (not function names) identify slots in production builds.
  */
-export function CommandCanvas({ children, locale, heroTypes = [], statusTypes = [], metricTypes = [], primaryTypes = [], toolTypes = [] }: Props) {
+export function CommandCanvas({ children, locale, heroTypes = [], statusTypes = [], metricTypes = [], primaryTypes = [], toolTypes = [], toolPlacement = 'dock' }: Props) {
   const { currentSection } = useNavigation();
   const [tab, setTab] = useState('overview');
   const regions: Record<Region, ReactNode[]> = { hero: [], status: [], metrics: [], overview: [], inspector: [], tools: [], details: [] };
@@ -49,19 +50,27 @@ export function CommandCanvas({ children, locale, heroTypes = [], statusTypes = 
   if (!regions.overview.length && regions.details.length) regions.overview.push(regions.details.shift());
   const tabs = [{ id: 'overview', label: locale === 'ar' ? 'مساحة العمل' : 'Workspace', nodes: regions.overview }, { id: 'details', label: locale === 'ar' ? 'السجل والتفاصيل' : 'History & details', nodes: regions.details }].filter(item => item.nodes.length);
   const active = tabs.some(item => item.id === tab) ? tab : tabs[0]?.id;
-  return <div className={`knx-command-canvas${regions.inspector.length ? ' has-reference-inspector' : ''}`}>
+  // Rail placement keeps the reference's main ledger/chart at full height while
+  // the domain tools remain one visible, readable step away.
+  const railTools = toolPlacement === 'rail' && regions.tools.length > 0;
+  const dockTools = !railTools && regions.tools.length > 0;
+  const hasInspector = regions.inspector.length > 0 || railTools;
+  return <div className={`knx-command-canvas${hasInspector ? ' has-reference-inspector' : ''}`}>
     <div className="knx-command-hero">{regions.hero}</div>
     {regions.metrics.length > 0 && <div className="knx-command-metrics">{regions.metrics}</div>}
     {regions.status.length > 0 && <div className="knx-command-status" tabIndex={0}>{regions.status}</div>}
     {tabs.length > 1 && <div className="knx-command-tabs" aria-label={locale === 'ar' ? 'لوحات القسم' : 'Workspace panels'}>
       {tabs.map(item => <button key={item.id} type="button" aria-pressed={active === item.id} onClick={() => setTab(item.id)}>{item.label}</button>)}
     </div>}
-    <div className={`knx-command-body${regions.tools.length ? ' has-tool-dock' : ''}`}>
+    <div className={`knx-command-body${dockTools ? ' has-tool-dock' : ''}`}>
       {tabs.map(item => <section key={item.id} hidden={active !== item.id} className={`knx-command-pane pane-${item.id}`} aria-label={item.label}>
         {item.nodes.map((node, index) => <div className="knx-command-panel" key={isValidElement(node) ? node.key ?? index : index}>{node}</div>)}
       </section>)}
-      {regions.tools.length > 0 && <section className="knx-command-tool-dock" aria-label={locale === 'ar' ? 'الأدوات الرئيسية' : 'Primary tools'}>{regions.tools}</section>}
+      {dockTools && <section className="knx-command-tool-dock" aria-label={locale === 'ar' ? 'الأدوات الرئيسية' : 'Primary tools'}>{regions.tools}</section>}
     </div>
-    {regions.inspector.length > 0 && <aside className="knx-command-inspector">{regions.inspector}</aside>}
+    {hasInspector && <aside className={`knx-command-inspector${railTools ? ' has-tool-rail' : ''}`}>
+      {regions.inspector}
+      {railTools && <section className="knx-command-tool-rail" aria-label={locale === 'ar' ? 'الأدوات الرئيسية' : 'Primary tools'}>{regions.tools}</section>}
+    </aside>}
   </div>;
 }

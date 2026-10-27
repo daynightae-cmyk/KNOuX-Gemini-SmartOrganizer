@@ -22,7 +22,7 @@ import {
 import type { ScanServiceResult } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
-import { SmartScanHero } from './SmartScanHero';
+import { SmartScanHero, SmartScanSourceBar } from './SmartScanHero';
 import { ScanMetrics } from './ScanMetrics';
 import { ScanServices } from './ScanServices';
 import { ScanResults } from './ScanResults';
@@ -296,7 +296,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
 
         <div className="flex-1 flex flex-col min-h-0">
           <main data-testid="scan-workspace" className="scan-main flex-1 flex flex-col overflow-y-auto 2xl:overflow-hidden bg-gradient-to-b from-[#040b18] via-[#06142a] to-[#040b18] p-3 gap-3 knx-custom-scrollbar min-h-0">
-          <CommandCanvas locale={isArabic ? 'ar' : 'en'} heroTypes={[SmartScanHero]} metricTypes={[ScanMetrics]} toolTypes={[ScanServices]}>
+          <CommandCanvas locale={isArabic ? 'ar' : 'en'} heroTypes={[SmartScanHero]} metricTypes={[ScanMetrics]} primaryTypes={[ScanServices]}>
             <SmartScanHero
               isArabic={isArabic}
               nativeAvailable={scan.nativeAvailable}
@@ -314,10 +314,32 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               onRunQuick={handleRunQuick}
               onRunDeep={handleRunDeep}
               onCancel={() => void scan.cancelActive()}
+              onOpenService={(kind) => {
+                const service = services.find((entry) => kind === 'privacy' ? entry.id.includes('privacy') : entry.id.includes('system_health'));
+                if (service) setActiveServiceId(service.id);
+              }}
             />
             <aside className="knx-scan-status">
               <h2>{isArabic ? 'حالة الفحص المباشرة' : 'Live Scan Status'}</h2>
               <p>{scan.active ? (isArabic ? 'الفحص جارٍ على النطاق المصرح.' : 'Measuring the authorized scope.') : (isArabic ? 'بانتظار فحص يبدأ باختيارك.' : 'Ready when you choose to scan.')}</p>
+              <SmartScanSourceBar
+                isArabic={isArabic}
+                nativeAvailable={scan.nativeAvailable}
+                sources={scan.sources}
+                selectedSource={scan.selectedSource}
+                active={scan.active}
+                session={scan.session}
+                busy={scan.busy}
+                onSelectSource={scan.setSelectedSourceId}
+                onAuthorizeSource={() => void scan.authorizeSource()}
+                onIndexSource={() => {
+                  if (scan.selectedSource) void scan.indexSource(scan.selectedSource.id);
+                }}
+                onRefreshSources={() => void scan.refreshSources()}
+                onRunQuick={handleRunQuick}
+                onRunDeep={handleRunDeep}
+                onCancel={() => void scan.cancelActive()}
+              />
               <ScanStageConsole active={scan.active} summary={scan.session?.summary || null} stages={stages} isArabic={isArabic} />
               {!scan.active && !scan.session && <div className="knx-ref-empty"><ShieldCheck/><strong>{isArabic ? 'لم يبدأ الفحص' : 'No scan has started'}</strong><small>{isArabic ? 'لا تُعرض نتائج أو نسبة نجاح قبل القياس.' : 'Results and progress appear only after measurement.'}</small></div>}
               <FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)} />

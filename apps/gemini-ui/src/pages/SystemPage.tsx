@@ -39,6 +39,7 @@ import type { SystemCoverageStage, SystemMetrics } from '../../shared/native-con
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import {
   SERVICE_CATALOG,
   WORLD_META,
@@ -456,7 +457,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
 
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar" data-testid="system-workspace">
-          <CommandCanvas locale={locale}>
+          <CommandCanvas locale={locale} toolPlacement="rail">
             <section className="sys-hero" data-testid="system-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -474,14 +475,36 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
 
               <div className="sys-hero-copy">
                 <span className="sys-hero-eyebrow">{t(locale, 'SYSTEM OBSERVATORY · READ-ONLY', 'مرصد النظام · للقراءة فقط')}</span>
-                <h1>{t(locale, 'Feel your', 'راقب نبض')} <span>{t(locale, 'system live.', 'نظامك مباشرة.')}</span></h1>
+                <h1>{t(locale, 'System', 'أداء')} <span>{t(locale, 'Performance', 'النظام')}</span></h1>
                 <p>
                   {t(
                     locale,
-                    'Your Windows environment, measured by bounded native providers. Every reading carries its source, and unavailable sensors stay unknown.',
-                    'بيئة Windows الخاصة بك، مقيسة عبر مزودات أصلية محدودة. كل قراءة تحمل مصدرها، والمستشعرات غير المتاحة تبقى مجهولة.',
+                    'Monitor, optimize, and keep your PC running at its best with measured native readings and clear source labels.',
+                    'راقب أداء جهازك وحسّنه وأبقه في أفضل حالاته بقراءات أصلية مقيسة ومصادر واضحة.',
                   )}
                 </p>
+                <HeroFeatures
+                  items={[
+                    {
+                      icon: <Activity className="w-4 h-4" />,
+                      title: t(locale, 'Real-time monitoring', 'مراقبة مباشرة'),
+                      detail: t(locale, 'Each pulse is a bounded native sample with a named source.', 'كل نبضة عينة أصلية محدودة بمصدر مسمّى.'),
+                      tone: '#7c5cff',
+                    },
+                    {
+                      icon: <Gauge className="w-4 h-4" />,
+                      title: t(locale, 'Optimize performance', 'تحسين الأداء'),
+                      detail: t(locale, 'Read CPU, memory, disk and network evidence without mutation.', 'اقرأ أدلة المعالج والذاكرة والقرص والشبكة دون تغيير.'),
+                      tone: '#3b82f6',
+                    },
+                    {
+                      icon: <ShieldCheck className="w-4 h-4" />,
+                      title: t(locale, 'Keep it stable', 'حافظ على الاستقرار'),
+                      detail: t(locale, 'Unavailable sensors remain explicitly unknown, never estimated.', 'المستشعرات غير المتاحة تبقى مجهولة صراحة، ولا تُقدَّر.'),
+                      tone: '#10b981',
+                    },
+                  ]}
+                />
                 <div className="sys-hero-chips">
                   <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Activity}>
                     {scanStatus}
@@ -889,6 +912,21 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
             ) : (
               <div className="sys-loading-grid" data-testid="system-loading">
                 <Panel title={t(locale, 'Awaiting measured snapshot', 'بانتظار اللقطة المقيسة')} icon={Activity}>
+                  <div className="sys-empty-instrument-grid" aria-label={t(locale, 'Live performance instruments', 'أدوات الأداء المباشرة')}>
+                    {[
+                      { id: 'cpu', label: t(locale, 'CPU', 'المعالج'), icon: Cpu },
+                      { id: 'memory', label: t(locale, 'Memory', 'الذاكرة'), icon: MemoryStick },
+                      { id: 'disk', label: t(locale, 'Disk', 'القرص'), icon: HardDrive },
+                      { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Network },
+                    ].map(({ id, label, icon: Icon }) => (
+                      <div key={id} className="sys-empty-instrument" data-testid={`system-empty-${id}`}>
+                        <span className="sys-empty-instrument-dial" aria-hidden="true"><Icon /></span>
+                        <span className="sys-empty-instrument-value">—</span>
+                        <span className="sys-empty-instrument-label">{label}</span>
+                        <span className="sys-empty-instrument-state">{t(locale, 'Not measured', 'غير مقيس')}</span>
+                      </div>
+                    ))}
+                  </div>
                   <LoadingLine
                     label={
                       controller.scanning

@@ -1,13 +1,31 @@
 /* Section reference composition, over the existing Files viewport contract. */
-.visual-sprint[data-visual-section] .knx-command-canvas.has-reference-inspector { display:grid; grid-template-columns:minmax(0,1fr) var(--canvas-rail-width); grid-template-rows:auto auto auto auto minmax(0,1fr); gap:10px 12px; }
+.visual-sprint[data-visual-section] .knx-command-canvas.has-reference-inspector { display:grid; grid-template-columns:minmax(0,1fr) var(--canvas-rail-width); grid-template-rows:auto auto auto minmax(0,1fr); gap:10px 12px; }
 .has-reference-inspector > .knx-command-hero { grid-area:1/1; }
 .has-reference-inspector > .knx-command-metrics { grid-area:2/1; }
 .has-reference-inspector > .knx-command-status { grid-area:3/1; }
-.has-reference-inspector > .knx-command-tabs { grid-area:4/1; }
-.visual-sprint[data-visual-section] .has-reference-inspector > .knx-command-body { grid-area:5/1; height:auto; grid-template-columns:minmax(0,1fr); }
-.visual-sprint[data-visual-section] .has-reference-inspector > .knx-command-inspector { grid-area:1/2/6/3; display:flex; flex-direction:column; gap:12px; padding:12px; }
+.has-reference-inspector > .knx-command-tabs { grid-area:3/1; justify-self:end; align-self:center; border-bottom:0; padding-bottom:0; }
+.has-reference-inspector > .knx-command-status:has(+ .knx-command-tabs) { margin-inline-end:240px; }
+.visual-sprint[data-visual-section] .has-reference-inspector > .knx-command-body { grid-area:4/1; height:auto; grid-template-columns:minmax(0,1fr); }
+.visual-sprint[data-visual-section] .has-reference-inspector > .knx-command-inspector { grid-area:1/2/5/3; display:flex; flex-direction:column; gap:12px; padding:12px; }
 .knx-command-inspector > * { flex:1 1 0; min-height:0; overflow:auto; scrollbar-width:thin; }
 .visual-sprint[data-visual-section] .knx-command-inspector > .sys-source-card { flex:0 0 auto; min-height:0; height:auto; padding:12px; border:0; box-shadow:none; }
+/* Domain tools live in the reference rail, readable and one step from the ledger. */
+.visual-sprint[data-visual-section] .knx-command-inspector.has-tool-rail { overflow:hidden; }
+.visual-sprint[data-visual-section] .knx-command-inspector.has-tool-rail > .knx-command-tool-rail { flex:0 1 40%; min-height:140px; max-height:42%; overflow:auto; scrollbar-width:thin; border-top:1px solid var(--v-line); padding-top:10px; margin-top:2px; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail > * { margin:0; padding:0; border:0; background:transparent; box-shadow:none; min-height:0; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-panel-head,.cln-panel-head,.stp-panel-head,.sys-panel-head,.svc-panel-head) { padding:0; min-height:24px; gap:8px; align-items:flex-start; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(h2,h3) { font-size:14px; line-height:1.35; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-panel-sub,.cln-panel-sub,.stp-panel-sub,.sys-panel-sub,.svc-panel-head p) { display:none; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-service-grid,.cln-service-grid,.stp-service-grid,.sys-service-grid,.svc-tool-grid) { display:grid; grid-template-columns:minmax(0,1fr) !important; grid-auto-flow:row; grid-auto-columns:auto; gap:4px; overflow:visible; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-service-card,.cln-service-card,.stp-service-card,.sys-service-card,.svc-tool-card) { display:flex; flex-direction:row; align-items:center; gap:8px; min-height:42px; height:42px; padding:5px 7px; border-radius:8px; text-align:start; overflow:hidden; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-service-icon,.cln-service-icon,.stp-service-icon,.sys-service-icon,.svc-tool-icon) { width:24px; height:24px; flex:0 0 24px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-service-icon,.cln-service-icon,.stp-service-icon,.sys-service-icon,.svc-tool-icon) svg { width:13px; height:13px; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-service-title,.cln-service-title,.stp-service-title,.sys-service-copy strong,.svc-tool-copy strong) { font-size:12px !important; line-height:1.3 !important; white-space:normal !important; overflow:hidden; text-overflow:clip; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-service-sub,.cln-service-sub,.stp-service-sub,.sys-service-copy em,.svc-tool-copy em,.svc-tool-index,.svc-tool-badges,.sys-service-index) { display:none !important; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail :is(.apps-state,.cln-state,.stp-state,.svc-chip,.sys-service-state) { font-size:9px; padding:1px 5px; width:max-content; flex-shrink:0; margin-inline-start:auto; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail .svc-tool-copy { grid-column:auto; flex:1 1 auto; display:flex; min-width:0; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail .cln-service-copy { flex:1 1 auto; display:flex; min-width:0; }
+.visual-sprint[data-visual-section] .knx-command-tool-rail .sys-service-copy { flex:1 1 auto; min-width:0; }
 .visual-sprint[data-visual-section] .knx-command-inspector :is(.apps-dossier,.cln-inspector,.stp-inspector,.scan-inspector-column,.knx-storage-inspector,.rep-brief,.svc-main-rail) { grid-column:auto; grid-row:auto; position:static; min-height:0; height:auto; max-height:none; flex:1 1 0; overflow:auto; scrollbar-width:thin; }
 .visual-sprint[data-visual-section] .knx-command-inspector .knx-scan-status { min-height:0; height:auto; padding:0; }
 .visual-sprint[data-visual-section] .knx-command-body.has-tool-dock { grid-template-rows:minmax(0,1fr) 124px; }
@@ -23,16 +41,26 @@
 .visual-sprint[data-visual-section] .knx-command-tool-dock .sys-panel-body { padding:0; }
 .knx-command-panel > :is(.apps-register,.cln-register,.stp-register,.rep-tools-panel) { height:100%; min-height:0; overflow:auto; }
 /* Inspector begins beside the intro, as in the section references. */
-.visual-sprint[data-visual-section] .has-reference-inspector { --canvas-hero-height:254px; }
-.visual-sprint[data-visual-section] .has-reference-inspector .knx-command-hero :is(.knx-apps-hero-layout,.cln-hero-head,.stp-hero-head,.scan-hero,.sys-hero,.knx-storage-hero) { grid-template-columns:minmax(0,1fr) minmax(310px,46%); gap:8px 12px; }
+.visual-sprint[data-visual-section] .has-reference-inspector { --canvas-hero-height:300px; }
+.visual-sprint[data-visual-section] .has-reference-inspector .knx-command-hero :is(.knx-apps-hero-layout,.cln-hero-head,.stp-hero-head,.scan-hero,.sys-hero,.knx-storage-hero) { grid-template-columns:minmax(0,1fr) minmax(340px,44%); gap:8px 18px; }
 .visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit { --orbit-rx:39%; --orbit-ry:36%; }
 .visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit-core { width:43%; }
 .visual-sprint[data-visual-section] .has-reference-inspector .knx-command-hero h1 { font-size:clamp(30px,2.4vw,40px) !important; }
 .visual-sprint[data-visual-section] .has-reference-inspector .knx-command-hero .apps-hero-meta { font-size:12px; margin:6px 0; }
+/* Smart Scan keeps measured services above the findings ledger, as referenced. */
+.visual-sprint[data-visual-section='smart_scan'] .pane-overview { grid-template-rows:auto minmax(0,1fr); gap:8px; }
+.visual-sprint[data-visual-section='smart_scan'] .pane-overview > .knx-command-panel { overflow:hidden; }
+.visual-sprint[data-visual-section='smart_scan'] .pane-overview > .knx-command-panel:first-child { overflow:visible; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-services { padding:10px 12px; gap:8px; border-radius:14px; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-services-head h2 { font-size:14px; line-height:1.35; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-services-copy { display:none; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-services > .grid { display:grid; grid-auto-flow:column; grid-template-columns:none !important; grid-auto-columns:188px; gap:7px; overflow-x:auto; padding-bottom:2px; scrollbar-width:thin; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-service-card { min-height:56px; height:56px; padding:7px 9px; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-service-card :is(.scan-service-sub) { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.visual-sprint[data-visual-section='smart_scan'] .scan-service-card span.text-xs { font-size:12px; }
 /* Reference cleanup/scan modules sit above the result ledger. */
 .visual-sprint:is([data-visual-section='cleanup'],[data-visual-section='smart_scan']) .knx-command-body.has-tool-dock { grid-template-rows:124px minmax(0,1fr); }
 .visual-sprint:is([data-visual-section='cleanup'],[data-visual-section='smart_scan']) .knx-command-tool-dock { grid-row:1; }
-.visual-sprint[data-visual-section]:is([data-visual-section='cleanup'],[data-visual-section='smart_scan']) .knx-command-body > .knx-command-pane { grid-row:2; }
 .visual-sprint[data-visual-section='applications'] .knx-command-body.has-tool-dock { grid-template-rows:minmax(0,1fr) 96px; }
 .visual-sprint[data-visual-section='applications'] .knx-command-tool-dock .apps-service-card { min-height:40px; }
 .visual-sprint[data-visual-section='applications'] .knx-command-tool-dock .apps-service-sub { display:none; }
@@ -108,7 +136,17 @@
 .visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi > * { flex-shrink:0; }
 .visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi > strong { min-height:26px; line-height:26px; }
 @media(max-height:820px) {
-  .visual-sprint[data-visual-section] .has-reference-inspector { --canvas-hero-height:204px; }
+  .visual-sprint[data-visual-section] .has-reference-inspector { --canvas-hero-height:270px; }
+  .visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-label { font-size:11.5px; white-space:nowrap; }
+  .visual-sprint[data-visual-section] .knx-command-tool-rail { flex-basis:36%; max-height:36%; }
+  .visual-sprint[data-visual-section='services'] .svc-main-rail .svc-mini-journal { display:none; }
+  .visual-sprint[data-visual-section] .knx-command-hero > :is(.apps-hero,.cln-hero,.stp-hero,.scan-hero,.sys-hero,.knx-storage-hero) { padding:12px 14px !important; }
+  .visual-sprint[data-visual-section] .knx-command-hero h1 { font-size:34px !important; }
+  .knx-hero-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px 8px; margin-top:7px; }
+  .knx-hero-feature { align-items:center; gap:6px; }
+  .knx-hero-feature-icon { width:22px; height:22px; }
+  .knx-hero-feature-copy strong { font-size:11.5px; line-height:1.25; }
+  .knx-hero-feature-copy span { display:none; }
   .visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi { padding:6px 8px; gap:2px; }
   .visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi > strong { font-size:18px; min-height:24px; line-height:24px; }
   .visual-sprint[data-visual-section='repair'] .has-reference-inspector .knx-command-hero h1 { font-size:26px !important; }
