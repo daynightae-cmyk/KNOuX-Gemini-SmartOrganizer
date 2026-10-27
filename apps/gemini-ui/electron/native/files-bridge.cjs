@@ -272,7 +272,8 @@ class FilesBridge {
     };
   }
 
-  async hash(sourceId, fileId, algorithmInput = 'sha256') {
+  async hash(sourceId, fileId, algorithmInput = 'sha256', {signal} = {}) {
+    if(signal?.aborted) throw filesError('OPERATION_CANCELLED','Hashing cancelled.');
     const { record, file, fullPath } = this.requireFile(sourceId, fileId);
     const algorithm = algorithmInput === 'sha512' ? 'sha512' : 'sha256';
     const relativeDir = path.posix.dirname(String(file.relative || ''));
@@ -287,6 +288,7 @@ class FilesBridge {
     try {
       handle = await fsp.open(fullPath, 'r');
       const before = await handle.stat({ bigint: true });
+      if(file.identity?.fileIdentity && fsMeta.identitySnapshot(before).fileIdentity!==file.identity.fileIdentity) throw filesError('FILES_FILE_CHANGED','The opened file no longer matches the indexed identity.');
       if (Number(before.size) !== Number(file.size) || Math.abs(Number(before.mtimeMs) - Number(file.modifiedMs)) > 1) {
         throw filesError('FILES_FILE_CHANGED', 'The file changed before it could be hashed.');
       }
@@ -294,6 +296,7 @@ class FilesBridge {
       const stream = handle.createReadStream({ autoClose: false });
       let bytesRead = 0;
       for await (const chunk of stream) {
+        if(signal?.aborted) throw filesError('OPERATION_CANCELLED','Hashing cancelled.');
         bytesRead += chunk.length;
         digest.update(chunk);
         if (bytesRead > MAX_HASH_BYTES) {

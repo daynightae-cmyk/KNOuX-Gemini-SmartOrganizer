@@ -59,7 +59,8 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   const [filters, setFilters] = useState<CleanupFilters>(DEFAULT_FILTERS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
-  const [activeService, setActiveService] = useState<CleanupServiceId | null>(null);
+  const [activeService, setLegacyActiveService] = useState<CleanupServiceId | null>(null);
+  const setActiveService=(id:CleanupServiceId|null)=>{if(id&&['cleanup-temp-preview', 'cleanup-temp-quarantine', 'cleanup-temp-undo', 'cleanup-quarantine-list', 'cleanup-estimate', 'cleanup-reports'].includes(id)){setLegacyActiveService(null);window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live',{detail:{serviceId:id}}));}else setLegacyActiveService(id);};
   const [planOpen, setPlanOpen] = useState(false);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.cleanup.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
@@ -376,6 +377,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               ) : null}
             </div>
             <div className="cln-actionbar-actions">
+              <button data-testid="cleanup-live-vault" className="cln-btn cln-btn-primary" onClick={()=>setActiveService('cleanup-temp-preview')}>{locale==='ar'?'خزنة حية آمنة':'Live Safety Vault'}</button>
               <button
                 type="button"
                 className="cln-btn cln-btn-primary"

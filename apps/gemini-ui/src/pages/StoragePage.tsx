@@ -86,7 +86,8 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [treemapZoomNode, setTreemapZoomNode] = useState<string | null>(null);
   const [selectedTreemapItem, setSelectedTreemapItem] = useState<string>('Windows (93.6 GB)');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
-  const [activeService, setActiveService] = useState<string | null>(null);
+  const [activeService, setLegacyActiveService] = useState<string | null>(null);
+  const setActiveService=(id:string|null)=>{if(id&&['storage-large-files', 'storage-duplicates', 'storage-treemap', 'storage-top-folders', 'storage-filetypes', 'storage-reclaim'].includes(id)){setLegacyActiveService(null);window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live',{detail:{serviceId:id}}));}else setLegacyActiveService(id);};
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.storage.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -1099,6 +1100,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         </div>
 
         <div className="flex items-center gap-2.5">
+          <button data-testid="storage-live-vault" className="knx-files-primary" onClick={()=>setActiveService('storage-duplicates')}>{isArabic?'استرداد حي آمن':'Live safe reclaim'}</button>
           <button
             data-testid="storage-inspect"
             onClick={() => setActiveService('storage-disks')}

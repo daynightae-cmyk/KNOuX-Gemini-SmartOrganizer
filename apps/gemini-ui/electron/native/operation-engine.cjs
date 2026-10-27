@@ -15,12 +15,21 @@ class OperationEngine {
     this.grants=new Map();this.plans=new Map();this.undos=new Map();this.sequence=0;this.active=null;this.lastOp=null;
   }
   event(opId, phase, data={}) {
-    const payload={...data,opId,serviceId:'mission-03-07',sourceMode:this.sourceMode,sequence:++this.sequence,phase,timestamp:new Date().toISOString(),provenance:'native directory inventory / verified organization journal'};
+    const payload={...data,opId,serviceId:data.serviceId||this.active?.serviceId||'mission-03-07',sourceMode:this.sourceMode,sequence:++this.sequence,phase,timestamp:new Date().toISOString(),provenance:'native directory inventory / verified operation journal'};
     this.emit(payload);return payload;
   }
   async grant(root,kind) {
     const route=await safety.assertSafeRoute(root);
     this.grants.set(`${kind}:${path.resolve(root).toLowerCase()}`,{root,identity:route.identity});
+  }
+  async runJob(kind,serviceId,work,cancel=()=>{}) {
+    if(this.active || this.studio.engine.isBusy()) throw error('OPERATION_BUSY','Another operation is active.');
+    const opId=crypto.randomUUID(),abort=new AbortController();
+    this.active={opId,kind,serviceId,cancel:()=>{abort.abort();cancel();}};
+    this.lastOp=opId;
+    try {return await work({opId,signal:abort.signal,event:(phase,data)=>this.event(opId,phase,data)});}
+    catch(e){this.event(opId,abort.signal.aborted?'cancelled':'failed',{errors:[{code:e.code,message:e.message}]});throw e;}
+    finally{this.active=null;}
   }
   authorized(root,kind) { if(kind==='source'&&!this.studio.sources.some(s=>path.resolve(s.path).toLowerCase()===path.resolve(root).toLowerCase()))return undefined;return this.grants.get(`${kind}:${path.resolve(root).toLowerCase()}`); }
   async chooseSource() {
@@ -124,6 +133,7 @@ class OperationEngine {
     } finally {this.active=null;}
   }
   cancel() {
+    if(this.active?.cancel) {this.active.cancel();return true;}
     if(this.active?.kind==='scan') return this.studio.cancelScan(this.active.sourceId);
     const running=this.studio.engine.active(this.owner);
     return running?this.studio.engine.cancel({owner:this.owner,operationId:running.executionId}):false;
@@ -133,4 +143,4 @@ class OperationEngine {
     this.grants.clear();this.plans.clear();this.undos.clear();this.studio.engine.revokeOwner(this.owner);return {revoked:true};
   }
 }
-module.exports={OperationEngine};
+module.exports={OperationEngine,nativeStudioDir:studioDir};

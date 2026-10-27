@@ -1,0 +1,52 @@
+import {_electron as electron,expect} from '@playwright/test';
+import {createRequire} from 'node:module';
+import {mkdir,readFile,writeFile,access,unlink} from 'node:fs/promises';
+import path from 'node:path';
+const require=createRequire(import.meta.url),{makeFixture,sha}=require('./storage-vault-fixtures.cjs');
+const packaged=process.argv.find(s=>s.startsWith('--packaged-exe='))?.slice('--packaged-exe='.length);
+const f=await makeFixture(),out=path.resolve(`../../docs/evidence/storage-cleanup-wave2/${packaged?'packaged':'electron'}`);await mkdir(out,{recursive:true});
+const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
+const args=['--disable-gpu','--js-flags=--max-old-space-size=160',...(packaged?[]:[path.resolve('electron/main.cjs')]),`--knoux-user-data=${f.profile}`];
+const app=await electron.launch({executablePath:packaged||require('electron'),args,env,timeout:60000});
+const proof={packaged:!!packaged,fixture:f.root,checks:[],views:[],errors:[]};
+try {
+ const runtime=await app.evaluate(({app})=>({profile:app.getPath('userData'),isPackaged:app.isPackaged}));expect(runtime.isPackaged).toBe(!!packaged);expect(path.resolve(runtime.profile)).toBe(path.resolve(f.profile));
+ await app.evaluate(({dialog},f)=>{globalThis.__vaultConfirmations=[];dialog.showOpenDialog=async(_window,options)=>({canceled:false,filePaths:[options.title.includes('source')?f.source:f.destination]});dialog.showMessageBox=async(_window,options)=>{if(options.title!=='KNOuX — exact operation approval')throw Error('Unexpected dialog in owned test');globalThis.__vaultConfirmations.push(options.detail);return {response:1};};},f);
+ const page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));await page.waitForLoadState('domcontentloaded');
+ await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_theme','light');localStorage.setItem('knoux_locale','en');location.hash='storage';});await page.reload();
+ await page.getByTestId('storage-live-vault').waitFor({timeout:60000});
+ const invalid=await page.evaluate(()=>window.knouxOperationsV1.vaultPlan({path:'C:/unauthorized',tempIds:[]}));expect(invalid.error.code).toBe('OPERATION_INVALID_INPUT');proof.checks.push('Typed production IPC rejects raw path injection');
+ await page.evaluate(()=>{window.__vaultEvents=[];window.knouxOperationsV1.onEvent(e=>window.__vaultEvents.push(e));});
+ await page.getByTestId('storage-live-vault').click();await page.getByTestId('vault-source').click();await page.getByTestId('vault-scan').click();await expect(page.locator('[data-testid^="vault-keeper-"]')).toHaveCount(3,{timeout:60000});
+ await expect(page.getByTestId('vault-destination')).toBeEnabled();await page.getByTestId('vault-destination').click();
+ expect(await page.locator('[data-testid^="vault-candidate-"]:checked').count()).toBe(0);await expect(page.getByTestId('vault-build-plan')).toBeDisabled();
+ proof.checks.push('Native folder discovery finds three SHA-256 groups, selects no keeper/candidate automatically');
+ await page.getByRole('button',{name:'Live treemap',exact:true}).click();await expect(page.getByTestId('vault-treemap').locator('button')).toHaveCount(4);await page.getByTestId('vault-treemap').locator('button').first().click();await page.getByRole('button',{name:'Root',exact:true}).click();
+ for(const theme of ['light','dark'])for(const [width,height] of [[1366,768],[1672,941]]) {
+  await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);await app.evaluate(({BrowserWindow},{width,height})=>BrowserWindow.getAllWindows().find(w=>w.isVisible()).setContentSize(width,height),{width,height});
+  await page.screenshot({path:path.join(out,`treemap-${theme}-${width}.png`),animations:'disabled'});
+  const geometry=await page.getByTestId('storage-cleanup-live').evaluate(e=>({dockBottom:e.querySelector('footer').getBoundingClientRect().bottom,viewport:innerHeight,outerOverflow:document.documentElement.scrollHeight-innerHeight,scrollable:[...e.querySelectorAll('*')].some(c=>getComputedStyle(c).overflowY==='auto'&&c.scrollHeight>c.clientHeight)}));expect(geometry.dockBottom).toBeLessThanOrEqual(geometry.viewport);expect(geometry.outerOverflow).toBeLessThanOrEqual(4);proof.views.push({theme,width,height,...geometry});
+ }
+ await page.getByRole('button',{name:'Large files & folders',exact:true}).click();await expect(page.locator('.vault-stage')).toContainText('copy-0.bin');await page.getByRole('button',{name:'File types',exact:true}).click();await expect(page.locator('.vault-stage')).toContainText('document');
+ await page.getByRole('button',{name:'Confirmed duplicates',exact:true}).click();proof.innerScroll=await page.locator('.vault-stage .vault-result-scroll').evaluate(e=>{e.scrollTop=30;return{height:e.clientHeight,content:e.scrollHeight,top:e.scrollTop};});expect(proof.innerScroll.top).toBeGreaterThan(0);const keeper=page.locator('[data-testid^="vault-keeper-"]').first();await keeper.selectOption(await keeper.locator('option').nth(1).getAttribute('value'));
+ await page.locator('[data-testid^="vault-candidate-"]:enabled').nth(0).check();await page.locator('[data-testid^="vault-candidate-"]:enabled').nth(1).check();
+ await page.getByRole('button',{name:'Temporary review',exact:true}).click();await page.locator('[data-testid^="vault-temp-"]').first().check();
+ await page.getByTestId('vault-build-plan').click();await expect(page.getByTestId('vault-exact-plan')).toContainText('3 files to vault',{timeout:60000});await expect(page.getByTestId('vault-execute')).toBeDisabled();
+ for(const theme of ['light','dark']){await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);await page.getByRole('button',{name:'Confirmed duplicates',exact:true}).click();await page.screenshot({path:path.join(out,`plan-${theme}.png`),animations:'disabled'});}
+ await page.getByTestId('workbench-mode-toggle').click();await expect(page.getByTestId('storage-cleanup-live')).toHaveAttribute('data-workbench-mode','side');const before=await page.getByTestId('storage-cleanup-live-shell').evaluate(e=>e.clientWidth);await page.getByRole('separator',{name:'Resize workbench'}).press('ArrowLeft');expect(await page.getByTestId('storage-cleanup-live-shell').evaluate(e=>e.clientWidth)).toBeLessThan(before);await page.getByTestId('workbench-mode-toggle').click();
+ await page.getByTestId('vault-approve').check();await page.getByTestId('vault-execute').click();await expect(page.getByTestId('vault-receipt')).toContainText('3 verified transfers',{timeout:60000});await expect(page.getByTestId('vault-restore-preview')).toBeEnabled();
+ const moved=await page.evaluate(async()=> (await window.knouxOperationsV1.vaultList()).data[0]);expect(moved.verifiedReclaimedBytes).toBe(0);expect(moved.verifiedQuarantinedBytes).toBeGreaterThan(0);expect(moved.failedFiles).toBe(0);
+ for(const entry of moved.entries){expect(sha(await readFile(path.join(entry.targetRoot,entry.targetRelative)))).toBe(f.originals[entry.sourceRelative]);await expect(access(path.join(f.source,entry.sourceRelative))).rejects.toThrow();}
+ proof.checks.push('Exact approval produces three actual quarantines with hashes; physical reclaimed bytes remain zero');await page.screenshot({path:path.join(out,'quarantine-receipt.png'),animations:'disabled'});
+ const occupied=path.join(f.source,moved.entries[0].sourceRelative);await writeFile(occupied,'fixture occupied original');await page.getByTestId('vault-restore-preview').click();await expect(page.getByTestId('vault-restore')).toBeDisabled();await expect(page.locator('.vault-restore')).toContainText('1 conflicts');expect(await readFile(occupied,'utf8')).toBe('fixture occupied original');await unlink(occupied);proof.checks.push('UI restore refuses a conflicting original path without overwriting');
+ await page.getByTestId('vault-restore-preview').click();await expect(page.getByTestId('vault-restore-approve')).toBeEnabled();await page.getByTestId('vault-restore-approve').check();await page.getByTestId('vault-restore').click();await expect(page.getByTestId('vault-receipt')).toContainText('3 restored',{timeout:60000});
+ for(const [relative,digest] of Object.entries(f.originals))expect(sha(await readFile(path.join(f.source,relative)))).toBe(digest);
+ await page.getByTestId('vault-report').click();await expect(page.getByTestId('vault-report-output')).toContainText('"verifiedReclaimedBytes": 0');await page.screenshot({path:path.join(out,'restored-report.png'),animations:'disabled'});
+ proof.checks.push('Native restore recovers every original hash; report is generated from the dedicated journal');
+ proof.report=await page.evaluate(async()=> (await window.knouxOperationsV1.vaultReport()).data);proof.events=await page.evaluate(()=>window.__vaultEvents);proof.confirmations=await app.evaluate(()=>globalThis.__vaultConfirmations);expect(proof.confirmations.length).toBe(2);expect(proof.confirmations[0]).toContain('QUARANTINE');
+ await page.getByTestId('workbench-close').click();await page.evaluate(()=>location.hash='cleanup');await page.getByTestId('cleanup-live-vault').click();await expect(page.getByTestId('storage-cleanup-live')).toBeVisible();await expect(page.getByTestId('vault-receipts').locator('option')).toHaveCount(2);await page.emulateMedia({reducedMotion:'reduce'});proof.reducedMotion=await page.locator('.knx-particle-track').evaluateAll(nodes=>nodes.map(n=>getComputedStyle(n).animationName));expect(proof.reducedMotion.every(a=>a==='none')).toBe(true);proof.checks.push('Cleanup opens the same native vault; side/expanded/keyboard resize and reduced motion retain state');
+ await page.keyboard.press('Escape');await expect(page.getByTestId('storage-cleanup-live')).toHaveCount(0);
+ for(const route of ['storage','cleanup'])for(const theme of ['light','dark']){await page.evaluate(({route,theme})=>{location.hash=route;document.documentElement.dataset.theme=theme;},{route,theme});await page.locator(`[data-visual-section="${route}"] main`).waitFor();await page.screenshot({path:path.join(out,`preserved-${route}-${theme}.png`),animations:'disabled'});}
+ expect(proof.errors).toEqual([]);proof.ok=true;
+}finally{await writeFile(path.join(out,'proof.json'),JSON.stringify(proof,null,2));await app.close();}
+console.log(JSON.stringify({ok:proof.ok,packaged:proof.packaged,checks:proof.checks,errors:proof.errors},null,2));

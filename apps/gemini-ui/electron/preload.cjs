@@ -437,5 +437,12 @@ contextBridge.exposeInMainWorld('knouxOperationsV1', Object.freeze({
   undoPreview: (request) => ipcRenderer.invoke('knoux:operations:v1:undoPreview', ...(request === undefined ? [] : [request])),
   undo: (request) => ipcRenderer.invoke('knoux:operations:v1:undo', ...(request === undefined ? [] : [request])),
   revoke: (request) => ipcRenderer.invoke('knoux:operations:v1:revoke', ...(request === undefined ? [] : [request])),
+  storageScan: request => ipcRenderer.invoke('knoux:operations:v1:storageScan', ...(request === undefined ? [] : [request])),
+  vaultPlan: request => ipcRenderer.invoke('knoux:operations:v1:vaultPlan', ...(request === undefined ? [] : [request])),
+  vaultExecute: request => ipcRenderer.invoke('knoux:operations:v1:vaultExecute', ...(request === undefined ? [] : [request])),
+  vaultList: request => ipcRenderer.invoke('knoux:operations:v1:vaultList', ...(request === undefined ? [] : [request])),
+  vaultRestorePreview: request => ipcRenderer.invoke('knoux:operations:v1:vaultRestorePreview', ...(request === undefined ? [] : [request])),
+  vaultRestore: request => ipcRenderer.invoke('knoux:operations:v1:vaultRestore', ...(request === undefined ? [] : [request])),
+  vaultReport: request => ipcRenderer.invoke('knoux:operations:v1:vaultReport', ...(request === undefined ? [] : [request])),
   onEvent: callback => { const listener=(_event,payload)=>callback(payload); ipcRenderer.on('knoux:operations:v1:event',listener); return ()=>ipcRenderer.removeListener('knoux:operations:v1:event',listener); },
 }));

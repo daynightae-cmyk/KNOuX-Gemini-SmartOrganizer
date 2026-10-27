@@ -303,11 +303,12 @@ class StorageBridge {
     };
   }
 
-  async verifyDuplicates(sourceId) {
+  async verifyDuplicates(sourceId, {minimumBytes=MIN_DUPLICATE_BYTES,maxFiles=MAX_DUPLICATE_FILES,maxBytes=MAX_DUPLICATE_BYTES,maxGroups=MAX_DUPLICATE_GROUPS,perGroup=6,signal,onProgress=()=>{},acceptFile=()=>true} = {}) {
     const { record } = this.requireSource(sourceId);
     const groupsBySize = new Map();
     for (const file of record.files) {
-      if (Number(file.size) < MIN_DUPLICATE_BYTES) continue;
+      if (Number(file.size) < minimumBytes) continue;
+      if (!acceptFile(file)) continue;
       const list = groupsBySize.get(file.size) || [];
       list.push(file);
       groupsBySize.set(file.size, list);
@@ -315,7 +316,7 @@ class StorageBridge {
     const candidates = [...groupsBySize.entries()]
       .filter(([, group]) => group.length > 1)
       .sort((a, b) => (b[0] * (b[1].length - 1)) - (a[0] * (a[1].length - 1)))
-      .slice(0, MAX_DUPLICATE_GROUPS);
+      .slice(0, maxGroups);
 
     const hashes = new Map();
     let filesHashed = 0;
@@ -323,24 +324,27 @@ class StorageBridge {
     let budgetReached = false;
     const errors = [];
     for (const [size, group] of candidates) {
-      for (const file of group.slice(0, 6)) {
-        if (filesHashed >= MAX_DUPLICATE_FILES || bytesHashed + Number(size) > MAX_DUPLICATE_BYTES) {
+      for (const file of group.slice(0, perGroup)) {
+        if(signal?.aborted) throw storageError('OPERATION_CANCELLED','Duplicate verification cancelled.');
+        if (filesHashed >= maxFiles || bytesHashed + Number(size) > maxBytes) {
           budgetReached = true;
           break;
         }
         try {
-          const result = await this.files.hash(sourceId, file.id, 'sha256');
+          const result = await this.files.hash(sourceId, file.id, 'sha256',{signal});
           if (result.changedDuringRead || !result.digestReliable) {
             errors.push({ fileId: file.id, name: file.name, code: 'FILES_FILE_CHANGED', message: 'The file changed while it was hashed and was excluded.' });
             continue;
           }
           filesHashed += 1;
           bytesHashed += Number(size) || 0;
+          onProgress({completed:filesHashed,bytes:bytesHashed,currentName:file.name});
           const key = `${size}:${result.digest}`;
           const entry = hashes.get(key) || { size, digest: result.digest, files: [] };
           entry.files.push({ id: file.id, name: file.name, relative: file.relative, size: file.size, modifiedAt: file.modifiedAt });
           hashes.set(key, entry);
         } catch (error) {
+          if(signal?.aborted) throw error;
           errors.push({ fileId: file.id, name: file.name, code: error?.code || 'HASH_FAILED', message: String(error?.message || 'Hash failed.').slice(0, 160) });
         }
       }
@@ -365,8 +369,8 @@ class StorageBridge {
         verifiedGroups: verified.length,
         reclaimableVerifiedBytes: verified.reduce((sum, group) => sum + group.wastedBytes, 0),
         budgetReached,
-        maxFiles: MAX_DUPLICATE_FILES,
-        maxBytes: MAX_DUPLICATE_BYTES,
+        maxFiles,
+        maxBytes,
       },
       errors: errors.slice(0, 12),
       warnings: [

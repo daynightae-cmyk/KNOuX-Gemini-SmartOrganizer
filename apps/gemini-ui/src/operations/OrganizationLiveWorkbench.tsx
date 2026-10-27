@@ -18,7 +18,7 @@ export function OrganizationLiveWorkbench() {
  const scanOperation=useRef<string|null>(null);
  const api=window.knouxOperationsV1;
  useEffect(()=>{const show=(event:Event)=>{const scope=(event as CustomEvent<{path:string;relativeFiles:string[]}>).detail;setPendingScope(scope?.relativeFiles?.length?scope:null);setOpen(true);};window.addEventListener('knoux:live-organization',show);return()=>window.removeEventListener('knoux:live-organization',show);},[]);
- useEffect(()=>api?.onEvent(e=>{setEvents(old=>[...old.slice(-299),e]);if(e.phase==='measuring')scanOperation.current=e.opId;if(e.phase==='discovered'&&e.file&&e.opId===scanOperation.current)setFiles(old=>old.some(file=>file.id===e.file!.id)?old:[...old,e.file!]);}),[api]);
+ useEffect(()=>api?.onEvent(e=>{if(e.serviceId!=='mission-03-07')return;setEvents(old=>[...old.slice(-299),e]);if(e.phase==='measuring')scanOperation.current=e.opId;if(e.phase==='discovered'&&e.file&&e.opId===scanOperation.current)setFiles(old=>old.some(file=>file.id===e.file!.id)?old:[...old,e.file!]);}),[api]);
  useEffect(()=>{setPlan(null);setApproved(false);setUndo(null);},[source,destination,operation,structure,collisionPolicy,folders,selected]);
  const close=useCallback(()=>{if(!busy)setOpen(false);},[busy]);
  async function run(action:()=>Promise<void>) {setError('');setBusy(true);try{await action();}catch(e){setError(e instanceof Error?e.message:String(e));}finally{setBusy(false);}}
