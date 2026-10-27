@@ -18,8 +18,9 @@ try {
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push(e.message));
-    await page.goto(`http://127.0.0.1:3017/#${section}`, { waitUntil: 'networkidle' });
+    await page.goto(`http://127.0.0.1:3017/#${section}`, { waitUntil: 'domcontentloaded' });
     await page.locator(`[data-visual-section="${section}"]`).waitFor();
+    await page.waitForTimeout(1200);
     await page.screenshot({ path: path.join(folder, `${theme}-1672x941.png`) });
     const layout = await page.evaluate(() => ({
       horizontalOverflow: document.documentElement.scrollWidth > innerWidth,

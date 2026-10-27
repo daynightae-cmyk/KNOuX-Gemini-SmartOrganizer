@@ -278,10 +278,12 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
 
             if (isItemActive) {
               return (
-                <div
+                <button
+                  type="button"
+                  aria-current="page"
                   key={item.id}
                   onClick={() => onNavigate(item.target)}
-                  className="relative flex items-center gap-2.5 px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold text-xs shadow-[0_0_16px_rgba(37,99,235,0.6)] border border-cyan-400/50 cursor-pointer transition-all"
+                  className="w-full text-start relative flex items-center gap-2.5 px-3 py-2 rounded-xl bg-blue-600 text-white font-semibold text-xs shadow-[0_0_16px_rgba(37,99,235,0.6)] border border-cyan-400/50 cursor-pointer transition-all"
                 >
                   <Icon className="w-4 h-4 text-white shrink-0" />
                   <span className="truncate flex-1">{label}</span>
@@ -290,15 +292,16 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
                       {item.badge}
                     </span>
                   )}
-                </div>
+                </button>
               );
             }
 
             return (
-              <div
+              <button
+                type="button"
                 key={item.id}
                 onClick={() => onNavigate(item.target)}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-[#0a182d] text-xs font-medium transition-colors cursor-pointer group"
+                className="w-full text-start flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-[#0a182d] text-xs font-medium transition-colors cursor-pointer group"
               >
                 <Icon className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 shrink-0 transition-colors" />
                 <span className="truncate flex-1">{label}</span>
@@ -307,7 +310,7 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
                     {item.badge}
                   </span>
                 )}
-              </div>
+              </button>
             );
           })}
         </nav>

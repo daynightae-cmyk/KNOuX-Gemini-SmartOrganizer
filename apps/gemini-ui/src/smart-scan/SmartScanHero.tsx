@@ -23,6 +23,7 @@ import {
 import type { ScanSession, StudioSource } from '../../shared/native-contracts';
 import { modeLabel, sessionStatusLabel } from './model';
 import type { ActiveScanView } from './smartScan.types';
+import { OrbitalControl } from '../visual/OrbitalControl';
 
 export interface SmartScanHeroProps {
   isArabic: boolean;
@@ -90,7 +91,7 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
           </div>
 
           <h1 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300 tracking-tight leading-snug">
-            {isArabic ? 'الفحص الذكي' : 'Smart Scan'}
+            {isArabic ? 'فحص أذكى. رؤية أوضح.' : 'Scan smarter. See clearly.'}
           </h1>
           <p className="scan-hero-copy text-[11px] text-slate-300 max-w-2xl font-medium leading-relaxed">
             {isArabic
@@ -100,7 +101,14 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
         </div>
       </div>
 
-      <div className="z-10 w-full xl:w-auto shrink-0">
+      <OrbitalControl title={isArabic ? 'بدء الفحص الذكي' : 'Start Smart Scan'} subtitle={isArabic ? 'تحليل آمن للقراءة فقط' : 'Safe, read-only analysis'}
+        onActivate={sourceReady ? onRunQuick : onAuthorizeSource} disabled={!nativeAvailable || isScanning} running={isScanning}
+        tools={[
+          { id: 'quick', label: isArabic ? 'سريع' : 'Quick', icon: Zap, onClick: onRunQuick, disabled: !nativeAvailable || !sourceReady || isScanning },
+          { id: 'deep', label: isArabic ? 'عميق' : 'Deep', icon: Search, onClick: onRunDeep, disabled: !nativeAvailable || !sourceReady || isScanning },
+          { id: 'source', label: isArabic ? 'المصدر' : 'Source', icon: FolderPlus, onClick: onAuthorizeSource, disabled: !nativeAvailable || isScanning },
+        ]} />
+      <div className="knx-scan-controls z-10 w-full xl:w-auto shrink-0">
         {active ? (
           <div className="rounded-xl border border-cyan-500/35 bg-[#041226]/80 p-2.5 sm:min-w-[340px]">
             <div className="flex items-center justify-between gap-2">
