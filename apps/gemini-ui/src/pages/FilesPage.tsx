@@ -66,6 +66,7 @@ import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbenc
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import '../files.css';
+import { OrbitalControl } from '../visual/OrbitalControl';
 
 interface FilesPageProps {
   onNavigateSection?: (section: string) => void;
@@ -475,7 +476,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             <div className="absolute inset-0 files-hero-nebula pointer-events-none" />
 
             {/* Breadcrumb & Title */}
-            <div className="relative z-10 mb-2">
+            <div className="knx-files-heading relative z-10 mb-2">
+              <div>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-0.5">
                 <Folder className="w-3.5 h-3.5 text-cyan-400" />
                 <span>‹</span>
@@ -484,7 +486,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
               <h1 className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                 <span className="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
-                  {locale === 'en' ? 'Instant Find' : 'البحث الفوري الذكي'}
+                  {locale === 'en' ? 'Find instantly. Organize intelligently.' : 'اعثر فوراً. ونظّم بذكاء.'}
                 </span>
               </h1>
               <p className="text-xs text-slate-300 mt-0.5 font-normal">
@@ -492,6 +494,16 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   ? 'Every file in focus. Search, discover, inspect and organize.'
                   : 'كل ملف في متناولك. ابحث، واستكشف، وافحص، ورتّب بذكاء وسرعة فائقة.'}
               </p>
+              </div>
+              <div className="knx-files-orbit">
+                <OrbitalControl title={locale === 'en' ? 'Search & Organize' : 'ابحث ونظّم'} subtitle={locale === 'en' ? 'Your files, in focus' : 'ملفاتك بوضوح'}
+                  onActivate={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()}
+                  tools={[
+                    { id: 'search', label: locale === 'en' ? 'Find' : 'بحث', icon: Search, onClick: () => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus() },
+                    { id: 'images', label: locale === 'en' ? 'Images' : 'الصور', icon: ImageIcon, onClick: () => setActiveCategory('images') },
+                    { id: 'plan', label: locale === 'en' ? 'Organize' : 'تنظيم', icon: FolderTree, onClick: handleOpenStudio },
+                  ]} />
+              </div>
             </div>
 
             {/* Wide Search Bar with Live Index Status */}
@@ -776,7 +788,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
           </div>
 
           {/* 3. Main Center Split: Table Register & Right Detail Inspector */}
-          <div className="flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
+          <div className="knx-files-split flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
             {/* Left-Center Results Table */}
             <div className="flex-1 bg-[#061226] rounded-xl border border-[#132c52] overflow-hidden flex flex-col min-h-0 select-none shadow-inner">
               {/* Table Header */}
@@ -1250,7 +1262,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   <span className="text-[9px] text-slate-500 font-mono">{measured ? 'Measured read-only' : 'Design fixture'}</span>
                 </div>
 
-                <div className="grid grid-cols-6 gap-1.5">
+                <div className="knx-files-tools grid grid-cols-3 gap-2">
                   {FILES_DOMAIN_SERVICES.map((serv) => (
                     <button
                       key={serv.key}
@@ -1262,7 +1274,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                     >
                       {renderServiceIcon(serv.iconName)}
                       <span className="text-[8px] font-mono leading-tight text-center truncate w-full text-slate-400 group-hover:text-cyan-200">
-                        {serv.labelEn.split(' ')[0]}
+                        {locale === 'ar' ? serv.labelAr : serv.labelEn}
                       </span>
                     </button>
                   ))}
