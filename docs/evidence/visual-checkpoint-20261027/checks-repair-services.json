@@ -1,0 +1,750 @@
+{
+  "intro": [
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "bottom": 768,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "top": 0,
+      "bottom": 941,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "bottom": 768,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "top": 0,
+      "bottom": 941,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    }
+  ],
+  "rows": [
+    {
+      "route": "repair",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 108,
+          "content": 596
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 343,
+          "content": 866
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 247,
+          "content": 585
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 516,
+          "content": 787
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 12,
+          "content": 163
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 206
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 138,
+          "content": 151
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 206
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 96,
+          "content": 101
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 108,
+          "content": 618
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 343,
+          "content": 866
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 247,
+          "content": 585
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 516,
+          "content": 787
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 12,
+          "content": 163
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 92,
+          "content": 206
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "services",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "Service CommanderReview the measured SCM register",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Running",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Stopped",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Dependencies",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Recovery",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Events",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Startup Type",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "knx-command-panel",
+          "moved": true,
+          "height": 138,
+          "content": 151
+        },
+        {
+          "className": "knx-command-tool-dock",
+          "moved": true,
+          "height": 122,
+          "content": 206
+        },
+        {
+          "className": "sys-panel-body",
+          "moved": true,
+          "height": 96,
+          "content": 101
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    }
+  ],
+  "interactions": [
+    {
+      "theme": "light",
+      "route": "repair",
+      "repairWheelSelection": true
+    },
+    {
+      "theme": "light",
+      "route": "services",
+      "nativeGateNotice": true
+    },
+    {
+      "theme": "light",
+      "reducedIntro": "none",
+      "skipReduced": true
+    },
+    {
+      "theme": "dark",
+      "route": "repair",
+      "repairWheelSelection": true
+    },
+    {
+      "theme": "dark",
+      "route": "services",
+      "nativeGateNotice": true
+    },
+    {
+      "theme": "dark",
+      "reducedIntro": "none",
+      "skipReduced": true
+    }
+  ]
+}

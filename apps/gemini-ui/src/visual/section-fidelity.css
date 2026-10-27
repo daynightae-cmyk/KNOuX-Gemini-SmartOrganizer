@@ -91,8 +91,29 @@
 .visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(6)) .knx-orbit-tool:nth-child(5) { left:24%; top:82%; }
 .visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(6)) .knx-orbit-tool:nth-child(6) { left:8%; top:48%; }
 .visual-sprint[data-visual-section='automation'] .knx-command-body.has-tool-dock { grid-template-rows:minmax(0,1fr) 112px; }
+/* Keep catalogue ordinals out of the title's text area. */
+.visual-sprint[data-visual-section='system'] .knx-command-tool-dock .sys-service-card { grid-template-columns:24px minmax(0,1fr); grid-template-rows:14px auto auto; }
+.visual-sprint[data-visual-section='system'] .knx-command-tool-dock .sys-service-copy { grid-area:1/2/3/3; }
+.visual-sprint[data-visual-section='system'] .knx-command-tool-dock .sys-service-copy strong { display:block; }
+.visual-sprint[data-visual-section='system'] .knx-command-tool-dock .sys-service-index { position:static; grid-area:1/1; padding:0; line-height:1.4; }
+.visual-sprint[data-visual-section='system'] .knx-command-tool-dock .sys-service-icon { grid-area:2/1; }
+.visual-sprint[data-visual-section='system'] .knx-command-tool-dock .sys-service-state { grid-area:3/2; }
+.visual-sprint[data-visual-section='services'] .knx-command-inspector .svc-panel-head h2 { font-size:16px; line-height:1.35; }
+/* Five-node wheels also keep the upper destination away from the core. */
+.visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(5)):not(:has(.knx-orbit-tool:nth-child(6))) .knx-orbit-tool:nth-child(1) { left:24%; top:16%; }
+.visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(5)):not(:has(.knx-orbit-tool:nth-child(6))) .knx-orbit-tool:nth-child(2) { left:76%; top:16%; }
+.visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(5)):not(:has(.knx-orbit-tool:nth-child(6))) .knx-orbit-tool:nth-child(3) { left:92%; top:48%; }
+.visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(5)):not(:has(.knx-orbit-tool:nth-child(6))) .knx-orbit-tool:nth-child(4) { left:76%; top:82%; }
+.visual-sprint[data-visual-section] .has-reference-inspector .knx-orbit:has(.knx-orbit-tool:nth-child(5)):not(:has(.knx-orbit-tool:nth-child(6))) .knx-orbit-tool:nth-child(5) { left:8%; top:48%; }
+.visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi > * { flex-shrink:0; }
+.visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi > strong { min-height:26px; line-height:26px; }
 @media(max-height:820px) {
   .visual-sprint[data-visual-section] .has-reference-inspector { --canvas-hero-height:204px; }
+  .visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi { padding:6px 8px; gap:2px; }
+  .visual-sprint[data-visual-section='repair'] .knx-command-metrics .rep-kpi > strong { font-size:18px; min-height:24px; line-height:24px; }
+  .visual-sprint[data-visual-section='repair'] .has-reference-inspector .knx-command-hero h1 { font-size:26px !important; }
+  .visual-sprint[data-visual-section='repair'] .knx-command-hero .sys-hero-eyebrow { font-size:9px; letter-spacing:.1em; }
+  .visual-sprint[data-visual-section='repair'] .knx-command-hero .sys-hero-copy > p { font-size:12px !important; line-height:1.45 !important; }
   .visual-sprint[data-visual-section] .knx-command-body.has-tool-dock { grid-template-rows:minmax(0,1fr) 94px; }
   .visual-sprint:is([data-visual-section='cleanup'],[data-visual-section='smart_scan']) .knx-command-body.has-tool-dock { grid-template-rows:94px minmax(0,1fr); }
   .visual-sprint[data-visual-section] .knx-command-tool-dock :is(.apps-service-sub,.cln-service-sub,.stp-service-sub,.sys-service-copy em,.scan-services-copy) { display:none; }

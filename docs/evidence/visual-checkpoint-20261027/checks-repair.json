@@ -1,0 +1,424 @@
+{
+  "intro": [
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "bottom": 768,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "top": 0,
+      "bottom": 941,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "top": 0,
+      "bottom": 768,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    },
+    {
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "top": 0,
+      "bottom": 941,
+      "topSurface": true,
+      "workspaceInert": true,
+      "enter": true,
+      "skip": true
+    }
+  ],
+  "rows": [
+    {
+      "route": "repair",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 164,
+          "content": 618
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 343,
+          "content": 866
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 247,
+          "content": 585
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 516,
+          "content": 787
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 76,
+          "content": 82
+        },
+        {
+          "className": "knx-command-status",
+          "moved": true,
+          "height": 56,
+          "content": 66
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 164,
+          "content": 618
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 343,
+          "content": 866
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    },
+    {
+      "route": "repair",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "mainOverflow": 0,
+      "pageOverflow": 0,
+      "horizontal": 0,
+      "wheels": [
+        {
+          "label": "DiagnoseEvidence before action",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "DISM",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "SFC",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Network",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Restore",
+          "disabled": false,
+          "hit": true,
+          "inside": true
+        },
+        {
+          "label": "Journal (disabled)",
+          "disabled": true,
+          "hit": true,
+          "inside": true
+        }
+      ],
+      "scrolls": [
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "sys-instrument rep-kpi",
+          "moved": true,
+          "height": 98,
+          "content": 112
+        },
+        {
+          "className": "rep-tools-panel",
+          "moved": true,
+          "height": 247,
+          "content": 585
+        },
+        {
+          "className": "rep-brief-content",
+          "moved": true,
+          "height": 516,
+          "content": 787
+        }
+      ],
+      "reduced": [
+        "none",
+        "none",
+        "none"
+      ],
+      "errors": []
+    }
+  ],
+  "interactions": [
+    {
+      "theme": "light",
+      "route": "repair",
+      "repairWheelSelection": true
+    },
+    {
+      "theme": "light",
+      "reducedIntro": "none",
+      "skipReduced": true
+    },
+    {
+      "theme": "dark",
+      "route": "repair",
+      "repairWheelSelection": true
+    },
+    {
+      "theme": "dark",
+      "reducedIntro": "none",
+      "skipReduced": true
+    }
+  ]
+}
