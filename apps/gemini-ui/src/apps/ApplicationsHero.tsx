@@ -10,6 +10,7 @@ import {
   LayoutGrid,
   Lock,
   RefreshCw,
+  Search,
   ShieldCheck,
   Zap,
 } from 'lucide-react';
@@ -138,6 +139,7 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
         </div>
 
         <OrbitalControl title={t(locale, 'Analyze Applications', 'تحليل التطبيقات')} subtitle={t(locale, 'Inventory · Inspect · Review', 'جرد · فحص · مراجعة')}
+          eyebrow={t(locale, 'Application scopes', 'نطاقات التطبيقات')}
           onActivate={() => void controller.refreshInventory(true)} disabled={refreshing || !controller.nativeAvailable} running={refreshing}
           tools={[
             { id: 'inventory', label: t(locale, 'Inventory', 'الجرد'), icon: LayoutGrid, onClick: () => void controller.refreshInventory(true), disabled: refreshing || !controller.nativeAvailable },

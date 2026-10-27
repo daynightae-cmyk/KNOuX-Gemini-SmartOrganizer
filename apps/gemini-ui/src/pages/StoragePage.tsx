@@ -357,6 +357,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             </div>
 
             <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}
+              eyebrow={isArabic ? 'نطاقات التخزين' : 'Storage scopes'}
               onActivate={() => void storageNative.chooseSource()} disabled={!nativeAvailable || storageNative.scanning} running={storageNative.scanning}
               tools={[
                 { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },

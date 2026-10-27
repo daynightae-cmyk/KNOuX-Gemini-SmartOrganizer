@@ -8,6 +8,7 @@ import {
   Activity,
   ChevronRight,
   Clock3,
+  Filter,
   Gauge,
   ListChecks,
   Play,
@@ -94,13 +95,15 @@ export function StartupHero({ locale, controller, onOpenService }: StartupHeroPr
           />
         </div>
         <OrbitalControl title={t(locale, 'Analyze Startup', 'تحليل بدء التشغيل')} subtitle={t(locale, 'Measure · Inspect · Review', 'قِس · افحص · راجع')}
+          eyebrow={t(locale, 'Startup scopes', 'نطاقات البدء')}
           onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || scanning} running={scanning}
           tools={[
-            { id: 'items', label: t(locale, 'Startup Items', 'عناصر البدء'), icon: ListChecks, onClick: () => onOpenService('startup-overview') },
-            { id: 'impact', label: t(locale, 'Boot Impact', 'أثر الإقلاع'), icon: Gauge, onClick: () => onOpenService('startup-impact') },
-            { id: 'delay', label: t(locale, 'Delay', 'التأخير'), icon: Clock3, onClick: () => onOpenService('startup-delay') },
-            { id: 'tasks', label: t(locale, 'Tasks', 'المهام'), icon: Activity, onClick: () => onOpenService('startup-tasks') },
-            { id: 'history', label: t(locale, 'History', 'السجل'), icon: RefreshCw, onClick: () => onOpenService('startup-journal') },
+            { id: 'items', label: t(locale, 'Startup Items', 'عناصر البدء'), icon: ListChecks, onClick: () => onOpenService('startup-overview'), hint: t(locale, 'Measured autorun register', 'سجل بدء مقيس') },
+            { id: 'impact', label: t(locale, 'Boot Impact', 'أثر الإقلاع'), icon: Gauge, onClick: () => onOpenService('startup-impact'), hint: t(locale, 'Measured boot impact', 'أثر إقلاع مقيس') },
+            { id: 'delay', label: t(locale, 'Delay', 'التأخير'), icon: Clock3, onClick: () => onOpenService('startup-delay'), hint: t(locale, 'Delay policy preview', 'معاينة سياسة التأخير') },
+            { id: 'tasks', label: t(locale, 'Tasks', 'المهام'), icon: Activity, onClick: () => onOpenService('startup-tasks'), hint: t(locale, 'Scheduled task autoruns', 'مهام مجدولة') },
+            { id: 'filter', label: t(locale, 'Filter', 'تصفية'), icon: Filter, onClick: () => onOpenService('startup-filter'), hint: t(locale, 'Filter by impact and state', 'تصفية حسب الأثر والحالة') },
+            { id: 'history', label: t(locale, 'History', 'السجل'), icon: RefreshCw, onClick: () => onOpenService('startup-journal'), hint: t(locale, 'Immutable preview journal', 'سجل معاينة ثابت') },
           ]} />
         <div className="stp-hero-actions">
           <button

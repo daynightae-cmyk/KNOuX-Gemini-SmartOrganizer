@@ -6,13 +6,18 @@ import React, { useState } from 'react';
 import {
   AlertTriangle,
   ArrowRight,
+  Clock3,
+  Download,
   FileText,
   FlaskConical,
+  Globe,
   HardDrive,
   Play,
   RotateCcw,
+  ScrollText,
   ShieldCheck,
   Square,
+  Trash2,
 } from 'lucide-react';
 import type { CleanupCategory } from '../../shared/native-contracts';
 import type { CleanupController } from './useCleanup';
@@ -112,11 +117,15 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
           />
         </div>
         <OrbitalControl title={t(locale, 'Analyze Cleanup', 'تحليل التنظيف')} subtitle={t(locale, 'Discover · Review · Confirm', 'استكشف · راجع · وافق')}
+          eyebrow={t(locale, 'Scan categories', 'فئات الفحص')}
           onActivate={() => void controller.startScan(categories, ageDays)} disabled={!controller.nativeAvailable || !canScan} running={scanning}
           tools={[
-            { id: 'analyze', label: t(locale, 'Analyze', 'تحليل'), icon: FlaskConical, onClick: () => void controller.startScan(categories, ageDays), disabled: !controller.nativeAvailable || !canScan },
-            { id: 'review', label: t(locale, 'Review', 'مراجعة'), icon: FileText, onClick: onReviewSelection, disabled: selectedCount === 0 },
-            { id: 'refresh', label: t(locale, 'Refresh', 'تحديث'), icon: RotateCcw, onClick: () => void controller.refresh(true), disabled: !controller.nativeAvailable || scanning },
+            { id: 'temp', label: t(locale, 'Temporary Files', 'ملفات مؤقتة'), icon: FileText, active: categories.includes('temp'), onClick: () => toggleCategory('temp'), hint: t(locale, 'Include temp roots in the scan', 'تضمين المجلدات المؤقتة') },
+            { id: 'browser', label: t(locale, 'Browser Cache', 'ذاكرة المتصفح'), icon: Globe, active: categories.includes('browser'), onClick: () => toggleCategory('browser'), hint: t(locale, 'Include browser caches', 'تضمين ذاكرات المتصفح') },
+            { id: 'logs', label: t(locale, 'Diagnostic Logs', 'سجلات التشخيص'), icon: ScrollText, active: categories.includes('logs'), onClick: () => toggleCategory('logs'), hint: t(locale, 'Include diagnostic logs', 'تضمين سجلات التشخيص') },
+            { id: 'recycle', label: t(locale, 'Recycle Bin', 'سلة المحذوفات'), icon: Trash2, active: categories.includes('recycle'), onClick: () => toggleCategory('recycle'), hint: t(locale, 'Include bin contents', 'تضمين محتويات السلة') },
+            { id: 'update', label: t(locale, 'Windows Update', 'تحديثات ويندوز'), icon: Download, active: categories.includes('update'), onClick: () => toggleCategory('update'), hint: t(locale, 'Include update leftovers', 'تضمين بقايا التحديثات') },
+            { id: 'unused', label: t(locale, 'Unused Items', 'عناصر غير مستخدمة'), icon: Clock3, active: categories.includes('unused'), onClick: () => toggleCategory('unused'), hint: t(locale, 'Include stale items by age', 'تضمين العناصر القديمة') },
           ]} />
         <div className="cln-hero-actions">
           <button

@@ -31,6 +31,7 @@ import {
   RefreshCw,
   ShieldCheck,
   Sparkles,
+  Thermometer,
   X,
   Zap,
   type LucideIcon,
@@ -564,6 +565,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
               </div>
 
               <OrbitalControl title={t(locale, 'Run Health Pulse', 'قياس نبض النظام')} subtitle={t(locale, 'Real readings. Clear sources.', 'قراءات حقيقية. مصادر واضحة.')}
+                eyebrow={t(locale, 'System scopes', 'نطاقات النظام')}
                 onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning || controller.sampling}
                 tools={[
                   { id: 'cpu', label: 'CPU', icon: Cpu, onClick: () => openService('hardware-cpu'), disabled: !snapshot },

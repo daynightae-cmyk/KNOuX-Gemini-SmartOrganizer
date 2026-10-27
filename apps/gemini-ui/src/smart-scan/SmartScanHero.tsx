@@ -9,12 +9,14 @@ import React from 'react';
 import {
   Activity,
   Ban,
+  Boxes,
   CheckCircle2,
   FolderCheck,
   FolderPlus,
   Loader2,
   Lock,
   RefreshCw,
+  Rocket,
   Search,
   ShieldCheck,
   Target,
@@ -41,7 +43,8 @@ export interface SmartScanHeroProps {
   onRunQuick: () => void;
   onRunDeep: () => void;
   onCancel: () => void;
-  onOpenService?: (kind: 'privacy' | 'system-health') => void;
+  /** Opens a measured scan service workbench. Omit to hide workbench satellites. */
+  onOpenService?: (serviceId: string) => void;
 }
 
 export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
@@ -65,11 +68,11 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
   const sourceReady = Boolean(selectedSource && selectedSource.status === 'ready' && selectedSource.fileCount > 0);
 
   return (
-    <div data-testid="scan-hero" className="scan-hero shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-3.5 sm:p-4 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+    <div data-testid="scan-hero" className="scan-hero shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-3.5 sm:p-4 shadow-[0_0_25px_rgba(14,165,233,0.22)] grid grid-cols-1 gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(300px,400px)] xl:items-start">
       <div className="absolute -top-10 -right-10 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
       <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="z-10 flex items-center gap-3.5 min-w-0">
+      <div className="z-10 flex items-center gap-3.5 min-w-0 xl:col-start-1 xl:row-start-1 xl:self-center">
         <div className="relative w-11 h-11 rounded-xl bg-gradient-to-tr from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_18px_rgba(56,189,248,0.6)] border border-cyan-300/60 shrink-0">
           <Target className="w-5 h-5 text-white" />
           <span className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-[#061833] ${isScanning ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`} />
@@ -126,11 +129,12 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
       <OrbitalControl title={isArabic ? 'بدء الفحص الذكي' : 'Start Smart Scan'} subtitle={isArabic ? 'تحليل آمن للقراءة فقط' : 'Safe, read-only analysis'}
         onActivate={sourceReady ? onRunQuick : onAuthorizeSource} disabled={!nativeAvailable || isScanning} running={isScanning}
         tools={[
-          { id: 'quick', label: isArabic ? 'سريع' : 'Quick', icon: Zap, onClick: onRunQuick, disabled: !nativeAvailable || !sourceReady || isScanning },
-          { id: 'deep', label: isArabic ? 'عميق' : 'Deep', icon: Search, onClick: onRunDeep, disabled: !nativeAvailable || !sourceReady || isScanning },
-          { id: 'privacy', label: isArabic ? 'الخصوصية' : 'Privacy', icon: ShieldCheck, onClick: () => onOpenService?.('privacy'), disabled: !onOpenService },
-          { id: 'health', label: isArabic ? 'صحة النظام' : 'System Health', icon: Activity, onClick: () => onOpenService?.('system-health'), disabled: !onOpenService },
-          { id: 'source', label: isArabic ? 'المصدر' : 'Source', icon: FolderPlus, onClick: onAuthorizeSource, disabled: !nativeAvailable || isScanning },
+            { id: 'quick', label: isArabic ? 'فحص سريع' : 'Quick Scan', icon: Zap, onClick: onRunQuick, disabled: !nativeAvailable || !sourceReady || isScanning, hint: isArabic ? 'يكتب خطة قياس للقراءة فقط' : 'Measured read-only plan' },
+            { id: 'deep', label: isArabic ? 'فحص عميق' : 'Deep Scan', icon: Search, onClick: onRunDeep, disabled: !nativeAvailable || !sourceReady || isScanning, hint: isArabic ? 'مسح موسّع للقراءة فقط' : 'Extended read-only sweep' },
+            { id: 'startup', label: isArabic ? 'بدء التشغيل' : 'Startup', icon: Rocket, onClick: () => onOpenService?.('startup_impact_check'), disabled: !onOpenService, hint: isArabic ? 'أثر برامج البدء' : 'Startup impact evidence' },
+            { id: 'health', label: isArabic ? 'صحة النظام' : 'System Health', icon: Activity, onClick: () => onOpenService?.('system_health_pulse'), disabled: !onOpenService, hint: isArabic ? 'نبض النظام المقيس' : 'Measured health pulse' },
+            { id: 'apps', label: isArabic ? 'التطبيقات' : 'Applications', icon: Boxes, onClick: () => onOpenService?.('app_health_review'), disabled: !onOpenService, hint: isArabic ? 'صحة التطبيقات' : 'Application health' },
+            { id: 'privacy', label: isArabic ? 'الخصوصية' : 'Privacy', icon: ShieldCheck, onClick: () => onOpenService?.('privacy_trace_check'), disabled: !onOpenService, hint: isArabic ? 'آثار الخصوصية' : 'Privacy traces' },
         ]} />
     </div>
   );

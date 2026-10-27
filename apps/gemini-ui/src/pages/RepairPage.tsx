@@ -302,13 +302,15 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </div>
 
               <OrbitalControl title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
+                eyebrow={t(locale, 'Repair scopes', 'نطاقات الإصلاح')}
                 onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
                 tools={[
-                  { id: 'component', label: 'DISM', icon: HardDrive, onClick: () => setSelectedToolId('repair-component-scan') },
-                  { id: 'files', label: 'SFC', icon: FileText, onClick: () => setSelectedToolId('repair-files-verify') },
-                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Globe2, onClick: () => setSelectedToolId('repair-dns-flush') },
-                  { id: 'restore', label: t(locale, 'Restore', 'الاستعادة'), icon: ShieldCheck, onClick: () => setSelectedToolId('repair-restore-point') },
-                  { id: 'history', label: t(locale, 'Journal', 'السجل'), icon: History, disabled: !snapshot, onClick: () => openWorkbench('repair-history') },
+                  { id: 'files', label: 'SFC', icon: FileText, onClick: () => setSelectedToolId('repair-files-verify'), hint: t(locale, 'Verify system files · preview only', 'تحقق من ملفات النظام · معاينة فقط') },
+                  { id: 'component', label: 'DISM Scan', icon: HardDrive, onClick: () => setSelectedToolId('repair-component-scan'), hint: t(locale, 'Component store scan · preview only', 'فحص مخزن المكونات · معاينة فقط') },
+                  { id: 'component-restore', label: 'DISM Restore', icon: Layers, onClick: () => setSelectedToolId('repair-component-restore'), hint: t(locale, 'Restore health · requires approval', 'استعادة الصحة · تتطلب موافقة') },
+                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Globe2, onClick: () => setSelectedToolId('repair-dns-flush'), hint: t(locale, 'DNS flush · preview only', 'تفريغ DNS · معاينة فقط') },
+                  { id: 'restore', label: t(locale, 'Restore Point', 'نقطة استعادة'), icon: ShieldCheck, onClick: () => setSelectedToolId('repair-restore-point'), hint: t(locale, 'Restore points · never created here', 'نقاط الاستعادة · لا تُنشأ هنا') },
+                  { id: 'history', label: t(locale, 'Repair Logs', 'سجلات الإصلاح'), icon: History, disabled: !snapshot, onClick: () => openWorkbench('repair-history'), hint: t(locale, 'Immutable repair journal', 'سجل إصلاح ثابت') },
                 ]} />
               <aside className="sys-source-card rep-source-card" data-testid="repair-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>

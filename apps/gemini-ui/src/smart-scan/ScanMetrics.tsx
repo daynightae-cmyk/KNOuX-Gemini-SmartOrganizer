@@ -89,7 +89,7 @@ export const ScanMetrics: React.FC<ScanMetricsProps> = ({ metrics, isArabic = fa
             <div data-testid={`scan-kpi-${metric.id}-value`} className={`text-xl font-black font-mono tracking-tight ${tone.value}`}>{metric.value}</div>
 
             <div className="flex items-center justify-between text-[10px] mt-1 font-medium gap-1">
-              <span className={`scan-metric-sub truncate ${tone.sub}`}>{isArabic ? metric.subtextAr : metric.subtextEn}</span>
+              <span className={`scan-metric-sub leading-tight ${tone.sub}`} title={isArabic ? metric.subtextAr : metric.subtextEn}>{isArabic ? metric.subtextAr : metric.subtextEn}</span>
               <span className={`px-1 py-0.2 rounded border text-[8px] font-mono shrink-0 ${badge.tone}`}>
                 {badge.label}
               </span>

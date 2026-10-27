@@ -6,8 +6,19 @@
 .visual-sprint[data-visual-section='repair'] .rep-tool-icon { grid-column:1; width:36px; height:36px; border-radius:12px; }.visual-sprint[data-visual-section='repair'] .rep-tool-icon svg { width:20px; height:20px; }
 .visual-sprint[data-visual-section='repair'] .rep-tool-copy { grid-column:2; overflow:visible; }.visual-sprint[data-visual-section='repair'] .rep-tool-copy strong { font-size:14px; white-space:normal; overflow:visible; }.visual-sprint[data-visual-section='repair'] .rep-tool-copy em { font-size:12px; white-space:normal; overflow-wrap:anywhere; }
 .visual-sprint[data-visual-section='repair'] .rep-tool-badges { grid-column:1/-1; gap:6px; }
-.visual-sprint[data-visual-section='repair'] :is(.rep-panel-head h2,.rep-brief-head h2) { font-size:18px; }.visual-sprint[data-visual-section='repair'] :is(.rep-panel-head p,.rep-brief-head p,.rep-brief-block h3,.rep-brief .rep-guided-step strong) { font-size:14px; line-height:1.5; }
-.visual-sprint[data-visual-section='repair'] :is(.rep-brief .rep-guided-step em,.rep-brief .rep-prereq em,.rep-kpi em,.rep-history-row,.rep-history-head) { font-size:12px; line-height:1.5; }.visual-sprint[data-visual-section='repair'] .rep-kpi strong { font-size:23px; white-space:normal; }.visual-sprint[data-visual-section='repair'] .rep-kpi-head { font-size:14px; }
-.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step { min-height:60px; padding:12px; }.visual-sprint[data-visual-section='repair'] .rep-command { font-size:12px; padding:14px; overflow:auto; }
+.visual-sprint[data-visual-section='repair'] :is(.rep-panel-head h2,.rep-brief-head h2) { font-size:18px; }.visual-sprint[data-visual-section='repair'] :is(.rep-panel-head p,.rep-brief-head p,.rep-brief-block h3) { font-size:14px; line-height:1.5; }
+.visual-sprint[data-visual-section='repair'] :is(.rep-brief .rep-prereq em,.rep-kpi em,.rep-history-row,.rep-history-head) { font-size:12px; line-height:1.5; }.visual-sprint[data-visual-section='repair'] .rep-kpi strong { font-size:23px; white-space:normal; }.visual-sprint[data-visual-section='repair'] .rep-kpi-head { font-size:14px; }
+.visual-sprint[data-visual-section='repair'] .rep-command { font-size:12px; padding:14px; overflow:auto; }
+/* Recovery playbook — the inspector column is ~320px wide, so the seven
+   stages read as a vertical numbered checklist. A seven-column strip at this
+   width produced overlapping labels. */
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided { display:flex; flex-direction:column; gap:0; padding:0; margin:0; list-style:none; }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step { display:grid; grid-template-columns:24px minmax(0,1fr); align-items:start; gap:10px; min-height:0; padding:9px 4px; border:0; border-bottom:1px solid var(--sys-line); border-radius:0; background:transparent; text-align:start; }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step:last-child { border-bottom:0; }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step.is-active { padding-inline:10px; border-radius:9px; background:var(--v-accent-soft, rgba(109,74,255,.10)); }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-index { width:24px; height:24px; font-size:10.5px; background:var(--v-panel-soft, var(--sys-surface-2)); }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step > div { display:block; min-width:0; text-align:start; }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step strong { display:block; font-size:12.5px; line-height:1.35; white-space:normal; overflow:visible; text-overflow:clip; color:var(--sys-ink); }
+.visual-sprint[data-visual-section='repair'] .rep-brief .rep-guided-step em { display:block; margin-top:2px; font-size:11px; line-height:1.4; font-style:normal; white-space:normal; color:var(--sys-muted); }
 @media(max-width:1200px) { .visual-sprint[data-visual-section='repair'] .rep-tool-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:1050px) { .visual-sprint[data-visual-section='repair'] .rep-workspace-grid { grid-template-columns:1fr; } }
