@@ -1,3 +1,4 @@
+import { OrganizationLiveWorkbench } from './operations/OrganizationLiveWorkbench';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -139,6 +140,7 @@ function AppContent() {
   return (
     <>
       <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['home', 'automation', 'studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair', 'services'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+      <OrganizationLiveWorkbench />
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

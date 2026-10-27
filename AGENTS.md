@@ -1,3 +1,6 @@
+# LIVE ORGANIZATION — OWNER-AUTHORIZED ISOLATION (2026-10-27)
+This checkout alone is authorized for functional Mission 16 delivery at `.worktrees/live-organization`, branch `codex/live-organization-20261027`, based on reviewed visual evidence `d96dcf9`. This supersedes historical branch/worktree restrictions below only for this exact checkout. Run its fail-closed verifier before source work. Preserve all other worktrees and the approved Files/Studio/Intro composition. Controlled disposable-fixture mutations are authorized; owner file/OS/account effects still require independent runtime consent. No main merge, production deployment or push is authorized by this mission.
+
 # VISUAL-OWNER-REBUILD — EXPLICIT ISOLATED WORKTREE EXCEPTION (2026-10-27)
 
 This checkout is the owner-authorized visual redesign worktree at

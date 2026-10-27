@@ -314,6 +314,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   // Aggregate selected files info
   const selectedCount = checkedFileIds.size;
+  const openLiveOrganization = () => window.dispatchEvent(new CustomEvent('knoux:live-organization', {detail: measured && filesNative.source ? {path:filesNative.source.path,relativeFiles:sourceFiles.filter(f=>checkedFileIds.has(f.id)&&f.nativeRelative).map(f=>f.nativeRelative)} : undefined}));
   const selectedSizeFormatted =
     selectedCount === 1
       ? sourceFiles.find((f) => checkedFileIds.has(f.id))?.sizeFormatted || '0 B'
@@ -1313,7 +1314,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                       key={serv.key}
                       data-service-key={serv.key}
                       data-testid={`files-service-${serv.key}`}
-                      onClick={() => setActiveService(serv.key)}
+                      onClick={() => ['file-organize-preview','file-organize-apply','file-organize-undo'].includes(serv.key) ? openLiveOrganization() : setActiveService(serv.key)}
                       className="p-1.5 rounded-lg bg-[#091a33] hover:bg-[#122e57] text-cyan-300 hover:text-white border border-[#142e56] hover:border-[#2476ff]/60 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group"
                       title={serv.labelEn}
                     >
@@ -1390,6 +1391,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               )}
             </div>
 
+            {/* Opt-in native live workflow; the approved overview stays intact. */}
+            <button data-testid="files-live-organization" className="knx-files-primary" onClick={openLiveOrganization}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
             {/* Right Action Button */}
             <button
               data-testid="files-plan-cta"

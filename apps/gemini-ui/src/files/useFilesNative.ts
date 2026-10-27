@@ -92,6 +92,7 @@ function mapRow(
   return {
     id: `native-${row.id}`,
     nativeFileId: row.id,
+    nativeRelative: row.relative,
     name: row.name,
     parentFolder,
     type: ext ? `${ext} File` : 'File',
@@ -342,7 +343,7 @@ export function useFilesNative() {
       }
       if (event.type === 'scan-failed') setError(event.message || 'The source could not be indexed.');
     });
-    void (async () => {
+    const refreshLiveInventory = () => { void (async () => {
       const listed = await listFilesSources();
       if (!active) return;
       if (listed?.status === 'complete' && Array.isArray(listed.data)) {
@@ -356,10 +357,13 @@ export function useFilesNative() {
       } else {
         setActiveSource(null);
       }
-    })();
+    })().catch(error => console.error(error)); };
+    refreshLiveInventory();
+    window.addEventListener('knoux:organization-updated', refreshLiveInventory);
     return () => {
       active = false;
       unsubscribe();
+      window.removeEventListener('knoux:organization-updated', refreshLiveInventory);
       if (queryTimer.current !== null) window.clearTimeout(queryTimer.current);
     };
   }, [applyReadySource, setActiveSource]);

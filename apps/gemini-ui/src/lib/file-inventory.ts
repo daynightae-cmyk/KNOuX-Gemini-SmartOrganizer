@@ -37,6 +37,7 @@ export interface FileResultItem {
   author?: string;
   provenance?: string;
   nativeFileId?: number;
+  nativeRelative?: string;
 }
 
 export interface FileDistributionStat {

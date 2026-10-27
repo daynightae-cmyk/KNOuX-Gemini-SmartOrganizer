@@ -93,6 +93,21 @@ async function hashHandle(handle, expectedBytes, signal) {
   return { hash: hash.digest('hex'), bytes: position };
 }
 
+async function hashBoundFile(target, expectedIdentity) {
+  const plain = await safety.assertPlainEntry(target);
+  if (!plain.ok) throw studioError('STUDIO_PATH_UNSAFE', 'Content verification refused a linked or unavailable file.');
+  const handle = await fsp.open(target, 'r');
+  try {
+    const before = await handle.stat();
+    const identity = winMeta.identitySnapshot(before);
+    if (!before.isFile() || before.nlink > 1 || !expectedIdentity?.fileIdentity || identity.fileIdentity !== expectedIdentity.fileIdentity) throw studioError('STUDIO_PLAN_STALE', 'The opened file no longer matches its authorized identity.');
+    const result = await hashHandle(handle, Number(before.size));
+    const after = await handle.stat();
+    if (result.bytes !== Number(before.size) || before.size !== after.size || before.mtimeMs !== after.mtimeMs) throw studioError('STUDIO_PLAN_STALE', 'The file changed during content verification.');
+    return result.hash;
+  } finally { await handle.close(); }
+}
+
 async function copyExclusive(source, destination, { expectedSize, expectedIdentity = null, verifyHash, signal, onChunk = () => {} }) {
   let sourceHandle;
   let destinationHandle;
@@ -369,6 +384,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       createdAt: operation.createdAt,
       updatedAt: operation.updatedAt,
       planId: operation.planId,
+      planHash: operation.planHash,
       destinationSummary: operation.destinationSummary || null,
       sourceRoots: operation.sourceRoots || [],
       totalFiles: operation.totalFiles || 0,
@@ -393,6 +409,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
         size: entry.size,
         state: entry.state,
         verification: entry.verification || null,
+        hash: entry.hash || null,
         error: entry.error || null,
         undo: entry.undo ? { state: entry.undo.state, at: entry.undo.at || null, error: entry.undo.error || null } : null
       }))
@@ -561,6 +578,13 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       totalBytes += file.size;
 
       const index = publicFiles.length;
+      let sourceHash;
+      if (request.bindContent === true && operation !== 'virtual') {
+        await safety.resolveWithinRoot(inventory.root, path.dirname(file.relative), {create:false,label:'Source'});
+        const plain = await safety.assertPlainEntry(sourceAbsolute);
+        if (!plain.ok || plain.record.identity?.fileIdentity !== file.identity?.fileIdentity) throw studioError('STUDIO_PLAN_STALE', 'An indexed file changed before content review.');
+        sourceHash = await hashBoundFile(sourceAbsolute, file.identity);
+      }
       publicFiles.push({
         index,
         inventoryId: inventory.id,
@@ -572,6 +596,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
         size: file.size,
         ext: file.ext || extOf(file.name),
         modifiedAt: file.modifiedAt,
+        ...(sourceHash ? {sourceHash} : {}),
         targetName,
         targetPath: targetAbsolute,
         targetRelative,
@@ -590,6 +615,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
           sourceRelative: file.relative,
           sourceAbsolute,
           sourceIdentity: file.identity,
+          sourceHash,
           sourceModifiedAt: file.modifiedAt,
           targetRoot: base.root,
           targetAbsolute,
@@ -734,6 +760,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
     if (Math.abs(Number(identity.modifiedMs) - Number(before.modifiedMs)) > 0.001) throw studioError('STUDIO_PLAN_STALE', `${op.name} was modified after the plan was reviewed.`);
     const real = await fsp.realpath(op.sourceAbsolute);
     if (!safety.isInside(op.sourceRoot, real)) throw studioError('STUDIO_SOURCE_ESCAPE', `${op.name} resolves outside the indexed folder.`);
+    if (op.sourceHash && await hashBoundFile(op.sourceAbsolute, op.sourceIdentity) !== op.sourceHash) throw studioError('STUDIO_PLAN_STALE', `${op.name} content changed after approval.`);
     return stats;
   }
 
@@ -840,6 +867,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
         if (!grant || grantRoot !== destination.root || grant.identity?.fileIdentity !== record.rootIdentities.find(item => item.root === destination.root)?.identity?.fileIdentity) throw studioError('STUDIO_PLAN_STALE', 'A destination grant changed.');
       }
       if (abort.signal.aborted) throw studioError('STUDIO_CANCELLED', 'Cancelled before mutation.');
+      for (const op of record.internalOperations) if (op.sourceHash) await verifySourceForOperation(op);
       if (plan.operation === 'virtual') {
         // A virtual grouping is recorded in the journal, never on disk. It is a
         // durable workspace collection with no move, copy or link on the source.
@@ -985,6 +1013,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
               });
             }
           });
+          if (op.sourceHash && copy.copiedHash !== op.sourceHash) throw studioError('STUDIO_PLAN_STALE', 'Content changed during the copy; the original was retained.');
           bytesDone += copy.bytes;
           await journal.update(operation.id, (stored) => {
             const current = stored.entries.find((item) => item.index === op.index);
@@ -1227,6 +1256,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       const target = await safety.assertSafeRoute(entry.targetAbsolute);
       if (!target.regular || !entry.targetIdentity?.fileIdentity || target.identity?.fileIdentity !== entry.targetIdentity.fileIdentity || target.size !== entry.size || Math.abs(target.modifiedMs - entry.targetIdentity.modifiedMs) > 0.001) return { ...result, reason: 'The moved destination was replaced or modified.' };
       if (entry.verification !== 'sha256' || !entry.hash) return { ...result, reason: 'There is no full content-verification record.' };
+      if (await hashBoundFile(entry.targetAbsolute, entry.targetIdentity) !== entry.hash) return { ...result, reason: 'The moved destination content changed.' };
       const occupied = await safety.lstatOrNull(entry.sourceAbsolute);
       if (entry.state === 'delete-intent' && occupied) return { ...result, reason: 'The interrupted deletion is ambiguous; the original path is occupied.' };
       if (occupied) return { ...result, eligible: true, conflict: true, reason: 'A file now occupies the original path.', restoreName: await safety.uniqueChildName(path.dirname(entry.sourceAbsolute), entry.name) };
@@ -1347,6 +1377,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
             verifyHash: current.verification === 'sha256',
             signal: abort.signal
           });
+          if (copy.copiedHash !== current.hash) throw studioError('STUDIO_UNDO_STALE', 'The moved file changed while restoring; both copies were retained.');
           try {
             await deleteVerifiedEntry({
               absolute: current.targetAbsolute,

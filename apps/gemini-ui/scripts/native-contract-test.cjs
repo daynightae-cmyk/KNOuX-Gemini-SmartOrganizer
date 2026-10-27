@@ -47,11 +47,16 @@ assert(contract.channels.studioEvent === 'knoux:studio:v1:event', 'studio event 
 assert(contract.channels.scanEvent === 'knoux:scan:v1:event', 'scan event channel is fixed');
 const eventSubscriptions = preload.match(/ipcRenderer\.on\(/g) || [];
 assert(
-  eventSubscriptions.length === 2
+  eventSubscriptions.length === 3
     && preload.includes('ipcRenderer.on(CHANNELS.studioEvent')
-    && preload.includes('ipcRenderer.on(CHANNELS.scanEvent'),
-  'only the fixed Studio and Scan event channels are subscribed'
+    && preload.includes('ipcRenderer.on(CHANNELS.scanEvent')
+    && preload.includes("ipcRenderer.on('knoux:operations:v1:event'"),
+  'only fixed Studio, Scan and Operations event channels are subscribed'
 );
+const operationChannels=require('../electron/native/operation-ipc.cjs').CHANNELS;
+for(const [method,channel] of Object.entries(operationChannels)) assert(preload.includes(channel),`fixed operation channel ${method} is mirrored in preload`);
+assert(read('electron/native/operation-ipc.cjs').includes('assertSender(event)'), 'operation endpoints validate sender before bridge access');
+assert(!preload.includes("ipcRenderer.invoke('knoux:operations:v1:event'"), 'operation events are receive-only');
 const shellBlock = preload.slice(preload.indexOf("'knouxShell'"), preload.indexOf("'knouxStudioV1'"));
 assert(!shellBlock.includes('onEvent') && !shellBlock.includes('ipcRenderer.on'), 'platform v1 exposes no event stream');
 assert(!preload.includes('ipcRenderer.invoke(CHANNELS.studioEvent'), 'studio events are receive-only');

@@ -286,7 +286,7 @@ class StudioBridge {
     }
   }
 
-  async scanSource(sourceId) {
+  async scanSource(sourceId, { onFile = () => {} } = {}) {
     await this.init();
     const id = safeId(sourceId);
     const source = this.sources.find((entry) => entry.id === id);
@@ -300,6 +300,7 @@ class StudioBridge {
     const startedAt = nowIso();
     try {
       const result = await inventory.scanFolder(root, {
+        onFile,
         signal: controller.signal,
         maxFiles: MAX_FILES,
         maxDepth: MAX_DEPTH,

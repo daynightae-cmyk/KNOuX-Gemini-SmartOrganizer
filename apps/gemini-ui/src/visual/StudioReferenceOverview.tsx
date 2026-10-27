@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
+import type {OperationReceipt} from '../../shared/operation-contract';
 import { ArrowRight, Archive, Box, Check, ChevronRight, CircleHelp, Clock3, FileText, Folder, FolderOpen, History, Image, Layers3, ListChecks, Music, Plus, Rocket, ScanEye, ShieldCheck, SlidersHorizontal, Sparkles, Video, Workflow } from 'lucide-react';
 import { useStudio } from '../studio/context';
 import { renderCategoryIcon } from '../studio/parts';
@@ -8,6 +9,8 @@ import { OrbitalControl } from './OrbitalControl';
 
 export function StudioReferenceOverview({ onOpen }: { onOpen: (id: StudioStageId) => void }) {
   const s = useStudio();
+  const [operationReceipts,setOperationReceipts]=useState<OperationReceipt[]>([]);
+  useEffect(()=>{let active=true;const refresh=()=>void window.knouxOperationsV1?.history().then(result=>{if(active&&result.data)setOperationReceipts(result.data);});refresh();window.addEventListener('knoux:organization-updated',refresh);return()=>{active=false;window.removeEventListener('knoux:organization-updated',refresh);};},[]);
   const ar = s.locale === 'ar';
   const t = (en: string, arabic: string) => ar ? arabic : en;
   const categories = ['document','image','video','audio','application','archive'].map(key => s.categories.find(c => c.key === key)).filter(Boolean);
@@ -25,6 +28,7 @@ export function StudioReferenceOverview({ onOpen }: { onOpen: (id: StudioStageId
           <span className="knx-ref-section-tag"><LayoutIcon />{t('ORGANIZATION STUDIO','استوديو التنظيم')}</span>
           <h1>{t('Organize with Clarity.','نظّم عالمك بوضوح.')}</h1>
           <p>{t('Thoughtful organization starts here. Bring your files together, find the right structure, and preview every change.','ابدأ تنظيمًا مدروسًا. اجمع ملفاتك، واختر هيكلها المناسب، وراجع كل تغيير.')}</p>
+          <button className="knx-ref-pill" data-testid="studio-live-organization" onClick={()=>window.dispatchEvent(new Event('knoux:live-organization'))}>{t('Live organization · approve & undo','تنظيم حي · اعتماد وتراجع')}</button>
           <div className="knx-ref-values"><span><Sparkles/>{t('Understand','افهم')}<small>{t('Your Content','محتواك')}</small></span><span><Workflow/>{t('Smart','تصنيف')}<small>{t('Categorization','ذكي')}</small></span><span><ShieldCheck/>{t('Preview','المعاينة')}<small>{t('Before Changes','قبل التغيير')}</small></span></div>
         </header>
         <section className="knx-ref-card knx-ref-sources">
@@ -80,12 +84,12 @@ export function StudioReferenceOverview({ onOpen }: { onOpen: (id: StudioStageId
           <div className="knx-ref-destination-tree">{categories.map((category,i) => category && <button key={category.key} onClick={() => onOpen(5)}><span className={`knx-ref-folder tone-${i}`}><Folder fill="currentColor"/></span><strong>{ar ? category.labelAr : category.labelEn}</strong><span>{category.fileCount.toLocaleString()}</span><ChevronRight/></button>)}</div>
           <div className="knx-ref-safe-pair"><div><ShieldCheck/><strong>{t('Read-only','قراءة فقط')}</strong><small>{t('No file changes from analysis','التحليل لا يغيّر ملفاتك')}</small></div><div><ScanEye/><strong>{t('Preview First','المعاينة أولاً')}</strong><small>{t('Review each planned change','راجع كل تغيير مقترح')}</small></div></div>
           <button className="knx-ref-primary" onClick={() => onOpen(6)}>{t('Build Organization Plan','بناء خطة التنظيم')}<span><ArrowRight/></span></button>
-          <p className="knx-ref-plan-note">{t('Preview only. File execution and undo are unavailable in this build.','معاينة فقط. تنفيذ تغييرات الملفات والتراجع غير متاحين في هذا البناء.')}</p>
+          <p className="knx-ref-plan-note">{window.knouxOperationsV1?t('Live organization supports exact approval, native receipts and verified move undo.','التنظيم الحي يدعم الموافقة الدقيقة وإيصالات Native والتراجع المتحقق من النقل.'):t('PROVIDER UNAVAILABLE · open Electron for approved execution.','المزوّد غير متاح · افتح Electron للتنفيذ بموافقة.')}</p>
         </section>
         <section className="knx-ref-card knx-ref-recent"><div className="knx-ref-card-head"><h2><FileText/>{t('Recent Plans','الخطط الأخيرة')}</h2><button onClick={() => onOpen(8)}>{t('View All','عرض الكل')}<ChevronRight/></button></div>
           {s.native.previewHistory.length ? <button className="knx-ref-history-row" onClick={() => onOpen(8)}><FileText/><span><strong>{t('Saved preview receipts','إيصالات المعاينة المحفوظة')}</strong><small>{s.native.previewHistory.length} {t('previews · no execution','معاينة · دون تنفيذ')}</small></span><ChevronRight/></button> : <div className="knx-ref-empty"><ListChecks/><strong>{t('Your next plan starts here','خطتك التالية تبدأ هنا')}</strong><small>{t('Reviewed previews will appear here.','ستظهر المعاينات المحفوظة هنا.')}</small></div>}
         </section>
-        <section className="knx-ref-card knx-ref-history"><div className="knx-ref-card-head"><h2><History/>{t('History & Undo','السجل والتراجع')}</h2><button onClick={() => onOpen(8)}><ChevronRight/></button></div><div className="knx-ref-empty"><Clock3/><strong>{t('No executed operations','لا توجد عمليات منفذة')}</strong><small>{t('Nothing has been moved or deleted.','لم يُنقل أو يُحذف أي ملف.')}</small></div></section>
+        <section className="knx-ref-card knx-ref-history"><div className="knx-ref-card-head"><h2><History/>{t('History & Undo','السجل والتراجع')}</h2><button onClick={() => onOpen(8)}><ChevronRight/></button></div>{operationReceipts.length?<button className="knx-ref-history-row" onClick={()=>window.dispatchEvent(new Event('knoux:live-organization'))}><History/><span><strong>{operationReceipts.length} {t('native receipts','إيصال Native')}</strong><small>{operationReceipts[0].completedFiles} {t('verified','متحقق')} · {operationReceipts[0].undoCompletedFiles} {t('restored','مستعاد')}</small></span><ChevronRight/></button>:<div className="knx-ref-empty"><Clock3/><strong>{t('No recorded native operations','لا توجد عمليات Native مسجلة')}</strong><small>{t('Verified operation receipts appear here.','تظهر هنا إيصالات العمليات المتحقق منها.')}</small></div>}</section>
       </aside>
     </div>
   </div>;
