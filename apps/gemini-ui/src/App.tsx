@@ -39,6 +39,7 @@ import './automation.css';
 import './home-command-center.css';
 // Light-workstation palette bridge must load after every page stylesheet.
 import './theme-light.css';
+import './visual/visual-sprint.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';
@@ -110,7 +111,7 @@ function AppContent() {
 
   return (
     <>
-      {renderActiveWorkspace()}
+      <div className="visual-sprint" data-visual-section={currentSection}>{renderActiveWorkspace()}</div>
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

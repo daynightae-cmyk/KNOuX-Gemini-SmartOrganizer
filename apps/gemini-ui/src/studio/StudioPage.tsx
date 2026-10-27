@@ -17,6 +17,9 @@ import {
 import { StudioModals } from './modals';
 import { StudioCommandCenter } from './StudioCommandCenter';
 import { NativeStudioBanner } from './NativeStudioBanner';
+import { StudioVisualHeader } from '../visual/StudioVisualHeader';
+import { KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
+import { useNavigation } from '../context/NavigationContext';
 
 // Workspaces for each of the 9 stages
 import { SourceGrantWorkspace } from './workspaces/SourceGrantWorkspace';
@@ -32,7 +35,8 @@ import { StudioStageContextPanel } from './StudioStageContextPanel';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 
 export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => void }) {
-  const { activeStageId, locale, stages, authorizedSources, selectedFileIds } = useStudio();
+  const { activeStageId, locale, setLocale, stages, authorizedSources, selectedFileIds } = useStudio();
+  const navigation = useNavigation();
   const [dpiScale, setDpiScale] = useState<'100%' | '125%' | '150%'>('100%');
   const [stageWorkbenchMode, setStageWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.studio.workbench.mode') === 'side' ? 'side' : 'expanded'; } catch { return 'expanded'; }
@@ -100,7 +104,9 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
       <StudioModals />
 
       {/* 00 — Thin Windows Title Bar */}
-      <WindowsTitleBar />
+      <KNOuXTitleBar sectionName={locale === 'ar' ? 'استوديو التنظيم' : 'Organization Studio'} isArabic={locale === 'ar'}
+        onToggleArabic={() => { const next = locale === 'ar' ? 'en' : 'ar'; setLocale(next); navigation.setLocale(next); }}
+        onNavigateHome={() => navigation.navigateTo('home')} />
 
       {/* Main App Container */}
       <div className={`flex flex-1 min-h-0 overflow-hidden ${scaleClass}`}>
@@ -112,7 +118,7 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
           {/* Top Atmospheric Header Area */}
           <div className="shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] pb-1">
             {/* 01 — Cinematic Planet Header */}
-            <CinematicHeader />
+            <StudioVisualHeader />
 
             {/* 02 — Authorization Telemetry Strip + provenance boundary */}
             <TelemetryStrip />
@@ -147,7 +153,7 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
             </div>
           ) : (
             <div className="flex-1 flex flex-col min-h-0 overflow-hidden relative">
-              <div className="absolute end-4 top-2 z-20">
+              <div className="flex justify-end px-6 pt-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => setStageWorkbenchMode('side')}
