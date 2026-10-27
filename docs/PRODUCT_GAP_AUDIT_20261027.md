@@ -7,7 +7,7 @@ Purpose: a single honest inventory of what is implemented, what is only measured
 
 ## 1. Baseline
 
-Before this increment, `main` was at `86cf321` (merge of the verified Scan/Applications work, identical tree to `87ae9a8`). The current uncommitted increment adds:
+Before this increment, `main` was at `86cf321` (merge of the verified Scan/Applications work, identical tree to `87ae9a8`). This increment is committed at `35e2071` with the root-test CI fix `81bb49d`, merged into `main` at `37caf3a` (identical tree), and CI run `40441496894` is SUCCESS. It adds:
 
 - Cleanup 12/12 and Startup 12/12 workbenches on `ServiceWorkbenchHost`.
 - Main-process Google desktop OAuth + DPAPI-backed grant storage + bounded read-only Sheets.
@@ -15,7 +15,7 @@ Before this increment, `main` was at `86cf321` (merge of the verified Scan/Appli
 - A navigation hash-listener fix that removes stale-closure route reversions.
 - Expanded offline tests and smoke probes.
 
-The final development Electron pass is green. Packaged smoke, commit/CI and main integration are the remaining release steps for this increment.
+The final development Electron pass is green; commit/CI/main integration are complete. Packaged smoke for this increment remains the only pending release gate.
 
 ## 2. Domain status (product functionality, not visual approval)
 
@@ -63,7 +63,7 @@ Still using older modal/inline sheets: System (36), Repair (12), Services (12), 
 - The last completed dev smoke before this audit was green for system/repair/services/automation/workspace/settings/home and all workbench probes except Applications initial readiness; Applications data loaded later (1366 layout green), indicating a harness wait/output issue rather than a bridge failure. Wait windows were extended.
 - Final development Electron smoke after the navigation and wait fixes: PASS on every check, including all 14 domains, Google status, workspace states, 12 workbench probes, screenshot and window control. The applications initial capture also loaded measured data.
 - Packaged smoke for this increment has not been run; the prior packaged pass covers the earlier Files/Studio/Storage/Scan/Applications increment only.
-- CI for this increment has not run at audit time.
+- CI run `40441496894` is SUCCESS; it runs lint/build and every static/native suite, not Electron smoke.
 - During one visible smoke capture, the test window was interactive and an external Google account connection appeared in the disposable smoke profile. No spreadsheet was selected or read. The smoke profile and its encrypted grant were deleted by the runner; no token file remains. Workspace screenshots containing the account email were deleted and are not committed. Input is now ignored during smoke capture and Google state is reset before each smoke.
 - CI/static suites pass: `test:native`, `test:google` (14 checks), `test:workspace`, `test:workbench` (12 checks), `test:navigation`, plus the established domain suites.
 - No live Google token, client JSON or PII is committed; the client JSON path is external and packaging excludes it.
