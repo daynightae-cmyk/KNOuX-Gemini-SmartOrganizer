@@ -37,6 +37,7 @@ import {
 import type { SystemCoverageStage, SystemMetrics } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
+import { OrbitalControl } from '../visual/OrbitalControl';
 import {
   SERVICE_CATALOG,
   WORLD_META,
@@ -471,7 +472,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
 
               <div className="sys-hero-copy">
                 <span className="sys-hero-eyebrow">{t(locale, 'SYSTEM OBSERVATORY · READ-ONLY', 'مرصد النظام · للقراءة فقط')}</span>
-                <h1>{t(locale, 'Live', 'النبض')} <span>{t(locale, 'Pulse', 'الحي')}</span></h1>
+                <h1>{t(locale, 'Feel your', 'راقب نبض')} <span>{t(locale, 'system live.', 'نظامك مباشرة.')}</span></h1>
                 <p>
                   {t(
                     locale,
@@ -537,6 +538,15 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
                 </div>
               </div>
 
+              <OrbitalControl title={t(locale, 'Run Health Pulse', 'قياس نبض النظام')} subtitle={t(locale, 'Real readings. Clear sources.', 'قراءات حقيقية. مصادر واضحة.')}
+                onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning || controller.sampling}
+                tools={[
+                  { id: 'cpu', label: 'CPU', icon: Cpu, onClick: () => openService('hardware-cpu'), disabled: !snapshot },
+                  { id: 'gpu', label: 'GPU', icon: Monitor, onClick: () => openService('hardware-gpu'), disabled: !snapshot },
+                  { id: 'memory', label: t(locale, 'Memory', 'الذاكرة'), icon: MemoryStick, onClick: () => openService('hardware-memory'), disabled: !snapshot },
+                  { id: 'disk', label: t(locale, 'Disk', 'القرص'), icon: HardDrive, onClick: () => openService('hardware-disks'), disabled: !snapshot },
+                  { id: 'events', label: t(locale, 'Events', 'الأحداث'), icon: Activity, onClick: () => openService('system-events'), disabled: !snapshot },
+                ]} />
               <aside className="sys-source-card" data-testid="system-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true">
                   <span />
