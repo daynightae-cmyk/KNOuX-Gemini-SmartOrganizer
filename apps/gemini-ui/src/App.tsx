@@ -54,12 +54,17 @@ import './visual/storage-reference.css';
 import './visual/cleanup-reference.css';
 import './visual/startup-reference.css';
 import './visual/system-reference.css';
-// Home's day/night material layer must resolve last: it re-maps the literal
-// dark utilities inside .knx-home-root only, after the global light bridge.
+import './visual/repair-reference.css';
+// Home's day/night material layer: re-maps the literal dark utilities inside
+// .knx-home-root only, so it must come after the global light bridge.
 import './visual/home-reference.css';
-// Restraint pass over the reference shells: restores the navy night identity
-// and lifts the stacked orbital glow. Materials only, no structural change.
+// Restraint pass over the reference shells: restores the navy night identity,
+// the rail and the System register. Materials only, no structural change, and
+// deliberately no .knx-orbit rules now that the engine owns that surface.
 import './visual/reference-restraint.css';
+// Orbital Service Engine is the single source of truth for every .knx-orbit
+// surface, so it loads last and nothing re-styles the dial behind its back.
+import './visual/orbital-engine.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';
@@ -131,7 +136,7 @@ function AppContent() {
 
   return (
     <>
-      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair'].includes(currentSection)}>{renderActiveWorkspace()}</div>
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

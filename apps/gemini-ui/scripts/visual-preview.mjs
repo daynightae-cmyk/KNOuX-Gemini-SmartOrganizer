@@ -62,15 +62,33 @@ try {
         };
       })(),
       // A panel only fails if real content is cut off. Decorative pseudo-elements
-      // are allowed to bleed past an overflow-hidden edge by design.
+      // are allowed to bleed past an overflow-hidden edge by design, and a host
+      // with no rendered area (display:contents, a collapsed or hidden variant)
+      // cannot clip anything a user can see.
       clippedPanels: [...document.querySelectorAll('section,[class*="rounded-xl"]')].filter(el => {
         const box = el.getBoundingClientRect();
         if (getComputedStyle(el).overflow === 'visible') return false;
+        if (box.width < 2 || box.height < 2) return false;
         return [...el.children].some(child => {
           const c = child.getBoundingClientRect();
           return c.height > 0 && c.bottom > box.bottom + 2;
         });
-      }).map(el => el.getAttribute('aria-label') || el.getAttribute('data-testid') || el.tagName).slice(0, 8),
+      }).map(el => el.getAttribute('aria-label') || el.getAttribute('data-testid') || `${el.tagName}.${(el.getAttribute('class') || '').slice(0, 40)}`),
+      // The orbital dial is the signature control, so its theme tokens are
+      // asserted rather than eyeballed: a night dial that silently keeps the
+      // daylight palette is the failure this catches.
+      orbit: (() => {
+        const el = document.querySelector('.knx-orbit');
+        if (!el) return null;
+        const core = document.querySelector('.knx-orbit-core');
+        const cs = getComputedStyle(el);
+        return {
+          ink: cs.getPropertyValue('--orbit-ink').trim(),
+          coreBg: core ? getComputedStyle(core).backgroundImage.slice(0, 60) : null,
+          satellites: document.querySelectorAll('.knx-orbit-tool').length,
+          disabledSatellites: [...document.querySelectorAll('.knx-orbit-tool')].filter(b => b.disabled).length,
+        };
+      })(),
       illustrationOverlapsSearch: (() => { const orbit = document.querySelector('.knx-files-orbit'); const field = document.querySelector('[data-testid="files-search"]'); return Boolean(orbit && field && orbit.getBoundingClientRect().bottom > field.getBoundingClientRect().top); })(),
       coveredFields: [...document.querySelectorAll('input,select,textarea')].filter(element => {
         if (!element.offsetParent || element.closest('details:not([open])')) return false;

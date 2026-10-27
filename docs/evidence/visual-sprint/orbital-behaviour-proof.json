@@ -1,0 +1,479 @@
+[
+  {
+    "section": "studio",
+    "orbit": true,
+    "satellites": 6,
+    "enabled": 6,
+    "disabled": 0,
+    "navigated": 5,
+    "inert": [],
+    "core": {
+      "disabled": false,
+      "label": "Build Organization PlanAnalyze · Organize · Preview",
+      "outcome": "ACTIVATED"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Sources",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 1,
+        "label": "Visual Library",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 2,
+        "label": "Execution",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 3,
+        "label": "Collections",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 4,
+        "label": "Plan Review",
+        "disabled": false,
+        "ariaCurrent": "step",
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 5,
+        "label": "Destinations",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "INDEX-STALE"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "files",
+    "orbit": true,
+    "satellites": 6,
+    "enabled": 5,
+    "disabled": 1,
+    "navigated": 4,
+    "inert": [],
+    "core": {
+      "disabled": false,
+      "label": "Search & OrganizeYour files, in focus",
+      "outcome": "ACTIVATED"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Find",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 1,
+        "label": "Images",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 2,
+        "label": "Organize",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 3,
+        "label": "Filters",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 4,
+        "label": "Sources (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 5,
+        "label": "Preview",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "INDEX-STALE"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "smart_scan",
+    "orbit": true,
+    "satellites": 3,
+    "enabled": 0,
+    "disabled": 3,
+    "navigated": 0,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Start Smart ScanSafe, read-only analysis",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Quick (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 1,
+        "label": "Deep (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 2,
+        "label": "Source (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "applications",
+    "orbit": true,
+    "satellites": 3,
+    "enabled": 0,
+    "disabled": 3,
+    "navigated": 0,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Analyze ApplicationsInventory · Inspect · Review",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Inventory (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 1,
+        "label": "Updates (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 2,
+        "label": "Export (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "storage",
+    "orbit": true,
+    "satellites": 3,
+    "enabled": 2,
+    "disabled": 1,
+    "navigated": 2,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Analyze StorageChoose a scope. See the detail.",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Volumes (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 1,
+        "label": "Treemap",
+        "disabled": false,
+        "ariaCurrent": "step",
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 2,
+        "label": "Large files",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "cleanup",
+    "orbit": true,
+    "satellites": 3,
+    "enabled": 0,
+    "disabled": 3,
+    "navigated": 0,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Analyze CleanupDiscover · Review · Confirm",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Analyze (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 1,
+        "label": "Review (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 2,
+        "label": "Refresh (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "startup",
+    "orbit": true,
+    "satellites": 5,
+    "enabled": 5,
+    "disabled": 0,
+    "navigated": 5,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Analyze StartupMeasure · Inspect · Review",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "Startup Items",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 1,
+        "label": "Boot Impact",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 2,
+        "label": "Delay",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 3,
+        "label": "Tasks",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 4,
+        "label": "History",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "system",
+    "orbit": true,
+    "satellites": 5,
+    "enabled": 0,
+    "disabled": 5,
+    "navigated": 0,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "Run Health PulseReal readings. Clear sources.",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "CPU (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 1,
+        "label": "GPU (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 2,
+        "label": "Memory (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 3,
+        "label": "Disk (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      },
+      {
+        "i": 4,
+        "label": "Events (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "repair",
+    "orbit": true,
+    "satellites": 5,
+    "enabled": 4,
+    "disabled": 1,
+    "navigated": 4,
+    "inert": [],
+    "core": {
+      "disabled": true,
+      "label": "DiagnoseEvidence before action",
+      "outcome": "DISABLED-HONEST"
+    },
+    "detail": [
+      {
+        "i": 0,
+        "label": "DISM",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 1,
+        "label": "SFC",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 2,
+        "label": "Network",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 3,
+        "label": "Restore",
+        "disabled": false,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "NAVIGATED"
+      },
+      {
+        "i": 4,
+        "label": "Journal (disabled)",
+        "disabled": true,
+        "ariaCurrent": null,
+        "hint": null,
+        "outcome": "DISABLED-HONEST"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "section": "services",
+    "orbit": false,
+    "satellites": 0,
+    "note": "no orbital dial on this screen"
+  },
+  {
+    "section": "home",
+    "orbit": false,
+    "satellites": 0,
+    "note": "no orbital dial on this screen"
+  }
+]

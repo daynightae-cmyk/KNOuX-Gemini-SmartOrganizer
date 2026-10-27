@@ -30,6 +30,7 @@ import {
   Wrench,
   X,
 } from 'lucide-react';
+import { OrbitalControl } from '../visual/OrbitalControl';
 import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
@@ -241,7 +242,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
 
               <div className="sys-hero-copy">
                 <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · PREVIEW ONLY · NO REPAIR EXECUTION', 'مختبر الاستعادة · معاينة فقط · بلا تنفيذ إصلاح')}</span>
-                <h1>{t(locale, 'Recovery', 'مختبر')} <span>{t(locale, 'Lab', 'الاستعادة')}</span></h1>
+                <h1>{t(locale, 'Diagnose. Repair.', 'شخّص. أصلح.')} <span>{t(locale, 'Recover.', 'استعد.')}</span></h1>
                 <p>
                   {t(
                     locale,
@@ -278,6 +279,15 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                 </div>
               </div>
 
+              <OrbitalControl title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
+                onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
+                tools={[
+                  { id: 'component', label: 'DISM', icon: HardDrive, onClick: () => setSelectedToolId('repair-component-scan') },
+                  { id: 'files', label: 'SFC', icon: FileText, onClick: () => setSelectedToolId('repair-files-verify') },
+                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Globe2, onClick: () => setSelectedToolId('repair-dns-flush') },
+                  { id: 'restore', label: t(locale, 'Restore', 'الاستعادة'), icon: ShieldCheck, onClick: () => setSelectedToolId('repair-restore-point') },
+                  { id: 'history', label: t(locale, 'Journal', 'السجل'), icon: History, disabled: !snapshot, onClick: () => openWorkbench('repair-history') },
+                ]} />
               <aside className="sys-source-card rep-source-card" data-testid="repair-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
                 <div className="sys-source-copy">
