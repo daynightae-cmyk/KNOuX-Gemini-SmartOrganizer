@@ -1,6 +1,6 @@
 # STANDALONE MIGRATION 2026-10-25
 
-All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 15A Interactive Service Workbenches (01 Home now has a measured live dashboard but remains PARTIAL for global indexed search and in-place execution; 02, 05, 08, 09, 10, 11, 12, 13 accepted; 04 Google Workspace and 14 Settings remain BLOCKED/PARTIAL for live OAuth, secure vault, live AI and light parity). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
+All prior source work through Storage 07 imported from immutable old commit e3d612e into this **new independent repository**. Git history SHA values listed below are historical provenance from the old repo, not SHA values in the new repo. Next mission: 15A Interactive Service Workbenches — Studio integration next (reusable host + Files 12/12 side/expanded verified; other domains pending; 01 Home measured dashboard partial; 02, 05, 08, 09, 10, 11, 12, 13 accepted; 04/14 remain BLOCKED/PARTIAL for live OAuth, secure vault, live AI and light parity). Legacy Root CI EBUSY/EPERM does not gate standalone Gemini. New branch feat/gemini-missions. No old GitHub writes permitted.
 
 # KNOuX Mission Sequence Progress
 
@@ -25,7 +25,7 @@ Updated: 2026-10-27 (single-agent autonomous run; Missions 02, 05, 08, 09, 10, 1
 | 14 — Settings/Assistant | PARTIAL / BLOCKED (honest non-secret preference persistence/export/import/reset; fake simulator and fake save/theme/export/Google claims removed; engine/guards disabled with explicit notices; native secure vault, live AI proxy/consent, Google authorization and light parity NOT implemented) | 3782336 | 3782336 | docs/SETTINGS_ASSISTANT_AUDIT.md, visual-evidence/platform-00/settings-measured-dev{,-ar,-1366,-1920}.png + packaged equivalents, test:settings PASS, dev+packaged smoke settingsOk/settingsLayoutOk + 7 tabs + density persistence + keyboard/RTL; live AI/Google NOT PERFORMED | 01 |
 | 01 — Home | PARTIAL / MEASURED LIVE DASHBOARD (real system/services/assets/files/automation KPIs, volumes, recent files, journals, measured insight; no invented totals; cards deep-link; global indexed search and in-place execution not implemented) | 4948959 | 4948959 | docs/HOME_COMMAND_CENTER_AUDIT.md, visual-evidence/platform-00/home-measured-dev{,-light,-ar-light,-1366,-1920}.png + packaged equivalents, test:home PASS, dev+packaged smoke homeOk/homeLayoutOk + live KPIs + volumes + card navigation + RTL/light/1366, CI run 40394777969 | 15A |
 | 15 — Real Service Activation | PENDING_PRODUCT_PHASE (starts only after 04/14/01; ordered 03 → 06 → 07 → 02 → 05 → 08 → 09 → 10 → 11 → 12 → 13 → 04 → 14 → 01) | — | — | missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, docs/SERVICE_CAPABILITY_MATRIX.md, docs/SERVICE_REGISTRY_EVIDENCE.md | activation |
-| 15A — Interactive Service Workbenches | PENDING (first prerequisite/stage of Mission 15; after 14/01; resizable pinned/expanded service-specific host for every advertised service) | — | — | missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md, docs/SERVICE_WORKBENCH_ACCEPTANCE.md (181-entry audit skeleton; all AUDIT_REQUIRED until inspected) | 15A |
+| 15A — Interactive Service Workbenches | IN_PROGRESS / PARTIAL (reusable typed host; Files 12/12, Studio 9/9, Storage 12/12, Smart Scan 10/10 and Applications 12/12 side+expanded verified with context preserved; Cleanup/Startup/System/Repair/Services/Automation/Workspace/Settings/Home still use modal/inline sheets; no mutation executor) | 578f7fa, 62e3ce6, 3e3f16c, 9b582e3 | 9b582e3 | docs/SERVICE_WORKBENCH_HOST_AUDIT.md, docs/SERVICE_WORKBENCH_ACCEPTANCE.md Files+Studio+Storage+Scan+Applications rows, files/studio/storage/scan/apps-workbench-* dev+packaged screenshots, test:workbench PASS (10 checks), dev+packaged smoke scanWorkbenchOk/LayoutOk + appsWorkbenchOk/LayoutOk, CI runs 40399994447, 40409858626, 40416764542, 40428396212; main merge af00af6 has an identical tree | Cleanup, Startup, System, Repair, Services, Automation, Workspace, Settings, Home |
 
 ## Platform 00 verification snapshot
 
@@ -195,9 +195,22 @@ The ordered activation pass after 04/14/01 is: 03 Studio → 06 Files → 07 Sto
 - Honest limits: Home is read-only and never executes cleanup/startup/service/repair/file operations. CPU/memory/disk are current samples, not history. Global indexed file/app search is not implemented. A 100% CPU sample is a measured transient, not a health guarantee.
 - Main fast-forwarded to the verified Home commit.
 
+## Mission 15A Files workbench snapshot (IN PROGRESS)
+
+- Added the reusable typed `ServiceWorkbenchHost`: pinned resizable side mode, expanded in-main mode, pointer/Arrow resize, mode/width persistence, focus/Escape, service tool selector and footer/overflow containment.
+- Files' 12 domain tools now open inside the host; the originating register and footer stay visible in side mode, and expanded mode stays below the global titlebar with the Files footer visible. Selected file/filter state stays in FilesPage across mode switches.
+- Downloads Inventory body now shows measured totals, source/last-scan/coverage, category distribution, recent indexed files, Add/Rescan/Plan-in-Studio. Other service bodies remain their real read-only content; apply/undo remain explicitly BLOCKED.
+- Evidence: `docs/SERVICE_WORKBENCH_HOST_AUDIT.md`, acceptance Files rows, `files-workbench-dev.png`/`files-workbench-expanded-dev.png` + packaged; `test:workbench` PASS; dev+packaged `filesWorkbenchOk`/`filesWorkbenchLayoutOk`; CI 40399994447 SUCCESS.
+- Not done: Studio side/expanded integration, remaining domains, 1366/AR/light workbench captures, and any real file executor/undo. No owner files were modified.
+
+
+## Public site merge recovery — 2026-10-27
+
+PR #2 (`gh-pages` → `main`) added the public OAuth/site pages but its merge tree contained only the 5 site files; the entire Gemini app tree was absent from `origin/main` (`296cfa8`). Before pushing Studio work, a normal `-s ours` merge preserved the 566 app files plus the 5 site files and kept both histories. CI run `40410193790` is SUCCESS; remote `main` was fast-forwarded from `296cfa8` to `2fe53d6`. No force-push, reset or history loss occurred. Local and remote feature/main SHAs must remain equal at the next checkpoint.
+
 ## Boundary / next
 
-- Next independent mission: `15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md` (then Mission 15 activation). 01 Home remains PARTIAL for global indexed search and in-place execution; 04 and 14 remain BLOCKED/PARTIAL for live OAuth/secure vault/live AI/light parity.
+- Next independent mission: continue `15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md` with the remaining domains (Cleanup, Startup, System, Repair, Services, Automation, Workspace, Settings, Home); then Mission 15 real executors. 01 Home remains PARTIAL for global indexed search and in-place execution; 04 and 14 remain BLOCKED/PARTIAL for live OAuth/secure vault/live AI/light parity.
 - Product phase after 04/14/01: `15_REAL_SERVICE_ACTIVATION_MISSION.md` and its first UX stage `15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md` (read `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md` first). They are integration/remediation passes, not new apps or branches.
 - The authoritative `docs/SERVICE_CAPABILITY_MATRIX.md` and registry evidence `docs/SERVICE_REGISTRY_EVIDENCE.md` must be updated with effect-test evidence; a green CI/screenshot is not action-service proof.
 - Real file mutations, elevated repair/service/startup/automation operations, Google OAuth/account connection, credentials and AI provider calls remain separately gated.

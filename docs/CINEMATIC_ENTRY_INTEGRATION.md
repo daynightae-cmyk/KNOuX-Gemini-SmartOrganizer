@@ -52,3 +52,7 @@ The original creation baseline contained static Home preview values. Published m
 ## Quality follow-up
 
 CI installs from the frozen lock with `npm ci --ignore-scripts`; the Windows job then runs the pinned Electron package's checksum-verifying installer explicitly. Hosted Ubuntu CI uses its preinstalled Google Chrome (`/usr/bin/google-chrome`), while local acceptance continues to use system Chromium. No native or application security checks were disabled. The entry presentation is decomposed into small controls/copy/footer components and deterministic particle geometry/draw helpers; the real workspace mount boundary is unchanged.
+
+## Published workbench update and final reliability repair
+
+Published main 86cf321 was safely incorporated into the existing cloud feature branch. test:home, test:entry, test:workbench and all upstream scripts are retained. Settings changes additionally replace mouse-only choice cards with native buttons, use dataset for local styling preferences and extract pure tab render helpers; no native/AI/consent provider semantics were changed. The renderer public AppSection type export and live navigation remain intact. Decorative Canvas uses an inert accessibility wrapper and observes the same stable boundary. All rule checks remain enabled.

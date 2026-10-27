@@ -183,7 +183,7 @@ export function CinematicEntry({ children }: Readonly<{ children: ReactNode }>) 
   const visible = c.phase !== 'ACTIVE';
   return <div className="cinematic-boundary" data-phase={c.phase} data-reduced={c.reduced} data-home={currentSection === 'home'} data-light={theme === 'light'} data-audio={c.audioState}>
     <div className="entry-atmosphere" aria-hidden="true" />
-    <canvas ref={c.canvas} className="entry-particles" role="presentation" />
+    <div aria-hidden="true" inert><canvas ref={c.canvas} className="entry-particles" /></div>
     <div ref={c.workspace} className="cinematic-workspace" inert={visible} aria-hidden={visible || undefined} data-painted={c.painted}>{children}</div>
     {visible && <dialog open ref={c.overlay} className="entry-overlay" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-status" tabIndex={-1} dir={ar ? 'rtl' : 'ltr'} onKeyDown={event => handleEntryKeys(event, c)}>
       <EntryControls c={c} ar={ar} />

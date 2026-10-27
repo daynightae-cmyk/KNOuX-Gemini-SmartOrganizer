@@ -110,6 +110,8 @@ for (const width of [1366, 1672, 1920]) for (const locale of ['en', 'ar']) for (
     await page.setViewportSize({ width, height }); await boot(page, { locale, theme }); await ready(page);
     const dir = 'visual-evidence/cinematic-entry'; await fs.mkdir(dir, { recursive: true });
     const tag = `${width}x${height}-${locale}-${theme}`;
+    const visibleText = await page.locator('body').innerText();
+    expect(visibleText).not.toMatch(/(?:github_pat_|gh[pousr]_[A-Za-z0-9]{20,}|[A-Z]:[\\/]Users[\\/])/);
     const cta = page.getByRole('button', { name: locale === 'ar' ? 'دخول مساحة العمل' : 'Enter Workspace', exact: true });
     const box = await cta.boundingBox(); expect(box!.y).toBeGreaterThan(40); expect(box!.y + box!.height).toBeLessThan(height - 50);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -188,4 +190,40 @@ test('unmount cancels animation, timers, visibility listeners and pending audio'
   await page.waitForTimeout(100);
   await expect(page.locator(root)).toHaveCount(0);
   expect(await page.evaluate(() => (window as any).activeFrames.size)).toBe(0);
+});
+
+test('Settings choice cards remain keyboard-operable and survive entry replay', async ({ page }) => {
+  await boot(page, { seen: true }); await active(page);
+  await page.goto('/#settings');
+  const turbo = page.getByRole('button', { name: /Maximum Turbo Engine/ });
+  await turbo.focus(); await page.keyboard.press('Space');
+  await expect(turbo).toHaveAttribute('aria-pressed', 'true');
+  await page.getByTestId('settings-tab-appearance').click();
+  const accent = page.getByRole('button', { name: 'Cyberpunk Purple', exact: true });
+  await accent.focus(); await page.keyboard.press('Enter');
+  await expect(accent).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByTestId('settings-root')).toHaveAttribute('data-accent', 'cyber_purple');
+  await page.getByTestId('settings-density-compact').click();
+  await expect(page.getByTestId('settings-root')).toHaveAttribute('data-density', 'compact');
+  await page.getByTestId('settings-save').click();
+  await page.getByRole('button', { name: 'Replay KNOuX intro · sound & motion preferences' }).click();
+  await ready(page); await page.getByRole('button', { name: 'Skip', exact: true }).click(); await active(page);
+  await expect(accent).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByTestId('settings-root')).toHaveAttribute('data-density', 'compact');
+});
+
+test('Settings tabs retain permission notices and preference import preview behavior', async ({ page }) => {
+  await boot(page, { seen: true }); await active(page); await page.goto('/#settings');
+  for (const tab of ['engine', 'ai_keys', 'workspace', 'guard', 'appearance', 'language', 'backup']) {
+    await page.getByTestId(`settings-tab-${tab}`).click();
+    await expect(page.getByRole('button', { name: 'Replay KNOuX intro · sound & motion preferences' })).toBeVisible();
+  }
+  const input = page.locator('input[type=file]');
+  await input.setInputFiles({ name: 'preferences.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify({ schema: 'knoux.settings.profile.v1', accent: 'emerald_shield', density: 'compact', engineMode: 'silent', ramLimitGB: 3, cpuThreads: '4' })) });
+  await expect(page.getByTestId('settings-import-preview')).toContainText('VALID');
+  await page.getByRole('button', { name: 'Apply imported preferences', exact: true }).click();
+  await expect(page.getByTestId('settings-root')).toHaveAttribute('data-accent', 'emerald_shield');
+  await input.setInputFiles({ name: 'invalid.json', mimeType: 'application/json', buffer: Buffer.from('{') });
+  await expect(page.getByTestId('settings-import-preview')).toContainText('INVALID');
+  await expect(page.getByRole('button', { name: 'Apply imported preferences', exact: true })).toBeDisabled();
 });

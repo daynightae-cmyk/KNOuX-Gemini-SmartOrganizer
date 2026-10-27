@@ -30,10 +30,10 @@ No worktrees, extra repos, Root CI or old Electron launcher. No destructive real
 - Do NOT execute any old Root CI visual acceptance or legacy KNOuX SmartOrganizer.exe. Only the standalone Gemini Electron entrypoint and CI count.
 - Existing standalone source includes the completed missions 00V, 00P, 03 Studio, 06 Files, 07 Storage, 02 Smart Scan, 05 Applications, 08 Cleanup, 09 Startup, 10 System, 11 Repair, 12 Services and 13 Automation. Do not redo them.
 
-## NEXT MISSION: 15A — INTERACTIVE SERVICE WORKBENCHES
+## IN PROGRESS: 15A — INTERACTIVE SERVICE WORKBENCHES (Files done; Studio next)
 1. Inspect current standalone Git HEAD, local/remote and CI, dirty/untracked changes, exclusive writing processes. Never assume the source Git SHA is the new repo HEAD.
 2. Read missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md, missions/15_REAL_SERVICE_ACTIVATION_MISSION.md, missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md and docs/SERVICE_WORKBENCH_ACCEPTANCE.md completely. Build one typed ServiceWorkbenchHost with pinned resizable side and expanded modes, persistent selection/filters, focus/Escape/ARIA and no titlebar/footer obstruction. Reuse every existing specialized workbench; do not create 150 generic cards.
-3. Start with Organization Studio and Files: source/selection context, domain tools, action basket, preview, approval, real file-operation executor on disposable fixtures, verification and undo where feasible. Preserve all accepted read-only engines and designs.
+3. Files' 12 tools and Studio's nine stages are already hosted (side/expanded). Next migrate the remaining domain workbenches into the same host. Preserve selected resources/filters and accepted engines. Real file-operation executors require disposable-fixture effect tests, consent, verification and undo where feasible.
 4. Validate TypeScript/build, native contract and every prior domain test, targeted workbench/file-effect tests, dev + packaged Electron, 1366/1672/1920, EN/AR, dark/light, keyboard/RTL. Update both matrices and docs/SERVICE_WORKBENCH_ACCEPTANCE.md with actual evidence.
 5. Review secrets/diff; commit on feat/gemini-missions, push normally, verify SHA and CI, fast-forward existing main only after required checks pass.
 6. Continue through Mission 15 activation order without asking for routine continuation. Do not claim UI-only workbenches as action-complete or perform live owner-data/account/OS changes without separate explicit consent.

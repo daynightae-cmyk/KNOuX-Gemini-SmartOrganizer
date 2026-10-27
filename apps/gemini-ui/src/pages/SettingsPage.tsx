@@ -1,7 +1,7 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * 
+ *
  * KNOuX SmartOrganizer — Settings & Engine Configuration Center
  * Ultra-visually stunning, high-specialization control panel matching KNOuX identity
  */
@@ -32,22 +32,14 @@ import {
   Database,
   RefreshCw,
   CheckCircle2,
-  AlertTriangle,
   Eye,
   EyeOff,
-  Sparkles,
-  HardDrive,
   Download,
   Upload,
   RotateCcw,
-  SlidersHorizontal,
   Check,
-  Terminal,
   Activity,
-  Layers,
-  Lock,
   ChevronRight,
-  Server,
   Info,
 } from 'lucide-react';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
@@ -74,7 +66,6 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
   const [apiKey, setApiKey] = useState(() => getAiSession().apiKey);
   const [showKey, setShowKey] = useState(false);
   const [provider, setProvider] = useState<'openrouter' | 'openai' | 'anthropic'>(() => getAiSession().provider);
-  const [selectedModel, setSelectedModel] = useState('anthropic/claude-3.5-sonnet');
   const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'failed'>('idle');
 
   // Non-secret preferences are persisted locally. Credentials never enter it.
@@ -126,8 +117,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
   useEffect(() => {
     if (!pageRef.current) return;
-    pageRef.current.setAttribute('data-density', density);
-    pageRef.current.setAttribute('data-accent', colorTheme);
+    pageRef.current.dataset.density = density;
+    pageRef.current.dataset.accent = colorTheme;
   }, [colorTheme, density]);
 
   const handleSaveAll = () => {
@@ -250,128 +241,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     else navigateTo(sec);
   };
 
-  return (
-    <div
-      ref={pageRef}
-      data-testid="settings-root"
-      data-density={density}
-      data-accent={colorTheme}
-      style={{ '--settings-accent': ACCENT_PREVIEW[colorTheme] || ACCENT_PREVIEW.neon_cyan } as React.CSSProperties}
-      className={`settings-root flex flex-col h-screen w-screen bg-[#040b18] text-slate-100 overflow-hidden font-sans select-none ${isArabic ? 'rtl' : 'ltr'}`}
-    >
-      {/* Top Titlebar */}
-      <KNOuXTitleBar
-        sectionName={isArabic ? 'الإعدادات وتخصيص المحرك' : 'Settings & Engine Configuration'}
-        sectionSubtitle={isArabic ? 'تكوين الأداء والخدمات والذكاء الاصطناعي' : 'Performance, Services & AI Tuning'}
-        onNavigateHome={() => handleNavigate('home')}
-        isArabic={isArabic}
-        onToggleArabic={toggleLocale}
-      />
-
-      <div className="flex flex-1 overflow-hidden relative">
-        {/* Unified Sidebar */}
-        <KNOuXSidebar
-          activeSection="settings"
-          onNavigate={handleNavigate}
-          isArabic={isArabic}
-        />
-
-        {/* Main Body Canvas + Reserved Telemetry Dock */}
-        <div className="flex-1 flex flex-col min-h-0">
-        <main
-          className="flex-1 min-h-0 flex flex-col overflow-y-auto bg-gradient-to-b from-[#040b18] via-[#06142a] to-[#040b18] p-4 sm:p-5 gap-4 knx-custom-scrollbar"
-          style={density === 'compact' ? { gap: '8px', padding: '12px' } : undefined}
-        >
-          
-          {/* Toast Notification */}
-          {toast && (
-            <div className="fixed top-14 right-6 z-50 bg-gradient-to-r from-cyan-900 to-blue-900 border border-cyan-400/60 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 animate-fadeIn" data-testid="settings-toast">
-              <CheckCircle2 className="w-4 h-4 text-cyan-300" />
-              <span className="font-semibold">{toast}</span>
-            </div>
-          )}
-
-          {/* Ultra-Sleek HUD Header Banner */}
-          <div className="shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
-
-            <div className="z-10 flex items-start gap-4">
-              <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.6)] border border-cyan-300/60 shrink-0">
-                <Settings className="w-7 h-7 text-white animate-spin-slow" />
-                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-cyan-400 border-2 border-[#061833] animate-pulse" />
-              </div>
-
-              <div>
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 rounded-md bg-cyan-400/20 text-cyan-200 text-[10px] font-mono font-bold tracking-wider uppercase border border-cyan-400/40">
-                    KNOuX Control Center v2.4
-                  </span>
-                  <span className="px-2 py-0.5 rounded-md bg-amber-950/80 text-amber-300 text-[10px] font-mono font-bold flex items-center gap-1 border border-amber-500/40">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                    {isArabic ? 'تفضيلات فقط — لا يوجد مزود محرك موصول' : 'Preferences only — no engine provider connected'}
-                  </span>
-                </div>
-
-                <h1 className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300 tracking-tight">
-                  {isArabic ? 'مركز تخصيص وإعدادات KNOuX الفائقة' : 'KNOuX Engine & Services Control Center'}
-                </h1>
-                <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl font-medium leading-relaxed">
-                  {isArabic
-                    ? 'تفضيلات محلية غير سرية، وحالة القدرات الحقيقية لمحرك الأداء والحماية ومفاتيح الذكاء الاصطناعي وGoogle Workspace. لا يوجد محرك أداء أو حارس تلقائي أو اتصال Google أو AI مباشر في هذه المرحلة.'
-                    : 'Local non-secret preferences plus honest capability status for engine, guards, AI keys and Google Workspace. No engine executor, automatic guard, Google account or live AI is connected in this phase.'}
-                </p>
-              </div>
-            </div>
-
-            <div className="z-10 flex items-center gap-2">
-              <button
-                onClick={handleSaveAll}
-                data-testid="settings-save"
-                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-extrabold shadow-[0_0_20px_rgba(38,198,218,0.5)] border border-cyan-300/50 transition cursor-pointer flex items-center gap-2"
-              >
-                <Check className="w-4 h-4 text-white" />
-                <span>{isArabic ? 'حفظ التفضيلات' : 'Save Preferences'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Navigation Category Tabs Ribbon */}
-          <div className="bg-[#071429]/90 border border-[#112a4e] rounded-2xl p-2 flex flex-wrap items-center gap-1.5 shadow-md">
-            {[
-              { id: 'engine', labelEn: 'Engine & Turbo Hardware', labelAr: 'الأداء والعتاد', icon: Cpu },
-              { id: 'ai_keys', labelEn: 'AI Copilot & OpenRouter Keys', labelAr: 'مفاتيح الذكاء الاصطناعي', icon: Key },
-              { id: 'workspace', labelEn: 'Google Workspace Hub (10 APIs)', labelAr: 'خدمات Google', icon: Globe },
-              { id: 'guard', labelEn: 'Automated Protection & Guards', labelAr: 'الحماية التلقائية', icon: Shield },
-              { id: 'appearance', labelEn: 'Neon Glass Customization', labelAr: 'المظهر والسمات', icon: Palette },
-              { id: 'language', labelEn: 'Language & Locale', labelAr: 'اللغة والتوجيه', icon: Languages },
-              { id: 'backup', labelEn: 'Profile Preferences Backup', labelAr: 'نسخ التفضيلات واستعادتها', icon: Database },
-            ].map((tab) => {
-              const IconComp = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  data-testid={`settings-tab-${tab.id}`}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
-                    isActive
-                      ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.6)] border border-cyan-400/50'
-                      : 'bg-[#0a1b38] hover:bg-[#122a52] text-slate-300 border border-[#142f57]'
-                  }`}
-                >
-                  <IconComp className={`w-4 h-4 ${isActive ? 'text-white' : 'text-cyan-400'}`} />
-                  <span>{isArabic ? tab.labelAr : tab.labelEn}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Tab Panel Body */}
-          <div className="bg-[#071329]/90 border border-[#11294a] rounded-2xl p-5 shadow-xl space-y-6">
-            
-            {/* TAB 1: Engine Performance & Hardware */}
-            <CinematicEntrySettings />
-            {activeTab === 'engine' && (
+  const renderEngineTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -397,7 +267,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     { id: 'balanced', titleEn: 'Balanced Smart Mode', titleAr: 'الوضع المتوازن الذكي', descEn: 'Optimized resource allocation for daily tasks', descAr: 'موازنة أداء النظام مع المهام اليومية' },
                     { id: 'silent', titleEn: 'Silent Eco Efficiency', titleAr: 'الوضع الصامت الاقتصادي', descEn: 'Low background priority for battery saving', descAr: 'أقل استهلاك طاقة وأثر خلفي صامت' },
                   ].map((mode) => (
-                    <div
+                    <button
+                      type="button"
+                      aria-pressed={engineMode === mode.id}
                       key={mode.id}
                       onClick={() => {
                         setEngineMode(mode.id as any);
@@ -418,7 +290,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                         {engineMode === mode.id && <CheckCircle2 className="w-4 h-4 text-cyan-400" />}
                       </div>
                       <p className="text-xs text-slate-300">{isArabic ? mode.descAr : mode.descEn}</p>
-                    </div>
+                    </button>
                   ))}
                 </div>
 
@@ -468,10 +340,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                   </div>
                 </div>
               </div>
-            )}
+  );
 
-            {/* TAB 2: AI Copilot & API Keys */}
-            {activeTab === 'ai_keys' && (
+  const renderAiKeysTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -561,10 +432,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     : 'Credential security: the key remains in page memory only and is never written to localStorage. No native secure vault or native network proxy exists yet; close the app to discard it. Do not use a long-lived or high-value key.'}
                 </div>
               </div>
-            )}
+  );
 
-            {/* TAB 3: Google Workspace Hub */}
-            {activeTab === 'workspace' && (
+  const renderWorkspaceTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -604,10 +474,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                   ))}
                 </div>
               </div>
-            )}
+  );
 
-            {/* TAB 4: Automated Guards */}
-            {activeTab === 'guard' && (
+  const renderGuardTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -646,10 +515,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                   ))}
                 </div>
               </div>
-            )}
+  );
 
-            {/* TAB 5: Appearance & Neon Glass */}
-            {activeTab === 'appearance' && (
+  const renderAppearanceTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -669,7 +537,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       { id: 'cyber_purple', label: 'Cyberpunk Purple', color: 'from-purple-500 to-pink-600' },
                       { id: 'emerald_shield', label: 'Emerald Shield', color: 'from-emerald-500 to-teal-600' },
                     ].map((theme) => (
-                      <div
+                      <button
+                        type="button"
+                        aria-pressed={colorTheme === theme.id}
                         key={theme.id}
                         onClick={() => {
                           setColorTheme(theme.id as any);
@@ -683,7 +553,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       >
                         <span className={`w-5 h-5 rounded-full bg-gradient-to-r ${theme.color} shrink-0 border border-white/30`} />
                         <span className="text-xs font-bold text-white">{theme.label}</span>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -718,10 +588,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                   </p>
                 </div>
               </div>
-            )}
+  );
 
-            {/* TAB 6: Language & Locale */}
-            {activeTab === 'language' && (
+  const renderLanguageTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -755,10 +624,42 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                   </button>
                 </div>
               </div>
-            )}
+  );
 
-            {/* TAB 7: Backup & System Restore */}
-            {activeTab === 'backup' && (
+  const renderImportPreview = () => {
+    if (!importPreview) return null;
+    const validityLabels = isArabic ? ['مرفوض', 'صالح'] : ['INVALID', 'VALID'];
+    const validityLabel = validityLabels[Number(importPreview.valid)];
+    return (
+                  <div className="rounded-xl border border-[#1b3f70] bg-[#07162e] p-3 space-y-2" data-testid="settings-import-preview">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-white">{isArabic ? 'معاينة الاستيراد' : 'Import preview'}</span>
+                      <span className={`text-[10px] font-mono ${importPreview.valid ? 'text-emerald-300' : 'text-rose-300'}`}>{validityLabel}</span>
+                    </div>
+                    {importPreview.errors.map((error) => <p key={error} className="text-[10.5px] text-rose-300">{error}</p>)}
+                    {importPreview.valid ? (
+                      importPreview.diff.length ? (
+                        <div className="space-y-1">
+                          {importPreview.diff.map((entry) => (
+                            <div key={entry.key} className="flex items-center justify-between gap-2 text-[10.5px]">
+                              <span className="font-mono text-slate-400">{entry.key}</span>
+                              <span className="font-mono text-slate-500">{entry.from}</span>
+                              <ChevronRight className="w-3 h-3 text-slate-500" />
+                              <span className="font-mono text-cyan-300">{entry.to}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : <p className="text-[10.5px] text-slate-400">{isArabic ? 'لا فروق في التفضيلات.' : 'No preference differences.'}</p>
+                    ) : null}
+                    <div className="flex items-center gap-2 pt-1">
+                      <button type="button" onClick={applyImportedProfile} disabled={!importPreview.valid} className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-[11px] font-bold">{isArabic ? 'تطبيق التفضيلات المستوردة' : 'Apply imported preferences'}</button>
+                      <button type="button" onClick={() => setImportPreview(null)} className="px-3 py-1.5 rounded-lg bg-[#081329] border border-[#1b3f70] text-slate-300 text-[11px]">{isArabic ? 'إلغاء' : 'Cancel'}</button>
+                    </div>
+                  </div>
+    );
+  };
+
+  const renderBackupTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
@@ -815,36 +716,151 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                 </p>
 
                 {importError ? <div className="rounded-xl border border-rose-500/40 bg-rose-950/40 p-3 text-[11px] text-rose-200" role="alert">{importError}</div> : null}
-                {importPreview ? (
-                  <div className="rounded-xl border border-[#1b3f70] bg-[#07162e] p-3 space-y-2" data-testid="settings-import-preview">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-bold text-white">{isArabic ? 'معاينة الاستيراد' : 'Import preview'}</span>
-                      <span className={`text-[10px] font-mono ${importPreview.valid ? 'text-emerald-300' : 'text-rose-300'}`}>{importPreview.valid ? (isArabic ? 'صالح' : 'VALID') : (isArabic ? 'مرفوض' : 'INVALID')}</span>
-                    </div>
-                    {importPreview.errors.map((error) => <p key={error} className="text-[10.5px] text-rose-300">{error}</p>)}
-                    {importPreview.valid ? (
-                      importPreview.diff.length ? (
-                        <div className="space-y-1">
-                          {importPreview.diff.map((entry) => (
-                            <div key={entry.key} className="flex items-center justify-between gap-2 text-[10.5px]">
-                              <span className="font-mono text-slate-400">{entry.key}</span>
-                              <span className="font-mono text-slate-500">{entry.from}</span>
-                              <ChevronRight className="w-3 h-3 text-slate-500" />
-                              <span className="font-mono text-cyan-300">{entry.to}</span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : <p className="text-[10.5px] text-slate-400">{isArabic ? 'لا فروق في التفضيلات.' : 'No preference differences.'}</p>
-                    ) : null}
-                    <div className="flex items-center gap-2 pt-1">
-                      <button type="button" onClick={applyImportedProfile} disabled={!importPreview.valid} className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-[11px] font-bold">{isArabic ? 'تطبيق التفضيلات المستوردة' : 'Apply imported preferences'}</button>
-                      <button type="button" onClick={() => setImportPreview(null)} className="px-3 py-1.5 rounded-lg bg-[#081329] border border-[#1b3f70] text-slate-300 text-[11px]">{isArabic ? 'إلغاء' : 'Cancel'}</button>
-                    </div>
-                  </div>
-                ) : null}
+                {renderImportPreview()}
 
               </div>
-            )}
+  );
+
+  return (
+    <div
+      ref={pageRef}
+      data-testid="settings-root"
+      data-density={density}
+      data-accent={colorTheme}
+      style={{ '--settings-accent': ACCENT_PREVIEW[colorTheme] || ACCENT_PREVIEW.neon_cyan } as React.CSSProperties}
+      className={`settings-root flex flex-col h-screen w-screen bg-[#040b18] text-slate-100 overflow-hidden font-sans select-none ${isArabic ? 'rtl' : 'ltr'}`}
+    >
+      {/* Top Titlebar */}
+      <KNOuXTitleBar
+        sectionName={isArabic ? 'الإعدادات وتخصيص المحرك' : 'Settings & Engine Configuration'}
+        sectionSubtitle={isArabic ? 'تكوين الأداء والخدمات والذكاء الاصطناعي' : 'Performance, Services & AI Tuning'}
+        onNavigateHome={() => handleNavigate('home')}
+        isArabic={isArabic}
+        onToggleArabic={toggleLocale}
+      />
+
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Unified Sidebar */}
+        <KNOuXSidebar
+          activeSection="settings"
+          onNavigate={handleNavigate}
+          isArabic={isArabic}
+        />
+
+        {/* Main Body Canvas + Reserved Telemetry Dock */}
+        <div className="flex-1 flex flex-col min-h-0">
+        <main
+          className="flex-1 min-h-0 flex flex-col overflow-y-auto bg-gradient-to-b from-[#040b18] via-[#06142a] to-[#040b18] p-4 sm:p-5 gap-4 knx-custom-scrollbar"
+          style={density === 'compact' ? { gap: '8px', padding: '12px' } : undefined}
+        >
+
+          {/* Toast Notification */}
+          {toast && (
+            <div className="fixed top-14 right-6 z-50 bg-gradient-to-r from-cyan-900 to-blue-900 border border-cyan-400/60 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 animate-fadeIn" data-testid="settings-toast">
+              <CheckCircle2 className="w-4 h-4 text-cyan-300" />
+              <span className="font-semibold">{toast}</span>
+            </div>
+          )}
+
+          {/* Ultra-Sleek HUD Header Banner */}
+          <div className="shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
+
+            <div className="z-10 flex items-start gap-4">
+              <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.6)] border border-cyan-300/60 shrink-0">
+                <Settings className="w-7 h-7 text-white animate-spin-slow" />
+                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-cyan-400 border-2 border-[#061833] animate-pulse" />
+              </div>
+
+              <div>
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 rounded-md bg-cyan-400/20 text-cyan-200 text-[10px] font-mono font-bold tracking-wider uppercase border border-cyan-400/40">
+                    KNOuX Control Center v2.4
+                  </span>
+                  <span className="px-2 py-0.5 rounded-md bg-amber-950/80 text-amber-300 text-[10px] font-mono font-bold flex items-center gap-1 border border-amber-500/40">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                    {isArabic ? 'تفضيلات فقط — لا يوجد مزود محرك موصول' : 'Preferences only — no engine provider connected'}
+                  </span>
+                </div>
+
+                <h1 className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-cyan-300 tracking-tight">
+                  {isArabic ? 'مركز تخصيص وإعدادات KNOuX الفائقة' : 'KNOuX Engine & Services Control Center'}
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl font-medium leading-relaxed">
+                  {isArabic
+                    ? 'تفضيلات محلية غير سرية، وحالة القدرات الحقيقية لمحرك الأداء والحماية ومفاتيح الذكاء الاصطناعي وGoogle Workspace. لا يوجد محرك أداء أو حارس تلقائي أو اتصال Google أو AI مباشر في هذه المرحلة.'
+                    : 'Local non-secret preferences plus honest capability status for engine, guards, AI keys and Google Workspace. No engine executor, automatic guard, Google account or live AI is connected in this phase.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="z-10 flex items-center gap-2">
+              <button
+                onClick={handleSaveAll}
+                data-testid="settings-save"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-extrabold shadow-[0_0_20px_rgba(38,198,218,0.5)] border border-cyan-300/50 transition cursor-pointer flex items-center gap-2"
+              >
+                <Check className="w-4 h-4 text-white" />
+                <span>{isArabic ? 'حفظ التفضيلات' : 'Save Preferences'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Navigation Category Tabs Ribbon */}
+          <div className="bg-[#071429]/90 border border-[#112a4e] rounded-2xl p-2 flex flex-wrap items-center gap-1.5 shadow-md">
+            {[
+              { id: 'engine', labelEn: 'Engine & Turbo Hardware', labelAr: 'الأداء والعتاد', icon: Cpu },
+              { id: 'ai_keys', labelEn: 'AI Copilot & OpenRouter Keys', labelAr: 'مفاتيح الذكاء الاصطناعي', icon: Key },
+              { id: 'workspace', labelEn: 'Google Workspace Hub (10 APIs)', labelAr: 'خدمات Google', icon: Globe },
+              { id: 'guard', labelEn: 'Automated Protection & Guards', labelAr: 'الحماية التلقائية', icon: Shield },
+              { id: 'appearance', labelEn: 'Neon Glass Customization', labelAr: 'المظهر والسمات', icon: Palette },
+              { id: 'language', labelEn: 'Language & Locale', labelAr: 'اللغة والتوجيه', icon: Languages },
+              { id: 'backup', labelEn: 'Profile Preferences Backup', labelAr: 'نسخ التفضيلات واستعادتها', icon: Database },
+            ].map((tab) => {
+              const IconComp = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  data-testid={`settings-tab-${tab.id}`}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
+                    isActive
+                      ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.6)] border border-cyan-400/50'
+                      : 'bg-[#0a1b38] hover:bg-[#122a52] text-slate-300 border border-[#142f57]'
+                  }`}
+                >
+                  <IconComp className={`w-4 h-4 ${isActive ? 'text-white' : 'text-cyan-400'}`} />
+                  <span>{isArabic ? tab.labelAr : tab.labelEn}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Tab Panel Body */}
+          <div className="bg-[#071329]/90 border border-[#11294a] rounded-2xl p-5 shadow-xl space-y-6">
+
+            {/* TAB 1: Engine Performance & Hardware */}
+            <CinematicEntrySettings />
+            {activeTab === 'engine' && renderEngineTab()}
+
+            {/* TAB 2: AI Copilot & API Keys */}
+            {activeTab === 'ai_keys' && renderAiKeysTab()}
+
+            {/* TAB 3: Google Workspace Hub */}
+            {activeTab === 'workspace' && renderWorkspaceTab()}
+
+            {/* TAB 4: Automated Guards */}
+            {activeTab === 'guard' && renderGuardTab()}
+
+            {/* TAB 5: Appearance & Neon Glass */}
+            {activeTab === 'appearance' && renderAppearanceTab()}
+
+            {/* TAB 6: Language & Locale */}
+            {activeTab === 'language' && renderLanguageTab()}
+
+            {/* TAB 7: Backup & System Restore */}
+            {activeTab === 'backup' && renderBackupTab()}
           </div>
 
         </main>

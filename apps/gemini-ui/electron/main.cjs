@@ -2687,10 +2687,21 @@ async function runSmoke(win) {
           `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'applications'; return true; })()`,
           true
         );
-        const appsDeadline = Date.now() + 45000;
+        const appsStartedAt = Date.now();
+        const appsDeadline = appsStartedAt + 45000;
         let appsUiReady = false;
+        let appsRouteRetries = 0;
         while (Date.now() < appsDeadline) {
           await sleep(500);
+          if (!appsUiReady && appsRouteRetries < 2 && Date.now() - appsStartedAt > (appsRouteRetries + 1) * 12000) {
+            appsRouteRetries += 1;
+            await win.webContents.executeJavaScript(
+              `(() => { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); location.hash = 'home'; return true; })()`,
+              true
+            );
+            await sleep(400);
+            await win.webContents.executeJavaScript(`(() => { location.hash = 'applications'; return true; })()`, true);
+          }
           appsUiReady = await win.webContents.executeJavaScript(
             `(() => {
                const workspace = document.querySelector('[data-testid="apps-workspace"]');
@@ -5010,6 +5021,447 @@ async function runSmoke(win) {
         receipt.home1920ScreenshotBytes = (await fsp.stat(home1920Path)).size;
         await forceSize(1672, 941);
         await sleep(400);
+
+        // Mission 15A first integration: Files side/expanded workbench host.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'files'; return true; })()`, true);
+        const filesWorkbenchDeadline = Date.now() + 30000;
+        let filesWorkbenchUiReady = false;
+        while (Date.now() < filesWorkbenchDeadline) {
+          await sleep(500);
+          filesWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="files-workspace"]') && document.querySelector('[data-testid="files-service-file-downloads-inventory"]'))`,
+            true
+          );
+          if (filesWorkbenchUiReady) break;
+        }
+        receipt.filesWorkbenchUiReady = filesWorkbenchUiReady;
+        const filesWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(async () => {
+             const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+             const failures = [];
+             document.querySelector('[data-testid="files-service-file-downloads-inventory"]')?.click();
+             await wait(450);
+             const host = document.querySelector('[data-testid="files-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (!host.querySelector('[data-testid="files-workbench-tool-select"]')) failures.push('tool-selector-missing');
+             if (String(host.innerText || '').trim().length < 30) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="files-select-all"]')) failures.push('originating-list-hidden');
+             if (!document.querySelector('[data-testid="files-footer"]')) failures.push('footer-missing');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.filesWorkbenchSideProbe = filesWorkbenchSideProbe;
+        const filesWorkbenchSidePath = smokeShotPath.replace(/native-bridge/i, 'files-workbench');
+        const filesWorkbenchSideImage = await win.webContents.capturePage();
+        await fsp.writeFile(filesWorkbenchSidePath, filesWorkbenchSideImage.toPNG());
+        receipt.filesWorkbenchSideScreenshot = filesWorkbenchSidePath;
+        receipt.filesWorkbenchSideScreenshotBytes = (await fsp.stat(filesWorkbenchSidePath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('[data-testid="files-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`,
+          true
+        );
+        await sleep(500);
+        const filesWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="files-workbench-expanded"]');
+             const main = document.querySelector('[data-testid="files-workspace"]');
+             const footer = document.querySelector('[data-testid="files-footer"]');
+             if (!expanded) return { ok: false, failures: ['expanded-host-missing'] };
+             if (expanded.getAttribute('data-workbench-mode') !== 'expanded') failures.push('expanded-mode');
+             if (!main) failures.push('main-missing');
+             else {
+               const mainRect = main.getBoundingClientRect();
+               const rect = expanded.getBoundingClientRect();
+               if (rect.top < mainRect.top - 1 || rect.bottom > mainRect.bottom + 1) failures.push('outside-main');
+             }
+             if (!footer) failures.push('footer-missing');
+             else {
+               const rect = footer.getBoundingClientRect();
+               if (rect.bottom > window.innerHeight + 1) failures.push('footer-obscured');
+             }
+             if (document.querySelector('[data-testid="files-workbench"]')) failures.push('side-still-mounted');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.filesWorkbenchExpandedProbe = filesWorkbenchExpandedProbe;
+        const filesWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'files-workbench-expanded');
+        const filesWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(filesWorkbenchExpandedPath, filesWorkbenchExpandedImage.toPNG());
+        receipt.filesWorkbenchExpandedScreenshot = filesWorkbenchExpandedPath;
+        receipt.filesWorkbenchExpandedScreenshotBytes = (await fsp.stat(filesWorkbenchExpandedPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('[data-testid="files-workbench-expanded"] [data-testid="workbench-mode-toggle"]')?.click()`,
+          true
+        );
+        await sleep(400);
+        const filesWorkbenchEscape = await win.webContents.executeJavaScript(
+          `(async () => {
+             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+             await new Promise((resolve) => setTimeout(resolve, 250));
+             return { ok: !document.querySelector('[data-testid="files-workbench"]') && !document.querySelector('[data-testid="files-workbench-expanded"]') };
+           })()`,
+          true
+        );
+        receipt.filesWorkbenchEscape = filesWorkbenchEscape;
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Studio stage workbench, side/expanded and context pane.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'studio'; return true; })()`, true);
+        const studioWorkbenchDeadline = Date.now() + 30000;
+        let studioWorkbenchUiReady = false;
+        while (Date.now() < studioWorkbenchDeadline) {
+          await sleep(500);
+          studioWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="studio-workspace"]') && document.querySelector('[data-testid="studio-workbench-pin"]'))`,
+            true
+          );
+          if (studioWorkbenchUiReady) break;
+        }
+        receipt.studioWorkbenchUiReady = studioWorkbenchUiReady;
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench-pin"]')?.click()`, true);
+        await sleep(700);
+        const studioWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="studio-workbench"]');
+             const context = document.querySelector('[data-testid="studio-context-panel"]');
+             const footer = document.querySelector('[data-testid="studio-footer"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (!context) failures.push('context-missing');
+             if (String(host.innerText || '').trim().length < 60) failures.push('body-empty');
+             if (!footer) failures.push('footer-missing');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.studioWorkbenchSideProbe = studioWorkbenchSideProbe;
+        const studioWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'studio-workbench');
+        const studioWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(studioWorkbenchPath, studioWorkbenchImage.toPNG());
+        receipt.studioWorkbenchScreenshot = studioWorkbenchPath;
+        receipt.studioWorkbenchScreenshotBytes = (await fsp.stat(studioWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(
+          `document.querySelector('[data-testid="studio-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`,
+          true
+        );
+        await sleep(600);
+        const studioWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             if (document.querySelector('[data-testid="studio-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="studio-workbench-pin"]')) failures.push('pin-missing');
+             if (!document.querySelector('[data-testid="studio-footer"]')) failures.push('footer-missing');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.studioWorkbenchExpandedProbe = studioWorkbenchExpandedProbe;
+        const studioWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'studio-workbench-expanded');
+        const studioWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(studioWorkbenchExpandedPath, studioWorkbenchExpandedImage.toPNG());
+        receipt.studioWorkbenchExpandedScreenshot = studioWorkbenchExpandedPath;
+        receipt.studioWorkbenchExpandedScreenshotBytes = (await fsp.stat(studioWorkbenchExpandedPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench-pin"]')?.click()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        const studioWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="studio-workbench"]') && Boolean(document.querySelector('[data-testid="studio-workbench-pin"]')) })`,
+          true
+        );
+        receipt.studioWorkbenchEscape = studioWorkbenchEscape;
+        await forceSize(1366, 768);
+        await sleep(700);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench-pin"]')?.click()`, true);
+        await sleep(600);
+        const studioWorkbench1366 = await win.webContents.executeJavaScript(
+          `(() => {
+             const host = document.querySelector('[data-testid="studio-workbench"]');
+             const context = document.querySelector('[data-testid="studio-context-panel"]');
+             const overflow = document.documentElement.scrollWidth > window.innerWidth;
+             return { ok: Boolean(host && context) && !overflow, overflow, hostWidth: host ? Math.round(host.getBoundingClientRect().width) : 0, contextWidth: context ? Math.round(context.getBoundingClientRect().width) : 0, viewportWidth: window.innerWidth };
+           })()`,
+          true
+        );
+        receipt.studioWorkbench1366 = studioWorkbench1366;
+        const studioWorkbench1366Path = smokeShotPath.replace(/native-bridge/i, 'studio-workbench-1366');
+        const studioWorkbench1366Image = await win.webContents.capturePage();
+        await fsp.writeFile(studioWorkbench1366Path, studioWorkbench1366Image.toPNG());
+        receipt.studioWorkbench1366Screenshot = studioWorkbench1366Path;
+        receipt.studioWorkbench1366ScreenshotBytes = (await fsp.stat(studioWorkbench1366Path)).size;
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="studio-workbench"] [data-testid="workbench-close"]')?.click()`, true);
+        await forceSize(1672, 941);
+        await sleep(400);
+
+        // Mission 15A: Storage side/expanded workbench.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'storage'; return true; })()`, true);
+        const storageWorkbenchDeadline = Date.now() + 30000;
+        let storageWorkbenchUiReady = false;
+        while (Date.now() < storageWorkbenchDeadline) {
+          await sleep(500);
+          storageWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="storage-workspace"]') && document.querySelector('[data-service-key="storage-disks"]'))`,
+            true
+          );
+          if (storageWorkbenchUiReady) break;
+        }
+        receipt.storageWorkbenchUiReady = storageWorkbenchUiReady;
+        const storageVolumeDeadline = Date.now() + 30000;
+        let storageVolumeReady = false;
+        while (Date.now() < storageVolumeDeadline) {
+          await sleep(500);
+          storageVolumeReady = await win.webContents.executeJavaScript(
+            `document.querySelectorAll('[data-testid^="storage-volume-"]').length > 0 && Boolean(document.querySelector('[data-testid="storage-volume-count"]')) && document.querySelector('[data-testid="storage-volume-count"]').innerText.trim() !== '—'`,
+            true
+          );
+          if (storageVolumeReady) break;
+        }
+        receipt.storageVolumeReady = storageVolumeReady;
+        await sleep(500);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-service-key="storage-disks"]')?.click()`, true);
+        await sleep(600);
+        const storageWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="storage-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="storage-service-focus"]')) failures.push('body-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             const volumeCount = document.querySelector('[data-testid="storage-volume-count"]');
+             if (!volumeCount) failures.push('page-hidden');
+             else if (volumeCount.innerText.trim() === '—') failures.push('volumes-not-measured');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.storageWorkbenchSideProbe = storageWorkbenchSideProbe;
+        const storageWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'storage-workbench');
+        const storageWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(storageWorkbenchPath, storageWorkbenchImage.toPNG());
+        receipt.storageWorkbenchScreenshot = storageWorkbenchPath;
+        receipt.storageWorkbenchScreenshotBytes = (await fsp.stat(storageWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="storage-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const storageWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="storage-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="storage-workbench"]')) failures.push('side-still-mounted');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.storageWorkbenchExpandedProbe = storageWorkbenchExpandedProbe;
+        const storageWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'storage-workbench-expanded');
+        const storageWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(storageWorkbenchExpandedPath, storageWorkbenchExpandedImage.toPNG());
+        receipt.storageWorkbenchExpandedScreenshot = storageWorkbenchExpandedPath;
+        receipt.storageWorkbenchExpandedScreenshotBytes = (await fsp.stat(storageWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.storageWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="storage-workbench"]') && !document.querySelector('[data-testid="storage-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Scan side/expanded workbench over measured services.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'smart_scan'; return true; })()`, true);
+        const scanWorkbenchDeadline = Date.now() + 30000;
+        let scanWorkbenchUiReady = false;
+        while (Date.now() < scanWorkbenchDeadline) {
+          await sleep(500);
+          scanWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const main = document.querySelector('[data-testid="scan-workspace"]');
+               const tile = document.querySelector('[data-testid="scan-service-quick_scan"]');
+               return Boolean(main && tile && main.getBoundingClientRect().width > 100 && tile.getBoundingClientRect().width > 0);
+             })()`,
+            true
+          );
+          if (scanWorkbenchUiReady) break;
+        }
+        receipt.scanWorkbenchUiReady = scanWorkbenchUiReady;
+        await sleep(1200);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="scan-service-quick_scan"]')?.click()`, true);
+        const scanWorkbenchHostDeadline = Date.now() + 15000;
+        while (Date.now() < scanWorkbenchHostDeadline) {
+          await sleep(300);
+          const hostMounted = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="scan-workbench"]') || document.querySelector('[data-testid="scan-workbench-expanded"]'))`,
+            true
+          );
+          if (hostMounted) break;
+        }
+        await sleep(400);
+        const scanWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="scan-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="scan-service-focus"]')) failures.push('body-missing');
+             if (!host.querySelector('[data-testid="scan-service-run"]')) failures.push('run-control-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="scan-workspace"]')) failures.push('page-hidden');
+             if (!document.querySelector('[data-testid="scan-workspace"] [data-testid="scan-service-quick_scan"]')) failures.push('originating-services-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.scanWorkbenchSideProbe = scanWorkbenchSideProbe;
+        const scanWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'scan-workbench');
+        const scanWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(scanWorkbenchPath, scanWorkbenchImage.toPNG());
+        receipt.scanWorkbenchScreenshot = scanWorkbenchPath;
+        receipt.scanWorkbenchScreenshotBytes = (await fsp.stat(scanWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="scan-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const scanWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="scan-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="scan-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="scan-workspace"]')) failures.push('page-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.scanWorkbenchExpandedProbe = scanWorkbenchExpandedProbe;
+        const scanWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'scan-workbench-expanded');
+        const scanWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(scanWorkbenchExpandedPath, scanWorkbenchExpandedImage.toPNG());
+        receipt.scanWorkbenchExpandedScreenshot = scanWorkbenchExpandedPath;
+        receipt.scanWorkbenchExpandedScreenshotBytes = (await fsp.stat(scanWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.scanWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="scan-workbench"]') && !document.querySelector('[data-testid="scan-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Applications side/expanded workbench over the register.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'applications'; return true; })()`, true);
+        const appsWorkbenchDeadline = Date.now() + 30000;
+        let appsWorkbenchUiReady = false;
+        while (Date.now() < appsWorkbenchDeadline) {
+          await sleep(500);
+          appsWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const main = document.querySelector('[data-testid="apps-workspace"]');
+               const tile = document.querySelector('[data-testid="apps-service-app-inventory"]');
+               return Boolean(main && tile && main.getBoundingClientRect().width > 100 && tile.getBoundingClientRect().width > 0);
+             })()`,
+            true
+          );
+          if (appsWorkbenchUiReady) break;
+        }
+        receipt.appsWorkbenchUiReady = appsWorkbenchUiReady;
+        const appsWorkbenchDataDeadline = Date.now() + 30000;
+        let appsWorkbenchDataReady = false;
+        while (Date.now() < appsWorkbenchDataDeadline) {
+          await sleep(500);
+          appsWorkbenchDataReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelectorAll('[data-testid="apps-register-row"]').length > 0)`,
+            true
+          );
+          if (appsWorkbenchDataReady) break;
+        }
+        receipt.appsWorkbenchDataReady = appsWorkbenchDataReady;
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="apps-service-app-inventory"]')?.click()`, true);
+        const appsWorkbenchHostDeadline = Date.now() + 15000;
+        while (Date.now() < appsWorkbenchHostDeadline) {
+          await sleep(300);
+          const hostMounted = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="apps-workbench"]') || document.querySelector('[data-testid="apps-workbench-expanded"]'))`,
+            true
+          );
+          if (hostMounted) break;
+        }
+        await sleep(400);
+        const appsWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="apps-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="app-service-focus"]')) failures.push('body-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="apps-register"]')) failures.push('originating-register-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.appsWorkbenchSideProbe = appsWorkbenchSideProbe;
+        const appsWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'apps-workbench');
+        const appsWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsWorkbenchPath, appsWorkbenchImage.toPNG());
+        receipt.appsWorkbenchScreenshot = appsWorkbenchPath;
+        receipt.appsWorkbenchScreenshotBytes = (await fsp.stat(appsWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="apps-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const appsWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="apps-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="apps-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="apps-workspace"]')) failures.push('page-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.appsWorkbenchExpandedProbe = appsWorkbenchExpandedProbe;
+        const appsWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'apps-workbench-expanded');
+        const appsWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsWorkbenchExpandedPath, appsWorkbenchExpandedImage.toPNG());
+        receipt.appsWorkbenchExpandedScreenshot = appsWorkbenchExpandedPath;
+        receipt.appsWorkbenchExpandedScreenshotBytes = (await fsp.stat(appsWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.appsWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="apps-workbench"]') && !document.querySelector('[data-testid="apps-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
       } catch (error) {
         receipt.screenshotError = redactError(error);
       }
@@ -5452,6 +5904,62 @@ async function runSmoke(win) {
       && receipt.home1366Layout?.withinWidth === true
       && receipt.home1366Layout?.viewportWidth === 1366
       && receipt.home1366Layout?.kpis === 6;
+    const filesWorkbenchOk = Boolean(
+      receipt.filesWorkbenchUiReady === true &&
+      receipt.filesWorkbenchSideProbe?.ok === true &&
+      receipt.filesWorkbenchExpandedProbe?.ok === true &&
+      receipt.filesWorkbenchEscape?.ok === true &&
+      receipt.filesWorkbenchSideScreenshotBytes > 20000 &&
+      receipt.filesWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const filesWorkbenchLayoutOk = receipt.filesWorkbenchSideProbe?.ok === true
+      && receipt.filesWorkbenchExpandedProbe?.ok === true
+      && receipt.filesWorkbenchExpandedProbe?.failures?.length === 0;
+    const studioWorkbenchOk = Boolean(
+      receipt.studioWorkbenchUiReady === true &&
+      receipt.studioWorkbenchSideProbe?.ok === true &&
+      receipt.studioWorkbenchExpandedProbe?.ok === true &&
+      receipt.studioWorkbenchEscape?.ok === true &&
+      receipt.studioWorkbench1366?.ok === true &&
+      receipt.studioWorkbenchScreenshotBytes > 20000 &&
+      receipt.studioWorkbenchExpandedScreenshotBytes > 20000 &&
+      receipt.studioWorkbench1366ScreenshotBytes > 20000
+    );
+    const studioWorkbenchLayoutOk = receipt.studioWorkbenchSideProbe?.ok === true
+      && receipt.studioWorkbenchExpandedProbe?.ok === true
+      && receipt.studioWorkbench1366?.ok === true;
+    const storageWorkbenchOk = Boolean(
+      receipt.storageWorkbenchUiReady === true &&
+      receipt.storageVolumeReady === true &&
+      receipt.storageWorkbenchSideProbe?.ok === true &&
+      receipt.storageWorkbenchExpandedProbe?.ok === true &&
+      receipt.storageWorkbenchEscape?.ok === true &&
+      receipt.storageWorkbenchScreenshotBytes > 20000 &&
+      receipt.storageWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const storageWorkbenchLayoutOk = receipt.storageWorkbenchSideProbe?.ok === true
+      && receipt.storageWorkbenchExpandedProbe?.ok === true;
+    const scanWorkbenchOk = Boolean(
+      receipt.scanWorkbenchUiReady === true &&
+      receipt.scanWorkbenchSideProbe?.ok === true &&
+      receipt.scanWorkbenchExpandedProbe?.ok === true &&
+      receipt.scanWorkbenchEscape?.ok === true &&
+      receipt.scanWorkbenchScreenshotBytes > 20000 &&
+      receipt.scanWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const scanWorkbenchLayoutOk = receipt.scanWorkbenchSideProbe?.ok === true
+      && receipt.scanWorkbenchExpandedProbe?.ok === true;
+    const appsWorkbenchOk = Boolean(
+      receipt.appsWorkbenchUiReady === true &&
+      receipt.appsWorkbenchDataReady === true &&
+      receipt.appsWorkbenchSideProbe?.ok === true &&
+      receipt.appsWorkbenchExpandedProbe?.ok === true &&
+      receipt.appsWorkbenchEscape?.ok === true &&
+      receipt.appsWorkbenchScreenshotBytes > 20000 &&
+      receipt.appsWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const appsWorkbenchLayoutOk = receipt.appsWorkbenchSideProbe?.ok === true
+      && receipt.appsWorkbenchExpandedProbe?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -5520,8 +6028,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, studioWorkbenchOk, studioWorkbenchLayoutOk, storageWorkbenchOk, storageWorkbenchLayoutOk, scanWorkbenchOk, scanWorkbenchLayoutOk, appsWorkbenchOk, appsWorkbenchLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && studioWorkbenchOk && studioWorkbenchLayoutOk && storageWorkbenchOk && storageWorkbenchLayoutOk && scanWorkbenchOk && scanWorkbenchLayoutOk && appsWorkbenchOk && appsWorkbenchLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });

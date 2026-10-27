@@ -62,6 +62,7 @@ import { FileIcon } from '../components/files/FileIcon';
 import { useFilesNative, formatBytes } from '../files/useFilesNative';
 import { FilesNativeBanner } from '../files/FilesNativeBanner';
 import { FilesServiceFocus } from '../files/FilesServiceFocus';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import '../files.css';
@@ -84,6 +85,20 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [sortBy, setSortBy] = useState<'date_desc' | 'name_asc' | 'size_desc'>('date_desc');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [activeService, setActiveService] = useState<FilesServiceKey | null>(null);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.files.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.files.workbench.width')); return Number.isFinite(value) && value >= 320 ? Math.min(560, value) : 380; } catch { return 380; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.files.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.files.workbench.width', String(workbenchWidth));
+    } catch {
+      // Preferences remain in memory when storage is unavailable.
+    }
+  }, [workbenchMode, workbenchWidth]);
   const [previewExpanded, setPreviewExpanded] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const filesNative = useFilesNative();
@@ -388,6 +403,31 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
     }
   };
 
+  const activeServiceMeta = activeService ? FILES_DOMAIN_SERVICES.find((entry) => entry.key === activeService) || null : null;
+  const renderFilesServiceBody = () => {
+    if (!activeService) return null;
+    return (
+      <FilesServiceFocus
+        service={activeService}
+        locale={locale}
+        measured={measured}
+        overview={measuredOverview}
+        selectedFile={selectedFile}
+        metadata={selectedMetadata}
+        hash={selectedHash}
+        emptyFolders={filesNative.emptyFolders}
+        emptyFoldersLoading={filesNative.emptyFoldersLoading}
+        onClose={() => setActiveService(null)}
+        onAdd={() => void filesNative.addSource()}
+        onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
+        onOpenStudio={handleOpenStudio}
+        onLoadEmpty={() => void filesNative.loadEmptyFolders()}
+        onHash={() => void handleHashFile()}
+        embedded
+      />
+    );
+  };
+
   return (
     <div
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
@@ -421,7 +461,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden">
+        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace">
           {/* Toast feedback */}
           {toastMessage && (
             <div className="absolute top-3 right-6 z-50 px-3.5 py-2 rounded-lg bg-cyan-950/95 border border-cyan-400 text-cyan-200 text-xs shadow-xl flex items-center gap-2">
@@ -938,8 +978,43 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               )}
             </div>
 
-            {/* Right Detail Panel (Inspector) */}
-            <div className="w-80 xl:w-96 shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar">
+            {/* Right Detail Panel / pinned service workbench */}
+            <div
+              className={`shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
+              style={activeService && workbenchMode === 'side' ? { width: `${workbenchWidth}px` } : undefined}
+            >
+              {activeService && workbenchMode === 'side' ? (
+                <div className="h-[480px] shrink-0" data-testid="files-workbench-side-shell">
+                  <ServiceWorkbenchHost
+                    serviceId={activeService}
+                    title={activeServiceMeta ? (locale === 'en' ? activeServiceMeta.labelEn : activeServiceMeta.labelAr) : activeService}
+                    subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'fixture context' : 'سياق تجريبي')}`}
+                    locale={locale}
+                    mode="side"
+                    onModeChange={setWorkbenchMode}
+                    onClose={() => setActiveService(null)}
+                    onResize={(width) => setWorkbenchWidth(width)}
+                    minWidth={320}
+                    maxWidth={560}
+                    testId="files-workbench"
+                    toolSelector={
+                      <select
+                        data-testid="files-workbench-tool-select"
+                        aria-label={locale === 'en' ? 'Switch file service' : 'تبديل خدمة الملفات'}
+                        value={activeService}
+                        onChange={(event) => setActiveService(event.target.value as FilesServiceKey)}
+                        className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+                      >
+                        {FILES_DOMAIN_SERVICES.map((entry) => (
+                          <option key={entry.key} value={entry.key}>{locale === 'en' ? entry.labelEn : entry.labelAr}</option>
+                        ))}
+                      </select>
+                    }
+                  >
+                    {renderFilesServiceBody()}
+                  </ServiceWorkbenchHost>
+                </div>
+              ) : null}
               {/* Selected File Dossier */}
               <div className="bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg">
                 {/* Header with Title and Window Controls */}
@@ -1168,26 +1243,6 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </div>
               </div>
 
-              {activeService && (
-                <FilesServiceFocus
-                  service={activeService}
-                  locale={locale}
-                  measured={measured}
-                  overview={measuredOverview}
-                  selectedFile={selectedFile}
-                  metadata={selectedMetadata}
-                  hash={selectedHash}
-                  emptyFolders={filesNative.emptyFolders}
-                  emptyFoldersLoading={filesNative.emptyFoldersLoading}
-                  onClose={() => setActiveService(null)}
-                  onAdd={() => void filesNative.addSource()}
-                  onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
-                  onOpenStudio={handleOpenStudio}
-                  onLoadEmpty={() => void filesNative.loadEmptyFolders()}
-                  onHash={() => void handleHashFile()}
-                />
-              )}
-
               {/* Sub-Card 2: KNOuX Services (12 Domain Service Cards Dock) */}
               <div className="bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
                 <div className="text-xs font-bold text-white flex items-center justify-between pb-1 border-b border-[#0f2545]">
@@ -1200,6 +1255,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                     <button
                       key={serv.key}
                       data-service-key={serv.key}
+                      data-testid={`files-service-${serv.key}`}
                       onClick={() => setActiveService(serv.key)}
                       className="p-1.5 rounded-lg bg-[#091a33] hover:bg-[#122e57] text-cyan-300 hover:text-white border border-[#142e56] hover:border-[#2476ff]/60 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group"
                       title={serv.labelEn}
@@ -1215,8 +1271,38 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             </div>
           </div>
 
+          {activeService && workbenchMode === 'expanded' ? (
+            <div className="absolute inset-x-0 top-0 bottom-12 z-40 bg-[#040b18]/95 p-3" data-testid="files-workbench-expanded-shell">
+              <ServiceWorkbenchHost
+                serviceId={activeService}
+                title={activeServiceMeta ? (locale === 'en' ? activeServiceMeta.labelEn : activeServiceMeta.labelAr) : activeService}
+                subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'fixture context' : 'سياق تجريبي')}`}
+                locale={locale}
+                mode="expanded"
+                onModeChange={setWorkbenchMode}
+                onClose={() => setActiveService(null)}
+                testId="files-workbench-expanded"
+                toolSelector={
+                  <select
+                    data-testid="files-workbench-tool-select"
+                    aria-label={locale === 'en' ? 'Switch file service' : 'تبديل خدمة الملفات'}
+                    value={activeService}
+                    onChange={(event) => setActiveService(event.target.value as FilesServiceKey)}
+                    className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+                  >
+                    {FILES_DOMAIN_SERVICES.map((entry) => (
+                      <option key={entry.key} value={entry.key}>{locale === 'en' ? entry.labelEn : entry.labelAr}</option>
+                    ))}
+                  </select>
+                }
+              >
+                {renderFilesServiceBody()}
+              </ServiceWorkbenchHost>
+            </div>
+          ) : null}
+
           {/* 4. Sticky Action Footer */}
-          <footer className="h-12 bg-[#050e1f] border-t border-[#132c52] px-6 flex items-center justify-between select-none shrink-0 z-30">
+          <footer className="h-12 bg-[#050e1f] border-t border-[#132c52] px-6 flex items-center justify-between select-none shrink-0 z-30" data-testid="files-footer">
             {/* Left Selection Stat */}
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <div

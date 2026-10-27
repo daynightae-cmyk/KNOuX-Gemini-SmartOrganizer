@@ -5,6 +5,7 @@ type FrameGeometry = { ambient: boolean; forming: number; release: number; radiu
 /** Deterministic golden-angle distribution; coherent logarithmic spirals rather
  * than random confetti. One canvas survives formation, release and ambience. */
 export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleState) {
+  const boundary = canvas.closest('.cinematic-boundary');
   let ctx: CanvasRenderingContext2D | null;
   try { ctx = canvas.getContext('2d'); } catch { return () => {}; }
   if (!ctx) return () => {}; // CSS medallion remains functional without graphics
@@ -16,7 +17,7 @@ export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleSt
   const count = constrained ? 100 : 230;
   const resize = () => {
     width = window.innerWidth; height = window.innerHeight;
-    const medallion = canvas.parentElement?.querySelector('.entry-medallion')?.getBoundingClientRect();
+    const medallion = boundary?.querySelector('.entry-medallion')?.getBoundingClientRect();
     centerY = medallion ? medallion.top + medallion.height / 2 : height * .43;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = width * dpr; canvas.height = height * dpr;
@@ -109,7 +110,7 @@ export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleSt
     if (read().phase !== 'ACTIVE') settled = false;
     wake();
   });
-  observer.observe(canvas.parentElement!, { attributes: true, attributeFilter: ['data-phase', 'data-reduced', 'data-home', 'data-light'] });
+  observer.observe(boundary!, { attributes: true, attributeFilter: ['data-phase', 'data-reduced', 'data-home', 'data-light'] });
   window.addEventListener('resize', reset);
   document.addEventListener('visibilitychange', wake);
   return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener('resize', reset); document.removeEventListener('visibilitychange', wake); ctx.clearRect(0, 0, width, height); };

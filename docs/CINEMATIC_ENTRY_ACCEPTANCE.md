@@ -13,7 +13,7 @@ Scope: `daynightae-cmyk/KNOuX-Gemini-SmartOrganizer`, cloud branch `feat/smart-c
 | `npm run lint` | PASS | Repository command is TypeScript `tsc --noEmit` |
 | `npm run build` | PASS | Vite production bundle; existing >500 KB chunk advisory remains |
 | `npm run test:entry` model/audio unit tests | PASS | 3 tests, no skips |
-| Browser interaction/visual suite | PASS | 21 tests, no skips; detailed cases in run-results.json |
+| Browser interaction/visual suite | PASS | 23 tests, no skips; detailed cases in run-results.json |
 | Real Home paint/mount identity, overlap and final focus | PASS | Real main DOM identity unchanged, no removal, shell opacity 1, overlay intermediate opacity asserted, inert removed only after transition |
 | Gesture-only audio / repeated click / denied audio | PASS | Real AudioContext resume/oscillator instrumentation; exactly one seven-voice Enter cue despite repeated clicks; no mount/fast-entry audio |
 | Renderer/native status separation, slow native bridge | PASS | Pending → explicit unavailable timeout; interface remains enterable; no capability states mutated |
@@ -54,3 +54,11 @@ At implementation commit `c7fa4e034bffba277c68d5ce54ad608e42837165`, both push a
 SonarCloud separately failed its initial quality gate. Its annotations identified oversized cognitive complexity, dialog/decoration semantics, CTA contrast and CI package-install concerns. The follow-up splits scene geometry, rendering and lifecycle into bounded helpers, separates entry controls/copy/footer, uses a native dialog and output status, strengthens CTA contrast and explicit reduced-motion CSS, and uses frozen install with dependency lifecycle scripts disabled in CI. Electron installation is an explicit checksum-verifying step. Browser CI uses the hosted Ubuntu image's existing Chrome rather than downloading or executing an on-demand npm package.
 
 The owner advanced main independently while this branch was under review. The original creation baseline is retained for provenance. Published main 66d8808 was merged into this feature branch only, preserving upstream Home, providers and evidence byte-for-byte. The sole package.json conflict was resolved by retaining both test:home and test:entry. Main was not written or merged into by this task; owner approval remains required after Qoder is idle. Subsequent source digests and regenerated screenshots are recorded in run-results.json; the PR check list is authoritative for the follow-up commit's remote gate status.
+
+## Final reliability repair, 2026-10-27
+
+Fresh refs exposed Reliability B on PR head 589f4b6 and published main 86cf321. Published workbench functionality was incorporated only into the cinematic branch. The package conflict retains test:home, test:entry, test:workbench and every upstream script. Native providers and workbench implementation remain unchanged relative to that main.
+
+The actual reliability/accessibility findings were repaired: Settings choice cards use native keyboard-operable buttons with pressed state; decorative Canvas sits in an inert, aria-hidden wrapper; density/accent update through dataset. Settings presentation is split into tab/import-preview render helpers preserving existing state, handlers, consent and profile semantics. A local SonarJS cognitive-complexity check reports zero functions above 15 in Settings and entry source. Unused renderer imports/state were removed without changing navigation. Reduced-motion CSS uses normal specificity, with no rule suppression.
+
+Two additional browser regressions exercise keyboard selection, preference persistence through replay, every Settings tab, and valid/invalid import previews. The final remote SonarCloud check must report PASS at the same head as all tested CI jobs; no old or missing result counts as passing.

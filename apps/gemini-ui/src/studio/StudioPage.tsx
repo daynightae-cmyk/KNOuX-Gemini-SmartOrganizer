@@ -4,7 +4,7 @@
  * Reference composition: REF-01_Smart_Organization_Studio.png (1672x941 native)
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStudio } from './context';
 import {
   WindowsTitleBar,
@@ -28,10 +28,29 @@ import { PlanReviewWorkspace } from './workspaces/PlanReviewWorkspace';
 import { ExecutionMonitor } from './workspaces/ExecutionMonitor';
 import { HistoryUndoInspector } from './workspaces/HistoryUndoInspector';
 import { SuggestionsReview } from './workspaces/SuggestionsReview';
+import { StudioStageContextPanel } from './StudioStageContextPanel';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 
 export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => void }) {
-  const { activeStageId, locale } = useStudio();
+  const { activeStageId, locale, stages, authorizedSources, selectedFileIds } = useStudio();
   const [dpiScale, setDpiScale] = useState<'100%' | '125%' | '150%'>('100%');
+  const [stageWorkbenchMode, setStageWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.studio.workbench.mode') === 'side' ? 'side' : 'expanded'; } catch { return 'expanded'; }
+  });
+  const [stageDockWidth, setStageDockWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.studio.workbench.width')); return Number.isFinite(value) && value >= 360 ? Math.min(720, value) : 560; } catch { return 560; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.studio.workbench.mode', stageWorkbenchMode);
+      localStorage.setItem('knoux.studio.workbench.width', String(stageDockWidth));
+    } catch {
+      // In-memory only when storage is unavailable.
+    }
+  }, [stageWorkbenchMode, stageDockWidth]);
+  const activeStage = stages.find((stage) => stage.id === activeStageId) || stages[0];
+  const activeSource = authorizedSources[0] || null;
+  const activeSourceLabel = activeSource?.path ? activeSource.path.split(/[\/]/).filter(Boolean).slice(-2).join(' / ') : null;
 
   const renderActiveWorkspace = () => {
     switch (activeStageId) {
@@ -68,6 +87,7 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
   return (
     <div
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      data-testid="studio-workspace"
       className="w-screen h-screen flex flex-col bg-[#050d1d] text-slate-100 overflow-hidden font-sans select-none relative"
       style={{
         fontFamily:
@@ -103,9 +123,43 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
           </div>
 
           {/* Dynamic Workspace Container (Active Stage 1-9) */}
-          <div className="flex-1 flex flex-col min-h-0 overflow-hidden relative">
-            {renderActiveWorkspace()}
-          </div>
+          {stageWorkbenchMode === 'side' ? (
+            <div className="flex-1 flex min-h-0 overflow-hidden relative">
+              <StudioStageContextPanel />
+              <div className="shrink-0 h-full min-h-0" style={{ width: `${stageDockWidth}px` }} data-testid="studio-workbench-side-shell">
+                <ServiceWorkbenchHost
+                  serviceId={`studio-stage-${activeStageId}`}
+                  title={(locale === 'en' ? activeStage?.nameEn : activeStage?.nameAr) || `Stage ${activeStageId}`}
+                  subtitle={activeSource ? `${activeSourceLabel} · ${selectedFileIds.size} selected` : (locale === 'en' ? 'No authorized source' : 'لا يوجد مصدر مصرح')}
+                  locale={locale === 'ar' ? 'ar' : 'en'}
+                  mode="side"
+                  onModeChange={(mode) => setStageWorkbenchMode(mode)}
+                  onClose={() => setStageWorkbenchMode('expanded')}
+                  onResize={(width) => setStageDockWidth(width)}
+                  minWidth={360}
+                  maxWidth={720}
+                  testId="studio-workbench"
+                  footer={<><span className="text-amber-300">{locale === 'en' ? 'Preview only · execution blocked' : 'معاينة فقط · التنفيذ محجوب'}</span></>}
+                >
+                  {renderActiveWorkspace()}
+                </ServiceWorkbenchHost>
+              </div>
+            </div>
+          ) : (
+            <div className="flex-1 flex flex-col min-h-0 overflow-hidden relative">
+              <div className="absolute end-4 top-2 z-20">
+                <button
+                  type="button"
+                  onClick={() => setStageWorkbenchMode('side')}
+                  data-testid="studio-workbench-pin"
+                  className="rounded-lg border border-cyan-400/50 bg-[#071b38]/95 px-2.5 py-1 text-[10px] font-semibold text-cyan-200 shadow-lg hover:bg-[#0c2850]"
+                >
+                  {locale === 'en' ? 'Pin stage workbench' : 'تثبيت مساحة المرحلة'}
+                </button>
+              </div>
+              {renderActiveWorkspace()}
+            </div>
+          )}
 
           {/* 08 — Sticky Footer (hosts the DPI preview switch in its center slot) */}
           <StickyFooter

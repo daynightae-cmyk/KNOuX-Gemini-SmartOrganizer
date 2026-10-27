@@ -65,7 +65,8 @@ import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellCompo
 import { StorageBanner } from '../storage/StorageBanner';
 import { StorageSpaceMap } from '../storage/StorageSpaceMap';
 import { StorageTabContent, type StorageTabKey } from '../storage/StorageTabContent';
-import { StorageServiceFocus } from '../storage/StorageServiceFocus';
+import { StorageServiceFocus, storageServiceLabel } from '../storage/StorageServiceFocus';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
 import '../storage.css';
 
@@ -83,6 +84,20 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [selectedTreemapItem, setSelectedTreemapItem] = useState<string>('Windows (93.6 GB)');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
   const [activeService, setActiveService] = useState<string | null>(null);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.storage.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.storage.workbench.width')); return Number.isFinite(value) && value >= 340 ? Math.min(680, value) : 520; } catch { return 520; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.storage.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.storage.workbench.width', String(workbenchWidth));
+    } catch {
+      // In-memory only when storage is unavailable.
+    }
+  }, [workbenchMode, workbenchWidth]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [volumePinnedByUser, setVolumePinnedByUser] = useState(false);
   const storageNative = useStorageNative();
@@ -243,6 +258,27 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
     else navigateTo(section as any);
   };
 
+  const renderStorageServiceBody = () => activeService ? (
+    <StorageServiceFocus
+      serviceKey={activeService}
+      isArabic={isArabic}
+      volumes={storageNative.volumes}
+      analysis={analysis}
+      duplicates={storageNative.duplicates}
+      history={storageNative.history}
+      verifying={storageNative.verifying}
+      onClose={() => setActiveService(null)}
+      onChoose={() => void storageNative.chooseSource()}
+      onRescan={() => void storageNative.rescan()}
+      onTab={(tab) => { setActiveTab(tab); setActiveService(null); }}
+      onVerify={() => void storageNative.verifyDuplicates()}
+      onNavigateFiles={() => navigateSection('files')}
+      onNavigateCleanup={() => navigateSection('cleanup')}
+      onNavigateStudio={() => navigateSection('studio')}
+      embedded
+    />
+  ) : null;
+
   return (
     <div
       dir={isArabic ? 'rtl' : 'ltr'}
@@ -280,7 +316,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         />
 
         {/* 3. Main Scrollable Canvas (Hero + Top Strip + Volume Bays + Analysis + Inspector + Services) */}
-        <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5">
+        <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
           {/* Hero Section */}
           <div className="flex items-start justify-between relative z-10 pb-1">
             <div>
@@ -799,25 +835,6 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               )}
           {/* 7. Storage Analysis Services (12 Services Strip) */}
           <div className="space-y-1 pt-0.5">
-            {activeService && (
-              <StorageServiceFocus
-                serviceKey={activeService}
-                isArabic={isArabic}
-                volumes={storageNative.volumes}
-                analysis={analysis}
-                duplicates={storageNative.duplicates}
-                history={storageNative.history}
-                verifying={storageNative.verifying}
-                onClose={() => setActiveService(null)}
-                onChoose={() => void storageNative.chooseSource()}
-                onRescan={() => void storageNative.rescan()}
-                onTab={(tab) => { setActiveTab(tab); setActiveService(null); }}
-                onVerify={() => void storageNative.verifyDuplicates()}
-                onNavigateFiles={() => navigateSection('files')}
-                onNavigateCleanup={() => navigateSection('cleanup')}
-                onNavigateStudio={() => navigateSection('studio')}
-              />
-            )}
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 {isArabic ? 'خدمات تحليل واستكشاف التخزين' : 'Storage Analysis Services'}
@@ -1102,6 +1119,70 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         </div>
       </footer>
 
+      {activeService ? (
+        workbenchMode === 'side' ? (
+          <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="storage-workbench-side-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={storageServiceLabel(activeService, isArabic).title}
+              subtitle={isArabic ? 'سياق التخزين المقيس · للقراءة فقط' : 'Measured storage context · read-only'}
+              locale={isArabic ? 'ar' : 'en'}
+              mode="side"
+              onModeChange={setWorkbenchMode}
+              onClose={() => setActiveService(null)}
+              onResize={(width) => setWorkbenchWidth(width)}
+              minWidth={340}
+              maxWidth={680}
+              testId="storage-workbench"
+              toolSelector={
+                <select
+                  data-testid="storage-workbench-tool-select"
+                  aria-label={isArabic ? 'تبديل خدمة التخزين' : 'Switch storage service'}
+                  value={activeService}
+                  onChange={(event) => setActiveService(event.target.value)}
+                  className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+                >
+                  {STORAGE_SERVICES_CATALOG.map((entry) => (
+                    <option key={entry.id} value={entry.serviceKey}>{isArabic ? storageServiceLabel(entry.serviceKey, true).title : entry.name}</option>
+                  ))}
+                </select>
+              }
+              footer={<span className="text-amber-300">{isArabic ? 'معاينة فقط · لا حذف أو تحسين' : 'Preview only · no delete or optimize'}</span>}
+            >
+              {renderStorageServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        ) : (
+          <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="storage-workbench-expanded-shell">
+            <ServiceWorkbenchHost
+              serviceId={activeService}
+              title={storageServiceLabel(activeService, isArabic).title}
+              subtitle={isArabic ? 'سياق التخزين المقيس · للقراءة فقط' : 'Measured storage context · read-only'}
+              locale={isArabic ? 'ar' : 'en'}
+              mode="expanded"
+              onModeChange={setWorkbenchMode}
+              onClose={() => setActiveService(null)}
+              testId="storage-workbench-expanded"
+              toolSelector={
+                <select
+                  data-testid="storage-workbench-tool-select"
+                  aria-label={isArabic ? 'تبديل خدمة التخزين' : 'Switch storage service'}
+                  value={activeService}
+                  onChange={(event) => setActiveService(event.target.value)}
+                  className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+                >
+                  {STORAGE_SERVICES_CATALOG.map((entry) => (
+                    <option key={entry.id} value={entry.serviceKey}>{isArabic ? storageServiceLabel(entry.serviceKey, true).title : entry.name}</option>
+                  ))}
+                </select>
+              }
+              footer={<span className="text-amber-300">{isArabic ? 'معاينة فقط · لا حذف أو تحسين' : 'Preview only · no delete or optimize'}</span>}
+            >
+              {renderStorageServiceBody()}
+            </ServiceWorkbenchHost>
+          </div>
+        )
+      ) : null}
 
     </div>
   );

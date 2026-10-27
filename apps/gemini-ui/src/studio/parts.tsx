@@ -412,7 +412,7 @@ export function StickyFooter({ dpiControl }: { dpiControl?: React.ReactNode }) {
   const selectedSize = formatSelectionBytes(selectedFiles.reduce((sum, file) => sum + file.sizeBytes, 0));
 
   return (
-    <footer className="h-12 bg-[#050e1f] border-t border-[#132c52] px-6 flex items-center justify-between select-none z-40 shrink-0">
+    <footer className="h-12 bg-[#050e1f] border-t border-[#132c52] px-6 flex items-center justify-between select-none z-40 shrink-0" data-testid="studio-footer">
       {/* Left statistics summary */}
       <div className="flex items-center gap-3 text-xs text-slate-300">
         <ImageIcon className="w-4 h-4 text-cyan-400" />

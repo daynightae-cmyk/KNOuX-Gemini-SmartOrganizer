@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { NavigationProvider, useNavigation, type AppSection } from './context/NavigationContext';
+import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import { StudioProvider } from './studio/context';
 import { StudioPage } from './studio/StudioPage';
 import { HomePage } from './pages/HomePage';
@@ -21,7 +21,6 @@ import { SmartScanPage } from './pages/SmartScanPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { GoogleWorkspaceHub } from './components/workspace/GoogleWorkspaceHub';
 
-import { KNOuXTitleBar, KNOuXSidebar } from './components/shell/KNOuXShellComponents';
 import { KNOuXAssistantChat } from './components/chat/KNOuXAssistantChat';
 import { ApiKeySetupModal } from './components/chat/ApiKeySetupModal';
 import { setAiSession } from './lib/ai-session';
@@ -42,12 +41,11 @@ import './home-command-center.css';
 import './theme-light.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
-export type { AppSection };
+export type { AppSection } from './context/NavigationContext';
 
 function AppContent() {
-  const { currentSection, navigateTo, isActive, locale, isArabic, setLocale, toggleLocale } = useNavigation();
+  const { currentSection, navigateTo, isArabic } = useNavigation();
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -70,26 +68,6 @@ function AppContent() {
   };
 
   const isAr = isArabic;
-
-  const sectionTitles: Record<string, { en: string; ar: string }> = {
-    home: { en: 'Home', ar: 'الرئيسية' },
-    smart_scan: { en: 'Smart Scan', ar: 'الفحص الذكي' },
-    scan: { en: 'Smart Scan', ar: 'الفحص الذكي' },
-    studio: { en: 'Organization Studio', ar: 'استوديو التنظيم' },
-    applications: { en: 'Applications', ar: 'التطبيقات' },
-    files: { en: 'Files', ar: 'الملفات الذكية' },
-    storage: { en: 'Storage', ar: 'أطلس التخزين' },
-    cleanup: { en: 'Cleanup', ar: 'معمل التنظيف' },
-    startup: { en: 'Startup', ar: 'بدء التشغيل' },
-    system: { en: 'System', ar: 'نبض النظام' },
-    repair: { en: 'Repair', ar: 'معمل الإصلاح' },
-    services: { en: 'Services', ar: 'خدمات ويندوز' },
-    automation: { en: 'Automation', ar: 'أتمتة العمليات' },
-    workspace: { en: 'Google Workspace', ar: 'خدمات Google' },
-    settings: { en: 'Settings', ar: 'الإعدادات' },
-  };
-
-  const currentMeta = sectionTitles[currentSection] || { en: 'Workspace', ar: 'مساحة العمل' };
 
   // Active workspace injector into shared workspace container
   const renderActiveWorkspace = () => {
