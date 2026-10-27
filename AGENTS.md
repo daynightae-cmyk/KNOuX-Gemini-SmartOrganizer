@@ -1,3 +1,16 @@
+# VISUAL-OWNER-REBUILD — EXPLICIT ISOLATED WORKTREE EXCEPTION (2026-10-27)
+
+This checkout is the owner-authorized visual redesign worktree at
+`D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\visual-owner-rebuild`,
+branch `feat/knoux-visual-studio-rebuild-20261027`, forked from reviewed visual closure `516f0ed`.
+For THIS checkout only, this paragraph supersedes historical "ONLY development branch feat/gemini-missions", "no worktrees", "push only feat/gemini-missions" and "next Smart Scan mission" below. The safe workspace verifier in THIS checkout performs fail-closed worktree/common-git-dir/remote/branch checks and must PASS before source edits.
+
+Current mission: `missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/00_EMERGENCY_STUDIO_GOLD_STANDARD_VISUAL_RECOVERY_20261027.md`.
+Execute Files overview pilot first, then owner review. Layout fidelity includes no page-wide vertical scroll to primary actions and exact DAY/NIGHT references; no false screenshot PASS.
+Never edit original checkout `integration/final-acceptance-20261027`, Codex's `.worktrees/visual-sprint`, Qwen worktrees, or personal files; preserve every pending edit and evidence. Do not run Electron smoke concurrently with Qwen's runtime tests. This worktree may commit and fast-forward push **only its own visual branch** after reviewed tests. Do not merge to main. All original native/privacy/consent/security protections below remain binding.
+
+---
+
 # REAL-SERVICE PRODUCT ACCEPTANCE — OVERRIDES READ-ONLY FINALITY
 
 Read missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md. A read-only or dry-run milestone is NOT a final product-complete action service. Actual executor implementation and disposable-fixture side-effect tests are REQUIRED while any LIVE changes to the owner's files/OS/accounts require their explicit separate user approval. Keep all past validated work and preserve the current in-flight source changes. After 04/14/01 complete, run the documented per-service activation pass instead of declaring 100% finished. Track every service ID in docs/SERVICE_CAPABILITY_MATRIX.md.
