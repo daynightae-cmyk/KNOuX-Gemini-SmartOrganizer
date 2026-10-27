@@ -1,0 +1,678 @@
+{
+  "baseline": "099500e204dbf9184e929f267fe0112f272ff725",
+  "branch": "feat/smart-cinematic-entry-20261026",
+  "environment": "Linux cloud, Node 24.19.0, npm 11.9.0, system Chromium headless",
+  "unit_tests": {
+    "passed": 3,
+    "skipped": 0
+  },
+  "browser": {
+    "stats": {
+      "startTime": "2026-10-27T00:59:31.678Z",
+      "duration": 205631.46,
+      "expected": 23,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "name": "real shell paints once; immediate response, overlapping reveal and focus",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 7857
+          }
+        ]
+      },
+      {
+        "name": "gesture audio, repeated clicks, persistence and direct repeat launch",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8657
+          }
+        ]
+      },
+      {
+        "name": "denied audio and unavailable Canvas/WebGL still enter",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 2396
+          }
+        ]
+      },
+      {
+        "name": "slow native bridge timeout is honest and never blocks renderer",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8147
+          }
+        ]
+      },
+      {
+        "name": "Escape skip and Settings replay preserve real route and mount",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 10194
+          }
+        ]
+      },
+      {
+        "name": "keyboard focus and Space entry respect reduced motion",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 3654
+          }
+        ]
+      },
+      {
+        "name": "visual 1366 en dark: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8857
+          }
+        ]
+      },
+      {
+        "name": "visual 1366 en light: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8800
+          }
+        ]
+      },
+      {
+        "name": "visual 1366 ar dark: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8826
+          }
+        ]
+      },
+      {
+        "name": "visual 1366 ar light: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8537
+          }
+        ]
+      },
+      {
+        "name": "visual 1672 en dark: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 13943
+          }
+        ]
+      },
+      {
+        "name": "visual 1672 en light: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 13129
+          }
+        ]
+      },
+      {
+        "name": "visual 1672 ar dark: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 16447
+          }
+        ]
+      },
+      {
+        "name": "visual 1672 ar light: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8609
+          }
+        ]
+      },
+      {
+        "name": "visual 1920 en dark: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8798
+          }
+        ]
+      },
+      {
+        "name": "visual 1920 en light: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8580
+          }
+        ]
+      },
+      {
+        "name": "visual 1920 ar dark: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 9237
+          }
+        ]
+      },
+      {
+        "name": "visual 1920 ar light: entry, release, actual Home",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8794
+          }
+        ]
+      },
+      {
+        "name": "always-show preference survives reload; mute and hidden tab close audio",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8296
+          }
+        ]
+      },
+      {
+        "name": "particle RAF pauses while hidden, stops outside Home, and settles",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 16432
+          }
+        ]
+      },
+      {
+        "name": "unmount cancels animation, timers, visibility listeners and pending audio",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 1133
+          }
+        ]
+      },
+      {
+        "name": "Settings choice cards remain keyboard-operable and survive entry replay",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 8322
+          }
+        ]
+      },
+      {
+        "name": "Settings tabs retain permission notices and preference import preview behavior",
+        "ok": true,
+        "results": [
+          {
+            "status": "passed",
+            "duration_ms": 4339
+          }
+        ]
+      }
+    ]
+  },
+  "existing_suites": [
+    {
+      "command": "npm run test:native",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:studio",
+      "exitCode": 1
+    },
+    {
+      "command": "npm run test:files",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:storage",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:scan",
+      "exitCode": 1
+    },
+    {
+      "command": "npm run test:apps",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:cleanup",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:startup",
+      "exitCode": 1
+    },
+    {
+      "command": "npm run test:system",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:repair",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:services",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:automation",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:workspace",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:settings",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:home",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:workbench",
+      "exitCode": 0
+    }
+  ],
+  "source_sha256": {
+    ".github/workflows/cinematic-entry.yml": "ed12f669efe44aae913dfcbc07e3b720ded012b6265df3fa43d3867ea7968f49",
+    "apps/gemini-ui/package-lock.json": "c58cb417a3c7d3880774fefca5181aeba5dcb313acc8f38af60a791b96bb09f6",
+    "apps/gemini-ui/package.json": "f533215b49c9866dbeefb30fbc17f779c1e0ef4ab64ac6f449fe294f2d9ec24d",
+    "apps/gemini-ui/scripts/cinematic-native-smoke.cjs": "9b63290e0e83cec9062ca1c1d427765203af8e619f5f43a134de68397004e254",
+    "apps/gemini-ui/src/App.tsx": "26c0eb318834564035e00d71b657e27cd7d52050124931a67c54386e994bbbf0",
+    "apps/gemini-ui/src/features/cinematic-entry/CinematicEntry.tsx": "2d9cf02b084ec750de33534655a701ae2d410b775d1dafcf07ca77f0175831b4",
+    "apps/gemini-ui/src/features/cinematic-entry/audio.ts": "28eb1bf41a241e60dd39785998053b141005b5418875cd65e9418b0a32146f65",
+    "apps/gemini-ui/src/features/cinematic-entry/entry.css": "45b3d8e4604e6d7deb4814347bb9db7c62b9c3c9876c50cd868fb4c80bf2ef9e",
+    "apps/gemini-ui/src/features/cinematic-entry/model.ts": "bc1b674c950ca2bd9950395553dbfbce6ef6c3937ebe0dacd4e7a56ad5dfd74d",
+    "apps/gemini-ui/src/features/cinematic-entry/particles.ts": "1d14b73a52ce36319824c107f88e528952dc932eaf749aa5cf7fa8a8b13266f8",
+    "apps/gemini-ui/src/pages/SettingsPage.tsx": "e5505398f11d9b3014bdf1dfd2095d5eae8626f82ae23d3d9fef54af115c2848",
+    "apps/gemini-ui/tests/entry/entry.spec.ts": "43aa2e9ad903cdd61fe7520ef8bf6b891817468781094b11c4bfb143065fbac2",
+    "apps/gemini-ui/tests/entry/lifecycle.html": "76e52429976af596784252c776c279806d75e22c4270ea4c15002fc3215f4084",
+    "apps/gemini-ui/tests/entry/lifecycle.tsx": "2bef0fbcc3dd1926aa6457d001db269fe6d5e21b9064b44d7e4f1a81bf15874d",
+    "apps/gemini-ui/tests/entry/model.test.ts": "7b5f50fe4645d9f84d987a1a7f36bb322ed0c5e08ceaa829ff9804a1f4343903",
+    "apps/gemini-ui/tests/entry/playwright.config.ts": "8019a9a103076c5f9e0a6cef8e990e1e222c36ae2e7233666d9d71a6601b920a"
+  },
+  "screenshots": [
+    {
+      "file": "1366x768-ar-dark-entering.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "11235f5f0ce0d56b2c5b309d13926a4ca0b703b469fa45c97995fc7dfdebf6a6",
+      "webp_sha256": "f22e033a754ef789ddfd365fe31c2ea04a32c2c11df1a9c33eb06b47eb09d833"
+    },
+    {
+      "file": "1366x768-ar-dark-home.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "448ef2ce6911c5b99ce8ee6a007b63ce7befbbcc8f6f28be80e5ea4ad2fe9428",
+      "webp_sha256": "9034059c717dccf0c5d4a2f096c57b0696cee00fedec2120a87750c70dd5e44a"
+    },
+    {
+      "file": "1366x768-ar-dark-ready.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "e6d13827b769118d37eed81f970e5d966c20aa861b0f823fa60fdab011254a5b",
+      "webp_sha256": "628d4b65f59049cd2851d2416af64f0186107b0ec2a9fd03066d97571dc26afd"
+    },
+    {
+      "file": "1366x768-ar-light-entering.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "a1a488898aac68e2e97c58f0151c913b124cad0fb28b9f9f970dce876316268b",
+      "webp_sha256": "cff3cf5744b0acaa1ab61880c461ee735c9fce4d7d081dda9da81f34a5d347f8"
+    },
+    {
+      "file": "1366x768-ar-light-home.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "c9ed1b3c044f49004aa33892e60cc0760a22877fa102e276494fc6629ca3e385",
+      "webp_sha256": "4bcc3518708e71c76ed6e439e54be6660d130a2741da3ebf67d2486729265a3f"
+    },
+    {
+      "file": "1366x768-ar-light-ready.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "1fb7eb4d0e013d40e11d6e88202d54b33dfe5eb95768b2d47d3ecd38ecf6c4b1",
+      "webp_sha256": "bae61685a4b1d21752d8d1f09ddd2e474ee337ad7b1fffa2eba6b3beb295580e"
+    },
+    {
+      "file": "1366x768-en-dark-entering.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "63eeb87a392fbcb58858e853b861c69ea7b0496007921f5f37629bc04c9a42d5",
+      "webp_sha256": "966b5a5aaeae8cc7cea1c5b3d24c5842fcdc6d08e6724e121d01488657f2a186"
+    },
+    {
+      "file": "1366x768-en-dark-home.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "61a8fd4f35c4eeb92b1d5f5133249fcf3c8b96c5ab46efb1e8b32002eace01d2",
+      "webp_sha256": "d5e377e1f82fe02da8a7d4e2242597bba4841167b1feefab76f38d12e2007517"
+    },
+    {
+      "file": "1366x768-en-dark-ready.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "e922ad9508603cba24eb4967502d2eb8867b8cb219bba7ab3fcdabfe28f77336",
+      "webp_sha256": "84964b45014bc8a83b5b4994f6695f692325b044fd846d47b44b622a51df1be9"
+    },
+    {
+      "file": "1366x768-en-light-entering.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "612da6f0346c22b803cc0eb369beb582627c76c9cbff4d7537f3533915c2a66e",
+      "webp_sha256": "dd460e4cffcdeea2eef69a62179bf702fe5a4ffa6522dc86f15b44f66d496c91"
+    },
+    {
+      "file": "1366x768-en-light-home.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "fb17a7300b24098a5d3875ab48f14ab26eac35f74d9db85dc42610d48775856f",
+      "webp_sha256": "da27829b3f1a02f788037277a690a9f0f6a8b59efc506fbf2e7b34581ba3fbed"
+    },
+    {
+      "file": "1366x768-en-light-ready.webp",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "original_png_sha256": "a3bce0d7463c99fac9c1f8a34fb4a45a97fd5e6143f9b80e844a739bef1beb8e",
+      "webp_sha256": "bcec5ee7506e28b408a6990af7a5abb9949822fe61399782dce4fb7ff5074fd8"
+    },
+    {
+      "file": "1672x941-ar-dark-entering.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "2de8125b5d0334836ec2c8fb5f008a2e5c89e80491204d0c4bbf303a99a356d0",
+      "webp_sha256": "c30773315edf5cc6639a33ba48a0b38772b8f4c57026a62bd4652379ef66205f"
+    },
+    {
+      "file": "1672x941-ar-dark-home.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "51884a1671a3cfbae1d3e811c7d295291dbf60897abe22f46f3efde84e5d89cd",
+      "webp_sha256": "d631c693bd1cdcef811075ddfb7945aa3f931d7e8b56c5c83867d56ae3ff17d9"
+    },
+    {
+      "file": "1672x941-ar-dark-ready.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "4d83655308ba0fd717b365d34dec94c94dacc1cd6e88235ff12e2d76300e7948",
+      "webp_sha256": "272228c18645b6b64e005c207a2a0d6acd926a3b1276085eafb0d1b247118e8a"
+    },
+    {
+      "file": "1672x941-ar-light-entering.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "ca915bc5df840dd58ad31b84b1cf8cdad73e3335ba0e433e11d0a8dc67bc9a84",
+      "webp_sha256": "6877664c3a2ddc3f788f25fb29e5f42de051601bffc25978e835dde96fd32634"
+    },
+    {
+      "file": "1672x941-ar-light-home.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "4c517d2447fd056cf2941ff2470cd2ac1d63be8bbb82aec68280697e4c934093",
+      "webp_sha256": "92c3a1d3b4fc86ee88f374890ee8afa385f84025fff15325465561fdf32efb04"
+    },
+    {
+      "file": "1672x941-ar-light-ready.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "2b85cb1e434d49c5f51f481f106941d8be5dd6272459fa4e50b30406bd947512",
+      "webp_sha256": "e2dac7c1713faa27d95166a369332e4dca18527a0bd42af0aa694fe6c723e347"
+    },
+    {
+      "file": "1672x941-en-dark-entering.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "8531bef7aa8700ec2f81f393dd3ddcedd7d424b0f5e2421efd62c7e025dab58c",
+      "webp_sha256": "57806955cf72de6e8591708261b097359b5e4ca5b255564922bb3ba6acb19736"
+    },
+    {
+      "file": "1672x941-en-dark-home.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "c152f43234f917893bfd60c39c82726a5ad24c3d35428f29c1a2cc9d92acbbe3",
+      "webp_sha256": "e5fe250ecab0cdb8a6a4ce1d367a79889b9957ba63c2b19274b63e5ceb6f2b88"
+    },
+    {
+      "file": "1672x941-en-dark-ready.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "26588b4b412b6b06b7698d743119cf6246d9c6568fd50939476e13848015c7cb",
+      "webp_sha256": "c8d461f0fda4fb19eea2f3599133a5b2f7eb31fd7b5a9fd9e77901ea6d93c6ae"
+    },
+    {
+      "file": "1672x941-en-light-entering.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "50d28993a1944ab6a6882edefc95e18399bbf1cf486b13b9a1e02e9201498c91",
+      "webp_sha256": "521161e21059be723c64c11713c767a2a6a8003c0271974a51a18c5f933af0e6"
+    },
+    {
+      "file": "1672x941-en-light-home.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "068f839a603977bc84eb783b3c6315c3bfa7b6becf37ab946faeb93e7865bb41",
+      "webp_sha256": "d4f7be45210baf3ff649a49df3326022fe44ff5bd52484dd110418bec71cc4ef"
+    },
+    {
+      "file": "1672x941-en-light-ready.webp",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "original_png_sha256": "e8dde8d5026bb7eb43972ad260b1b3abd25fa67a4c38a0effe72dc3e021b64a2",
+      "webp_sha256": "ed1b7ba1c6198a8ae86b6c4c37de0c0645898d6c3967186e614e6ccd205002f6"
+    },
+    {
+      "file": "1920x1080-ar-dark-entering.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "15bd51099adb31cacac40805a4c23e20a822068480a81c884c02609805642bcc",
+      "webp_sha256": "bf14797a4a3593361080ecb7b38b1d9cf0e9486b19b150aa2560f4297e9d2517"
+    },
+    {
+      "file": "1920x1080-ar-dark-home.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "73b5f0fb37de792fc69ba26062486bc2f28640f6f8633a7c68d1abf0a257b2a2",
+      "webp_sha256": "7f290ff0ea3ebb055c0ae16e4572bdf56c4c64c53277255a545d5724998bfe48"
+    },
+    {
+      "file": "1920x1080-ar-dark-ready.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "142e51632dbcd37424fe8c09ffb5941fac8ef6af7d44337a68d80e8b43fce02e",
+      "webp_sha256": "14a6cb8b854d1c5d94b797d932e84af153d77d8416a998b465fdcee4ea2323f5"
+    },
+    {
+      "file": "1920x1080-ar-light-entering.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "1890cbdcb9768ea7f5cf94fe29ad6bcd9cb8e7bb1ea5f144b5ac36748aeebb41",
+      "webp_sha256": "eb13125ae2cc32683edefd4dfb7c75cd5e9268bb6ace6cd811c9b1eea91c0ef1"
+    },
+    {
+      "file": "1920x1080-ar-light-home.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "fd88e8a8795eccd83a6e8fce18d1253d87633ef41d5118d873c3b9f63fb2c1dc",
+      "webp_sha256": "162b6f1e4a8c783bd702ba3709d6a70153aaba91cb2720cc0e4a5072b6af335f"
+    },
+    {
+      "file": "1920x1080-ar-light-ready.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "56969a7fe334dc2b0758fa24a628e8274cc81bcda34fe773bcc18808a0201907",
+      "webp_sha256": "a6486ace51705db55f7d23600435059b24562c507eb58dfc5ef3b89367afd442"
+    },
+    {
+      "file": "1920x1080-en-dark-entering.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "37d2b53b3372795204de38584ce388a44160aca324f98ee1febba086e2f8099b",
+      "webp_sha256": "3e7f4f89027c9ccdf805274d8cd76fcf231c214bf90c8f880705c61c6d72f832"
+    },
+    {
+      "file": "1920x1080-en-dark-home.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "c0cf10be4f021eee821833a7c04ea855cc8fd45beadb5356def4bd754eeb676c",
+      "webp_sha256": "86488e58232ac1d5a9a0ae4b75415dd423619d110c06d1d42deddd6013625457"
+    },
+    {
+      "file": "1920x1080-en-dark-ready.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "40ca9508ebf622741c80ce2b298da3c134d83f04ef04c8f43baa9bf134e41dc5",
+      "webp_sha256": "cb9c4478fa4c267aa7d4e22c1be247c028c1f384d131c41e4fcf241b8ec20fef"
+    },
+    {
+      "file": "1920x1080-en-light-entering.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "5a9658471347ff69eee1bae892bb603d7c04b6abea7477fd700489ab59d01886",
+      "webp_sha256": "c6efe90491d4cc71759de84f72d3dbdf2e4d2d3c1fa5e7ae4d15654572173cfb"
+    },
+    {
+      "file": "1920x1080-en-light-home.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "af5084e53569530b3ba736f5b7f354f15297057528f0072c6f6a73a83cd17171",
+      "webp_sha256": "861adeed98e87306a102b1c9922f2e0ca18bad0d49da1af989b61b2f1db5603c"
+    },
+    {
+      "file": "1920x1080-en-light-ready.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "original_png_sha256": "3a7b095881f39f4e807156cc9ddba937a96c78b715b362b8bc1e96b76255c543",
+      "webp_sha256": "42a3f63489c5aff307fe9b7b5cf6e6e4854e5600a5e876e4c4a35a746ad4c477"
+    }
+  ],
+  "previous_remote_ci": {
+    "commit": "c7fa4e034bffba277c68d5ce54ad608e42837165",
+    "browser_and_windows_entry": "PASS",
+    "existing_windows_suites": "PASS",
+    "sonar_quality_gate": "FAIL; follow-up refactors, accessibility and installation safeguards applied"
+  },
+  "current_main_base": "86cf321a910943faf6b2e5438cb027c46924865d",
+  "upstream_home_regression": {
+    "command": "npm run test:home",
+    "status": "PASS",
+    "checks": 10
+  },
+  "local_complexity_check": {
+    "rule": "sonarjs/cognitive-complexity",
+    "threshold": 15,
+    "errors": 0
+  }
+}
