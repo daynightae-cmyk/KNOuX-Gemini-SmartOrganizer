@@ -312,6 +312,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               onRunQuick={handleRunQuick}
               onRunDeep={handleRunDeep}
               onCancel={() => void scan.cancelActive()}
+              onOpenService={scan.capabilities ? (serviceId) => setActiveServiceId(serviceId) : undefined}
             />
             <aside className="knx-scan-status">
               <h2>{isArabic ? 'حالة الفحص المباشرة' : 'Live Scan Status'}</h2>

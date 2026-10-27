@@ -331,11 +331,15 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             </div>
 
             <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}
+              eyebrow={isArabic ? 'نطاقات التخزين' : 'Storage scopes'}
               onActivate={() => void storageNative.chooseSource()} disabled={!nativeAvailable || storageNative.scanning} running={storageNative.scanning}
               tools={[
-                { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
-                { id: 'map', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, onClick: () => setActiveTab('treemap'), active: activeTab === 'treemap' },
-                { id: 'large', label: isArabic ? 'الكبيرة' : 'Large files', icon: Folder, onClick: () => setActiveTab('large'), active: activeTab === 'large' },
+                { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable, hint: isArabic ? 'قراءة الوحدات المقيسة' : 'Measured volume inventory' },
+                { id: 'treemap', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, onClick: () => setActiveTab('treemap'), active: activeTab === 'treemap', hint: isArabic ? 'خريطة المساحة' : 'Space map' },
+                { id: 'folders', label: isArabic ? 'أكبر المجلدات' : 'Largest Folders', icon: FolderTree, onClick: () => setActiveTab('folders'), active: activeTab === 'folders', hint: isArabic ? 'المجلدات الأكبر' : 'Largest folders' },
+                { id: 'large', label: isArabic ? 'الملفات الكبيرة' : 'Large Files', icon: Boxes, onClick: () => setActiveTab('large'), active: activeTab === 'large', hint: isArabic ? 'الملفات الأكبر' : 'Largest files' },
+                { id: 'types', label: isArabic ? 'أنواع الملفات' : 'File Types', icon: Shapes, onClick: () => setActiveTab('types'), active: activeTab === 'types', hint: isArabic ? 'توزيع الأنواع' : 'Type distribution' },
+                { id: 'age', label: isArabic ? 'أعمار الملفات' : 'Age Profile', icon: BarChart3, onClick: () => setActiveTab('age'), active: activeTab === 'age', hint: isArabic ? 'توزيع الأعمار' : 'Age distribution' },
               ]} />
           </div>
 

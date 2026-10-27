@@ -30,6 +30,7 @@ import {
   Wrench,
   X,
 } from 'lucide-react';
+import { OrbitalControl } from '../visual/OrbitalControl';
 import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
@@ -241,7 +242,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
 
               <div className="sys-hero-copy">
                 <span className="sys-hero-eyebrow">{t(locale, 'RECOVERY LAB · PREVIEW ONLY · NO REPAIR EXECUTION', 'مختبر الاستعادة · معاينة فقط · بلا تنفيذ إصلاح')}</span>
-                <h1>{t(locale, 'Recovery', 'مختبر')} <span>{t(locale, 'Lab', 'الاستعادة')}</span></h1>
+                <h1>{t(locale, 'Diagnose. Repair.', 'شخّص. أصلح.')} <span>{t(locale, 'Recover.', 'استعد.')}</span></h1>
                 <p>
                   {t(
                     locale,
@@ -278,6 +279,17 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                 </div>
               </div>
 
+              <OrbitalControl title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
+                eyebrow={t(locale, 'Repair scopes', 'نطاقات الإصلاح')}
+                onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
+                tools={[
+                  { id: 'files', label: 'SFC', icon: FileText, onClick: () => setSelectedToolId('repair-files-verify'), hint: t(locale, 'Verify system files · preview only', 'تحقق من ملفات النظام · معاينة فقط') },
+                  { id: 'component', label: 'DISM Scan', icon: HardDrive, onClick: () => setSelectedToolId('repair-component-scan'), hint: t(locale, 'Component store scan · preview only', 'فحص مخزن المكونات · معاينة فقط') },
+                  { id: 'component-restore', label: 'DISM Restore', icon: Layers, onClick: () => setSelectedToolId('repair-component-restore'), hint: t(locale, 'Restore health · requires approval', 'استعادة الصحة · تتطلب موافقة') },
+                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Globe2, onClick: () => setSelectedToolId('repair-dns-flush'), hint: t(locale, 'DNS flush · preview only', 'تفريغ DNS · معاينة فقط') },
+                  { id: 'restore', label: t(locale, 'Restore Point', 'نقطة استعادة'), icon: ShieldCheck, onClick: () => setSelectedToolId('repair-restore-point'), hint: t(locale, 'Restore points · never created here', 'نقاط الاستعادة · لا تُنشأ هنا') },
+                  { id: 'history', label: t(locale, 'Repair Logs', 'سجلات الإصلاح'), icon: History, disabled: !snapshot, onClick: () => openWorkbench('repair-history'), hint: t(locale, 'Immutable repair journal', 'سجل إصلاح ثابت') },
+                ]} />
               <aside className="sys-source-card rep-source-card" data-testid="repair-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
                 <div className="sys-source-copy">

@@ -10,6 +10,7 @@ import {
   LayoutGrid,
   Lock,
   RefreshCw,
+  Search,
   ShieldCheck,
   Zap,
 } from 'lucide-react';
@@ -30,6 +31,8 @@ interface ApplicationsHeroProps {
   controller: ApplicationsController;
   selectedCount: number;
   onBuildPlan: () => void;
+  /** Opens a real application service workbench. */
+  onOpenService?: (service: string) => void;
 }
 
 function KpiCard({
@@ -84,6 +87,7 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
   controller,
   selectedCount,
   onBuildPlan,
+  onOpenService,
 }) => {
   const { inventory, updates, capabilities, refreshing } = controller;
   const kpis = inventory?.kpis;
@@ -121,11 +125,15 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
         </div>
 
         <OrbitalControl title={t(locale, 'Analyze Applications', 'تحليل التطبيقات')} subtitle={t(locale, 'Inventory · Inspect · Review', 'جرد · فحص · مراجعة')}
+          eyebrow={t(locale, 'Application scopes', 'نطاقات التطبيقات')}
           onActivate={() => void controller.refreshInventory(true)} disabled={refreshing || !controller.nativeAvailable} running={refreshing}
           tools={[
-            { id: 'inventory', label: t(locale, 'Inventory', 'الجرد'), icon: LayoutGrid, onClick: () => void controller.refreshInventory(true), disabled: refreshing || !controller.nativeAvailable },
-            { id: 'updates', label: t(locale, 'Updates', 'التحديثات'), icon: RefreshCw, onClick: () => void controller.checkUpdates(), disabled: !controller.nativeAvailable },
-            { id: 'export', label: t(locale, 'Export', 'تصدير'), icon: Download, onClick: controller.exportInventory, disabled: !inventory },
+            { id: 'inventory', label: t(locale, 'Installed Apps', 'التطبيقات المثبتة'), icon: LayoutGrid, onClick: () => onOpenService?.('app-inventory'), disabled: !onOpenService, hint: t(locale, 'Measured inventory register', 'سجل الجرد المقيس') },
+            { id: 'publishers', label: t(locale, 'Publishers', 'الناشرون'), icon: Building2, onClick: () => onOpenService?.('app-publisher'), disabled: !onOpenService, hint: t(locale, 'Publisher signatures', 'توقيعات الناشرين') },
+            { id: 'updates', label: t(locale, 'Updates', 'التحديثات'), icon: RefreshCw, onClick: () => onOpenService?.('app-updates'), disabled: !onOpenService, hint: t(locale, 'WinGet update review', 'مراجعة تحديثات WinGet') },
+            { id: 'footprint', label: t(locale, 'Footprint', 'البصمة'), icon: Database, onClick: () => onOpenService?.('app-size'), disabled: !onOpenService, hint: t(locale, 'Measured install size', 'حجم التثبيت المقيس') },
+            { id: 'startup', label: t(locale, 'Startup Links', 'روابط البدء'), icon: Zap, onClick: () => onOpenService?.('app-startup-impact'), disabled: !onOpenService, hint: t(locale, 'Startup linkage evidence', 'دليل ارتباط البدء') },
+            { id: 'search', label: t(locale, 'App Search', 'بحث التطبيقات'), icon: Search, onClick: () => onOpenService?.('app-search'), disabled: !onOpenService, hint: t(locale, 'Query the measured register', 'استعلام السجل المقيس') },
           ]} />
         <div className="knx-apps-hero-actions flex flex-wrap items-center justify-end gap-2">
           {selectedCount > 0 ? (

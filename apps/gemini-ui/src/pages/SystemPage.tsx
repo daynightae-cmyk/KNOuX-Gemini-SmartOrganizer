@@ -30,6 +30,7 @@ import {
   RefreshCw,
   ShieldCheck,
   Sparkles,
+  Thermometer,
   X,
   Zap,
   type LucideIcon,
@@ -539,13 +540,15 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
               </div>
 
               <OrbitalControl title={t(locale, 'Run Health Pulse', 'قياس نبض النظام')} subtitle={t(locale, 'Real readings. Clear sources.', 'قراءات حقيقية. مصادر واضحة.')}
+                eyebrow={t(locale, 'System scopes', 'نطاقات النظام')}
                 onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning || controller.sampling}
                 tools={[
-                  { id: 'cpu', label: 'CPU', icon: Cpu, onClick: () => openService('hardware-cpu'), disabled: !snapshot },
-                  { id: 'gpu', label: 'GPU', icon: Monitor, onClick: () => openService('hardware-gpu'), disabled: !snapshot },
-                  { id: 'memory', label: t(locale, 'Memory', 'الذاكرة'), icon: MemoryStick, onClick: () => openService('hardware-memory'), disabled: !snapshot },
-                  { id: 'disk', label: t(locale, 'Disk', 'القرص'), icon: HardDrive, onClick: () => openService('hardware-disks'), disabled: !snapshot },
-                  { id: 'events', label: t(locale, 'Events', 'الأحداث'), icon: Activity, onClick: () => openService('system-events'), disabled: !snapshot },
+                  { id: 'cpu', label: 'CPU', icon: Cpu, onClick: () => openService('hardware-cpu'), disabled: !snapshot, hint: t(locale, 'Measured processor load', 'حمل المعالج المقيس') },
+                  { id: 'memory', label: t(locale, 'Memory', 'الذاكرة'), icon: MemoryStick, onClick: () => openService('hardware-memory'), disabled: !snapshot, hint: t(locale, 'Measured memory composition', 'تكوين الذاكرة المقيس') },
+                  { id: 'disk', label: t(locale, 'Disk', 'القرص'), icon: HardDrive, onClick: () => openService('hardware-disks'), disabled: !snapshot, hint: t(locale, 'Measured disk activity', 'نشاط القرص المقيس') },
+                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Network, onClick: () => openService('network-connectivity'), disabled: !snapshot, hint: t(locale, 'Connectivity evidence', 'دليل الاتصال') },
+                  { id: 'thermal', label: t(locale, 'Temperature', 'الحرارة'), icon: Thermometer, onClick: () => openService('hardware-thermal'), disabled: !snapshot, hint: t(locale, 'Unavailable when no sensor reports', 'غير متاح عند غياب المستشعر') },
+                  { id: 'stability', label: t(locale, 'Stability', 'الاستقرار'), icon: ShieldCheck, onClick: () => openService('system-health-check'), disabled: !snapshot, hint: t(locale, 'Measured stability checks', 'فحوص استقرار مقيسة') },
                 ]} />
               <aside className="sys-source-card" data-testid="system-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true">

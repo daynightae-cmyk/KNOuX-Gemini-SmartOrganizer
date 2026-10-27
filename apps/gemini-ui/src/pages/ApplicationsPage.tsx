@@ -236,6 +236,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
               controller={controller}
               selectedCount={checkedIds.size}
               onBuildPlan={buildPlanFromSelection}
+              onOpenService={(service) => setActiveService(service as DomainServiceKey)}
             />
 
             {!controller.nativeAvailable ? (
