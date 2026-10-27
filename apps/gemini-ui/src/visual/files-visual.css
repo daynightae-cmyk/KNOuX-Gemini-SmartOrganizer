@@ -1,27 +1,9 @@
-.visual-sprint[data-visual-section='files'] { --knoux-blue-electric: #8e57ef; }
-.visual-sprint[data-visual-section='files'] main,
-.visual-sprint[data-visual-section='files'] main > div { background: var(--v-bg) !important; }
-.visual-sprint[data-visual-section='files'] main > div:nth-child(1),
-.visual-sprint[data-visual-section='files'] main > div:nth-child(2) { background: radial-gradient(ellipse at 70% 0%,#9863ea20,transparent 65%),var(--v-bg) !important; }
-.visual-sprint[data-visual-section='files'] .knx-files-heading { display: flex; align-items: center; justify-content: space-between; min-height: 165px; gap: 20px; }
-.visual-sprint[data-visual-section='files'] h1 { font-size: clamp(26px,2.4vw,38px); line-height: 1.15; max-width: 650px; margin: 8px 0 12px; }
-.visual-sprint[data-visual-section='files'] h1 span { background-image: none !important; color: var(--v-ink) !important; }
-.visual-sprint[data-visual-section='files'] .knx-files-orbit { width: 300px; height: 165px; display: grid; place-items: center; }
-.visual-sprint[data-visual-section='files'] .knx-files-orbit .knx-orbit { transform: scale(.72); }
+/* Files typography/selection only. Geometry belongs to files-reference.css. */
 .visual-sprint[data-visual-section='files'] [class*='text-[8px]'],
 .visual-sprint[data-visual-section='files'] [class*='text-[9px]'],
 .visual-sprint[data-visual-section='files'] [class*='text-[10px]'],
-.visual-sprint[data-visual-section='files'] [class*='text-[11px]'] { font-size: 12px; line-height: 1.45; }
-.visual-sprint[data-visual-section='files'] .text-xs { font-size: 14px; line-height: 1.45; }
-.visual-sprint[data-visual-section='files'] [data-testid='files-search'] { min-height: 36px; font-size: 16px; }
-.visual-sprint[data-visual-section='files'] [class*='bg-[#07152b]'],
-.visual-sprint[data-visual-section='files'] [class*='bg-[#091a33]'],
-.visual-sprint[data-visual-section='files'] .knx-files-split > div:first-child { background: var(--v-panel) !important; border-color: var(--v-line) !important; border-radius: 16px; box-shadow: var(--v-shadow); }
-.visual-sprint[data-visual-section='files'] .knx-files-split [data-testid^='files-row-'] { min-height: 52px; border-color: var(--v-line); }
-.visual-sprint[data-visual-section='files'] .file-row-selected { background: linear-gradient(90deg,#9b6aef35,#9b6aef12) !important; border-color: var(--v-accent) !important; box-shadow: inset 3px 0 var(--v-accent); }
-.visual-sprint[data-visual-section='files'] [data-testid^='files-category-'] { padding: 9px 14px; border-radius: 12px; }
-.visual-sprint[data-visual-section='files'] .knx-files-tools button { min-height: 68px; gap: 8px; }
-.visual-sprint[data-visual-section='files'] .knx-files-tools span { white-space: normal; }
-.visual-sprint[data-visual-section='files'] [data-testid='files-footer'] { background: var(--v-panel) !important; border-color: var(--v-line) !important; }
-@media (max-width: 1400px) { .visual-sprint[data-visual-section='files'] .knx-files-heading { min-height: 135px; } .visual-sprint[data-visual-section='files'] .knx-files-orbit { height: 135px; width: 230px; } .visual-sprint[data-visual-section='files'] .knx-files-orbit .knx-orbit { transform: scale(.62); } .visual-sprint[data-visual-section='files'] .knx-files-split { padding-inline: 16px; } .visual-sprint[data-visual-section='files'] .knx-files-split > div:last-child { width: 300px; } }
-@media (max-width: 1050px) { .visual-sprint[data-visual-section='files'] .knx-files-orbit { display: none; } .visual-sprint[data-visual-section='files'] .knx-files-split { flex-direction: column; overflow-y: auto; } .visual-sprint[data-visual-section='files'] .knx-files-split > div { width: 100%; flex-shrink: 0; } .visual-sprint[data-visual-section='files'] .knx-files-split > div:first-child { min-height: 360px; } }
+.visual-sprint[data-visual-section='files'] [class*='text-[11px]'] { font-size:12px; line-height:1.4; }
+.visual-sprint[data-visual-section='files'] .text-xs { font-size:14px; line-height:1.4; }
+.visual-sprint[data-visual-section='files'] h1 span { background:none; color:var(--v-ink); }
+.visual-sprint[data-visual-section='files'] .file-row-selected { background:linear-gradient(90deg,#9873ff28,#9873ff09); box-shadow:inset 3px 0 var(--v-accent); }
+.visual-sprint[data-visual-section='files'] .files-scrollbar { scrollbar-color:#8c74bc66 transparent; scrollbar-width:thin; }

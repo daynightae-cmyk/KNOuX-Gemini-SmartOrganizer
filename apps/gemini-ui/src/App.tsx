@@ -65,6 +65,7 @@ import './visual/reference-restraint.css';
 // Orbital Service Engine is the single source of truth for every .knx-orbit
 // surface, so it loads last and nothing re-styles the dial behind its back.
 import './visual/orbital-engine.css';
+import './visual/command-canvas.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';

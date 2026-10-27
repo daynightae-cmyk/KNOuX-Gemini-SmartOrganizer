@@ -1,6 +1,7 @@
 import React from 'react';
 import { Play, type LucideIcon } from 'lucide-react';
 import { KnouxMark } from './ReferenceAtmosphere';
+import { OrbitParticles } from './OrbitParticles';
 
 export type OrbitTone = 'violet' | 'blue' | 'teal' | 'amber' | 'emerald' | 'rose' | 'indigo' | 'sky';
 
@@ -55,6 +56,7 @@ export function OrbitalControl({
   running = false,
   state,
   eyebrow,
+  coreIcon: CoreIcon,
 }: {
   title: string;
   subtitle: string;
@@ -64,6 +66,7 @@ export function OrbitalControl({
   running?: boolean;
   state?: 'ready' | 'loading' | 'failed' | 'unavailable';
   eyebrow?: string;
+  coreIcon?: LucideIcon;
 }) {
   const count = Math.max(tools.length, 1);
   const coreState = state ?? (running ? 'loading' : disabled ? 'unavailable' : 'ready');
@@ -77,6 +80,7 @@ export function OrbitalControl({
       data-orbit-state={coreState}
     >
       <span className="knx-orbit-halo" aria-hidden="true" />
+      <OrbitParticles />
       <span className="knx-orbit-ring knx-orbit-ring-outer" aria-hidden="true" />
       <span className="knx-orbit-ring knx-orbit-ring-inner" aria-hidden="true" />
       <span className="knx-orbit-arc" aria-hidden="true" />
@@ -105,7 +109,7 @@ export function OrbitalControl({
         disabled={disabled || coreState === 'loading' || coreState === 'unavailable'}
         aria-busy={coreState === 'loading' || undefined}
       >
-        <span className="knx-orbit-core-mark"><KnouxMark /></span>
+        <span className="knx-orbit-core-mark">{CoreIcon ? <CoreIcon aria-hidden="true"/> : <KnouxMark />}</span>
         <strong>{title}</strong>
         <span className="knx-orbit-core-sub">{subtitle}</span>
         <span className="knx-orbit-play" aria-hidden="true">

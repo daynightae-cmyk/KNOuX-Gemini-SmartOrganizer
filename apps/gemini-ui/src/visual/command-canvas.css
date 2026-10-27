@@ -1,0 +1,140 @@
+/* Files-derived viewport contract. Domain renderers retain their data/actions.
+   This layer owns shell fit, named canvas regions, and bounded inner panels. */
+.visual-sprint:has(.knx-command-canvas) {
+  --v-bg:#070f25; --v-panel:#0c1932; --v-panel-soft:#101e3b; --v-ink:#f2f3ff;
+  --v-muted:#adbce4; --v-line:#28375b; --v-accent:#aa86ff;
+  --canvas-hero-height:232px; --canvas-rail-width:clamp(280px,22vw,350px);
+}
+html[data-theme='light'] .visual-sprint:has(.knx-command-canvas) {
+  --v-bg:#f6f8ff; --v-panel:#ffffffed; --v-panel-soft:#f3f5ff; --v-ink:#171753;
+  --v-muted:#5c6597; --v-line:#dfe5ff; --v-accent:#7144ef;
+}
+.visual-sprint:has(.knx-command-canvas) > :first-child { width:100%; height:100%; min-height:0; }
+.visual-sprint[data-visual-section] main:has(> .knx-command-canvas) {
+  display:flex; flex-direction:column; flex:1 1 0; min-height:0; min-width:0; height:0;
+  overflow:visible; padding:12px; gap:0; background:var(--v-bg) !important;
+}
+.visual-sprint[data-visual-section] .knx-command-canvas { display:flex; flex-direction:column; flex:1 1 0; height:0; min-height:0; min-width:0; gap:10px; color:var(--v-ink); }
+.visual-sprint[data-visual-section] .knx-command-hero { flex-shrink:0; min-width:0; position:relative; z-index:5; }
+.visual-sprint[data-visual-section] .knx-command-hero:empty { display:none; }
+.visual-sprint[data-visual-section] .knx-command-hero > :is(.apps-hero,.cln-hero,.stp-hero,.scan-hero,.sys-hero,.knx-storage-hero) {
+  display:block; height:auto !important; min-height:0; margin:0; padding:14px !important;
+  border:1px solid var(--v-line); border-radius:18px; background:radial-gradient(ellipse at 70% 0%,#9873ff14,transparent 65%),var(--v-panel) !important;
+}
+.visual-sprint[data-visual-section] .knx-command-hero :is(.knx-apps-hero-layout,.cln-hero-head,.stp-hero-head) {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,42%); grid-template-rows:1fr auto;
+  align-items:center; gap:8px 18px; padding:0; border:0; margin:0; min-height:0; height:auto; background:transparent; box-shadow:none;
+}
+.visual-sprint[data-visual-section] .knx-command-hero :is(.scan-hero,.sys-hero,.knx-storage-hero) {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,42%); align-items:center; gap:10px 18px;
+}
+.visual-sprint[data-visual-section] .knx-command-hero .knx-orbit { display:block; height:var(--canvas-hero-height); min-height:0; width:100%; max-width:520px; margin:0 auto; transform:none; overflow:visible; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.cln-hero-mark,.stp-hero-mark,.sys-hero-arc,.apps-hero-arc,.apps-hero-beam) { display:none; }
+.visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-core { width:38%; min-width:96px; padding:10px 8px 30px; }
+.visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-core strong { font-size:15px; line-height:1.3; }
+.visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-core-sub { font-size:12px; }
+.visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-chip { border-radius:50%; width:48px; height:48px; }
+.visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-label { font-size:13px; line-height:1.4; }
+.visual-sprint[data-visual-section] .knx-command-hero h1 { font-size:clamp(30px,2.6vw,42px) !important; line-height:1.15 !important; letter-spacing:-.035em; margin:8px 0 12px; color:var(--v-ink); }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-hero-copy,.cln-hero-copy,.stp-hero-copy,.scan-hero-copy,.sys-hero-copy > p) { font-size:14px !important; line-height:1.5 !important; max-width:550px; color:var(--v-muted); }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.cln-hero-actions,.stp-hero-actions,.knx-apps-hero-actions) { grid-column:1/-1; justify-content:flex-start; margin:0; gap:8px; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.knx-scan-controls,.cln-scan-strip,.stp-bootline) { grid-column:1/-1; margin:8px 0 0; padding:8px; min-height:0; }
+.visual-sprint[data-visual-section] .knx-command-hero .knx-scan-controls > div { padding:8px; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-hero-meta,.sys-hero-chips) { margin:8px 0; gap:6px; font-size:12px; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-grid,.cln-kpis,.stp-kpis) { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:10px 0 0; }
+.visual-sprint[data-visual-section] .knx-command-hero .apps-kpi-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-card,.cln-kpi,.stp-kpi) { min-height:0; padding:10px; gap:8px; border-radius:12px; background:var(--v-panel-soft) !important; border-color:var(--v-line); }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-value,.cln-kpi-value,.stp-kpi-value) { font-size:23px !important; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-sub,.cln-kpi-sub,.stp-kpi-sub) { font-size:12px !important; line-height:1.4; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-label,.cln-kpi-title,.stp-kpi-title) { font-size:12px !important; }
+.visual-sprint[data-visual-section] .knx-command-hero .sys-source-card { grid-column:1/-1; display:flex; gap:14px; padding:8px 12px; min-height:0; height:auto; max-width:none; align-items:center; }
+.visual-sprint[data-visual-section] .knx-command-hero .sys-source-ring { width:32px; height:32px; min-width:32px; }
+.visual-sprint[data-visual-section] .knx-command-hero .sys-source-copy { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; }
+.visual-sprint[data-visual-section] .knx-command-hero .sys-source-copy :is(span,strong,em) { font-size:12px; line-height:1.4; }
+.visual-sprint[data-visual-section] .knx-command-hero .svc-hero-orbit { height:var(--canvas-hero-height); min-height:0; }
+.visual-sprint[data-visual-section] .knx-command-metrics { flex-shrink:0; min-height:0; max-height:110px; }
+.visual-sprint[data-visual-section] .knx-command-metrics > * { margin:0; min-height:0; }
+.visual-sprint[data-visual-section] .knx-command-metrics :is(.sys-kpi-row,.scan-metrics,.knx-storage-metrics) { display:grid; gap:8px; grid-auto-rows:minmax(0,1fr); }
+.visual-sprint[data-visual-section] .knx-command-metrics .sys-instrument { min-height:0; height:100px; overflow:auto; padding:10px; border-radius:12px; }
+.visual-sprint[data-visual-section] .knx-command-metrics .sys-instrument strong { font-size:23px; }
+.visual-sprint[data-visual-section] .knx-command-metrics .knx-storage-metrics > div { padding:10px; }
+.visual-sprint[data-visual-section] .knx-command-status { flex-shrink:0; max-height:76px; overflow:auto; scrollbar-width:thin; border-radius:12px; }
+.visual-sprint[data-visual-section] .knx-command-status > * { margin:0; padding:8px 12px; font-size:12px; line-height:1.4; }
+.visual-sprint[data-visual-section] .knx-command-status p { font-size:12px; line-height:1.4; }
+.visual-sprint[data-visual-section] .knx-command-tabs { display:flex; flex-shrink:0; align-items:center; gap:6px; border-bottom:1px solid var(--v-line); padding-bottom:8px; }
+.visual-sprint[data-visual-section] .knx-command-tabs button { padding:7px 14px; font-size:14px; line-height:1.4; border:1px solid var(--v-line); border-radius:20px; color:var(--v-muted); background:var(--v-panel); cursor:pointer; }
+.visual-sprint[data-visual-section] .knx-command-tabs button[aria-pressed='true'] { color:#fff; background:linear-gradient(135deg,#a777ff,#6d39e8); border-color:#a583ff; }
+.visual-sprint[data-visual-section] .knx-command-body { flex:1 1 0; height:0; display:grid; grid-template-columns:minmax(0,1fr); min-width:0; min-height:0; gap:12px; }
+.visual-sprint[data-visual-section] .knx-command-body.has-inspector { grid-template-columns:minmax(0,1fr) var(--canvas-rail-width); }
+.visual-sprint[data-visual-section] .knx-command-pane { display:grid; grid-auto-rows:minmax(0,1fr); min-height:0; min-width:0; gap:10px; }
+.visual-sprint[data-visual-section] .knx-command-pane[hidden] { display:none; }
+.visual-sprint[data-visual-section] .knx-command-panel { min-width:0; min-height:0; overflow:auto; overscroll-behavior:contain; scrollbar-width:thin; border-radius:14px; }
+.visual-sprint[data-visual-section] .knx-command-panel > * { margin:0; min-width:0; }
+.visual-sprint[data-visual-section] .knx-command-panel > :is(.apps-work-grid,.cln-work-grid,.stp-work-grid,.scan-results-grid,.knx-storage-analysis-grid,.rep-workspace-grid,.svc-main-grid) {
+  display:grid; grid-template-columns:minmax(0,1fr) var(--canvas-rail-width); grid-template-rows:minmax(0,1fr); gap:12px; height:100%; min-height:0; padding:0;
+}
+.visual-sprint[data-visual-section] .knx-command-panel :is(.apps-register,.apps-dossier,.cln-register,.cln-inspector,.stp-register,.stp-inspector,.knx-storage-inspector,.scan-results-column,.scan-inspector-column) {
+  grid-column:auto; grid-row:auto; position:static; height:100%; min-height:0; max-height:none; overflow:auto; align-self:stretch;
+}
+.visual-sprint[data-visual-section] .knx-command-panel :is(.apps-service-grid,.cln-service-grid,.stp-service-grid,.svc-tool-grid,.auto-tool-grid,.sys-service-grid) { display:grid; grid-auto-flow:row; grid-auto-columns:auto; grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+.visual-sprint[data-visual-section] .knx-command-panel :is(.apps-services,.cln-services,.stp-services,.apps-register,.cln-register,.stp-register) { min-height:0; height:100%; }
+.visual-sprint[data-visual-section] .knx-command-panel :is(.sys-loading-grid,.sys-overview-grid,.auto-editor-grid) { height:100%; min-height:0; margin:0; }
+.visual-sprint[data-visual-section] .knx-command-panel :is(.rep-tools-panel,.rep-brief,.svc-main-rail,.svc-register-panel,.auto-editor-center,.auto-editor-rail,.auto-library-panel) { min-height:0; overflow:auto; scrollbar-width:thin; }
+.visual-sprint[data-visual-section] .knx-command-panel .sys-loading-grid { grid-template-columns:minmax(250px,.6fr) minmax(0,1.4fr); }
+.visual-sprint[data-visual-section] .knx-command-inspector { min-height:0; overflow:auto; scrollbar-width:thin; border:1px solid var(--v-line); border-radius:14px; background:var(--v-panel); padding:12px; }
+.visual-sprint[data-visual-section] .knx-command-inspector .knx-scan-status { min-height:0; height:auto; padding:0; display:flex; flex-direction:column; gap:12px; }
+.visual-sprint[data-visual-section] .knx-command-panel .knx-storage-tools { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.visual-sprint[data-visual-section] .knx-command-panel .knx-storage-analysis-grid > div:first-child { height:100%; overflow:auto; }
+.visual-sprint[data-visual-section] .knx-command-panel > :is(.apps-work-grid,.cln-work-grid,.stp-work-grid,.scan-results-grid,.knx-storage-analysis-grid,.rep-workspace-grid,.svc-main-grid) > * { grid-column:auto; grid-row:auto; min-height:0; min-width:0; }
+.visual-sprint[data-visual-section] .knx-command-hero :is(.knx-storage-hero,.scan-hero) .knx-orbit { transform:none; }
+/* Home keeps its command deck, graphs and insight rail, with panel-owned scroll. */
+.visual-sprint[data-visual-section='home'] .knx-command-hero > div { gap:10px; }
+.visual-sprint[data-visual-section='home'] .knx-command-panel > div { height:100%; min-height:0; }
+.visual-sprint[data-visual-section='home'] .knx-command-panel .knx-deck-panel { flex-shrink:0; }
+/* Studio stays in its accepted composition; only its columns own scrolling. */
+.visual-sprint[data-visual-section='studio'] main > .knx-studio-reference { display:flex; flex-direction:column; flex:1 1 0; height:0; min-height:0; overflow:visible; }
+.visual-sprint[data-visual-section='studio'] .knx-studio-reference-grid { flex:1; height:0; min-height:0; grid-template-rows:minmax(0,1fr); align-items:stretch; }
+.visual-sprint[data-visual-section='studio'] .knx-ref-column { min-height:0; height:100%; overflow:auto; scrollbar-width:thin; padding:2px; }
+/* Files finishing pass: readable pearl ledger and selected-file dossier. */
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] .knx-files-results { background:#fff; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-row-'] { color:#28335c; background:#fff; border-color:#e7ebf8; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-row-']:nth-child(even) { background:#f8f9ff; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-row-']:hover { background:#eeeaff; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] .file-row-selected { background:#e8e1ff !important; box-shadow:inset 3px 0 #8055e8; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] .knx-files-results [data-testid^='files-row-'] :is(.text-white,.text-slate-200,.text-slate-300) { color:#25315a !important; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] .knx-files-results [data-testid^='files-row-'] .text-slate-400 { color:#58668d !important; }
+.visual-sprint[data-visual-section='files'] .knx-files-dossier > div:first-child { flex-wrap:wrap; gap:10px; }
+.visual-sprint[data-visual-section='files'] .knx-files-dossier > div:first-child > div:first-child { flex:1 1 100%; overflow:visible; flex-wrap:wrap; }
+.visual-sprint[data-visual-section='files'] .knx-files-dossier > div:first-child > div:first-child > span:first-child { font-size:15px; white-space:normal; overflow:visible; overflow-wrap:anywhere; }
+.visual-sprint[data-visual-section='files'] .knx-files-dossier .space-y-1 > div { gap:10px; font-size:13px; line-height:1.5; }
+.visual-sprint[data-visual-section='files'] .knx-files-header { gap:12px; }
+.visual-sprint[data-visual-section='files'] [data-testid='files-native-banner'] { padding:8px 10px; }
+.visual-sprint[data-visual-section='files'] .knx-files-results > div:first-child { min-height:36px; }
+/* Ambient orbital particles borrow the cinematic entry's restrained spheres. */
+.knx-orbit-particles { position:absolute; inset:0; pointer-events:none; z-index:1; opacity:.65; contain:layout style; overflow:hidden; border-radius:50%; }
+.knx-particle-track { position:absolute; left:50%; top:50%; width:82%; height:82%; border:1px solid #a987ff22; border-radius:50%; transform:translate(-50%,-50%); animation:knx-ambient-orbit 38s linear infinite; }
+.knx-particle-track.track-1 { width:66%; height:92%; animation-duration:49s; animation-direction:reverse; }
+.knx-particle-track.track-2 { width:95%; height:64%; animation-duration:61s; }
+.knx-particle-track i { position:absolute; left:calc(50% + 50% * cos(var(--particle-angle))); top:calc(50% + 50% * sin(var(--particle-angle))); width:var(--particle-size); height:var(--particle-size); border-radius:50%; background:radial-gradient(circle at 30% 25%,#fff,#bc9cff 42%,#7550db); box-shadow:0 0 8px #ad83ff88; transform:translate(-50%,-50%); }
+.knx-orbit:hover .knx-orbit-particles { opacity:.9; }
+.knx-home-particles { left:52%; opacity:.35; }
+@keyframes knx-ambient-orbit { from { transform:translate(-50%,-50%) rotate(0deg); } to { transform:translate(-50%,-50%) rotate(360deg); } }
+@media (max-height:820px) {
+  .visual-sprint:has(.knx-command-canvas) { --canvas-hero-height:196px; }
+  .visual-sprint[data-visual-section] .knx-command-canvas { gap:8px; }
+  .visual-sprint[data-visual-section] .knx-command-hero > :is(.apps-hero,.cln-hero,.stp-hero,.scan-hero,.sys-hero,.knx-storage-hero) { padding:10px 12px !important; }
+  .visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-sub,.cln-kpi-sub,.stp-kpi-sub,.sys-hero-chips,.apps-hero-meta) { display:none; }
+  .visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-card,.cln-kpi,.stp-kpi) { padding:8px; }
+  .visual-sprint[data-visual-section] .knx-command-hero h1 { font-size:30px !important; }
+  .visual-sprint[data-visual-section] .knx-command-status { max-height:56px; }
+  .visual-sprint[data-visual-section] .knx-command-metrics .sys-instrument { height:78px; }
+}
+@media (max-width:1400px) {
+  .visual-sprint[data-visual-section] .knx-command-hero :is(.knx-apps-hero-layout,.cln-hero-head,.stp-hero-head,.scan-hero,.sys-hero,.knx-storage-hero) { grid-template-columns:minmax(0,1fr) minmax(290px,40%); gap:8px 12px; }
+  .visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-chip { width:40px; height:40px; }
+  .visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-label { font-size:12px; }
+  .visual-sprint[data-visual-section] .knx-command-hero .apps-kpi-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
+  .visual-sprint[data-visual-section] .knx-command-hero .apps-kpi-icon { display:none; }
+  .visual-sprint[data-visual-section] .knx-command-hero .knx-orbit-core strong { font-size:14px; }
+}
+@media (prefers-reduced-motion:reduce) { .knx-particle-track { animation:none; } }

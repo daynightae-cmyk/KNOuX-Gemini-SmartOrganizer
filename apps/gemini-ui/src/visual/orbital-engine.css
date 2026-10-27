@@ -396,11 +396,7 @@ html:not([data-theme='light']) .visual-sprint .knx-orbit-tool.tone-sky    .knx-o
 }
 
 /* compact placements ---------------------------------------------------- */
-.visual-sprint[data-visual-section='files'] .knx-files-orbit .knx-orbit {
-  transform: none;
-  max-width: 320px;
-  min-height: 200px;
-}
+/* Files geometry is owned by files-reference.css. */
 
 /* Studio keeps its own column shell; the wheel now defines the height so the
    shared engine can never be clipped by a fixed 386px band. */
