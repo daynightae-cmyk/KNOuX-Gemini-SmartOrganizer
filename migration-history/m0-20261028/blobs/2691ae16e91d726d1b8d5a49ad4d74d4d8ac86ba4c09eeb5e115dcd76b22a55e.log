@@ -1,0 +1,106 @@
+{
+  "viewport": [
+    1366,
+    768
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "(none)",
+  "docScroll": [
+    1366,
+    768
+  ],
+  "bodyScroll": [
+    1366,
+    768
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 27,
+  "coveredCount": 2,
+  "covered": [
+    {
+      "tag": "input",
+      "text": "",
+      "top": "div",
+      "topText": "SCAN_ENGINE\nKNOuX Smart Scan Live Engine Telemet",
+      "rect": [
+        256,
+        650,
+        13,
+        13
+      ]
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "top": "div",
+      "topText": "SCAN_ENGINE\nKNOuX Smart Scan Live Engine Telemet",
+      "rect": [
+        256,
+        682,
+        13,
+        13
+      ]
+    }
+  ],
+  "escaping": [
+    {
+      "tag": "div",
+      "cls": "absolute -top-10 -right-10 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-n",
+      "text": "",
+      "rect": [
+        1075,
+        11,
+        320,
+        320
+      ]
+    }
+  ],
+  "scrollers": [
+    {
+      "cls": "scan-results-table flex-1 overflow-x-auto overflow-y-auto knx-custom-s",
+      "clientH": 165,
+      "scrollH": 283
+    },
+    {
+      "cls": "lg:col-span-3 flex flex-col gap-3 h-full min-h-0 overflow-y-auto knx-c",
+      "clientH": 269,
+      "scrollH": 562
+    },
+    {
+      "cls": "bg-[#071329]/90 border border-[#11294a] rounded-2xl p-3.5 sm:p-4 flex ",
+      "clientH": 267,
+      "scrollH": 574
+    },
+    {
+      "cls": "space-y-1.5 max-h-40 overflow-y-auto knx-custom-scrollbar",
+      "clientH": 160,
+      "scrollH": 169
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1366,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      728
+    ],
+    "main": [
+      224,
+      40,
+      1142,
+      601
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: <workspace>/KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\ar2-smart_scan-1366.png

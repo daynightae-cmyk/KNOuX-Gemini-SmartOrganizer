@@ -1,0 +1,123 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 2,
+  "darkSurfaces": [
+    {
+      "cls": "flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#0a162c] hover:bg-[#112447] text-slate-300 hover:text-white border border-[#17325c] transition-co",
+      "bg": "rgb(10, 22, 44)",
+      "area": 2555,
+      "text": "Customize"
+    },
+    {
+      "cls": "relative w-full h-20 bg-[#040a17] rounded-lg p-1 border border-[#0f2444] overflow-hidden",
+      "bg": "rgb(4, 10, 23)",
+      "area": 26560,
+      "text": "Apr 26, 2025 2:00 PM CPU 28% Memory 46% Disk 12% Health 92%"
+    }
+  ],
+  "lowContrastCount": 6,
+  "lowContrast": [
+    {
+      "c": 1.12,
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(238,243,249)",
+      "size": "12px",
+      "cls": "truncate flex-1",
+      "text": "Home"
+    },
+    {
+      "c": 1.74,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(10,22,44)",
+      "size": "11px",
+      "cls": "",
+      "text": "Customize"
+    },
+    {
+      "c": 1.12,
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(238,243,249)",
+      "size": "10px",
+      "cls": "px-2 py-0.5 rounded text-[10px] font-medium transition cursor-pointer bg-blue-600 text-white font-bold shadow-",
+      "text": "System Health"
+    },
+    {
+      "c": 1.12,
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(238,243,249)",
+      "size": "10px",
+      "cls": "px-2 py-0.5 rounded text-[10px] font-medium transition cursor-pointer bg-blue-600 text-white font-bold shadow-",
+      "text": "Recent Files"
+    },
+    {
+      "c": 1.12,
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(238,243,249)",
+      "size": "9px",
+      "cls": "px-1.5 py-0.2 rounded-full bg-blue-600 text-white font-bold text-[9px] shadow-sm",
+      "text": "AI"
+    },
+    {
+      "c": 1.12,
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(238,243,249)",
+      "size": "12px",
+      "cls": "",
+      "text": "Run Smart Scan Now →"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 36,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-[34] flex flex-col gap-3 min-w-0 overflow-y-auto pr-0.5 knx-custo",
+      "clientH": 645,
+      "scrollH": 742
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light2-home-1672.png

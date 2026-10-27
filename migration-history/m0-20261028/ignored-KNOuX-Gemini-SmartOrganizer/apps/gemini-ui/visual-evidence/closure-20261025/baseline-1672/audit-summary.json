@@ -1,0 +1,1662 @@
+[
+  {
+    "route": "home",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\home-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 1,
+    "covered": [
+      {
+        "el": "button.p-1.text-slate-500.hover:text-white.transition",
+        "rect": {
+          "x": 1614,
+          "y": 888,
+          "top": 888,
+          "left": 1614,
+          "w": 20,
+          "h": 20,
+          "right": 1634,
+          "bottom": 908
+        },
+        "blockedBy": "svg",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 22,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "smart_scan",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\smart_scan-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 8,
+    "covered": [
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 621,
+          "top": 621,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 634
+        },
+        "blockedBy": "div.flex.items-center.gap-2.5 \"Live Process & Telemetry InspectorSCAN_ENGINEKNO\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 661,
+          "top": 661,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 674
+        },
+        "blockedBy": "div.flex.items-center.justify-between.pb-2.5 \"Live Process & Telemetry InspectorSCAN_ENGINEKNO\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 707,
+          "top": 707,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 720
+        },
+        "blockedBy": "div.bg-gradient-to-r.from-blue-500.via-cyan-400.to-emerald-400",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 754,
+          "top": 754,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 767
+        },
+        "blockedBy": "div.bg-[#030914].border.border-[#0b1d36].rounded-xl \"[23:54:01]› KNOuX Live Engine v2.4 initialized i\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 800,
+          "top": 800,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 813
+        },
+        "blockedBy": "span.text-slate-500.shrink-0 \"[23:54:10]\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 846,
+          "top": 846,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 859
+        },
+        "blockedBy": "div.bg-[#051124]/95.border.border-[#112d54].rounded-2xl \"Live Process & Telemetry InspectorSCAN_ENGINEKNO\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-[#0c1f3d].border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 268,
+          "y": 893,
+          "top": 893,
+          "left": 268,
+          "w": 13,
+          "h": 13,
+          "right": 281,
+          "bottom": 906
+        },
+        "blockedBy": "svg",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "input.rounded.bg-slate-800.border-slate-600.text-cyan-500",
+        "rect": {
+          "x": 1337,
+          "y": 884,
+          "top": 884,
+          "left": 1337,
+          "w": 13,
+          "h": 13,
+          "right": 1350,
+          "bottom": 897
+        },
+        "blockedBy": "span \"Export Report\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "thead.sticky.top-0.bg-[#071329].z-10 \"NameCategoryItemsSizeImpactStatus\"",
+        "position": "sticky",
+        "zIndex": "10",
+        "rect": {
+          "x": 258,
+          "y": 613,
+          "top": 613,
+          "left": 258,
+          "w": 666,
+          "h": 33,
+          "right": 924,
+          "bottom": 646
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      },
+      {
+        "el": "div.sticky.bottom-0.bg-[#061226]/95.border \"1,399 items selected(14.7 GB)Ready for safe opti\"",
+        "position": "sticky",
+        "zIndex": "30",
+        "rect": {
+          "x": 240,
+          "y": 867,
+          "top": 867,
+          "left": 240,
+          "w": 1416,
+          "h": 58,
+          "right": 1656,
+          "bottom": 925
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      },
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 1,
+    "clipped": [
+      {
+        "el": "div.shrink-0.min-h-fit.relative.overflow-hidden \"KNOuX AI Engine v2.4Zero-Threat Guard ActiveSmar\"",
+        "scrollW": 1454,
+        "clientW": 1414,
+        "scrollH": 280,
+        "clientH": 116,
+        "text": "KNOuX AI Engine v2.4Zero-Threat Guard ActiveSmart ScanAnalyz"
+      }
+    ],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "studio",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\studio-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 3,
+    "covered": [
+      {
+        "el": "button.px-1.py-0.5.rounded.cursor-pointer \"100%\"",
+        "rect": {
+          "x": 270,
+          "y": 911,
+          "top": 911,
+          "left": 270,
+          "w": 37,
+          "h": 19,
+          "right": 307,
+          "bottom": 930
+        },
+        "blockedBy": "span.font-medium \"18 categories\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.px-1.py-0.5.rounded.cursor-pointer \"125%\"",
+        "rect": {
+          "x": 311,
+          "y": 911,
+          "top": 911,
+          "left": 311,
+          "w": 34,
+          "h": 19,
+          "right": 345,
+          "bottom": 930
+        },
+        "blockedBy": "span.font-medium \"18 categories\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.px-1.py-0.5.rounded.cursor-pointer \"150%\"",
+        "rect": {
+          "x": 349,
+          "y": 911,
+          "top": 911,
+          "left": 349,
+          "w": 35,
+          "h": 19,
+          "right": 384,
+          "bottom": 930
+        },
+        "blockedBy": "span.text-slate-600 \"|\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [
+      {
+        "el": "footer.h-12.bg-[#050e1f].border-t.border-[#132c52] \"18 categories|1 files selected|4.6 MBEdit Catego\"",
+        "rect": {
+          "x": 224,
+          "y": 893,
+          "top": 893,
+          "left": 224,
+          "w": 1448,
+          "h": 48,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "40",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 14,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "workspace",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\workspace-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 0,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "applications",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\applications-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 12,
+    "covered": [
+      {
+        "el": "button.p-1.rounded.text-slate-400.hover:text-emerald-400",
+        "rect": {
+          "x": 1157,
+          "y": 801,
+          "top": 801,
+          "left": 1157,
+          "w": 20,
+          "h": 20,
+          "right": 1177,
+          "bottom": 821
+        },
+        "blockedBy": "div.flex.items-center.justify-between.pb-1 \"Application Management ServicesClick card to ope\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.text-slate-400.hover:text-cyan-400",
+        "rect": {
+          "x": 1181,
+          "y": 801,
+          "top": 801,
+          "left": 1181,
+          "w": 20,
+          "h": 20,
+          "right": 1201,
+          "bottom": 821
+        },
+        "blockedBy": "div.flex.items-center.justify-between.pb-1 \"Application Management ServicesClick card to ope\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.text-slate-400.hover:text-white",
+        "rect": {
+          "x": 1205,
+          "y": 801,
+          "top": 801,
+          "left": 1205,
+          "w": 20,
+          "h": 20,
+          "right": 1225,
+          "bottom": 821
+        },
+        "blockedBy": "div.flex.items-center.justify-between.pb-1 \"Application Management ServicesClick card to ope\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.text-slate-400.hover:text-emerald-400",
+        "rect": {
+          "x": 1157,
+          "y": 838,
+          "top": 838,
+          "left": 1157,
+          "w": 20,
+          "h": 20,
+          "right": 1177,
+          "bottom": 858
+        },
+        "blockedBy": "button.px-3.py-1.5.rounded-md.bg-red-950/60 \"Batch Uninstall Review\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.text-slate-400.hover:text-cyan-400",
+        "rect": {
+          "x": 1181,
+          "y": 838,
+          "top": 838,
+          "left": 1181,
+          "w": 20,
+          "h": 20,
+          "right": 1201,
+          "bottom": 858
+        },
+        "blockedBy": "button.px-3.py-1.5.rounded-md.bg-red-950/60 \"Batch Uninstall Review\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.text-slate-400.hover:text-white",
+        "rect": {
+          "x": 1205,
+          "y": 838,
+          "top": 838,
+          "left": 1205,
+          "w": 20,
+          "h": 20,
+          "right": 1225,
+          "bottom": 858
+        },
+        "blockedBy": "button.px-3.py-1.5.rounded-md.bg-red-950/60 \"Batch Uninstall Review\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-2.rounded-lg.bg-[#07152b].hover:bg-[#0c1f3c] \"Installed ApplicationsView and manage all apps\"",
+        "rect": {
+          "x": 248,
+          "y": 829,
+          "top": 829,
+          "left": 248,
+          "w": 227,
+          "h": 48,
+          "right": 475,
+          "bottom": 877
+        },
+        "blockedBy": "span.font-bold.text-white \"1 application selected\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-2.rounded-lg.bg-[#07152b].hover:bg-[#0c1f3c] \"App IdentityVerify signatures & trust\"",
+        "rect": {
+          "x": 483,
+          "y": 829,
+          "top": 829,
+          "left": 483,
+          "w": 227,
+          "h": 48,
+          "right": 709,
+          "bottom": 877
+        },
+        "blockedBy": "div.absolute.bottom-16.left-6.right-6 \"11 application selected(782 MB aggregate footpri\"",
+        "blockPos": "absolute",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.p-2.rounded-lg.bg-[#07152b].hover:bg-[#0c1f3c] \"Advanced SearchFind apps with filters\"",
+        "rect": {
+          "x": 717,
+          "y": 829,
+          "top": 829,
+          "left": 717,
+          "w": 227,
+          "h": 48,
+          "right": 944,
+          "bottom": 877
+        },
+        "blockedBy": "div.absolute.bottom-16.left-6.right-6 \"11 application selected(782 MB aggregate footpri\"",
+        "blockPos": "absolute",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.p-2.rounded-lg.bg-[#07152b].hover:bg-[#0c1f3c] \"Publisher IntelligenceInsights & reputation\"",
+        "rect": {
+          "x": 952,
+          "y": 829,
+          "top": 829,
+          "left": 952,
+          "w": 227,
+          "h": 48,
+          "right": 1179,
+          "bottom": 877
+        },
+        "blockedBy": "div.absolute.bottom-16.left-6.right-6 \"11 application selected(782 MB aggregate footpri\"",
+        "blockPos": "absolute",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.p-2.rounded-lg.bg-[#07152b].hover:bg-[#0c1f3c] \"Recently Changed AppsTrack recent installations\"",
+        "rect": {
+          "x": 1187,
+          "y": 829,
+          "top": 829,
+          "left": 1187,
+          "w": 227,
+          "h": 48,
+          "right": 1413,
+          "bottom": 877
+        },
+        "blockedBy": "button.px-3.py-1.5.rounded-md.bg-[#0e274d] \"Batch Update Check\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-2.rounded-lg.bg-[#07152b].hover:bg-[#0c1f3c] \"Uninstall QueueManage bulk uninstalls\"",
+        "rect": {
+          "x": 1421,
+          "y": 829,
+          "top": 829,
+          "left": 1421,
+          "w": 227,
+          "h": 48,
+          "right": 1648,
+          "bottom": 877
+        },
+        "blockedBy": "button.px-3.py-1.5.rounded-md.bg-[#071325] \"Export Inventory\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 15,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "files",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\files-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 1,
+    "covered": [
+      {
+        "el": "button.w-full.py-2.rounded-lg.bg-gradient-to-r \"Add to Organization Plan\"",
+        "rect": {
+          "x": 1279,
+          "y": 896,
+          "top": 896,
+          "left": 1279,
+          "w": 354,
+          "h": 34,
+          "right": 1633,
+          "bottom": 930
+        },
+        "blockedBy": "button.px-4.py-1.5.rounded-lg.bg-gradient-to-r \"Review Organization Plan\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [
+      {
+        "el": "footer.h-12.bg-[#050e1f].border-t.border-[#132c52] \"1 file selected (6.1 MB)Ready for next step • Re\"",
+        "rect": {
+          "x": 224,
+          "y": 893,
+          "top": 893,
+          "left": 224,
+          "w": 1448,
+          "h": 48,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "30",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "storage",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\storage-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [
+      {
+        "el": "footer.h-14.bg-[#050f24].border-t.border-slate-800/90 \"Ready to analyze, explore, and reclaim space on \"",
+        "rect": {
+          "x": 0,
+          "y": 885,
+          "top": 885,
+          "left": 0,
+          "w": 1672,
+          "h": 56,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "30",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "cleanup",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\cleanup-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [
+      {
+        "el": "footer.h-14.bg-[#050e20].border-t.border-slate-800/90 \"3 items selected·2.87 GB·(317 items require revi\"",
+        "rect": {
+          "x": 0,
+          "y": 885,
+          "top": 885,
+          "left": 0,
+          "w": 1672,
+          "h": 56,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "30",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "startup",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\startup-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 5,
+    "covered": [
+      {
+        "el": "input.w-4.h-4.rounded.accent-cyan-500",
+        "rect": {
+          "x": 264,
+          "y": 920,
+          "top": 920,
+          "left": 264,
+          "w": 16,
+          "h": 16,
+          "right": 280,
+          "bottom": 936
+        },
+        "blockedBy": "footer.h-14.bg-[#061124].border-t.border-slate-800/80 \"3items selected•Staged Boot Savings:+4.71s•Stage\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.px-2.5.py-1.rounded-md.text-[10px] \"enabled\"",
+        "rect": {
+          "x": 922,
+          "y": 918,
+          "top": 918,
+          "left": 922,
+          "w": 61,
+          "h": 23,
+          "right": 982,
+          "bottom": 941
+        },
+        "blockedBy": "footer.h-14.bg-[#061124].border-t.border-slate-800/80 \"3items selected•Staged Boot Savings:+4.71s•Stage\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "select.bg-[#050e1f].border.border-slate-700.rounded \"Instant+15s+30s+60s+120s\"",
+        "rect": {
+          "x": 1018,
+          "y": 920,
+          "top": 920,
+          "left": 1018,
+          "w": 73,
+          "h": 20,
+          "right": 1091,
+          "bottom": 940
+        },
+        "blockedBy": "footer.h-14.bg-[#061124].border-t.border-slate-800/80 \"3items selected•Staged Boot Savings:+4.71s•Stage\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.p-1.rounded.hover:bg-cyan-500/20.text-slate-400",
+        "rect": {
+          "x": 1138,
+          "y": 918,
+          "top": 918,
+          "left": 1138,
+          "w": 24,
+          "h": 24,
+          "right": 1162,
+          "bottom": 942
+        },
+        "blockedBy": "footer.h-14.bg-[#061124].border-t.border-slate-800/80 \"3items selected•Staged Boot Savings:+4.71s•Stage\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.p-1.hover:text-cyan-400.transition.shrink-0",
+        "rect": {
+          "x": 1596,
+          "y": 912,
+          "top": 912,
+          "left": 1596,
+          "w": 22,
+          "h": 22,
+          "right": 1618,
+          "bottom": 934
+        },
+        "blockedBy": "button.px-4.py-1.5.rounded-xl.text-xs \"Stage Selected Changes\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [
+      {
+        "el": "footer.h-14.bg-[#061124].border-t.border-slate-800/80 \"3items selected•Staged Boot Savings:+4.71s•Stage\"",
+        "rect": {
+          "x": 0,
+          "y": 885,
+          "top": 885,
+          "left": 0,
+          "w": 1672,
+          "h": 56,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "30",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 1,
+    "clipped": [
+      {
+        "el": "div.shrink-0.min-h-fit.relative.p-4 \"KNOuX Boot Controller · REF-06Safe Staging Activ\"",
+        "scrollW": 1438,
+        "clientW": 1398,
+        "scrollH": 280,
+        "clientH": 151,
+        "text": "KNOuX Boot Controller · REF-06Safe Staging ActiveStagger Mod"
+      }
+    ],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "system",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\system-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [
+      {
+        "el": "footer.h-12.bg-[#040b18].border-t.border-slate-800/80 \"Refresh DataInspect ProcessesView EventsExport D\"",
+        "rect": {
+          "x": 0,
+          "y": 893,
+          "top": 893,
+          "left": 0,
+          "w": 1672,
+          "h": 48,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "30",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "repair",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\repair-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 1055,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 1055,
+      "bodyClientH": 1055,
+      "horizontalOverflow": false,
+      "verticalOverflow": true
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "services",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\services-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 1207,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 1207,
+      "bodyClientH": 1207,
+      "horizontalOverflow": false,
+      "verticalOverflow": true
+    },
+    "coveredCount": 21,
+    "covered": [
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-rose-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 628,
+          "top": 628,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 648
+        },
+        "blockedBy": "button.p-2.5.rounded-lg.bg-[#081024]/85.border \"Dependency ExplorerVisualize service dependencie\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 628,
+          "top": 628,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 648
+        },
+        "blockedBy": "button.p-2.5.rounded-lg.bg-[#081024]/85.border \"Dependency ExplorerVisualize service dependencie\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1144,
+          "y": 628,
+          "top": 628,
+          "left": 1144,
+          "w": 20,
+          "h": 20,
+          "right": 1164,
+          "bottom": 648
+        },
+        "blockedBy": "button.p-2.5.rounded-lg.bg-[#081024]/85.border \"Dependency ExplorerVisualize service dependencie\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-emerald-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 665,
+          "top": 665,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 685
+        },
+        "blockedBy": "button.p-2.5.rounded-lg.bg-[#081024]/85.border \"Dependency ExplorerVisualize service dependencie\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 665,
+          "top": 665,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 685
+        },
+        "blockedBy": "button.p-2.5.rounded-lg.bg-[#081024]/85.border \"Dependency ExplorerVisualize service dependencie\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1144,
+          "y": 665,
+          "top": 665,
+          "left": 1144,
+          "w": 20,
+          "h": 20,
+          "right": 1164,
+          "bottom": 685
+        },
+        "blockedBy": "button.p-2.5.rounded-lg.bg-[#081024]/85.border \"Dependency ExplorerVisualize service dependencie\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-emerald-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 702,
+          "top": 702,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 722
+        },
+        "blockedBy": "div.grid.grid-cols-2.sm:grid-cols-4.gap-2 \"Services Register271 services. View and manage a\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 702,
+          "top": 702,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 722
+        },
+        "blockedBy": "div.grid.grid-cols-2.sm:grid-cols-4.gap-2 \"Services Register271 services. View and manage a\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1144,
+          "y": 702,
+          "top": 702,
+          "left": 1144,
+          "w": 20,
+          "h": 20,
+          "right": 1164,
+          "bottom": 722
+        },
+        "blockedBy": "div.grid.grid-cols-2.sm:grid-cols-4.gap-2 \"Services Register271 services. View and manage a\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-emerald-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 739,
+          "top": 739,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 759
+        },
+        "blockedBy": "div.flex.items-center.justify-between.w-full \"State History\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 739,
+          "top": 739,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 759
+        },
+        "blockedBy": "div.flex.items-center.justify-between.w-full \"State History\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1144,
+          "y": 739,
+          "top": 739,
+          "left": 1144,
+          "w": 20,
+          "h": 20,
+          "right": 1164,
+          "bottom": 759
+        },
+        "blockedBy": "div.flex.items-center.justify-between.w-full \"State History\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-rose-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 776,
+          "top": 776,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 796
+        },
+        "blockedBy": "p.text-[10px].text-slate-400.line-clamp-1.mt-1 \"Track service state changes.\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 776,
+          "top": 776,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 796
+        },
+        "blockedBy": "p.text-[10px].text-slate-400.line-clamp-1.mt-1 \"Track service state changes.\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1144,
+          "y": 776,
+          "top": 776,
+          "left": 1144,
+          "w": 20,
+          "h": 20,
+          "right": 1164,
+          "bottom": 796
+        },
+        "blockedBy": "p.text-[10px].text-slate-400.line-clamp-1.mt-1 \"Track service state changes.\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-rose-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 813,
+          "top": 813,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 833
+        },
+        "blockedBy": "div.flex.items-center.justify-between.w-full \"Service Performance\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 813,
+          "top": 813,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 833
+        },
+        "blockedBy": "div.flex.items-center.justify-between.w-full \"Service Performance\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1144,
+          "y": 813,
+          "top": 813,
+          "left": 1144,
+          "w": 20,
+          "h": 20,
+          "right": 1164,
+          "bottom": 833
+        },
+        "blockedBy": "svg",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-rose-900/50",
+        "rect": {
+          "x": 1096,
+          "y": 850,
+          "top": 850,
+          "left": 1096,
+          "w": 20,
+          "h": 20,
+          "right": 1116,
+          "bottom": 870
+        },
+        "blockedBy": "p.text-[10px].text-slate-400.line-clamp-1.mt-1 \"View resource usage and metrics.\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      },
+      {
+        "el": "button.p-1.rounded.bg-slate-800/80.hover:bg-slate-700",
+        "rect": {
+          "x": 1120,
+          "y": 850,
+          "top": 850,
+          "left": 1120,
+          "w": 20,
+          "h": 20,
+          "right": 1140,
+          "bottom": 870
+        },
+        "blockedBy": "p.text-[10px].text-slate-400.line-clamp-1.mt-1 \"View resource usage and metrics.\"",
+        "blockPos": "static",
+        "blockZ": "auto"
+      }
+    ],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "thead.bg-[#0b142b].border-b.border-slate-800/80.sticky \"Service NameDisplay NameCurrent StatusStartup Ty\"",
+        "position": "sticky",
+        "zIndex": "10",
+        "rect": {
+          "x": 247,
+          "y": 281,
+          "top": 281,
+          "left": 247,
+          "w": 930,
+          "h": 35,
+          "right": 1176,
+          "bottom": 316
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      },
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "automation",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\automation-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 1,
+    "clipped": [
+      {
+        "el": "div.flow-canvas-grid.min-h-[340px].p-6.relative \"StartFolder Event or Scheduled TriggerActiveFile\"",
+        "scrollW": 924,
+        "clientW": 872,
+        "scrollH": 340,
+        "clientH": 340,
+        "text": "StartFolder Event or Scheduled TriggerActiveFile Type Matche"
+      }
+    ],
+    "deadControls": [],
+    "escapingCount": 0,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  },
+  {
+    "route": "settings",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\baseline-1672\\settings-1672x941.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 0,
+    "covered": [],
+    "footers": [],
+    "overlays": [
+      {
+        "el": "button.fixed.bottom-6.right-6.z-50",
+        "position": "fixed",
+        "zIndex": "50",
+        "rect": {
+          "x": 1600,
+          "y": 869,
+          "top": 869,
+          "left": 1600,
+          "w": 48,
+          "h": 48,
+          "right": 1648,
+          "bottom": 917
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 1,
+    "clipped": [
+      {
+        "el": "div.shrink-0.min-h-fit.relative.overflow-hidden \"KNOuX Control Center v2.4Engine Status: Turbo Ac\"",
+        "scrollW": 1446,
+        "clientW": 1406,
+        "scrollH": 248,
+        "clientH": 151,
+        "text": "KNOuX Control Center v2.4Engine Status: Turbo ActiveKNOuX En"
+      }
+    ],
+    "deadControls": [],
+    "escapingCount": 1,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  }
+]

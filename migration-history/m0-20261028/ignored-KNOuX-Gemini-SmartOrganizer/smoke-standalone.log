@@ -1,0 +1,73 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 desktop:smoke
+> npm run desktop:smoke --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 desktop:smoke
+> npm run build && node scripts/native-smoke.cjs
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 build
+> vite build
+
+[36mvite v8.3.5 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 1777 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     1.75 kB │ gzip:   0.78 kB
+dist/assets/index-DAI7U4n1.css    256.25 kB │ gzip:  34.94 kB
+dist/assets/index-Cxk0cGRK.js   1,317.16 kB │ gzip: 319.22 kB
+
+[32m✓ built in 1.81s[39m
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+{
+  "ok": true,
+  "startedAt": "2026-10-25T19:36:00.363Z",
+  "finishedAt": "2026-10-25T19:36:50.905Z",
+  "mode": "development",
+  "command": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\electron\\dist\\electron.exe",
+  "args": [
+    "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\electron\\main.cjs",
+    "--knoux-native-smoke=D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-smoke-dev.json",
+    "--knoux-native-smoke-shot=D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev.png",
+    "--knoux-user-data=D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-6740-1792956960348",
+    "--knoux-studio-smoke-root=D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\node_modules\\.cache\\knoux-gemini-smoke-6740-1792956960348\\studio-source"
+  ],
+  "exitCode": 0,
+  "receiptPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-smoke-dev.json",
+  "shotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev.png",
+  "shotBytes": 272654,
+  "lightShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev-light.png",
+  "arabicShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\native-bridge-dev-ar-light.png",
+  "studioShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-measured-dev.png",
+  "studioPlanShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-plan-dev.png",
+  "studioHistoryShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\studio-history-dev.png",
+  "filesShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\files-measured-dev.png",
+  "storageShotPath": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\visual-evidence\\platform-00\\storage-measured-dev.png",
+  "lightShotBytes": 229618,
+  "arabicShotBytes": 218330,
+  "studioShotBytes": 353223,
+  "studioPlanShotBytes": 291127,
+  "studioHistoryShotBytes": 278206,
+  "filesShotBytes": 311643,
+  "storageShotBytes": 339690,
+  "receiptOk": true,
+  "checks": {
+    "securityOk": true,
+    "bridgeOk": true,
+    "providerOk": true,
+    "studioOk": true,
+    "filesOk": true,
+    "storageOk": true,
+    "screenshotOk": true,
+    "windowControlOk": true
+  },
+  "stdoutTail": "\r\n",
+  "stderrTail": ""
+}
+[native-smoke] PASS — secure renderer -> preload -> IPC -> Windows provider -> screenshot

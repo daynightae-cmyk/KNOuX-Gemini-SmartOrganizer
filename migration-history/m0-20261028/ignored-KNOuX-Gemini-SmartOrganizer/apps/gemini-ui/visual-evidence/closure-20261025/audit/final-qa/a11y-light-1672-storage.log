@@ -1,0 +1,96 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 1,
+  "darkSurfaces": [
+    {
+      "cls": "bg-purple-800/90 rounded p-1 border border-purple-400/30",
+      "bg": "oklab(0.438 0.121032 -0.181315 / 0.9)",
+      "area": 4708,
+      "text": "Alex 58.4 GB"
+    }
+  ],
+  "lowContrastCount": 2,
+  "lowContrast": [
+    {
+      "c": 1.19,
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(237,233,254)",
+      "size": "9px",
+      "cls": "bg-purple-900/90 rounded p-1 text-[9px] font-mono text-purple-300",
+      "text": "Public 12.1 GB"
+    },
+    {
+      "c": 1.72,
+      "fg": "oklab(0.828 0.0183479 0.188107 / 0.9)",
+      "bg": "rgb(255,255,255)",
+      "size": "10px",
+      "cls": "text-amber-400/90 text-[10px] text-right truncate max-w-[160px]",
+      "text": "Some system files restricted (Administrator privileges)"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 30,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar p-5 space-y-4",
+      "clientH": 845,
+      "scrollH": 1289
+    },
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-64",
+      "clientH": 256,
+      "scrollH": 310
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      845
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      845
+    ],
+    "footer": [
+      0,
+      885,
+      1672,
+      56
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\final-qa\a11y-light-1672-storage.png

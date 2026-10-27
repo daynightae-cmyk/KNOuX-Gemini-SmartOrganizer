@@ -1,0 +1,190 @@
+EVAL: {
+  "theme": null,
+  "darkSurfaceCount": 72,
+  "darkSurfaces": [
+    {
+      "cls": "w-screen h-screen flex flex-col bg-[#050d1d] text-slate-100 overflow-hidden font-sans select-none relative",
+      "bg": "rgb(5, 13, 29)",
+      "area": 1573352,
+      "text": "K KNOuX SmartOrganizer v2.4.0 High-Performance Workstation ا"
+    },
+    {
+      "cls": "knoux-titlebar h-10 bg-[#040a16] border-b border-[#0d213d] flex items-center justify-between px-3 text-xs select-none z-50 shrink-0",
+      "bg": "rgb(4, 10, 22)",
+      "area": 66880,
+      "text": "K KNOuX SmartOrganizer v2.4.0 High-Performance Workstation ا"
+    },
+    {
+      "cls": "w-56 shrink-0 bg-[#050e1f] border-r rtl:border-r-0 rtl:border-l border-[#0e223d] flex flex-col justify-between select-none h-full overflow-hidden z-20",
+      "bg": "rgb(5, 14, 31)",
+      "area": 201824,
+      "text": "K KNOuX SmartOrganizer Home Smart Scan AI Organization Studi"
+    },
+    {
+      "cls": "p-2.5 border-t border-[#0e223d]/70 bg-[#040b18]",
+      "bg": "rgb(4, 11, 24)",
+      "area": 15610,
+      "text": "Visual preview — engine not connected v2.4.0 Windows Desktop"
+    },
+    {
+      "cls": "studio-glass-panel rounded-lg px-3.5 py-2.5 flex items-center gap-3 border border-[#132c52] hover:border-[#1d427b] transition-all",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 18495,
+      "text": "SOURCE AUTHORIZATION 3 folders authorized"
+    },
+    {
+      "cls": "studio-glass-panel rounded-lg px-3.5 py-2.5 flex items-center gap-3 border border-[#132c52] hover:border-[#1d427b] transition-all",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 18495,
+      "text": "SCAN STATE Scan complete"
+    },
+    {
+      "cls": "studio-glass-panel rounded-lg px-3.5 py-2.5 flex items-center gap-3 border border-[#132c52] hover:border-[#1d427b] transition-all",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 18495,
+      "text": "FILES ANALYZED 12,847 files | 428.6 GB"
+    },
+    {
+      "cls": "studio-glass-panel rounded-lg px-3.5 py-2.5 flex items-center justify-between border border-[#132c52] hover:border-[#1d427b] transition-all",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 18495,
+      "text": "LAST REFRESHED Today 2025/04/28 14:27 Refresh"
+    },
+    {
+      "cls": "flex items-center gap-1 min-w-[920px] bg-[#071426] p-1.5 rounded-lg border border-[#132c52]",
+      "bg": "rgb(7, 20, 38)",
+      "area": 61600,
+      "text": "1 Sources › 2 Visual Library › 3 Collections › 4 Organizatio"
+    },
+    {
+      "cls": "studio-glass-panel rounded-xl p-3 border border-[#132c52] flex flex-col flex-1",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 122112,
+      "text": "Authorized Sources C:\\Users\\Alex\\Desktop 6,421 files | 214.8"
+    },
+    {
+      "cls": "relative p-2 rounded-lg bg-[#0a182e] hover:bg-[#0f2342] border border-[#142e56] hover:border-[#1d427b] transition-all group",
+      "bg": "rgb(10, 24, 46)",
+      "area": 13260,
+      "text": "C:\\Users\\Alex\\Desktop 6,421 files | 214.8 GB"
+    },
+    {
+      "cls": "relative p-2 rounded-lg bg-[#0a182e] hover:bg-[#0f2342] border border-[#142e56] hover:border-[#1d427b] transition-all group",
+      "bg": "rgb(10, 24, 46)",
+      "area": 13260,
+      "text": "D:\\Projects 4,203 files | 156.7 GB"
+    },
+    {
+      "cls": "relative p-2 rounded-lg bg-[#0a182e] hover:bg-[#0f2342] border border-[#142e56] hover:border-[#1d427b] transition-all group",
+      "bg": "rgb(10, 24, 46)",
+      "area": 13260,
+      "text": "E:\\Media 2,223 files | 57.1 GB"
+    },
+    {
+      "cls": "w-full py-1.5 rounded-lg bg-[#0d223f] hover:bg-[#143563] disabled:opacity-50 text-cyan-300 border border-[#2476ff]/50 text-xs font-semibold flex items",
+      "bg": "rgb(13, 34, 63)",
+      "area": 7860,
+      "text": "Add Folder (fixture)"
+    },
+    {
+      "cls": "w-full py-1.5 rounded-lg bg-[#081528] hover:bg-[#0c1f3b] disabled:opacity-50 text-slate-400 hover:text-slate-200 border border-[#132c52] text-xs font-",
+      "bg": "rgb(8, 21, 40)",
+      "area": 7860,
+      "text": "Re-scan measured source"
+    },
+    {
+      "cls": "studio-glass-panel rounded-xl p-3 border border-[#132c52]",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 42912,
+      "text": "Inventory Summary FIXTURE Total Files 12,847 Total Size 428."
+    },
+    {
+      "cls": "studio-glass-panel rounded-xl p-3 border border-[#132c52]",
+      "bg": "rgba(8, 22, 41, 0.85)",
+      "area": 291072,
+      "text": "File Categories (18) Select category to filter & inspect Ima"
+    },
+    {
+      "cls": "flex flex-col p-2 rounded-lg text-left transition-all cursor-pointer relative overflow-hidden group bg-[#122e5a] border-2 border-[#2476ff] shadow-[0_0",
+      "bg": "rgb(18, 46, 90)",
+      "area": 11934,
+      "text": "Image 3,246 files 82.4 GB"
+    }
+  ],
+  "lowContrastCount": 1,
+  "lowContrast": [
+    {
+      "c": 2.94,
+      "fg": "oklch(0.554 0.046 257.417)",
+      "bg": "rgb(18,43,84)",
+      "size": "10px",
+      "cls": "text-[10px] text-slate-500 font-mono mt-0.5",
+      "text": "2025/04/26 10:14"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "(none)",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 56,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "pt-3 flex-1 overflow-y-auto studio-scrollbar",
+      "clientH": 131,
+      "scrollH": 245
+    },
+    {
+      "cls": "studio-glass-panel rounded-xl p-3 border border-[#132c52] flex-1 flex ",
+      "clientH": 583,
+      "scrollH": 814
+    }
+  ],
+  "critical": {
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ],
+    "footer": [
+      224,
+      893,
+      1448,
+      48
+    ],
+    "[class*=\"titlebar\"]": [
+      0,
+      0,
+      1672,
+      40
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\mission-03\studio-contrast-dark-en-1672.png

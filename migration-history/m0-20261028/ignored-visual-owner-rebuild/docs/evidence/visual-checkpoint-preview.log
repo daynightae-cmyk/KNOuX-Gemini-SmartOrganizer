@@ -1,0 +1,45 @@
+{
+  "intro": 4,
+  "views": 48,
+  "interactions": [
+    {
+      "theme": "light",
+      "route": "files",
+      "coreFocus": true,
+      "imageFilter": true,
+      "filters": true,
+      "hashWorkbench": true
+    },
+    {
+      "theme": "light",
+      "route": "studio",
+      "planWorkbench": true
+    },
+    {
+      "theme": "light",
+      "reducedIntro": "none",
+      "skipReduced": true
+    },
+    {
+      "theme": "dark",
+      "route": "files",
+      "coreFocus": true,
+      "imageFilter": true,
+      "filters": true,
+      "hashWorkbench": true
+    },
+    {
+      "theme": "dark",
+      "route": "studio",
+      "planWorkbench": true
+    },
+    {
+      "theme": "dark",
+      "reducedIntro": "none",
+      "skipReduced": true
+    }
+  ],
+  "errors": [],
+  "overflow": [],
+  "wheelObstruction": []
+}

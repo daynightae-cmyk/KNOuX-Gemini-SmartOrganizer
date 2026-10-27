@@ -1,0 +1,367 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 19,
+  "darkSurfaces": [
+    {
+      "cls": "w-64 bg-[#070e1c] border-r border-slate-800/80 flex flex-col shrink-0 overflow-y-auto automation-custom-scrollbar p-3 space-y-3",
+      "bg": "rgb(7, 14, 28)",
+      "area": 212864,
+      "text": "Workflow Library All Workflows Templates Categories File Org"
+    },
+    {
+      "cls": "grid grid-cols-3 gap-1 bg-[#050b18] p-1 rounded-lg border border-slate-800 text-[10.5px]",
+      "bg": "rgb(5, 11, 24)",
+      "area": 7796,
+      "text": "All Workflows Templates"
+    },
+    {
+      "cls": "px-3 py-1 rounded-t-lg bg-[#0d172c] border-t border-x border-purple-500/40 text-xs font-semibold text-white flex items-center gap-2",
+      "bg": "rgb(13, 23, 44)",
+      "area": 5542,
+      "text": "Document Verification Flow"
+    },
+    {
+      "cls": "flow-canvas-grid min-h-[340px] p-6 relative overflow-x-auto flex items-center",
+      "bg": "rgb(7, 14, 29)",
+      "area": 296480,
+      "text": "Start Folder Event or Scheduled Trigger Active File Type Mat"
+    },
+    {
+      "cls": "p-3.5 bg-[#070e1c] border-t border-slate-800/80",
+      "bg": "rgb(7, 14, 28)",
+      "area": 173964,
+      "text": "Service Palette (12) Smart Scan Scheduler Scan and detect fi"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Smart Scan Scheduler Scan and detect files"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Schedule Manager Manage time-based triggers"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Run History View past executions"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Workflow Templates Pre-built workflows"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Schedule Planner Visual time planning"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Cleanup Planner Automated cleanup rules"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Notification Rules Alerts and delivery options"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Quiet Hours Silence during focus time"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Battery Policies Adjust behavior by power state"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Retention Policies Keep or remove files"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Automation Export Export and share workflows"
+    },
+    {
+      "cls": "p-2 rounded-lg bg-[#091326]/80 border border-slate-800 hover:border-slate-700 hover:bg-[#0b1730] text-left transition-all flex items-start gap-2 group",
+      "bg": "oklab(0.188901 -0.00569812 -0.0412123 / 0.8)",
+      "area": 9280,
+      "text": "Backup Planner Schedule backups of important data"
+    },
+    {
+      "cls": "w-80 bg-[#070e1c] border-l border-slate-800/80 flex flex-col shrink-0 overflow-y-auto automation-custom-scrollbar p-3.5 space-y-3",
+      "bg": "rgb(7, 14, 28)",
+      "area": 266080,
+      "text": "Node Configuration Require User Approval Pause workflow and "
+    }
+  ],
+  "lowContrastCount": 51,
+  "lowContrast": [
+    {
+      "c": 1.32,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(7,14,28)",
+      "size": "12px",
+      "cls": "font-semibold text-slate-200",
+      "text": "Workflow Library"
+    },
+    {
+      "c": 2.6,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,11,24)",
+      "size": "10.5px",
+      "cls": "py-1 rounded font-medium text-center transition-colors text-slate-400 hover:text-slate-200",
+      "text": "Workflows"
+    },
+    {
+      "c": 2.6,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(5,11,24)",
+      "size": "10.5px",
+      "cls": "py-1 rounded font-medium text-center transition-colors text-slate-400 hover:text-slate-200",
+      "text": "Templates"
+    },
+    {
+      "c": 2.55,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "flex items-center gap-1",
+      "text": "Categories"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "truncate text-[11px]",
+      "text": "File Organization"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "truncate text-[11px]",
+      "text": "Productivity"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "truncate text-[11px]",
+      "text": "System Maintenance"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "truncate text-[11px]",
+      "text": "Backup & Retention"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "truncate text-[11px]",
+      "text": "Notifications"
+    },
+    {
+      "c": 1.86,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "truncate text-[11px]",
+      "text": "Templates"
+    },
+    {
+      "c": 2.55,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "flex items-center gap-1",
+      "text": "Saved Workflows"
+    },
+    {
+      "c": 2.55,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(7,14,28)",
+      "size": "11px",
+      "cls": "flex items-center gap-1",
+      "text": "Templates"
+    },
+    {
+      "c": 1.05,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(13,23,44)",
+      "size": "12px",
+      "cls": "",
+      "text": "Document Verification Flow"
+    },
+    {
+      "c": 2.66,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(153,153,153)",
+      "size": "11px",
+      "cls": "px-1",
+      "text": "100 %"
+    },
+    {
+      "c": 1.32,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(7,14,28)",
+      "size": "12px",
+      "cls": "",
+      "text": "Service Palette (12)"
+    },
+    {
+      "c": 1.28,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,18,35)",
+      "size": "11px",
+      "cls": "text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300",
+      "text": "Smart Scan Scheduler"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(9,18,35)",
+      "size": "9.5px",
+      "cls": "text-[9.5px] text-slate-400 line-clamp-2 leading-tight",
+      "text": "Scan and detect files"
+    },
+    {
+      "c": 1.28,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,18,35)",
+      "size": "11px",
+      "cls": "text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300",
+      "text": "Schedule Manager"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(9,18,35)",
+      "size": "9.5px",
+      "cls": "text-[9.5px] text-slate-400 line-clamp-2 leading-tight",
+      "text": "Manage time-based triggers"
+    },
+    {
+      "c": 1.28,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,18,35)",
+      "size": "11px",
+      "cls": "text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300",
+      "text": "Run History"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(9,18,35)",
+      "size": "9.5px",
+      "cls": "text-[9.5px] text-slate-400 line-clamp-2 leading-tight",
+      "text": "View past executions"
+    },
+    {
+      "c": 1.28,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,18,35)",
+      "size": "11px",
+      "cls": "text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300",
+      "text": "Workflow Templates"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(9,18,35)",
+      "size": "9.5px",
+      "cls": "text-[9.5px] text-slate-400 line-clamp-2 leading-tight",
+      "text": "Pre-built workflows"
+    },
+    {
+      "c": 1.28,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,18,35)",
+      "size": "11px",
+      "cls": "text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300",
+      "text": "Schedule Planner"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(9,18,35)",
+      "size": "9.5px",
+      "cls": "text-[9.5px] text-slate-400 line-clamp-2 leading-tight",
+      "text": "Visual time planning"
+    },
+    {
+      "c": 1.28,
+      "fg": "rgb(30, 41, 59)",
+      "bg": "rgb(9,18,35)",
+      "size": "11px",
+      "cls": "text-[11px] font-semibold text-slate-200 line-clamp-2 leading-tight group-hover:text-cyan-300",
+      "text": "Cleanup Planner"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 62,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-automation-1672.png

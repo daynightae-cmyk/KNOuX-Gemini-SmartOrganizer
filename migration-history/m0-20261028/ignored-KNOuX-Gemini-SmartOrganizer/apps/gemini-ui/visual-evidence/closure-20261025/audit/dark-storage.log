@@ -1,0 +1,85 @@
+EVAL: [
+  {
+    "cls": "flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-[#091c3d] hover:bg-slate-800 text-slate-200 border border-slate-700",
+    "bg": "rgb(9, 28, 61)",
+    "area": 7635,
+    "text": "Walk This Volume"
+  },
+  {
+    "cls": "md:col-span-7 flex flex-col gap-1.5 bg-[#030a16] p-2 rounded-xl border border-slate-800",
+    "bg": "rgb(3, 10, 22)",
+    "area": 284908,
+    "text": "Windows 93.6 GB Sys32 31G WinSxS 24G Users 76"
+  },
+  {
+    "cls": "bg-purple-800/90 rounded p-1 border border-purple-400/30",
+    "bg": "oklab(0.438 0.121032 -0.181315 / 0.9)",
+    "area": 4708,
+    "text": "Alex 58.4 GB"
+  }
+]
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 30,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar p-5 space-y-4",
+      "clientH": 845,
+      "scrollH": 1289
+    },
+    {
+      "cls": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-64",
+      "clientH": 256,
+      "scrollH": 310
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      845
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      845
+    ],
+    "footer": [
+      0,
+      885,
+      1672,
+      56
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\dark-storage.png

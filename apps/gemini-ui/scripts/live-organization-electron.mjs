@@ -3,7 +3,7 @@ import {createRequire} from 'node:module';
 import {mkdir,writeFile,readFile,access} from 'node:fs/promises';
 import path from 'node:path';
 const require=createRequire(import.meta.url),{fixture,sha}=require('./live-organization-fixtures.cjs');
-const f=await fixture(40),out=path.resolve('../../docs/evidence/live-organization/electron');await mkdir(out,{recursive:true});
+const f=await fixture(40),out=path.resolve(process.env.KNOUX_ORGANIZATION_ELECTRON_DIR||'../../docs/evidence/live-organization/electron');await mkdir(out,{recursive:true});
 const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
 const app=await electron.launch({executablePath:require('electron'),args:['--disable-gpu','--js-flags=--max-old-space-size=160',path.resolve('electron/main.cjs'),`--knoux-user-data=${f.profile}`],env,timeout:60000});
 const proof={fixture:f.root,checks:[],errors:[],views:[]};
@@ -17,7 +17,7 @@ try {
    return{canceled:false,filePaths:[selected]};
   };
   dialog.showMessageBox=async(_parent,options)=>{
-   if(options.title!=='KNOuX — exact operation approval')throw Error('Unexpected confirmation in isolated test');
+   if(options.title!=='KNOuX â€” exact operation approval')throw Error('Unexpected confirmation in isolated test');
    globalThis.__liveFixtureConfirmations.push({title:options.title,message:options.message,detail:options.detail});
    return{response:1,checkboxChecked:false};
   };
@@ -43,11 +43,11 @@ try {
  await expect(page.getByTestId('ops-destination')).toBeEnabled();await page.getByTestId('ops-destination').click();
  await expect(page.getByTestId('ops-plan')).toBeEnabled();await page.getByTestId('ops-plan').click();
  await expect(page.locator('.ops-plan-proof code')).toBeVisible({timeout:60000});
- proof.checks.push('Real folder picker adapter → incremental native inventory → exact hashed before/after plan');
+ proof.checks.push('Real folder picker adapter â†’ incremental native inventory â†’ exact hashed before/after plan');
  for(const theme of ['light','dark']) {
   await page.evaluate(theme=>{document.documentElement.dataset.theme=theme;},theme);
   for(const [width,height] of [[1366,768],[1672,941]]) {
-   await app.evaluate(({BrowserWindow},{width,height})=>BrowserWindow.getAllWindows().find(w=>w.isVisible()).setContentSize(width,height),{width,height});
+   await (await app.browserWindow(page)).evaluate((window,{width,height})=>window.setContentSize(width,height),{width,height});
    await page.screenshot({path:path.join(out,`preview-${theme}-${width}.png`),animations:'disabled'});
    const geometry=await page.getByTestId('organization-live-workbench').evaluate(e=>{const r=e.getBoundingClientRect();const f=e.querySelector('footer').getBoundingClientRect();return{height:r.height,bottom:r.bottom,footerBottom:f.bottom,viewport:innerHeight,scrollable:[...e.querySelectorAll('*')].some(x=>getComputedStyle(x).overflowY==='auto'&&x.scrollHeight>x.clientHeight)};});
    expect(geometry.footerBottom).toBeLessThanOrEqual(geometry.viewport);expect(geometry.scrollable).toBe(true);proof.views.push({theme,width,height,...geometry});
@@ -59,11 +59,11 @@ try {
  const moved=await page.evaluate(async()=>{const r=await window.knouxOperationsV1.history();return r.data[0];});
  expect(moved.completedFiles).toBe(40);expect(moved.failedFiles).toBe(0);expect(moved.planHash).toMatch(/^[a-f0-9]{64}$/);expect(moved.entries.every(e=>e.hash&&e.verification==='sha256')).toBe(true);
  for(const e of moved.entries) {const target=path.join(f.destination,e.targetRelative);expect(sha(await readFile(target))).toBe(f.originals[e.name]);await expect(access(path.join(f.source,e.sourceRelative))).rejects.toThrow();}
- await page.screenshot({path:path.join(out,'moved-receipt.png'),animations:'disabled'});proof.checks.push('UI exact approval → native copy/hash/verify/unlink → 40 verified moves and durable receipt');
+ await page.screenshot({path:path.join(out,'moved-receipt.png'),animations:'disabled'});proof.checks.push('UI exact approval â†’ native copy/hash/verify/unlink â†’ 40 verified moves and durable receipt');
  await page.getByTestId('ops-undo-preview').click();await expect(page.getByTestId('ops-undo')).toBeEnabled();await page.getByTestId('ops-undo').click();
  await expect(page.getByTestId('ops-receipt')).toContainText('40 restored',{timeout:60000});
  for(const [name,hash] of Object.entries(f.originals))expect(sha(await readFile(path.join(f.source,name)))).toBe(hash);
- await page.screenshot({path:path.join(out,'restored-receipt.png'),animations:'disabled'});proof.checks.push('UI undo preview → separate native confirmation → all 40 source hashes restored');
+ await page.screenshot({path:path.join(out,'restored-receipt.png'),animations:'disabled'});proof.checks.push('UI undo preview â†’ separate native confirmation â†’ all 40 source hashes restored');
  const receipts=await page.evaluate(async()=> (await window.knouxOperationsV1.history()).data);proof.receipts=receipts;
  proof.events=await page.evaluate(()=>window.__liveEvents);proof.confirmations=await app.evaluate(()=>globalThis.__liveFixtureConfirmations);
  expect(proof.confirmations).toHaveLength(2);expect(proof.events.some(e=>e.phase==='discovered')).toBe(true);expect(proof.events.every((e,i,a)=>i===0||e.sequence>a[i-1].sequence)).toBe(true);
@@ -78,7 +78,7 @@ try {
  for(const route of ['files','studio'])for(const theme of ['light','dark'])for(const [width,height] of [[1366,768],[1672,941]]) {
   await page.evaluate(({route,theme})=>{location.hash=route;document.documentElement.dataset.theme=theme;}, {route,theme});
   await page.locator(`[data-visual-section="${route}"] main`).waitFor();
-  await app.evaluate(({BrowserWindow},{width,height})=>BrowserWindow.getAllWindows().find(w=>w.isVisible()).setContentSize(width,height),{width,height});
+  await (await app.browserWindow(page)).evaluate((window,{width,height})=>window.setContentSize(width,height),{width,height});
   await page.screenshot({path:path.join(out,`preserved-${route}-${theme}-${width}.png`),animations:'disabled'});
   const layout=await page.locator('main').evaluate(e=>({page:document.documentElement.scrollHeight-innerHeight,main:e.scrollHeight-e.clientHeight}));expect(layout.page).toBeLessThanOrEqual(4);expect(layout.main).toBeLessThanOrEqual(4);
  }

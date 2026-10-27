@@ -1,0 +1,349 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 10,
+  "darkSurfaces": [
+    {
+      "cls": "flex items-center gap-1 bg-[#061224] p-0.5 rounded-lg border border-[#112647] overflow-x-auto app-scrollbar",
+      "bg": "rgb(6, 18, 36)",
+      "area": 15111,
+      "text": "All (358) Desktop (289) Packaged (69) Recent (14) Large (21)"
+    },
+    {
+      "cls": "flex flex-wrap items-center gap-1.5 mb-2.5 p-1 rounded-lg bg-[#061427] border border-[#142e56]",
+      "bg": "rgb(6, 20, 39)",
+      "area": 40160,
+      "text": "Install Uninstall Repair Modify Update Open Details Batch Ac"
+    },
+    {
+      "cls": "app-tactile-btn px-3 py-1.5 rounded-md bg-[#130d17] hover:bg-[#201325] text-red-300 hover:text-red-200 text-xs font-semibold flex items-center gap-1.5",
+      "bg": "rgb(19, 13, 23)",
+      "area": 2859,
+      "text": "Uninstall"
+    },
+    {
+      "cls": "app-tactile-btn px-3 py-1.5 rounded-md bg-[#150e24] hover:bg-[#22163a] text-purple-300 hover:text-purple-200 text-xs font-semibold flex items-center g",
+      "bg": "rgb(21, 14, 36)",
+      "area": 2609,
+      "text": "Modify"
+    },
+    {
+      "cls": "app-tactile-btn px-3 py-1.5 rounded-md bg-[#0a233f] hover:bg-[#12335c] text-cyan-200 hover:text-white text-xs font-semibold flex items-center gap-1.5 ",
+      "bg": "rgb(10, 35, 63)",
+      "area": 2686,
+      "text": "Update"
+    },
+    {
+      "cls": "app-tactile-btn px-3 py-1.5 rounded-md bg-[#08162b] hover:bg-[#10274a] text-slate-300 hover:text-white text-xs font-medium flex items-center gap-1.5 b",
+      "bg": "rgb(8, 22, 43)",
+      "area": 4306,
+      "text": "Batch Actions"
+    },
+    {
+      "cls": "px-2 py-0.5 rounded-full bg-[#1e1338] border border-purple-500/50 text-purple-300 text-[9px] font-mono font-semibold",
+      "bg": "rgb(30, 19, 56)",
+      "area": 6590,
+      "text": "UI Preview — Engine integration pending"
+    },
+    {
+      "cls": "app-tactile-btn py-2 rounded-lg bg-[#140d18] hover:bg-[#221329] text-red-300 hover:text-red-200 text-xs font-semibold flex items-center justify-center",
+      "bg": "rgb(20, 13, 24)",
+      "area": 5950,
+      "text": "Uninstall Review"
+    },
+    {
+      "cls": "px-3 py-1.5 rounded-md bg-[#0e274d] hover:bg-[#163c75] text-cyan-200 border border-[#2476ff]/60 text-xs font-semibold cursor-pointer",
+      "bg": "rgb(14, 39, 77)",
+      "area": 4371,
+      "text": "Batch Update Check"
+    },
+    {
+      "cls": "px-6 py-2 bg-[#050e1d] border-t border-[#0e223d] shrink-0 select-none",
+      "bg": "rgb(5, 14, 29)",
+      "area": 213580,
+      "text": "APPLICATION MANAGEMENT SERVICES Click card to open service w"
+    }
+  ],
+  "lowContrastCount": 11,
+  "lowContrast": [
+    {
+      "c": 2.44,
+      "fg": "rgb(11, 18, 32)",
+      "bg": "rgb(27,76,179)",
+      "size": "12px",
+      "cls": "px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap bg-[#1b4cb3] text-whi",
+      "text": "All (358)"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(6,18,36)",
+      "size": "12px",
+      "cls": "px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-slate-400 hover:",
+      "text": "Desktop (289)"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(6,18,36)",
+      "size": "12px",
+      "cls": "px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-slate-400 hover:",
+      "text": "Packaged (69)"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(6,18,36)",
+      "size": "12px",
+      "cls": "px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-slate-400 hover:",
+      "text": "Recent (14)"
+    },
+    {
+      "c": 2.47,
+      "fg": "rgb(71, 85, 105)",
+      "bg": "rgb(6,18,36)",
+      "size": "12px",
+      "cls": "px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap text-slate-400 hover:",
+      "text": "Large (21)"
+    },
+    {
+      "c": 2.64,
+      "fg": "rgb(109, 40, 217)",
+      "bg": "rgb(21,14,36)",
+      "size": "12px",
+      "cls": "",
+      "text": "Modify"
+    },
+    {
+      "c": 2.67,
+      "fg": "rgb(3, 105, 161)",
+      "bg": "rgb(10,35,63)",
+      "size": "12px",
+      "cls": "",
+      "text": "Update"
+    },
+    {
+      "c": 1.75,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(8,22,43)",
+      "size": "12px",
+      "cls": "",
+      "text": "Batch Actions"
+    },
+    {
+      "c": 2.69,
+      "fg": "rgb(3, 105, 161)",
+      "bg": "rgb(13,34,63)",
+      "size": "9px",
+      "cls": "ml-1 px-1.5 py-0.2 rounded bg-[#0d223f] text-cyan-300 hover:text-white border border-[#1e467d] text-[9px]",
+      "text": "View"
+    },
+    {
+      "c": 2.5,
+      "fg": "rgb(3, 105, 161)",
+      "bg": "rgb(14,39,77)",
+      "size": "12px",
+      "cls": "px-3 py-1.5 rounded-md bg-[#0e274d] hover:bg-[#163c75] text-cyan-200 border border-[#2476ff]/60 text-xs font-s",
+      "text": "Batch Update Check"
+    },
+    {
+      "c": 1.87,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(5,14,29)",
+      "size": "11px",
+      "cls": "text-[11px] font-bold text-slate-300 uppercase tracking-wider",
+      "text": "Application Management Services"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 88,
+  "coveredCount": 11,
+  "covered": [
+    {
+      "tag": "button",
+      "text": "Open application",
+      "top": "div",
+      "topText": "1\n1 application selected(782 MB aggregate footpr",
+      "rect": [
+        1157,
+        729,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Manage / Modify",
+      "top": "div",
+      "topText": "1\n1 application selected(782 MB aggregate footpr",
+      "rect": [
+        1181,
+        729,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "More actions",
+      "top": "div",
+      "topText": "1\n1 application selected(782 MB aggregate footpr",
+      "rect": [
+        1205,
+        729,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Open application",
+      "top": "button",
+      "topText": "Batch Uninstall Review",
+      "rect": [
+        1157,
+        765,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Manage / Modify",
+      "top": "button",
+      "topText": "Batch Uninstall Review",
+      "rect": [
+        1181,
+        765,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "More actions",
+      "top": "button",
+      "topText": "Batch Uninstall Review",
+      "rect": [
+        1205,
+        765,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Open application",
+      "top": "div",
+      "topText": "APPLICATION MANAGEMENT SERVICES\nClick card to op",
+      "rect": [
+        1157,
+        801,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Manage / Modify",
+      "top": "div",
+      "topText": "APPLICATION MANAGEMENT SERVICES\nClick card to op",
+      "rect": [
+        1181,
+        801,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "More actions",
+      "top": "div",
+      "topText": "APPLICATION MANAGEMENT SERVICES\nClick card to op",
+      "rect": [
+        1205,
+        801,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Open application",
+      "top": "button",
+      "topText": "Publisher Intelligence\nInsights & reputation",
+      "rect": [
+        1157,
+        838,
+        20,
+        20
+      ]
+    },
+    {
+      "tag": "button",
+      "text": "Manage / Modify",
+      "top": "button",
+      "topText": "Recently Changed Apps\nTrack recent installations",
+      "rect": [
+        1181,
+        838,
+        20,
+        20
+      ]
+    }
+  ],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-1 overflow-y-auto app-scrollbar divide-y divide-[#0c1f3b]",
+      "clientH": 291,
+      "scrollH": 432
+    },
+    {
+      "cls": "flex-1 min-h-0 overflow-y-auto app-scrollbar flex flex-col gap-2.5",
+      "clientH": 389,
+      "scrollH": 746
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-applications-1672.png

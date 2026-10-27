@@ -1,0 +1,909 @@
+{
+  "contractVersion": 1,
+  "namespace": "knouxShell",
+  "channels": {
+    "status": "knoux:native:v1:status",
+    "systemSummary": "knoux:native:v1:system-summary",
+    "servicesSummary": "knoux:native:v1:services-summary",
+    "chooseFolder": "knoux:native:v1:choose-folder",
+    "windowControl": "knoux:window:v1:control",
+    "studioSources": "knoux:studio:v1:sources",
+    "studioSourceChoose": "knoux:studio:v1:source-choose",
+    "studioSourceRemove": "knoux:studio:v1:source-remove",
+    "studioInventoryScan": "knoux:studio:v1:inventory-scan",
+    "studioInventoryCancel": "knoux:studio:v1:inventory-cancel",
+    "studioInventoryQuery": "knoux:studio:v1:inventory-query",
+    "studioThumbnails": "knoux:studio:v1:thumbnails",
+    "studioDestinationChoose": "knoux:studio:v1:destination-choose",
+    "studioPlanPreview": "knoux:studio:v1:plan-preview",
+    "studioPlanExecute": "knoux:studio:v1:plan-execute",
+    "studioExecutionCancel": "knoux:studio:v1:execution-cancel",
+    "studioUndoPreview": "knoux:studio:v1:undo-preview",
+    "studioUndoApply": "knoux:studio:v1:undo-apply",
+    "studioPreviewHistory": "knoux:studio:v1:preview-history",
+    "studioEvent": "knoux:studio:v1:event",
+    "filesSources": "knoux:files:v1:sources",
+    "filesSourceChoose": "knoux:files:v1:source-choose",
+    "filesInventoryScan": "knoux:files:v1:inventory-scan",
+    "filesInventoryCancel": "knoux:files:v1:inventory-cancel",
+    "filesInventoryQuery": "knoux:files:v1:inventory-query",
+    "filesThumbnails": "knoux:files:v1:thumbnails",
+    "filesOverview": "knoux:files:v1:overview",
+    "filesMetadata": "knoux:files:v1:metadata",
+    "filesHash": "knoux:files:v1:hash",
+    "filesEmptyFolders": "knoux:files:v1:empty-folders",
+    "filesOpen": "knoux:files:v1:open",
+    "filesReveal": "knoux:files:v1:reveal",
+    "storageVolumes": "knoux:storage:v1:volumes",
+    "storageHistory": "knoux:storage:v1:history",
+    "storageAnalysis": "knoux:storage:v1:analysis",
+    "storageDuplicates": "knoux:storage:v1:duplicates",
+    "scanCapabilities": "knoux:scan:v1:capabilities",
+    "scanSources": "knoux:scan:v1:sources",
+    "scanSourceChoose": "knoux:scan:v1:source-choose",
+    "scanSourceIndex": "knoux:scan:v1:source-index",
+    "scanStart": "knoux:scan:v1:start",
+    "scanCancel": "knoux:scan:v1:cancel",
+    "scanStatus": "knoux:scan:v1:status",
+    "scanHistory": "knoux:scan:v1:history",
+    "scanEvent": "knoux:scan:v1:event",
+    "appsCapabilities": "knoux:apps:v1:capabilities",
+    "appsInventory": "knoux:apps:v1:inventory",
+    "appsSignature": "knoux:apps:v1:signature",
+    "appsAssociations": "knoux:apps:v1:associations",
+    "appsSizes": "knoux:apps:v1:sizes",
+    "appsSizesCancel": "knoux:apps:v1:sizes-cancel",
+    "appsLeftovers": "knoux:apps:v1:leftovers",
+    "appsUpdates": "knoux:apps:v1:updates",
+    "appsPlan": "knoux:apps:v1:plan",
+    "appsPackages": "knoux:apps:v1:packages",
+    "appsOpenSettings": "knoux:apps:v1:open-settings",
+    "cleanupCapabilities": "knoux:cleanup:v1:capabilities",
+    "cleanupStart": "knoux:cleanup:v1:start",
+    "cleanupStatus": "knoux:cleanup:v1:status",
+    "cleanupCancel": "knoux:cleanup:v1:cancel",
+    "cleanupInventory": "knoux:cleanup:v1:inventory",
+    "cleanupEstimate": "knoux:cleanup:v1:estimate",
+    "cleanupQuarantine": "knoux:cleanup:v1:quarantine",
+    "cleanupUnused": "knoux:cleanup:v1:unused",
+    "cleanupPlan": "knoux:cleanup:v1:plan",
+    "cleanupSchedule": "knoux:cleanup:v1:schedule",
+    "cleanupReport": "knoux:cleanup:v1:report",
+    "cleanupOpenSettings": "knoux:cleanup:v1:open-settings",
+    "startupCapabilities": "knoux:startup:v1:capabilities",
+    "startupStart": "knoux:startup:v1:start",
+    "startupStatus": "knoux:startup:v1:status",
+    "startupCancel": "knoux:startup:v1:cancel",
+    "startupInventory": "knoux:startup:v1:inventory",
+    "startupServices": "knoux:startup:v1:services",
+    "startupTasks": "knoux:startup:v1:tasks",
+    "startupImpact": "knoux:startup:v1:impact",
+    "startupJournal": "knoux:startup:v1:journal",
+    "startupSessions": "knoux:startup:v1:sessions",
+    "startupPlan": "knoux:startup:v1:plan",
+    "startupReport": "knoux:startup:v1:report",
+    "startupOpenSettings": "knoux:startup:v1:open-settings",
+    "systemCapabilities": "knoux:system:v1:capabilities",
+    "systemStart": "knoux:system:v1:start",
+    "systemStatus": "knoux:system:v1:status",
+    "systemCancel": "knoux:system:v1:cancel",
+    "systemSnapshot": "knoux:system:v1:snapshot",
+    "systemSample": "knoux:system:v1:sample",
+    "systemProcesses": "knoux:system:v1:processes",
+    "systemEvents": "knoux:system:v1:events",
+    "systemSignatures": "knoux:system:v1:signatures",
+    "systemDiagnostics": "knoux:system:v1:diagnostics",
+    "systemTraceroute": "knoux:system:v1:traceroute",
+    "systemHosts": "knoux:system:v1:hosts",
+    "systemHostsPlan": "knoux:system:v1:hosts-plan",
+    "systemReport": "knoux:system:v1:report",
+    "systemOpenSettings": "knoux:system:v1:open-settings",
+    "repairCapabilities": "knoux:repair:v1:capabilities",
+    "repairStart": "knoux:repair:v1:start",
+    "repairStatus": "knoux:repair:v1:status",
+    "repairCancel": "knoux:repair:v1:cancel",
+    "repairSnapshot": "knoux:repair:v1:snapshot",
+    "repairPlan": "knoux:repair:v1:plan",
+    "repairJournal": "knoux:repair:v1:journal",
+    "repairReport": "knoux:repair:v1:report",
+    "repairOpenSettings": "knoux:repair:v1:open-settings",
+    "servicesCapabilities": "knoux:services:v1:capabilities",
+    "servicesStart": "knoux:services:v1:start",
+    "servicesStatus": "knoux:services:v1:status",
+    "servicesCancel": "knoux:services:v1:cancel",
+    "servicesSnapshot": "knoux:services:v1:snapshot",
+    "servicesPlan": "knoux:services:v1:plan",
+    "servicesJournal": "knoux:services:v1:journal",
+    "servicesReport": "knoux:services:v1:report",
+    "automationCapabilities": "knoux:automation:v1:capabilities",
+    "automationStart": "knoux:automation:v1:start",
+    "automationStatus": "knoux:automation:v1:status",
+    "automationCancel": "knoux:automation:v1:cancel",
+    "automationSnapshot": "knoux:automation:v1:snapshot",
+    "automationWorkflows": "knoux:automation:v1:workflows",
+    "automationSave": "knoux:automation:v1:save",
+    "automationTemplates": "knoux:automation:v1:templates",
+    "automationDryRun": "knoux:automation:v1:dry-run",
+    "automationSchedulePreview": "knoux:automation:v1:schedule-preview",
+    "automationValidateImport": "knoux:automation:v1:validate-import",
+    "automationJournal": "knoux:automation:v1:journal",
+    "automationReport": "knoux:automation:v1:report",
+    "googleStatus": "knoux:google:v1:status",
+    "googleConnect": "knoux:google:v1:connect",
+    "googleCancel": "knoux:google:v1:cancel",
+    "googleDisconnect": "knoux:google:v1:disconnect",
+    "googleSheetsList": "knoux:google:v1:sheets",
+    "googleSheetAdd": "knoux:google:v1:sheet-add",
+    "googleSheetRemove": "knoux:google:v1:sheet-remove",
+    "googleSheetRead": "knoux:google:v1:sheet-read"
+  },
+  "capabilities": {
+    "bridge.status": {
+      "id": "bridge.status",
+      "title": "Bridge handshake",
+      "mode": "read-only",
+      "channel": "knoux:native:v1:status"
+    },
+    "system.summary": {
+      "id": "system.summary",
+      "title": "Machine summary",
+      "mode": "read-only",
+      "channel": "knoux:native:v1:system-summary"
+    },
+    "services.summary": {
+      "id": "services.summary",
+      "title": "Windows service summary",
+      "mode": "read-only",
+      "channel": "knoux:native:v1:services-summary"
+    },
+    "folder.choose": {
+      "id": "folder.choose",
+      "title": "Choose a folder",
+      "mode": "user-initiated",
+      "channel": "knoux:native:v1:choose-folder"
+    },
+    "studio.sources": {
+      "id": "studio.sources",
+      "title": "Studio authorized sources",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:sources"
+    },
+    "studio.source.choose": {
+      "id": "studio.source.choose",
+      "title": "Choose and authorize a source folder",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:source-choose"
+    },
+    "studio.source.remove": {
+      "id": "studio.source.remove",
+      "title": "Revoke a source grant",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:source-remove"
+    },
+    "studio.inventory.scan": {
+      "id": "studio.inventory.scan",
+      "title": "Read-only source inventory",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:inventory-scan"
+    },
+    "studio.inventory.cancel": {
+      "id": "studio.inventory.cancel",
+      "title": "Cancel an inventory scan",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:inventory-cancel"
+    },
+    "studio.inventory.query": {
+      "id": "studio.inventory.query",
+      "title": "Query measured inventory",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:inventory-query"
+    },
+    "studio.thumbnails": {
+      "id": "studio.thumbnails",
+      "title": "Bounded native thumbnails",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:thumbnails"
+    },
+    "studio.destination.choose": {
+      "id": "studio.destination.choose",
+      "title": "Choose an output destination",
+      "mode": "user-initiated",
+      "channel": "knoux:studio:v1:destination-choose"
+    },
+    "studio.plan.preview": {
+      "id": "studio.plan.preview",
+      "title": "Immutable organization plan preview",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:plan-preview"
+    },
+    "studio.preview.history": {
+      "id": "studio.preview.history",
+      "title": "Plan preview receipts",
+      "mode": "read-only",
+      "channel": "knoux:studio:v1:preview-history"
+    },
+    "files.sources": {
+      "id": "files.sources",
+      "title": "Files authorized sources",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:sources"
+    },
+    "files.source.choose": {
+      "id": "files.source.choose",
+      "title": "Choose and authorize a Files source",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:source-choose"
+    },
+    "files.inventory.scan": {
+      "id": "files.inventory.scan",
+      "title": "Read-only Files inventory",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:inventory-scan"
+    },
+    "files.inventory.cancel": {
+      "id": "files.inventory.cancel",
+      "title": "Cancel a Files inventory scan",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:inventory-cancel"
+    },
+    "files.inventory.query": {
+      "id": "files.inventory.query",
+      "title": "Query the measured Files inventory",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:inventory-query"
+    },
+    "files.thumbnails": {
+      "id": "files.thumbnails",
+      "title": "Bounded Files thumbnails",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:thumbnails"
+    },
+    "files.overview": {
+      "id": "files.overview",
+      "title": "Measured file distributions and rankings",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:overview"
+    },
+    "files.metadata": {
+      "id": "files.metadata",
+      "title": "Measured file metadata dossier",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:metadata"
+    },
+    "files.hash": {
+      "id": "files.hash",
+      "title": "Bounded read-only file hash",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:hash"
+    },
+    "files.emptyFolders": {
+      "id": "files.emptyFolders",
+      "title": "Bounded empty-folder discovery",
+      "mode": "read-only",
+      "channel": "knoux:files:v1:empty-folders"
+    },
+    "files.open": {
+      "id": "files.open",
+      "title": "Open an indexed file with the Windows shell",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:open"
+    },
+    "files.reveal": {
+      "id": "files.reveal",
+      "title": "Reveal an indexed file in Explorer",
+      "mode": "user-initiated",
+      "channel": "knoux:files:v1:reveal"
+    },
+    "storage.volumes": {
+      "id": "storage.volumes",
+      "title": "Measured mounted volumes and capacity snapshots",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:volumes"
+    },
+    "storage.history": {
+      "id": "storage.history",
+      "title": "Measured capacity history",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:history"
+    },
+    "storage.analysis": {
+      "id": "storage.analysis",
+      "title": "Measured folder tree and storage intelligence",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:analysis"
+    },
+    "storage.duplicates.verify": {
+      "id": "storage.duplicates.verify",
+      "title": "Bounded byte-exact duplicate verification",
+      "mode": "read-only",
+      "channel": "knoux:storage:v1:duplicates"
+    },
+    "scan.capabilities": {
+      "id": "scan.capabilities",
+      "title": "Read-only Smart Scan services and gated operations",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:capabilities"
+    },
+    "scan.sources": {
+      "id": "scan.sources",
+      "title": "Authorized sources available to Smart Scan",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:sources"
+    },
+    "scan.source.choose": {
+      "id": "scan.source.choose",
+      "title": "Choose and authorize a Smart Scan source",
+      "mode": "user-initiated",
+      "channel": "knoux:scan:v1:source-choose"
+    },
+    "scan.source.index": {
+      "id": "scan.source.index",
+      "title": "Index a Smart Scan source read-only",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:source-index"
+    },
+    "scan.start": {
+      "id": "scan.start",
+      "title": "Run a measured read-only Smart Scan",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:start"
+    },
+    "scan.cancel": {
+      "id": "scan.cancel",
+      "title": "Cancel a running Smart Scan",
+      "mode": "user-initiated",
+      "channel": "knoux:scan:v1:cancel"
+    },
+    "scan.status": {
+      "id": "scan.status",
+      "title": "Measured Smart Scan session",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:status"
+    },
+    "scan.history": {
+      "id": "scan.history",
+      "title": "Persisted Smart Scan history",
+      "mode": "read-only",
+      "channel": "knoux:scan:v1:history"
+    },
+    "apps.capabilities": {
+      "id": "apps.capabilities",
+      "title": "Read-only application services and gates",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:capabilities"
+    },
+    "apps.inventory": {
+      "id": "apps.inventory",
+      "title": "Measured installed-software inventory",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:inventory"
+    },
+    "apps.signature": {
+      "id": "apps.signature",
+      "title": "Authenticode verification for one application",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:signature"
+    },
+    "apps.associations": {
+      "id": "apps.associations",
+      "title": "Bounded file and protocol association sample",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:associations"
+    },
+    "apps.sizes": {
+      "id": "apps.sizes",
+      "title": "Bounded install-location footprint measurement",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:sizes"
+    },
+    "apps.sizes.cancel": {
+      "id": "apps.sizes.cancel",
+      "title": "Cancel a bounded footprint measurement",
+      "mode": "user-initiated",
+      "channel": "knoux:apps:v1:sizes-cancel"
+    },
+    "apps.leftovers": {
+      "id": "apps.leftovers",
+      "title": "Name-match leftover candidates and stale registrations",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:leftovers"
+    },
+    "apps.updates": {
+      "id": "apps.updates",
+      "title": "Read-only WinGet upgrade query",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:updates"
+    },
+    "apps.plan": {
+      "id": "apps.plan",
+      "title": "Immutable uninstall review plan",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:plan"
+    },
+    "apps.packages": {
+      "id": "apps.packages",
+      "title": "Measured packages and optional WinGet discovery",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:packages"
+    },
+    "apps.settings.open": {
+      "id": "apps.settings.open",
+      "title": "Open a fixed Windows Settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:apps:v1:open-settings"
+    },
+    "cleanup.capabilities": {
+      "id": "cleanup.capabilities",
+      "title": "Read-only Clean Room capabilities and safety policy",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:capabilities"
+    },
+    "cleanup.start": {
+      "id": "cleanup.start",
+      "title": "Start a bounded measured cleanup discovery",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:start"
+    },
+    "cleanup.status": {
+      "id": "cleanup.status",
+      "title": "Poll measured cleanup discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:status"
+    },
+    "cleanup.cancel": {
+      "id": "cleanup.cancel",
+      "title": "Cancel a running cleanup discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:cleanup:v1:cancel"
+    },
+    "cleanup.inventory": {
+      "id": "cleanup.inventory",
+      "title": "Read the last measured cleanup candidate inventory",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:inventory"
+    },
+    "cleanup.estimate": {
+      "id": "cleanup.estimate",
+      "title": "Safety-classified reclaim estimate",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:estimate"
+    },
+    "cleanup.quarantine": {
+      "id": "cleanup.quarantine",
+      "title": "Quarantine vault and cleanup journal reader",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:quarantine"
+    },
+    "cleanup.unused": {
+      "id": "cleanup.unused",
+      "title": "Dormant files inside an authorized Studio source",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:unused"
+    },
+    "cleanup.plan": {
+      "id": "cleanup.plan",
+      "title": "Immutable review-only cleanup plan",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:plan"
+    },
+    "cleanup.schedule": {
+      "id": "cleanup.schedule",
+      "title": "Read-only cleanup schedule draft",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:schedule"
+    },
+    "cleanup.report": {
+      "id": "cleanup.report",
+      "title": "Measured before/after cleanup report",
+      "mode": "read-only",
+      "channel": "knoux:cleanup:v1:report"
+    },
+    "cleanup.settings.open": {
+      "id": "cleanup.settings.open",
+      "title": "Open a fixed Windows Settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:cleanup:v1:open-settings"
+    },
+    "startup.capabilities": {
+      "id": "startup.capabilities",
+      "title": "Read-only Boot Control capabilities and gates",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:capabilities"
+    },
+    "startup.start": {
+      "id": "startup.start",
+      "title": "Start a bounded measured startup inventory",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:start"
+    },
+    "startup.status": {
+      "id": "startup.status",
+      "title": "Poll measured startup scan progress",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:status"
+    },
+    "startup.cancel": {
+      "id": "startup.cancel",
+      "title": "Cancel a running startup scan",
+      "mode": "user-initiated",
+      "channel": "knoux:startup:v1:cancel"
+    },
+    "startup.inventory": {
+      "id": "startup.inventory",
+      "title": "Read the last measured startup inventory",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:inventory"
+    },
+    "startup.services": {
+      "id": "startup.services",
+      "title": "Measured automatic and delayed-auto services",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:services"
+    },
+    "startup.tasks": {
+      "id": "startup.tasks",
+      "title": "Measured logon and boot scheduled tasks",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:tasks"
+    },
+    "startup.impact": {
+      "id": "startup.impact",
+      "title": "Measured boot diagnostics impact evidence",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:impact"
+    },
+    "startup.journal": {
+      "id": "startup.journal",
+      "title": "Startup change journal reader",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:journal"
+    },
+    "startup.sessions": {
+      "id": "startup.sessions",
+      "title": "Batch startup session reader",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:sessions"
+    },
+    "startup.plan": {
+      "id": "startup.plan",
+      "title": "Immutable review-only startup plan",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:plan"
+    },
+    "startup.report": {
+      "id": "startup.report",
+      "title": "Measured read-only startup report",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:report"
+    },
+    "startup.settings.open": {
+      "id": "startup.settings.open",
+      "title": "Open the fixed Windows Startup Apps settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:startup:v1:open-settings"
+    },
+    "system.capabilities": {
+      "id": "system.capabilities",
+      "title": "System, network and hardware capability discovery",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:capabilities"
+    },
+    "system.start": {
+      "id": "system.start",
+      "title": "Start a bounded measured observatory scan",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:start"
+    },
+    "system.status": {
+      "id": "system.status",
+      "title": "Poll measured observatory scan progress",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:status"
+    },
+    "system.cancel": {
+      "id": "system.cancel",
+      "title": "Cancel a running observatory scan",
+      "mode": "user-initiated",
+      "channel": "knoux:system:v1:cancel"
+    },
+    "system.snapshot": {
+      "id": "system.snapshot",
+      "title": "Read the last measured system, network and hardware snapshot",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:snapshot"
+    },
+    "system.sample": {
+      "id": "system.sample",
+      "title": "Read a timestamped performance counter sample",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:sample"
+    },
+    "system.processes": {
+      "id": "system.processes",
+      "title": "Read the measured process register",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:processes"
+    },
+    "system.events": {
+      "id": "system.events",
+      "title": "Query measured Windows event records",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:events"
+    },
+    "system.signatures": {
+      "id": "system.signatures",
+      "title": "Verify Authenticode signatures for measured binaries",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:signatures"
+    },
+    "system.diagnostics": {
+      "id": "system.diagnostics",
+      "title": "Run bounded DNS, TCP and HTTP diagnostics against one validated target",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:diagnostics"
+    },
+    "system.traceroute": {
+      "id": "system.traceroute",
+      "title": "Run a bounded hop trace against one validated target",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:traceroute"
+    },
+    "system.hosts": {
+      "id": "system.hosts",
+      "title": "Read the Windows hosts file without writing it",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:hosts"
+    },
+    "system.hosts.plan": {
+      "id": "system.hosts.plan",
+      "title": "Stage an immutable hosts edit review",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:hosts-plan"
+    },
+    "system.report": {
+      "id": "system.report",
+      "title": "Build a measured read-only diagnostics report",
+      "mode": "read-only",
+      "channel": "knoux:system:v1:report"
+    },
+    "system.settings.open": {
+      "id": "system.settings.open",
+      "title": "Open a fixed Windows diagnostics settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:system:v1:open-settings"
+    },
+    "repair.capabilities": {
+      "id": "repair.capabilities",
+      "title": "Discover the twelve Recovery Lab tools and their gates",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:capabilities"
+    },
+    "repair.start": {
+      "id": "repair.start",
+      "title": "Start a bounded read-only repair-evidence discovery",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:start"
+    },
+    "repair.status": {
+      "id": "repair.status",
+      "title": "Poll read-only repair-evidence discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:status"
+    },
+    "repair.cancel": {
+      "id": "repair.cancel",
+      "title": "Cancel a running read-only repair discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:repair:v1:cancel"
+    },
+    "repair.snapshot": {
+      "id": "repair.snapshot",
+      "title": "Read the last measured repair evidence",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:snapshot"
+    },
+    "repair.plan": {
+      "id": "repair.plan",
+      "title": "Stage an immutable repair preview without executing it",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:plan"
+    },
+    "repair.journal": {
+      "id": "repair.journal",
+      "title": "Read the append-only repair preview journal",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:journal"
+    },
+    "repair.report": {
+      "id": "repair.report",
+      "title": "Build a redacted read-only repair evidence report",
+      "mode": "read-only",
+      "channel": "knoux:repair:v1:report"
+    },
+    "repair.settings.open": {
+      "id": "repair.settings.open",
+      "title": "Open an allowlisted Windows recovery settings page",
+      "mode": "user-initiated",
+      "channel": "knoux:repair:v1:open-settings"
+    },
+    "services.capabilities": {
+      "id": "services.capabilities",
+      "title": "Discover the twelve Service Commander tools",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:capabilities"
+    },
+    "services.start": {
+      "id": "services.start",
+      "title": "Start a bounded read-only Windows service discovery",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:start"
+    },
+    "services.status": {
+      "id": "services.status",
+      "title": "Poll read-only service discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:status"
+    },
+    "services.cancel": {
+      "id": "services.cancel",
+      "title": "Cancel a running read-only service discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:services:v1:cancel"
+    },
+    "services.snapshot": {
+      "id": "services.snapshot",
+      "title": "Read the last measured service register",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:snapshot"
+    },
+    "services.plan": {
+      "id": "services.plan",
+      "title": "Stage an immutable service-operation preview",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:plan"
+    },
+    "services.journal": {
+      "id": "services.journal",
+      "title": "Read the append-only service preview journal",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:journal"
+    },
+    "services.report": {
+      "id": "services.report",
+      "title": "Build a redacted read-only service evidence report",
+      "mode": "read-only",
+      "channel": "knoux:services:v1:report"
+    },
+    "automation.capabilities": {
+      "id": "automation.capabilities",
+      "title": "Discover the twelve Flow Studio tools",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:capabilities"
+    },
+    "automation.start": {
+      "id": "automation.start",
+      "title": "Start a bounded read-only workflow-evidence discovery",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:start"
+    },
+    "automation.status": {
+      "id": "automation.status",
+      "title": "Poll workflow-evidence discovery progress",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:status"
+    },
+    "automation.cancel": {
+      "id": "automation.cancel",
+      "title": "Cancel a running workflow-evidence discovery",
+      "mode": "user-initiated",
+      "channel": "knoux:automation:v1:cancel"
+    },
+    "automation.snapshot": {
+      "id": "automation.snapshot",
+      "title": "Read measured workflow, template and runtime evidence",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:snapshot"
+    },
+    "automation.workflows": {
+      "id": "automation.workflows",
+      "title": "Read persisted local workflow drafts",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:workflows"
+    },
+    "automation.save": {
+      "id": "automation.save",
+      "title": "Save a validated local workflow draft with a new version",
+      "mode": "user-initiated",
+      "channel": "knoux:automation:v1:save"
+    },
+    "automation.templates": {
+      "id": "automation.templates",
+      "title": "Read built-in workflow templates",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:templates"
+    },
+    "automation.dryRun": {
+      "id": "automation.dryRun",
+      "title": "Validate and dry-run a workflow without execution",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:dry-run"
+    },
+    "automation.schedulePreview": {
+      "id": "automation.schedulePreview",
+      "title": "Preview local schedule occurrences with DST handling",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:schedule-preview"
+    },
+    "automation.validateImport": {
+      "id": "automation.validateImport",
+      "title": "Validate an imported workflow schema",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:validate-import"
+    },
+    "automation.journal": {
+      "id": "automation.journal",
+      "title": "Read the append-only dry-run journal",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:journal"
+    },
+    "automation.report": {
+      "id": "automation.report",
+      "title": "Build a redacted read-only workflow report",
+      "mode": "read-only",
+      "channel": "knoux:automation:v1:report"
+    },
+    "google.status": {
+      "id": "google.status",
+      "title": "Read the minimized Google connection state without token material",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:status"
+    },
+    "google.connect": {
+      "id": "google.connect",
+      "title": "Open the reviewed Google desktop consent URL in the system browser",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:connect"
+    },
+    "google.cancel": {
+      "id": "google.cancel",
+      "title": "Cancel an in-progress Google loopback authorization",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:cancel"
+    },
+    "google.disconnect": {
+      "id": "google.disconnect",
+      "title": "Revoke and delete the locally stored Google grant",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:disconnect"
+    },
+    "google.sheets.list": {
+      "id": "google.sheets.list",
+      "title": "Read metadata for user-selected spreadsheets only",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:sheets"
+    },
+    "google.sheets.add": {
+      "id": "google.sheets.add",
+      "title": "Remember a validated user-selected spreadsheet URL or ID",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:sheet-add"
+    },
+    "google.sheets.remove": {
+      "id": "google.sheets.remove",
+      "title": "Remove a spreadsheet from the local selection",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:sheet-remove"
+    },
+    "google.sheets.read": {
+      "id": "google.sheets.read",
+      "title": "Read bounded values from a selected spreadsheet after explicit action",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:sheet-read"
+    }
+  },
+  "windowActions": [
+    "minimize",
+    "maximize",
+    "close"
+  ]
+}

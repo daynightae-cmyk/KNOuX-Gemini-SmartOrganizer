@@ -1,0 +1,24 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:files
+> npm run test:files --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:files
+> node scripts/files-native-test.cjs
+
+{
+  "ok": true,
+  "files": 5,
+  "hashPrefix": "e384162a2e346167",
+  "emptyFolders": [
+    "empty-dir",
+    "parent/empty-child"
+  ],
+  "synthetic": {
+    "rows": 100000,
+    "queryMs": 105,
+    "overviewMs": 82
+  },
+  "failures": []
+}
+[files-native-test] PASS

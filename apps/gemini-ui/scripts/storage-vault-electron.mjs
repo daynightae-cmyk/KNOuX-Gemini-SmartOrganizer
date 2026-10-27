@@ -4,14 +4,14 @@ import {mkdir,readFile,writeFile,access,unlink} from 'node:fs/promises';
 import path from 'node:path';
 const require=createRequire(import.meta.url),{makeFixture,sha}=require('./storage-vault-fixtures.cjs');
 const packaged=process.argv.find(s=>s.startsWith('--packaged-exe='))?.slice('--packaged-exe='.length);
-const f=await makeFixture(),out=path.resolve(`../../docs/evidence/storage-cleanup-wave2/${packaged?'packaged':'electron'}`);await mkdir(out,{recursive:true});
+const f=await makeFixture(),out=path.resolve(process.env.KNOUX_VAULT_ELECTRON_DIR||`../../docs/evidence/storage-cleanup-wave2/${packaged?'packaged':'electron'}`);await mkdir(out,{recursive:true});
 const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
 const args=['--disable-gpu','--js-flags=--max-old-space-size=160',...(packaged?[]:[path.resolve('electron/main.cjs')]),`--knoux-user-data=${f.profile}`];
 const app=await electron.launch({executablePath:packaged||require('electron'),args,env,timeout:60000});
 const proof={packaged:!!packaged,fixture:f.root,checks:[],views:[],errors:[]};
 try {
  const runtime=await app.evaluate(({app})=>({profile:app.getPath('userData'),isPackaged:app.isPackaged}));expect(runtime.isPackaged).toBe(!!packaged);expect(path.resolve(runtime.profile)).toBe(path.resolve(f.profile));
- await app.evaluate(({dialog},f)=>{globalThis.__vaultConfirmations=[];dialog.showOpenDialog=async(_window,options)=>({canceled:false,filePaths:[options.title.includes('source')?f.source:f.destination]});dialog.showMessageBox=async(_window,options)=>{if(options.title!=='KNOuX — exact operation approval')throw Error('Unexpected dialog in owned test');globalThis.__vaultConfirmations.push(options.detail);return {response:1};};},f);
+ await app.evaluate(({dialog},f)=>{globalThis.__vaultConfirmations=[];dialog.showOpenDialog=async(_window,options)=>({canceled:false,filePaths:[options.title.includes('source')?f.source:f.destination]});dialog.showMessageBox=async(_window,options)=>{if(options.title!=='KNOuX â€” exact operation approval')throw Error('Unexpected dialog in owned test');globalThis.__vaultConfirmations.push(options.detail);return {response:1};};},f);
  const page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));await page.waitForLoadState('domcontentloaded');
  await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_theme','light');localStorage.setItem('knoux_locale','en');location.hash='storage';});await page.reload();
  await page.getByTestId('storage-live-vault').waitFor({timeout:60000});

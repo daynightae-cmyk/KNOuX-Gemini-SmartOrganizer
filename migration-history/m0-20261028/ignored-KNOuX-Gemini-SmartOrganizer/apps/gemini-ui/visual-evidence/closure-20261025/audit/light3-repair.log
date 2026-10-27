@@ -1,0 +1,101 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 2,
+  "darkSurfaces": [
+    {
+      "cls": "terminal-code-box p-2 text-cyan-300 text-[10.5px] [@media(max-height:880px)]:text-[9.5px] overflow-x-auto select-all",
+      "bg": "rgb(6, 11, 23)",
+      "area": 13260,
+      "text": "DISM /Online /Cleanup-Image /ScanHealth"
+    },
+    {
+      "cls": "terminal-code-box p-2 text-slate-300 text-[10.5px] max-h-16 overflow-y-auto whitespace-pre-wrap break-words font-mono",
+      "bg": "rgb(6, 11, 23)",
+      "area": 23819,
+      "text": "Deployment Image Servicing and Management tool Version: 10.0"
+    }
+  ],
+  "lowContrastCount": 2,
+  "lowContrast": [
+    {
+      "c": 1.9,
+      "fg": "rgb(51, 65, 85)",
+      "bg": "rgb(6,11,23)",
+      "size": "11.5px",
+      "cls": "terminal-code-box p-2 text-slate-300 text-[10.5px] max-h-16 overflow-y-auto whitespace-pre-wrap break-words fo",
+      "text": "Deployment Image Servicing and Management tool\nVersion: 10.0"
+    },
+    {
+      "c": 1.12,
+      "fg": "oklab(0.924 -0.0120142 0.119397 / 0.8)",
+      "bg": "rgb(254,243,199)",
+      "size": "11px",
+      "cls": "text-amber-200/80 mt-0.5",
+      "text": "You will be prompted for elevation before execution."
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 32,
+  "coveredCount": 0,
+  "covered": [],
+  "escaping": [],
+  "scrollers": [
+    {
+      "cls": "flex-1 min-h-0 overflow-y-auto repair-custom-scrollbar pr-1 space-y-3",
+      "clientH": 337,
+      "scrollH": 395
+    },
+    {
+      "cls": "flex-1 min-h-0 overflow-y-auto repair-custom-scrollbar pr-1 space-y-1.",
+      "clientH": 181,
+      "scrollH": 190
+    },
+    {
+      "cls": "terminal-code-box p-2 text-slate-300 text-[10.5px] max-h-16 overflow-y",
+      "clientH": 62,
+      "scrollH": 137
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      901
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: D:\KNOUX-Workspace\KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-repair-1672.png

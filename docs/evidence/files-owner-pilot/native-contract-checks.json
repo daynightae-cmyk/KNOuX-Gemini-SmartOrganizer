@@ -1,0 +1,20 @@
+{
+  "scope": "Observed command receipts before the final CSS-only corrections; native and workbench engines were not changed by this pilot.",
+  "files": {
+    "command": "npm run test:files",
+    "exitCode": 0,
+    "ok": true,
+    "disposableFixtureFiles": 5,
+    "hashPrefix": "e384162a2e346167",
+    "emptyFolders": ["empty-dir", "parent/empty-child"],
+    "syntheticInMemoryRows": 100000,
+    "failures": []
+  },
+  "workbench": {
+    "command": "npm run test:workbench",
+    "exitCode": 0,
+    "ok": true,
+    "sourceContractChecks": 12,
+    "failures": []
+  }
+}

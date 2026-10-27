@@ -1,0 +1,2938 @@
+[
+  {
+    "route": "files",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 883,
+        "bottom": 941
+      },
+      "footer": [
+        {
+          "x": 252,
+          "y": 893,
+          "w": 1408,
+          "h": 48,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 265,
+          "y": 83,
+          "w": 1020,
+          "h": 329.34375,
+          "bottom": 412.34375
+        }
+      ],
+      "tabs": [],
+      "panels": [
+        {
+          "x": 252,
+          "y": 676.125,
+          "w": 1046,
+          "h": 206.875,
+          "bottom": 883
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 710,
+        "bottom": 768
+      },
+      "footer": [
+        {
+          "x": 250,
+          "y": 720,
+          "w": 1106,
+          "h": 48,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 263,
+          "y": 81,
+          "w": 770,
+          "h": 244,
+          "bottom": 325
+        }
+      ],
+      "tabs": [],
+      "panels": [
+        {
+          "x": 250,
+          "y": 559.1875,
+          "w": 796,
+          "h": 150.8125,
+          "bottom": 710
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "home",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 256,
+        "y": 76,
+        "w": 1400,
+        "h": 855,
+        "bottom": 931
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 268,
+          "y": 88,
+          "w": 1376,
+          "h": 290.796875,
+          "bottom": 378.796875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 268,
+          "y": 388.796875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 424.390625
+        }
+      ],
+      "panels": [
+        {
+          "x": 268,
+          "y": 443.390625,
+          "w": 1376,
+          "h": 475.609375,
+          "bottom": 919
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 256,
+        "y": 76,
+        "w": 1094,
+        "h": 682,
+        "bottom": 758
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 268,
+          "y": 88,
+          "w": 1070,
+          "h": 277,
+          "bottom": 365
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 268,
+          "y": 373,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 408.59375
+        }
+      ],
+      "panels": [
+        {
+          "x": 268,
+          "y": 425.59375,
+          "w": 1070,
+          "h": 320.40625,
+          "bottom": 746
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "smart_scan",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 798.90625,
+        "bottom": 856.90625
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 254,
+          "y": 72,
+          "w": 1404,
+          "h": 473.59375,
+          "bottom": 545.59375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 254,
+          "y": 698.78125,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 734.375
+        },
+        {
+          "text": "Tools & services",
+          "x": 357.65625,
+          "y": 698.78125,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 734.375
+        }
+      ],
+      "panels": [
+        {
+          "x": 254,
+          "y": 753.375,
+          "w": 1404,
+          "h": 89.53125,
+          "bottom": 842.90625
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 71,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 625.90625,
+        "bottom": 683.90625
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 254,
+          "y": 72,
+          "w": 1098,
+          "h": 465.59375,
+          "bottom": 537.59375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 254,
+          "y": 676.0625,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 711.65625
+        },
+        {
+          "text": "Tools & services",
+          "x": 357.65625,
+          "y": 676.0625,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 711.65625
+        }
+      ],
+      "panels": [
+        {
+          "x": 254,
+          "y": 728.65625,
+          "w": 1098,
+          "h": 0,
+          "bottom": 728.65625
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "applications",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 883,
+        "bottom": 941
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 444.921875,
+          "bottom": 514.921875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 590.109375,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 625.703125
+        },
+        {
+          "text": "Tools & services",
+          "x": 355.65625,
+          "y": 590.109375,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 625.703125
+        },
+        {
+          "text": "History & details",
+          "x": 490.203125,
+          "y": 590.109375,
+          "w": 132.890625,
+          "h": 35.59375,
+          "bottom": 625.703125
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 644.703125,
+          "w": 1408,
+          "h": 284.296875,
+          "bottom": 929
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 710,
+        "bottom": 768
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 330.9375,
+          "bottom": 400.9375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 472.9375,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 508.53125
+        },
+        {
+          "text": "Tools & services",
+          "x": 355.65625,
+          "y": 472.9375,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 508.53125
+        },
+        {
+          "text": "History & details",
+          "x": 490.203125,
+          "y": 472.9375,
+          "w": 132.890625,
+          "h": 35.59375,
+          "bottom": 508.53125
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 525.53125,
+          "w": 1102,
+          "h": 230.46875,
+          "bottom": 756
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "storage",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 819,
+        "bottom": 877
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 262,
+          "bottom": 332
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 460.796875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 496.390625
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 460.796875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 496.390625
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 515.390625,
+          "w": 1408,
+          "h": 349.609375,
+          "bottom": 865
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 646,
+        "bottom": 704
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 218,
+          "bottom": 288
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 410.796875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 446.390625
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 410.796875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 446.390625
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 463.390625,
+          "w": 1102,
+          "h": 228.609375,
+          "bottom": 692
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "cleanup",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 454.09375,
+          "bottom": 524.09375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 593.1875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 628.78125
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 593.1875,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 628.78125
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 593.1875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 628.78125
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 647.78125,
+          "w": 1408,
+          "h": 230.21875,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 663,
+        "bottom": 721
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 721,
+          "w": 1126,
+          "h": 47,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 388.296875,
+          "bottom": 458.296875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 530.296875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 565.890625
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 530.296875,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 565.890625
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 530.296875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 565.890625
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 582.890625,
+          "w": 1102,
+          "h": 126.109375,
+          "bottom": 709
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "startup",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 836.5,
+        "bottom": 894.5
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 894.5,
+          "w": 1432,
+          "h": 46.5,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 462.1875,
+          "bottom": 532.1875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 601.28125,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 636.875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 601.28125,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 636.875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 601.28125,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 636.875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 655.875,
+          "w": 1408,
+          "h": 226.625,
+          "bottom": 882.5
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 665.5,
+        "bottom": 723.5
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 723.5,
+          "w": 1126,
+          "h": 44.5,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 396.390625,
+          "bottom": 466.390625
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 538.390625,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 573.984375
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 538.390625,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 573.984375
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 538.390625,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 573.984375
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 590.984375,
+          "w": 1102,
+          "h": 120.515625,
+          "bottom": 711.5
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "system",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 461.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 496.6875
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 461.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 496.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 515.6875,
+          "w": 1408,
+          "h": 362.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276,
+          "bottom": 346
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 418,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 453.59375
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 418,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 453.59375
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 470.59375,
+          "w": 1102,
+          "h": 234.40625,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "repair",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 571.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 571.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 625.6875,
+          "w": 1408,
+          "h": 252.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276.5,
+          "bottom": 346.5
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 497.59375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 533.1875
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 497.59375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 533.1875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 550.1875,
+          "w": 1102,
+          "h": 154.8125,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "services",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 571.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 571.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 571.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 625.6875,
+          "w": 1408,
+          "h": 252.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276,
+          "bottom": 346
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 529.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 529.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 529.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 581.6875,
+          "w": 1102,
+          "h": 123.3125,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "automation",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 571.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 571.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 571.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 625.6875,
+          "w": 1408,
+          "h": 252.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276,
+          "bottom": 346
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 529.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 529.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 529.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 581.6875,
+          "w": 1102,
+          "h": 123.3125,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "studio",
+    "theme": "light",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 883,
+        "bottom": 941
+      },
+      "footer": [],
+      "hero": [],
+      "tabs": [],
+      "panels": [],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 710,
+        "bottom": 768
+      },
+      "footer": [],
+      "hero": [],
+      "tabs": [],
+      "panels": [],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "files",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 883,
+        "bottom": 941
+      },
+      "footer": [
+        {
+          "x": 252,
+          "y": 893,
+          "w": 1408,
+          "h": 48,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 265,
+          "y": 83,
+          "w": 1020,
+          "h": 329.34375,
+          "bottom": 412.34375
+        }
+      ],
+      "tabs": [],
+      "panels": [
+        {
+          "x": 252,
+          "y": 676.125,
+          "w": 1046,
+          "h": 206.875,
+          "bottom": 883
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 710,
+        "bottom": 768
+      },
+      "footer": [
+        {
+          "x": 250,
+          "y": 720,
+          "w": 1106,
+          "h": 48,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 263,
+          "y": 81,
+          "w": 770,
+          "h": 244,
+          "bottom": 325
+        }
+      ],
+      "tabs": [],
+      "panels": [
+        {
+          "x": 250,
+          "y": 559.1875,
+          "w": 796,
+          "h": 150.8125,
+          "bottom": 710
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "home",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 256,
+        "y": 76,
+        "w": 1400,
+        "h": 855,
+        "bottom": 931
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 268,
+          "y": 88,
+          "w": 1376,
+          "h": 272.796875,
+          "bottom": 360.796875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 268,
+          "y": 370.796875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 406.390625
+        }
+      ],
+      "panels": [
+        {
+          "x": 268,
+          "y": 425.390625,
+          "w": 1376,
+          "h": 493.609375,
+          "bottom": 919
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 256,
+        "y": 76,
+        "w": 1094,
+        "h": 682,
+        "bottom": 758
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 268,
+          "y": 88,
+          "w": 1070,
+          "h": 259,
+          "bottom": 347
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 268,
+          "y": 355,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 390.59375
+        }
+      ],
+      "panels": [
+        {
+          "x": 268,
+          "y": 407.59375,
+          "w": 1070,
+          "h": 338.40625,
+          "bottom": 746
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "smart_scan",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 798.90625,
+        "bottom": 856.90625
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 254,
+          "y": 72,
+          "w": 1404,
+          "h": 473.59375,
+          "bottom": 545.59375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 254,
+          "y": 698.78125,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 734.375
+        },
+        {
+          "text": "Tools & services",
+          "x": 357.65625,
+          "y": 698.78125,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 734.375
+        }
+      ],
+      "panels": [
+        {
+          "x": 254,
+          "y": 753.375,
+          "w": 1404,
+          "h": 89.53125,
+          "bottom": 842.90625
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 74,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 625.90625,
+        "bottom": 683.90625
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 254,
+          "y": 72,
+          "w": 1098,
+          "h": 465.59375,
+          "bottom": 537.59375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 254,
+          "y": 679.34375,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 714.9375
+        },
+        {
+          "text": "Tools & services",
+          "x": 357.65625,
+          "y": 679.34375,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 714.9375
+        }
+      ],
+      "panels": [
+        {
+          "x": 254,
+          "y": 731.9375,
+          "w": 1098,
+          "h": 0,
+          "bottom": 731.9375
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "applications",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 883,
+        "bottom": 941
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 444.921875,
+          "bottom": 514.921875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 590.109375,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 625.703125
+        },
+        {
+          "text": "Tools & services",
+          "x": 355.65625,
+          "y": 590.109375,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 625.703125
+        },
+        {
+          "text": "History & details",
+          "x": 490.203125,
+          "y": 590.109375,
+          "w": 132.890625,
+          "h": 35.59375,
+          "bottom": 625.703125
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 644.703125,
+          "w": 1408,
+          "h": 284.296875,
+          "bottom": 929
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 710,
+        "bottom": 768
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 330.9375,
+          "bottom": 400.9375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 472.9375,
+          "w": 97.65625,
+          "h": 35.59375,
+          "bottom": 508.53125
+        },
+        {
+          "text": "Tools & services",
+          "x": 355.65625,
+          "y": 472.9375,
+          "w": 128.546875,
+          "h": 35.59375,
+          "bottom": 508.53125
+        },
+        {
+          "text": "History & details",
+          "x": 490.203125,
+          "y": 472.9375,
+          "w": 132.890625,
+          "h": 35.59375,
+          "bottom": 508.53125
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 525.53125,
+          "w": 1102,
+          "h": 230.46875,
+          "bottom": 756
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "storage",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 819,
+        "bottom": 877
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 262,
+          "bottom": 332
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 460.796875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 496.390625
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 460.796875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 496.390625
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 515.390625,
+          "w": 1408,
+          "h": 349.609375,
+          "bottom": 865
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 646,
+        "bottom": 704
+      },
+      "footer": [],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 218,
+          "bottom": 288
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 410.796875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 446.390625
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 410.796875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 446.390625
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 463.390625,
+          "w": 1102,
+          "h": 228.609375,
+          "bottom": 692
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "cleanup",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 454.09375,
+          "bottom": 524.09375
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 593.1875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 628.78125
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 593.1875,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 628.78125
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 593.1875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 628.78125
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 647.78125,
+          "w": 1408,
+          "h": 230.21875,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 663,
+        "bottom": 721
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 721,
+          "w": 1126,
+          "h": 47,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 388.296875,
+          "bottom": 458.296875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 530.296875,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 565.890625
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 530.296875,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 565.890625
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 530.296875,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 565.890625
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 582.890625,
+          "w": 1102,
+          "h": 126.109375,
+          "bottom": 709
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "startup",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 836.5,
+        "bottom": 894.5
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 894.5,
+          "w": 1432,
+          "h": 46.5,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 462.1875,
+          "bottom": 532.1875
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 601.28125,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 636.875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 601.28125,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 636.875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 601.28125,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 636.875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 655.875,
+          "w": 1408,
+          "h": 226.625,
+          "bottom": 882.5
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 665.5,
+        "bottom": 723.5
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 723.5,
+          "w": 1126,
+          "h": 44.5,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 396.390625,
+          "bottom": 466.390625
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 538.390625,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 573.984375
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 538.390625,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 573.984375
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 538.390625,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 573.984375
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 590.984375,
+          "w": 1102,
+          "h": 120.515625,
+          "bottom": 711.5
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "system",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 461.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 496.6875
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 461.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 496.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 515.6875,
+          "w": 1408,
+          "h": 362.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276,
+          "bottom": 346
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 418,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 453.59375
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 418,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 453.59375
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 470.59375,
+          "w": 1102,
+          "h": 234.40625,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "repair",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 571.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 571.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 625.6875,
+          "w": 1408,
+          "h": 252.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276.5,
+          "bottom": 346.5
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 497.59375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 533.1875
+        },
+        {
+          "text": "History & details",
+          "x": 364.28125,
+          "y": 497.59375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 533.1875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 550.1875,
+          "w": 1102,
+          "h": 154.8125,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "services",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 571.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 571.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 571.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 625.6875,
+          "w": 1408,
+          "h": 252.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276,
+          "bottom": 346
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 529.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 529.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 529.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 581.6875,
+          "w": 1102,
+          "h": 123.3125,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "automation",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 832,
+        "bottom": 890
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 890,
+          "w": 1432,
+          "h": 51,
+          "bottom": 941
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 322,
+          "bottom": 392
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 571.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 571.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 571.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 606.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 625.6875,
+          "w": 1408,
+          "h": 252.3125,
+          "bottom": 878
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 659,
+        "bottom": 717
+      },
+      "footer": [
+        {
+          "x": 240,
+          "y": 717,
+          "w": 1126,
+          "h": 51,
+          "bottom": 768
+        }
+      ],
+      "hero": [
+        {
+          "x": 252,
+          "y": 70,
+          "w": 1102,
+          "h": 276,
+          "bottom": 346
+        }
+      ],
+      "tabs": [
+        {
+          "text": "Workspace",
+          "x": 252,
+          "y": 529.09375,
+          "w": 106.28125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "Tools & services",
+          "x": 364.28125,
+          "y": 529.09375,
+          "w": 134.953125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        },
+        {
+          "text": "History & details",
+          "x": 505.234375,
+          "y": 529.09375,
+          "w": 137.03125,
+          "h": 35.59375,
+          "bottom": 564.6875
+        }
+      ],
+      "panels": [
+        {
+          "x": 252,
+          "y": 581.6875,
+          "w": 1102,
+          "h": 123.3125,
+          "bottom": 705
+        }
+      ],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  },
+  {
+    "route": "studio",
+    "theme": "dark",
+    "wide": {
+      "viewport": {
+        "w": 1672,
+        "h": 941
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1432,
+        "h": 883,
+        "bottom": 941
+      },
+      "footer": [],
+      "hero": [],
+      "tabs": [],
+      "panels": [],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "compact": {
+      "viewport": {
+        "w": 1366,
+        "h": 768
+      },
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "horizontal": 0,
+      "main": {
+        "x": 240,
+        "y": 58,
+        "w": 1126,
+        "h": 710,
+        "bottom": 768
+      },
+      "footer": [],
+      "hero": [],
+      "tabs": [],
+      "panels": [],
+      "particles": 3,
+      "animation": "knx-ambient-orbit"
+    },
+    "reduced": "none",
+    "errors": []
+  }
+]

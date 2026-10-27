@@ -1,0 +1,129 @@
+EVAL: {
+  "theme": "light",
+  "darkSurfaceCount": 0,
+  "darkSurfaces": [],
+  "lowContrastCount": 1,
+  "lowContrast": [
+    {
+      "c": 1.47,
+      "fg": "rgb(3, 105, 161)",
+      "bg": "rgb(16,123,250)",
+      "size": "9px",
+      "cls": "px-1.5 py-0.2 rounded-full bg-cyan-400/25 text-[9px] font-mono text-cyan-200 uppercase font-bold border border",
+      "text": "AI"
+    }
+  ]
+}
+{
+  "viewport": [
+    1672,
+    941
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "theme": "light",
+  "docScroll": [
+    1672,
+    941
+  ],
+  "bodyScroll": [
+    1672,
+    941
+  ],
+  "bodyOverflow": "hidden",
+  "htmlOverflow": "visible",
+  "documentScrolls": false,
+  "horizontalScrolls": false,
+  "interactiveCount": 32,
+  "coveredCount": 3,
+  "covered": [
+    {
+      "tag": "input",
+      "text": "",
+      "top": "div",
+      "topText": "SCAN_ENGINE\nKNOuX Smart Scan Live Engine Telemet",
+      "rect": [
+        1338,
+        817,
+        13,
+        13
+      ]
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "top": "div",
+      "topText": "SCAN_ENGINE\nKNOuX Smart Scan Live Engine Telemet",
+      "rect": [
+        1338,
+        852,
+        13,
+        13
+      ]
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "top": "span",
+      "topText": "Export Report",
+      "rect": [
+        1338,
+        887,
+        13,
+        13
+      ]
+    }
+  ],
+  "escaping": [
+    {
+      "tag": "div",
+      "cls": "absolute -top-10 -right-10 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-n",
+      "text": "",
+      "rect": [
+        1381,
+        11,
+        320,
+        320
+      ]
+    }
+  ],
+  "scrollers": [
+    {
+      "cls": "lg:col-span-3 flex flex-col gap-3 h-full min-h-0 overflow-y-auto knx-c",
+      "clientH": 422,
+      "scrollH": 562
+    },
+    {
+      "cls": "bg-[#071329]/90 border border-[#11294a] rounded-2xl p-3.5 sm:p-4 flex ",
+      "clientH": 420,
+      "scrollH": 532
+    },
+    {
+      "cls": "space-y-1.5 max-h-40 overflow-y-auto knx-custom-scrollbar",
+      "clientH": 160,
+      "scrollH": 169
+    }
+  ],
+  "critical": {
+    "header": [
+      0,
+      0,
+      1672,
+      40
+    ],
+    "aside": [
+      0,
+      40,
+      224,
+      901
+    ],
+    "main": [
+      224,
+      40,
+      1448,
+      774
+    ]
+  },
+  "title": "KNOuX SmartOrganizer - Smart Organization Studio"
+}
+screenshot: <workspace>/KNOuX-Gemini-UI\apps\gemini-ui\visual-evidence\closure-20261025\audit\light3-smart_scan-1672.png

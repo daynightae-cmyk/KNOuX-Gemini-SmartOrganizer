@@ -1,0 +1,132 @@
+[
+  {
+    "route": "system",
+    "viewport": "1672x941",
+    "png": "D:\\KNOUX-Workspace\\KNOuX-Gemini-UI\\apps\\gemini-ui\\visual-evidence\\closure-20261025\\after-system\\v5b--system-1672x941-v5b.png",
+    "docScroll": {
+      "scrollW": 1672,
+      "clientW": 1672,
+      "scrollH": 941,
+      "clientH": 941,
+      "bodyScrollW": 1672,
+      "bodyClientW": 1672,
+      "bodyScrollH": 941,
+      "bodyClientH": 941,
+      "horizontalOverflow": false,
+      "verticalOverflow": false
+    },
+    "coveredCount": 4,
+    "covered": [
+      {
+        "el": "button.flex.items-center.gap-2.5.text-start \"UptimeSystem uptime and history\"",
+        "rect": {
+          "x": 261,
+          "y": 878,
+          "top": 878,
+          "left": 261,
+          "w": 249,
+          "h": 42,
+          "right": 510,
+          "bottom": 920
+        },
+        "blockedBy": "footer.h-12.bg-[#040b18].border-t.border-slate-800/80 \"Refresh DataInspect ProcessesView EventsExport D\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.flex.items-center.gap-2.5.text-start \"Performance MonitoringIn-depth performance data\"",
+        "rect": {
+          "x": 518,
+          "y": 878,
+          "top": 878,
+          "left": 518,
+          "w": 249,
+          "h": 42,
+          "right": 766,
+          "bottom": 920
+        },
+        "blockedBy": "footer.h-12.bg-[#040b18].border-t.border-slate-800/80 \"Refresh DataInspect ProcessesView EventsExport D\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.flex.items-center.gap-2.5.text-start \"Driver ExplorerInstalled drivers and versions\"",
+        "rect": {
+          "x": 774,
+          "y": 878,
+          "top": 878,
+          "left": 774,
+          "w": 249,
+          "h": 42,
+          "right": 1023,
+          "bottom": 920
+        },
+        "blockedBy": "footer.h-12.bg-[#040b18].border-t.border-slate-800/80 \"Refresh DataInspect ProcessesView EventsExport D\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      },
+      {
+        "el": "button.flex.items-center.gap-2.5.text-start \"System LogsView and analyze system logs\"",
+        "rect": {
+          "x": 1031,
+          "y": 878,
+          "top": 878,
+          "left": 1031,
+          "w": 249,
+          "h": 42,
+          "right": 1279,
+          "bottom": 920
+        },
+        "blockedBy": "footer.h-12.bg-[#040b18].border-t.border-slate-800/80 \"Refresh DataInspect ProcessesView EventsExport D\"",
+        "blockPos": "static",
+        "blockZ": "30"
+      }
+    ],
+    "footers": [
+      {
+        "el": "footer.h-12.bg-[#040b18].border-t.border-slate-800/80 \"Refresh DataInspect ProcessesView EventsExport D\"",
+        "rect": {
+          "x": 0,
+          "y": 893,
+          "top": 893,
+          "left": 0,
+          "w": 1672,
+          "h": 48,
+          "right": 1672,
+          "bottom": 941
+        },
+        "visible": false,
+        "fullyInViewport": true,
+        "zIndex": "30",
+        "position": "static"
+      }
+    ],
+    "overlays": [
+      {
+        "el": "thead.bg-[#071329].text-slate-400.font-mono.uppercase \"Process NamePIDCPUMemoryUserStatus\"",
+        "position": "sticky",
+        "zIndex": "10",
+        "rect": {
+          "x": 262,
+          "y": 649,
+          "top": 649,
+          "left": 262,
+          "w": 1016,
+          "h": 34,
+          "right": 1278,
+          "bottom": 682
+        },
+        "coversViewportArea": false,
+        "offscreen": false
+      }
+    ],
+    "clippedCount": 0,
+    "clipped": [],
+    "deadControls": [],
+    "escapingCount": 25,
+    "dir": "ltr",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "probeError": null
+  }
+]

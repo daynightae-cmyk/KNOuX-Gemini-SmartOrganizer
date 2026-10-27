@@ -26,6 +26,6 @@ async function main(){
  }finally{b.vault.dispose();await b.studio.dispose();}
  const interrupted=await makeFixture();const code=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,[__filename,'interrupt',JSON.stringify(interrupted)],{windowsHide:true,stdio:'ignore'});child.once('exit',resolve);child.once('error',reject);});assert.equal(code,79);
  const reopened=await create(interrupted);try{const receipts=await reopened.vault.vaultList();assert.equal(receipts.length,1);assert.equal(receipts[0].status,'interrupted');assert.equal(receipts[0].verifiedReclaimedBytes,0);const restore=await reopened.vault.vaultRestorePreview({journalId:receipts[0].operationId});assert.equal(restore.eligible,1);await reopened.vault.vaultRestore({...restore,approved:true});assert.deepEqual(await sourceHashes(interrupted),interrupted.originals);record('Actual process interruption: dedicated Cleanup journal recovers and restores the completed transfer');}finally{reopened.vault.dispose();await reopened.studio.dispose();}
- await fs.writeFile(path.resolve(__dirname,'../../../docs/evidence/storage-cleanup-wave2/negative-checks.json'),JSON.stringify({checks,fixtures:[f.root,interrupted.root],ownerDataTouched:false},null,2));
+ await fs.writeFile(path.join(process.env.KNOUX_VAULT_EVIDENCE_DIR||path.resolve(__dirname,'../../../docs/evidence/storage-cleanup-wave2'),'negative-checks.json'),JSON.stringify({checks,fixtures:[f.root,interrupted.root],ownerDataTouched:false},null,2));
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});
