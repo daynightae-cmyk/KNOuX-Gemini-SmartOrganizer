@@ -25,6 +25,7 @@ import {
   t,
 } from './model';
 import type { StartupLocale, StartupServiceId } from './model';
+import { OrbitalControl } from '../visual/OrbitalControl';
 
 export interface StartupHeroProps {
   locale: StartupLocale;
@@ -65,7 +66,7 @@ export function StartupHero({ locale, controller, onOpenService }: StartupHeroPr
             <span>{t(locale, 'Startup', 'بدء التشغيل')}</span>
             <span className="stp-breadcrumb-tag">{t(locale, 'MISSION 09', 'المهمة 09')}</span>
           </div>
-          <h1 className="stp-hero-title">{t(locale, 'Boot Control', 'التحكم في الإقلاع')}</h1>
+          <h1 className="stp-hero-title">{t(locale, 'Start faster. Stay in control.', 'ابدأ أسرع. وخليك متحكم.')}</h1>
           <p className="stp-hero-copy">
             {t(
               locale,
@@ -74,6 +75,15 @@ export function StartupHero({ locale, controller, onOpenService }: StartupHeroPr
             )}
           </p>
         </div>
+        <OrbitalControl title={t(locale, 'Analyze Startup', 'تحليل بدء التشغيل')} subtitle={t(locale, 'Measure · Inspect · Review', 'قِس · افحص · راجع')}
+          onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || scanning} running={scanning}
+          tools={[
+            { id: 'items', label: t(locale, 'Startup Items', 'عناصر البدء'), icon: ListChecks, onClick: () => onOpenService('startup-overview') },
+            { id: 'impact', label: t(locale, 'Boot Impact', 'أثر الإقلاع'), icon: Gauge, onClick: () => onOpenService('startup-impact') },
+            { id: 'delay', label: t(locale, 'Delay', 'التأخير'), icon: Clock3, onClick: () => onOpenService('startup-delay') },
+            { id: 'tasks', label: t(locale, 'Tasks', 'المهام'), icon: Activity, onClick: () => onOpenService('startup-tasks') },
+            { id: 'history', label: t(locale, 'History', 'السجل'), icon: RefreshCw, onClick: () => onOpenService('startup-journal') },
+          ]} />
         <div className="stp-hero-actions">
           <button
             type="button"
