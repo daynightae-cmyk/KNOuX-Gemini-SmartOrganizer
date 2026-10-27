@@ -126,6 +126,8 @@ packaged equivalents.
 ## 5. Release record
 
 Files committed at `578f7fac5494d10f929786164d4ba2b041307b48`; Studio
-at `62e3ce6d5bcc97993f8e4a5d78dbafdf02a9cd4c`. CI runs `40399994447` and
-`40409858626` are SUCCESS. `main` fast-forward records are in
-`missions/MISSION_SEQUENCE_PROGRESS.md`.
+at `62e3ce6d5bcc97993f8e4a5d78dbafdf02a9cd4c`; Storage at
+`3e3f16c`. Smart Scan and Applications are committed at `9b582e3`; CI run
+`40428396212` is SUCCESS and `main` was merged at `af00af6` with an identical
+tree. Earlier CI runs `40399994447` and `40409858626` are also SUCCESS.
+Per-increment records live in `missions/MISSION_SEQUENCE_PROGRESS.md`.
