@@ -5218,7 +5218,18 @@ async function runSmoke(win) {
           if (storageWorkbenchUiReady) break;
         }
         receipt.storageWorkbenchUiReady = storageWorkbenchUiReady;
-        await sleep(1800);
+        const storageVolumeDeadline = Date.now() + 30000;
+        let storageVolumeReady = false;
+        while (Date.now() < storageVolumeDeadline) {
+          await sleep(500);
+          storageVolumeReady = await win.webContents.executeJavaScript(
+            `document.querySelectorAll('[data-testid^="storage-volume-"]').length > 0 && Boolean(document.querySelector('[data-testid="storage-volume-count"]')) && document.querySelector('[data-testid="storage-volume-count"]').innerText.trim() !== '—'`,
+            true
+          );
+          if (storageVolumeReady) break;
+        }
+        receipt.storageVolumeReady = storageVolumeReady;
+        await sleep(500);
         await win.webContents.executeJavaScript(`document.querySelector('[data-service-key="storage-disks"]')?.click()`, true);
         await sleep(600);
         const storageWorkbenchSideProbe = await win.webContents.executeJavaScript(
@@ -5230,7 +5241,9 @@ async function runSmoke(win) {
              if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
              if (!host.querySelector('[data-testid="storage-service-focus"]')) failures.push('body-missing');
              if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
-             if (!document.querySelector('[data-testid="storage-volume-count"]')) failures.push('page-hidden');
+             const volumeCount = document.querySelector('[data-testid="storage-volume-count"]');
+             if (!volumeCount) failures.push('page-hidden');
+             else if (volumeCount.innerText.trim() === '—') failures.push('volumes-not-measured');
              if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
              return { ok: failures.length === 0, failures };
            })()`,
@@ -5267,6 +5280,184 @@ async function runSmoke(win) {
         await sleep(300);
         receipt.storageWorkbenchEscape = await win.webContents.executeJavaScript(
           `({ ok: !document.querySelector('[data-testid="storage-workbench"]') && !document.querySelector('[data-testid="storage-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Scan side/expanded workbench over measured services.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'smart_scan'; return true; })()`, true);
+        const scanWorkbenchDeadline = Date.now() + 30000;
+        let scanWorkbenchUiReady = false;
+        while (Date.now() < scanWorkbenchDeadline) {
+          await sleep(500);
+          scanWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const main = document.querySelector('[data-testid="scan-workspace"]');
+               const tile = document.querySelector('[data-testid="scan-service-quick_scan"]');
+               return Boolean(main && tile && main.getBoundingClientRect().width > 100 && tile.getBoundingClientRect().width > 0);
+             })()`,
+            true
+          );
+          if (scanWorkbenchUiReady) break;
+        }
+        receipt.scanWorkbenchUiReady = scanWorkbenchUiReady;
+        await sleep(1200);
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="scan-service-quick_scan"]')?.click()`, true);
+        const scanWorkbenchHostDeadline = Date.now() + 15000;
+        while (Date.now() < scanWorkbenchHostDeadline) {
+          await sleep(300);
+          const hostMounted = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="scan-workbench"]') || document.querySelector('[data-testid="scan-workbench-expanded"]'))`,
+            true
+          );
+          if (hostMounted) break;
+        }
+        await sleep(400);
+        const scanWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="scan-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="scan-service-focus"]')) failures.push('body-missing');
+             if (!host.querySelector('[data-testid="scan-service-run"]')) failures.push('run-control-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="scan-workspace"]')) failures.push('page-hidden');
+             if (!document.querySelector('[data-testid="scan-workspace"] [data-testid="scan-service-quick_scan"]')) failures.push('originating-services-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.scanWorkbenchSideProbe = scanWorkbenchSideProbe;
+        const scanWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'scan-workbench');
+        const scanWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(scanWorkbenchPath, scanWorkbenchImage.toPNG());
+        receipt.scanWorkbenchScreenshot = scanWorkbenchPath;
+        receipt.scanWorkbenchScreenshotBytes = (await fsp.stat(scanWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="scan-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const scanWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="scan-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="scan-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="scan-workspace"]')) failures.push('page-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.scanWorkbenchExpandedProbe = scanWorkbenchExpandedProbe;
+        const scanWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'scan-workbench-expanded');
+        const scanWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(scanWorkbenchExpandedPath, scanWorkbenchExpandedImage.toPNG());
+        receipt.scanWorkbenchExpandedScreenshot = scanWorkbenchExpandedPath;
+        receipt.scanWorkbenchExpandedScreenshotBytes = (await fsp.stat(scanWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.scanWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="scan-workbench"]') && !document.querySelector('[data-testid="scan-workbench-expanded"]') })`,
+          true
+        );
+        await forceSize(1672, 941);
+        await sleep(300);
+
+        // Mission 15A: Applications side/expanded workbench over the register.
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'home'; return true; })()`, true);
+        await sleep(500);
+        await win.webContents.executeJavaScript(`(() => { location.hash = 'applications'; return true; })()`, true);
+        const appsWorkbenchDeadline = Date.now() + 30000;
+        let appsWorkbenchUiReady = false;
+        while (Date.now() < appsWorkbenchDeadline) {
+          await sleep(500);
+          appsWorkbenchUiReady = await win.webContents.executeJavaScript(
+            `(() => {
+               const main = document.querySelector('[data-testid="apps-workspace"]');
+               const tile = document.querySelector('[data-testid="apps-service-app-inventory"]');
+               return Boolean(main && tile && main.getBoundingClientRect().width > 100 && tile.getBoundingClientRect().width > 0);
+             })()`,
+            true
+          );
+          if (appsWorkbenchUiReady) break;
+        }
+        receipt.appsWorkbenchUiReady = appsWorkbenchUiReady;
+        const appsWorkbenchDataDeadline = Date.now() + 30000;
+        let appsWorkbenchDataReady = false;
+        while (Date.now() < appsWorkbenchDataDeadline) {
+          await sleep(500);
+          appsWorkbenchDataReady = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelectorAll('[data-testid="apps-register-row"]').length > 0)`,
+            true
+          );
+          if (appsWorkbenchDataReady) break;
+        }
+        receipt.appsWorkbenchDataReady = appsWorkbenchDataReady;
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="apps-service-app-inventory"]')?.click()`, true);
+        const appsWorkbenchHostDeadline = Date.now() + 15000;
+        while (Date.now() < appsWorkbenchHostDeadline) {
+          await sleep(300);
+          const hostMounted = await win.webContents.executeJavaScript(
+            `Boolean(document.querySelector('[data-testid="apps-workbench"]') || document.querySelector('[data-testid="apps-workbench-expanded"]'))`,
+            true
+          );
+          if (hostMounted) break;
+        }
+        await sleep(400);
+        const appsWorkbenchSideProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const host = document.querySelector('[data-testid="apps-workbench"]');
+             if (!host) return { ok: false, failures: ['side-host-missing'] };
+             if (host.getAttribute('data-workbench-mode') !== 'side') failures.push('side-mode');
+             if (host.getBoundingClientRect().height < 100) failures.push('side-not-visible');
+             if (!host.querySelector('[data-testid="app-service-focus"]')) failures.push('body-missing');
+             if (String(host.innerText || '').trim().length < 40) failures.push('body-empty');
+             if (!document.querySelector('[data-testid="apps-register"]')) failures.push('originating-register-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.appsWorkbenchSideProbe = appsWorkbenchSideProbe;
+        const appsWorkbenchPath = smokeShotPath.replace(/native-bridge/i, 'apps-workbench');
+        const appsWorkbenchImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsWorkbenchPath, appsWorkbenchImage.toPNG());
+        receipt.appsWorkbenchScreenshot = appsWorkbenchPath;
+        receipt.appsWorkbenchScreenshotBytes = (await fsp.stat(appsWorkbenchPath)).size;
+
+        await win.webContents.executeJavaScript(`document.querySelector('[data-testid="apps-workbench"] [data-testid="workbench-mode-toggle"]')?.click()`, true);
+        await sleep(500);
+        const appsWorkbenchExpandedProbe = await win.webContents.executeJavaScript(
+          `(() => {
+             const failures = [];
+             const expanded = document.querySelector('[data-testid="apps-workbench-expanded"]');
+             if (!expanded) failures.push('expanded-host-missing');
+             else if (expanded.getBoundingClientRect().height < 100) failures.push('expanded-not-visible');
+             if (document.querySelector('[data-testid="apps-workbench"]')) failures.push('side-still-mounted');
+             if (!document.querySelector('[data-testid="apps-workspace"]')) failures.push('page-hidden');
+             if (document.documentElement.scrollWidth > window.innerWidth) failures.push('overflow');
+             return { ok: failures.length === 0, failures };
+           })()`,
+          true
+        );
+        receipt.appsWorkbenchExpandedProbe = appsWorkbenchExpandedProbe;
+        const appsWorkbenchExpandedPath = smokeShotPath.replace(/native-bridge/i, 'apps-workbench-expanded');
+        const appsWorkbenchExpandedImage = await win.webContents.capturePage();
+        await fsp.writeFile(appsWorkbenchExpandedPath, appsWorkbenchExpandedImage.toPNG());
+        receipt.appsWorkbenchExpandedScreenshot = appsWorkbenchExpandedPath;
+        receipt.appsWorkbenchExpandedScreenshotBytes = (await fsp.stat(appsWorkbenchExpandedPath)).size;
+        await win.webContents.executeJavaScript(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`, true);
+        await sleep(300);
+        receipt.appsWorkbenchEscape = await win.webContents.executeJavaScript(
+          `({ ok: !document.querySelector('[data-testid="apps-workbench"]') && !document.querySelector('[data-testid="apps-workbench-expanded"]') })`,
           true
         );
         await forceSize(1672, 941);
@@ -5739,6 +5930,7 @@ async function runSmoke(win) {
       && receipt.studioWorkbench1366?.ok === true;
     const storageWorkbenchOk = Boolean(
       receipt.storageWorkbenchUiReady === true &&
+      receipt.storageVolumeReady === true &&
       receipt.storageWorkbenchSideProbe?.ok === true &&
       receipt.storageWorkbenchExpandedProbe?.ok === true &&
       receipt.storageWorkbenchEscape?.ok === true &&
@@ -5747,6 +5939,27 @@ async function runSmoke(win) {
     );
     const storageWorkbenchLayoutOk = receipt.storageWorkbenchSideProbe?.ok === true
       && receipt.storageWorkbenchExpandedProbe?.ok === true;
+    const scanWorkbenchOk = Boolean(
+      receipt.scanWorkbenchUiReady === true &&
+      receipt.scanWorkbenchSideProbe?.ok === true &&
+      receipt.scanWorkbenchExpandedProbe?.ok === true &&
+      receipt.scanWorkbenchEscape?.ok === true &&
+      receipt.scanWorkbenchScreenshotBytes > 20000 &&
+      receipt.scanWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const scanWorkbenchLayoutOk = receipt.scanWorkbenchSideProbe?.ok === true
+      && receipt.scanWorkbenchExpandedProbe?.ok === true;
+    const appsWorkbenchOk = Boolean(
+      receipt.appsWorkbenchUiReady === true &&
+      receipt.appsWorkbenchDataReady === true &&
+      receipt.appsWorkbenchSideProbe?.ok === true &&
+      receipt.appsWorkbenchExpandedProbe?.ok === true &&
+      receipt.appsWorkbenchEscape?.ok === true &&
+      receipt.appsWorkbenchScreenshotBytes > 20000 &&
+      receipt.appsWorkbenchExpandedScreenshotBytes > 20000
+    );
+    const appsWorkbenchLayoutOk = receipt.appsWorkbenchSideProbe?.ok === true
+      && receipt.appsWorkbenchExpandedProbe?.ok === true;
     const screenshotOk = !smokeShotPath || (
       receipt.screenshotBytes > 20000 &&
       receipt.lightScreenshotBytes > 20000 &&
@@ -5815,8 +6028,8 @@ async function runSmoke(win) {
       receipt.automation1920ScreenshotBytes > 20000 &&
       receipt.automationUiReady === true
     );
-    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, studioWorkbenchOk, studioWorkbenchLayoutOk, storageWorkbenchOk, storageWorkbenchLayoutOk, screenshotOk, windowControlOk };
-    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && studioWorkbenchOk && studioWorkbenchLayoutOk && storageWorkbenchOk && storageWorkbenchLayoutOk && screenshotOk && windowControlOk);
+    receipt.checks = { securityOk, bridgeOk, providerOk, studioOk, filesOk, storageOk, scanOk, smartScanLayoutOk, appsOk, appsLayoutOk, cleanupOk, cleanupLayoutOk, startupOk, startupLayoutOk, systemOk, systemLayoutOk, repairOk, repairLayoutOk, servicesOk, servicesLayoutOk, automationOk, automationLayoutOk, workspaceOk, workspaceLayoutOk, settingsOk, settingsLayoutOk, homeOk, homeLayoutOk, filesWorkbenchOk, filesWorkbenchLayoutOk, studioWorkbenchOk, studioWorkbenchLayoutOk, storageWorkbenchOk, storageWorkbenchLayoutOk, scanWorkbenchOk, scanWorkbenchLayoutOk, appsWorkbenchOk, appsWorkbenchLayoutOk, screenshotOk, windowControlOk };
+    receipt.ok = Boolean(securityOk && bridgeOk && providerOk && studioOk && filesOk && storageOk && scanOk && smartScanLayoutOk && appsOk && appsLayoutOk && cleanupOk && cleanupLayoutOk && startupOk && startupLayoutOk && systemOk && systemLayoutOk && repairOk && repairLayoutOk && servicesOk && servicesLayoutOk && automationOk && automationLayoutOk && workspaceOk && workspaceLayoutOk && settingsOk && settingsLayoutOk && homeOk && homeLayoutOk && filesWorkbenchOk && filesWorkbenchLayoutOk && studioWorkbenchOk && studioWorkbenchLayoutOk && storageWorkbenchOk && storageWorkbenchLayoutOk && scanWorkbenchOk && scanWorkbenchLayoutOk && appsWorkbenchOk && appsWorkbenchLayoutOk && screenshotOk && windowControlOk);
     receipt.finishedAt = new Date().toISOString();
     trace(`smoke complete ok=${receipt.ok} checks=${JSON.stringify(receipt.checks)}`);
     await fsp.mkdir(path.dirname(smokeReceiptPath), { recursive: true });

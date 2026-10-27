@@ -32,6 +32,7 @@ export interface ScanServiceWorkspaceProps {
   onRunService: (serviceId: string) => void;
   onNavigateToWorkspace?: (workspace: string) => void;
   onOpenCleanupGate?: () => void;
+  embedded?: boolean;
 }
 
 export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
@@ -47,6 +48,7 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   onRunService,
   onNavigateToWorkspace,
   onOpenCleanupGate,
+  embedded = false,
 }) => {
   const renderRenderer = () => {
     const props = { service: result, session, isArabic, onNavigateToWorkspace };
@@ -76,6 +78,43 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   };
 
   const disabled = busy || scanActive || !canRun;
+
+  if (embedded) {
+    return (
+      <div data-testid="scan-service-focus" className="flex flex-col gap-3">
+        <p className="text-[10px] text-slate-400">{isArabic ? service.noteAr : service.noteEn}</p>
+        <div className="min-h-0 py-1">{renderRenderer()}</div>
+        <div className="flex flex-wrap items-center gap-2 border-t border-[#122e54] pt-2" data-testid="scan-service-actions">
+          <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
+            <ShieldCheck className="w-3 h-3 text-emerald-400" />
+            {isArabic ? 'قراءة فقط · بلا قناة تغيير' : 'read-only · no mutation channel'}
+          </span>
+          {!canRun && runBlockedReason ? (
+            <span className="text-[9px] text-amber-300 font-mono">{runBlockedReason}</span>
+          ) : null}
+          {service.id === 'junk_cleaner' && onOpenCleanupGate ? (
+            <button
+              type="button"
+              onClick={onOpenCleanupGate}
+              className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-[10px] font-bold text-amber-200 transition cursor-pointer"
+            >
+              {isArabic ? 'بوابة موافقة المهمة 08' : 'Mission 08 approval gate'}
+            </button>
+          ) : null}
+          <button
+            type="button"
+            onClick={() => onRunService(service.id)}
+            disabled={disabled}
+            data-testid="scan-service-run"
+            className="ms-auto px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-[10px] font-black border border-cyan-300/40 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+          >
+            {result ? <RotateCw className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+            {isArabic ? (result ? 'إعادة القياس' : 'تشغيل الخدمة') : (result ? 'Re-measure' : 'Run service')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4" role="dialog" aria-modal="true">

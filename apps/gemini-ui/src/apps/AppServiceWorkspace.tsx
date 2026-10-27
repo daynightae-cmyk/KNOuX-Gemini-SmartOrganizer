@@ -67,6 +67,7 @@ interface AppServiceWorkspaceProps {
   onSelectApp: (appId: string) => void;
   onClose: () => void;
   onOpenPlan: () => void;
+  embedded?: boolean;
 }
 
 function serviceIcon(key: DomainServiceKey, className = 'w-4 h-4') {
@@ -115,6 +116,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
   onSelectApp,
   onClose,
   onOpenPlan,
+  embedded = false,
 }) => {
   const meta = DOMAIN_SERVICES_META.find((entry) => entry.key === service);
   const capability = controller.capabilities?.services.find((entry) => entry.id === service);
@@ -1260,6 +1262,27 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
   };
 
   if (!meta) return null;
+
+  if (embedded) {
+    return (
+      <div data-testid="app-service-focus" className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className={`apps-state apps-state-${capability?.state || 'partial'}`}>{serviceStateLabel(capability?.state || 'partial', locale)}</span>
+          <span className="apps-chip">{t(locale, 'provider', 'المزوّد')}: {capability?.provider || 'ApplicationsBridge'}</span>
+        </div>
+        <p className="apps-note">{serviceDescription(service, locale)}</p>
+        {renderPanel()}
+        <div className="flex flex-wrap items-center gap-1.5 border-t border-[#173866] pt-2">
+          <span className="apps-chip apps-chip-good"><ShieldCheck className="w-3 h-3" />{t(locale, 'READ-ONLY', 'للقراءة فقط')}</span>
+          <span className="apps-chip">{t(locale, 'mutation', 'التغيير')}: {t(locale, 'none', 'لا يوجد')}</span>
+          <button type="button" className="apps-btn ms-auto" onClick={onClose}>
+            <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            {t(locale, 'Back to register', 'العودة للسجل')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="apps-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="apps-service-title">
