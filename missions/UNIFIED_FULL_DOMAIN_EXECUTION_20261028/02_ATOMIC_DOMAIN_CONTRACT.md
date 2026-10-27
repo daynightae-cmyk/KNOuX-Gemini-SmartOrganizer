@@ -1,0 +1,11 @@
+# FULL SECTION MISSION = one indivisible shipment
+No tiny follow-up tasks replacing domain completion. Every section domain includes all its service IDs, with unique native or source-backed operation, real-time visualization, UI controls, error/empty/partial/denied states, before/after, consent, test and final merge receipt. Partial commits permitted for resilience; section remains IN_PROGRESS until ALL its IDs reconciled.
+- Class A measured tools: real query/refresh/filter/sampling/export/controlled handoff, never dead cards; not forced into unsafe OS mutations.
+- Class B/C/D: effectful execution or authorized external official API with immutable plan, source/target identity, specific approval, typed allowlist, event stream, postcondition journal and Undo where genuinely possible.
+- Each service has individual detail sheet in the 181-service source library, and a row in the 181 acceptance matrix created with these missions.
+- Preserve exact approved premium KNOuX day/night and orbital identity per screen; no generic card clone. Internal scrolling only for lists/long inspectors; controls accessible 1366x768, 1672x941, 1920x1080 and 125-150% DPI, Arabic RTL, keyboard and reduced motion.
+- Preserve all previously accepted domains and functional contracts through regression checks after EVERY section.
+- Native Windows process and files: no destructive owner-data test. Use disposable fixtures and safe mock/VM for protected actions. External account OAuth needs explicit per-provider scopes.
+- MUST run tests and document failures or NOT_TESTED rather than claim PASS. Packaged Electron smoke and manual dialogs are final gates.
+- Default writing mode: work serially directly on unified local branch to avoid new abandoned branches. If a short-lived worktree is necessary, merge locally with reviewed conflicts and verify commit ancestry before moving on.
+- Completion proof: all domain service rows hold working UI/source native evidence, negative-case tests, screenshot day/night, final SHA and integration confirmation, remaining external blockers explicit. If any capability truly impossible without owner consent, mark that service BLOCKED_EXTERNAL_PERMISSION, never green. Continue independent work, return for signoff.

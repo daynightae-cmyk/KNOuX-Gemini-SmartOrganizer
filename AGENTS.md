@@ -1,3 +1,7 @@
+# KNOuX UNIFIED DELIVERY — OWNER RULES (2026-10-28)
+You MUST read missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/04_OWNER_RULES_PERMANENT.md and 01_LOCAL_MERGE_GATE.md before project changes.
+No parked feature branches: one fully complete domain at a time, 181 exact service IDs accounted for; locally integrate each domain in integration/knoux-unified-20261028 before the next. Preserve all uniquely valuable WIP, no destructive Git cleanup; no push/main merge without separate authorization. M0 initial branch/WIP consolidation remains INCOMPLETE until verified.
+This instruction applies only to the owner-authorized unified checkout and does not override fail-closed workspace guard.
 # LIVE ORGANIZATION — OWNER-AUTHORIZED ISOLATION (2026-10-27)
 This checkout alone is authorized for functional Mission 16 delivery at `.worktrees/live-organization`, branch `codex/live-organization-20261027`, based on reviewed visual evidence `d96dcf9`. This supersedes historical branch/worktree restrictions below only for this exact checkout. Run its fail-closed verifier before source work. Preserve all other worktrees and the approved Files/Studio/Intro composition. Controlled disposable-fixture mutations are authorized; owner file/OS/account effects still require independent runtime consent. No main merge, production deployment or push is authorized by this mission.
 

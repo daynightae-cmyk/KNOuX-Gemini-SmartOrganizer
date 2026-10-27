@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-10-27T20:28:01.337852+00:00",
+  "current_unified_head": "a32312268a5b28982ccb5c377f713f67c79c3950",
+  "candidate_committed_base": "codex/live-organization-20261027",
+  "sprint_branch": "feat/knoux-visual-day-night-sprint-20261027",
+  "merge_tree_exit": 1,
+  "merge_tree_conflict_count": 70,
+  "branch_inventory": [
+    {
+      "branch": "codex/live-organization-20261027",
+      "sha": "c45c381fa3a03e8a865e4fb794590145743c7356",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "0\t0"
+    },
+    {
+      "branch": "feat/gemini-missions",
+      "sha": "800bb95c49af98cdfc83e224f295e302d13fb60c",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "40\t0"
+    },
+    {
+      "branch": "feat/knoux-visual-day-night-sprint-20261027",
+      "sha": "d5866019780b1c11c837d5faec86d04818cbdc84",
+      "already_in_functional_baseline": false,
+      "divergent_counts": "16\t3"
+    },
+    {
+      "branch": "feat/knoux-visual-home-follow-20261027",
+      "sha": "92c103f7aec6a81bc15267353d5e776696306e5b",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "11\t0"
+    },
+    {
+      "branch": "feat/knoux-visual-studio-rebuild-20261027",
+      "sha": "d96dcf9d9e8ba0433bc780ca59bd02d901e43e6a",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "2\t0"
+    },
+    {
+      "branch": "integration/final-acceptance-20261027",
+      "sha": "516f0ed0ff41a39e59b98938faa7a14d3d199063",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "9\t0"
+    },
+    {
+      "branch": "integration/knoux-unified-20261028",
+      "sha": "a32312268a5b28982ccb5c377f713f67c79c3950",
+      "already_in_functional_baseline": false,
+      "divergent_counts": "0\t1"
+    },
+    {
+      "branch": "integration/visual-day-night-20261027",
+      "sha": "96544ec466d69d00c455623432039485a619d7f6",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "10\t0"
+    },
+    {
+      "branch": "integration/visual-final-closure-20261027",
+      "sha": "516f0ed0ff41a39e59b98938faa7a14d3d199063",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "9\t0"
+    },
+    {
+      "branch": "main",
+      "sha": "9e8cab5c1156f95001fd2c12c5dfd81a8c9a635f",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "35\t0"
+    },
+    {
+      "branch": "traycer/chipper-elk",
+      "sha": "800bb95c49af98cdfc83e224f295e302d13fb60c",
+      "already_in_functional_baseline": true,
+      "divergent_counts": "40\t0"
+    }
+  ],
+  "merge_conflicted_paths": [
+    "apps/gemini-ui/src/App.tsx",
+    "apps/gemini-ui/src/apps/ApplicationsHero.tsx",
+    "apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+    "apps/gemini-ui/src/pages/RepairPage.tsx",
+    "apps/gemini-ui/src/pages/ServicesPage.tsx",
+    "apps/gemini-ui/src/pages/StoragePage.tsx",
+    "apps/gemini-ui/src/pages/SystemPage.tsx",
+    "apps/gemini-ui/src/services.css",
+    "apps/gemini-ui/src/smart-scan/SmartScanHero.tsx",
+    "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+    "apps/gemini-ui/src/visual/OrbitalControl.tsx",
+    "apps/gemini-ui/src/visual/orbital-engine.css",
+    "apps/gemini-ui/src/visual/repair-reference.css",
+    "apps/gemini-ui/src/visual/system-reference.css",
+    "docs/evidence/visual-sprint/applications/dark-1366x768.png",
+    "docs/evidence/visual-sprint/applications/dark-1672x941.png",
+    "docs/evidence/visual-sprint/applications/light-1366x768.png",
+    "docs/evidence/visual-sprint/applications/light-1672x941.png",
+    "docs/evidence/visual-sprint/applications/preview.json",
+    "docs/evidence/visual-sprint/automation/dark-1672x941.png",
+    "docs/evidence/visual-sprint/automation/light-1672x941.png",
+    "docs/evidence/visual-sprint/automation/preview.json",
+    "docs/evidence/visual-sprint/cleanup/dark-1366x768.png",
+    "docs/evidence/visual-sprint/cleanup/dark-1672x941.png",
+    "docs/evidence/visual-sprint/cleanup/light-1366x768.png",
+    "docs/evidence/visual-sprint/cleanup/light-1672x941.png",
+    "docs/evidence/visual-sprint/cleanup/preview.json",
+    "docs/evidence/visual-sprint/files/dark-1366x768.png",
+    "docs/evidence/visual-sprint/files/dark-1672x941.png",
+    "docs/evidence/visual-sprint/files/light-1366x768.png",
+    "docs/evidence/visual-sprint/files/light-1672x941.png",
+    "docs/evidence/visual-sprint/files/preview.json",
+    "docs/evidence/visual-sprint/home/dark-1672x941.png",
+    "docs/evidence/visual-sprint/home/light-1672x941.png",
+    "docs/evidence/visual-sprint/home/preview.json",
+    "docs/evidence/visual-sprint/repair/dark-1366x768.png",
+    "docs/evidence/visual-sprint/repair/dark-1672x941.png",
+    "docs/evidence/visual-sprint/repair/light-1366x768.png",
+    "docs/evidence/visual-sprint/repair/light-1672x941.png",
+    "docs/evidence/visual-sprint/repair/preview.json",
+    "docs/evidence/visual-sprint/services/dark-1366x768.png",
+    "docs/evidence/visual-sprint/services/dark-1672x941.png",
+    "docs/evidence/visual-sprint/services/light-1366x768.png",
+    "docs/evidence/visual-sprint/services/light-1672x941.png",
+    "docs/evidence/visual-sprint/services/preview.json",
+    "docs/evidence/visual-sprint/smart_scan/dark-1366x768.png",
+    "docs/evidence/visual-sprint/smart_scan/dark-1672x941.png",
+    "docs/evidence/visual-sprint/smart_scan/light-1366x768.png",
+    "docs/evidence/visual-sprint/smart_scan/light-1672x941.png",
+    "docs/evidence/visual-sprint/smart_scan/preview.json",
+    "docs/evidence/visual-sprint/startup/dark-1366x768.png",
+    "docs/evidence/visual-sprint/startup/dark-1672x941.png",
+    "docs/evidence/visual-sprint/startup/light-1366x768.png",
+    "docs/evidence/visual-sprint/startup/light-1672x941.png",
+    "docs/evidence/visual-sprint/startup/preview.json",
+    "docs/evidence/visual-sprint/storage/dark-1366x768.png",
+    "docs/evidence/visual-sprint/storage/dark-1672x941.png",
+    "docs/evidence/visual-sprint/storage/light-1366x768.png",
+    "docs/evidence/visual-sprint/storage/light-1672x941.png",
+    "docs/evidence/visual-sprint/storage/preview.json",
+    "docs/evidence/visual-sprint/studio/dark-1366x768.png",
+    "docs/evidence/visual-sprint/studio/dark-1672x941.png",
+    "docs/evidence/visual-sprint/studio/light-1366x768.png",
+    "docs/evidence/visual-sprint/studio/light-1672x941.png",
+    "docs/evidence/visual-sprint/studio/preview.json",
+    "docs/evidence/visual-sprint/system/dark-1366x768.png",
+    "docs/evidence/visual-sprint/system/dark-1672x941.png",
+    "docs/evidence/visual-sprint/system/light-1366x768.png",
+    "docs/evidence/visual-sprint/system/light-1672x941.png",
+    "docs/evidence/visual-sprint/system/preview.json"
+  ],
+  "wip_snapshot_root": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028",
+  "snapshot_total_files": 945,
+  "snapshot_total_copied": 938,
+  "snapshot_errors": [],
+  "snapshot_sources": [
+    {
+      "label": "root",
+      "head": "516f0ed0ff41a39e59b98938faa7a14d3d199063",
+      "branch": "integration/final-acceptance-20261027",
+      "files": 478,
+      "copied": 471,
+      "warnings": 0
+    },
+    {
+      "label": "closure",
+      "head": "516f0ed0ff41a39e59b98938faa7a14d3d199063",
+      "branch": "integration/visual-final-closure-20261027",
+      "files": 0,
+      "copied": 0,
+      "warnings": 0
+    },
+    {
+      "label": "integration",
+      "head": "96544ec466d69d00c455623432039485a619d7f6",
+      "branch": "integration/visual-day-night-20261027",
+      "files": 0,
+      "copied": 0,
+      "warnings": 0
+    },
+    {
+      "label": "live-organization",
+      "head": "c45c381fa3a03e8a865e4fb794590145743c7356",
+      "branch": "codex/live-organization-20261027",
+      "files": 230,
+      "copied": 230,
+      "warnings": 0
+    },
+    {
+      "label": "qoder-visual",
+      "head": "92c103f7aec6a81bc15267353d5e776696306e5b",
+      "branch": "feat/knoux-visual-home-follow-20261027",
+      "files": 0,
+      "copied": 0,
+      "warnings": 0
+    },
+    {
+      "label": "visual-owner-rebuild",
+      "head": "d96dcf9d9e8ba0433bc780ca59bd02d901e43e6a",
+      "branch": "feat/knoux-visual-studio-rebuild-20261027",
+      "files": 236,
+      "copied": 236,
+      "warnings": 0
+    },
+    {
+      "label": "visual-sprint",
+      "head": "d5866019780b1c11c837d5faec86d04818cbdc84",
+      "branch": "feat/knoux-visual-day-night-sprint-20261027",
+      "files": 1,
+      "copied": 1,
+      "warnings": 0
+    }
+  ],
+  "full_reconciliation_status": "INCOMPLETE_PENDING_MANUAL_RECONCILIATION_AND_ACTIVE_WIP",
+  "no_git_merge_was_applied": true
+}
