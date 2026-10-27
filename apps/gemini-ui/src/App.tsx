@@ -57,6 +57,9 @@ import './visual/system-reference.css';
 // Home's day/night material layer must resolve last: it re-maps the literal
 // dark utilities inside .knx-home-root only, after the global light bridge.
 import './visual/home-reference.css';
+// Restraint pass over the reference shells: restores the navy night identity
+// and lifts the stacked orbital glow. Materials only, no structural change.
+import './visual/reference-restraint.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';

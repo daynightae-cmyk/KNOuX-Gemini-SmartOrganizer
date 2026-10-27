@@ -3,6 +3,9 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { existsSync } from 'node:fs';
 
+// Preview server port is configurable so parallel worktrees can capture
+// evidence without fighting for a single dev server.
+const previewPort = process.env.KNOX_PREVIEW_PORT || '3017';
 const section = process.argv[2] || 'studio';
 // Third argument opts into a second, smaller viewport pass for overflow review.
 const compact = process.argv[3] === 'compact';
@@ -27,7 +30,7 @@ try {
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push(e.message));
-    await page.goto(`http://127.0.0.1:3017/#${section}`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`http://127.0.0.1:${previewPort}/#${section}`, { waitUntil: 'domcontentloaded' });
     await page.locator(`[data-visual-section="${section}"]`).waitFor();
     await page.waitForTimeout(1200);
     await page.screenshot({ path: path.join(folder, `${theme}-${viewport.tag}.png`), timeout: 15000, animations: 'disabled' });
