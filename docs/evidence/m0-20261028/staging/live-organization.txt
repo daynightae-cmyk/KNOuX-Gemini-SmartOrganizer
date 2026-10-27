@@ -1,0 +1,23 @@
+$ node --max-old-space-size=160 scripts/live-organization-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+VERIFIED Native discovery and per-file category events
+VERIFIED Collision review refuses mutation and preserves source
+VERIFIED Missing approval, tampered hash and declined native consent refuse effects
+VERIFIED 40 real moves: exact hashes, source removal, collision keeper preserved
+VERIFIED Plan replay refused
+VERIFIED Undo refuses modified destination and safely restores other 39 files
+VERIFIED All 40 original source hashes restored exactly
+VERIFIED Journal and undo results survive engine reload
+VERIFIED Same-size content change with restored mtime invalidates approval before effects
+VERIFIED Traversal and revoked session scope refused
+VERIFIED Revoking a source through the existing Studio bridge invalidates live execution
+VERIFIED Native cancellation reaches worker before mutation
+VERIFIED Junction escape excluded from measured scope
+Verified 13 checks; evidence: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\docs\evidence\m0-20261028\staging\organization
+
+STDERR:
+
+EXIT: 0
+DURATION: 8.17s

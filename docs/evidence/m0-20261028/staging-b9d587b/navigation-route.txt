@@ -1,0 +1,10 @@
+[navigation-route-test]
+  ✓ current section is mirrored into a ref
+  ✓ hash listener reads the latest section and registers once
+  ✓ navigateTo and goBack update the ref with the route
+{
+  "ok": true,
+  "checks": 3,
+  "failures": []
+}
+[navigation-route-test] PASS

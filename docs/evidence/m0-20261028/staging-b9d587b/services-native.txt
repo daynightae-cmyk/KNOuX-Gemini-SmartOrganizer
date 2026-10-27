@@ -1,0 +1,31 @@
+  ✓ 12 tools, 6 stages and 6 gates
+  ✓ measured register keeps every service and counts honestly
+  ✓ dependency graph and cascade are computed from measured edges
+  ✓ SCM events and svchost hosts are measured
+  ✓ stop preview is immutable and non-executable
+  ✓ protected service and running dependents block the preview
+  ✓ startup-type diff is preview-only
+  ✓ invalid service, action and startup type are refused
+  ✓ journal records immutable previews only
+  ✓ report separates measured evidence and states no execution
+  ✓ bridge exposes no service-control method
+  ✓ a controlled event failure degrades one stage without inventing data
+  ✓ cancellation settles without a snapshot
+  ✓ journal survives a new bridge instance
+  ✓ native source contains no service-control execution
+  ✓ renderer wires every service descriptor to a specialised workbench
+{
+  "ok": true,
+  "tools": 12,
+  "stages": 6,
+  "gates": 6,
+  "services": 7,
+  "protected": 4,
+  "edges": 4,
+  "events": 2,
+  "svchost": 5,
+  "journalEntries": 3,
+  "planItems": 1,
+  "failures": []
+}
+[services-native-test] PASS

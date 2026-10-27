@@ -1,0 +1,30 @@
+$ node --max-old-space-size=160 scripts/google-oauth-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+[google-oauth-test]
+  ✓ PKCE uses an S256 challenge and high-entropy verifier/state
+  ✓ spreadsheet URL and range validation reject arbitrary hosts/characters
+  ✓ missing client configuration is reported without any network request
+  ✓ malformed client JSON fails closed
+  ✓ state mismatch aborts before token exchange
+  ✓ loopback timeout closes the listener and reports a retryable error
+  ✓ authorization code + PKCE round trip stores only an encrypted refresh token
+  ✓ selected spreadsheet is added by URL/ID and listed with bounded metadata
+  ✓ readSheet returns bounded values and never returns token fields
+  ✓ unselected spreadsheet reads are rejected
+  ✓ stale refresh token clears the local credential and requires reauthorization
+  ✓ disconnect revokes best-effort and removes the local encrypted credential
+  ✓ token exchange network failure is sanitized
+  ✓ renderer/preload surfaces contain no token or client-secret field
+{
+  "ok": true,
+  "checks": 14,
+  "failures": []
+}
+[google-oauth-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 1.79s

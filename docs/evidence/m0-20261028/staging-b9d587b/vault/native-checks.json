@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "name": "Measured tree/filetype/largest/folder analysis and three SHA-256 duplicate groups",
+      "files": 40,
+      "groups": 3
+    },
+    {
+      "name": "No automatic keeper; quarantining the keeper is refused"
+    },
+    {
+      "name": "Tampered plan, missing approval and denied native consent produce no effects"
+    },
+    {
+      "name": "Three real quarantines verified, explicit keeper retained, physical reclaimed bytes remain zero",
+      "receiptId": "cf38f2e0-5414-48c2-881e-7936b31bd12c",
+      "bytes": 8471
+    },
+    {
+      "name": "Cleanup receipts are isolated from the organization journal"
+    },
+    {
+      "name": "Restore refuses occupied original paths without overwrite or automatic rename"
+    },
+    {
+      "name": "Changed vault content excluded even with same size and restored mtime; safe items restore"
+    },
+    {
+      "name": "All 40 fixture source hashes are intact after verified recovery"
+    },
+    {
+      "name": "Report distinguishes estimate, verified vault bytes, restored bytes and physical reclaim"
+    },
+    {
+      "name": "Dedicated vault journal survives restart"
+    },
+    {
+      "name": "Revoked source and vault grants refuse apply"
+    }
+  ],
+  "fixture": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-zcr9NV",
+  "ownerDataTouched": false
+}

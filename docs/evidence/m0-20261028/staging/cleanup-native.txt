@@ -1,0 +1,26 @@
+$ node --max-old-space-size=160 scripts/cleanup-native-test.cjs
+(cwd: D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\.worktrees\unified-20261028\apps\gemini-ui)
+
+STDOUT:
+{
+  "ok": true,
+  "services": 12,
+  "stages": 5,
+  "candidates": 11,
+  "eligibleBytes": 7344,
+  "reviewBytes": 37468,
+  "blockedBytes": 13692,
+  "recycleItems": 3,
+  "unusedItems": 1,
+  "planBlocked": 3,
+  "vaultEntries": 1,
+  "journalEntries": 1,
+  "scheduleOccurrences": 5,
+  "failures": []
+}
+[cleanup-native-test] PASS
+
+STDERR:
+
+EXIT: 0
+DURATION: 0.51s
