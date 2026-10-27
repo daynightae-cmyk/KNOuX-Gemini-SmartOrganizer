@@ -144,6 +144,6 @@ result["finishedAt"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 result["durationSeconds"] = round(time.time() - started, 1)
 result["ok"] = not failures
 OUT.parent.mkdir(parents=True, exist_ok=True)
-OUT.write_text(json.dumps(result, indent=2), encoding="utf-8")
+OUT.write_text(json.dumps(result, indent=2), encoding="utf-8", newline="\n")
 print(json.dumps({"ok": result["ok"], "head": head, "branch": branch, "counts": result["counts"], "unmergedLocalBranches": result["unmergedLocalBranches"], "failures": failures[:20], "failureCount": len(failures), "output": str(OUT)}, indent=2))
 sys.exit(0 if result["ok"] else 1)
