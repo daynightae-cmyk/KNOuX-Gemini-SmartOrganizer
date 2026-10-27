@@ -54,6 +54,9 @@ import './visual/storage-reference.css';
 import './visual/cleanup-reference.css';
 import './visual/startup-reference.css';
 import './visual/system-reference.css';
+import './visual/repair-reference.css';
+// Orbital Service Engine owns every .knx-orbit surface; must load last.
+import './visual/orbital-engine.css';
 // Home's day/night material layer must resolve last: it re-maps the literal
 // dark utilities inside .knx-home-root only, after the global light bridge.
 import './visual/home-reference.css';
@@ -128,7 +131,7 @@ function AppContent() {
 
   return (
     <>
-      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system'].includes(currentSection)}>{renderActiveWorkspace()}</div>
+      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair', 'services'].includes(currentSection)}>{renderActiveWorkspace()}</div>
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

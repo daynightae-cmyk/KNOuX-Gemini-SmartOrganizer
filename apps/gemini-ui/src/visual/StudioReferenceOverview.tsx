@@ -3,7 +3,8 @@ import { ArrowRight, Archive, Box, Check, ChevronRight, CircleHelp, Clock3, File
 import { useStudio } from '../studio/context';
 import { renderCategoryIcon } from '../studio/parts';
 import type { StudioStageId } from '../studio/types';
-import { KnouxMark, ReferenceAtmosphere } from './ReferenceAtmosphere';
+import { ReferenceAtmosphere } from './ReferenceAtmosphere';
+import { OrbitalControl } from './OrbitalControl';
 
 export function StudioReferenceOverview({ onOpen }: { onOpen: (id: StudioStageId) => void }) {
   const s = useStudio();
@@ -45,10 +46,20 @@ export function StudioReferenceOverview({ onOpen }: { onOpen: (id: StudioStageId
       </div>
       <div className="knx-ref-column knx-ref-center">
         <section className="knx-reference-orbit" aria-label={t('Organization tools','أدوات التنظيم')}>
-          <div className="knx-orbit-aura" aria-hidden="true"/><div className="knx-orbit-equator" aria-hidden="true"/><div className="knx-orbit-equator second" aria-hidden="true"/>
-          <div className="knx-reference-ring" aria-hidden="true"/><div className="knx-reference-ring inner" aria-hidden="true"/>
-          <button className="knx-reference-orbit-core" onClick={() => onOpen(6)}><KnouxMark/><strong>{t('Build Organization Plan','بناء خطة التنظيم')}</strong><small>{t('Analyze · Organize · Preview','حلّل · نظّم · عاين')}</small><span><ArrowRight/></span></button>
-          {actions.map((a,i) => <button key={a.id} className={`knx-reference-satellite satellite-${i}`} onClick={() => onOpen(a.id as StudioStageId)}><span><a.icon/></span><strong>{a.label}</strong></button>)}
+          <OrbitalControl
+            title={t('Build Organization Plan','بناء خطة التنظيم')}
+            subtitle={t('Analyze · Organize · Preview','حلّل · نظّم · عاين')}
+            onActivate={() => onOpen(6)}
+            eyebrow={t('Organization Studio tools','أدوات استوديو التنظيم')}
+            tools={actions.map((a, i) => ({
+              id: String(a.id),
+              label: a.label,
+              icon: a.icon,
+              active: a.id === 6,
+              onClick: () => onOpen(a.id as StudioStageId),
+              tone: (['violet', 'blue', 'teal', 'amber', 'emerald', 'rose'] as const)[i % 6],
+            }))}
+          />
         </section>
         <section className="knx-ref-card knx-ref-categories"><div className="knx-ref-card-head"><h2><Layers3/>{t('Category Suggestions','اقتراحات التصنيف')}</h2><button className="knx-ref-pill" onClick={() => onOpen(3)}><SlidersHorizontal/>{t('Customize','تخصيص')}</button></div>
           <div className="knx-ref-category-grid">{categories.map((category,i) => category && <button key={category.key} className="knx-ref-category" onClick={() => { s.setSelectedCategoryKey(category.key); onOpen(2); }}>
