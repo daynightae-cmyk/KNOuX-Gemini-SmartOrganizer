@@ -67,6 +67,7 @@ import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import '../files.css';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { ReferenceAtmosphere } from '../visual/ReferenceAtmosphere';
 
 interface FilesPageProps {
   onNavigateSection?: (section: string) => void;
@@ -462,7 +463,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace">
+        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace" style={{ '--files-inspector-width': activeService && workbenchMode === 'side' ? `${workbenchWidth}px` : '350px' } as React.CSSProperties}>
           {/* Toast feedback */}
           {toastMessage && (
             <div className="absolute top-3 right-6 z-50 px-3.5 py-2 rounded-lg bg-cyan-950/95 border border-cyan-400 text-cyan-200 text-xs shadow-xl flex items-center gap-2">
@@ -472,7 +473,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
           )}
 
           {/* 1. Hero & Commanding Search Area */}
-          <div className="relative pt-3 pb-2 px-6 shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] select-none overflow-hidden">
+          <div className="knx-files-header relative pt-3 pb-2 px-6 shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] select-none overflow-hidden">
+            <ReferenceAtmosphere />
             <div className="absolute inset-0 files-hero-nebula pointer-events-none" />
 
             {/* Breadcrumb & Title */}
@@ -502,6 +504,9 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                     { id: 'search', label: locale === 'en' ? 'Find' : 'بحث', icon: Search, onClick: () => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus() },
                     { id: 'images', label: locale === 'en' ? 'Images' : 'الصور', icon: ImageIcon, onClick: () => setActiveCategory('images') },
                     { id: 'plan', label: locale === 'en' ? 'Organize' : 'تنظيم', icon: FolderTree, onClick: handleOpenStudio },
+                    { id: 'filters', label: locale === 'en' ? 'Filters' : 'الفلاتر', icon: Sliders, onClick: () => { const panel = document.querySelector<HTMLDetailsElement>('.knx-files-advanced'); if (panel) panel.open = true; document.querySelector<HTMLSelectElement>('[data-testid="files-extension"]')?.focus(); } },
+                    { id: 'sources', label: locale === 'en' ? 'Sources' : 'المصادر', icon: Folder, onClick: () => void filesNative.addSource(), disabled: !filesNative.available },
+                    { id: 'preview', label: locale === 'en' ? 'Preview' : 'المعاينة', icon: Maximize2, onClick: () => setPreviewExpanded(p => !p) },
                   ]} />
               </div>
             </div>
@@ -572,6 +577,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 return (
                   <button
                     key={tab.id}
+                    title={tab.label}
                     data-testid={`files-category-${tab.id}`}
                     onClick={() => setActiveCategory(tab.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap ${
@@ -585,13 +591,14 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                         <Icon className="w-3.5 h-3.5" />
                       </span>
                     )}
-                    <span>{tab.label}</span>
+                    <span>{tab.label.replace(/\s*\([^)]*\)/g, '')}</span>
                   </button>
                 );
               })}
             </div>
 
             {/* Sub-Filters Menus (Extension, Size, Date, Location, Sort) */}
+            <details className="knx-files-advanced"><summary>{locale === 'en' ? 'More Filters' : 'فلاتر إضافية'}</summary>
             <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
               <div className="flex flex-wrap items-center gap-2">
                 {/* Extension */}
@@ -728,6 +735,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             </div>
 
             {/* 2. Data Composition Band (Two Horizontal Distribution Gauges) */}
+            </details>
+            <details className="knx-files-distribution"><summary>{locale === 'en' ? 'File type & age breakdown' : 'تفاصيل أنواع الملفات وأعمارها'}</summary>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3 pt-2.5 border-t border-[#0e223d]">
               {/* Distribution 1: File Types */}
               <div className="bg-[#07152b] p-2.5 rounded-lg border border-[#122b50]">
@@ -785,8 +794,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </div>
               </div>
             </div>
+            </details>
           </div>
-
           {/* 3. Main Center Split: Table Register & Right Detail Inspector */}
           <div className="knx-files-split flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
             {/* Left-Center Results Table */}
@@ -992,7 +1001,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
             {/* Right Detail Panel / pinned service workbench */}
             <div
-              className={`shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
+              className={`knx-files-inspector shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
               style={activeService && workbenchMode === 'side' ? { width: `${workbenchWidth}px` } : undefined}
             >
               {activeService && workbenchMode === 'side' ? (

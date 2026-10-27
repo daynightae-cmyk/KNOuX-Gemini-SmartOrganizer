@@ -1,0 +1,26 @@
+.visual-sprint[data-visual-section='files'] [data-testid='files-workspace'] { display:grid; grid-template-columns:minmax(0,1fr) var(--files-inspector-width,350px); grid-template-rows:auto minmax(0,1fr) auto; column-gap:12px; padding:14px 12px 0 16px; background:radial-gradient(ellipse at 55% 20%,#9753ed66,transparent 52%),var(--v-bg) !important; }
+.visual-sprint[data-visual-section='files'] .knx-files-header { grid-column:1; grid-row:1; padding:16px 16px 10px; border:1px solid var(--v-line); border-radius:18px; margin-bottom:12px; background:linear-gradient(140deg,#7550d544,#35227477) !important; box-shadow:var(--v-shadow); isolation:isolate; }
+.visual-sprint[data-visual-section='files'] .knx-files-header .knx-reference-atmosphere { opacity:.55; }
+.visual-sprint[data-visual-section='files'] .knx-files-heading { min-height:204px; gap:10px; }
+.visual-sprint[data-visual-section='files'] .knx-files-heading > div:first-child { max-width:53%; }
+.visual-sprint[data-visual-section='files'] h1 { font-size:36px; margin-bottom:12px; line-height:1.1; }
+.visual-sprint[data-visual-section='files'] .knx-files-orbit { width:340px; height:195px; flex-shrink:0; }
+.visual-sprint[data-visual-section='files'] .knx-files-orbit .knx-orbit { transform:scale(.72); margin-top:0; }
+.visual-sprint[data-visual-section='files'] .knx-files-advanced { margin-top:8px; color:var(--v-muted); font-size:12px; }
+.visual-sprint[data-visual-section='files'] .knx-files-advanced summary { cursor:pointer; padding:5px 8px; border:1px solid var(--v-line); border-radius:8px; width:max-content; background:var(--v-panel-soft); }
+.visual-sprint[data-visual-section='files'] .knx-files-advanced > div { padding-top:8px; }
+.visual-sprint[data-visual-section='files'] [data-testid^='files-category-'] { font-size:12px; padding:8px 9px; border-color:var(--v-line); background:var(--v-panel-soft); }
+.visual-sprint[data-visual-section='files'] [data-testid^='files-category-'][class*='bg-gradient-to-r'] { background:linear-gradient(135deg,#bd81ff,#7634ed) !important; color:#fff !important; box-shadow:inset 0 0 10px #fff4,0 0 14px #ae74f955; }
+.visual-sprint[data-visual-section='files'] [data-testid='files-search'] { min-height:34px; font-size:14px; }
+.visual-sprint[data-visual-section='files'] .knx-files-distribution { font-size:12px; color:var(--v-muted); margin-top:9px; }
+.visual-sprint[data-visual-section='files'] .knx-files-distribution summary { cursor:pointer; padding:3px 0; }
+.visual-sprint[data-visual-section='files'] .knx-files-split { display:contents; }
+.visual-sprint[data-visual-section='files'] .knx-files-split > div:first-child { grid-column:1; grid-row:2; min-height:180px; margin-bottom:10px; }
+.visual-sprint[data-visual-section='files'] .knx-files-inspector { grid-column:2; grid-row:1/span 2; width:100% !important; min-height:0; padding:8px; margin-bottom:10px; border:1px solid #d1aaff; border-radius:18px; background:linear-gradient(135deg,#7154c133,#2d2263aa); box-shadow:0 0 0 3px #ad70f022,0 0 15px #b781ff66; }
+.visual-sprint[data-visual-section='files'] .knx-files-inspector > div { background:var(--v-panel) !important; border-color:var(--v-line); border-radius:14px; }
+.visual-sprint[data-visual-section='files'] .knx-files-inspector > div:first-child { padding:14px; }
+.visual-sprint[data-visual-section='files'] [data-testid='files-footer'] { grid-column:1/-1; grid-row:3; border-radius:12px 12px 0 0; padding-inline:14px; }
+.visual-sprint[data-visual-section='files'] .knx-files-tools { grid-template-columns:repeat(2,minmax(0,1fr)); }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] .knx-files-header { background:linear-gradient(140deg,#ffffffb0,#f1e9fc88) !important; }
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] .knx-files-inspector { background:#faf6ff77; border-color:#cab3ef; box-shadow:0 4px 18px #9b77c422; }
+@media (max-width:1250px) { .visual-sprint[data-visual-section='files'] [data-testid='files-workspace'] { display:flex; padding:12px; overflow-y:auto; }.visual-sprint[data-visual-section='files'] .knx-files-split { display:flex; flex-direction:column; overflow:visible; }.visual-sprint[data-visual-section='files'] .knx-files-split > div:first-child { min-height:360px; flex-shrink:0; }.visual-sprint[data-visual-section='files'] .knx-files-inspector { max-height:620px; flex-shrink:0; }.visual-sprint[data-visual-section='files'] .knx-files-heading { min-height:160px; }.visual-sprint[data-visual-section='files'] .knx-files-heading > div:first-child { max-width:100%; } }
