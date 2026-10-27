@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Clean Room (Mission 08).
  *
@@ -264,6 +265,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
             data-testid="cleanup-workspace"
             className="cln-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
+          <CommandCanvas locale={locale} heroTypes={[CleanupHero]} toolTypes={[ServiceRail]}>
             <CleanupHero
               locale={locale}
               controller={controller}
@@ -355,6 +357,8 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
                 </span>
               ) : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="cln-actionbar" data-testid="cleanup-actionbar">

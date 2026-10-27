@@ -24,12 +24,14 @@ import {
 } from './model';
 import type { ApplicationsController } from './useApplications';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import type { DomainServiceKey } from '../lib/app-inventory';
 
 interface ApplicationsHeroProps {
   locale: AppsLocale;
   controller: ApplicationsController;
   selectedCount: number;
   onBuildPlan: () => void;
+  onOpenService: (service: DomainServiceKey) => void;
 }
 
 function KpiCard({
@@ -84,6 +86,7 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
   controller,
   selectedCount,
   onBuildPlan,
+  onOpenService,
 }) => {
   const { inventory, updates, capabilities, refreshing } = controller;
   const kpis = inventory?.kpis;
@@ -126,6 +129,9 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
             { id: 'inventory', label: t(locale, 'Inventory', 'الجرد'), icon: LayoutGrid, onClick: () => void controller.refreshInventory(true), disabled: refreshing || !controller.nativeAvailable },
             { id: 'updates', label: t(locale, 'Updates', 'التحديثات'), icon: RefreshCw, onClick: () => void controller.checkUpdates(), disabled: !controller.nativeAvailable },
             { id: 'export', label: t(locale, 'Export', 'تصدير'), icon: Download, onClick: controller.exportInventory, disabled: !inventory },
+            { id: 'publishers', label: t(locale, 'Publishers', 'الناشرون'), icon: Building2, onClick: () => onOpenService('app-publisher') },
+            { id: 'footprint', label: t(locale, 'Footprint', 'المساحة'), icon: Database, onClick: () => onOpenService('app-size') },
+            { id: 'startup', label: t(locale, 'Startup links', 'روابط الإقلاع'), icon: Zap, onClick: () => onOpenService('app-startup-impact') },
           ]} />
         <div className="knx-apps-hero-actions flex flex-wrap items-center justify-end gap-2">
           {selectedCount > 0 ? (

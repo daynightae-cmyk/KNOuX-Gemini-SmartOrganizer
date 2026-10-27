@@ -9,11 +9,12 @@ html[data-theme='light'] .visual-sprint:has(.knx-command-canvas) {
   --v-bg:#f6f8ff; --v-panel:#ffffffed; --v-panel-soft:#f3f5ff; --v-ink:#171753;
   --v-muted:#5c6597; --v-line:#dfe5ff; --v-accent:#7144ef;
 }
-.visual-sprint:has(.knx-command-canvas) > :first-child { width:100%; height:100%; min-height:0; }
+.visual-sprint:has(.knx-command-canvas) > :first-child { width:100%; height:100dvh; min-height:0; }
 .visual-sprint[data-visual-section] main:has(> .knx-command-canvas) {
   display:flex; flex-direction:column; flex:1 1 0; min-height:0; min-width:0; height:0;
   overflow:visible; padding:12px; gap:0; background:var(--v-bg) !important;
 }
+.visual-sprint:is([data-visual-section='home'],[data-visual-section='storage']) main:has(> .knx-command-canvas) { height:auto; align-self:stretch; }
 .visual-sprint[data-visual-section] .knx-command-canvas { display:flex; flex-direction:column; flex:1 1 0; height:0; min-height:0; min-width:0; gap:10px; color:var(--v-ink); }
 .visual-sprint[data-visual-section] .knx-command-hero { flex-shrink:0; min-width:0; position:relative; z-index:5; }
 .visual-sprint[data-visual-section] .knx-command-hero:empty { display:none; }
@@ -40,6 +41,10 @@ html[data-theme='light'] .visual-sprint:has(.knx-command-canvas) {
 .visual-sprint[data-visual-section] .knx-command-hero :is(.cln-hero-actions,.stp-hero-actions,.knx-apps-hero-actions) { grid-column:1/-1; justify-content:flex-start; margin:0; gap:8px; }
 .visual-sprint[data-visual-section] .knx-command-hero :is(.knx-scan-controls,.cln-scan-strip,.stp-bootline) { grid-column:1/-1; margin:8px 0 0; padding:8px; min-height:0; }
 .visual-sprint[data-visual-section] .knx-command-hero .knx-scan-controls > div { padding:8px; }
+.visual-sprint[data-visual-section='smart_scan'] .knx-command-hero .scan-hero { grid-template-rows:auto auto; }
+.visual-sprint[data-visual-section='smart_scan'] .knx-command-hero .scan-hero > div:first-child { grid-column:1; grid-row:1; }
+.visual-sprint[data-visual-section='smart_scan'] .knx-command-hero .scan-hero > .knx-orbit { grid-column:2; grid-row:1 / span 2; align-self:center; }
+.visual-sprint[data-visual-section='smart_scan'] .knx-command-hero .knx-scan-controls { grid-column:1; grid-row:2; margin:0; padding:0; }
 .visual-sprint[data-visual-section] .knx-command-hero :is(.apps-hero-meta,.sys-hero-chips) { margin:8px 0; gap:6px; font-size:12px; }
 .visual-sprint[data-visual-section] .knx-command-hero :is(.apps-kpi-grid,.cln-kpis,.stp-kpis) { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:10px 0 0; }
 .visual-sprint[data-visual-section] .knx-command-hero .apps-kpi-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
@@ -91,6 +96,11 @@ html[data-theme='light'] .visual-sprint:has(.knx-command-canvas) {
 .visual-sprint[data-visual-section='home'] .knx-command-hero > div { gap:10px; }
 .visual-sprint[data-visual-section='home'] .knx-command-panel > div { height:100%; min-height:0; }
 .visual-sprint[data-visual-section='home'] .knx-command-panel .knx-deck-panel { flex-shrink:0; }
+.visual-sprint[data-visual-section='automation'] :is(.auto-library-search input,.auto-editor-toolbar input,.auto-panel-head p,.auto-meta-row,.auto-empty p,.auto-kpi em,.auto-name-field,.auto-library-section h3,.auto-workflow-row,.auto-library-template,.sys-hero-eyebrow) { font-size:12px; line-height:1.4; }
+.visual-sprint[data-visual-section='automation'] :is(.auto-panel-head h2,.auto-empty strong,.auto-workflow-row strong,.auto-library-template strong) { font-size:14px; }
+.visual-sprint[data-visual-section='automation'] .auto-editor-toolbar { min-height:46px; gap:8px; }
+.visual-sprint[data-visual-section='automation'] .auto-editor-toolbar button { font-size:12px; min-height:30px; }
+.visual-sprint[data-visual-section='automation'] .auto-editor-grid { grid-template-columns:220px minmax(0,1fr) 280px; }
 /* Studio stays in its accepted composition; only its columns own scrolling. */
 .visual-sprint[data-visual-section='studio'] main > .knx-studio-reference { display:flex; flex-direction:column; flex:1 1 0; height:0; min-height:0; overflow:visible; }
 .visual-sprint[data-visual-section='studio'] .knx-studio-reference-grid { flex:1; height:0; min-height:0; grid-template-rows:minmax(0,1fr); align-items:stretch; }

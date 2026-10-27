@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer - Service Commander (Mission 12).
  *
@@ -189,6 +190,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
         <KNOuXSidebar activeSection="services" onNavigate={navigate} isArabic={locale === AR} />
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar svc-main" data-testid="services-workspace">
+          <CommandCanvas locale={locale}>
             <section className="sys-hero svc-hero" data-testid="services-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -391,6 +393,8 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
               <span><Lock aria-hidden="true" />{t(locale, 'No StartService/StopService/ChangeServiceConfig or sc.exe channel exists in Mission 12.', 'لا توجد قناة StartService/StopService/ChangeServiceConfig أو sc.exe في المهمة 12.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="sys-actionbar svc-actionbar" data-testid="services-actionbar">

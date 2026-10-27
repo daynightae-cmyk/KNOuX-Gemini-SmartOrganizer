@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer - Recovery Lab (Mission 11).
  *
@@ -225,6 +226,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
 
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar rep-main" data-testid="repair-workspace">
+          <CommandCanvas locale={locale}>
             <section className="sys-hero rep-hero" data-testid="repair-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -384,6 +386,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </section>
 
               <aside className="rep-brief" data-testid="repair-brief" style={{ '--rep-accent': selectedTool.accent } as React.CSSProperties}>
+                <div className="rep-brief-content">
                 <header className="rep-brief-head">
                   <span className="rep-brief-icon" aria-hidden="true"><SelectedToolIcon /></span>
                   <div>
@@ -440,6 +443,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                   ) : null}
                 </div>
 
+                </div>
                 <div className="rep-brief-actions">
                   <button type="button" className="sys-btn sys-btn-primary" data-testid="repair-open-selected" onClick={() => openWorkbench(selectedToolId)} disabled={!snapshot}>
                     <ArrowRight aria-hidden="true" />{t(locale, 'Review repair', 'مراجعة الإصلاح')}
@@ -517,6 +521,8 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               <span><Lock aria-hidden="true" />{t(locale, 'No DISM, SFC, DNS flush, Winsock/TCPIP reset, service reset, restore or driver command exists in Mission 11.', 'لا يوجد أمر DISM أو SFC أو مسح DNS أو إعادة Winsock/TCPIP أو خدمة أو استعادة أو تعريف في المهمة 11.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="sys-actionbar rep-actionbar" data-testid="repair-actionbar">

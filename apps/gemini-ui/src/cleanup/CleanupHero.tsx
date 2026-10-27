@@ -204,6 +204,8 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
         </div>
       </div>
 
+      <details className="cln-scope-details" open={scanning || undefined}>
+        <summary>{t(locale, 'Discovery scope & age', 'نطاق الاستكشاف وعمر الملفات')} · {categories.length}</summary>
       <div className="cln-scan-strip">
         <div className="cln-category-toggles" role="group" aria-label={t(locale, 'Discovery categories', 'فئات الاستكشاف')}>
           {SCAN_CATEGORIES.map((key) => {
@@ -269,6 +271,7 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
           </button>
         ) : null}
       </div>
+      </details>
     </section>
   );
 }

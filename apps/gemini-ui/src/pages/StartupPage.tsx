@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Boot Control (Mission 09).
  *
@@ -268,6 +269,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
             data-testid="startup-workspace"
             className="stp-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
+          <CommandCanvas locale={locale} heroTypes={[StartupHero]} toolTypes={[ServiceRail]}>
             <StartupHero locale={locale} controller={controller} onOpenService={openService} />
 
             {!controller.nativeAvailable ? (
@@ -362,6 +364,8 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
                 </span>
               ) : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="stp-actionbar" data-testid="startup-actionbar">

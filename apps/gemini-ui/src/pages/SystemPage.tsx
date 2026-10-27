@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — System Live Pulse (Mission 10).
  *
@@ -455,6 +456,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
 
         <div className="sys-shell-main">
           <main className="sys-main knx-custom-scrollbar" data-testid="system-workspace">
+          <CommandCanvas locale={locale}>
             <section className="sys-hero" data-testid="system-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -546,6 +548,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
                   { id: 'memory', label: t(locale, 'Memory', 'الذاكرة'), icon: MemoryStick, onClick: () => openService('hardware-memory'), disabled: !snapshot },
                   { id: 'disk', label: t(locale, 'Disk', 'القرص'), icon: HardDrive, onClick: () => openService('hardware-disks'), disabled: !snapshot },
                   { id: 'events', label: t(locale, 'Events', 'الأحداث'), icon: Activity, onClick: () => openService('system-events'), disabled: !snapshot },
+                  { id: 'network', label: t(locale, 'Network', 'الشبكة'), icon: Network, onClick: () => openService('network-interfaces'), disabled: !snapshot },
                 ]} />
               <aside className="sys-source-card" data-testid="system-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true">
@@ -914,6 +917,8 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
               <span><Lock aria-hidden="true" />{t(locale, 'No process, service, driver, hosts, proxy, adapter, repair or power write exists in Mission 10.', 'لا توجد كتابة للعمليات أو الخدمات أو برامج التشغيل أو hosts أو الوكيل أو المحول أو الإصلاح أو الطاقة في المهمة 10.')}</span>
               {controller.lastSampleAt ? <span><Clock aria-hidden="true" />{t(locale, 'Last sample', 'آخر عينة')}: {formatTimestamp(controller.lastSampleAt, locale)}</span> : null}
             </div>
+
+          </CommandCanvas>
           </main>
 
           <footer className="sys-actionbar" data-testid="system-actionbar">

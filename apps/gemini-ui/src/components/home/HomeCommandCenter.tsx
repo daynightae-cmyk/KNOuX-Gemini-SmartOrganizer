@@ -1,7 +1,7 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * 
+ *
  * KNOuX SmartOrganizer — Home Command Center Upper Section
  * Region A: Hero & Master Command Search with Earth Horizon Scene
  * Region B: 6 KPI Cards (System Health, Indexed Files, Space Reclaimable, Active Automations, Apps Monitored, Services Healthy)
@@ -9,6 +9,7 @@
  */
 
 import React, { useState } from 'react';
+import { OrbitParticles } from '../../visual/OrbitParticles';
 import {
   Search,
   Shield,
@@ -388,11 +389,12 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
     <div className="flex flex-col gap-3 relative z-10 shrink-0">
       {/* REGION A: HERO BANNER WITH ATMOSPHERIC EARTH HORIZON */}
       <section className="relative min-h-[96px] pt-1 pb-1 flex flex-col justify-between overflow-hidden" aria-label="Hero Command Center">
+        <OrbitParticles className="knx-home-particles" />
         {/* Full-width curved Earth Horizon scene across the top */}
-        <EarthHorizonScene isAr={isAr} />
+        <EarthHorizonScene isAr={isAr} className="knx-home-cosmic" />
 
         {/* Top Header Row inside Hero: Title, Subtitle, and Right Tagline */}
-        <div className="flex items-start justify-between relative z-10">
+        <div className="knx-home-hero-heading flex items-start justify-between relative z-10">
           <div>
             <h1 className="text-2xl sm:text-[27px] font-extrabold text-white tracking-tight leading-tight">
               {isAr ? 'مركز قيادة KNOuX الذكي' : 'Home Command Center'}

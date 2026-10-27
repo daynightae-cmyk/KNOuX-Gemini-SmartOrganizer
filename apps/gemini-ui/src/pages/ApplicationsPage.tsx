@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Applications Software Register (Mission 05).
  *
@@ -231,11 +232,13 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
             data-testid="apps-workspace"
             className="apps-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
           >
+          <CommandCanvas locale={locale} heroTypes={[ApplicationsHero]} toolTypes={[ApplicationServices]}>
             <ApplicationsHero
               locale={locale}
               controller={controller}
               selectedCount={checkedIds.size}
               onBuildPlan={buildPlanFromSelection}
+              onOpenService={setActiveService}
             />
 
             {!controller.nativeAvailable ? (
@@ -325,6 +328,8 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
                 </span>
               ) : null}
             </div>
+
+          </CommandCanvas>
           </main>
         </div>
       </div>

@@ -1,7 +1,8 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * 
+ *
  * KNOuX SmartOrganizer — REF-00 Home Command Center Main Page
  */
 
@@ -162,6 +163,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         />
 
         <main className="flex-1 h-full min-h-0 flex flex-col overflow-hidden bg-gradient-to-b from-[#050c1b] via-[#050a15] to-[#030710] px-4 py-2.5 gap-3">
+          <CommandCanvas locale={locale} heroTypes={[HomeCommandCenter]} primaryTypes={[HomeDashboardPanels]}>
           {/* REGION A & B: HERO & 6 KPIS IN ONE SINGLE ROW ACROSS TOP */}
           <HomeCommandCenter
             locale={locale}
@@ -194,7 +196,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               />
             }
           />
-        </main>
+
+          </CommandCanvas>
+          </main>
       </div>
 
       {/* COMMAND PALETTE MODAL (Ctrl + K) */}

@@ -1,3 +1,4 @@
+import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -318,6 +319,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
         {/* 3. Main Scrollable Canvas (Hero + Top Strip + Volume Bays + Analysis + Inspector + Services) */}
         <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
+          <CommandCanvas locale={isArabic ? 'ar' : 'en'} statusTypes={[StorageBanner]}>
           {/* Hero Section */}
           <div className="knx-storage-hero relative z-10">
             <div>
@@ -336,6 +338,9 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                 { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
                 { id: 'map', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, onClick: () => setActiveTab('treemap'), active: activeTab === 'treemap' },
                 { id: 'large', label: isArabic ? 'الكبيرة' : 'Large files', icon: Folder, onClick: () => setActiveTab('large'), active: activeTab === 'large' },
+                { id: 'disks', label: isArabic ? 'الأقراص' : 'Disk details', icon: Server, onClick: () => setActiveService('storage-disks') },
+                { id: 'duplicates', label: isArabic ? 'المكررات' : 'Duplicates', icon: Copy, onClick: () => setActiveService('storage-duplicates') },
+                { id: 'folders', label: isArabic ? 'المجلدات' : 'Top folders', icon: FolderTree, onClick: () => setActiveService('storage-top-folders') },
               ]} />
           </div>
 
@@ -359,7 +364,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           />
 
           {/* 4. Top Measurement Strip (5 Cards) */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="knx-storage-metrics grid grid-cols-2 md:grid-cols-5 gap-3">
             {/* 1. Connected Volumes */}
             <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-slate-700/60 flex items-center gap-3 shadow-lg shadow-black/20">
               <div className="p-2.5 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300">
@@ -417,7 +422,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           </div>
 
           {/* 5. Main Volume Bays (3 Columns) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="knx-storage-volumes grid grid-cols-1 md:grid-cols-3 gap-3">
             {filteredVolumes.map((vol) => {
               const isSelected = vol.id === selectedVolume?.id;
               return (
@@ -1054,7 +1059,9 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             </div>
           </div>
 
-        </main>
+
+          </CommandCanvas>
+          </main>
       </div>
 
       {/* 8. Sticky Action Footer */}
