@@ -8,6 +8,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSection, useNavigation } from '../../context/NavigationContext';
+import { KnouxMark } from '../../visual/ReferenceAtmosphere';
 import { NativeBridgePanel } from '../../native/NativeBridgePanel';
 import { controlNativeWindow, getNativeShell, readBridgeStatus } from '../../native/client';
 import type { BridgeStatusData } from '../../../shared/native-contracts';
@@ -259,8 +260,9 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
           onClick={() => onNavigate('home')}
           className="p-3.5 pb-2.5 flex items-center gap-3 border-b border-[#0e223d]/70 cursor-pointer hover:bg-[#07152b] transition-colors"
         >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_16px_rgba(37,99,235,0.7)] shrink-0 border border-cyan-400/40">
-            <span className="text-base font-black text-white">K</span>
+          <div className="knx-sidebar-brand-emblem w-9 h-9 rounded-xl bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_16px_rgba(37,99,235,0.7)] shrink-0 border border-cyan-400/40">
+            <span className="knx-shell-lettermark text-base font-black text-white">K</span>
+            <KnouxMark className="knx-shell-ribbonmark" />
           </div>
           <div className="leading-tight">
             <div className="text-sm font-bold text-white tracking-wide">KNOuX</div>

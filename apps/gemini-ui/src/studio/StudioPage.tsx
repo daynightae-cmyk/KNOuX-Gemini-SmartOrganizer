@@ -20,6 +20,7 @@ import { NativeStudioBanner } from './NativeStudioBanner';
 import { StudioVisualHeader } from '../visual/StudioVisualHeader';
 import { KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation } from '../context/NavigationContext';
+import { StudioReferenceOverview } from '../visual/StudioReferenceOverview';
 
 // Workspaces for each of the 9 stages
 import { SourceGrantWorkspace } from './workspaces/SourceGrantWorkspace';
@@ -37,6 +38,18 @@ import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbenc
 export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => void }) {
   const { activeStageId, locale, setLocale, stages, authorizedSources, selectedFileIds } = useStudio();
   const navigation = useNavigation();
+  const [overviewVisible, setOverviewVisible] = useState(true);
+  const studio = useStudio();
+  useEffect(() => { setLocale(navigation.locale); }, [navigation.locale, setLocale]);
+  const openStage = (id: import('./types').StudioStageId) => { studio.setActiveStageId(id); setOverviewVisible(false); };
+  useEffect(() => {
+    const openKeyboardStage = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLElement && event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
+      if (/^[1-9]$/.test(event.key)) setOverviewVisible(false);
+    };
+    window.addEventListener('keydown', openKeyboardStage);
+    return () => window.removeEventListener('keydown', openKeyboardStage);
+  }, []);
   const [dpiScale, setDpiScale] = useState<'100%' | '125%' | '150%'>('100%');
   const [stageWorkbenchMode, setStageWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.studio.workbench.mode') === 'side' ? 'side' : 'expanded'; } catch { return 'expanded'; }
@@ -115,6 +128,8 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
 
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden">
+          {overviewVisible ? <StudioReferenceOverview onOpen={openStage} /> : <>
+          <button className="knx-reference-back" onClick={() => setOverviewVisible(true)}>{locale === 'ar' ? '→ العودة إلى لوحة التنظيم' : '← Organization overview'}</button>
           {/* Top Atmospheric Header Area */}
           <div className="shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] pb-1">
             {/* 01 — Cinematic Planet Header */}
@@ -186,6 +201,7 @@ export function StudioPage({ onNavigate }: { onNavigate?: (section: string) => v
               </div>
             }
           />
+          </>}
         </main>
       </div>
     </div>

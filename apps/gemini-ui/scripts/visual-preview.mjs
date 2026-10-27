@@ -24,7 +24,7 @@ try {
     await page.goto(`http://127.0.0.1:3017/#${section}`, { waitUntil: 'domcontentloaded' });
     await page.locator(`[data-visual-section="${section}"]`).waitFor();
     await page.waitForTimeout(1200);
-    await page.screenshot({ path: path.join(folder, `${theme}-1672x941.png`), timeout: 15000 });
+    await page.screenshot({ path: path.join(folder, `${theme}-1672x941.png`), timeout: 15000, animations: 'disabled' });
     const layout = await page.evaluate(() => ({
       horizontalOverflow: document.documentElement.scrollWidth > innerWidth,
       headings: [...document.querySelectorAll('h1')].map(e => e.textContent),
