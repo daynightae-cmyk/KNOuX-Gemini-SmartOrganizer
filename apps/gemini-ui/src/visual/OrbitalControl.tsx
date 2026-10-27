@@ -127,7 +127,8 @@ export function OrbitalControl({
               style={{ '--orbit-angle': `${index * span - 90}deg` } as React.CSSProperties}
               onClick={tool.onClick}
               disabled={tool.disabled || toolState === 'disabled' || toolState === 'unavailable' || toolState === 'loading'}
-              aria-current={toolState === 'active' ? 'step' : undefined}
+              aria-current={toolState === 'active' && tool.active === undefined ? 'step' : undefined}
+              aria-pressed={typeof tool.active === 'boolean' ? tool.active : undefined}
               aria-busy={toolState === 'loading' || undefined}
               title={tool.hint ? `${tool.label} — ${tool.hint}` : undefined}
             >
