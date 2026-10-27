@@ -8,7 +8,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeSection, useNavigation } from '../../context/NavigationContext';
-import { KnouxMark } from '../../visual/ReferenceAtmosphere';
+import { KnouxMark, KnouxCircularEmblem } from '../../visual/ReferenceAtmosphere';
 import { NativeBridgePanel } from '../../native/NativeBridgePanel';
 import { controlNativeWindow, getNativeShell, readBridgeStatus } from '../../native/client';
 import type { BridgeStatusData } from '../../../shared/native-contracts';
@@ -145,7 +145,11 @@ export interface KNOuXLogoProps {
 
 /**
  * Canonical KNOuX Logo Emblem
- * Vibrant royal-to-cyan gradient shield with bold white 'K'
+ *
+ * The default presentation is the approved circular brand mark on a transparent
+ * field. Reference-shell screens keep their own established mark treatment via
+ * `.visual-sprint[data-reference-shell='true']`, and Home opts into the circular
+ * emblem through `.knx-home-root`; neither path adds a square tile or border.
  */
 export const KNOuXLogo: React.FC<KNOuXLogoProps> = ({
   size = 'sm',
@@ -174,6 +178,7 @@ export const KNOuXLogo: React.FC<KNOuXLogoProps> = ({
       >
         <span className={`${textKClass} knx-shell-lettermark text-white leading-none tracking-tight`}>K</span>
         <KnouxMark className="knx-title-official-mark" />
+        <KnouxCircularEmblem className="knx-circular-mark knx-title-circular-mark" />
       </div>
       {showText && (
         <div className="leading-tight">
@@ -264,6 +269,7 @@ export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
           <div className="knx-sidebar-brand-emblem w-9 h-9 rounded-xl bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_16px_rgba(37,99,235,0.7)] shrink-0 border border-cyan-400/40">
             <span className="knx-shell-lettermark text-base font-black text-white">K</span>
             <KnouxMark className="knx-shell-ribbonmark" />
+            <KnouxCircularEmblem className="knx-circular-mark knx-sidebar-circular-mark" />
           </div>
           <div className="leading-tight">
             <div className="text-sm font-bold text-white tracking-wide">KNOuX</div>

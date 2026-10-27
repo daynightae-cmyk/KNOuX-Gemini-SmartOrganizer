@@ -467,12 +467,8 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center border shadow-sm"
-                    style={{
-                      borderColor: `${kpi.color}40`,
-                      backgroundColor: `${kpi.color}15`,
-                      color: kpi.color,
-                    }}
+                    className="knx-kpi-chip w-7 h-7 rounded-lg flex items-center justify-center border shadow-sm"
+                    style={{ '--knx-chip': kpi.color } as React.CSSProperties}
                   >
                     {renderIcon(kpi.icon, 'w-3.5 h-3.5')}
                   </div>
@@ -481,7 +477,10 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                       {isAr ? kpi.titleAr : kpi.title}
                     </div>
                     {kpi.badge && (
-                      <span className="text-[10px] font-medium flex items-center gap-1" style={{ color: kpi.badgeColor || '#10b981' }}>
+                      <span
+                        className="knx-kpi-badge text-[10px] font-medium flex items-center gap-1"
+                        style={{ '--knx-chip': kpi.badgeColor || '#10b981' } as React.CSSProperties}
+                      >
                         {kpi.badge}
                       </span>
                     )}
@@ -489,7 +488,11 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                 </div>
 
                 {/* No fabricated trend: a single measured-status dot only. */}
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: kpi.badgeColor || kpi.color }} title={kpi.badge || 'Not measured'} />
+                <span
+                  className="knx-kpi-dot w-2 h-2 rounded-full shrink-0"
+                  style={{ '--knx-chip': kpi.badgeColor || kpi.color } as React.CSSProperties}
+                  title={kpi.badge || 'Not measured'}
+                />
               </div>
 
               {/* Metric Value & Subtext */}

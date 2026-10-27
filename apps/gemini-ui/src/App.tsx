@@ -54,6 +54,9 @@ import './visual/storage-reference.css';
 import './visual/cleanup-reference.css';
 import './visual/startup-reference.css';
 import './visual/system-reference.css';
+// Home's day/night material layer must resolve last: it re-maps the literal
+// dark utilities inside .knx-home-root only, after the global light bridge.
+import './visual/home-reference.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';

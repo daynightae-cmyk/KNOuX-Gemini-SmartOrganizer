@@ -128,7 +128,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     <div
       dir={isAr ? 'rtl' : 'ltr'}
       data-testid="home-workspace"
-      className="w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative"
+      className="knx-home-root w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative"
       style={{
         fontFamily: isAr
           ? "'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif"

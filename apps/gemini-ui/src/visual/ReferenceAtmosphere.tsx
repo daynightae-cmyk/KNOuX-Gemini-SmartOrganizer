@@ -4,6 +4,33 @@ export function KnouxMark({ className = '' }: { className?: string }) {
   return <img className={`knx-official-mark ${className}`} src={new URL('./assets/knoux-official-logo.png', import.meta.url).href} alt="" aria-hidden="true" draggable={false} />;
 }
 
+/**
+ * Approved circular KNOuX brand emblem (daylight master).
+ *
+ * The source PNG carries its own transparent alpha outside the circular
+ * silhouette, so this renders the artwork alone: no gradient tile, no border
+ * and no rounded-rectangle backing. The accessible product name is supplied by
+ * the adjacent real text wherever the emblem is smaller than the artwork's own
+ * wordmark can legibly read.
+ */
+export function KnouxCircularEmblem({
+  className = '',
+  label = '',
+}: {
+  className?: string;
+  label?: string;
+}) {
+  return (
+    <img
+      className={`knx-circular-emblem ${className}`}
+      src={new URL('./assets/knoux-circular-logo-day.png', import.meta.url).href}
+      alt={label ? label : ''}
+      aria-hidden={label ? undefined : true}
+      draggable={false}
+    />
+  );
+}
+
 /** Procedural decorative light; contains no telemetry or simulated operation state. */
 export function ReferenceAtmosphere() {
   const points = Array.from({ length: 190 }, (_, i) => ({ x: ((i * 137 + 31) % 997), y: ((i * 89 + 17) % 601), r: i % 17 === 0 ? 2.5 : .7 }));
