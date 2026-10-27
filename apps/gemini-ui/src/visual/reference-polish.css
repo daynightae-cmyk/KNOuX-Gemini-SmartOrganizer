@@ -4,6 +4,9 @@
 .visual-sprint[data-reference-shell='true'] .knx-title-official-mark { display:block; width:30px; height:30px; }
 .visual-sprint[data-reference-shell='true'] .knx-title-brand-emblem { width:30px; height:30px; background:transparent !important; border:0; box-shadow:none; }
 .visual-sprint .knx-orbit-core > .knx-official-mark { width:54px; height:54px; margin-bottom:3px; }
+.visual-sprint .knx-orbit { height:290px; overflow:hidden; isolation:isolate; }
+.visual-sprint .knx-orbit-track { top:25px; }.visual-sprint .knx-orbit-track-inner { top:37.5px; }.visual-sprint .knx-orbit-core { top:48px; }
+.visual-sprint .knx-orbit-tool { left:calc(50% + 135px * cos((var(--orbit-index) * 360deg / var(--orbit-count)) - 90deg)); top:calc(47% + 96px * sin((var(--orbit-index) * 360deg / var(--orbit-count)) - 90deg)); }
 .knx-reference-orbit-core > .knx-official-mark { width:79px; height:79px; margin-bottom:5px; }
 .visual-sprint[data-reference-shell='true'] .knx-sidebar-brand-emblem { width:49px; height:49px; }
 .visual-sprint[data-reference-shell='true'] .knx-shell-ribbonmark { width:49px; height:49px; filter:drop-shadow(0 3px 7px #110a3333); }

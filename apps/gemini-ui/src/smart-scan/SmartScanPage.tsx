@@ -313,6 +313,14 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               onRunDeep={handleRunDeep}
               onCancel={() => void scan.cancelActive()}
             />
+            <aside className="knx-scan-status">
+              <h2>{isArabic ? 'حالة الفحص المباشرة' : 'Live Scan Status'}</h2>
+              <p>{scan.active ? (isArabic ? 'الفحص جارٍ على النطاق المصرح.' : 'Measuring the authorized scope.') : (isArabic ? 'بانتظار فحص يبدأ باختيارك.' : 'Ready when you choose to scan.')}</p>
+              <ScanStageConsole active={scan.active} summary={scan.session?.summary || null} stages={stages} isArabic={isArabic} />
+              {!scan.active && !scan.session && <div className="knx-ref-empty"><ShieldCheck/><strong>{isArabic ? 'لم يبدأ الفحص' : 'No scan has started'}</strong><small>{isArabic ? 'لا تُعرض نتائج أو نسبة نجاح قبل القياس.' : 'Results and progress appear only after measurement.'}</small></div>}
+              <FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)} />
+              <RecentScans records={recent} isArabic={isArabic} selectedId={scan.session?.id || null} onSelect={sessionId => void handleSelectHistory(sessionId)} loading={scan.busy} />
+            </aside>
 
             {!scan.nativeAvailable ? (
               <div className="flex items-start gap-2 rounded-xl border border-amber-500/35 bg-amber-950/20 px-3 py-2 text-[10px] text-amber-200 shrink-0">
@@ -350,16 +358,6 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
                 />
               </div>
 
-              <div className="scan-side-column lg:col-span-1 2xl:col-span-3 flex flex-col gap-3 h-[360px] 2xl:h-full min-h-0 overflow-y-auto knx-custom-scrollbar pr-0.5">
-                <FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)} />
-                <RecentScans
-                  records={recent}
-                  isArabic={isArabic}
-                  selectedId={scan.session?.id || null}
-                  onSelect={(sessionId) => void handleSelectHistory(sessionId)}
-                  loading={scan.busy}
-                />
-              </div>
 
               <div className="scan-inspector-column lg:col-span-1 2xl:col-span-3 h-[360px] 2xl:h-full min-h-0">
                 <ScanReviewInspector selectedItem={selectedItem} isArabic={isArabic} hasSession={Boolean(scan.session)} />
@@ -368,12 +366,6 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
           </main>
 
           <div className="shrink-0 flex flex-col gap-2 px-3 sm:px-4 pb-3 pt-2 bg-[#050e1f]/90 border-t border-[#11294a] backdrop-blur-md z-30">
-            <ScanStageConsole
-              active={scan.active}
-              summary={scan.session?.summary || null}
-              stages={stages}
-              isArabic={isArabic}
-            />
             <ScanCommandBar
               session={scan.session}
               active={scan.active}
