@@ -1,12 +1,14 @@
 import {_electron as electron,expect} from '@playwright/test';
 import {createRequire} from 'node:module';
+import {execFileSync} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 const require=createRequire(import.meta.url),{fixture}=require('./live-organization-fixtures.cjs');
 const out=path.resolve(process.env.KNOUX_STUDIO_STRESS_DIR||'../../docs/evidence/studio-domain/stress');await mkdir(out,{recursive:true});
-const proof={checks:[],cases:[],ownerDataTouched:false,errors:[]};
+const counts=process.env.KNOUX_STUDIO_STRESS_COUNTS?process.env.KNOUX_STUDIO_STRESS_COUNTS.split(',').map(Number):[0,600,10001];if(!counts.length||counts.some(n=>![0,600,10001].includes(n)))throw Error('Only bounded acceptance fixtures are allowed');
+const proof={checks:[],cases:[],ownerDataTouched:false,errors:[],sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim()};
 try{
- for(const count of [0,600,10001]){
+ for(const count of counts){
   const f=await fixture(0),extensions=['png','mp4','txt','pdf','zip','mp3','js','bin'];
   const deep=path.join('deep','nested','source','folders');await mkdir(path.join(f.source,deep),{recursive:true});
   for(let i=0;i<count;i++){const name=`item-${String(i).padStart(5,'0')}.${extensions[i%8]}`;const relative=i===0?path.join(deep,'long-'+('n'.repeat(100))+'.txt'):name;await writeFile(path.join(f.source,relative),'Disposable measured inventory '+i);}
