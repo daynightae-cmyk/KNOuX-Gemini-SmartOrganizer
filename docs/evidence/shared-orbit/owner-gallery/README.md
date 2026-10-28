@@ -1,0 +1,15 @@
+# Current application DAY / NIGHT gallery — 2026-10-28
+
+Application source: `a780326c405e4ef6e841d137e77f84c884cfcdde`, canonical local `main`.
+
+Open `index.html`. It links 30 real Windows packaged Electron captures: the 14 primary sections and Cinematic Intro, each DAY/NIGHT. Every gallery original is independently checked at exactly 1672×941 and SHA-256 recorded in `screenshots-manifest.json`. Contact sheets are resized previews; the linked PNGs are the originals.
+
+Home is IMPLEMENTED / PARTIALLY VERIFIED, with six working labelled SVG orbital controls. It is not owner accepted. Its taller Hero changes the approved reference composition and pushes lower System Overview / Quick Access content into the bounded scrolling panel. Final visual gate remains BLOCKED_OWNER_SIGNOFF. Other sections are shown in their actual current empty, loading, unavailable or preview states; these screenshots do not prove completion of every domain service. In particular, some Workspace integrations remain explicitly labelled previews.
+
+Home uses actual read-only machine providers. Its three indexed files and move/restore activity belong to the isolated disposable fixture from the native test; they are not owner files. The missing reclaim estimate remains unknown. No account connection or operating-system mutation was executed for this gallery. Home navigation produced no new operation receipt.
+
+Evidence: `../packaged-domains/proof.json` records 14 sections, both themes and 84 layout cases, no renderer errors, six SVG controls per section, equal DAY/NIGHT orbit geometry and reduced motion. `../packaged-home/proof.json` records actual delivered IPC responses, six action routes, keyboard navigation, fixture move/restore hashes, reduced motion and honest Native-unavailable behavior. `capture-proof.json` verifies the final four Home/Intro captures and actual Enter Workspace / Skip transitions.
+
+Evidence limitation discovered during image inspection: the earlier `packaged-home/home-{en,ar}-{theme}-{width}.png` responsive filenames do NOT reflect their actual bitmap dimensions: all those loop captures were 1920×1050, because the native window remained maximized. They are preserved as diagnostic evidence, excluded from this gallery, and do NOT establish exact 1366×768 / 1920×1080 acceptance. The final gallery capture explicitly unmaximizes the window and asserts both renderer and native bitmap dimensions. This delivery claims exact 1672×941 only. Requested dimensions alone and Overflow=0 do not prove visual fidelity.
+
+Workspace Guard PASS at application source SHA. TypeScript/build and scoped native-contract/provider/workbench checks are recorded in the adjacent shared-orbit logs from the implementation run. No application source or Electron configuration changed during this capture request; two capture/gallery scripts and evidence were added. Original commits, untracked evidence and external preservation backups remain intact. No push, merge, deployment or Production acceptance is claimed.
