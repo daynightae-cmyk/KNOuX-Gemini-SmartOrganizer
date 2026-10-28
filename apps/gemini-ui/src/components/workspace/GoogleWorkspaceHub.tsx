@@ -43,6 +43,7 @@ import { KNOuXTitleBar, KNOuXSidebar } from '../shell/KNOuXShellComponents';
 import { useNavigation } from '../../context/NavigationContext';
 import { GoogleSheetsWorkbench, SCOPE_ROWS } from '../../workspace/GoogleSheetsWorkbench';
 import { useGoogleWorkspace } from '../../workspace/useGoogleWorkspace';
+import {KnouxOrbit} from '../../visual/KnouxOrbit';
 
 interface GoogleWorkspaceHubProps {
   locale?: 'en' | 'ar';
@@ -1076,6 +1077,8 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
           ? (isAr ? 'خطأ في اتصال Google' : 'Google connection error')
           : (isAr ? 'غير متصل — OAuth جاهز للمراجعة' : 'Not connected — OAuth ready for review');
 
+  function selectOrbitService(id:HubServiceId){setActiveService(id);const first=(localAdditions[id]??[])[0]??(BASE_ITEMS[id]??[])[0];setSelectedItemId(first?.id||'');}
+
   return (
     <div dir={isAr ? 'rtl' : 'ltr'} className="w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative" data-testid="workspace-hub">
       <KNOuXTitleBar
@@ -1132,6 +1135,9 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
           </div>
         </div>
 
+        <div className="knx-domain-orbit-compact" data-testid="workspace-orbit"><KnouxOrbit title="Workspace" subtitle={activeService==='sheets'&&googleConnected?(isAr?'قراءة متصلة':'Read-only connection'):(isAr?'معاينة · بلا API حي':'Preview · no live API')} state={!google.bridgeAvailable?'unavailable':activeService==='sheets'&&googleConnected?'ready':'partial'} onActivate={()=>setIsOAuthModalOpen(true)} tools={([
+          {id:'sheets',label:isAr?'الجداول':'Sheets',icon:FileSpreadsheet},{id:'gmail',label:'Gmail',icon:Mail},{id:'tasks',label:isAr?'المهام':'Tasks',icon:CheckSquare},{id:'forms',label:isAr?'النماذج':'Forms',icon:FileQuestion},{id:'contacts',label:isAr?'جهات الاتصال':'Contacts',icon:Users},{id:'calendar',label:isAr?'التقويم':'Calendar',icon:Calendar},
+        ] as const).map((tool,i)=>({...tool,active:activeService===tool.id,hint:tool.id==='sheets'?'Open the Sheets consent/workbench; never connect automatically':'Local design preview only; no Google API execution',onClick:()=>selectOrbitService(tool.id),position:[{x:25,y:17},{x:75,y:17},{x:12,y:51},{x:88,y:51},{x:25,y:83},{x:75,y:83}][i]}))}/></div>
         <div className="flex items-center gap-2.5 shrink-0">
           <div className="flex items-center gap-2" data-testid="workspace-connection-state">
             <span className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-[11px] font-mono ${googleConnected ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : googleConnection === 'error' ? 'bg-rose-500/10 border-rose-500/30 text-rose-300' : 'bg-amber-500/10 border-amber-500/30 text-amber-300'}`}>

@@ -44,6 +44,7 @@ import {
 } from 'lucide-react';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation } from '../context/NavigationContext';
+import {KnouxOrbit} from '../visual/KnouxOrbit';
 
 export interface SettingsPageProps {
   onNavigateSection?: (section: string) => void;
@@ -794,6 +795,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
               </div>
             </div>
 
+            <div className="knx-domain-orbit-compact" data-testid="settings-orbit"><KnouxOrbit title={isArabic?'الإعدادات':'Settings'} subtitle={isArabic?'تفضيلات محلية فقط':'Local preferences only'} state="partial" onActivate={()=>setActiveTab('guard')} tools={([
+              {id:'engine',label:isArabic?'الأداء':'Engine',icon:Cpu},{id:'ai_keys',label:isArabic?'جلسة AI':'AI Session',icon:Key},{id:'guard',label:isArabic?'الخصوصية':'Privacy',icon:Shield},{id:'appearance',label:isArabic?'المظهر':'Appearance',icon:Palette},{id:'language',label:isArabic?'اللغة':'Language',icon:Languages},{id:'backup',label:isArabic?'الملف':'Profile',icon:Database},
+            ] as const).map((tool,i)=>({...tool,active:activeTab===tool.id,onClick:()=>setActiveTab(tool.id),position:[{x:25,y:17},{x:75,y:17},{x:12,y:51},{x:88,y:51},{x:25,y:83},{x:75,y:83}][i]}))}/></div>
             <div className="z-10 flex items-center gap-2">
               <button
                 onClick={handleSaveAll}

@@ -280,6 +280,9 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   {id:'templates', label:t(locale,'Templates','القوالب'), icon:LayoutTemplate, onClick:() => openTool('auto-templates'), disabled:!snapshot},
                   {id:'schedule', label:t(locale,'Schedule','الجدولة'), icon:Clock3, onClick:() => openTool('auto-schedule-plan'), disabled:!snapshot},
                   {id:'history', label:t(locale,'History','السجل'), icon:History, onClick:() => openTool('auto-run-history'), disabled:!snapshot},
+                    {id:'scheduled-scan',label:t(locale,'Scan Draft','مسودة الفحص'),icon:Search,onClick:()=>openTool('auto-smart-scan'),disabled:!snapshot,hint:'Schedule preview only; no task is installed'},
+                    {id:'transfer',label:t(locale,'Transfer','النقل'),icon:Download,onClick:()=>openTool('auto-export'),disabled:!snapshot},
+                    {id:'retention',label:t(locale,'Retention','الاحتفاظ'),icon:History,onClick:()=>openTool('auto-retention'),disabled:!snapshot,hint:'Review-only retention preview; no deletion'},
                 ]}/>
               <aside className="sys-source-card auto-source-card" data-testid="automation-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>

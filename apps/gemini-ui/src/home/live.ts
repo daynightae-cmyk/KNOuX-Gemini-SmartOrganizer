@@ -18,6 +18,7 @@ import type {
 } from '../../shared/native-contracts';
 import type {OperationReceipt} from '../../shared/operation-contract';
 import {measuredProviderData} from './provider-result';
+import {boundedHomeRead} from './native-read';
 import { readServicesSummary, readSystemSummary } from '../native/client';
 import { listFilesSources, queryFilesInventory } from '../files/native';
 import { loadAppsInventory } from '../apps/native';
@@ -72,14 +73,14 @@ export function useHomeLive() {
     const errors: string[] = [];
 
     const [systemResult, servicesResult, sourcesResult, scansResult, appsResult, workflowsResult, journalResult, receiptResult] = await Promise.allSettled([
-      readSystemSummary(),
-      readServicesSummary(),
-      listFilesSources(),
-      loadScanHistory(),
-      loadAppsInventory(),
-      loadAutomationWorkflows(),
-      loadAutomationJournal(),
-      window.knouxOperationsV1?.history()||Promise.resolve(null),
+      boundedHomeRead('system summary',readSystemSummary),
+      boundedHomeRead('services summary',readServicesSummary),
+      boundedHomeRead('files sources',listFilesSources),
+      boundedHomeRead('scan history',loadScanHistory),
+      boundedHomeRead('applications inventory',loadAppsInventory),
+      boundedHomeRead('automation workflows',loadAutomationWorkflows),
+      boundedHomeRead('automation journal',loadAutomationJournal),
+      boundedHomeRead('organization receipts',()=>window.knouxOperationsV1?.history()||Promise.resolve(null)),
     ]);
 
     const system=measuredProviderData(systemResult,'system summary',errors);
@@ -96,7 +97,7 @@ export function useHomeLive() {
     const source = sources.find((entry) => entry.status === 'ready') || sources[0] || null;
     if (source) {
       try {
-        const query = await queryFilesInventory({ sourceId: source.id, limit: 6, sort: 'modified', desc: true });
+        const query = await boundedHomeRead('recent files '+source.id,()=>queryFilesInventory({ sourceId: source.id, limit: 6, sort: 'modified', desc: true }));
         files = measuredProviderData({status:'fulfilled',value:query},'recent files',errors)?.rows ?? [];
         if (query?.data?.unsupported) errors.push(`recent files: ${query.data.unsupported}`);
       } catch (error) {

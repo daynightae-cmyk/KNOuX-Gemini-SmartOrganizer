@@ -37,7 +37,7 @@ import {
   PageId,
   INITIAL_DECK_TILES,
 } from '../../lib/home-ui';
-import { RecoveredHomeOrbit } from './RecoveredHomeOrbit';
+import { HomeOrbit } from './HomeOrbit';
 
 // 3D Isometric Technical Visuals for each Command Deck card
 const renderDeckBackgroundGraphic = (id: string) => {
@@ -430,7 +430,7 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
         <button type="button" onClick={onOpenPalette} aria-label={isAr?'فتح لوحة التنقل':'Open workspace palette'}><Search size={18}/><span>{isAr?'انتقل إلى مساحة عمل أو أداة بالاسم…':'Jump to a workspace, service, or tool…'}</span><kbd>Ctrl + K</kbd></button>
         <p>{isAr?'اختر أداة من المدار. معاينة الأثر والموافقة تتم داخل خدمتها.':'Choose an orbital tool. Review its impact and approve changes inside its workspace.'}</p>
         </div>
-        <RecoveredHomeOrbit isArabic={isAr} onNavigate={onNavigate}/>
+        <HomeOrbit isArabic={isAr} onNavigate={onNavigate} providerStatus={liveStatus}/>
 
       </section>
 
