@@ -1,3 +1,5 @@
+OWNER VISUAL OVERRIDE 2026-10-28: Read 10_VISUAL_FIDELITY_ZERO_COMPROMISE_20261028.md before ANY domain visual work. Real Electron functional PASS does NOT override a VISUAL_FAIL; match original DAY/NIGHT reference geometry, premium composition, and same functional layout in both themes. The Organization Studio screen is visually owner-rejected pending correction.
+
 OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
 
 # KNOuX Unified Atomic Domains

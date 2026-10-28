@@ -15,7 +15,7 @@ try{
   try{
    await app.evaluate(({dialog},f)=>{dialog.showOpenDialog=async(_p,o)=>({canceled:false,filePaths:[o.title.includes('source')?f.source:f.destination]});dialog.showMessageBox=async()=>{throw Error('Mutation forbidden in inventory-only test');};},f);
    page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));await page.waitForLoadState('domcontentloaded');await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_locale','en');location.hash='studio';});await page.reload();
-   await page.getByTestId('ops-source').click();const start=Date.now();await page.getByTestId('ops-scan').click();await expect(page.getByTestId('ops-result-count')).toContainText(count.toLocaleString()+' / '+count.toLocaleString(),{timeout:180000});result.scanMs=Date.now()-start;
+   await page.getByTestId('studio-service-select').selectOption('1');await page.getByTestId('ops-source').click();const start=Date.now();await page.getByTestId('ops-scan').click();await expect(page.getByTestId('ops-result-count')).toContainText(count.toLocaleString()+' / '+count.toLocaleString(),{timeout:180000});result.scanMs=Date.now()-start;
    const mounted=await page.getByTestId('ops-file-card').count();result.mountedCards=mounted;expect(mounted).toBeLessThan(100);
    await page.getByTestId('ops-destination').click();
    if(!count){await expect(page.getByTestId('ops-plan')).toBeDisabled();proof.checks.push('Empty Native inventory reports zero; no fabricated content or executable plan');}
@@ -26,7 +26,7 @@ try{
     const plannedCount=count>10000?1:count;const planStart=Date.now();await page.getByTestId('ops-plan').click();await expect(page.locator('.ops-plan-proof')).toContainText(plannedCount+' files',{timeout:180000});result.planMs=Date.now()-planStart;
     await page.getByTestId('ops-before-after').locator('.os-hierarchy').nth(1).getByRole('button',{name:'Expand',exact:true}).click();expect(await page.getByTestId('ops-before-after').locator('.os-tree-row').count()).toBeLessThan(120);
     await page.getByTestId('ops-select-none').click();await expect(page.getByTestId('ops-plan')).toBeDisabled();await expect(page.getByTestId('ops-approve')).toBeDisabled();
-    await page.getByTestId('ops-stage-2').click();await page.getByTestId('ops-file-search').fill('long-');await page.getByTestId('ops-file-card').locator('input').check();await expect(page.getByTestId('ops-plan')).toBeEnabled();
+    await page.getByTestId('studio-service-select').selectOption('2');await page.getByTestId('ops-file-search').fill('long-');await page.getByTestId('ops-file-card').locator('input').check();await expect(page.getByTestId('ops-plan')).toBeEnabled();
     proof.checks.push(`${count} Native files: bounded DOM; deep/long paths; search/sort selection persistence; exact Native plan within the independent 10,000-file bound; empty-selection refusal`);
    }
    await page.screenshot({path:path.join(out,`inventory-${count}.png`),animations:'disabled'});result.ok=true;

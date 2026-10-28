@@ -1,4 +1,6 @@
 # Security, visuals, release & integrity checks
+
+MANDATORY OWNER VISUAL GATE: see 10_VISUAL_FIDELITY_ZERO_COMPROMISE_20261028.md. Visual acceptance is independent of code/native PASS. The original paired PNG files and exact manifest hashes are required; side-by-side composition + DAY/NIGHT parity + per-service interaction must pass or the domain stays VISUAL_FAIL.
 Native: renderer has NO unrestricted shell/raw IPC; main validates window/frame/origin and resource scope. Narrow allowlisted typed endpoints; immutable hash-bound plans and revalidate immediately before mutations. Deny protected Windows core and symlink escape. Distinguish simulated fixture from live Windows with visible source-mode status.
 Progress and PREVIEW: emit only real source events; no fake percentages, temperatures, cleanup savings, application health or cloud sync. Cancellation, partial errors, source age, operation logs and provenance visible. Undo only after verifying targets unchanged.
 Security: explicit user confirmation for every OS/file/network/account mutating action, UAC only for fixed safe runner. No credentials in renderer/DevTools/storage. OAuth scope per API and revoke flows. State machine never auto-executes an approved old plan after restart.
