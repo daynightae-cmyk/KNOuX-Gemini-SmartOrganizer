@@ -35,7 +35,8 @@ const CAT = require(path.join(STUDIO_DIR, 'folder-categories.cjs'));
 const { createOrganizationEngine } = require(path.join(STUDIO_DIR, 'studio-organization.cjs'));
 const { createThumbnailService } = require(path.join(STUDIO_DIR, 'studio-thumbnails.cjs'));
 
-const MAX_FILES = 10000;
+// Metadata-only discovery may exceed the executor’s independent 10,000-file plan bound.
+const MAX_FILES = 50000;
 const MAX_DEPTH = 32;
 const MAX_THUMBNAILS = 24;
 const MAX_PREVIEW_PLANS = 20;

@@ -1,90 +1,84 @@
 import {_electron as electron,expect} from '@playwright/test';
 import {createRequire} from 'node:module';
-import {mkdir,writeFile,readFile,access} from 'node:fs/promises';
+import {mkdir,writeFile,readFile,access,stat,utimes,rename} from 'node:fs/promises';
 import path from 'node:path';
 const require=createRequire(import.meta.url),{fixture,sha}=require('./live-organization-fixtures.cjs');
-const f=await fixture(40),out=path.resolve(process.env.KNOUX_ORGANIZATION_ELECTRON_DIR||'../../docs/evidence/live-organization/electron');await mkdir(out,{recursive:true});
+const f=await fixture(40),out=path.resolve(process.env.KNOUX_ORGANIZATION_ELECTRON_DIR||'../../docs/evidence/studio-domain/electron');
+await mkdir(out,{recursive:true});
+// One real decodable image proves the Native thumbnail path, never a renderer file URL.
+const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAIAAAABgCAYAAADVenpJAAABL0lEQVR4nO3SMRHAMAwEsALrXC7m0jk0CsJLWLkw/nKnQQx03c+epApbYR12CSCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAghwdoDak1RhK6zDBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQ4PMC7J6nCVliHCSCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAggggAACCCCAAAIIIIAAAghweIBvT1KFrbAOE0AAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEEEAAAQQQQAABBBBgTg7wA30LN72IacZYAAAAAElFTkSuQmCC','base64');
+await writeFile(path.join(f.source,'item-00.png'),png);f.originals['item-00.png']=sha(png);
 const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
-const app=await electron.launch({executablePath:require('electron'),args:['--disable-gpu','--js-flags=--max-old-space-size=160',path.resolve('electron/main.cjs'),`--knoux-user-data=${f.profile}`],env,timeout:60000});
-const proof={fixture:f.root,checks:[],errors:[],views:[]};
-try {
- const profile=await app.evaluate(({app})=>app.getPath('userData'));expect(path.resolve(profile)).toBe(path.resolve(f.profile));
- await app.evaluate(({dialog},f)=>{
-  globalThis.__liveFixtureConfirmations=[];
-  dialog.showOpenDialog=async(_parent,options)=>{
-   const selected=options.title.includes('source')?f.source:options.title==='Choose an output destination'?f.destination:null;
-   if(!selected)throw Error('Unexpected picker in isolated test');
-   return{canceled:false,filePaths:[selected]};
-  };
-  dialog.showMessageBox=async(_parent,options)=>{
-   if(options.title!=='KNOuX — exact operation approval')throw Error('Unexpected confirmation in isolated test');
-   globalThis.__liveFixtureConfirmations.push({title:options.title,message:options.message,detail:options.detail});
-   return{response:1,checkboxChecked:false};
-  };
- },f);
- const page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));
- await page.waitForLoadState('domcontentloaded');
- await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_locale','en');localStorage.setItem('knoux_theme','light');location.hash='files';});
- await page.reload();await page.getByTestId('files-live-organization').waitFor({timeout:60000});
- await page.evaluate(()=>{window.__liveEvents=[];window.knouxOperationsV1.onEvent(e=>window.__liveEvents.push(e));});
- const untrusted=await app.evaluate(async({BrowserWindow},dist)=>{
-  const window=new BrowserWindow({show:false,webPreferences:{preload:pathForTest(dist),contextIsolation:true,sandbox:true}});
-  function pathForTest(dist){return dist+'/electron/preload.cjs';}
-  await window.loadURL('data:text/html,<p>untrusted fixture frame</p>');
-  const r=await window.webContents.executeJavaScript('window.knouxOperationsV1.history()');window.destroy();return r;
- },path.resolve('.').replaceAll('\\','/'));
- expect(untrusted.status).toBe('permission_denied');proof.checks.push('Untrusted BrowserWindow is denied by the production sender guard');
+const packagedExe=process.env.KNOUX_STUDIO_PACKAGED_EXE;const launch=()=>electron.launch({executablePath:packagedExe||require('electron'),args:['--disable-gpu','--disable-features=CalculateNativeWinOcclusion','--disable-backgrounding-occluded-windows','--disable-renderer-backgrounding','--js-flags=--max-old-space-size=180',...(!packagedExe?[path.resolve('electron/main.cjs')]:[]),'--knoux-user-data='+f.profile],env,timeout:60000});let app=await launch();
+const proof={fixture:f.root,checks:[],errors:[],views:[]};let page;
+async function capture(name){const w=await app.browserWindow(page);const png=await w.evaluate(async win=>{win.show();win.webContents.invalidate();return (await win.webContents.capturePage()).toPNG().toString('base64');});await writeFile(path.join(out,name),Buffer.from(png,'base64'));}
+try{
+ proof.runtime=await app.evaluate(({app})=>({isPackaged:app.isPackaged,version:app.getVersion()}));expect(proof.runtime.isPackaged).toBe(Boolean(packagedExe));
+ expect(path.resolve(await app.evaluate(({app})=>app.getPath('userData')))).toBe(path.resolve(f.profile));
+ await app.evaluate(({dialog,session},f)=>{session.defaultSession.on('will-download',(_event,item)=>item.setSavePath(f.root+'/exported-evidence.json'));globalThis.__confirmations=[];dialog.showOpenDialog=async(_p,options)=>{const selected=options.title.includes('source')?f.source:options.title==='Choose an output destination'?f.destination:null;if(!selected)throw Error('Unexpected isolated picker');return {canceled:false,filePaths:[selected]};};dialog.showMessageBox=async(_p,options)=>{if(options.title!=='KNOuX — exact operation approval')throw Error('Unexpected confirmation');globalThis.__confirmations.push({message:options.message,detail:options.detail});return {response:1,checkboxChecked:false};};},f);
+ page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));await page.waitForLoadState('domcontentloaded');
+ await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_locale','en');localStorage.setItem('knoux_theme','light');location.hash='files';});await page.reload();
+ await page.getByTestId('files-live-organization').click();await expect(page.getByTestId('organization-live-workbench')).toBeVisible();
+ expect(await page.locator('.knx-live-organization').count()).toBe(0);proof.checks.push('Files navigates into dedicated Studio; generic overlay is absent');
+ await page.evaluate(()=>{window.__events=[];window.knouxOperationsV1.onEvent(e=>window.__events.push(e));});
+ const untrusted=await app.evaluate(async({BrowserWindow},root)=>{const w=new BrowserWindow({show:false,webPreferences:{preload:root+'/electron/preload.cjs',contextIsolation:true,sandbox:true}});await w.loadURL('data:text/html,<p>untrusted fixture frame</p>');const response=await w.webContents.executeJavaScript('window.knouxOperationsV1.history()');w.destroy();return response;},packagedExe?await app.evaluate(({app})=>app.getAppPath().replaceAll('\\','/')):path.resolve('.').replaceAll('\\','/'));expect(untrusted.status).toBe('permission_denied');proof.checks.push('Untrusted BrowserWindow denied by production sender guard');
  const invalid=await page.evaluate(()=>window.knouxOperationsV1.plan({sourcePath:'C:/not-authorized'}));expect(invalid.error.code).toBe('OPERATION_INVALID_INPUT');
- proof.checks.push('Fixed IPC allowlist rejects raw path payload');
- await page.getByTestId('files-live-organization').click();
- await page.getByTestId('ops-source').click();await expect(page.getByTestId('ops-scan')).toBeEnabled();
- await page.getByTestId('ops-scan').click();await expect(page.getByTestId('ops-plan')).toBeDisabled();
- await expect(page.locator('.ops-trees input[type=checkbox]')).toHaveCount(40,{timeout:60000});
- await expect(page.getByTestId('ops-destination')).toBeEnabled();await page.getByTestId('ops-destination').click();
- await expect(page.getByTestId('ops-plan')).toBeEnabled();await page.getByTestId('ops-plan').click();
- await expect(page.locator('.ops-plan-proof code')).toBeVisible({timeout:60000});
- proof.checks.push('Real folder picker adapter → incremental native inventory → exact hashed before/after plan');
- for(const theme of ['light','dark']) {
+ await page.getByTestId('ops-source').click();await page.getByTestId('ops-scan').click();
+ await expect(page.getByTestId('ops-result-count')).toContainText('40 / 40',{timeout:60000});
+ await expect(page.getByTestId('ops-file-card')).toHaveCount(40);await expect(page.locator('.os-file-preview img').first()).toBeVisible({timeout:20000});
+ proof.checks.push('Actual Native inventory and safe Native image thumbnail; icons for unsupported media');
+ await page.getByTestId('ops-file-search').fill('item-00');await expect(page.getByTestId('ops-file-card')).toHaveCount(1);
+ await page.getByTestId('ops-file-card').locator('input').uncheck();await page.getByTestId('ops-file-search').fill('');await page.getByTestId('ops-file-sort').selectOption('size');await expect(page.locator('.os-file-card input:checked')).toHaveCount(39);
+ await page.getByTestId('ops-select-none').click();await expect(page.getByTestId('ops-plan')).toBeDisabled();
+ await page.getByTestId('ops-select-all').click();await page.getByTestId('ops-stage-3').click();await page.getByRole('textbox',{name:'Collection name',exact:true}).fill('Measured fixture set');await page.getByTestId('ops-save-collection').click();await expect(page.locator('.os-collection-grid')).toContainText('Measured fixture set');
+ await page.getByRole('button',{name:'Edit members',exact:true}).click();await expect(page.getByTestId('ops-stage-2')).toHaveAttribute('aria-current','step');await page.getByTestId('ops-file-card').first().locator('input').uncheck();await page.getByTestId('ops-stage-3').click();await page.getByTestId('ops-save-collection').click();
+ const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('knoux.studio.measured-collections.v1')));expect(saved[0].paths.length).toBe(39);
+ await page.getByRole('button',{name:'Use in plan',exact:true}).click();await expect(page.getByTestId('ops-stage-4')).toHaveAttribute('aria-current','step');
+ await page.getByTestId('ops-select-all').click();await page.getByTestId('ops-destination').click();await page.getByTestId('ops-plan').click();await expect(page.locator('.ops-plan-proof')).toContainText('40 files',{timeout:60000});
+ const planHash=await page.locator('.ops-plan-proof code').textContent();expect(planHash).toMatch(/^[a-f0-9]{64}$/);
+ await page.getByTestId('ops-approve').check();await page.getByTestId('ops-stage-4').click();await page.getByTestId('ops-operation').selectOption('copy');await expect(page.getByTestId('ops-approve')).not.toBeChecked();await expect(page.getByTestId('ops-execute')).toBeDisabled();
+ await page.getByTestId('ops-operation').selectOption('move');await page.getByTestId('ops-plan').click();await expect(page.locator('.ops-plan-proof')).toContainText('40 files');
+ proof.checks.push('Search/sort retain selection; zero-selection refusal; persisted editable collection; rule changes invalidate exact approval');
+ // Each scene has its own controls and shared immutable plan. Capture all nine at the approved reference size.
+ for(const theme of ['light','dark']){
   await page.evaluate(theme=>{document.documentElement.dataset.theme=theme;},theme);
-  for(const [width,height] of [[1366,768],[1672,941]]) {
-   await (await app.browserWindow(page)).evaluate((window,{width,height})=>window.setContentSize(width,height),{width,height});
-   await page.screenshot({path:path.join(out,`preview-${theme}-${width}.png`),animations:'disabled'});
-   const geometry=await page.getByTestId('organization-live-workbench').evaluate(e=>{const r=e.getBoundingClientRect();const f=e.querySelector('footer').getBoundingClientRect();return{height:r.height,bottom:r.bottom,footerBottom:f.bottom,viewport:innerHeight,scrollable:[...e.querySelectorAll('*')].some(x=>getComputedStyle(x).overflowY==='auto'&&x.scrollHeight>x.clientHeight)};});
-   expect(geometry.footerBottom).toBeLessThanOrEqual(geometry.viewport);expect(geometry.scrollable).toBe(true);proof.views.push({theme,width,height,...geometry});
-  }
+  await (await app.browserWindow(page)).evaluate(w=>w.setContentSize(1672,941));
+  for(let stage=1;stage<=9;stage++){await page.getByTestId('ops-stage-'+stage).click();await capture(`stage-${stage}-${theme}.png`);}
  }
+ // Check actual Electron content sizes and browser zoom, not a scaled fake viewport.
+ for(const locale of ['en','ar'])for(const theme of ['light','dark'])for(const [width,height] of [[1366,768],[1672,941],[1920,1080]])for(const zoom of [1,1.25,1.5]){
+  await (await app.browserWindow(page)).evaluate((w,{width,height,zoom})=>{w.setContentSize(width,height);w.webContents.setZoomFactor(zoom);},{width,height,zoom});
+  await page.evaluate(theme=>{document.documentElement.dataset.theme=theme;},theme);
+  // Use the real title-bar language control, rather than only changing dir.
+  const dir=await page.getByTestId('organization-live-workbench').getAttribute('dir');if(dir!==(locale==='ar'?'rtl':'ltr'))await page.getByTitle('Toggle Arabic / English', {exact:true}).click();
+  await expect(page.getByTestId('organization-live-workbench')).toHaveAttribute('dir',locale==='ar'?'rtl':'ltr');
+  await page.getByTestId('ops-stage-2').click();
+  const geometry=await page.getByTestId('organization-live-workbench').evaluate(e=>{const dock=e.querySelector('.os-action-dock').getBoundingClientRect(),stage=e.querySelector('.os-stage').getBoundingClientRect(),buttons=[...e.querySelectorAll('.os-action-dock button,[data-testid=ops-source],[data-testid=ops-scan],[data-testid=ops-destination]')].map(b=>{const r=b.getBoundingClientRect();return {right:r.right,left:r.left,bottom:r.bottom,top:r.top};});return {pageOverflow:document.documentElement.scrollHeight-innerHeight,dockBottom:dock.bottom,dockHeight:dock.height,viewport:innerHeight,width:innerWidth,stageHeight:stage.height,buttons};});
+  expect(geometry.pageOverflow).toBeLessThanOrEqual(4);expect(geometry.dockBottom).toBeLessThanOrEqual(geometry.viewport+1);expect(geometry.stageHeight).toBeGreaterThan(60);expect(geometry.buttons.every(b=>b.left>=-1&&b.right<=geometry.width+1&&b.bottom<=geometry.viewport+1&&b.top>=0)).toBe(true);proof.views.push({locale,theme,width,height,zoom,...geometry});
+  if(zoom===1)await capture(`library-${locale}-${theme}-${width}.png`);
+ }
+ await (await app.browserWindow(page)).evaluate(w=>{w.webContents.setZoomFactor(1);w.setContentSize(1672,941);});
+ if(await page.getByTestId('organization-live-workbench').getAttribute('dir')==='rtl')await page.getByTitle('Toggle Arabic / English', {exact:true}).click();
  await page.getByTestId('workbench-mode-toggle').click();await expect(page.getByTestId('organization-live-workbench')).toHaveAttribute('data-workbench-mode','side');await page.getByTestId('workbench-mode-toggle').click();
- await page.getByTestId('ops-approve').check();await page.getByTestId('ops-execute').click();
- await expect(page.getByTestId('ops-receipt')).toBeVisible({timeout:60000});await expect(page.getByTestId('ops-undo-preview')).toBeEnabled();
- const moved=await page.evaluate(async()=>{const r=await window.knouxOperationsV1.history();return r.data[0];});
- expect(moved.completedFiles).toBe(40);expect(moved.failedFiles).toBe(0);expect(moved.planHash).toMatch(/^[a-f0-9]{64}$/);expect(moved.entries.every(e=>e.hash&&e.verification==='sha256')).toBe(true);
- for(const e of moved.entries) {const target=path.join(f.destination,e.targetRelative);expect(sha(await readFile(target))).toBe(f.originals[e.name]);await expect(access(path.join(f.source,e.sourceRelative))).rejects.toThrow();}
- await page.screenshot({path:path.join(out,'moved-receipt.png'),animations:'disabled'});proof.checks.push('UI exact approval → native copy/hash/verify/unlink → 40 verified moves and durable receipt');
- await page.getByTestId('ops-undo-preview').click();await expect(page.getByTestId('ops-undo')).toBeEnabled();await page.getByTestId('ops-undo').click();
- await expect(page.getByTestId('ops-receipt')).toContainText('40 restored',{timeout:60000});
+ await page.keyboard.press('9');await expect(page.getByTestId('ops-stage-9')).toHaveAttribute('aria-current','step');await page.locator('.os-suggestions article button').first().click();await expect(page.getByTestId('ops-stage-4')).toHaveAttribute('aria-current','step');
+ await page.getByTestId('ops-select-all').click();await page.getByTestId('ops-plan').click();await expect(page.locator('.ops-plan-proof')).toContainText('40 files');
+ await page.getByTestId('ops-approve').check();await page.getByTestId('ops-execute').click();await expect(page.getByTestId('ops-receipt')).toContainText('40 verified files',{timeout:90000});
+ const moved=await page.evaluate(async()=>(await window.knouxOperationsV1.history()).data[0]);expect(moved.entries.every(e=>e.hash&&e.verification==='sha256')).toBe(true);
+ for(const e of moved.entries){expect(sha(await readFile(path.join(f.destination,e.targetRelative)))).toBe(f.originals[e.name]);await expect(access(path.join(f.source,e.sourceRelative))).rejects.toThrow();}
+ await capture('execution-verified.png');
+ await page.getByTestId('ops-stage-8').click();
+ const movedEntry=moved.entries[0],movedPath=path.join(f.destination,movedEntry.targetRelative),savedBytes=await readFile(movedPath),savedStat=await stat(movedPath);await writeFile(movedPath,'Changed disposable target');await page.getByTestId('ops-undo-preview').click();await page.getByTestId('ops-undo-approve').check();await expect(page.getByTestId('ops-undo')).toBeDisabled();expect(await page.getByTestId('ops-undo').getAttribute('title')).toContain('changed files');await writeFile(movedPath,savedBytes);await utimes(movedPath,savedStat.atimeMs/1000,savedStat.mtimeMs/1000);
+ const occupied=path.join(f.source,movedEntry.sourceRelative);await writeFile(occupied,'New disposable source occupant');await page.getByTestId('ops-undo-preview').click();await page.getByTestId('ops-undo-approve').check();await expect(page.getByTestId('ops-undo')).toBeDisabled();await rename(occupied,path.join(f.root,'preserved-new-occupant.txt'));proof.checks.push('UI refuses inverse execution for changed target or newly occupied source path');
+ await page.getByTestId('ops-undo-preview').click();await expect(page.getByTestId('ops-undo')).toBeDisabled();await page.getByTestId('ops-undo-approve').check();await page.getByTestId('ops-undo').click();await expect(page.getByTestId('ops-receipt')).toContainText('40 restored',{timeout:90000});
  for(const [name,hash] of Object.entries(f.originals))expect(sha(await readFile(path.join(f.source,name)))).toBe(hash);
- await page.screenshot({path:path.join(out,'restored-receipt.png'),animations:'disabled'});proof.checks.push('UI undo preview → separate native confirmation → all 40 source hashes restored');
- const receipts=await page.evaluate(async()=> (await window.knouxOperationsV1.history()).data);proof.receipts=receipts;
- proof.events=await page.evaluate(()=>window.__liveEvents);proof.confirmations=await app.evaluate(()=>globalThis.__liveFixtureConfirmations);
- expect(proof.confirmations).toHaveLength(2);expect(proof.events.some(e=>e.phase==='discovered')).toBe(true);expect(proof.events.every((e,i,a)=>i===0||e.sequence>a[i-1].sequence)).toBe(true);
- await page.getByTestId('workbench-close').click();
- await expect(page.locator('[data-testid^="files-row-native-"]')).toHaveCount(40);
- await page.locator('[data-testid^="files-row-native-"]').first().locator(':scope > div').first().click();
- await page.getByTestId('files-live-organization').click();await page.getByTestId('ops-source').click();await page.getByTestId('ops-scan').click();
- await expect(page.getByTestId('ops-destination')).toBeEnabled();await page.getByTestId('ops-destination').click();await page.getByTestId('ops-plan').click();
- await expect(page.locator('.ops-plan-proof')).toContainText('1 files',{timeout:60000});
- await expect(page.locator('.ops-trees input:checked')).toHaveCount(1);
- await page.getByTestId('workbench-close').click();proof.checks.push('Files row selection survives the native picker and fresh scan; exact plan contains only the selected file');
- for(const route of ['files','studio'])for(const theme of ['light','dark'])for(const [width,height] of [[1366,768],[1672,941]]) {
-  await page.evaluate(({route,theme})=>{location.hash=route;document.documentElement.dataset.theme=theme;}, {route,theme});
-  await page.locator(`[data-visual-section="${route}"] main`).waitFor();
-  await (await app.browserWindow(page)).evaluate((window,{width,height})=>window.setContentSize(width,height),{width,height});
-  await page.screenshot({path:path.join(out,`preserved-${route}-${theme}-${width}.png`),animations:'disabled'});
-  const layout=await page.locator('main').evaluate(e=>({page:document.documentElement.scrollHeight-innerHeight,main:e.scrollHeight-e.clientHeight}));expect(layout.page).toBeLessThanOrEqual(4);expect(layout.main).toBeLessThanOrEqual(4);
- }
- await page.evaluate(()=>{location.hash='studio';});await page.getByTestId('studio-live-organization').click();await expect(page.getByTestId('organization-live-workbench')).toBeVisible();
- proof.checks.push('Files and Studio both open the same live workbench; side/expanded switch retains exact plan');
- await page.emulateMedia({reducedMotion:'reduce'});const animations=await page.locator('.knx-particle-track').evaluateAll(nodes=>nodes.map(e=>getComputedStyle(e).animationName));expect(animations.every(n=>n==='none')).toBe(true);proof.reducedMotion=animations;
- proof.ok=true;
-} finally {await writeFile(path.join(out,'proof.json'),JSON.stringify(proof,null,2));await app.close();}
-console.log(JSON.stringify({ok:proof.ok,checks:proof.checks,errors:proof.errors,fixture:f.root},null,2));
+ await capture('restore-verified.png');
+ await page.getByRole('button',{name:'Export exact plan or receipt',exact:true}).click();await expect.poll(async()=>{try{return JSON.parse(await readFile(path.join(f.root,'exported-evidence.json'),'utf8')).operationId;}catch{return '';}}).toBe(moved.operationId);proof.checks.push('Export button writes the actual Native receipt into the disposable fixture');
+ proof.receipts=await page.evaluate(async()=>(await window.knouxOperationsV1.history()).data);proof.events=await page.evaluate(()=>window.__events);proof.confirmations=await app.evaluate(()=>globalThis.__confirmations);
+ expect(proof.confirmations).toHaveLength(2);expect(proof.events.some(e=>e.phase==='discovered')).toBe(true);proof.checks.push('40 UI-approved Native moves with per-file SHA-256 and separate approved verified restore');
+ await page.emulateMedia({reducedMotion:'reduce'});const motion=await page.locator('.os-studio *').evaluateAll(nodes=>nodes.every(e=>getComputedStyle(e).animationName==='none'&&getComputedStyle(e).transitionDuration==='0s'));expect(motion).toBe(true);proof.reducedMotion=motion;
+ await page.evaluate(scope=>{location.hash='files';window.dispatchEvent(new CustomEvent('knoux:live-organization',{detail:scope}));},{path:f.source,relativeFiles:['item-00.png']});await page.getByTestId('ops-source').click();await page.getByTestId('ops-scan').click();await expect(page.getByTestId('ops-result-count')).toContainText('1 selected');await page.getByTestId('ops-plan').click();await expect(page.locator('.ops-plan-proof')).toContainText('1 files');proof.checks.push('Files scoped handoff survives navigation, Native picker and rescan with an exact one-file plan');
+ await page.getByTestId('ops-revoke').click();await expect(page.getByTestId('ops-scan')).toBeDisabled();await page.getByTestId('ops-stage-6').click();await expect(page.getByTestId('ops-plan')).toBeDisabled();
+ await app.close();app=await launch();page=await app.firstWindow();await page.waitForLoadState('domcontentloaded');await page.evaluate(()=>{location.hash='studio';});await page.getByTestId('ops-stage-8').click();await expect(page.getByTestId('ops-history').locator('option')).toHaveCount(2);const durable=await page.evaluate(async()=>(await window.knouxOperationsV1.history()).data);expect(durable[0].undoCompletedFiles).toBe(40);proof.checks.push('Electron restart retains durable receipt and 40 restored hashes; folder grants are not assumed');
+ expect(proof.errors).toEqual([]);proof.ok=true;
+}finally{if(page&&!proof.ok)await capture('failure.png').catch(()=>{});await writeFile(path.join(out,'proof.json'),JSON.stringify(proof,null,2));await app.close();}
+console.log(JSON.stringify({ok:proof.ok,checks:proof.checks,errors:proof.errors,views:proof.views.length,fixture:f.root},null,2));

@@ -90,17 +90,15 @@ check('Files service bodies are not empty generic sheets', () => {
   assert.match(filesBody, /BLOCKED\. No apply or undo capability/);
 });
 
-check('Studio integrates side/expanded stage workbench and context pane', () => {
-  assert.match(studioPage, /ServiceWorkbenchHost/);
-  assert.match(studioPage, /StudioStageContextPanel/);
-  assert.match(studioPage, /studio-workbench-pin/);
-  assert.match(studioPage, /testId="studio-workbench"/);
-  assert.match(studioPage, /knoux\.studio\.workbench\.mode/);
-  assert.match(studioPage, /knoux\.studio\.workbench\.width/);
-  assert.match(studioParts, /data-testid="studio-footer"/);
-  assert.match(studioPage, /Preview only · execution blocked/);
-  assert.match(studioContext, /studio-context-panel/);
-  assert.match(studioContext, /Preview only; no automatic file mutation/);
+check('Studio embeds one consent-bound operation model instead of a generic overlay', () => {
+  const operations=read('src/operations/OrganizationLiveWorkbench.tsx');
+  assert.match(studioPage, /knoux-studio-operation-stage/);
+  assert.match(operations, /createPortal/);
+  assert.match(operations, /window\.knouxOperationsV1/);
+  assert.doesNotMatch(operations, /ServiceWorkbenchHost|node:fs|child_process/);
+  assert.match(operations, /os-action-dock/);
+  assert.match(operations, /data-workbench-mode/);
+  // Runtime stage, selection, consent and restore are exercised by live-organization-electron.mjs.
 });
 
 check('Storage integrates a pinned/expanded workbench with measured bodies', () => {
