@@ -10,8 +10,9 @@
  *  - Node `fs.lstat(path, { bigint: true })`, which on Windows reports the real
  *    NTFS file index in `st_ino` (verified on the pinned runtime, and verified
  *    to survive a rename and to be shared by hard links).
- *  - `fsutil reparsepoint query`, the documented read-only reparse-tag reader
- *    already used elsewhere in this application.
+ *  - GetFileAttributesW through a fixed, read-only Windows helper. Reparse,
+ *    offline and recall-on-data-access entries are refused. Each probe is fresh.
+ *    The injected fsutil adapter remains for the existing deterministic tests.
  *
  * What is NOT available from Node and is therefore reported as unavailable
  * rather than guessed:
@@ -105,18 +106,18 @@ async function describeOne(target) {
 /**
  * Reparse-tag probe with an explicit budget and a freshness key.
  *
- * `fsutil` is a real process spawn, so an unbounded probe would make a transfer
- * arbitrarily slow; a cache keyed only by path would also keep saying "plain
- * file" after the file was replaced. Both are handled: the budget is finite and
- * every cache key carries the size and modified time, so any change re-probes.
+ * A fixed read-only helper amortizes process startup while querying each entry
+ * afresh. Its finite 100,000-query budget supports a 10,000-file transfer's
+ * repeated safety checks; reaching it still refuses the operation.
  */
-function createProbeService({ platform = process.platform, maxProbes = 2048, execFileAsync = null, windowsDirectory = process.env.WINDIR || 'C:\\Windows' } = {}) {
+function createProbeService({ platform = process.platform, maxProbes = 100000, execFileAsync = null, attributeReader = null, windowsDirectory = process.env.WINDIR || 'C:\\Windows' } = {}) {
   const query = win.createReparseTagReader({
     execFile: execFileAsync || require('node:util').promisify(require('node:child_process').execFile),
     platform,
     windowsDirectory,
     maxQueries: Number.MAX_SAFE_INTEGER
   });
+  const attributes = platform === 'win32' && !execFileAsync ? attributeReader || require('./windows-attribute-reader.cjs').createAttributeReader({windowsDirectory}) : null;
   const cache = new Map();
   let used = 0;
   let exhausted = false;
@@ -124,7 +125,7 @@ function createProbeService({ platform = process.platform, maxProbes = 2048, exe
   async function probe(target, { size, modifiedMs } = {}) {
     const resolved = path.resolve(String(target || ''));
     const key = `${CASELESS ? resolved.toLowerCase() : resolved}:${Number(size) || 0}:${Number(modifiedMs) || 0}`;
-    if (cache.has(key)) return cache.get(key);
+    if (!attributes && cache.has(key)) return cache.get(key);
     if (platform !== 'win32') {
       const result = { name: 'unsupported-platform', tag: null, available: false, queried: false, refused: false };
       cache.set(key, result);
@@ -135,6 +136,13 @@ function createProbeService({ platform = process.platform, maxProbes = 2048, exe
       return { name: 'query-budget-exhausted', tag: null, available: false, queried: false, refused: true };
     }
     used += 1;
+    // Query Windows on every fast-path call: no path/mtime-only safety cache.
+    if (attributes) {
+      const result = await attributes.read(resolved);
+      if (!result.ok) return {name:'query-failed',tag:null,available:false,queried:true,refused:true};
+      const refused = Boolean(result.attributes & (0x400 | 0x1000 | 0x400000));
+      return {name:refused?'reparse-or-recall-refused':'not-a-reparse-point',tag:null,attributes:result.attributes,available:true,queried:true,refused};
+    }
     const result = { ...await query(resolved), refused: false };
     if (cache.size > maxProbes) cache.clear();
     cache.set(key, result);
@@ -143,7 +151,7 @@ function createProbeService({ platform = process.platform, maxProbes = 2048, exe
 
   return {
     probe,
-    stats: () => ({ probes: used, budget: maxProbes, exhausted, cached: cache.size }),
+    stats: () => ({ probes: used, budget: maxProbes, exhausted, cached: cache.size, attributeReader: attributes?.stats() || null }),
     clear: () => { cache.clear(); }
   };
 }
