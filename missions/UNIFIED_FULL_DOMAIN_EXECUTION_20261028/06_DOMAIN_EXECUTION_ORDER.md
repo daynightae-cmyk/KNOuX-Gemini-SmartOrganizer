@@ -1,3 +1,5 @@
+CURRENT OWNER PRIORITY 2026-10-28: Complete each FULL-STACK DOMAIN (all service IDs, dedicated premium live UI, real Native/API functionality, visual fidelity, proofs) on canonical main, then next domain in this file's sequence. M0/GH013 are past verified work, not instructions to restart consolidation. Read 00_START_HERE.md and 05_AGENT_EXECUTION_HANDOFF.md before following older historical paragraphs below.
+
 OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
 
 # Serial no-skip complete-domain order

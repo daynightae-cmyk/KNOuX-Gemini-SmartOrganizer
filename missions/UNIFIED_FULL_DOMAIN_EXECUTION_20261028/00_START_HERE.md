@@ -1,20 +1,26 @@
-OWNER VISUAL OVERRIDE 2026-10-28: Read 10_VISUAL_FIDELITY_ZERO_COMPROMISE_20261028.md before ANY domain visual work. Real Electron functional PASS does NOT override a VISUAL_FAIL; match original DAY/NIGHT reference geometry, premium composition, and same functional layout in both themes. The Organization Studio screen is visually owner-rejected pending correction.
+# KNOuX — CURRENT MASTER ENTRYPOINT (OWNER REVISION 2026-10-28)
 
-OWNER OVERRIDE 2026-10-28: MAIN-FIRST final cutover. Any older language treating integration branch as permanent target is superseded by 08_MAIN_FIRST_MANDATE.md. M0 requires full WIP reconciliation, verified local main promotion + canonical checkout main and normal origin/main sync before new domain. After each entire domain commit directly on main and synchronize normally.
+**GOAL:** FINISH ALL 181 EXACT SERVICES AS 14 COMPLETE FULL-STACK DOMAINS IN SERIAL ORDER. For every service, real fully working actions and a beautiful original-reference-matched DAY/NIGHT live experience belong to ONE implementation, not disconnected visual and backend sprints. NO additional mission pack. NO return to historical M0 reconciliation unless new concrete evidence shows an unresolved gap.
 
-# KNOuX Unified Atomic Domains
-KNOuX — LOCAL UNIFIED INTEGRATION & FULL ATOMIC DOMAINS
-Owner decision: Stop parking thousands of feature branches. Preserve ALL locally unique work and merge it into ONE local integration line. Every section is ONE comprehensive assignment, not little slices. After full visual+functional+native+testing+evidence acceptance, locally integrate the completed section BEFORE starting another.
+## Current verified checkpoint (refresh before writing)
+Canonical local root: `D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer` checked out on `main`.
+Last observed local main = origin/main = GitHub main `f2544473f8057a91c70d863c98381584c616d73c`; this is a snapshot, not a locked target.
+M0 and GH013 recovery already published in prior verified evidence. Old references in historical mission files to integration/knoux-unified as ongoing source of truth, root WIP counts, and M0 unfinished are SUPERSEDED by this entrypoint plus the live Git status.
+First active domain: Organization Studio nine services. Native/fixture functional implementation exists, but VISUAL_GATE is owner-review-required. Not product accepted and not Production. Do not undo existing engine or approved Files/Cinematic assets.
 
-Local source of truth:
-D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/.worktrees/unified-20261028
-Branch: integration/knoux-unified-20261028
+## Read in this exact order
+1. `05_AGENT_EXECUTION_HANDOFF.md` — authoritative full-stack *execution* contract, first.
+2. `09_COPY_TO_AGENT_MAIN_FIRST.md` — literal copy-to-agent directive.
+3. `06_DOMAIN_EXECUTION_ORDER.md` — no-skip order of 14 sections / 181 services.
+4. `02_ATOMIC_DOMAIN_CONTRACT.md`, `03_SECURITY_VISUAL_TEST_GATES.md`, `04_OWNER_RULES_PERMANENT.md` — functional, visual, security and preservation requirements.
+5. `10_VISUAL_FIDELITY_ZERO_COMPROMISE_20261028.md` — exact reference and DAY/NIGHT gate.
+6. `DOMAINS/03_ORGANIZATION_STUDIO_FULL_DOMAIN.md` and its nine per-service specs. For following sections, use corresponding DOMAIN file and spec IDs from `missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/`.
+7. Approved source art `missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/` + `REFERENCES_MANIFEST.json`. Verify hashes; DAY/NIGHT reference may be missing for some domains and must be reported, not invented.
 
-M0 MUST complete first: see 01_LOCAL_MERGE_GATE.md. Current committed ancestry: all local branches except feat/knoux-visual-day-night-sprint-20261027 already belong to history of c45c381. That one branch has three unique commits and source/binary conflicts. Uncommitted root/live/visual WIP is separately preserved, not yet safely reconciled.
-No branch or WIP may be called merged without exact SHA and reviewed source disposition.
+## Current execution loop
+Preserve ACTIVE UNIQUE WORK → finish ALL services in current domain FULL STACK (UI + live scene + actions + native/API + safety + evidence + reference fidelity) → test with disposable fixtures, actual Electron, packaged smoke and responsive RTL → review visual with original image at same viewport/state → commit only safe intended files directly on main and synchronize normally under protections after completed domain → begin NEXT domain.
 
-Scope: 181 exact catalog service IDs across 14 domain mission files, service-specific visual stages, real actionable controls, typed safe IPC, consent and postcondition, verified journal and optional Undo, all themes/RTL/accessibility/performance.
-Accepted prior Files/Studio/Intro and native fixture move/Undo are baseline, never rebuild them.
-No push, remote main merge, release, destructive effects on owner data or accounts without separate explicit authorization.
+Every service without source-backed actions or accepted client-facing scene is NOT COMPLETED. FUNCTIONAL_PASS + VISUAL_FAIL = DOMAIN_BLOCKED_VISUAL. No fake closure. Keep Native truth and file safety.
 
-READ FIRST: 01_LOCAL_MERGE_GATE.md, 02_ATOMIC_DOMAIN_CONTRACT.md, 03_SECURITY_VISUAL_TEST_GATES.md, 04_OWNER_RULES_PERMANENT.md, 05_AGENT_EXECUTION_HANDOFF.md; then all 14 DOMAINS mission files. Existing per-service specs stay in missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services.
+## Historical reference
+Earlier M0 merge plans and staging branch guidance remain in Git history for provenance only, NOT as current execution instructions. `08_MAIN_FIRST_MANDATE.md` documents completed main-first intent, but stale checkpoint claims inside it do not supersede live status and verified current work.
