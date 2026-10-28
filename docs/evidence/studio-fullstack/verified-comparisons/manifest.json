@@ -1,0 +1,407 @@
+{
+  "sourceCommit": "71240ce10293914613e0b11a95ac88b3a40de269",
+  "acceptance": "OWNER_REVIEW_REQUIRED",
+  "method": "Exact-size side-by-side, 50 percent overlay and absolute pixel difference. Differences include legitimate Native data; no synthetic similarity score.",
+  "comparisons": [
+    {
+      "scene": "overview",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "ea1f344e4074874974037b4de970cd589ba3feea0cb415766c90e0ec3202f3c9",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\overview-day-side-by-side.png",
+          "sha256": "e68eb5f5ccea52f550323bc49df28da8dc59b578c50f36654461af938cca56ad"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\overview-day-overlay-50pct.png",
+          "sha256": "e9821d66c6db902d9b2cea199ea6bccb046a4ec41aebf53f21e6cd1436241d3b"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\overview-day-difference.png",
+          "sha256": "0c7fb420e3626e0c4fb40676bd1f27254aabfebada659bbf35a8bc7b903ccbc9"
+        }
+      }
+    },
+    {
+      "scene": "stage-1",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "376a766664f5e1340bb712e0c843022122bc0ea92c8381311cb22c0ee8c4902f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-1-day-side-by-side.png",
+          "sha256": "59c78953555b8500c277c69488384060922a543ace5fe5fce89913645c8ae5f4"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-1-day-overlay-50pct.png",
+          "sha256": "a10992a9543af7cc2a8d61ce23db6aa3050daf77ce3e6169ce018539753aad02"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-1-day-difference.png",
+          "sha256": "f4f85f7be4c64ae94d26c4368f95b31167cc611a09858afbbebb1dd495213d9b"
+        }
+      }
+    },
+    {
+      "scene": "stage-2",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "fe32f6e09aee7f77cc56300d05ba3e57619a09d0d2088fba69b4eba9c6c69f4e",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-2-day-side-by-side.png",
+          "sha256": "a194b2dcbab181eff4b33135d7d5c97b4b0f600dc36c01372e38d9bcbe18b56d"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-2-day-overlay-50pct.png",
+          "sha256": "104288fff407e17bf0e7a291caa29c3820e83ac4c30893fb7e92d052658370a7"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-2-day-difference.png",
+          "sha256": "1bcc6964e9918e61e8d98fe1e0584731d92eca23335c535031b50c15cdc11bc9"
+        }
+      }
+    },
+    {
+      "scene": "stage-3",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "abcd6dee8d903403f25ac127656fd5370495a9857c3c8f6bf00237d5d187643f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-3-day-side-by-side.png",
+          "sha256": "79fd2ee80fd9b2a091be562d44f7096fa7372999173eddeb56f8537e6c10f171"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-3-day-overlay-50pct.png",
+          "sha256": "bb209e15259460f320b0a3ef52260bb0b31171aff20894938fb0414c34549b81"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-3-day-difference.png",
+          "sha256": "a7a08669dd26f105ef2066ae6c8b3f510b929080e8a45882532c906e2254cb07"
+        }
+      }
+    },
+    {
+      "scene": "stage-4",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "f1d805b4630d253830436fcb97413040a9d0d9c33f972d9b97598adfcf72e435",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-4-day-side-by-side.png",
+          "sha256": "153883d05dd084a2e76ad252fdacd4384d886677e41679a25c856444f336a49e"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-4-day-overlay-50pct.png",
+          "sha256": "6e7dc2436d0fb49c8846c51fb9814e66434c82c682a98736055650127ec4ddad"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-4-day-difference.png",
+          "sha256": "135c5e8c6224b3f63e6faa6dbb418b4116254ebe63eead2c4bf5614b8cc9d657"
+        }
+      }
+    },
+    {
+      "scene": "stage-5",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "ceeaa5d94606873a72a1cafba923ce2d6a53e786602d4e0b4b432346e2e8e890",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-5-day-side-by-side.png",
+          "sha256": "25f652fb7861dee60be643a2acdb1ebf620b99ad3cc63bbfe92fb0e44b2569cc"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-5-day-overlay-50pct.png",
+          "sha256": "df16635af89145a9768e9a42dbcd83394f1de3c681049617a2aa9f0ac6f90830"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-5-day-difference.png",
+          "sha256": "57443d3712e2cc1368b620529745be09c58a1c3dbe13747270ec6f3e2a509040"
+        }
+      }
+    },
+    {
+      "scene": "stage-6",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "df1808d44466a7c3622599e54e728c4ea185e61086e33977cfabf87b36cffaa1",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-6-day-side-by-side.png",
+          "sha256": "83f8fd5b02a2b3c4e7bbd5203eb78dc928d7b5091085a4359d30e737ed811803"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-6-day-overlay-50pct.png",
+          "sha256": "0bab4c55d52f9c7a9b318af4647ac5df4915e4b723d9c37f4a29321dc77d241b"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-6-day-difference.png",
+          "sha256": "1225131bec62a601c89699debd9749e483fc4b0d1fc4583b5bee22d563dceb24"
+        }
+      }
+    },
+    {
+      "scene": "stage-7",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "d77dfe1743aa998c41be710f8b9ba85a4ba7d0b2e0bdc1017db0352c984cbb74",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-7-day-side-by-side.png",
+          "sha256": "3371aedfc7e65e84218d5e9c228a14f8b657d76ee728bc3cc1c4a5b1041eada9"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-7-day-overlay-50pct.png",
+          "sha256": "23673d630bb0d790b851d9cd7f5c1087e1a7bca7288d1834b62c77369ff1ec0e"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-7-day-difference.png",
+          "sha256": "25139964c071043336e7e756794786175c4d717775357642f01e76f8e5306258"
+        }
+      }
+    },
+    {
+      "scene": "stage-8",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "2625c84bc3f850d314727349f054ed7e6d3c73638022a5a4029bf69a22047c9d",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-8-day-side-by-side.png",
+          "sha256": "924ba370a391483a08c7611b9fe285a76481ed5946955597f4bdca67b8fc3d18"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-8-day-overlay-50pct.png",
+          "sha256": "cf2c4db20f842674172d7218a65ba0cb75e63ac987bd731671d78bfac791760f"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-8-day-difference.png",
+          "sha256": "eb34332390618040b4e5ae8a3bf1c9280658be438235f6966e6540d0869b1425"
+        }
+      }
+    },
+    {
+      "scene": "stage-9",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "8e832033a4d7e474a72e028d1816c550410f7a8380566a573a773a4df56fb78d",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-9-day-side-by-side.png",
+          "sha256": "026b8f3ae55832956e1f44e1833b72c1867b26707cf7c90d578a8b2592d4e873"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-9-day-overlay-50pct.png",
+          "sha256": "ba0262c2b3071c40516630d0852704bd3b2103aed21bebc72b81a0b912f1175b"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-9-day-difference.png",
+          "sha256": "268690bfaf2e89498dc70c14bd9d02b0b0e347d6ad24281676916ed3ade9b15a"
+        }
+      }
+    },
+    {
+      "scene": "overview",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "3648645078db3af8f3421f9cb5aecfa0f689b73c9d74cefa0b9f20f4fc3c2786",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\overview-night-side-by-side.png",
+          "sha256": "b72ce4d172f50ba4d8a0452bd2450f88df94b03552dc0ef70aa75ef09f47c143"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\overview-night-overlay-50pct.png",
+          "sha256": "07712b6fea93f080f1b1b3d70857676dd1c0df20f44356178d5f60a89505193f"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\overview-night-difference.png",
+          "sha256": "aef5f6cd1143580f11e04bdc2f3c7ae8f087d08aed5ed037df5178a56d429697"
+        }
+      }
+    },
+    {
+      "scene": "stage-1",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "9947e1358e98cd77f1ed4ad6fd68e869b39ba5b1a97fd795a7845d69ba8ba6d4",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-1-night-side-by-side.png",
+          "sha256": "c9ae31c8720dcfb6151646116b0b2c81e7876b94890ff437c32554f0f5aaa7dd"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-1-night-overlay-50pct.png",
+          "sha256": "49216057fa69b249500832fd01e84d617936c46c2c584c6a4017ebb2f8a3a2e9"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-1-night-difference.png",
+          "sha256": "89db43afa2a786e6c6da409a69431691fad1c9310aa0ffb8179eedad8399e56e"
+        }
+      }
+    },
+    {
+      "scene": "stage-2",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "63c69b3a181462202a2410358ba4a7035a8c86a8150a0c92819007afe45a837f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-2-night-side-by-side.png",
+          "sha256": "4b9bc88f1d51e6a61dd97660c117009f50e016706757eacd2b4ab7c1b1980216"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-2-night-overlay-50pct.png",
+          "sha256": "9a5016f8c07122c061fe92d2b4cc5749c93ae999883af7ce5f8ddb554a5b875d"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-2-night-difference.png",
+          "sha256": "bd899a5d63dac8ce50085e14cc2c225b0d7588136aad70af977c81300e16c589"
+        }
+      }
+    },
+    {
+      "scene": "stage-3",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "253f6564d26574e842daad6a34a61b9ecd2b7b21fbec6544a130cadbba997f48",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-3-night-side-by-side.png",
+          "sha256": "b80ca06f5f03c93743e4b700f4a844e1629f89bc59c860b7728f236919f4d654"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-3-night-overlay-50pct.png",
+          "sha256": "596034a4a96e8ff2628d1b71106de72e1d46774961c9cbd150e7af7a6ccc4ec4"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-3-night-difference.png",
+          "sha256": "46569b796fa1d2cc236ee86febc5e07727d654b5e0d65664384103159d24b1dd"
+        }
+      }
+    },
+    {
+      "scene": "stage-4",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "3612f92695fefc2336e26e37eedb185d0669afada556ad16cb67c12148620ec0",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-4-night-side-by-side.png",
+          "sha256": "382e294a900c402d4aed2195f65d85a19fbf03d1e522e2b12efcac92cb56bffa"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-4-night-overlay-50pct.png",
+          "sha256": "83d7d4218397b072dac34ce83d41cb78c6ac8d91ce3ed99518d097247d1f4143"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-4-night-difference.png",
+          "sha256": "bb30242ebc4cddd7308cb5f4bf88c0937aca69e9e9e887eabc5236e1c199a286"
+        }
+      }
+    },
+    {
+      "scene": "stage-5",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "f4e48f344d18bfa42fc3a3ac26c4bc01d39e4dbadf5a8a5faa864dc7093ea61b",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-5-night-side-by-side.png",
+          "sha256": "5312f4b60f185fe2b81bddb7396fee2acacc34543fcaaea3cd49caac2efd7a7d"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-5-night-overlay-50pct.png",
+          "sha256": "9053720627af59689e183b0abd17b156d52b198841b9b112055a019e07093357"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-5-night-difference.png",
+          "sha256": "940ec839f9cd9704488b9763795c121dc2ecfd5237d872a653b1ba8ec84fa9cb"
+        }
+      }
+    },
+    {
+      "scene": "stage-6",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "e1769897dd84f7813f8e290f4338b20c4a47b2d203e4995031b56ef6e23636ae",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-6-night-side-by-side.png",
+          "sha256": "9087f632cff6611c84f08b703efbfb5c61a0d809f90b2685afdd43bf2c83f5fd"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-6-night-overlay-50pct.png",
+          "sha256": "ff827114e014ca1ff5c3c5dc37499653d10907df03e57fd7254924ae5aa20ed2"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-6-night-difference.png",
+          "sha256": "b0db5e54fd43a8e9208a793886b73493132756536391b2f0823e22618ea6a155"
+        }
+      }
+    },
+    {
+      "scene": "stage-7",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "b8f1f88277a8b0163c226b04948fc002279154092904f048446c5b0fecb0ffed",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-7-night-side-by-side.png",
+          "sha256": "a76bd492586b5657c5603017519cb5575247ac8c7f77027bedda22df5c9baad2"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-7-night-overlay-50pct.png",
+          "sha256": "e9c6dec679e5313f0baf688a14ff86631fe7eac9e3c926d742fdd7d04cafafb5"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-7-night-difference.png",
+          "sha256": "f9a9f967f0d0179dcb0695c194514229b7a11dd84bce1fd216d35496e7cd4cab"
+        }
+      }
+    },
+    {
+      "scene": "stage-8",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "4bce4dc9c755f058a5f47e98817dc95bbb5e83b4a55d6e7cda5d303ab709b926",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-8-night-side-by-side.png",
+          "sha256": "70d788d8135b64f4ac892cb9d1434b0c023b8774608af9ae0137e48c70513fbc"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-8-night-overlay-50pct.png",
+          "sha256": "8b121d4a62dc39394aaa2ebb8b88cf1dc70072cee8273cf9368e856b392b9afa"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-8-night-difference.png",
+          "sha256": "ecea022814b604e73e99582b134686a5e5b1601e375f64babf53c255e5a75313"
+        }
+      }
+    },
+    {
+      "scene": "stage-9",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "de3eaf4ee2790c98c0ef302972b6853abd08cbf193c4340211ff698fdc461a69",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-9-night-side-by-side.png",
+          "sha256": "c6e835e8e9cde5d4454bc1f8e1fee781ee3842d3947d9570536cd899e2e7996a"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-9-night-overlay-50pct.png",
+          "sha256": "e93c8ddf7171a8bfab83a7e31aab3ccc23932ea32bc8b582ed2606401c770ffb"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-fullstack\\verified-comparisons\\stage-9-night-difference.png",
+          "sha256": "0513d96c7c58e78d53d851b01b766391693c3ad0066d8612d1f87f383faf431e"
+        }
+      }
+    }
+  ]
+}

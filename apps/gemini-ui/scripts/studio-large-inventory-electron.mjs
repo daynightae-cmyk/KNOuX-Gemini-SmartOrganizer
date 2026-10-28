@@ -31,7 +31,7 @@ try{
     await page.getByTestId('studio-service-select').selectOption('2');await page.getByTestId('ops-file-search').fill('long-');await page.getByTestId('ops-file-card').locator('input').check();await expect(page.getByTestId('ops-plan')).toBeEnabled();
     proof.checks.push(`${count} Native files: bounded DOM; deep/long paths; search/sort selection persistence; exact Native plan within the independent 10,000-file bound; empty-selection refusal`);
    }
-   await page.screenshot({path:path.join(out,`inventory-${count}.png`),animations:'disabled'});result.ok=true;
+   const win=await app.browserWindow(page);await page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));});await win.evaluate(w=>{w.show();w.moveTop();w.webContents.invalidate();});await page.waitForTimeout(160);const pixels=await win.evaluate(async w=>(await w.webContents.capturePage()).toPNG().toString('base64'));await writeFile(path.join(out,`inventory-${count}.png`),Buffer.from(pixels,'base64'));result.ok=true;
   }finally{if(page&&!result.ok)await page.screenshot({path:path.join(out,`failure-${count}.png`)}).catch(()=>{});proof.cases.push(result);await app.close();}
  }
  expect(proof.errors).toEqual([]);proof.ok=true;

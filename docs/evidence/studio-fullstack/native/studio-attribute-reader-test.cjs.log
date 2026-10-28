@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": [
+    "real Win32 attributes, literal Unicode path, missing path and fresh plain-to-junction replacement",
+    "malformed fails closed",
+    "null fails closed",
+    "invalid attributes fails closed",
+    "exit fails closed",
+    "timeout fails closed",
+    "spawn refusal and invalid inputs fail closed",
+    "fresh attribute reads reject reparse, offline, recall and exhausted budget",
+    "unavailable Windows metadata never assumes a safe file"
+  ],
+  "fixture": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-readonly-attributes-sdCi0K"
+}

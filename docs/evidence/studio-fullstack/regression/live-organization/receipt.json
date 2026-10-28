@@ -1,0 +1,788 @@
+{
+  "operationId": "0edc1fe5-c112-42ca-b169-311de7b44123",
+  "mode": "move",
+  "status": "completed",
+  "createdAt": "2026-10-28T08:24:46.448Z",
+  "updatedAt": "2026-10-28T08:24:51.794Z",
+  "planId": "1a73a3a6-b647-4219-b1f6-d665d183b33b",
+  "planHash": "a04927f15f153cf53934430a380afd2519d1dfb453ab0392857a971263b74c20",
+  "destinationSummary": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+  "sourceRoots": [
+    "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source"
+  ],
+  "totalFiles": 40,
+  "totalBytes": 5890,
+  "completedFiles": 40,
+  "failedFiles": 0,
+  "skippedFiles": 0,
+  "cancelledFiles": 0,
+  "undoAvailable": false,
+  "undoCompletedFiles": 40,
+  "interruptedAt": null,
+  "warnings": [
+    "Renamed item-00.png to item-00 (2).png to avoid replacing an existing file."
+  ],
+  "errors": [],
+  "entries": [
+    {
+      "index": 0,
+      "name": "item-00.png",
+      "category": "image",
+      "sourceRelative": "item-00.png",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Images\\item-00 (2).png",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 127,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "752d86e7bb04b9704b30339383dcb0ceb154691bb5c3326ecc4f7e4fdf1558d1",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.644Z",
+        "error": null
+      }
+    },
+    {
+      "index": 1,
+      "name": "item-01.mp4",
+      "category": "video",
+      "sourceRelative": "item-01.mp4",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Videos\\item-01.mp4",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 128,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "ab1ca4ac21aff155782ca619a1891d36eebdb2bf1076b7fdc8f893560e2394a9",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:49.899Z",
+        "error": null
+      }
+    },
+    {
+      "index": 2,
+      "name": "item-02.txt",
+      "category": "document",
+      "sourceRelative": "item-02.txt",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-02.txt",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 129,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "4c5c72bc40cb7139545675ab19175f8d43640a3d6549eb939beec13836391e3c",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:49.941Z",
+        "error": null
+      }
+    },
+    {
+      "index": 3,
+      "name": "item-03.pdf",
+      "category": "pdf",
+      "sourceRelative": "item-03.pdf",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "PDF files\\item-03.pdf",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 130,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "caaa0942b0b457eecb9455bb3975a87248a1c8eddc6d6b76dd9e8b400c55040d",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:49.983Z",
+        "error": null
+      }
+    },
+    {
+      "index": 4,
+      "name": "item-04.zip",
+      "category": "archive",
+      "sourceRelative": "item-04.zip",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Archives\\item-04.zip",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 131,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "8282276db2edeb359052f162ad287535bbd34e0f6e4421624fbe5f600fa7ff8a",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.026Z",
+        "error": null
+      }
+    },
+    {
+      "index": 5,
+      "name": "item-05.mp3",
+      "category": "audio",
+      "sourceRelative": "item-05.mp3",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Audio\\item-05.mp3",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 132,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "44731831b720fb5f6bd90173bd00679c3b56cc7895837952da7ddcba8744854d",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.066Z",
+        "error": null
+      }
+    },
+    {
+      "index": 6,
+      "name": "item-06.js",
+      "category": "code",
+      "sourceRelative": "item-06.js",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Code\\item-06.js",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 133,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "441ac1cdbb0d7ac145d7729fb3377d43a0a7bd2f1bcc4cd9c34d8931fc3d5cf2",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.109Z",
+        "error": null
+      }
+    },
+    {
+      "index": 7,
+      "name": "item-07.docx",
+      "category": "document",
+      "sourceRelative": "item-07.docx",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-07.docx",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 134,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "2ee64f3bc3656b6488d1f5ef52e4a0a59ecec5f274cc87a8beb8a89107a6d7d7",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.139Z",
+        "error": null
+      }
+    },
+    {
+      "index": 8,
+      "name": "item-08.png",
+      "category": "image",
+      "sourceRelative": "item-08.png",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Images\\item-08.png",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 135,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "c47413954b2d9b8166b568bc2f82927a9935dfd24dc5d270d435d4cf1f193276",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.184Z",
+        "error": null
+      }
+    },
+    {
+      "index": 9,
+      "name": "item-09.mp4",
+      "category": "video",
+      "sourceRelative": "item-09.mp4",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Videos\\item-09.mp4",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 136,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "8bf90466fbaf09638f3dad82f42ec83b03a1b8c2e2493529893bc8897fab520c",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.226Z",
+        "error": null
+      }
+    },
+    {
+      "index": 10,
+      "name": "item-10.txt",
+      "category": "document",
+      "sourceRelative": "item-10.txt",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-10.txt",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 138,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "f83dcc7b2ddd3f3e7a7a5bbd70c3e1049a0558e56988edaf38107fb7ccacddf8",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.283Z",
+        "error": null
+      }
+    },
+    {
+      "index": 11,
+      "name": "item-11.pdf",
+      "category": "pdf",
+      "sourceRelative": "item-11.pdf",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "PDF files\\item-11.pdf",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 139,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "ede9f4d4fc2efc0445e874619c278e28f69a50ba8cc709133002be956228702f",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.324Z",
+        "error": null
+      }
+    },
+    {
+      "index": 12,
+      "name": "item-12.zip",
+      "category": "archive",
+      "sourceRelative": "item-12.zip",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Archives\\item-12.zip",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 140,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "92af0634e53a812fdd67ffc4ec0cfcf9a173b9edbfe125e8ab565fcddbaec1ea",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.356Z",
+        "error": null
+      }
+    },
+    {
+      "index": 13,
+      "name": "item-13.mp3",
+      "category": "audio",
+      "sourceRelative": "item-13.mp3",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Audio\\item-13.mp3",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 141,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "1b84bef6defa8fff4d214b91801e545d0e77b70196b1202a94bd5f58e7196a9f",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.382Z",
+        "error": null
+      }
+    },
+    {
+      "index": 14,
+      "name": "item-14.js",
+      "category": "code",
+      "sourceRelative": "item-14.js",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Code\\item-14.js",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 142,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "24ba1cebc8e99b6b9a767e3693c632e9a0810d2e490834513506e2a1ab621c7c",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.408Z",
+        "error": null
+      }
+    },
+    {
+      "index": 15,
+      "name": "item-15.docx",
+      "category": "document",
+      "sourceRelative": "item-15.docx",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-15.docx",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 143,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "835b3dc73eafc15ec1e01a70c0f0f409b190506e5a6ddf8a4aa9f0bf05821e58",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.449Z",
+        "error": null
+      }
+    },
+    {
+      "index": 16,
+      "name": "item-16.png",
+      "category": "image",
+      "sourceRelative": "item-16.png",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Images\\item-16.png",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 144,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "56d0c62ef2904329227840f42d01b705b224eaaddaa28008cbc1641eed7533c6",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.491Z",
+        "error": null
+      }
+    },
+    {
+      "index": 17,
+      "name": "item-17.mp4",
+      "category": "video",
+      "sourceRelative": "item-17.mp4",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Videos\\item-17.mp4",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 145,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "3585d6568bdef4a56334daf737e7631fbbf33601ca49a09ebe1a177e3762bbd0",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.533Z",
+        "error": null
+      }
+    },
+    {
+      "index": 18,
+      "name": "item-18.txt",
+      "category": "document",
+      "sourceRelative": "item-18.txt",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-18.txt",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 146,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "7ca1cb5f5f28ceb014eb4d737953637e9943e5e27697e07cb94cc4600521809c",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.564Z",
+        "error": null
+      }
+    },
+    {
+      "index": 19,
+      "name": "item-19.pdf",
+      "category": "pdf",
+      "sourceRelative": "item-19.pdf",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "PDF files\\item-19.pdf",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 147,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "e9fc640426394fbd68074ce6e026bfcfe88c214c77d5b27ebe1be2c3ae2db803",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.605Z",
+        "error": null
+      }
+    },
+    {
+      "index": 20,
+      "name": "item-20.zip",
+      "category": "archive",
+      "sourceRelative": "item-20.zip",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Archives\\item-20.zip",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 148,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "5a12481ac6506c835d02a03f63541d6a79f7cf315bb898ad8e0480bb3b982d15",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.634Z",
+        "error": null
+      }
+    },
+    {
+      "index": 21,
+      "name": "item-21.mp3",
+      "category": "audio",
+      "sourceRelative": "item-21.mp3",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Audio\\item-21.mp3",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 149,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "0854419c462597dc0692239d2620300db1d38901ff295eaae403c3dd584d2d1e",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.676Z",
+        "error": null
+      }
+    },
+    {
+      "index": 22,
+      "name": "item-22.js",
+      "category": "code",
+      "sourceRelative": "item-22.js",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Code\\item-22.js",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 150,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "48a4fe324228214d995ec07e9aa872977e119a14b18d5eeee4b392ff6ee43fd0",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.707Z",
+        "error": null
+      }
+    },
+    {
+      "index": 23,
+      "name": "item-23.docx",
+      "category": "document",
+      "sourceRelative": "item-23.docx",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-23.docx",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 151,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "8bbe8124b23ceb56ab7bec2b0000927218f573c16c11b5282e437d93dd07275a",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.756Z",
+        "error": null
+      }
+    },
+    {
+      "index": 24,
+      "name": "item-24.png",
+      "category": "image",
+      "sourceRelative": "item-24.png",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Images\\item-24.png",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 152,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "fd94c4be4741206c0869a2902bff989b91d7f3e387188f4bfb6a1846ccc0ef0b",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.828Z",
+        "error": null
+      }
+    },
+    {
+      "index": 25,
+      "name": "item-25.mp4",
+      "category": "video",
+      "sourceRelative": "item-25.mp4",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Videos\\item-25.mp4",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 153,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "b2385f41bb7bbdce6223aecda06c8d442e93a3683a5f53122e5bfcb778991ac5",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.865Z",
+        "error": null
+      }
+    },
+    {
+      "index": 26,
+      "name": "item-26.txt",
+      "category": "document",
+      "sourceRelative": "item-26.txt",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-26.txt",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 154,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "23decc5822e7c49b120754f6bfa4cc045fd3f70e92dc081abc54b84616e0f64b",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.917Z",
+        "error": null
+      }
+    },
+    {
+      "index": 27,
+      "name": "item-27.pdf",
+      "category": "pdf",
+      "sourceRelative": "item-27.pdf",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "PDF files\\item-27.pdf",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 155,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "6d462969da3af3de2f541557de406077d73f53ea37254878c341bf93dd02a3c5",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:50.985Z",
+        "error": null
+      }
+    },
+    {
+      "index": 28,
+      "name": "item-28.zip",
+      "category": "archive",
+      "sourceRelative": "item-28.zip",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Archives\\item-28.zip",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 156,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "f023ce95557b2c6d616fa95b3e0e89b440f97f0ba7f6958b3057ec1287aaa9b5",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.057Z",
+        "error": null
+      }
+    },
+    {
+      "index": 29,
+      "name": "item-29.mp3",
+      "category": "audio",
+      "sourceRelative": "item-29.mp3",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Audio\\item-29.mp3",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 157,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "0be516a3d909aeb3ea4641351732e39bda6c0e08d700d86abb07fdb03af04bba",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.102Z",
+        "error": null
+      }
+    },
+    {
+      "index": 30,
+      "name": "item-30.js",
+      "category": "code",
+      "sourceRelative": "item-30.js",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Code\\item-30.js",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 158,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "087210f96bce494e48f8b070ed740840551de3c33e10478acce7485930b7994e",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.142Z",
+        "error": null
+      }
+    },
+    {
+      "index": 31,
+      "name": "item-31.docx",
+      "category": "document",
+      "sourceRelative": "item-31.docx",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-31.docx",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 159,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "d395f1b8dab399bb0173babf37cb527bfe84b48917f90e3684d8185d50e0a744",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.179Z",
+        "error": null
+      }
+    },
+    {
+      "index": 32,
+      "name": "item-32.png",
+      "category": "image",
+      "sourceRelative": "item-32.png",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Images\\item-32.png",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 160,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "57e632c030b091ebda3d3b09f0c714036aa2c871d4342b579e864a2eb1861762",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.219Z",
+        "error": null
+      }
+    },
+    {
+      "index": 33,
+      "name": "item-33.mp4",
+      "category": "video",
+      "sourceRelative": "item-33.mp4",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Videos\\item-33.mp4",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 161,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "6cee058fbb433d77ee7aa5a5a0d8b9908890388f40a2085d1720c5db21f8dd0a",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.295Z",
+        "error": null
+      }
+    },
+    {
+      "index": 34,
+      "name": "item-34.txt",
+      "category": "document",
+      "sourceRelative": "item-34.txt",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-34.txt",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 162,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "64d8278c8a325d7ef86b777f599a7a0375a529cc4c75e52c47f8d92d4375e0cf",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.334Z",
+        "error": null
+      }
+    },
+    {
+      "index": 35,
+      "name": "item-35.pdf",
+      "category": "pdf",
+      "sourceRelative": "item-35.pdf",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "PDF files\\item-35.pdf",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 163,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "2a0cbf0fa126646c5322577d3b6fcc6b6174d583296b26a3d5558de43ef43b47",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.396Z",
+        "error": null
+      }
+    },
+    {
+      "index": 36,
+      "name": "item-36.zip",
+      "category": "archive",
+      "sourceRelative": "item-36.zip",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Archives\\item-36.zip",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 164,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "58f1faff012444522378793bcf89555739285a763469571abc56abaadca19925",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.433Z",
+        "error": null
+      }
+    },
+    {
+      "index": 37,
+      "name": "item-37.mp3",
+      "category": "audio",
+      "sourceRelative": "item-37.mp3",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Audio\\item-37.mp3",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 165,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "11b0fb1f91529bfdf0f6688a98a299331889c944a5475ae31d35c6d481764638",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.476Z",
+        "error": null
+      }
+    },
+    {
+      "index": 38,
+      "name": "item-38.js",
+      "category": "code",
+      "sourceRelative": "item-38.js",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Code\\item-38.js",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 166,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "956ff65e1abe484e020f67f5e9fdcbdc29c4cc705b147cac8b67a941607f63ec",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.519Z",
+        "error": null
+      }
+    },
+    {
+      "index": 39,
+      "name": "item-39.docx",
+      "category": "document",
+      "sourceRelative": "item-39.docx",
+      "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\source",
+      "targetRelative": "Documents\\item-39.docx",
+      "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-08iHRM\\destination",
+      "size": 167,
+      "state": "moved",
+      "verification": "sha256",
+      "hash": "4ba648a44c59dffa071c10668a9a8ec544b6fc5d92944843b9fa6575fb104138",
+      "error": null,
+      "undo": {
+        "state": "restored",
+        "at": "2026-10-28T08:24:51.552Z",
+        "error": null
+      }
+    }
+  ]
+}

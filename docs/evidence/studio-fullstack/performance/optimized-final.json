@@ -1,0 +1,33 @@
+{
+  "label": "optimized-final",
+  "sourceCommit": "f2544473f8057a91c70d863c98381584c616d73c",
+  "fixture": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-3xt8Nq",
+  "files": 600,
+  "milliseconds": 3144.8624,
+  "fsutil": {
+    "calls": 0,
+    "ms": 0
+  },
+  "timings": {
+    "resolveWithinRoot": {
+      "calls": 601,
+      "ms": 1244.4030999999914
+    },
+    "assertPlainEntry": {
+      "calls": 1200,
+      "ms": 1049.084900000007
+    },
+    "assertSafeRoute": {
+      "calls": 2,
+      "ms": 1.9237999999995736
+    }
+  },
+  "allSourceHashesVerified": true,
+  "noMutations": true,
+  "environment": {
+    "platform": "win32",
+    "node": "v24.21.0",
+    "cpu": "Intel(R) Core(TM) i5-4570 CPU @ 3.20GHz",
+    "logicalCpus": 4
+  }
+}
