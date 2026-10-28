@@ -6,8 +6,8 @@ import sys
 from PIL import Image, ImageChops, ImageDraw, ImageFont
 
 root = Path(__file__).resolve().parents[3]
-actual = root / 'docs/evidence/studio-domain/golden-packaged'
-output = root / 'docs/evidence/studio-domain/comparisons'
+actual = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else root / 'docs/evidence/studio-domain/golden-packaged'
+output = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else root / 'docs/evidence/studio-domain/comparisons'
 output.mkdir(parents=True, exist_ok=True)
 reference_root = root / 'missions/VISUAL_REDESIGN_DAY_NIGHT_20261027'
 manifest = json.loads((reference_root / 'REFERENCES_MANIFEST.json').read_text(encoding='utf-8-sig'))
