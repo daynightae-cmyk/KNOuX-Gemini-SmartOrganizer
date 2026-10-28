@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "Cancellation stops native duplicate hashing; no effects",
+    "Stale or changed keeper refuses every mutation",
+    "Cancellation reaches the quarantine executor before mutation",
+    "Browser profile scopes are rejected, never cleaned",
+    "Exclusive Windows file lock refuses quarantine; no source loss",
+    "Partial execution and revoked restore permission are explicit; reauthorization restores only verified move",
+    "Actual process interruption: dedicated Cleanup journal recovers and restores the completed transfer"
+  ],
+  "fixtures": [
+    "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-F6u6xt",
+    "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-bHXYTf"
+  ],
+  "ownerDataTouched": false
+}

@@ -1,0 +1,121 @@
+{
+  "kind": "cleanup-quarantine-v1",
+  "generatedAt": "2026-10-28T00:30:38.419Z",
+  "scope": "current application profile only",
+  "receipts": [
+    {
+      "operationId": "72483452-db50-4a82-b7d8-525a3eda408f",
+      "mode": "move",
+      "status": "completed",
+      "createdAt": "2026-10-28T00:30:37.061Z",
+      "updatedAt": "2026-10-28T00:30:38.374Z",
+      "planId": "3f1de58e-3d8b-4414-b992-a1fc5eded021",
+      "planHash": "4f5e74fd8aa6ed67460a6326a4ba6379b8460f40acb76b6165b016f954788d4b",
+      "approvalContext": {
+        "kind": "cleanup-quarantine-v1",
+        "sourceId": "7516884f-cfa5-4d33-8829-1965ced57b1f",
+        "ageDays": 7,
+        "selection": [
+          32,
+          33,
+          0
+        ],
+        "keepers": [
+          {
+            "keeperId": 31,
+            "digest": "dca15dc4d795149a6a4b475629755fe90fe316da4bf949ac00f03d50b4bc9b7f",
+            "relative": "group-2/copy-0.bin"
+          }
+        ],
+        "estimatedSavings": 8471,
+        "physicalReclaimedBytes": 0,
+        "risk": "Reviewed candidates only. Quarantine retains bytes on this volume; no purge is available."
+      },
+      "destinationSummary": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\destination",
+      "sourceRoots": [
+        "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\source"
+      ],
+      "totalFiles": 3,
+      "totalBytes": 8471,
+      "completedFiles": 3,
+      "failedFiles": 0,
+      "skippedFiles": 0,
+      "cancelledFiles": 0,
+      "undoAvailable": false,
+      "undoCompletedFiles": 3,
+      "interruptedAt": null,
+      "warnings": [],
+      "errors": [],
+      "entries": [
+        {
+          "index": 0,
+          "name": "copy-1.bin",
+          "category": "other",
+          "sourceRelative": "group-2/copy-1.bin",
+          "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\source",
+          "targetRelative": "KNOuX-Quarantine-4d1a8a15-d1ed-4057-8f5a-1a1dea8860bb\\copy-1.bin",
+          "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\destination",
+          "size": 4224,
+          "state": "moved",
+          "verification": "sha256",
+          "hash": "dca15dc4d795149a6a4b475629755fe90fe316da4bf949ac00f03d50b4bc9b7f",
+          "error": null,
+          "undo": {
+            "state": "restored",
+            "at": "2026-10-28T00:30:38.369Z",
+            "error": null
+          }
+        },
+        {
+          "index": 1,
+          "name": "copy-2.bin",
+          "category": "other",
+          "sourceRelative": "group-2/copy-2.bin",
+          "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\source",
+          "targetRelative": "KNOuX-Quarantine-4d1a8a15-d1ed-4057-8f5a-1a1dea8860bb\\copy-2.bin",
+          "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\destination",
+          "size": 4224,
+          "state": "moved",
+          "verification": "sha256",
+          "hash": "dca15dc4d795149a6a4b475629755fe90fe316da4bf949ac00f03d50b4bc9b7f",
+          "error": null,
+          "undo": {
+            "state": "restored",
+            "at": "2026-10-28T00:30:38.260Z",
+            "error": null
+          }
+        },
+        {
+          "index": 2,
+          "name": "old-0.tmp",
+          "category": "other",
+          "sourceRelative": "old-0.tmp",
+          "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\source",
+          "targetRelative": "KNOuX-Quarantine-4d1a8a15-d1ed-4057-8f5a-1a1dea8860bb\\old-0.tmp",
+          "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-sajlTV\\destination",
+          "size": 23,
+          "state": "moved",
+          "verification": "sha256",
+          "hash": "d01f3e898469183273996eeb71070930cc2806ba698884d8e621444759425681",
+          "error": null,
+          "undo": {
+            "state": "restored",
+            "at": "2026-10-28T00:30:38.294Z",
+            "error": null
+          }
+        }
+      ],
+      "estimatedSavings": 8471,
+      "verifiedQuarantinedBytes": 0,
+      "verifiedReclaimedBytes": 0,
+      "restoredBytes": 8471
+    }
+  ],
+  "estimatedSavings": 8471,
+  "verifiedQuarantinedBytes": 0,
+  "verifiedReclaimedBytes": 0,
+  "restoredBytes": 8471,
+  "spaceExplanation": "Same-volume quarantine preserves bytes. Verified physical reclaimed bytes are zero. No purge operation is exposed.",
+  "estimateBasis": "Sum of historical approved plan estimates; not unique current disk savings.",
+  "integrityHash": "8c5e02b5757d9e10a2133a349e0f4584bc1d934bddd5c90c81cff38b224ba6d0"
+}

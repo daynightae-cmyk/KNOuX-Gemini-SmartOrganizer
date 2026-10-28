@@ -1,0 +1,24 @@
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 1867 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                       1.75 kB │ gzip:   0.77 kB
+dist/assets/knoux-official-logo-BvEPOS0-.png        229.17 kB
+dist/assets/knoux-circular-logo-day-CoiS9pFV.png  1,310.61 kB
+dist/assets/index-CELoAdlc.css                      725.59 kB │ gzip: 109.21 kB
+dist/assets/index-BwZB1b-U.js                     2,119.02 kB │ gzip: 528.71 kB
+
+✓ built in 3.15s
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 2.7s of this 3.1s build (86%).
+The slowest callbacks, timed inside each callback (the wait before a callback starts is excluded, the time it awaits is included):
+  - plugin vite:asset-import-meta-url transform (40%, 1.3s, 1 call)
+Additional callback time came from the callbacks below and from callbacks under 1s.
+1 callback is listed without a time. Its calls overlapped, so the time inside one call includes work from other calls. To find its cost, profile the build with `node --cpu-prof`:
+  - plugin @tailwindcss/vite:generate:build transform (39 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.

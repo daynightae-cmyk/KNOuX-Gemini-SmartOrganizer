@@ -1,0 +1,7 @@
+VERIFIED Cancellation stops native duplicate hashing; no effects
+VERIFIED Stale or changed keeper refuses every mutation
+VERIFIED Cancellation reaches the quarantine executor before mutation
+VERIFIED Browser profile scopes are rejected, never cleaned
+VERIFIED Exclusive Windows file lock refuses quarantine; no source loss
+VERIFIED Partial execution and revoked restore permission are explicit; reauthorization restores only verified move
+VERIFIED Actual process interruption: dedicated Cleanup journal recovers and restores the completed transfer

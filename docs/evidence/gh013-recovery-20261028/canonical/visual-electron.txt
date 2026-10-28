@@ -1,0 +1,55 @@
+en light 1366 14 routes
+en light 1672 14 routes
+en light 1920 14 routes
+en dark 1366 14 routes
+en dark 1672 14 routes
+en dark 1920 14 routes
+ar light 1366 14 routes
+ar light 1672 14 routes
+ar light 1920 14 routes
+ar dark 1366 14 routes
+ar dark 1672 14 routes
+ar dark 1920 14 routes
+{
+  "ok": true,
+  "views": 176,
+  "errors": [],
+  "consoleErrors": [],
+  "ignoredConsole": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element.",
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "issues": [],
+  "orbital": {
+    "tools": 6,
+    "imagesCategory": true,
+    "filtersPanel": true,
+    "coreFocus": true,
+    "organizeNavigation": true
+  },
+  "blocking": [
+    {
+      "route": "files",
+      "testid": "files-live-organization",
+      "topmost": true,
+      "opened": true
+    },
+    {
+      "route": "storage",
+      "testid": "storage-live-vault",
+      "topmost": true,
+      "opened": true
+    },
+    {
+      "route": "cleanup",
+      "testid": "cleanup-live-vault",
+      "topmost": true,
+      "opened": true
+    }
+  ],
+  "reducedMotion": [
+    "none",
+    "none",
+    "none"
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "head": "0067c82bb183eec9daceca8b5a6e7913e0660de2",
+  "checks": [
+    {
+      "name": "owner-authorized-isolated-clone-gate",
+      "exitCode": 0,
+      "scope": "Exact external clone, independent object store, expected sanitized main, correct remote, clean source; canonical workspace guard is unchanged"
+    },
+    {
+      "name": "types",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:18:58.638469+00:00"
+    },
+    {
+      "name": "build",
+      "command": [
+        "node",
+        "--single-threaded",
+        "--v8-pool-size=1",
+        "--max-old-space-size=160",
+        "--optimize-for-size",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:16.147733+00:00"
+    },
+    {
+      "name": "native-contract",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/native-contract-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:16.398314+00:00"
+    },
+    {
+      "name": "studio-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/studio-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:16.944259+00:00"
+    },
+    {
+      "name": "files-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/files-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:17.617789+00:00"
+    },
+    {
+      "name": "storage-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/storage-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:17.983011+00:00"
+    },
+    {
+      "name": "scan-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/scan-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:20.751274+00:00"
+    },
+    {
+      "name": "apps-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/apps-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:20.917986+00:00"
+    },
+    {
+      "name": "cleanup-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/cleanup-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:21.328947+00:00"
+    },
+    {
+      "name": "startup-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/startup-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:21.768182+00:00"
+    },
+    {
+      "name": "system-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/system-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:21.984436+00:00"
+    },
+    {
+      "name": "repair-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/repair-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:22.508945+00:00"
+    },
+    {
+      "name": "services-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/services-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:22.894214+00:00"
+    },
+    {
+      "name": "automation-native",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/automation-native-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:23.145327+00:00"
+    },
+    {
+      "name": "workspace-consent",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/workspace-consent-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:23.243645+00:00"
+    },
+    {
+      "name": "google-oauth",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/google-oauth-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:23.887240+00:00"
+    },
+    {
+      "name": "settings-consent",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/settings-consent-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:23.987180+00:00"
+    },
+    {
+      "name": "home-live",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/home-live-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:24.091847+00:00"
+    },
+    {
+      "name": "workbench-host",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/workbench-host-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:24.195717+00:00"
+    },
+    {
+      "name": "navigation-route",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/navigation-route-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:24.292861+00:00"
+    },
+    {
+      "name": "live-organization",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/live-organization-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:31.568391+00:00"
+    },
+    {
+      "name": "live-organization-negative",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/live-organization-negative.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:33.745318+00:00"
+    },
+    {
+      "name": "storage-vault",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/storage-vault-test.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:35.147335+00:00"
+    },
+    {
+      "name": "storage-vault-negative",
+      "command": [
+        "node",
+        "--max-old-space-size=160",
+        "scripts/storage-vault-negative.cjs"
+      ],
+      "exitCode": 0,
+      "at": "2026-10-28T00:19:38.161097+00:00"
+    }
+  ],
+  "ok": true
+}

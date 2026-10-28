@@ -1,1 +1,5 @@
 migration-history/m0-20261028/** -text -whitespace
+
+# Keep security verification captures byte-exact across checkouts.
+docs/evidence/gh013-recovery-20261028/** -text whitespace=cr-at-eol
+docs/evidence/m0-20261028/gh013-main/** -text whitespace=cr-at-eol
