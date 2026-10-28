@@ -1,0 +1,407 @@
+{
+  "sourceCommit": "0295efc774cabb9f64e708e9b5d3311d76d81098",
+  "acceptance": "OWNER_REVIEW_REQUIRED",
+  "method": "Exact-size side-by-side, 50 percent overlay and absolute pixel difference. Differences include legitimate Native data; no synthetic similarity score.",
+  "comparisons": [
+    {
+      "scene": "overview",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "b15863902a092899d5c5182c8d0df577c3379f1feb6b6d47b1175be0e8e68316",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\overview-day-side-by-side.png",
+          "sha256": "ad99caab47bc39edc8304c4cd1406a5463b69cb2da45e32245609e16b3e9bbf9"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\overview-day-overlay-50pct.png",
+          "sha256": "18b141b03162175c4a16214b5c948702149b8ff7da4b94e12eec6e93ac71b080"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\overview-day-difference.png",
+          "sha256": "f37672fe0e9664d9c1f0514ef97ba9e2fc1791bbc6a8502478f11996c3ea1c05"
+        }
+      }
+    },
+    {
+      "scene": "stage-1",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "911f1379ddb0c1c34e8e0c03ff93bb52524937c35a84551b92684099c57a21ea",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-1-day-side-by-side.png",
+          "sha256": "43d04b85da3a13039492577dc65a7ee8c04f449c5e11bc5595245cd7b4d58bff"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-1-day-overlay-50pct.png",
+          "sha256": "0e173e7c4540d6236116f760d7b731750dcb59c03ce69f48be71b1a2d388a4ec"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-1-day-difference.png",
+          "sha256": "be844ea5ff1692c244f289bd3cdb09b1096157df63847bc0a1e6354d895e826b"
+        }
+      }
+    },
+    {
+      "scene": "stage-2",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "ae9e77b3558d4abda7d134337619fd951fd3442e080679dfe8851ef86482bfda",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-2-day-side-by-side.png",
+          "sha256": "982d9bc819c28491b03ec1c3cddfbd8406d14d80a1ff50ecfd7e226c28cccfaa"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-2-day-overlay-50pct.png",
+          "sha256": "fb857e889cd320a8a076b1585dbd426ff98c582643a682e7946139cdb0615af5"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-2-day-difference.png",
+          "sha256": "707f2556fc41fda5958cc021bc210583fd6790074e0b4626e3ce3af9cdf0dd54"
+        }
+      }
+    },
+    {
+      "scene": "stage-3",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "0904457129fa4d5764ea6b1fd3451645e62debd2d02894cd5f5225b68ffaa167",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-3-day-side-by-side.png",
+          "sha256": "3b30fe60640f2375297f24360d84c26ae473f649aab66149c7a3dbd3d098b4a5"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-3-day-overlay-50pct.png",
+          "sha256": "31d09ff849bfbc732330afa7bd45e3a58c66400a7b70d507e40ab21056e4af18"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-3-day-difference.png",
+          "sha256": "151cd0582b6ffc0531b8382873078fe53ac4fd61a5d4778111b90d1ecbc5e7d7"
+        }
+      }
+    },
+    {
+      "scene": "stage-4",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "a4f65e1777988e01e993395977c7beae3b284cc5592d16c88920ed88c9b711eb",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-4-day-side-by-side.png",
+          "sha256": "f6344d2b26823365357790c1e6baeec6b9b3141c1301b4a98acd800c22ec4a3d"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-4-day-overlay-50pct.png",
+          "sha256": "ad10b2614a05ff5d6f7f2eb5a38b8c901c0c5201780db604a52cd863a290c90e"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-4-day-difference.png",
+          "sha256": "28f42ab86f65194a58e1ace48847de0d4cd590403865e4079f4600bcc21ac6b7"
+        }
+      }
+    },
+    {
+      "scene": "stage-5",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "30a5523219c9f2cf1e4c0250ee0b5cb2a749f532bea42a6f0a83c3fd023e0bc9",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-5-day-side-by-side.png",
+          "sha256": "fa43a161c6daabc3ea93d49c9cafe171d5f113b3965c33af1909a816c3f2759a"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-5-day-overlay-50pct.png",
+          "sha256": "48b090bcdb90f80d11116910553b3126b34b3b3ed20275a52e1a9d3de38a9d23"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-5-day-difference.png",
+          "sha256": "857db8a659d7e04f2c0b51a72f2ad68092d33939c5dec553192447439883c68c"
+        }
+      }
+    },
+    {
+      "scene": "stage-6",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "8e679bd3c0e65f1e092beb4fa3120e11b6dab55176233f05a497a0f4cb35c727",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-6-day-side-by-side.png",
+          "sha256": "72f5f6c9724cdf94e977dc413bab161d6f4d3457bd1795026de8c1a9c6888e70"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-6-day-overlay-50pct.png",
+          "sha256": "78c3744513dde0dd28573c851bc9ed4c3445234c0c2e312b953ed1384440c09d"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-6-day-difference.png",
+          "sha256": "d7126ac4608d506c6a21c4ab477bda0576a12fd9f53bca65106c67baa726103f"
+        }
+      }
+    },
+    {
+      "scene": "stage-7",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "08ae50d6cb49614ea3c3762ebd4cfb444d542371be269947b8b94cba68870912",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-7-day-side-by-side.png",
+          "sha256": "97745823359e3e593df4715e847721fe70dc7f6e2a8f94e9a0a135a72205f198"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-7-day-overlay-50pct.png",
+          "sha256": "9f1633e45fe5a7b40f4420cf18b6103950db55f00fd7f532c35bcec91929b484"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-7-day-difference.png",
+          "sha256": "1df9289f3a9411242f26ccb15d7e7d3189d63a2a450f046859106d9b098cc50c"
+        }
+      }
+    },
+    {
+      "scene": "stage-8",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "e5a0ca578e862da2f71fd8e12c6d23d5959a70befaf2a942344101aba8ef129f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-8-day-side-by-side.png",
+          "sha256": "5e468433fc4f9f8bf5eecb464f59fb0a0855010fc9548dc43d89724728d2e5d1"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-8-day-overlay-50pct.png",
+          "sha256": "e9c7afd9285f2dd5b46fb908a5ab1dafe71fa7f5eff14704c6275d0b59b540a1"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-8-day-difference.png",
+          "sha256": "54b2fac7951b1202b1adce79c58128bf6839e08fb17f7adc87c97f11be8d8caa"
+        }
+      }
+    },
+    {
+      "scene": "stage-9",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "e1cf20c05acdaad273c1d289d2ea38f677b92402fe9d05b28434fc8f815510cf",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-9-day-side-by-side.png",
+          "sha256": "980ec2cecb2d0c937402ccd829ee88228a74497bcd159c2708460ccf6583d96c"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-9-day-overlay-50pct.png",
+          "sha256": "8b33c843ba7b5d3365dc1faef4bb26635a17d534db14c5155a0c6e1294589bce"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-9-day-difference.png",
+          "sha256": "d6ea51f33a62b12e46b5c55caf736921e03ba9564cbb399ccf3fa7d52b50be5c"
+        }
+      }
+    },
+    {
+      "scene": "overview",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "97821b578a1f3cd7e55f13f8835dfa27c3571f9e9140f04669a49e7ae395bec7",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\overview-night-side-by-side.png",
+          "sha256": "07b24421c9115ea8f75deef31b37a4c941622da617c4448c0abc9e6796f10dac"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\overview-night-overlay-50pct.png",
+          "sha256": "b2907d0452d610234233a8e30bf7f425581602fc08417c02a2e0f52ed0ce8130"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\overview-night-difference.png",
+          "sha256": "aef673f2737bef4f0573fef86900e94b0b5a15ee27619020ca9dacb6e5c889ef"
+        }
+      }
+    },
+    {
+      "scene": "stage-1",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "4c5ba24c78043a9eee480f4141214d76fc1acb08dc15c77580d88f826c9d0bf7",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-1-night-side-by-side.png",
+          "sha256": "85ae3ed20414f4fa0b12488191e74a36a712e9aafe71a55ae2b28744799520db"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-1-night-overlay-50pct.png",
+          "sha256": "ae109973b947e69a4d69e1d24258f9ae086f16a97f862434aea837ed03404adc"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-1-night-difference.png",
+          "sha256": "99c8f5dea791a59626420e140ad9ba56f592b86889fa0c3ebdb9c04a83376a14"
+        }
+      }
+    },
+    {
+      "scene": "stage-2",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "83afaa9a5253fd839049045692b9453f25f3acbbcbbc22ee3ca840a785ed3eb3",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-2-night-side-by-side.png",
+          "sha256": "4bc05b4b03201a589752a29fa7d5ca1fcd592545167832031b55ef9afd710ad5"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-2-night-overlay-50pct.png",
+          "sha256": "89453e3ba9bf177b103120e7b8c08471d6a53d5303b3cda1402c26f0d6581f17"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-2-night-difference.png",
+          "sha256": "16f8c3f4b592103b97749b948777f1cce4d31cc0ace408cdf490b3a2dc6c0f9f"
+        }
+      }
+    },
+    {
+      "scene": "stage-3",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "14758239e4147742b2617101918a2ce925beb905d8004ce304431e51f5fefd16",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-3-night-side-by-side.png",
+          "sha256": "d4064b2b1ef855a15ac50598b4518dfb36f85f472bab382d000c310309c1fd87"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-3-night-overlay-50pct.png",
+          "sha256": "0effac5be0beebfba0c878713a2e8966c1f2c61b6b4749c0cfb03b2e8d9044ce"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-3-night-difference.png",
+          "sha256": "e471563b71c26dda0639fdf822a811f571a99663f081573b5ee2e6f4e2aedbcd"
+        }
+      }
+    },
+    {
+      "scene": "stage-4",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "ab9e3cb9f0f66a8864aae7b801b8d48300f8fe242cd13a08740eb044703fbd64",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-4-night-side-by-side.png",
+          "sha256": "1a66c73b758ecd1eeee31c67ae9566262a83f36c6e24a588749c9dca022b2d34"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-4-night-overlay-50pct.png",
+          "sha256": "a60f9459b7ef47bb3597e7b6a22c44d836759e550a5c217fc6ed39475d28ca62"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-4-night-difference.png",
+          "sha256": "0728c2934d8fe46c4950961e722cb0bc4e2321fb77f0c91c9106c54b9a6153f7"
+        }
+      }
+    },
+    {
+      "scene": "stage-5",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "1a752c988fb7740a662537e228d6fc3cf7a12a067235889063ddf8393cfa8db4",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-5-night-side-by-side.png",
+          "sha256": "ff74ed9367b8ff3ec3344b6f6cd289f272a8debe1a3994aa499fdb113679a8a9"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-5-night-overlay-50pct.png",
+          "sha256": "5551d3176beda9f9f14c0a960468b2030b3cb576e535320035b493e1fbea8d84"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-5-night-difference.png",
+          "sha256": "acf51465893488da705ac4aa780d9b9fe6664c0d5317e541d146b0d8daefd980"
+        }
+      }
+    },
+    {
+      "scene": "stage-6",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "045bd15b9d902907488412c648e043cd7e88c503f28c95bf356f08ed8d5bcbd8",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-6-night-side-by-side.png",
+          "sha256": "9f29e9df74e71dcc4233bec8961d9ef25f551121fb37b79289b74dc37a94cdf5"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-6-night-overlay-50pct.png",
+          "sha256": "8d7604d70b067b1b0040d32b6cdfa1e58aac04fbc0f2172604fe00015a50db76"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-6-night-difference.png",
+          "sha256": "1ac17aa9d90096e7f7837c922c9d7402280a2cb9df3a2f568873a4ebc52218fa"
+        }
+      }
+    },
+    {
+      "scene": "stage-7",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "1d2f9f7447b0523132141fc8f1c97db0c8d6a5d8b1c043c2f60c11aaa5b36b27",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-7-night-side-by-side.png",
+          "sha256": "a9caefd868bafb22c02a70d0f8ff2d80dceecbf443c479d1d9d7eed54da9bcce"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-7-night-overlay-50pct.png",
+          "sha256": "eceade5b6eafae9a8de93973993c6ccc1cbb14ff95785a8b08354786bd3e750d"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-7-night-difference.png",
+          "sha256": "be951fe6d13127029f6dffa9ab4cbd03ebf7f975a19afc1cfb2bb1e65b8e4f94"
+        }
+      }
+    },
+    {
+      "scene": "stage-8",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "0ecbe5ca7a0374b338045043ab61ed2d90927957b7f206a8948621841ba00d5f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-8-night-side-by-side.png",
+          "sha256": "3ab6062473fa510792578efbb75bf9f3a50062d7ce54f840144d5a1b12bd66ed"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-8-night-overlay-50pct.png",
+          "sha256": "f5c89fd1d88bc9d673eb7c86d8bfe88b404f67835fd7e0b132a4e4b9a3cbb5a9"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-8-night-difference.png",
+          "sha256": "ffde1cde0404f969fd984f725fc7ab91ea5105fc0b52f4891cc1bc1da672a389"
+        }
+      }
+    },
+    {
+      "scene": "stage-9",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "85b5998c50a9c5847eb0d4f52e2c4b7b8b68e5bad181d2b85f946d161b1a7591",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-9-night-side-by-side.png",
+          "sha256": "3dca027005c33afed7200be4e2da9c8db4cca53eb8fcf800d53cf4fdae9fc75a"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-9-night-overlay-50pct.png",
+          "sha256": "b44380b70f36b5dfce5b04ccc64e2c2debc2bfa34845ac89d8e34fffa87a98c5"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\final-comparisons\\stage-9-night-difference.png",
+          "sha256": "a118380ae3a69105a443df194428300a311e7ef8716acd5d49918d50d48172d2"
+        }
+      }
+    }
+  ]
+}

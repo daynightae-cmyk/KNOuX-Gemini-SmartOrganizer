@@ -1,0 +1,2446 @@
+{
+  "sourceCommit": "cd75a356aceacb0ef093e0c7c2b63089eda85d8e",
+  "credentialPatternHits": 0,
+  "files": [
+    {
+      "file": "docs/evidence/studio-domain/ledger-verification.json",
+      "bytes": 1125,
+      "sha256": "cf2f58c88cdda71a4eebb74093d58129a2c02ea103012c69ee1f01e5899722a7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/manifest.json",
+      "bytes": 19887,
+      "sha256": "2bdb2575ec6e311ea0bf634d976c3acee225fc851f6b2c7411fea8fcde099e7b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/overview-day-difference.png",
+      "bytes": 2052326,
+      "sha256": "e5cf8e9aa02ab6a042da592fa5fa87d94ebd92433f413501a024b34d758ec593"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/overview-day-overlay-50pct.png",
+      "bytes": 1595984,
+      "sha256": "398a9248b798de3b218e314c3bca94633c63a0455731ac9dd53783b75c7fd3fe"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/overview-day-side-by-side.png",
+      "bytes": 2450134,
+      "sha256": "7ae0710f951e8c8ab47b8856f9c3bd0d83335f5832c27c11e5aec19ab24f88c5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/overview-night-difference.png",
+      "bytes": 2262168,
+      "sha256": "98290634938b86c725b8e6db155de83f7ce91389a5f650eb37f3241801579cb0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/overview-night-overlay-50pct.png",
+      "bytes": 1776597,
+      "sha256": "0edfa2d2d60175f9697ff0420c64bb2b0edafb77a5a4a5bd504a8c2a0498d146"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/overview-night-side-by-side.png",
+      "bytes": 2829093,
+      "sha256": "ff1ecbca9638bcb69cdda324329cf76f20ea923717f5d51caa630ad15c78919f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-1-day-difference.png",
+      "bytes": 2043148,
+      "sha256": "486815f6e9a85412d678fa8882e3e8bcbba18ec7ee7e607c111bc7e6411742e3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-1-day-overlay-50pct.png",
+      "bytes": 1586819,
+      "sha256": "a0c90bc9255401113bef927a315dc12712eb99f469214890cd283bf6aa1eb362"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-1-day-side-by-side.png",
+      "bytes": 2439094,
+      "sha256": "f15b51a4396d9d4cdf6172efc3bd45159eb086bc1d893c0a198166e231dbbdf3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-1-night-difference.png",
+      "bytes": 2247717,
+      "sha256": "d34f0817fa927c269bb3f56ee5301f2018991a05042a50b36ff237f4a8e4f6a8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-1-night-overlay-50pct.png",
+      "bytes": 1762279,
+      "sha256": "8292d15a98153f255001465e3806249c335123af0e767bbc237ab86453a58595"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-1-night-side-by-side.png",
+      "bytes": 2771147,
+      "sha256": "ead74087f904e747f93c8c2197ff55c82e8707f286915c0be9ae3c9e7309724f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-2-day-difference.png",
+      "bytes": 2053283,
+      "sha256": "d8dc25128083da6f9e512754127765d41f5da5ed6dd6e4482cd88b705c0532e2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-2-day-overlay-50pct.png",
+      "bytes": 1593684,
+      "sha256": "85d23e096a0f4b6bccb83d072d3eed25540d5ab636c30322c70dd28b04cde756"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-2-day-side-by-side.png",
+      "bytes": 2499451,
+      "sha256": "4791e2efb662b895ea2e7eecb6461de01be6db0b3f5c8d8fa72790e1e49c4b71"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-2-night-difference.png",
+      "bytes": 2254908,
+      "sha256": "79313deaf039cbee4ebf857759baa56ebca0d26848f62cb08e1041c2332ded22"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-2-night-overlay-50pct.png",
+      "bytes": 1765677,
+      "sha256": "d9b37a932069d4ca15d7349663729bc88787e764071f614bd0b8326e5b7b973c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-2-night-side-by-side.png",
+      "bytes": 2813440,
+      "sha256": "a258eee42098a87d5a08bb32cfc60107ebec2b98f90bd7ddc9d01bd72dd4ed84"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-3-day-difference.png",
+      "bytes": 2038858,
+      "sha256": "49c72b63cc9124a3235ea4fe28f264482c606ca9976bba23702fddaa78fd5577"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-3-day-overlay-50pct.png",
+      "bytes": 1584804,
+      "sha256": "a95867f126faa2ecfde51c2a7a04d770afd57719bab3a52186aa78a2c630d2a0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-3-day-side-by-side.png",
+      "bytes": 2436841,
+      "sha256": "d508c05b3d16d1fb41797676c2687dcc97918fa6b45a1db70852c5f4182d8001"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-3-night-difference.png",
+      "bytes": 2242920,
+      "sha256": "3e3a9750c8c3d7a016700219b72c6277c4ac1806323a137fcf2a7111bdfcc18f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-3-night-overlay-50pct.png",
+      "bytes": 1757038,
+      "sha256": "bb836aedf75b1f9cd45aef10d9c8e4d983307d3cad54a34f5c9cd94952516bcc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-3-night-side-by-side.png",
+      "bytes": 2765126,
+      "sha256": "720c880b8763d06b688b2bf3625d80b890fabdbb787a4eeec3f7ca1595711d58"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-4-day-difference.png",
+      "bytes": 2030804,
+      "sha256": "3d312ed2e136c8217d43364659f29c977198e3928f7a44458aa34d382c659b96"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-4-day-overlay-50pct.png",
+      "bytes": 1576767,
+      "sha256": "ecb86920d40f82b1d2ca2577eab986a806486462407b7a78fa61398daaa80673"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-4-day-side-by-side.png",
+      "bytes": 2427773,
+      "sha256": "c18a8118ba3ad116c1cf1c08599a5a71990c74386b6ffb54448d9e906c6606dc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-4-night-difference.png",
+      "bytes": 2239418,
+      "sha256": "fcbfca653b7f14028f1b4a87efd5fc6de140886df3146936be1d3910f9ff275d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-4-night-overlay-50pct.png",
+      "bytes": 1753902,
+      "sha256": "9e4e64e37aed998cea2494bc413b219b56187b519d4ea96e69798bf35fd657cb"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-4-night-side-by-side.png",
+      "bytes": 2765393,
+      "sha256": "53ba0428cf447dbb0e62f1723b5fbe74b289bcd7116de2bb921281f4e7b606a7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-5-day-difference.png",
+      "bytes": 2037886,
+      "sha256": "3009211e0a3a8389a9ee57f3bb93411da0b62e3028bbb916e5b63a26763d9eea"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-5-day-overlay-50pct.png",
+      "bytes": 1584874,
+      "sha256": "9215a8d48d42117596fde5b5404197a9a68ad7b9c3b4391c7ecb41937c6bd2c2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-5-day-side-by-side.png",
+      "bytes": 2435642,
+      "sha256": "f4d5841245e725073286fd614b4f80cecd88a0cdf6caa995de9cc91694e37ecd"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-5-night-difference.png",
+      "bytes": 2250763,
+      "sha256": "910cac34b23248c23d7d68d7f372847fb490e5ee2b78f1c414e7bec74d689c38"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-5-night-overlay-50pct.png",
+      "bytes": 1764823,
+      "sha256": "e32466afe3467f422f52c75fbf05d5b4927f72051c9eeed3b2b5caa5ab27cbd6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-5-night-side-by-side.png",
+      "bytes": 2781887,
+      "sha256": "208f1f255fc95a67ac7b180bb47969e5b76de1cfa6c9f014dbddc2aea0eeee43"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-6-day-difference.png",
+      "bytes": 2032664,
+      "sha256": "59edd6dd80cc295115a19813e9ddb08d9c282842dd768835047bc399ee9d876d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-6-day-overlay-50pct.png",
+      "bytes": 1579038,
+      "sha256": "94c660b1ccd2c7c6c09be6e7d6f3536e32be9e291a9433516abf10ae25fcc41f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-6-day-side-by-side.png",
+      "bytes": 2429238,
+      "sha256": "d84a79e433669c452dd437afab90acfdb689d17b515252422112563aba6eebb2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-6-night-difference.png",
+      "bytes": 2243338,
+      "sha256": "51090a8c1706e56ae48b0da9ed1e72ef92d66da144f0ab68de9f5e0ff847e0b0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-6-night-overlay-50pct.png",
+      "bytes": 1757122,
+      "sha256": "45c7097b5365c224c32e13dd25c15175acc2df4c942b9dd72be812b03682cfd6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-6-night-side-by-side.png",
+      "bytes": 2772193,
+      "sha256": "7b0d771c1d6fc3225e7e977df81786d3fc50b932223a35af0989d3b8ce4df3a1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-7-day-difference.png",
+      "bytes": 2040606,
+      "sha256": "00c11c75d5b4e54e9e64abc43804f1b1159c705b863a114cab4f27c8fc3b34e6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-7-day-overlay-50pct.png",
+      "bytes": 1584209,
+      "sha256": "f14c69a187ce43713a45056cc8d7ea8d0a189e877a433cf6dd903759d0df2e77"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-7-day-side-by-side.png",
+      "bytes": 2474236,
+      "sha256": "01e445633b210020511794bd34502c773e0d457a78e93130d49023554e392da1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-7-night-difference.png",
+      "bytes": 2248670,
+      "sha256": "d736408ebe455e31d6c587769cf0905b8712d16ac624a6b00c1e391aa666899b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-7-night-overlay-50pct.png",
+      "bytes": 1758799,
+      "sha256": "8b5763818cae0450feaa6ee25b9f374f217b0dd98221f38dcfb14d14c3ea0769"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-7-night-side-by-side.png",
+      "bytes": 2800418,
+      "sha256": "213165540b3d982ea855c88db9418cfd2f3888d4c35e02a4b0fdc2cfbbbf9651"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-8-day-difference.png",
+      "bytes": 2023396,
+      "sha256": "330388f4a036ee2e7a5c247727e50ed82c1aeb5e2a902788344f1a0eec65885c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-8-day-overlay-50pct.png",
+      "bytes": 1570661,
+      "sha256": "7592faa50d1da97939c0130b711327e5d798edebd13ced3c6eea12a27dd11ded"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-8-day-side-by-side.png",
+      "bytes": 2418134,
+      "sha256": "ad5c59012dcd737ef8089004955a58dcae81596ee6a717cb3020f7eba1f11d00"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-8-night-difference.png",
+      "bytes": 2227842,
+      "sha256": "13d318232b0c88c0e4331f82274a43a24a8e35d946e69650578e2eecfd87cde6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-8-night-overlay-50pct.png",
+      "bytes": 1743123,
+      "sha256": "12a75aad3e74c91bbe64c424d9b1b2346ea263462b3864dfdb440bf6e41bc790"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-8-night-side-by-side.png",
+      "bytes": 2751701,
+      "sha256": "f3e546420b09e72fa6bf63024e64ec9bd748f654f098adc54dbabb02a154fce3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-9-day-difference.png",
+      "bytes": 2032932,
+      "sha256": "182528c646b28a430f3e1df6168b28d2fbc18acf751c5467a216d23fc498c2b5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-9-day-overlay-50pct.png",
+      "bytes": 1579070,
+      "sha256": "44c2dc97561a9e3b64c3e87928df080e9214859aa1727de6193c2ff331835380"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-9-day-side-by-side.png",
+      "bytes": 2431436,
+      "sha256": "d574c409bf48d5e265d8b261a83d44915c9885788a7f6e37ff13f8f9c975fad6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-9-night-difference.png",
+      "bytes": 2239161,
+      "sha256": "dc0fec2d8bde64e75e9defbbc7ec7c1d115c3050f9ea27382e277a37b9fb7970"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-9-night-overlay-50pct.png",
+      "bytes": 1752289,
+      "sha256": "e3726b3793490d4510bb74d274de91cbe22709269bf593b9dfa535354b9e56b2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-comparisons/stage-9-night-side-by-side.png",
+      "bytes": 2768546,
+      "sha256": "fe317bd7e9a56ce8c43edf5216b88f3bd2f26e89f8d42e308da40e3f125a2b4a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/byte-verification.json",
+      "bytes": 7454,
+      "sha256": "062b7c53438db161a691c62215d42c37f0fee8c27ebd776d83360dae08627779"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/execution-verified.png",
+      "bytes": 973183,
+      "sha256": "aabbf8681388e14d0747c5244b52ab1fd2dc648f77486066cef9641005c61d59"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-ar-dark-1366.png",
+      "bytes": 654307,
+      "sha256": "54bfbda824150f89f990b31357c9153508c756b2a6ad3975f110cbd625ea6533"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-ar-dark-1672.png",
+      "bytes": 943963,
+      "sha256": "8ca3f32f54bebe958fc98d9e2b7de2ef3bce190b10d513c26b592a98fae872dc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-ar-dark-1920.png",
+      "bytes": 1189016,
+      "sha256": "d1f90a31d788e6ac9407f415faaf76a093f745dfe5aa0829074ef5205281469a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-ar-light-1366.png",
+      "bytes": 555048,
+      "sha256": "0cbcd3aa51b57368d28465bb141be97afdb7327416d7a96da61d881024e32f49"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-ar-light-1672.png",
+      "bytes": 808909,
+      "sha256": "c886da49f012766c8370dd6fc97dd75ee7b0f02466e5d924cc7ed19e31d90fe9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-ar-light-1920.png",
+      "bytes": 1067774,
+      "sha256": "6086f8892ca72f257be2ad0f7186cfb9960f75901719181d92385b538ab7bb11"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-en-dark-1366.png",
+      "bytes": 669267,
+      "sha256": "80344e3b802054b7b334dc53340373557df2a1e9b56aec5926b65c7ae6147bea"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-en-dark-1672.png",
+      "bytes": 978341,
+      "sha256": "dea428b1832ac1bf89d7e9c72f0ec1e1a47461224e29f289796fa35bda13ab6c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-en-dark-1920.png",
+      "bytes": 1228777,
+      "sha256": "9feb84200ab3e257b585e21161897d580113efa154ffec96187b7e8599a06e85"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-en-light-1366.png",
+      "bytes": 576473,
+      "sha256": "88163cb59ec4ae16914b5131a26b67dac761282d07458ab577be75f22da863a5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-en-light-1672.png",
+      "bytes": 842601,
+      "sha256": "e068db03422f1f958e41ab6996edf74a31526f8ce38e58ddf33fa3af54069858"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/library-en-light-1920.png",
+      "bytes": 1099991,
+      "sha256": "b4f4f86bd960015eb4b75c834c3c8685ff6c48d8e17e4c3e9c8393df3bd5b094"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/overview-dark.png",
+      "bytes": 992807,
+      "sha256": "ac96b2dc094966cbff2b634b2a21a0e0adcc92de69b29232cd4ff5ed3da6ebf2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/overview-light.png",
+      "bytes": 798333,
+      "sha256": "0647f84848c91ece10040902dd4d8ded7be71ee52556812d320807facc247fd4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/proof.json",
+      "bytes": 252832,
+      "sha256": "e4457649bd652db2253ff06cf57b7bac627420e99927f181bd17adc8b7e2b0da"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/restore-verified.png",
+      "bytes": 929237,
+      "sha256": "d6c1f543c3a4cb47c5d631773c5ed502ee41aa38481faeeae661bdfe9c42aa76"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-1-dark.png",
+      "bytes": 932231,
+      "sha256": "58929956e4064d7a7d6477d93b3b3b3065456f61af6c5fd98a82963c20806da8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-1-light.png",
+      "bytes": 778376,
+      "sha256": "ab16aa08ec24b6f9962736ec9e22dec82cbbed21cc34b38c886b253b2fd0def7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-2-dark.png",
+      "bytes": 976248,
+      "sha256": "43dc40eec12dc068d2d02b5dd873ef88175d063e09ec6ad2e4a6ec4446e57693"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-2-light.png",
+      "bytes": 842643,
+      "sha256": "1ac3217cc6c4de59a55f422f1ce0faecd00c5386fb856ceff9af404f2ddee781"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-3-dark.png",
+      "bytes": 924310,
+      "sha256": "25b83b460530e199e8b02e8bf75616d743dc8d8878edfe1e0fac18ffd87763d4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-3-light.png",
+      "bytes": 777894,
+      "sha256": "e7dc5cf56e64980f4dc25ab8330f115618a511d681b0776336de923491fc52f6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-4-dark.png",
+      "bytes": 925567,
+      "sha256": "f5d074ff2324110bec18e278d5972e3591ea020c98151cb5777b747fb353d44a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-4-light.png",
+      "bytes": 768489,
+      "sha256": "8a41d24751d328906406a5f3f6bc502b6daba154320293dd170d671670e67895"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-5-dark.png",
+      "bytes": 941834,
+      "sha256": "8c2b1a50d02413c79d00876e5de1edced44006c93e07f099a0f9ef1918db7802"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-5-light.png",
+      "bytes": 775021,
+      "sha256": "a77b23a5bbc98a5b2e71c06a0dcf510e42e0332d87aa87edf8e6e8cd8d2091e4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-6-dark.png",
+      "bytes": 933713,
+      "sha256": "d1b8382d8f34e5fa0aae5547873839cee3ee437d826f7b2bd3b398dd1a89830f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-6-light.png",
+      "bytes": 771087,
+      "sha256": "7ff1a1c070569a14e780f350abd323eb3e989be06f259f08d2f15bc3aef38edf"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-7-dark.png",
+      "bytes": 962632,
+      "sha256": "a904eb438a7caa64138269ba3f55a7b7821240d139095fe919911ca79a7d3cbf"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-7-light.png",
+      "bytes": 817357,
+      "sha256": "c824c6f429d4336e4b7f8af12d7fac7316083240b0d28b558778a05c237e1b7f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-8-dark.png",
+      "bytes": 912257,
+      "sha256": "865030485ad95191dbd4f0b4603abe2ab2c58676780d70bafbd6a4f0e2b133b5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-8-light.png",
+      "bytes": 760630,
+      "sha256": "1fe7ad27fb70dc7287bca43285e287796375ec05542f300aa6a557ad85368b2c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-9-dark.png",
+      "bytes": 930272,
+      "sha256": "4ced60251f4b4d3f0216135091cee08e7253c4dee0293ad77abd3d0a8301eb2d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/checkpoint-packaged/stage-9-light.png",
+      "bytes": 772860,
+      "sha256": "6508b263ccb7a83331bea62668fec029e8b4b175ccc4708547a61b9b0f4c0ef6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/manifest.json",
+      "bytes": 19227,
+      "sha256": "a7a1ca2d0675d6f0bc03df151be0d367373482ff6ba944cb79a64d829b797b95"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/overview-day-difference.png",
+      "bytes": 2049552,
+      "sha256": "938671730378b0995731b69535239562a8a89ba054d8d421ae8367455e9a2b76"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/overview-day-overlay-50pct.png",
+      "bytes": 1592484,
+      "sha256": "7f19e2cb8d7a11bd6818bec7ccfa9ab96f60c6a435c67497ab99f23dd217937c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/overview-day-side-by-side.png",
+      "bytes": 2445658,
+      "sha256": "b5580a9a389a30124c534a38de5c85d9c42fac4d2befaccc0d79d1f556673ca7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/overview-night-difference.png",
+      "bytes": 2260173,
+      "sha256": "ddee8df299fd4e4fafeea724340cfcd1880fa521c66f1a2066df7ace5a9101fd"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/overview-night-overlay-50pct.png",
+      "bytes": 1774479,
+      "sha256": "301a019c13fd347c4aed48e6dfa909e36a18cb66e326f3891a8098bab4bb89ab"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/overview-night-side-by-side.png",
+      "bytes": 2824723,
+      "sha256": "0e3573823adf61f1979dddc8715a053d9e5f1d1bdf5d2cac097c4c61c3f8f017"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-1-day-difference.png",
+      "bytes": 2045994,
+      "sha256": "1a2e4fdf74fc1d9eed12f6d19e14f87ad1bb08c361b36a400d421a1421aaac17"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-1-day-overlay-50pct.png",
+      "bytes": 1587895,
+      "sha256": "9f727768765916dc5bc55ee5603a8348de5de01b98a01af2e533a5521b0eda12"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-1-day-side-by-side.png",
+      "bytes": 2444513,
+      "sha256": "293e683626569e49f0d94e3c89639124bbb935d48625f7b4866a1453a1eb704f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-1-night-difference.png",
+      "bytes": 2252350,
+      "sha256": "fdd082650b836b87943e64949ca85b1be2f85fbdaa95d9269a1c62df694f3398"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-1-night-overlay-50pct.png",
+      "bytes": 1766453,
+      "sha256": "a03ac95115cd04b8aa30ff00aedaf01372e69a03f1e3c07a47f33d8111fcc937"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-1-night-side-by-side.png",
+      "bytes": 2779132,
+      "sha256": "cd9f162dc357ac4f9a96a8e731b6d5e5a443ce63c4fd7af237a6325fd849f686"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-2-day-difference.png",
+      "bytes": 2050678,
+      "sha256": "72bcdcc967e1eeedda2c3559ffd36f79493b2f12fc44fcae51e13e85174501df"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-2-day-overlay-50pct.png",
+      "bytes": 1590001,
+      "sha256": "0c4f75a18439567b41cfefef1f1cb9317c92dd8f1b361b59457d8eb7db5c4483"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-2-day-side-by-side.png",
+      "bytes": 2495232,
+      "sha256": "8f26b01715bf1ff66d5d68fa540a9891b12e903d29de53893d7fda9227c29bdc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-2-night-difference.png",
+      "bytes": 2252341,
+      "sha256": "476b235cd35e222de225275a56745020a1ad469a59d86987f6631b52e91099a6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-2-night-overlay-50pct.png",
+      "bytes": 1764029,
+      "sha256": "ac81b1e778237824e433b4d29a67ea86f4a58005fcfba6254f1ff2b61f12c730"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-2-night-side-by-side.png",
+      "bytes": 2808665,
+      "sha256": "29480b9c29985fc80acdbef1e77247297be383e6317599f30f1257a36fca6440"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-3-day-difference.png",
+      "bytes": 2036197,
+      "sha256": "67552e2dadc7ceae75b306957055b5997e81506d69d71f1cbf00b1cc8cdfb10c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-3-day-overlay-50pct.png",
+      "bytes": 1580723,
+      "sha256": "01f5594721ba34aa0790a5924523633a99fc56fcf5c837e29dcd5fd44ceb6fe8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-3-day-side-by-side.png",
+      "bytes": 2433345,
+      "sha256": "ba57b9b082684acd0762cb10e351be1b6a27986987bbb6a5b47f3d40c155ba88"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-3-night-difference.png",
+      "bytes": 2246436,
+      "sha256": "a7738b7ce6ecc9e8c7f4b3c1b075ec27b4c2fbe1fc570b6f9bda69c330692628"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-3-night-overlay-50pct.png",
+      "bytes": 1759486,
+      "sha256": "aa3a4b439e616e798906556c74f821cae3844d69be818f0853eb43b59ba81366"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-3-night-side-by-side.png",
+      "bytes": 2769988,
+      "sha256": "8df3f0520e050b77376138bda83e736ab4f75fc6d7f1442c7f088b72cc0981b7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-4-day-difference.png",
+      "bytes": 2031681,
+      "sha256": "5de36c2d05c8d6dbe1b3c50c58fe840fea603c302ef398ff06db37931da7cd2a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-4-day-overlay-50pct.png",
+      "bytes": 1575705,
+      "sha256": "6dc2ccdaccf20d062b9d7fb47f93a52beee9db56c25f969e1420f3c4e75d363d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-4-day-side-by-side.png",
+      "bytes": 2430497,
+      "sha256": "5ef9cbf3503a6807075caeb8d5c80ea6c275f178436fe4e5d5f147bbb64e234e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-4-night-difference.png",
+      "bytes": 2236014,
+      "sha256": "0d8c2961085f19eda92f446aadade0d1fe9ad4b98b0f4643180b3f201da18f7b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-4-night-overlay-50pct.png",
+      "bytes": 1751501,
+      "sha256": "29055ee90d6dffc814c120c2e08d1b44a21a5bb9092e636c32aa329f72d923f9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-4-night-side-by-side.png",
+      "bytes": 2760303,
+      "sha256": "be26e5f61ba97c0a53e78c395546d86f0522067e690493d948177b7fd4574cf3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-5-day-difference.png",
+      "bytes": 2040550,
+      "sha256": "a574cf6edbb8279e901f7e686e8c9ce55c3dc8100830dc182eab49448aee5e84"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-5-day-overlay-50pct.png",
+      "bytes": 1585038,
+      "sha256": "73fd2509e6f64686909abf95ab97a3f9c801b88a4acf803ff1c98223c6e75677"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-5-day-side-by-side.png",
+      "bytes": 2441508,
+      "sha256": "64aa1c88e941ad9a0611b54f3948c528db7ee4baafda8bd49f495f76cc9fbbf6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-5-night-difference.png",
+      "bytes": 2248994,
+      "sha256": "ed421634534a8134f9e2a9f6da5aaa5ea7c9e5773900ece4b25772df1e7365ec"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-5-night-overlay-50pct.png",
+      "bytes": 1763737,
+      "sha256": "1b5d3e469ccf2f882e210e1c01bb39c4c0c08b6da46f621c9e5ed28f3a4f6ba3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-5-night-side-by-side.png",
+      "bytes": 2777852,
+      "sha256": "081d9b0cf33aa86cde495aa2b2e683cb1fe4672cce341daa8ac089592102eb1a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-6-day-difference.png",
+      "bytes": 2032415,
+      "sha256": "d1ac770521a8b11367989f9eb9b971c2d6c1661bfe49dcd53fc266452b0f51ad"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-6-day-overlay-50pct.png",
+      "bytes": 1577308,
+      "sha256": "d935f0040b030984635da4a976bf1c67735971c7879af4710b12f5b22a8aded4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-6-day-side-by-side.png",
+      "bytes": 2430463,
+      "sha256": "525e80efbd1a9a9d530ea73a2bb185951f4b6d9eced1c7a71f5e54624ee1ced0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-6-night-difference.png",
+      "bytes": 2237106,
+      "sha256": "a11130c685c31906aa6f3ad842d8347a8c614e8099e766c8613a44b8e8407b5c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-6-night-overlay-50pct.png",
+      "bytes": 1753689,
+      "sha256": "9c65943f542c266de42bd32e8ee72452437abc8d678406bbb3e2027bac3783f5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-6-night-side-by-side.png",
+      "bytes": 2761375,
+      "sha256": "69b893e1f306341c93a0b74436f03d76dd448d167a2a44ba5af332ad84acdc73"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-7-day-difference.png",
+      "bytes": 2042106,
+      "sha256": "7f001ed62222ee6ffba39dc63bf58b2732a382560840183283f6a952bfc6f068"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-7-day-overlay-50pct.png",
+      "bytes": 1581157,
+      "sha256": "af04ac2f1c19c1d0fa9814bab7e6a4063081d3dc93104e6074b8e1665ae169a9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-7-day-side-by-side.png",
+      "bytes": 2459116,
+      "sha256": "0147212141aef311d9d6460c3d32f097d65f544406d7e2bed38da29f63b3398a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-7-night-difference.png",
+      "bytes": 2242197,
+      "sha256": "b0760839a644d4aa116d880365accd02ad1cde3698052d89faa5f34111e01d23"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-7-night-overlay-50pct.png",
+      "bytes": 1754444,
+      "sha256": "0c36b3d42a229b6c8eb8b446680e555847167c8dc51ae359c508f0a4ccd28d2e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-7-night-side-by-side.png",
+      "bytes": 2790047,
+      "sha256": "cb3b3600bcd42c1f0f938e8619d71d6fad570c1da4afcf1e1e64a46de9ffda02"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-8-day-difference.png",
+      "bytes": 2020557,
+      "sha256": "111b7f8df2508ae3f9d5fea9c2353b4c654b65ec6c2df7c933985374d2923bc5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-8-day-overlay-50pct.png",
+      "bytes": 1566536,
+      "sha256": "9272f777c6375e2984be420301dea6910908f7388cfcb2ec8e17f32f89a1c0ec"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-8-day-side-by-side.png",
+      "bytes": 2414135,
+      "sha256": "d2da589ccc2cace811461c7d0152cbc3059c60ed13b9eed899d24bcb4bdbc318"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-8-night-difference.png",
+      "bytes": 2224989,
+      "sha256": "629f44521de2e46d8e390c291ad89cbe0a4e70b375c8ed4519e319dd905f7b5d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-8-night-overlay-50pct.png",
+      "bytes": 1741379,
+      "sha256": "1804b6889f47bd12bccdfc5071ab721c683c6e0ce7d08574bf78a0347c3089ba"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-8-night-side-by-side.png",
+      "bytes": 2746048,
+      "sha256": "6180fd2500da669e06485ec542e1fe9414b481407f7414c7adeb0e06d38d5c37"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-9-day-difference.png",
+      "bytes": 2030587,
+      "sha256": "edb1ba8753bf757dc6ae912de9807ba94a1823e04f7fe55187b63d5e976c7a41"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-9-day-overlay-50pct.png",
+      "bytes": 1575163,
+      "sha256": "1b8f8ded9ad4abc8f5ddd8188c8e2bc2d49f24f4122d4bb01fc96735bcd4e750"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-9-day-side-by-side.png",
+      "bytes": 2427960,
+      "sha256": "971dd2091b695c478ea93a1be96940fea189ca24dc43b292a08a3be374aa1924"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-9-night-difference.png",
+      "bytes": 2237139,
+      "sha256": "6da4dd8e1c605d7b66bbb73c59b59cbf8ee5cc8769baa7ca81c9e4ab4989ab05"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-9-night-overlay-50pct.png",
+      "bytes": 1750256,
+      "sha256": "9eaa64e34e903144f030e08b19c93019264700b17d5f4b9bfe29128b33eb9df6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/comparisons/stage-9-night-side-by-side.png",
+      "bytes": 2764073,
+      "sha256": "20e248150ea7123f2bd808db09da83e68a104b4fe4a6a7df82f143bc367c57d3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/execution-verified.png",
+      "bytes": 973342,
+      "sha256": "95d18b23158f1e3202a380b74926ff8ea3873bf675c08f0af21447b676bac513"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-ar-dark-1366.png",
+      "bytes": 654973,
+      "sha256": "205d580509cb0b9864b65691a802274481e55179cd7016ab9b60fa263901a188"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-ar-dark-1672.png",
+      "bytes": 943589,
+      "sha256": "01beeef7a47a93d44fe2c030f530b031257b88d4e3936ad96b3a15b09f2bde4e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-ar-dark-1920.png",
+      "bytes": 1189191,
+      "sha256": "bceab1d058f84ca3d92d777a0cce2d557a4afc68afa5d1c4477ee270107c08e7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-ar-light-1366.png",
+      "bytes": 554751,
+      "sha256": "9caedc4475238ae24fb09ebde2a2695cb6be899be25e6dec3cc5499d3f833f54"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-ar-light-1672.png",
+      "bytes": 808311,
+      "sha256": "8e91b9de318da1992cdd299903c3b46bf7dc9a8c038e2027da6b1d8aa8f571d8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-ar-light-1920.png",
+      "bytes": 1067522,
+      "sha256": "9d5bd0de4408c3f5b2aed38e28340896efcff64abcff0664b827a604ceea3b58"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-en-dark-1366.png",
+      "bytes": 668631,
+      "sha256": "04793db6977950ac4fea6d735e7b9f880811251a32e496928ef2fef39f85e134"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-en-dark-1672.png",
+      "bytes": 977324,
+      "sha256": "f98b5138763657107310a712937cc68006f6fa68541aebfa29d01d42f555c8d1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-en-dark-1920.png",
+      "bytes": 1227014,
+      "sha256": "e5b707d77b74ff5fe57e274956537db0c76cc2a0eb6ffb6c97591954e3eb79e7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-en-light-1366.png",
+      "bytes": 576686,
+      "sha256": "a14a79c3e4c6d3f05ddeab53ea2b5470b8e92265dede25209c03256efd70675c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-en-light-1672.png",
+      "bytes": 843647,
+      "sha256": "2fc532153fca5ea929f17ebc3c3fe7e11bd83be26b6a5c41428c4b4e6843895b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/library-en-light-1920.png",
+      "bytes": 1100599,
+      "sha256": "c40a9456a4111e0327952b63a1fd3c0ad0fd7d753841213a8f3b05f7d7ffcb2d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/overview-dark.png",
+      "bytes": 993818,
+      "sha256": "e9d1440ffd9fab611e00037a698f41e77cc5c3bb3f3b921a61e5ea860c97d43b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/overview-light.png",
+      "bytes": 797776,
+      "sha256": "56a9743f6ec294c9591aaef88ccc490c311709a52780d97fa06218542594cc5a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/proof.json",
+      "bytes": 252833,
+      "sha256": "5c7992250e5dfa266ff7ceab0f2ec15c775a2f63ebe1082c44442822b712363f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/restore-verified.png",
+      "bytes": 929576,
+      "sha256": "82181f041fb4a48c14ba204bf76d6677395ee1e84a476078c81bef20a6e4e506"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-1-dark.png",
+      "bytes": 945628,
+      "sha256": "36224ac13e714b25adf9cf9b02a4859acd7920bf1b2f2b3dd8c81c5ee1ee8824"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-1-light.png",
+      "bytes": 775070,
+      "sha256": "c46512cbe471a892852ffb1f25d9130523d79d6dcf2f2ef7876a8ecb156be6c6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-2-dark.png",
+      "bytes": 978095,
+      "sha256": "5537254eb5dbae958ca711f6878ab7a39ccebdd11d512e438f9ca12683aee452"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-2-light.png",
+      "bytes": 841016,
+      "sha256": "1b759ccef72a747e027c036c098b9a47755292ce9bdce5d85d4dc2bfaf1016e8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-3-dark.png",
+      "bytes": 925825,
+      "sha256": "c9dd607f371195b8d8bc1c6f33d13b0ff25f5beda603d28bc3c2079250a22aef"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-3-light.png",
+      "bytes": 776393,
+      "sha256": "94be6eb5c44289232854c999c94acafe0fad1e38a9e8dba46fd158441ddb6648"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-4-dark.png",
+      "bytes": 918782,
+      "sha256": "bb924f5ba5b0416143c2aee1363533824f0f128dc54f108ca11d8a0a44781cd7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-4-light.png",
+      "bytes": 766974,
+      "sha256": "6f32e8198c77d3c84805adc0d4a3f900455943695c837843ab767a356377b716"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-5-dark.png",
+      "bytes": 931817,
+      "sha256": "1132175f562883a7ac3ccbb617c5435b5177e202ac9b498a6513744b770858a5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-5-light.png",
+      "bytes": 774197,
+      "sha256": "62831b3cad4c1732ad9a11b43989e4b53c84e356568983188db4f9d47ccb54f0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-6-dark.png",
+      "bytes": 928230,
+      "sha256": "853c18adbc7a1b08464db9c0e490530358a654892755fd1d29c594dc337042a5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-6-light.png",
+      "bytes": 769649,
+      "sha256": "8c5f502cee9810e90824857f13038d7788a1e3ef0de49ff140cc378f4c02db8f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-7-dark.png",
+      "bytes": 964168,
+      "sha256": "c78939547efd685c1456de76a4b9536c30b05adc76828ab77a9a2d5fdeb76f84"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-7-light.png",
+      "bytes": 804826,
+      "sha256": "13999206aebd673a4a939ce9af955d6460a4006305196f97ba3adf973a79c8af"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-8-dark.png",
+      "bytes": 913453,
+      "sha256": "5d535f0b34bb75e8b84a0c3726f73d11869da569181579c605a67ee1a9e42355"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-8-light.png",
+      "bytes": 760223,
+      "sha256": "d46a302291dbc2898cfec8ec675401a1b6ad6ca2d37fe8925baabcd747f238ab"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-9-dark.png",
+      "bytes": 925698,
+      "sha256": "f9b5125b921fb614db160fbd06acd7e7efa74995285b0f9aecc0da65a6ac5b2e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/delivery-packaged/stage-9-light.png",
+      "bytes": 772581,
+      "sha256": "5122feb3fd35442eb77e1f005dd85922c3290948243d785217b56d5d72f9de7b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/electron.zip",
+      "bytes": 23424070,
+      "sha256": "c4bb84dc32ade0fac7efcb5084b5ff1d03cc7dc4ecd440d5675da4afba146c51"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/execution-verified.png",
+      "bytes": 803789,
+      "sha256": "23ab24588beaec8cb34a9c367509784dfac0f18865c69fb0c6867576571a1263"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/failure.png",
+      "bytes": 560023,
+      "sha256": "b5c858fafc546d4f648ebcb0f9201b5d8e854af4e0d48a55b86f32e8fa2a8ee3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-ar-dark-1366.png",
+      "bytes": 588990,
+      "sha256": "d030da09227d5c71fa7e026dbc1f8601abd32cf0df63f7b88d72d9c5cc0bf11d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-ar-dark-1672.png",
+      "bytes": 853547,
+      "sha256": "a0f5dc52782d7a53461369943a9ed379da7afbb7db5c725b8fa9b761a4ec13e4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-ar-dark-1920.png",
+      "bytes": 1119574,
+      "sha256": "b521b225497201409c4f5a52ec5e67648cab9fc39772dcdf09ab8709c37e5527"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-ar-light-1366.png",
+      "bytes": 447481,
+      "sha256": "44075adae1437f32bb84ab786cdae3a02fd20bbbf2829e158d4c9e0f37cc3d9f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-ar-light-1672.png",
+      "bytes": 666738,
+      "sha256": "9b7faabb6533c7aa900947e6e03d2c66d6bdd39ea62c011691d1963addbb78c5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-ar-light-1920.png",
+      "bytes": 920362,
+      "sha256": "81d6dd1b85a29a3a2548a77a6bd8367bae1a2869b3bb58d9eef350fcddb7ad42"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-en-dark-1366.png",
+      "bytes": 594709,
+      "sha256": "b45e86b4ebdf4ae335e5977bd782ac741907c221759043793d3ccb741ca64c11"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-en-dark-1672.png",
+      "bytes": 861948,
+      "sha256": "bbb3dff643a6b2f65cec2ee40acc3f19778c2e82ee2c2efd4528e79f75879775"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-en-dark-1920.png",
+      "bytes": 1130890,
+      "sha256": "1ada7814df3f5d34ca31d711f2c49f1f6e9e13dca526a37c63baeca4d38b0217"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-en-light-1366.png",
+      "bytes": 461484,
+      "sha256": "20d0336a9845de1bd7f081ea3a6c331948a6192155ad4f2ff751c449acb6459e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-en-light-1672.png",
+      "bytes": 689720,
+      "sha256": "a13ef4493eda826b6c6aa21c81d5f481182a9e842fcde33562b86db314b448af"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/library-en-light-1920.png",
+      "bytes": 943373,
+      "sha256": "262293892bac7aa79796f83d7fd68ae9a260554afba71f5a85f0756922961826"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/proof.json",
+      "bytes": 249646,
+      "sha256": "89f74d0db6734093f064b9f87195fec7d9fee76faf0b514b39065fb232f50637"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/restore-verified.png",
+      "bytes": 747234,
+      "sha256": "9e87c65688c86b72375e869a91b6bb4cdb547ff823e9298bcf324a3d0a07e020"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-1-dark.png",
+      "bytes": 763046,
+      "sha256": "b48c0ada00017b17dc2bfdef3c39d2d3e1aa472b21a475cf912fb65c711fe878"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-1-light.png",
+      "bytes": 573265,
+      "sha256": "abb8555e7e2b6df882854f7831a1a636a7ed806cacbdbe44e73af6fe6856e6ec"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-2-dark.png",
+      "bytes": 859153,
+      "sha256": "a522f901a773b160125abf870e428056e144b9e859bc82951afc80b6c80533c0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-2-light.png",
+      "bytes": 673132,
+      "sha256": "ab49186d27b4d38d8f2f5b9c83ff1881f40cf2ceb4d42353f6cf8f1bfb4017c3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-3-dark.png",
+      "bytes": 860885,
+      "sha256": "bf19194085e30a63225ad5a89b4a115dfec2a43b7214570a5375f3f0cda020f1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-3-light.png",
+      "bytes": 688659,
+      "sha256": "2c466411c0f3ea76bb2644e36f707849d34632d64835f2f0e80bbe37db96f3a2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-4-dark.png",
+      "bytes": 765992,
+      "sha256": "03276e7981a4ae3b3a7cfe84bf672b32806bf451dd50762f4f7b9a922b759b8a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-4-light.png",
+      "bytes": 553506,
+      "sha256": "cfc32c143ace22b436bf99ee9313781afb46fd5c53149a0fe20041194ad9cc68"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-5-dark.png",
+      "bytes": 760552,
+      "sha256": "832f6811cdeb17f367cc049586c2a0396315da9ca6542d866292523739029c12"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-5-light.png",
+      "bytes": 566251,
+      "sha256": "1cbba69c51ce99c21e76f60833c49a5b1a8b9355bf8a896571c13fe662dac064"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-6-dark.png",
+      "bytes": 769489,
+      "sha256": "6bc562ac91ec926867615083eb6a05e8eacc95aac0f6a64455c462fd265db6c9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-6-light.png",
+      "bytes": 560383,
+      "sha256": "e790f5e47c552fa13be31eb04f3dae766b82cad6cf6965113b00b2b3a848df44"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-7-dark.png",
+      "bytes": 791716,
+      "sha256": "b72aa1eb2b61739a7864d3640bed1ccf4341f45db8de12c4e2ab48835fe68a74"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-7-light.png",
+      "bytes": 552950,
+      "sha256": "f5a4f4961aa084f20f2bca74c3b2a0fbd56347f5f83c034a38845989fe7e567a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-8-dark.png",
+      "bytes": 746944,
+      "sha256": "bfca6204f5c46be7a4c89dab061ac8463e69a8f75f327f070602592a6795d4b7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-8-light.png",
+      "bytes": 536489,
+      "sha256": "e3f3ffeab0232441c3eecbaaacba877777c89544df0c3aecc20e57f453801039"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-9-dark.png",
+      "bytes": 745081,
+      "sha256": "b1aad0c1b8d94a96e640b7a9d6ba95cec7c62e635879b11242422f2c63058f61"
+    },
+    {
+      "file": "docs/evidence/studio-domain/electron/stage-9-light.png",
+      "bytes": 534122,
+      "sha256": "e29b53585b1cbc3a805f4aaa189e05a3cd3dfe8f47ccf27ac681a6091eae46b4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/manifest.json",
+      "bytes": 19587,
+      "sha256": "28a827222c55d5925aa47db59265b23e9531efefaa1c21e076e8c6bfac3aa798"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/overview-day-difference.png",
+      "bytes": 2052134,
+      "sha256": "f37672fe0e9664d9c1f0514ef97ba9e2fc1791bbc6a8502478f11996c3ea1c05"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/overview-day-overlay-50pct.png",
+      "bytes": 1596030,
+      "sha256": "18b141b03162175c4a16214b5c948702149b8ff7da4b94e12eec6e93ac71b080"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/overview-day-side-by-side.png",
+      "bytes": 2450417,
+      "sha256": "ad99caab47bc39edc8304c4cd1406a5463b69cb2da45e32245609e16b3e9bbf9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/overview-night-difference.png",
+      "bytes": 2262225,
+      "sha256": "aef673f2737bef4f0573fef86900e94b0b5a15ee27619020ca9dacb6e5c889ef"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/overview-night-overlay-50pct.png",
+      "bytes": 1776859,
+      "sha256": "b2907d0452d610234233a8e30bf7f425581602fc08417c02a2e0f52ed0ce8130"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/overview-night-side-by-side.png",
+      "bytes": 2829441,
+      "sha256": "07b24421c9115ea8f75deef31b37a4c941622da617c4448c0abc9e6796f10dac"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-1-day-difference.png",
+      "bytes": 2043088,
+      "sha256": "be844ea5ff1692c244f289bd3cdb09b1096157df63847bc0a1e6354d895e826b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-1-day-overlay-50pct.png",
+      "bytes": 1586856,
+      "sha256": "0e173e7c4540d6236116f760d7b731750dcb59c03ce69f48be71b1a2d388a4ec"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-1-day-side-by-side.png",
+      "bytes": 2439321,
+      "sha256": "43d04b85da3a13039492577dc65a7ee8c04f449c5e11bc5595245cd7b4d58bff"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-1-night-difference.png",
+      "bytes": 2255265,
+      "sha256": "99c8f5dea791a59626420e140ad9ba56f592b86889fa0c3ebdb9c04a83376a14"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-1-night-overlay-50pct.png",
+      "bytes": 1768249,
+      "sha256": "ae109973b947e69a4d69e1d24258f9ae086f16a97f862434aea837ed03404adc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-1-night-side-by-side.png",
+      "bytes": 2785119,
+      "sha256": "85ae3ed20414f4fa0b12488191e74a36a712e9aafe71a55ae2b28744799520db"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-2-day-difference.png",
+      "bytes": 2053271,
+      "sha256": "707f2556fc41fda5958cc021bc210583fd6790074e0b4626e3ce3af9cdf0dd54"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-2-day-overlay-50pct.png",
+      "bytes": 1593638,
+      "sha256": "fb857e889cd320a8a076b1585dbd426ff98c582643a682e7946139cdb0615af5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-2-day-side-by-side.png",
+      "bytes": 2499603,
+      "sha256": "982d9bc819c28491b03ec1c3cddfbd8406d14d80a1ff50ecfd7e226c28cccfaa"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-2-night-difference.png",
+      "bytes": 2254895,
+      "sha256": "16f8c3f4b592103b97749b948777f1cce4d31cc0ace408cdf490b3a2dc6c0f9f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-2-night-overlay-50pct.png",
+      "bytes": 1765590,
+      "sha256": "89453e3ba9bf177b103120e7b8c08471d6a53d5303b3cda1402c26f0d6581f17"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-2-night-side-by-side.png",
+      "bytes": 2813497,
+      "sha256": "4bc05b4b03201a589752a29fa7d5ca1fcd592545167832031b55ef9afd710ad5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-3-day-difference.png",
+      "bytes": 2038992,
+      "sha256": "151cd0582b6ffc0531b8382873078fe53ac4fd61a5d4778111b90d1ecbc5e7d7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-3-day-overlay-50pct.png",
+      "bytes": 1584830,
+      "sha256": "31d09ff849bfbc732330afa7bd45e3a58c66400a7b70d507e40ab21056e4af18"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-3-day-side-by-side.png",
+      "bytes": 2437516,
+      "sha256": "3b30fe60640f2375297f24360d84c26ae473f649aab66149c7a3dbd3d098b4a5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-3-night-difference.png",
+      "bytes": 2248013,
+      "sha256": "e471563b71c26dda0639fdf822a811f571a99663f081573b5ee2e6f4e2aedbcd"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-3-night-overlay-50pct.png",
+      "bytes": 1760039,
+      "sha256": "0effac5be0beebfba0c878713a2e8966c1f2c61b6b4749c0cfb03b2e8d9044ce"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-3-night-side-by-side.png",
+      "bytes": 2774543,
+      "sha256": "d4064b2b1ef855a15ac50598b4518dfb36f85f472bab382d000c310309c1fd87"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-4-day-difference.png",
+      "bytes": 2030871,
+      "sha256": "28f42ab86f65194a58e1ace48847de0d4cd590403865e4079f4600bcc21ac6b7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-4-day-overlay-50pct.png",
+      "bytes": 1576939,
+      "sha256": "ad10b2614a05ff5d6f7f2eb5a38b8c901c0c5201780db604a52cd863a290c90e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-4-day-side-by-side.png",
+      "bytes": 2428398,
+      "sha256": "f6344d2b26823365357790c1e6baeec6b9b3141c1301b4a98acd800c22ec4a3d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-4-night-difference.png",
+      "bytes": 2235599,
+      "sha256": "0728c2934d8fe46c4950961e722cb0bc4e2321fb77f0c91c9106c54b9a6153f7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-4-night-overlay-50pct.png",
+      "bytes": 1750310,
+      "sha256": "a60f9459b7ef47bb3597e7b6a22c44d836759e550a5c217fc6ed39475d28ca62"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-4-night-side-by-side.png",
+      "bytes": 2759097,
+      "sha256": "1a66c73b758ecd1eeee31c67ae9566262a83f36c6e24a588749c9dca022b2d34"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-5-day-difference.png",
+      "bytes": 2044350,
+      "sha256": "857db8a659d7e04f2c0b51a72f2ad68092d33939c5dec553192447439883c68c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-5-day-overlay-50pct.png",
+      "bytes": 1589188,
+      "sha256": "48b090bcdb90f80d11116910553b3126b34b3b3ed20275a52e1a9d3de38a9d23"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-5-day-side-by-side.png",
+      "bytes": 2447286,
+      "sha256": "fa43a161c6daabc3ea93d49c9cafe171d5f113b3965c33af1909a816c3f2759a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-5-night-difference.png",
+      "bytes": 2245414,
+      "sha256": "acf51465893488da705ac4aa780d9b9fe6664c0d5317e541d146b0d8daefd980"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-5-night-overlay-50pct.png",
+      "bytes": 1761096,
+      "sha256": "5551d3176beda9f9f14c0a960468b2030b3cb576e535320035b493e1fbea8d84"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-5-night-side-by-side.png",
+      "bytes": 2770700,
+      "sha256": "ff74ed9367b8ff3ec3344b6f6cd289f272a8debe1a3994aa499fdb113679a8a9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-6-day-difference.png",
+      "bytes": 2031532,
+      "sha256": "d7126ac4608d506c6a21c4ab477bda0576a12fd9f53bca65106c67baa726103f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-6-day-overlay-50pct.png",
+      "bytes": 1578446,
+      "sha256": "78c3744513dde0dd28573c851bc9ed4c3445234c0c2e312b953ed1384440c09d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-6-day-side-by-side.png",
+      "bytes": 2428554,
+      "sha256": "72f5f6c9724cdf94e977dc413bab161d6f4d3457bd1795026de8c1a9c6888e70"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-6-night-difference.png",
+      "bytes": 2239851,
+      "sha256": "1ac17aa9d90096e7f7837c922c9d7402280a2cb9df3a2f568873a4ebc52218fa"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-6-night-overlay-50pct.png",
+      "bytes": 1755324,
+      "sha256": "8d7604d70b067b1b0040d32b6cdfa1e58aac04fbc0f2172604fe00015a50db76"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-6-night-side-by-side.png",
+      "bytes": 2766298,
+      "sha256": "9f29e9df74e71dcc4233bec8961d9ef25f551121fb37b79289b74dc37a94cdf5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-7-day-difference.png",
+      "bytes": 2041284,
+      "sha256": "1df9289f3a9411242f26ccb15d7e7d3189d63a2a450f046859106d9b098cc50c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-7-day-overlay-50pct.png",
+      "bytes": 1584295,
+      "sha256": "9f1633e45fe5a7b40f4420cf18b6103950db55f00fd7f532c35bcec91929b484"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-7-day-side-by-side.png",
+      "bytes": 2469401,
+      "sha256": "97745823359e3e593df4715e847721fe70dc7f6e2a8f94e9a0a135a72205f198"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-7-night-difference.png",
+      "bytes": 2248532,
+      "sha256": "be951fe6d13127029f6dffa9ab4cbd03ebf7f975a19afc1cfb2bb1e65b8e4f94"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-7-night-overlay-50pct.png",
+      "bytes": 1758543,
+      "sha256": "eceade5b6eafae9a8de93973993c6ccc1cbb14ff95785a8b08354786bd3e750d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-7-night-side-by-side.png",
+      "bytes": 2800213,
+      "sha256": "a9caefd868bafb22c02a70d0f8ff2d80dceecbf443c479d1d9d7eed54da9bcce"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-8-day-difference.png",
+      "bytes": 2024884,
+      "sha256": "54b2fac7951b1202b1adce79c58128bf6839e08fb17f7adc87c97f11be8d8caa"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-8-day-overlay-50pct.png",
+      "bytes": 1571601,
+      "sha256": "e9c7afd9285f2dd5b46fb908a5ab1dafe71fa7f5eff14704c6275d0b59b540a1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-8-day-side-by-side.png",
+      "bytes": 2421104,
+      "sha256": "5e468433fc4f9f8bf5eecb464f59fb0a0855010fc9548dc43d89724728d2e5d1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-8-night-difference.png",
+      "bytes": 2227390,
+      "sha256": "ffde1cde0404f969fd984f725fc7ab91ea5105fc0b52f4891cc1bc1da672a389"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-8-night-overlay-50pct.png",
+      "bytes": 1742790,
+      "sha256": "f5c89fd1d88bc9d673eb7c86d8bfe88b404f67835fd7e0b132a4e4b9a3cbb5a9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-8-night-side-by-side.png",
+      "bytes": 2751356,
+      "sha256": "3ab6062473fa510792578efbb75bf9f3a50062d7ce54f840144d5a1b12bd66ed"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-9-day-difference.png",
+      "bytes": 2033384,
+      "sha256": "d6ea51f33a62b12e46b5c55caf736921e03ba9564cbb399ccf3fa7d52b50be5c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-9-day-overlay-50pct.png",
+      "bytes": 1579149,
+      "sha256": "8b33c843ba7b5d3365dc1faef4bb26635a17d534db14c5155a0c6e1294589bce"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-9-day-side-by-side.png",
+      "bytes": 2432200,
+      "sha256": "980ec2cecb2d0c937402ccd829ee88228a74497bcd159c2708460ccf6583d96c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-9-night-difference.png",
+      "bytes": 2236758,
+      "sha256": "a118380ae3a69105a443df194428300a311e7ef8716acd5d49918d50d48172d2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-9-night-overlay-50pct.png",
+      "bytes": 1751306,
+      "sha256": "b44380b70f36b5dfce5b04ccc64e2c2debc2bfa34845ac89d8e34fffa87a98c5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-comparisons/stage-9-night-side-by-side.png",
+      "bytes": 2762261,
+      "sha256": "3dca027005c33afed7200be4e2da9c8db4cca53eb8fcf800d53cf4fdae9fc75a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/byte-verification.json",
+      "bytes": 7449,
+      "sha256": "ad7af6291ca4f875e0623ab713cbfb29e2161ed1ebd69ec474ac6fa9304e494e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/execution-verified.png",
+      "bytes": 974419,
+      "sha256": "5f80917ed372ab89888fcd8f33d0dffb408efe916ed9cc8bd158bed6250b9499"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-ar-dark-1366.png",
+      "bytes": 654741,
+      "sha256": "40cde110e90b7bbd16ec43d2cf33ef156d65734c571c6c45eac567f75af7d608"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-ar-dark-1672.png",
+      "bytes": 943646,
+      "sha256": "fe23a713cf5ca859cb3b6ee792c0e108858a1f300099bce355a0c64221f3258d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-ar-dark-1920.png",
+      "bytes": 1188665,
+      "sha256": "0775c969f79c373e9951048bfe84eafcc03e4df4cf65ebf43d218fc3f144e327"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-ar-light-1366.png",
+      "bytes": 554918,
+      "sha256": "d3e4acf92aacc5118a5fd1a4997c7cc87cfb48ede4b73674fcd3ab3d0a278366"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-ar-light-1672.png",
+      "bytes": 808732,
+      "sha256": "0f2dadb24947bb7c11873a3018454ed9481d28649dde8f9b5fce9c2dd355484c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-ar-light-1920.png",
+      "bytes": 1067789,
+      "sha256": "ca75d16141fd87d0c23af57c9569178cba0b873194b17b1d044694cb3fbb6cc5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-en-dark-1366.png",
+      "bytes": 669202,
+      "sha256": "4023cb8520015be77b08e4288cba92eb1216855166271e3d6f1b4a51a054fe7e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-en-dark-1672.png",
+      "bytes": 978503,
+      "sha256": "cfdd702a4916ee97bc0fcc3da09e3c64ba896d6df39f97a741f00f438d35e300"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-en-dark-1920.png",
+      "bytes": 1228832,
+      "sha256": "dce66abfb8c2ecaa765378ff0e2d1581d6906fee659497bc808f450fa913f9bf"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-en-light-1366.png",
+      "bytes": 576399,
+      "sha256": "40355797ec3498348e5e19d476b7a0d3b22a4229545fb12219e57d3021a726fb"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-en-light-1672.png",
+      "bytes": 842652,
+      "sha256": "9b39589612d92bdfea4b058b7417b160fa05c5c3b8d0cb1a2338078d1bd32c6c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/library-en-light-1920.png",
+      "bytes": 1099848,
+      "sha256": "be33be8a62b55b3fb7af78b055c5f7cf9104f9f4d0ec6760616e5c6cf8b94982"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/overview-dark.png",
+      "bytes": 993066,
+      "sha256": "97821b578a1f3cd7e55f13f8835dfa27c3571f9e9140f04669a49e7ae395bec7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/overview-light.png",
+      "bytes": 798558,
+      "sha256": "b15863902a092899d5c5182c8d0df577c3379f1feb6b6d47b1175be0e8e68316"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/proof.json",
+      "bytes": 252831,
+      "sha256": "eb660cde45372b57c8d992d21c50f89875323dc8bfabe5b447beb0edf6070e75"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/restore-verified.png",
+      "bytes": 929077,
+      "sha256": "1e3b7678ef43f34b3d93f895dbf6e7d98a039b4d22caa234e5389605e3941ccc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-1-dark.png",
+      "bytes": 944782,
+      "sha256": "4c5ba24c78043a9eee480f4141214d76fc1acb08dc15c77580d88f826c9d0bf7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-1-light.png",
+      "bytes": 778330,
+      "sha256": "911f1379ddb0c1c34e8e0c03ff93bb52524937c35a84551b92684099c57a21ea"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-2-dark.png",
+      "bytes": 976327,
+      "sha256": "83afaa9a5253fd839049045692b9453f25f3acbbcbbc22ee3ca840a785ed3eb3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-2-light.png",
+      "bytes": 842620,
+      "sha256": "ae9e77b3558d4abda7d134337619fd951fd3442e080679dfe8851ef86482bfda"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-3-dark.png",
+      "bytes": 934058,
+      "sha256": "14758239e4147742b2617101918a2ce925beb905d8004ce304431e51f5fefd16"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-3-light.png",
+      "bytes": 777758,
+      "sha256": "0904457129fa4d5764ea6b1fd3451645e62debd2d02894cd5f5225b68ffaa167"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-4-dark.png",
+      "bytes": 917127,
+      "sha256": "ab9e3cb9f0f66a8864aae7b801b8d48300f8fe242cd13a08740eb044703fbd64"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-4-light.png",
+      "bytes": 768797,
+      "sha256": "a4f65e1777988e01e993395977c7beae3b284cc5592d16c88920ed88c9b711eb"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-5-dark.png",
+      "bytes": 929782,
+      "sha256": "1a752c988fb7740a662537e228d6fc3cf7a12a067235889063ddf8393cfa8db4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-5-light.png",
+      "bytes": 787395,
+      "sha256": "30a5523219c9f2cf1e4c0250ee0b5cb2a749f532bea42a6f0a83c3fd023e0bc9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-6-dark.png",
+      "bytes": 926308,
+      "sha256": "045bd15b9d902907488412c648e043cd7e88c503f28c95bf356f08ed8d5bcbd8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-6-light.png",
+      "bytes": 769777,
+      "sha256": "8e679bd3c0e65f1e092beb4fa3120e11b6dab55176233f05a497a0f4cb35c727"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-7-dark.png",
+      "bytes": 962191,
+      "sha256": "1d2f9f7447b0523132141fc8f1c97db0c8d6a5d8b1c043c2f60c11aaa5b36b27"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-7-light.png",
+      "bytes": 810684,
+      "sha256": "08ae50d6cb49614ea3c3762ebd4cfb444d542371be269947b8b94cba68870912"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-8-dark.png",
+      "bytes": 911295,
+      "sha256": "0ecbe5ca7a0374b338045043ab61ed2d90927957b7f206a8948621841ba00d5f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-8-light.png",
+      "bytes": 763031,
+      "sha256": "e5a0ca578e862da2f71fd8e12c6d23d5959a70befaf2a942344101aba8ef129f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-9-dark.png",
+      "bytes": 923090,
+      "sha256": "85b5998c50a9c5847eb0d4f52e2c4b7b8b68e5bad181d2b85f946d161b1a7591"
+    },
+    {
+      "file": "docs/evidence/studio-domain/final-packaged/stage-9-light.png",
+      "bytes": 773951,
+      "sha256": "e1cf20c05acdaad273c1d289d2ea38f677b92402fe9d05b28434fc8f815510cf"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/execution-verified.png",
+      "bytes": 972329,
+      "sha256": "9435fd60462efc36bbfc22cb78a4c1dfda85b309fa9d5b2a8effb69775480519"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-ar-dark-1366.png",
+      "bytes": 652527,
+      "sha256": "83acd3d1afe5143d42865ee208fd5cb72c2fe6de6e17d8b78cb71d77960e8626"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-ar-dark-1672.png",
+      "bytes": 942495,
+      "sha256": "b3a17a008440def8941aefc8c949b5c721001abc508e2dad16e4235777471267"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-ar-dark-1920.png",
+      "bytes": 1189242,
+      "sha256": "7ea8f266b71ddb9b4aaa0e5fbc3a702a95cff9ef92b2e8d7d7cc3a3f29a33d6a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-ar-light-1366.png",
+      "bytes": 553550,
+      "sha256": "56ae78cd9373eb27530377370ed2cbf8d4a3c2a9c62c6605e7ad7a7576e93a9a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-ar-light-1672.png",
+      "bytes": 803509,
+      "sha256": "331aba044e52362458770db09a10ba090bd42931157cd2f00bfb15085fd363bd"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-ar-light-1920.png",
+      "bytes": 1064575,
+      "sha256": "c29909469e925713d9aaf669cacf4c89bcfc7928de77f925c7786a4413c88b9f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-en-dark-1366.png",
+      "bytes": 666164,
+      "sha256": "c1fdddd3dec7e8e2582451fa34baacffce548269106681bfb0f1c81bdfbeabe2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-en-dark-1672.png",
+      "bytes": 972539,
+      "sha256": "4c882792f65fce1802c5e55c03638073a7001358307b452a199050e505a8e1ca"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-en-dark-1920.png",
+      "bytes": 1221742,
+      "sha256": "eccb4d5165ce32546ec634f657d751f2a0b037c9b4a6a6fe0b1f2e8358667eb3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-en-light-1366.png",
+      "bytes": 573231,
+      "sha256": "a917ebd1351ed483a86a1f0c98554a26867cddcdd0b3b89c8ab0efd39e4e6289"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-en-light-1672.png",
+      "bytes": 832973,
+      "sha256": "57540570276f85c4796d424ab78af55017db4d701606df0ad794cf9f1ab0f44a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/library-en-light-1920.png",
+      "bytes": 1090165,
+      "sha256": "e3c245ef045c85d6a86bebe9c8d8be21229e89579008fba7443f4cc0ee257b37"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/overview-dark.png",
+      "bytes": 990996,
+      "sha256": "6172596dbf035a2c90cc11808c6eed530c48542788b73962435b5a920420cc27"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/overview-light.png",
+      "bytes": 788671,
+      "sha256": "90761838eec8be1e2061621732ce93da0b3b5950c95e6ca1d2ed05b73bcb4972"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/proof.json",
+      "bytes": 250731,
+      "sha256": "f246841b2ba19829d0dbfc7638541a323e4fa75a5f0694cefeae3bd7b1f5a866"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/reference-assets.json",
+      "bytes": 587,
+      "sha256": "975f68bffa83c7f83ec168aaaebf024e068e47901c87291c097735e5e3703a1b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/reference-verification.log",
+      "bytes": 1551,
+      "sha256": "3657af9b4e1ea3e50bb6d08ef90bfa90377fb2b3c32068c37a1c1de3b496a271"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/restore-verified.png",
+      "bytes": 927169,
+      "sha256": "ec997de181138c8cc930426ad34e2ce2dfed3c7ca74984491805d0e9714abd5e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-1-dark.png",
+      "bytes": 927239,
+      "sha256": "f982549c85b395bf1cbda2c7b5372100ac963e9afe272e01d4b7493f548dedc0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-1-light.png",
+      "bytes": 780567,
+      "sha256": "13a7e3cac24868e60388cbb983263d6840dbc8b6a0d6c9f9254f84cf65962e1a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-2-dark.png",
+      "bytes": 970191,
+      "sha256": "e21efaef842f2cab9539d535a7e6f9c842f55c62958e6c408097ce3b928282ce"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-2-light.png",
+      "bytes": 833864,
+      "sha256": "b77cdfb8284c0883c228863046c73d22a6d5688fb35480c4acbcf5a7b3ab54a6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-3-dark.png",
+      "bytes": 917558,
+      "sha256": "bccf8121b2fd49c527721dff65a360eebf188a4ddb1d038985540f21b35cf664"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-3-light.png",
+      "bytes": 777021,
+      "sha256": "3089f495b3419390332d6c6835cca95806ab4d72c9ad74fbc300821446f06e98"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-4-dark.png",
+      "bytes": 911020,
+      "sha256": "18b6c24b5df0563e1e2d289c18426d52c4445911663fd26cda2eb04fb1f8d27e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-4-light.png",
+      "bytes": 766906,
+      "sha256": "0e512c96a749f9b0abe48eb58d49292597ef287fbb9ab381763e79276ff0c93f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-5-dark.png",
+      "bytes": 923631,
+      "sha256": "543a813153ae76ff61b5040f96cd43722622bd63076ed245557c5d2b11f706ac"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-5-light.png",
+      "bytes": 766595,
+      "sha256": "5ef743f88688c9af324ac53d13a3a1a5901ac08d21fa62fd98fc4235cc6a0b5a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-6-dark.png",
+      "bytes": 919880,
+      "sha256": "a6346c92006d3141779c6126f8e20d738f1afd0025ef69c0c94ba9e70be120e6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-6-light.png",
+      "bytes": 763036,
+      "sha256": "68d02c3e19a26c6779e010f9f1695ea92a8a0b5c3efb9987dd2c4fc75bfd9eb5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-7-dark.png",
+      "bytes": 956520,
+      "sha256": "6129c6d52239b9d269f57e58d52efc54bae842a54c6722f3c4c7b66bee2b2297"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-7-light.png",
+      "bytes": 802300,
+      "sha256": "40e668fad623ea595ada0c5e89aeaee69ce49efc48e0e847650b85e2ebd90b38"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-8-dark.png",
+      "bytes": 905724,
+      "sha256": "3b9aad932595cc81f04661d4f0d78bee94ceeda55cc6c975d073bf031d2ea95e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-8-light.png",
+      "bytes": 753946,
+      "sha256": "992f63369c5158bd28907b469feecf6966825a73ac30399b63053c45f9a1e770"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-9-dark.png",
+      "bytes": 916121,
+      "sha256": "4927c07125542be1031c3a8b875c2020dc4e1f656e91b8ca5946831c18de5d82"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden/stage-9-light.png",
+      "bytes": 765007,
+      "sha256": "804ede0388bbe87c7c9ac3f42109eddc0529da121185f771bc0924f1b1c32124"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/execution-verified.png",
+      "bytes": 968943,
+      "sha256": "7034089e73e92b8c486220c73e629d8e64396fb93151ca883a342877e6a8fce2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-ar-dark-1366.png",
+      "bytes": 654792,
+      "sha256": "d98f1d9e660220a6c45324121f44c46dca5db3a9fe13f2f24b1dad0d21155011"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-ar-dark-1672.png",
+      "bytes": 943619,
+      "sha256": "34c3414fe3a85052d0702d734a3855b7dfb1b84b34b96f8cd4455705db4125a1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-ar-dark-1920.png",
+      "bytes": 1187042,
+      "sha256": "e80dd31dafd11e3f02cbe90416ba26d1e06e7d3c6026f79cabc24d851bc0fa7f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-ar-light-1366.png",
+      "bytes": 554818,
+      "sha256": "52b276023c6d0f633cb1c238695174faa0d652b0c4ba3909df168cae8fd3fa77"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-ar-light-1672.png",
+      "bytes": 805123,
+      "sha256": "8c6115310a9eaebad3bf7ac6c052d360c171069fd58ccb0d2804cbde9c1f536d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-ar-light-1920.png",
+      "bytes": 1064629,
+      "sha256": "29a1676c4623a5ca16e6dd0ebc8f906dc043758197488086aeda01f26304d777"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-en-dark-1366.png",
+      "bytes": 667506,
+      "sha256": "783c9a46a4c6fd944997037026d97f93a51790e9df44245184cf80eccbd4038b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-en-dark-1672.png",
+      "bytes": 973571,
+      "sha256": "85d132b64fa1691ea9f89e7566ee078c2dd8e7c9f66d267701c9cef302b8b570"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-en-dark-1920.png",
+      "bytes": 1219068,
+      "sha256": "382fcc5822c664051b125c1c3560d78479f29720fb23a10fec9648ee727b4f35"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-en-light-1366.png",
+      "bytes": 573950,
+      "sha256": "c26a5543d0ea7cac27ab331f98fb4e375f51fb77bfc042915f103c648a8df85e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-en-light-1672.png",
+      "bytes": 834376,
+      "sha256": "0a4c529cc63c45d8c95a434fc86c8afcffaafdb1efb27384e6849d4f52783a12"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/library-en-light-1920.png",
+      "bytes": 1093141,
+      "sha256": "af092a4217e8138b703e6d8e9c2b2520a359771907bc1b13894f9fae44f7e740"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/overview-dark.png",
+      "bytes": 989209,
+      "sha256": "3d6d2e033c088fc0e6da74dffa9307f341c6469475b5b8909b48b8d99dbc46e9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/overview-light.png",
+      "bytes": 788837,
+      "sha256": "80f7162db769b617ddbb4a6e9fad7d6c8fd0747ced6b1ed36f37c911feb419c9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/proof.json",
+      "bytes": 253114,
+      "sha256": "bff93bdae8cfcdbfc32638cfa0e347fae4a0837e72cf2771c517302cd108a05c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/restore-verified.png",
+      "bytes": 924113,
+      "sha256": "8ca5a1c0611d37e57f7e0635daf6e500d56f8413b2494b90a24a4ade944c923d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-1-dark.png",
+      "bytes": 939231,
+      "sha256": "311ec070672cda986e2ea613bb0281d91be1bb7226f29a907354471c0a8c179e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-1-light.png",
+      "bytes": 781623,
+      "sha256": "de5ded522b4b6565fdfc6a69d36c223d222b4869c6914a02ddfde0893e372340"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-2-dark.png",
+      "bytes": 971151,
+      "sha256": "29c31f2a2f8df84b6e15be99110bd0e03e2944c23d277342fa4ea16a604e41c4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-2-light.png",
+      "bytes": 834811,
+      "sha256": "f033f72bb3b4cee2e449ee04a2727c3bfbf2f5b9e0a0eff2bc9996fdda3bb987"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-3-dark.png",
+      "bytes": 929061,
+      "sha256": "4892f8680f6d3c833dbd17ab45fc0507b7c095ad8812de569f2d64227c9a2a5a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-3-light.png",
+      "bytes": 770274,
+      "sha256": "730f32aeaf01f660e6eb458d695a612d8b04ef9dc4fc00b1b07ad1eada502b5a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-4-dark.png",
+      "bytes": 918954,
+      "sha256": "d0d56b484521e500b4f8307f49336694e43e1af0c2e6807c85f7615bfc989cc8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-4-light.png",
+      "bytes": 767566,
+      "sha256": "b16156257a6ff771c76aebe002df6743b5a94362bf2f94f118ab1e0744897c02"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-5-dark.png",
+      "bytes": 937506,
+      "sha256": "1d2730197a71ddef4e03adab363b92056647819b10a3c2d8a599e230506ba17a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-5-light.png",
+      "bytes": 778192,
+      "sha256": "e49f76b02b656d8249e1868667d3ee2f56f12d96785f141634284c612bad9745"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-6-dark.png",
+      "bytes": 920461,
+      "sha256": "80b0c49fc3a66f40fd773dad02f9910bea4fb97e85c9ad8c247567c11dae8a2d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-6-light.png",
+      "bytes": 768147,
+      "sha256": "ad4acd4be02c97706c82374e7dbe1369ac45f54ec2c03fb06e216fe11aa2210b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-7-dark.png",
+      "bytes": 949647,
+      "sha256": "af82d315f7b9a8d2d8fb5022c6387618a4ee1f5548d0b646a555b2eaa25ea155"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-7-light.png",
+      "bytes": 798212,
+      "sha256": "f1b2be4080f8245374f16494766103db02fc8597d8c28f21f82fa2077e0914d8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-8-dark.png",
+      "bytes": 906950,
+      "sha256": "b4e188aeceac3fc7943251491f9b84490e63826d3899b9ff62eafe431a2b8969"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-8-light.png",
+      "bytes": 753026,
+      "sha256": "d6a3a0cf0e66948921e987ae35954304f51482bd1e1fe507096c7ecc0a0765d2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-9-dark.png",
+      "bytes": 925000,
+      "sha256": "0e6e3c3bb7944d5e79b0a0d402eec1c42a79ca5c920fbc313f4f64eb3f9a8ef9"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-packaged/stage-9-light.png",
+      "bytes": 766087,
+      "sha256": "a20348770819982a70357bc620f02daa50e2c28f6cdee914c60fc3393372ac51"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-stress/inventory-10001.png",
+      "bytes": 915618,
+      "sha256": "ff7b877991b867c487ffcda7336b91e8afb1b3e6e1e92489ac9ace71470fe04f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/golden-stress/proof.json",
+      "bytes": 542,
+      "sha256": "730e66df63e014f85afc6db678e509ac714171946160ab7a42ce4ba1d3e76154"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/contract-test.log",
+      "bytes": 6165,
+      "sha256": "605cc5e596c7a3ee87bba239fb6dd3861ac7e5280036aa7b50fe1e740e339330"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/copy-checks.json",
+      "bytes": 3554,
+      "sha256": "0eed18b3e9fd6d892be0db66efa69fea402fae3e6583f77068a98efd208cc1e7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/events.json",
+      "bytes": 159959,
+      "sha256": "ac4a30f691fb9b58378c0b616ae3a0bdb67d75e8f100f4bef9ec49cb452cd3ed"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/final-commands.json",
+      "bytes": 990,
+      "sha256": "75e84f615e8a982e56b1e4ee5d4deec66d72ff0a8053f26909b2d5999ca5c0c5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/fixture-checks.json",
+      "bytes": 2316,
+      "sha256": "5c7d1b3b74942c0adbaec22babfe3c16e3352820358bda1d716559a8f7dc6d36"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/model-test.log",
+      "bytes": 450,
+      "sha256": "cda681c65d030d198262035fbb9afcef1c8750ed41c4a3e22ed1f4e93fafecff"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/native-contract-test.log",
+      "bytes": 6434,
+      "sha256": "ab4add896c3c6c0e66bfddef90090b66fc3344656813755f4a44f73fe60a279f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/negative-checks.json",
+      "bytes": 444,
+      "sha256": "5dec54cedb06593417c2bcf3f09555d8e75fa8d54a2bf4a48b92bf8cc44097af"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/receipt.json",
+      "bytes": 27822,
+      "sha256": "b463f88070d3d596445713ffb3f38780ea139e2fa642cf911ba2387afa8b9dcf"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/studio-domain-native-test.log",
+      "bytes": 168,
+      "sha256": "abcc58cb808035f9e449d3a7b718bafe2033e37cb54258dbcf47f166a452df08"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/studio-native-test.log",
+      "bytes": 526,
+      "sha256": "047a5fb4918a8afe7f7987efe361a101f48f1cf6211b8dbb142e631597456eec"
+    },
+    {
+      "file": "docs/evidence/studio-domain/native/workbench-host-test.log",
+      "bytes": 987,
+      "sha256": "23706acc57c6a276b4fbca217c8237c1b3e0886df289b768fdf2e4d921cb20fc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/execution-verified.png",
+      "bytes": 805881,
+      "sha256": "17c50154a069d6d9e1afd372ccf957936ba3e2af50612c86a5397ba537320085"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-ar-dark-1366.png",
+      "bytes": 591891,
+      "sha256": "c5455b89469eb3321524ed7b5f383af6912f51c7a37474bcd4d75d1e5467304c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-ar-dark-1672.png",
+      "bytes": 856317,
+      "sha256": "7672fe2fe6f3aa52c030ed26ee98096c01a60b03c3e06e7e37c8a12adba815d7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-ar-dark-1920.png",
+      "bytes": 1121739,
+      "sha256": "57b0a24d99c079f77f9713197702d78bbafd6d260c8de0bafa9de7fc51d33e13"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-ar-light-1366.png",
+      "bytes": 448714,
+      "sha256": "d0fa15b7d494f5e323aa9f4346b239b9fcc665843b12110ccb8c31ee38a2a69f"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-ar-light-1672.png",
+      "bytes": 668567,
+      "sha256": "289cb2310dd5240ab1e53f3a674dd795cc384858eaeaf0d50a5c9f3c27b421e3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-ar-light-1920.png",
+      "bytes": 922927,
+      "sha256": "f02df5d3e7dcd625f09277699c1e012fbac891d0674b90bfdab7c7f437bb7e51"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-en-dark-1366.png",
+      "bytes": 595759,
+      "sha256": "deae9f79a37af3f20aacacb688891f03b273091d5384e8f0518fa2af23c85145"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-en-dark-1672.png",
+      "bytes": 864226,
+      "sha256": "557900c8feb49eaaf668b6535de514697a0078496b01dde99455e2e3dd147488"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-en-dark-1920.png",
+      "bytes": 1133304,
+      "sha256": "c7d0d89dc2f17e3e02b3db3fb189489d627be87040efa666d0b0e82020a4cf62"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-en-light-1366.png",
+      "bytes": 461806,
+      "sha256": "afd151ccf69cfad76efab18ae1db07d3ff7e336121500695ef72e23d0f5bdf85"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-en-light-1672.png",
+      "bytes": 690771,
+      "sha256": "804cdd8490aa13d53faebf7192b7f364cf16f25d3e0d58a0a5ed3d4b678dfb42"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/library-en-light-1920.png",
+      "bytes": 945571,
+      "sha256": "45e36eba700438f610e5f6f934a999eceacacbc28590ad2e79043d40c96db4d5"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/proof.json",
+      "bytes": 249470,
+      "sha256": "1dca71cc0f3bb0c0c94826f19377d27efdbae7583bccb9a53f7a83a0aa2f49cc"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/restore-verified.png",
+      "bytes": 750439,
+      "sha256": "1660f7304a99c5057c9dcfc4fcf9daa9238e0b5b49a16e489a00ed6f23d08788"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-1-dark.png",
+      "bytes": 773770,
+      "sha256": "2dd70098b8a9f9c8805d516664414df4424dd42774c3418eb41ea49030bc93cf"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-1-light.png",
+      "bytes": 559860,
+      "sha256": "29f3c671edc30c8ee0294e85e09b1984daaf2880d2a95e60768519fc80b94eba"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-2-dark.png",
+      "bytes": 864199,
+      "sha256": "7ef8add5881fb361ffd022b4795e0537a473fe6f856c370778a8c333d3dfd337"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-2-light.png",
+      "bytes": 690760,
+      "sha256": "114bc7b25029ba69ea4fcee2b8418e2156009536c62aca2cdf78f1362487479a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-3-dark.png",
+      "bytes": 769421,
+      "sha256": "28246df4fb9c648fc6a2d80f0361bc8d4113494920511612918d2027647c1e9c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-3-light.png",
+      "bytes": 567385,
+      "sha256": "7c76b6738da4cb986e40da5a5224e7d411e5295d3df5ef0d087ad06c842b18ab"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-4-dark.png",
+      "bytes": 763442,
+      "sha256": "61dddfb0ab9a1880c9d1312e1f440ea7f7ef802782dd7e6a368357c997156367"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-4-light.png",
+      "bytes": 550856,
+      "sha256": "8686076e7ccae4b290dff45517277213212972e6971e944a82c9ddc9c60cdbb1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-5-dark.png",
+      "bytes": 775124,
+      "sha256": "e133cac58bd5092513445e00387be8b8a2166bbe9e70cfb3205ce57a9a9b0e37"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-5-light.png",
+      "bytes": 562249,
+      "sha256": "8af456930583b0e2ffd228915f577d5b3f1c7ebd6a96c121b1ead6598430c0c3"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-6-dark.png",
+      "bytes": 771193,
+      "sha256": "5fc9714a4eda9c771d22a17d951157cc5d3418a4542a04cda915cac74750b76c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-6-light.png",
+      "bytes": 554901,
+      "sha256": "b68731a54e5d3a1005cbcf2e3d6b03abc3a35b57fd7f354cedc9c7912b5e7a4d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-7-dark.png",
+      "bytes": 809810,
+      "sha256": "2b0a273185ece68884cb83ec6ea7d6bf522066697fe0a84bce09bc66c009c69e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-7-light.png",
+      "bytes": 592600,
+      "sha256": "7d89f6c51efe7acc18c1c681f5184006a38c4696e51ec51fe6f6904cbfa4b548"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-8-dark.png",
+      "bytes": 748441,
+      "sha256": "0101c2441d4ad9c27f188192b69bb204b24008ab7501334e29a2cdda7a844945"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-8-light.png",
+      "bytes": 536224,
+      "sha256": "e17eb3c73c3305b5aef98d9d72922cfa8cfd74e1a6b8f8fee269d629cd9e6bb0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-9-dark.png",
+      "bytes": 765968,
+      "sha256": "37d465ff0f9d88d64fcc79bc5600833044fef709d2a140c1ab4157a02fec9601"
+    },
+    {
+      "file": "docs/evidence/studio-domain/packaged/stage-9-light.png",
+      "bytes": 560725,
+      "sha256": "a2d95e31e1b1b47b6092e64104e63d916c129cad6c69cd4d0f31614e0fcb72e8"
+    },
+    {
+      "file": "docs/evidence/studio-domain/stress/failure-10001.png",
+      "bytes": 855307,
+      "sha256": "3be3eff224230b5b7c712c0a99c55a8cb0b6931ba080fde22575abf79c7a0d68"
+    },
+    {
+      "file": "docs/evidence/studio-domain/stress/inventory-0.png",
+      "bytes": 737526,
+      "sha256": "4230d205899769c280fd1b922a6b94b43947e4037bd0b68b232b19389d606e12"
+    },
+    {
+      "file": "docs/evidence/studio-domain/stress/inventory-10001.png",
+      "bytes": 756111,
+      "sha256": "1066a5997da298476ee40f9f7d82259cbd9a43657eb7f97c3126568bfd25e480"
+    },
+    {
+      "file": "docs/evidence/studio-domain/stress/inventory-600.png",
+      "bytes": 863072,
+      "sha256": "13b7ae85bf966b5a41885653e6b87ba9cdf88430abc3e1a387a3e20c80f9c6f1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/stress/proof.json",
+      "bytes": 1131,
+      "sha256": "57368e408f977b6d9c3cc1a84270c2386cc816beb647e4d3379392590f2395a6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/execution-verified.png",
+      "bytes": 974699,
+      "sha256": "06ef3be73dc44b5cc8e3255260335a4a77771bd9d56fba72f5ee58de85cfda5a"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-ar-dark-1366.png",
+      "bytes": 655036,
+      "sha256": "49141052669c8cabf0ab6f548135788f90d52c136075b1dfc73b322836961ed4"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-ar-dark-1672.png",
+      "bytes": 943542,
+      "sha256": "a6e66d5fa9d4e7779dd23b04675f4b5082032f9a272d533182fa112e9e1d5cc6"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-ar-dark-1920.png",
+      "bytes": 1188878,
+      "sha256": "914d2de2d0e70602abaee69246cf2af4c43f04d295f158cdf31b931945d551b1"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-ar-light-1366.png",
+      "bytes": 554315,
+      "sha256": "74a1d463da4da3a6fe95aa5a86506af0798e673dc3e319fc273e0832b7496a81"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-ar-light-1672.png",
+      "bytes": 807683,
+      "sha256": "15a9a6ea8c15cd7f058600e1ec4c886353cea73db91f2a41e040f3f5a1228252"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-ar-light-1920.png",
+      "bytes": 1067707,
+      "sha256": "b62f43af4097da1a78789411104e4f8dfe8a288486b4f593b17b367d9965bb1e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-en-dark-1366.png",
+      "bytes": 669168,
+      "sha256": "2f1e4d0baaa4b0569d4f41c9128989c37418431479c61031d43e8f33cfb959be"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-en-dark-1672.png",
+      "bytes": 977686,
+      "sha256": "827755448ce81ea160df57ff93a959f318cebb130bb8ed7ba7e86f5ddcc6d92e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-en-dark-1920.png",
+      "bytes": 1227102,
+      "sha256": "cefb7b45a31e2ac35fe87b1ed854db477ddcc3edd968da1ed599ea1e9b48266b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-en-light-1366.png",
+      "bytes": 576675,
+      "sha256": "a32d514c1df807b36083c039c9242bef4b292214d1e555682bc6c226838cb99b"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-en-light-1672.png",
+      "bytes": 843990,
+      "sha256": "45178582689517f7dc32f537d9c737c7098180f0a02ab6de5ddc851ea1861ed2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/library-en-light-1920.png",
+      "bytes": 1100706,
+      "sha256": "ac6404ab1de5f09e150b21ef249cc5efcd5e1b85b842027322523bb3b02cc0f2"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/overview-dark.png",
+      "bytes": 993128,
+      "sha256": "b90aac288a09c65df780ce21348cd42fc32cb09b5aab79b81507e8c10daab25e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/overview-light.png",
+      "bytes": 798061,
+      "sha256": "e513873966fda0eaf00b1dcb5e309e665d05d0b03be0e39130422a5483016191"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/proof.json",
+      "bytes": 252833,
+      "sha256": "8d93a91977dc77c628d8b46cc7015180670169ed54d4aaee6836435c5aadb906"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/restore-verified.png",
+      "bytes": 928646,
+      "sha256": "216952573dbda2533c414021e54625e1b0dacd294c09f5c91101fd9682980577"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-1-dark.png",
+      "bytes": 933960,
+      "sha256": "3157cd7c9686d5e5af3678a92ee3e9a857fda906f38f29ffabb4a25507d1d45e"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-1-light.png",
+      "bytes": 775796,
+      "sha256": "e777ea15d6f81384b0ed15f68921a6cc53f98b7123aaf17213517255645d0f93"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-2-dark.png",
+      "bytes": 977430,
+      "sha256": "b55754164d1959fa9687b544cc8df7d264a53fcf9dd37070b879c27be8674898"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-2-light.png",
+      "bytes": 841490,
+      "sha256": "1b8d6d36c77495ca3480647b89351ff4a7b8a41bb39863a747bed61abcb060c0"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-3-dark.png",
+      "bytes": 925101,
+      "sha256": "aa371bc832fb36acea8f6aeafa21af747ed30708dda0279553bdc90d8b71ae08"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-3-light.png",
+      "bytes": 776946,
+      "sha256": "a101eef5d8049a8cb9955ed741a33e9c7b614aac7be9f81b3c727204fe0a7ffb"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-4-dark.png",
+      "bytes": 918786,
+      "sha256": "54c2c5d581c6d27dcde93455a28a6f5fe7aea3b7516a379028c77e22cedb20f7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-4-light.png",
+      "bytes": 767860,
+      "sha256": "170ad2698dc4892d0687cb3e2e08524e43ff84feb5d4c5636e879c6670d2391c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-5-dark.png",
+      "bytes": 944039,
+      "sha256": "3ba59cbed548ef8f845e7539715995a2d6edbc17050a09d87e7ce7642ab530ff"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-5-light.png",
+      "bytes": 774309,
+      "sha256": "70d1dac078cd2c173e09c8dcf22c08f1fc824551a7becb347c43465d4a5fcd25"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-6-dark.png",
+      "bytes": 927421,
+      "sha256": "01a8f5a15e6b986f831d5f28b6dedea506b786941a9321d4608e5499ee18a77c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-6-light.png",
+      "bytes": 770382,
+      "sha256": "194d8dddf10b55f9088efd4dcb875eb4321084a19a00b915bddf3e4190919efd"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-7-dark.png",
+      "bytes": 963946,
+      "sha256": "02e8389be70516411ee982b7423baf2544d3532c9abf8df07a54d0559a4181fa"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-7-light.png",
+      "bytes": 805096,
+      "sha256": "d3113887c713d0559fd379e3894d8dc0e5f7aa2f1d1e5b6f181207b83dbbc970"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-8-dark.png",
+      "bytes": 915299,
+      "sha256": "b4516904f91af8d65d23e4599bb1bc09b657631352ccc085ae29c9dce6ae60f7"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-8-light.png",
+      "bytes": 760154,
+      "sha256": "e05825bab06483a79a00498d85e1aeb3b1d07a8f249ab677c339b0e3f60e9b8d"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-9-dark.png",
+      "bytes": 931907,
+      "sha256": "0e747b9d7b96bca56f81bdea083d12d752f60fb46615f3f3689b5502b201693c"
+    },
+    {
+      "file": "docs/evidence/studio-domain/verified-packaged/stage-9-light.png",
+      "bytes": 773170,
+      "sha256": "aeb0a52544a4a0826991d282af01c404aa4f31509a54463c0820ded8fa3258fa"
+    },
+    {
+      "file": "docs/ORGANIZATION_STUDIO_CHECKPOINT_20261028.md",
+      "bytes": 9029,
+      "sha256": "c359b71a1732359bc4b0c1d0af5b61ec872e480a3377f6c97c1494053eb66484"
+    },
+    {
+      "file": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+      "bytes": 35213,
+      "sha256": "9f70011db34137037daf188f6c2e77c022025b5bcb9602e6efd1f87000e44bd4"
+    },
+    {
+      "file": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/schemas/181_ATOMIC_DOMAIN_ACCEPTANCE.csv",
+      "bytes": 28462,
+      "sha256": "47ab52aa16c22d03913f1730b50b852566b03e5b2ab59a95ea5900aed3a2794c"
+    }
+  ]
+}

@@ -1,0 +1,407 @@
+{
+  "sourceCommit": "cd75a356aceacb0ef093e0c7c2b63089eda85d8e",
+  "acceptance": "OWNER_REVIEW_REQUIRED",
+  "method": "Exact-size side-by-side, 50 percent overlay and absolute pixel difference. Differences include legitimate Native data; no synthetic similarity score.",
+  "comparisons": [
+    {
+      "scene": "overview",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "0647f84848c91ece10040902dd4d8ded7be71ee52556812d320807facc247fd4",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\overview-day-side-by-side.png",
+          "sha256": "7ae0710f951e8c8ab47b8856f9c3bd0d83335f5832c27c11e5aec19ab24f88c5"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\overview-day-overlay-50pct.png",
+          "sha256": "398a9248b798de3b218e314c3bca94633c63a0455731ac9dd53783b75c7fd3fe"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\overview-day-difference.png",
+          "sha256": "e5cf8e9aa02ab6a042da592fa5fa87d94ebd92433f413501a024b34d758ec593"
+        }
+      }
+    },
+    {
+      "scene": "stage-1",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "ab16aa08ec24b6f9962736ec9e22dec82cbbed21cc34b38c886b253b2fd0def7",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-1-day-side-by-side.png",
+          "sha256": "f15b51a4396d9d4cdf6172efc3bd45159eb086bc1d893c0a198166e231dbbdf3"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-1-day-overlay-50pct.png",
+          "sha256": "a0c90bc9255401113bef927a315dc12712eb99f469214890cd283bf6aa1eb362"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-1-day-difference.png",
+          "sha256": "486815f6e9a85412d678fa8882e3e8bcbba18ec7ee7e607c111bc7e6411742e3"
+        }
+      }
+    },
+    {
+      "scene": "stage-2",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "1ac3217cc6c4de59a55f422f1ce0faecd00c5386fb856ceff9af404f2ddee781",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-2-day-side-by-side.png",
+          "sha256": "4791e2efb662b895ea2e7eecb6461de01be6db0b3f5c8d8fa72790e1e49c4b71"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-2-day-overlay-50pct.png",
+          "sha256": "85d23e096a0f4b6bccb83d072d3eed25540d5ab636c30322c70dd28b04cde756"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-2-day-difference.png",
+          "sha256": "d8dc25128083da6f9e512754127765d41f5da5ed6dd6e4482cd88b705c0532e2"
+        }
+      }
+    },
+    {
+      "scene": "stage-3",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "e7dc5cf56e64980f4dc25ab8330f115618a511d681b0776336de923491fc52f6",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-3-day-side-by-side.png",
+          "sha256": "d508c05b3d16d1fb41797676c2687dcc97918fa6b45a1db70852c5f4182d8001"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-3-day-overlay-50pct.png",
+          "sha256": "a95867f126faa2ecfde51c2a7a04d770afd57719bab3a52186aa78a2c630d2a0"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-3-day-difference.png",
+          "sha256": "49c72b63cc9124a3235ea4fe28f264482c606ca9976bba23702fddaa78fd5577"
+        }
+      }
+    },
+    {
+      "scene": "stage-4",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "8a41d24751d328906406a5f3f6bc502b6daba154320293dd170d671670e67895",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-4-day-side-by-side.png",
+          "sha256": "c18a8118ba3ad116c1cf1c08599a5a71990c74386b6ffb54448d9e906c6606dc"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-4-day-overlay-50pct.png",
+          "sha256": "ecb86920d40f82b1d2ca2577eab986a806486462407b7a78fa61398daaa80673"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-4-day-difference.png",
+          "sha256": "3d312ed2e136c8217d43364659f29c977198e3928f7a44458aa34d382c659b96"
+        }
+      }
+    },
+    {
+      "scene": "stage-5",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "a77b23a5bbc98a5b2e71c06a0dcf510e42e0332d87aa87edf8e6e8cd8d2091e4",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-5-day-side-by-side.png",
+          "sha256": "f4d5841245e725073286fd614b4f80cecd88a0cdf6caa995de9cc91694e37ecd"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-5-day-overlay-50pct.png",
+          "sha256": "9215a8d48d42117596fde5b5404197a9a68ad7b9c3b4391c7ecb41937c6bd2c2"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-5-day-difference.png",
+          "sha256": "3009211e0a3a8389a9ee57f3bb93411da0b62e3028bbb916e5b63a26763d9eea"
+        }
+      }
+    },
+    {
+      "scene": "stage-6",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "7ff1a1c070569a14e780f350abd323eb3e989be06f259f08d2f15bc3aef38edf",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-6-day-side-by-side.png",
+          "sha256": "d84a79e433669c452dd437afab90acfdb689d17b515252422112563aba6eebb2"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-6-day-overlay-50pct.png",
+          "sha256": "94c660b1ccd2c7c6c09be6e7d6f3536e32be9e291a9433516abf10ae25fcc41f"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-6-day-difference.png",
+          "sha256": "59edd6dd80cc295115a19813e9ddb08d9c282842dd768835047bc399ee9d876d"
+        }
+      }
+    },
+    {
+      "scene": "stage-7",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "c824c6f429d4336e4b7f8af12d7fac7316083240b0d28b558778a05c237e1b7f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-7-day-side-by-side.png",
+          "sha256": "01e445633b210020511794bd34502c773e0d457a78e93130d49023554e392da1"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-7-day-overlay-50pct.png",
+          "sha256": "f14c69a187ce43713a45056cc8d7ea8d0a189e877a433cf6dd903759d0df2e77"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-7-day-difference.png",
+          "sha256": "00c11c75d5b4e54e9e64abc43804f1b1159c705b863a114cab4f27c8fc3b34e6"
+        }
+      }
+    },
+    {
+      "scene": "stage-8",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "1fe7ad27fb70dc7287bca43285e287796375ec05542f300aa6a557ad85368b2c",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-8-day-side-by-side.png",
+          "sha256": "ad5c59012dcd737ef8089004955a58dcae81596ee6a717cb3020f7eba1f11d00"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-8-day-overlay-50pct.png",
+          "sha256": "7592faa50d1da97939c0130b711327e5d798edebd13ced3c6eea12a27dd11ded"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-8-day-difference.png",
+          "sha256": "330388f4a036ee2e7a5c247727e50ed82c1aeb5e2a902788344f1a0eec65885c"
+        }
+      }
+    },
+    {
+      "scene": "stage-9",
+      "theme": "day",
+      "referenceSha256": "dffa19d627cda2104775a90cf991bb42bc2bb6d86ae9e034138ea3d46e7dac82",
+      "actualSha256": "6508b263ccb7a83331bea62668fec029e8b4b175ccc4708547a61b9b0f4c0ef6",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-9-day-side-by-side.png",
+          "sha256": "d574c409bf48d5e265d8b261a83d44915c9885788a7f6e37ff13f8f9c975fad6"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-9-day-overlay-50pct.png",
+          "sha256": "44c2dc97561a9e3b64c3e87928df080e9214859aa1727de6193c2ff331835380"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-9-day-difference.png",
+          "sha256": "182528c646b28a430f3e1df6168b28d2fbc18acf751c5467a216d23fc498c2b5"
+        }
+      }
+    },
+    {
+      "scene": "overview",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "ac96b2dc094966cbff2b634b2a21a0e0adcc92de69b29232cd4ff5ed3da6ebf2",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\overview-night-side-by-side.png",
+          "sha256": "ff1ecbca9638bcb69cdda324329cf76f20ea923717f5d51caa630ad15c78919f"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\overview-night-overlay-50pct.png",
+          "sha256": "0edfa2d2d60175f9697ff0420c64bb2b0edafb77a5a4a5bd504a8c2a0498d146"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\overview-night-difference.png",
+          "sha256": "98290634938b86c725b8e6db155de83f7ce91389a5f650eb37f3241801579cb0"
+        }
+      }
+    },
+    {
+      "scene": "stage-1",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "58929956e4064d7a7d6477d93b3b3b3065456f61af6c5fd98a82963c20806da8",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-1-night-side-by-side.png",
+          "sha256": "ead74087f904e747f93c8c2197ff55c82e8707f286915c0be9ae3c9e7309724f"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-1-night-overlay-50pct.png",
+          "sha256": "8292d15a98153f255001465e3806249c335123af0e767bbc237ab86453a58595"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-1-night-difference.png",
+          "sha256": "d34f0817fa927c269bb3f56ee5301f2018991a05042a50b36ff237f4a8e4f6a8"
+        }
+      }
+    },
+    {
+      "scene": "stage-2",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "43dc40eec12dc068d2d02b5dd873ef88175d063e09ec6ad2e4a6ec4446e57693",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-2-night-side-by-side.png",
+          "sha256": "a258eee42098a87d5a08bb32cfc60107ebec2b98f90bd7ddc9d01bd72dd4ed84"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-2-night-overlay-50pct.png",
+          "sha256": "d9b37a932069d4ca15d7349663729bc88787e764071f614bd0b8326e5b7b973c"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-2-night-difference.png",
+          "sha256": "79313deaf039cbee4ebf857759baa56ebca0d26848f62cb08e1041c2332ded22"
+        }
+      }
+    },
+    {
+      "scene": "stage-3",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "25b83b460530e199e8b02e8bf75616d743dc8d8878edfe1e0fac18ffd87763d4",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-3-night-side-by-side.png",
+          "sha256": "720c880b8763d06b688b2bf3625d80b890fabdbb787a4eeec3f7ca1595711d58"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-3-night-overlay-50pct.png",
+          "sha256": "bb836aedf75b1f9cd45aef10d9c8e4d983307d3cad54a34f5c9cd94952516bcc"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-3-night-difference.png",
+          "sha256": "3e3a9750c8c3d7a016700219b72c6277c4ac1806323a137fcf2a7111bdfcc18f"
+        }
+      }
+    },
+    {
+      "scene": "stage-4",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "f5d074ff2324110bec18e278d5972e3591ea020c98151cb5777b747fb353d44a",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-4-night-side-by-side.png",
+          "sha256": "53ba0428cf447dbb0e62f1723b5fbe74b289bcd7116de2bb921281f4e7b606a7"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-4-night-overlay-50pct.png",
+          "sha256": "9e4e64e37aed998cea2494bc413b219b56187b519d4ea96e69798bf35fd657cb"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-4-night-difference.png",
+          "sha256": "fcbfca653b7f14028f1b4a87efd5fc6de140886df3146936be1d3910f9ff275d"
+        }
+      }
+    },
+    {
+      "scene": "stage-5",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "8c2b1a50d02413c79d00876e5de1edced44006c93e07f099a0f9ef1918db7802",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-5-night-side-by-side.png",
+          "sha256": "208f1f255fc95a67ac7b180bb47969e5b76de1cfa6c9f014dbddc2aea0eeee43"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-5-night-overlay-50pct.png",
+          "sha256": "e32466afe3467f422f52c75fbf05d5b4927f72051c9eeed3b2b5caa5ab27cbd6"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-5-night-difference.png",
+          "sha256": "910cac34b23248c23d7d68d7f372847fb490e5ee2b78f1c414e7bec74d689c38"
+        }
+      }
+    },
+    {
+      "scene": "stage-6",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "d1b8382d8f34e5fa0aae5547873839cee3ee437d826f7b2bd3b398dd1a89830f",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-6-night-side-by-side.png",
+          "sha256": "7b0d771c1d6fc3225e7e977df81786d3fc50b932223a35af0989d3b8ce4df3a1"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-6-night-overlay-50pct.png",
+          "sha256": "45c7097b5365c224c32e13dd25c15175acc2df4c942b9dd72be812b03682cfd6"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-6-night-difference.png",
+          "sha256": "51090a8c1706e56ae48b0da9ed1e72ef92d66da144f0ab68de9f5e0ff847e0b0"
+        }
+      }
+    },
+    {
+      "scene": "stage-7",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "a904eb438a7caa64138269ba3f55a7b7821240d139095fe919911ca79a7d3cbf",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-7-night-side-by-side.png",
+          "sha256": "213165540b3d982ea855c88db9418cfd2f3888d4c35e02a4b0fdc2cfbbbf9651"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-7-night-overlay-50pct.png",
+          "sha256": "8b5763818cae0450feaa6ee25b9f374f217b0dd98221f38dcfb14d14c3ea0769"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-7-night-difference.png",
+          "sha256": "d736408ebe455e31d6c587769cf0905b8712d16ac624a6b00c1e391aa666899b"
+        }
+      }
+    },
+    {
+      "scene": "stage-8",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "865030485ad95191dbd4f0b4603abe2ab2c58676780d70bafbd6a4f0e2b133b5",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-8-night-side-by-side.png",
+          "sha256": "f3e546420b09e72fa6bf63024e64ec9bd748f654f098adc54dbabb02a154fce3"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-8-night-overlay-50pct.png",
+          "sha256": "12a75aad3e74c91bbe64c424d9b1b2346ea263462b3864dfdb440bf6e41bc790"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-8-night-difference.png",
+          "sha256": "13d318232b0c88c0e4331f82274a43a24a8e35d946e69650578e2eecfd87cde6"
+        }
+      }
+    },
+    {
+      "scene": "stage-9",
+      "theme": "night",
+      "referenceSha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617",
+      "actualSha256": "4ced60251f4b4d3f0216135091cee08e7253c4dee0293ad77abd3d0a8301eb2d",
+      "outputs": {
+        "side-by-side": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-9-night-side-by-side.png",
+          "sha256": "fe317bd7e9a56ce8c43edf5216b88f3bd2f26e89f8d42e308da40e3f125a2b4a"
+        },
+        "overlay-50pct": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-9-night-overlay-50pct.png",
+          "sha256": "e3726b3793490d4510bb74d274de91cbe22709269bf593b9dfa535354b9e56b2"
+        },
+        "difference": {
+          "file": "docs\\evidence\\studio-domain\\checkpoint-comparisons\\stage-9-night-difference.png",
+          "sha256": "dc0fec2d8bde64e75e9defbbc7ec7c1d115c3050f9ea27382e277a37b9fb7970"
+        }
+      }
+    }
+  ]
+}

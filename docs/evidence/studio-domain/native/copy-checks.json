@@ -1,0 +1,94 @@
+{
+  "checks": [
+    "Flat copy retains every source hash and disables unsupported automatic Undo",
+    "All-skipped collision plan is refused; no target is overwritten"
+  ],
+  "fixture": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf",
+  "receipt": {
+    "operationId": "8c73af3f-181b-449d-9973-29ca20647c6b",
+    "mode": "copy",
+    "status": "completed",
+    "createdAt": "2026-10-28T03:33:04.333Z",
+    "updatedAt": "2026-10-28T03:33:04.501Z",
+    "planId": "22d9283e-6e6a-4458-bc28-c2bdfea3f752",
+    "planHash": "573e8f250e2e2df37536a1b01c5a96aa3235fc722dd9b0317fd1a6df00dc2ed7",
+    "destinationSummary": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\destination",
+    "sourceRoots": [
+      "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\source"
+    ],
+    "totalFiles": 4,
+    "totalBytes": 514,
+    "completedFiles": 4,
+    "failedFiles": 0,
+    "skippedFiles": 0,
+    "cancelledFiles": 0,
+    "undoAvailable": false,
+    "undoCompletedFiles": 0,
+    "interruptedAt": null,
+    "warnings": [],
+    "errors": [],
+    "entries": [
+      {
+        "index": 0,
+        "name": "item-00.png",
+        "category": "image",
+        "sourceRelative": "item-00.png",
+        "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\source",
+        "targetRelative": "item-00.png",
+        "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\destination",
+        "size": 127,
+        "state": "copied-final",
+        "verification": "sha256",
+        "hash": "752d86e7bb04b9704b30339383dcb0ceb154691bb5c3326ecc4f7e4fdf1558d1",
+        "error": null,
+        "undo": null
+      },
+      {
+        "index": 1,
+        "name": "item-01.mp4",
+        "category": "video",
+        "sourceRelative": "item-01.mp4",
+        "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\source",
+        "targetRelative": "item-01.mp4",
+        "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\destination",
+        "size": 128,
+        "state": "copied-final",
+        "verification": "sha256",
+        "hash": "ab1ca4ac21aff155782ca619a1891d36eebdb2bf1076b7fdc8f893560e2394a9",
+        "error": null,
+        "undo": null
+      },
+      {
+        "index": 2,
+        "name": "item-02.txt",
+        "category": "document",
+        "sourceRelative": "item-02.txt",
+        "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\source",
+        "targetRelative": "item-02.txt",
+        "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\destination",
+        "size": 129,
+        "state": "copied-final",
+        "verification": "sha256",
+        "hash": "4c5c72bc40cb7139545675ab19175f8d43640a3d6549eb939beec13836391e3c",
+        "error": null,
+        "undo": null
+      },
+      {
+        "index": 3,
+        "name": "item-03.pdf",
+        "category": "pdf",
+        "sourceRelative": "item-03.pdf",
+        "sourceRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\source",
+        "targetRelative": "item-03.pdf",
+        "targetRoot": "C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-0tY8Xf\\destination",
+        "size": 130,
+        "state": "copied-final",
+        "verification": "sha256",
+        "hash": "caaa0942b0b457eecb9455bb3975a87248a1c8eddc6d6b76dd9e8b400c55040d",
+        "error": null,
+        "undo": null
+      }
+    ]
+  },
+  "ownerDataTouched": false
+}

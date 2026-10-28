@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "10001 Native files: bounded DOM; deep/long paths; search/sort selection persistence; exact Native plan within the independent 10,000-file bound; empty-selection refusal"
+  ],
+  "cases": [
+    {
+      "count": 10001,
+      "fixture": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-7QwtaZ",
+      "scanMs": 2317,
+      "mountedCards": 30,
+      "planMs": 654,
+      "ok": true
+    }
+  ],
+  "ownerDataTouched": false,
+  "errors": [],
+  "sourceCommit": "0839c40ca55c92cfb45839150974414893e17c82",
+  "ok": true
+}
