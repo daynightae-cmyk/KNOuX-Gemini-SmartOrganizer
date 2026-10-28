@@ -184,3 +184,5 @@ html[data-theme=light] .os-studio .os-action-dock{background:linear-gradient(130
 @media(max-width:1200px){.os-studio .os-action-dock{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 39px;padding:8px;gap:6px}.os-studio .os-action-dock>label{font-size:10px}.os-studio .os-action-dock>[data-testid=ops-cancel]{font-size:10px;padding:4px}.os-studio .os-action-dock>[data-testid=ops-plan],.os-studio .os-action-dock>[data-testid=ops-undo-preview]{font-size:11px;padding:6px}.os-studio .os-inspector{padding-bottom:168px}.os-dock-context>label{font-size:10px}.os-dock-context select{font-size:11px}}
 
 @media(min-width:1501px){.os-golden-hero .os-hero-copy{align-self:start;padding-top:0}.os-studio .os-golden-hero h1{font-size:46px}.os-golden-hero .os-hero-copy>p{font-size:15px;line-height:1.5;max-width:400px}}
+
+.os-studio[dir=rtl] .os-mapping>svg,.os-studio[dir=rtl] .os-category-arrow>svg{transform:scaleX(-1)}
