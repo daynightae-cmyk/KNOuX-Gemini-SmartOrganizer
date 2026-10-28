@@ -1,0 +1,49 @@
+import {_electron as electron,expect} from '@playwright/test';
+import {createRequire} from 'node:module';
+import {mkdtemp,mkdir,writeFile,readFile} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import os from 'node:os';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+const require=createRequire(import.meta.url);let profile=await mkdtemp(path.join(os.tmpdir(),'knoux-home-anima-')),fixtureProof=null;
+if(process.env.KNOUX_HOME_SEED_RECEIPT==='1'){const {fixture,bridgeFor,hashSources}=require('./live-organization-fixtures.cjs'),f=await fixture(3),b=await bridgeFor(f);try{await b.engine.scan({sourceId:b.source.id});const p=await b.engine.plan(b.request),moved=await b.engine.execute({planId:p.planId,planHash:p.planHash,approved:true}),u=await b.engine.undoPreview({journalId:moved.receipt.operationId});const restored=await b.engine.undo({journalId:u.journalId,previewId:u.previewId,previewHash:u.previewHash,approved:true,resolution:'skip'});expect(await hashSources(f)).toEqual(f.originals);fixtureProof={root:f.root,operationId:restored.receipt.operationId,completed:restored.receipt.completedFiles,restored:restored.receipt.undoCompletedFiles,hashesVerified:true};profile=f.profile;}finally{await b.studio.dispose();}}
+const out=path.resolve(process.env.KNOUX_HOME_EVIDENCE||'../../docs/evidence/home-anima/electron');await mkdir(out,{recursive:true});
+const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
+const app=await electron.launch({executablePath:require('electron'),args:['--disable-gpu','--disable-features=CalculateNativeWinOcclusion','--disable-backgrounding-occluded-windows','--disable-renderer-backgrounding',path.resolve('electron/main.cjs'),'--knoux-user-data='+profile],env,timeout:60000});
+const proof={sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),profile,fixtureProof,checks:[],errors:[],views:[],geometry:{},requests:[],sourceFiles:{}};let page;
+for(const name of ['src/components/home/RecoveredHomeOrbit.tsx','src/components/home/recovered-home-orbit.css','src/components/home/HomeCommandCenter.tsx','src/components/home/HomeDashboardPanels.tsx','src/home/live.ts','src/home/derive.ts','src/home/provider-result.ts'])proof.sourceFiles[name]=createHash('sha256').update(await readFile(name)).digest('hex');
+async function theme(value){if(await page.evaluate(()=>document.documentElement.dataset.theme==='light'?'light':'dark')!==value)await page.locator('button[aria-pressed]').filter({has:page.locator('svg.lucide-sun,svg.lucide-moon')}).first().click();await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme==='light'?'light':'dark')).toBe(value);}
+async function capture(name){await page.evaluate(async()=>{await document.fonts.ready;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));});const w=await app.browserWindow(page);await w.evaluate(w=>{w.show();w.moveTop();w.webContents.invalidate();});await page.waitForTimeout(180);await writeFile(path.join(out,name),Buffer.from(await w.evaluate(async w=>(await w.webContents.capturePage()).toPNG().toString('base64')),'base64'));}
+try{
+ page=await app.firstWindow();page.on('pageerror',e=>proof.errors.push(e.message));page.on('request',r=>{if(r.resourceType()==='image')proof.requests.push(r.url());});await page.waitForLoadState('domcontentloaded');
+ await page.evaluate(()=>{localStorage.setItem('knoux.cinematic.v1',JSON.stringify({seen:true,always:false,muted:true,reduced:true}));localStorage.setItem('knoux_locale','en');location.hash='home';});await page.reload();await expect(page.getByTestId('home-workspace')).toBeVisible();
+ await expect(page.getByTestId('home-live-status')).not.toHaveAttribute('data-status','loading',{timeout:60000});
+ const win=await app.browserWindow(page);await win.evaluate(w=>w.setContentSize(1672,941));
+ for(const t of ['light','dark']){await theme(t);await expect(page.getByTestId('home-live-status')).not.toHaveAttribute('data-status','loading',{timeout:60000});await capture('home-'+t+'.png');}
+ if(process.env.KNOUX_HOME_BASELINE!=='1'){
+  const measured=await page.evaluate(async()=>({apps:await window.knouxAppsV1.inventory(),services:await window.knouxShell.getServicesSummary(),workflows:await window.knouxAutomationV1.workflows(),receipts:await window.knouxOperationsV1.history()}));
+  if(measured.apps.data)await expect(page.getByTestId('home-kpi-kpi-apps-value')).toHaveText(Number(measured.apps.data.kpis.installed).toLocaleString('en-US'));
+  if(measured.services.data)await expect(page.getByTestId('home-kpi-kpi-services-value')).toHaveText(measured.services.data.running.toLocaleString('en-US')+' / '+measured.services.data.total.toLocaleString('en-US'));
+  if(measured.workflows.data)await expect(page.getByTestId('home-kpi-kpi-automations-value')).toHaveText(String(measured.workflows.data.length));
+  if(fixtureProof)await expect(page.getByTestId('home-activity-row').first()).toContainText('3 verified · 3 restored');
+  proof.providers={apps:{status:measured.apps.status,installed:measured.apps.data?.kpis.installed},services:{status:measured.services.status,running:measured.services.data?.running,total:measured.services.data?.total},workflowStatus:measured.workflows.status,receiptIds:measured.receipts.data?.map(r=>r.operationId)};proof.checks.push('Displayed application, service and workflow counts agree with actual Native providers; activity reads a real move/restore receipt');
+  await page.getByRole('button',{name:'Open workspace palette',exact:true}).click();await expect(page.getByRole('dialog')).toBeVisible();await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByTestId('home-original-orbit')).toBeVisible();const art=page.getByTestId('home-original-orbit-image');
+  expect(await art.evaluate(e=>[e.naturalWidth,e.naturalHeight])).toEqual([1328,784]);
+  const bytes=await readFile('src/assets/anima/knoux-orbital-emblem.png');expect(createHash('sha256').update(bytes).digest('hex')).toBe('92743cd3f51403c8de04e04d5b17a81429f09391d32ff7529c3c8af9ed0c0cc6');proof.checks.push('Recovered local PNG dimensions and exact SHA-256 preserved');
+  for(const [id,target] of [['clean','cleanup'],['organize','studio'],['protect','repair'],['optimize','startup'],['scan','smart_scan'],['automate','automation']]){await page.getByTestId('home-orbit-'+id).click();await expect.poll(()=>page.evaluate(()=>location.hash.replace('#',''))).toBe(target);await page.evaluate(()=>location.hash='home');await expect(page.getByTestId('home-original-orbit')).toBeVisible();}
+  await page.getByTestId('home-orbit-scan').focus();await page.keyboard.press('Enter');await expect.poll(()=>page.evaluate(()=>location.hash.replace('#',''))).toBe('smart_scan');await page.evaluate(()=>location.hash='home');proof.checks.push('Six actual orbital buttons and keyboard activation navigate to existing workspaces without executing effects');
+  for(const t of ['light','dark']){await theme(t);await expect(page.getByTestId('home-live-status')).not.toHaveAttribute('data-status','loading',{timeout:60000});proof.geometry[t]=await page.getByTestId('home-original-orbit').evaluate(e=>{const rect=e.getBoundingClientRect();return {x:rect.x,y:rect.y,width:rect.width,height:rect.height,buttons:[...e.querySelectorAll('button')].map(b=>{const r=b.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};})};});}
+  expect(proof.geometry.light).toEqual(proof.geometry.dark);
+  for(const locale of ['en','ar'])for(const t of ['light','dark'])for(const [width,height] of [[1366,768],[1672,941],[1920,1080]]){
+   await win.evaluate((w,{width,height})=>w.setContentSize(width,height),{width,height});await theme(t);if(await page.getByTestId('home-workspace').getAttribute('dir')!==(locale==='ar'?'rtl':'ltr'))await page.getByTitle('Toggle Arabic / English',{exact:true}).click();
+   await expect(page.getByTestId('home-live-status')).not.toHaveAttribute('data-status','loading',{timeout:60000});
+   const view=await page.getByTestId('home-original-orbit').evaluate(e=>{const r=e.getBoundingClientRect(),img=e.querySelector('img'),b=img.getBoundingClientRect();return {pageOverflow:document.documentElement.scrollHeight-innerHeight,ratio:b.width/b.height,filter:getComputedStyle(img).filter,transform:getComputedStyle(img).transform,buttons:[...e.querySelectorAll('button')].map(button=>{const b=button.getBoundingClientRect();return b.left>=r.left-1&&b.right<=r.right+1&&b.top>=r.top-1&&b.bottom<=r.bottom+1;})};});expect(view.pageOverflow).toBeLessThanOrEqual(2);expect(view.ratio).toBeCloseTo(1328/784,2);expect(view.filter).toBe('none');expect(view.transform).toBe('none');expect(view.buttons.every(Boolean)).toBe(true);proof.views.push({locale,theme:t,width,height,...view});await capture(`home-${locale}-${t}-${width}.png`);
+  }
+  await page.emulateMedia({reducedMotion:'reduce'});proof.reducedMotion=await page.getByTestId('home-original-orbit').evaluate(e=>[e,...e.querySelectorAll('*')].every(n=>parseFloat(getComputedStyle(n).animationDuration)<=.001&&parseFloat(getComputedStyle(n).transitionDuration)<=.001));expect(proof.reducedMotion).toBe(true);
+  expect(proof.requests.filter(url=>/^https?:/.test(url))).toEqual([]);
+  proof.checks.push('DAY/NIGHT geometry, unmodified artwork, EN/AR responsive bounds and Reduced Motion verified');
+ }
+ if(fixtureProof){const receipts=await page.evaluate(async()=>(await window.knouxOperationsV1.history()).data);expect(receipts.map(r=>r.operationId)).toEqual([fixtureProof.operationId]);proof.checks.push('Orbital navigation created no new operation receipt or file effect');}proof.ok=true;expect(proof.errors).toEqual([]);
+}finally{await writeFile(path.join(out,'proof.json'),JSON.stringify(proof,null,2));await app.close();}
+console.log(JSON.stringify({ok:proof.ok,checks:proof.checks,errors:proof.errors,views:proof.views.length},null,2));

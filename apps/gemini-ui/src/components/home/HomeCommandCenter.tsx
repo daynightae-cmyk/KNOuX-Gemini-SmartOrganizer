@@ -9,7 +9,6 @@
  */
 
 import React, { useState } from 'react';
-import { OrbitParticles } from '../../visual/OrbitParticles';
 import {
   Search,
   Shield,
@@ -38,7 +37,7 @@ import {
   PageId,
   INITIAL_DECK_TILES,
 } from '../../lib/home-ui';
-import { EarthHorizonScene } from './EarthHorizonScene';
+import { RecoveredHomeOrbit } from './RecoveredHomeOrbit';
 
 // 3D Isometric Technical Visuals for each Command Deck card
 const renderDeckBackgroundGraphic = (id: string) => {
@@ -379,7 +378,7 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
   const isAr = locale === 'ar';
   const statusMeta = {
     loading: { text: isAr ? 'جارٍ قياس البيانات الحية…' : 'Measuring live data…', color: 'text-cyan-300', dot: 'bg-cyan-400 animate-pulse' },
-    live: { text: isAr ? 'بيانات حية مقيسة' : 'Live measured data', color: 'text-emerald-300', dot: 'bg-emerald-400' },
+    live: { text: isAr ? 'لقطة مقيسة من المزوّدات' : 'Measured provider snapshot', color: 'text-emerald-300', dot: 'bg-emerald-400' },
     partial: { text: isAr ? 'بيانات جزئية — راجع الملاحظات' : 'Partial measured — see notes', color: 'text-amber-300', dot: 'bg-amber-400' },
     'native-required': { text: isAr ? 'القياس الأصلي مطلوب' : 'Native measurement required', color: 'text-rose-300', dot: 'bg-rose-400' },
   }[liveStatus];
@@ -387,12 +386,9 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
 
   return (
     <div className="flex flex-col gap-3 relative z-10 shrink-0">
-      {/* REGION A: HERO BANNER WITH ATMOSPHERIC EARTH HORIZON */}
-      <section className="relative min-h-[96px] pt-1 pb-1 flex flex-col justify-between overflow-hidden" aria-label="Hero Command Center">
-        <OrbitParticles className="knx-home-particles" />
-        {/* Full-width curved Earth Horizon scene across the top */}
-        <EarthHorizonScene isAr={isAr} className="knx-home-cosmic" />
-
+      {/* REGION A: ORIGINAL RECOVERED ARTWORK WITH REAL NAVIGATION */}
+      <section className="knx-home-anima-hero" aria-label="Hero Command Center">
+        <div className="knx-home-anima-copy">
         {/* Top Header Row inside Hero: Title, Subtitle, and Right Tagline */}
         <div className="knx-home-hero-heading flex items-start justify-between relative z-10">
           <div>
@@ -404,19 +400,19 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                 ? 'نظامك بالكامل في مكان واحد. منظم، محسّن، وتحت سيطرتك المطلقة.'
                 : 'Your complete system. Organized, optimized, in control.'}
             </p>
-            <div className="mt-1 flex items-center gap-2 flex-wrap" data-testid="home-live-status">
+            <div className="mt-1 flex items-center gap-2 flex-wrap" data-testid="home-live-status" data-status={liveStatus}>
               <span className={`inline-flex items-center gap-1.5 text-[10px] font-medium ${statusMeta.color}`} title={errors.length ? errors.join(' · ') : undefined}>
                 <span className={`w-1.5 h-1.5 rounded-full ${statusMeta.dot}`} />
                 {statusMeta.text}
                 {statusTime ? <span className="font-mono text-slate-400">· {statusTime}</span> : null}
               </span>
               {onRefresh ? (
-                <button type="button" onClick={onRefresh} className="inline-flex items-center gap-1 text-[10px] text-cyan-300 hover:text-white" title={isAr ? 'تحديث البيانات المقيسة' : 'Refresh measured data'}>
+                <button type="button" disabled={liveStatus==='loading'} aria-busy={liveStatus==='loading'} onClick={onRefresh} className="inline-flex items-center gap-1 text-[10px] text-cyan-300 hover:text-white" title={isAr ? 'تحديث البيانات المقيسة' : 'Refresh measured data'}>
                   <RefreshCw className="w-3 h-3" />
                   {isAr ? 'تحديث' : 'Refresh'}
                 </button>
               ) : null}
-              {errors.length ? <span className="text-[9.5px] text-amber-300 font-mono">{errors.length} {isAr ? 'تحذير' : 'warning(s)'}</span> : null}
+              {errors.length ? <details className="knx-home-provider-notes"><summary>{errors.length} {isAr?'ملاحظات المزوّدات':'provider notes'}</summary><ul>{errors.map((message,i)=><li key={i}>{message}</li>)}</ul></details> : null}
             </div>
           </div>
 
@@ -431,41 +427,25 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
           </div>
         </div>
 
-        {/* Master Command Search Bar matching screenshot */}
-        <div
-          onClick={() => onOpenPalette && onOpenPalette()}
-          className="relative z-10 mt-2 flex items-center w-full px-3.5 py-2 rounded-xl bg-[#081226]/85 border border-[#17325c] hover:border-cyan-500/60 shadow-lg cursor-pointer transition-all group backdrop-blur-sm"
-        >
-          <Search className="w-4 h-4 text-cyan-400 shrink-0 mr-2.5 group-hover:scale-105 transition-transform" />
-          <input
-            type="text"
-            readOnly
-            placeholder={
-              isAr
-                ? 'انتقل إلى مساحة عمل أو أداة بالاسم...'
-                : 'Jump to a workspace, service, or tool...'
-            }
-            className="bg-transparent border-none outline-none text-slate-200 placeholder-slate-400 text-xs sm:text-sm w-full cursor-pointer"
-            onFocus={() => onOpenPalette && onOpenPalette()}
-            onClick={() => onOpenPalette && onOpenPalette()}
-          />
-          <kbd className="px-2 py-0.5 rounded bg-[#0d213d] text-[10px] font-mono text-cyan-300 border border-[#1b3f70] shrink-0 ml-2">
-            Ctrl + K
-          </kbd>
+        <button type="button" onClick={onOpenPalette} aria-label={isAr?'فتح لوحة التنقل':'Open workspace palette'}><Search size={18}/><span>{isAr?'انتقل إلى مساحة عمل أو أداة بالاسم…':'Jump to a workspace, service, or tool…'}</span><kbd>Ctrl + K</kbd></button>
+        <p>{isAr?'اختر أداة من المدار. معاينة الأثر والموافقة تتم داخل خدمتها.':'Choose an orbital tool. Review its impact and approve changes inside its workspace.'}</p>
         </div>
+        <RecoveredHomeOrbit isArabic={isAr} onNavigate={onNavigate}/>
+
       </section>
 
       {/* REGION B: SIX HORIZONTAL KPI CARDS MATCHING SCREENSHOT EXACTLY */}
       <section className="grid grid-cols-6 gap-2.5" aria-label="Key Performance Indicators">
         {kpis.map((kpi) => {
           return (
-            <div
+            <button
+              type="button"
               key={kpi.id}
               data-testid={`home-kpi-${kpi.id}`}
               onClick={() => onNavigate(kpi.targetPage)}
               className="p-2.5 rounded-xl bg-[#071329]/80 border border-[#152e50] hover:border-cyan-500/50 hover:bg-[#0a1a36] transition-all cursor-pointer flex flex-col justify-between group shadow-sm min-h-[72px]"
             >
-              {/* Header row with Icon, title, and badge/sparkline */}
+              {/* Header row with Icon, title, and measured status */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div
@@ -506,7 +486,7 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
                   {isAr ? kpi.subtextAr : kpi.subtext}
                 </div>
               </div>
-            </div>
+            </button>
           );
         })}
       </section>

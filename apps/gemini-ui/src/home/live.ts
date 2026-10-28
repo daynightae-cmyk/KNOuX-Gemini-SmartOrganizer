@@ -5,7 +5,7 @@
  * read-only bridge or is rendered as "not measured" with the owning service
  * link. Heavy scans are not started automatically from Home.
  */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
   AppsInventory,
   AutomationJournalEntry,
@@ -16,6 +16,8 @@ import type {
   StudioSource,
   SystemSummaryData,
 } from '../../shared/native-contracts';
+import type {OperationReceipt} from '../../shared/operation-contract';
+import {measuredProviderData} from './provider-result';
 import { readServicesSummary, readSystemSummary } from '../native/client';
 import { listFilesSources, queryFilesInventory } from '../files/native';
 import { loadAppsInventory } from '../apps/native';
@@ -34,6 +36,8 @@ export interface HomeLiveState {
   workflows: AutomationWorkflow[];
   journal: AutomationJournalEntry[];
   apps: AppsInventory | null;
+  receipts: OperationReceipt[];
+  available: {workflows:boolean;journal:boolean};
   errors: string[];
   observedAt: string | null;
 }
@@ -48,6 +52,8 @@ const EMPTY: HomeLiveState = {
   workflows: [],
   journal: [],
   apps: null,
+  receipts: [],
+  available: {workflows:false,journal:false},
   errors: [],
   observedAt: null,
 };
@@ -58,13 +64,14 @@ function errorText(error: unknown): string {
 
 export function useHomeLive() {
   const [state, setState] = useState<HomeLiveState>(EMPTY);
+  const epoch=useRef(0);
 
   const refresh = useCallback(async () => {
+    const request=++epoch.current;
     setState((current) => ({ ...current, status: 'loading', errors: [] }));
     const errors: string[] = [];
-    let native = false;
 
-    const [systemResult, servicesResult, sourcesResult, scansResult, appsResult, workflowsResult, journalResult] = await Promise.allSettled([
+    const [systemResult, servicesResult, sourcesResult, scansResult, appsResult, workflowsResult, journalResult, receiptResult] = await Promise.allSettled([
       readSystemSummary(),
       readServicesSummary(),
       listFilesSources(),
@@ -72,35 +79,25 @@ export function useHomeLive() {
       loadAppsInventory(),
       loadAutomationWorkflows(),
       loadAutomationJournal(),
+      window.knouxOperationsV1?.history()||Promise.resolve(null),
     ]);
 
-    const system = systemResult.status === 'fulfilled' ? systemResult.value?.data ?? null : null;
-    const services = servicesResult.status === 'fulfilled' ? servicesResult.value?.data ?? null : null;
-    const sources = sourcesResult.status === 'fulfilled' ? sourcesResult.value?.data ?? [] : [];
-    const scans = scansResult.status === 'fulfilled' ? scansResult.value?.data ?? [] : [];
-    const apps = appsResult.status === 'fulfilled' ? appsResult.value?.data ?? null : null;
-    const workflows = workflowsResult.status === 'fulfilled' ? workflowsResult.value?.data ?? [] : [];
-    const journal = journalResult.status === 'fulfilled' ? journalResult.value?.data ?? [] : [];
-
-    if (system || services || (sourcesResult.status === 'fulfilled' && sourcesResult.value) || (scansResult.status === 'fulfilled' && scansResult.value) || (appsResult.status === 'fulfilled' && appsResult.value) || (workflowsResult.status === 'fulfilled' && workflowsResult.value) || (journalResult.status === 'fulfilled' && journalResult.value)) native = true;
-    for (const [label, result] of [
-      ['system summary', systemResult],
-      ['services summary', servicesResult],
-      ['files sources', sourcesResult],
-      ['scan history', scansResult],
-      ['applications inventory', appsResult],
-      ['automation workflows', workflowsResult],
-      ['automation journal', journalResult],
-    ] as const) {
-      if (result.status === 'rejected') errors.push(`${label}: ${errorText(result.reason)}`);
-    }
+    const system=measuredProviderData(systemResult,'system summary',errors);
+    const services=measuredProviderData(servicesResult,'services summary',errors);
+    const sourceData=measuredProviderData(sourcesResult,'files sources',errors);
+    const scanData=measuredProviderData(scansResult,'scan history',errors);
+    const apps=measuredProviderData(appsResult,'applications inventory',errors);
+    const workflowData=measuredProviderData(workflowsResult,'automation workflows',errors);
+    const journalData=measuredProviderData(journalResult,'automation journal',errors);
+    const receipts=measuredProviderData(receiptResult,'organization receipts',errors)||[];
+    const sources=sourceData||[],scans=scanData||[],workflows=workflowData||[],journal=journalData||[];
 
     let files: StudioQueryFile[] = [];
     const source = sources.find((entry) => entry.status === 'ready') || sources[0] || null;
     if (source) {
       try {
         const query = await queryFilesInventory({ sourceId: source.id, limit: 6, sort: 'modified', desc: true });
-        files = query?.data?.rows ?? [];
+        files = measuredProviderData({status:'fulfilled',value:query},'recent files',errors)?.rows ?? [];
         if (query?.data?.unsupported) errors.push(`recent files: ${query.data.unsupported}`);
       } catch (error) {
         errors.push(`recent files: ${errorText(error)}`);
@@ -108,11 +105,12 @@ export function useHomeLive() {
     }
 
     const observedAt = new Date().toISOString();
-    const hasMeasuredCore = Boolean(system || services || source || scans.length || apps || workflows.length || journal.length);
-    const status: HomeLiveStatus = !native || !hasMeasuredCore
+    const hasMeasuredCore = Boolean(system || services || sourceData || scanData || apps || workflowData || journalData);
+    const status: HomeLiveStatus = !hasMeasuredCore
       ? 'native-required'
       : (errors.length ? 'partial' : 'live');
 
+    if(request!==epoch.current)return;
     setState({
       status,
       system,
@@ -122,6 +120,8 @@ export function useHomeLive() {
       scans,
       workflows,
       journal,
+      receipts,
+      available:{workflows:workflowData!==null,journal:journalData!==null},
       apps,
       errors: [...new Set(errors)],
       observedAt,
@@ -130,6 +130,8 @@ export function useHomeLive() {
 
   useEffect(() => {
     void refresh();
+    const updated=()=>void refresh();window.addEventListener('knoux:organization-updated',updated);
+    return()=>{epoch.current++;window.removeEventListener('knoux:organization-updated',updated);};
   }, [refresh]);
 
   return { ...state, refresh };

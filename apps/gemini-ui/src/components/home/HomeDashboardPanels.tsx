@@ -581,7 +581,7 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
                   KNOuX Insight
                 </span>
                 <span className="px-1.5 py-0.2 rounded-full bg-cyan-700 text-white font-bold text-[9px] shadow-sm">
-                  {isAr ? 'دليل مقيس' : 'Measured'}
+                  {insight?.id==='insight-live'?(isAr?'دليل مقيس':'Measured'):(isAr?'غير مقيس':'Not measured')}
                 </span>
               </div>
 

@@ -101,7 +101,7 @@ export function deriveKpis(live: HomeLiveState): KpiMetric[] {
       id: 'kpi-reclaimable',
       title: 'Verified Reclaimable',
       titleAr: 'مساحة موثقة قابلة للاسترداد',
-      value: reclaimable > 0 ? formatBytes(reclaimable) : '—',
+      value: latestScan ? formatBytes(latestScan.verifiedReclaimableBytes) : '—',
       badge: latestScan ? `Latest ${latestScan.mode} scan` : 'No verified scan',
       badgeColor: latestScan ? '#a855f7' : '#f59e0b',
       subtext: latestScan ? `${formatNumber(latestScan.findingsCount)} findings · ${relativeTime(latestScan.finishedAt || latestScan.startedAt)}` : 'Run Smart Scan to measure',
@@ -117,11 +117,11 @@ export function deriveKpis(live: HomeLiveState): KpiMetric[] {
       id: 'kpi-automations',
       title: 'Workflow Drafts',
       titleAr: 'مسودات سير العمل',
-      value: formatNumber(live.workflows.length),
-      badge: 'Local drafts',
+      value: live.available.workflows?formatNumber(live.workflows.length):'—',
+      badge: live.available.workflows?'Local drafts':'Provider unavailable',
       badgeColor: '#10b981',
-      subtext: `${formatNumber(live.journal.length)} dry-run${live.journal.length === 1 ? '' : 's'} · 0 executed`,
-      subtextAr: `${formatNumber(live.journal.length)} معاينة جافة · 0 منفذ`,
+      subtext: live.available.journal?`${formatNumber(live.journal.length)} dry-run${live.journal.length === 1 ? '' : 's'} · no execution by this provider`:'Journal not available',
+      subtextAr: live.available.journal?`${formatNumber(live.journal.length)} معاينة جافة · هذا المزوّد لا ينفذ عمليات`:'سجل الأتمتة غير متاح',
       status: live.workflows.length ? 'info' : 'warning',
       trend: 'neutral',
       sparkline: [],
@@ -203,7 +203,11 @@ export function deriveActivities(live: HomeLiveState): HomeActivityItem[] {
       isChecked: false,
       timestamp: new Date(entry.at).getTime(),
     }));
-  return [...scanItems, ...journalItems].sort((a, b) => b.timestamp - a.timestamp).slice(0, 5).map(({ timestamp: _timestamp, ...item }) => item);
+  const receiptItems:Array<HomeActivityItem & {timestamp:number}>=(live.receipts||[]).map(receipt=>{
+    const restored=receipt.undoCompletedFiles>0,at=receipt.updatedAt||receipt.createdAt||'';
+    return {id:'organization-'+receipt.operationId,title:restored?'Organization restore verified':'Organization '+receipt.status,titleAr:restored?'استعادة التنظيم متحققة':'التنظيم · '+receipt.status,detail:`${receipt.completedFiles} verified · ${receipt.undoCompletedFiles} restored · ${receipt.failedFiles} failed`,detailAr:`${receipt.completedFiles} متحقق · ${receipt.undoCompletedFiles} مستعاد · ${receipt.failedFiles} فشل`,timeAgo:relativeTime(at),timeAgoAr:relativeTime(at),status:receipt.failedFiles?'warning':restored||receipt.status==='completed'?'success':'info',icon:'folder',targetPage:'studio',isChecked:false,timestamp:new Date(at).getTime()||0};
+  });
+  return [...scanItems, ...journalItems,...receiptItems].sort((a, b) => b.timestamp - a.timestamp).slice(0, 5).map(({ timestamp: _timestamp, ...item }) => item);
 }
 
 export function deriveQuickAccess(live: HomeLiveState): QuickAccessItem[] {
@@ -254,9 +258,9 @@ export function deriveVolumes(live: HomeLiveState): StorageVolumeSnapshot[] {
 
 export function deriveInsight(live: HomeLiveState): KnouxInsightData {
   const latest = [...live.scans]
-    .filter((scan) => (scan.status === 'complete' || scan.status === 'partial') && scan.verifiedReclaimableBytes > 0)
+    .filter((scan) => scan.status === 'complete' || scan.status === 'partial')
     .sort((a, b) => new Date(b.finishedAt || b.startedAt).getTime() - new Date(a.finishedAt || a.startedAt).getTime())[0];
-  if (latest) {
+  if (latest && latest.verifiedReclaimableBytes > 0) {
     return {
       id: 'insight-live',
       title: `Verified reclaimable candidates: ${formatBytes(latest.verifiedReclaimableBytes)}`,
@@ -290,9 +294,9 @@ export function deriveInsight(live: HomeLiveState): KnouxInsightData {
 
 export function derivePendingActions(live: HomeLiveState): PendingSafeAction[] {
   const latest = [...live.scans]
-    .filter((scan) => (scan.status === 'complete' || scan.status === 'partial') && scan.verifiedReclaimableBytes > 0)
+    .filter((scan) => scan.status === 'complete' || scan.status === 'partial')
     .sort((a, b) => new Date(b.finishedAt || b.startedAt).getTime() - new Date(a.finishedAt || a.startedAt).getTime())[0];
-  if (!latest) return [];
+  if (!latest || latest.verifiedReclaimableBytes <= 0) return [];
   return [{
     id: `review-${latest.id}`,
     title: 'Review measured cleanup candidates',
