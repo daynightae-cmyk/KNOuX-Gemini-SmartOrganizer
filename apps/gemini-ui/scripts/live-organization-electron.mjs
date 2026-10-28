@@ -31,6 +31,7 @@ try{
  await expect(page.getByTestId('ops-result-count')).toContainText('40 / 40',{timeout:60000});
  await expect(page.getByTestId('ops-file-card')).toHaveCount(40);await expect(page.locator('.os-file-preview img').first()).toBeVisible({timeout:20000});
  proof.checks.push('Actual Native inventory and safe Native image thumbnail; icons for unsupported media');
+ await page.getByTestId('studio-service-select').selectOption('1');await page.getByRole('treeitem').first().click();await expect(page.locator('.os-file-inspector')).toContainText('item-00.png');await page.getByTestId('studio-service-select').selectOption('2');proof.checks.push('Sources tree inspection retains its actual selected-file preview in the contextual inspector');
  await page.getByTestId('ops-file-search').fill('item-00');await expect(page.getByTestId('ops-file-card')).toHaveCount(1);
  await page.getByTestId('ops-file-card').locator('input').uncheck();await page.getByTestId('ops-file-search').fill('');await page.getByTestId('ops-file-sort').selectOption('size');await expect(page.locator('.os-file-card input:checked')).toHaveCount(39);
  await page.getByTestId('ops-select-none').click();await expect(page.getByTestId('ops-plan')).toBeDisabled();
