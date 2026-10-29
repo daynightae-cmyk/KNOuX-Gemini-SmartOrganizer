@@ -48,6 +48,13 @@ html[data-theme="light"] .knx-home-root {
   flex-shrink: 0;
 }
 
+@media (min-width: 1500px) {
+  .knx-home-hero {
+    min-height: 300px;
+    max-height: none;
+  }
+}
+
 html[data-theme="light"] .knx-home-hero {
   background: #eff6ff;
   border-color: rgba(59, 130, 246, 0.35);
