@@ -44,6 +44,7 @@ import {
 } from 'lucide-react';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation } from '../context/NavigationContext';
+import { SettingsReferenceDashboard } from '../settings/SettingsReferenceDashboard';
 
 export interface SettingsPageProps {
   onNavigateSection?: (section: string) => void;
@@ -57,7 +58,7 @@ const ACCENT_PREVIEW: Record<string, string> = {
 };
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection }) => {
-  const { navigateTo, isArabic, toggleLocale, setLocale } = useNavigation();
+  const { navigateTo, isArabic, toggleLocale, setLocale, theme, setTheme } = useNavigation();
   const [activeTab, setActiveTab] = useState<
     'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup'
   >('engine');
@@ -240,6 +241,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     if (onNavigateSection) onNavigateSection(sec);
     else navigateTo(sec);
   };
+
+  return <SettingsReferenceDashboard isArabic={isArabic} currentTheme={theme} onSetTheme={setTheme} provider={provider} isProviderConnected={Boolean(apiKey)} onNavigateSection={(section)=>{ if (onNavigateSection) onNavigateSection(section); else navigateTo(section); }} onToggleArabic={()=>toggleLocale()} />;
 
   const renderEngineTab = () => (
               <div className="space-y-5 animate-fadeIn">

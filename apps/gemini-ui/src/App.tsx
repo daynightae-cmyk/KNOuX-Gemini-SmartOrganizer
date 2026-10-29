@@ -69,6 +69,10 @@ import './visual/reference-restraint.css';
 import './visual/orbital-engine.css';
 import './visual/command-canvas.css';
 import './visual/section-fidelity.css';
+import './visual/files-reference-final.css';
+import './visual/organization-reference-final.css';
+import './visual/settings-reference-final.css';
+import './visual/settings-reference-night.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';
