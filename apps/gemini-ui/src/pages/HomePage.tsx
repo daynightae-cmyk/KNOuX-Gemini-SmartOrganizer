@@ -23,6 +23,7 @@ import {
   deriveVolumes,
 } from '../home/derive';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
+import { ApprovedHomeScreen } from '../components/home/ApprovedHomeScreen';
 import {
   Search,
   ChevronRight,
@@ -125,6 +126,22 @@ export const HomePage: React.FC<HomePageProps> = ({
     sec.id.toLowerCase().includes(paletteSearch.toLowerCase())
   );
 
+  return (
+    <ApprovedHomeScreen
+      isArabic={isAr}
+      theme={theme}
+      setTheme={setTheme}
+      onNavigate={navigateTo}
+      onOpenPalette={() => setIsPaletteOpen(true)}
+      onOpenNotifications={() => setIsNotificationsOpen((prev) => !prev)}
+      kpis={kpis}
+      activities={activities}
+      volumes={volumes}
+      pendingActions={pendingActions}
+    />
+  );
+
+  /* Legacy Home composition retained below for the next audited migration pass. */
   return (
     <div
       dir={isAr ? 'rtl' : 'ltr'}
