@@ -44,6 +44,7 @@ import {
 } from 'lucide-react';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation } from '../context/NavigationContext';
+import { SettingsReferenceDashboard } from '../settings/SettingsReferenceDashboard';
 
 export interface SettingsPageProps {
   onNavigateSection?: (section: string) => void;
@@ -240,6 +241,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     if (onNavigateSection) onNavigateSection(sec);
     else navigateTo(sec);
   };
+
+  return <SettingsReferenceDashboard isArabic={isArabic} onNavigateSection={(section)=>{ if (onNavigateSection) onNavigateSection(section); else navigateTo(section); }} onToggleArabic={()=>toggleLocale()} />;
 
   const renderEngineTab = () => (
               <div className="space-y-5 animate-fadeIn">
