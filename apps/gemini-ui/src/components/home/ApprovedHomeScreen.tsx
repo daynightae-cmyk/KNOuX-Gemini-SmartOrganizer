@@ -4,9 +4,8 @@ import {
   Folder, Grid2X2, HardDrive, Home, Menu, Moon, MoreHorizontal, Search, Settings,
   Shield, Sun, Wrench, Zap, Play, Pause, Gauge, Cpu, Monitor, Rocket, X,
 } from 'lucide-react';
-import { OrbitalControl } from '../../visual/OrbitalControl';
+import { KnouxOrbit } from '../../visual/KnouxOrbit';
 import type { HomeActivityItem, KpiMetric, PageId, PendingSafeAction, StorageVolumeSnapshot } from '../../lib/home-ui';
-import '../../visual/orbital-engine.css';
 import './approved-home.css';
 
 interface Props {
@@ -37,10 +36,6 @@ const access = [
   ['Storage', 'Analyze disk usage and find space consumers.', Database, 'storage'],
   ['Startup Control', 'Optimize startup programs for a faster boot.', Rocket, 'startup'],
   ['System Performance', 'Monitor and optimize your system health.', Monitor, 'system'],
-] as const;
-
-const orbitPositions = [
-  ['0px', '-105px'], ['166px', '-52px'], ['166px', '52px'], ['0px', '105px'], ['-166px', '52px'], ['-166px', '-52px'],
 ] as const;
 
 const satelliteTools = [
@@ -93,7 +88,7 @@ export const ApprovedHomeScreen: React.FC<Props> = ({ isArabic, theme, setTheme,
         <main className="approved-main">
           <section className="approved-hero">
             <div className="approved-orbit visual-sprint">
-              <OrbitalControl title="KNOuX" subtitle="SmartOrganizer" eyebrow="" onActivate={() => go('smart_scan')} tools={satelliteTools.map((tool, index) => ({ ...tool, onClick: () => go(tool.target), tone: 'violet' as const, orbitX: orbitPositions[index][0], orbitY: orbitPositions[index][1] }))} />
+              <KnouxOrbit title="KNOuX" subtitle="SmartOrganizer" onActivate={() => go('smart_scan')} tools={satelliteTools.map((tool) => ({ id: tool.id, label: tool.label, icon: tool.icon, onClick: () => go(tool.target) }))} />
             </div>
             <div className="approved-welcome">
               <div className="approved-welcome-title"><IconBox tone="violet"><Zap /></IconBox><div><h1>Welcome to KNOuX</h1><p>Your intelligent system organizer for a cleaner,<br />faster, and more secure Windows experience.</p></div></div>
