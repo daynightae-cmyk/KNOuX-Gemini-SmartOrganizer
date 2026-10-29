@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Play, type LucideIcon } from 'lucide-react';
 import { KnouxMark } from './ReferenceAtmosphere';
 import { OrbitParticles } from './OrbitParticles';
@@ -71,6 +71,7 @@ export function OrbitalControl({
   const count = Math.max(tools.length, 1);
   const coreState = state ?? (running ? 'loading' : disabled ? 'unavailable' : 'ready');
   const span = 360 / count;
+  const orbitId = useId().replace(/:/g, '');
 
   return (
     <div
@@ -80,6 +81,31 @@ export function OrbitalControl({
       data-orbit-state={coreState}
     >
       <span className="knx-orbit-halo" aria-hidden="true" />
+      <svg className="knx-orbit-svg" viewBox="0 0 540 344" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id={`${orbitId}-glow`} cx="50%" cy="50%" r="50%">
+            <stop offset="0" stopColor="#ffffff" stopOpacity=".8" />
+            <stop offset=".22" stopColor="#c4b5fd" stopOpacity=".3" />
+            <stop offset="1" stopColor="#8b5cf6" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id={`${orbitId}-sweep`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset=".48" stopColor="#ffffff" stopOpacity=".9" />
+            <stop offset="1" stopColor="#8b5cf6" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <ellipse className="knx-orbit-svg-ring knx-orbit-svg-ring-outer" cx="270" cy="172" rx="199" ry="134" />
+        <ellipse className="knx-orbit-svg-ring knx-orbit-svg-ring-mid" cx="270" cy="172" rx="158" ry="104" />
+        <ellipse className="knx-orbit-svg-ring knx-orbit-svg-ring-inner" cx="270" cy="172" rx="117" ry="78" />
+        <ellipse className="knx-orbit-svg-sweep" cx="270" cy="172" rx="199" ry="134" stroke={`url(#${orbitId}-sweep)`} />
+        <circle className="knx-orbit-svg-core-glow" cx="270" cy="172" r="104" fill={`url(#${orbitId}-glow)`} />
+        <g className="knx-orbit-svg-particles">
+          {[...Array(18)].map((_, index) => {
+            const angle = (index * 20) * Math.PI / 180;
+            return <circle key={index} cx={270 + Math.cos(angle) * (190 - (index % 3) * 18)} cy={172 + Math.sin(angle) * (126 - (index % 3) * 12)} r={index % 4 === 0 ? 2.2 : 1.2} />;
+          })}
+        </g>
+      </svg>
       <OrbitParticles />
       <span className="knx-orbit-ring knx-orbit-ring-outer" aria-hidden="true" />
       <span className="knx-orbit-ring knx-orbit-ring-inner" aria-hidden="true" />

@@ -39,6 +39,7 @@ import {
   INITIAL_DECK_TILES,
 } from '../../lib/home-ui';
 import { EarthHorizonScene } from './EarthHorizonScene';
+import { OrbitalControl } from '../../visual/OrbitalControl';
 
 // 3D Isometric Technical Visuals for each Command Deck card
 const renderDeckBackgroundGraphic = (id: string) => {
@@ -388,10 +389,26 @@ export const HomeCommandCenter: React.FC<HomeCommandCenterProps> = ({
   return (
     <div className="flex flex-col gap-3 relative z-10 shrink-0">
       {/* REGION A: HERO BANNER WITH ATMOSPHERIC EARTH HORIZON */}
-      <section className="relative min-h-[96px] pt-1 pb-1 flex flex-col justify-between overflow-hidden" aria-label="Hero Command Center">
+      <section className="knx-home-hero relative min-h-[290px] pt-1 pb-1 flex flex-col justify-between overflow-hidden" aria-label="Hero Command Center">
         <OrbitParticles className="knx-home-particles" />
         {/* Full-width curved Earth Horizon scene across the top */}
         <EarthHorizonScene isAr={isAr} className="knx-home-cosmic" />
+        <div className="knx-home-orbit-wrap" aria-label={isAr ? 'أدوات KNOuX المدارية' : 'KNOuX orbital tools'}>
+          <OrbitalControl
+            title="KNOuX"
+            subtitle={isAr ? 'المنظم الذكي' : 'SmartOrganizer'}
+            eyebrow={isAr ? 'أدوات Home' : 'Home tools'}
+            onActivate={() => onNavigate('smart_scan')}
+            tools={[
+              { id: 'scan', label: isAr ? 'فحص ذكي' : 'Smart Scan', icon: Search, onClick: () => onNavigate('smart_scan'), tone: 'violet' },
+              { id: 'files', label: isAr ? 'الملفات' : 'Files', icon: FolderOpen, onClick: () => onNavigate('files'), tone: 'blue' },
+              { id: 'apps', label: isAr ? 'التطبيقات' : 'Applications', icon: Grid, onClick: () => onNavigate('applications'), tone: 'indigo' },
+              { id: 'storage', label: isAr ? 'التخزين' : 'Storage', icon: HardDrive, onClick: () => onNavigate('storage'), tone: 'teal' },
+              { id: 'system', label: isAr ? 'النظام' : 'System', icon: Activity, onClick: () => onNavigate('system'), tone: 'sky' },
+              { id: 'security', label: isAr ? 'الحماية' : 'Security', icon: Shield, onClick: () => onNavigate('repair'), tone: 'emerald' },
+            ]}
+          />
+        </div>
 
         {/* Top Header Row inside Hero: Title, Subtitle, and Right Tagline */}
         <div className="knx-home-hero-heading flex items-start justify-between relative z-10">

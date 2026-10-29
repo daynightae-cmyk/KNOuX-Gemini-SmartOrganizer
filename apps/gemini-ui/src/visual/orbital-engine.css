@@ -451,3 +451,35 @@ html:not([data-theme='light']) .visual-sprint .knx-orbit-tool.tone-sky    .knx-o
   .visual-sprint .knx-orbit-core-sub { display: none; }
   .visual-sprint .knx-orbit-core { padding-bottom: 22px; }
 }
+
+/* SVG orbital atmosphere: tracks and particles move while the HTML satellite
+   buttons remain fixed, upright, and independently accessible. */
+.visual-sprint .knx-orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+.visual-sprint .knx-orbit-svg-ring,
+.visual-sprint .knx-orbit-svg-sweep {
+  fill: none;
+  stroke: var(--orbit-ring);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.visual-sprint .knx-orbit-svg-ring-outer { animation: knx-orbit-track 18s linear infinite; stroke: var(--orbit-ring-strong); }
+.visual-sprint .knx-orbit-svg-ring-mid { animation: knx-orbit-track-reverse 13s linear infinite; stroke-dasharray: 2 10; opacity: .8; }
+.visual-sprint .knx-orbit-svg-ring-inner { animation: knx-orbit-breathe 4.5s ease-in-out infinite; stroke-width: 1.5; }
+.visual-sprint .knx-orbit-svg-sweep { stroke-width: 3; opacity: .65; animation: knx-orbit-track 8s linear infinite; filter: drop-shadow(0 0 7px rgba(167,139,250,.8)); }
+.visual-sprint .knx-orbit-svg-core-glow { animation: knx-orbit-glow 4s ease-in-out infinite; mix-blend-mode: screen; }
+.visual-sprint .knx-orbit-svg-particles { transform-box: fill-box; transform-origin: center; animation: knx-orbit-track 22s linear infinite; fill: var(--orbit-accent); filter: drop-shadow(0 0 4px var(--orbit-accent)); }
+
+@keyframes knx-orbit-track { to { transform: rotate(360deg); } }
+@keyframes knx-orbit-track-reverse { to { transform: rotate(-360deg); } }
+@keyframes knx-orbit-breathe { 0%, 100% { opacity: .45; transform: scale(.98); } 50% { opacity: .95; transform: scale(1.02); } }
+@keyframes knx-orbit-glow { 0%, 100% { opacity: .28; } 50% { opacity: .62; } }

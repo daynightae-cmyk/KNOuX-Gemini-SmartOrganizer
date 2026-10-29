@@ -54,6 +54,30 @@ html[data-theme="light"] .knx-home-hero {
   box-shadow: 0 10px 25px -10px rgba(59, 130, 246, 0.18), inset 0 1px 0 #ffffff;
 }
 
+/* Home orbital command wheel: the SVG tracks animate in place while the six
+   semantic satellite buttons keep their fixed reference positions. */
+.knx-home-orbit-wrap {
+  position: relative;
+  z-index: 3;
+  width: min(42%, 520px);
+  min-width: 360px;
+  height: 250px;
+  margin-inline: 1rem 2rem;
+  flex: 0 0 auto;
+}
+.knx-home-orbit-wrap .knx-orbit {
+  max-width: none;
+  min-height: 250px;
+  height: 250px;
+}
+@media (max-width: 1100px) {
+  .knx-home-orbit-wrap { width: 46%; min-width: 300px; margin-inline: .25rem; }
+}
+@media (max-width: 760px) {
+  .knx-home-orbit-wrap { width: 100%; min-width: 0; height: 220px; }
+  .knx-home-orbit-wrap .knx-orbit { min-height: 220px; height: 220px; }
+}
+
 /* Earth Horizon Scene Container */
 .knx-earth-horizon-container {
   position: absolute;
