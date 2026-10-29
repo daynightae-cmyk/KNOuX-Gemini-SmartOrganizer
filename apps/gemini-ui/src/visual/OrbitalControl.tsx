@@ -20,6 +20,8 @@ export interface OrbitTool {
   /** Short truthful qualifier rendered as a tooltip + screen-reader text. */
   hint?: string;
   tone?: OrbitTone;
+  orbitX?: string;
+  orbitY?: string;
 }
 
 const TONES: OrbitTone[] = ['violet', 'blue', 'teal', 'amber', 'emerald', 'rose', 'indigo', 'sky'];
@@ -116,7 +118,7 @@ export function OrbitalControl({
           key={`node-${tool.id}`}
           className="knx-orbit-node"
           aria-hidden="true"
-          style={{ '--orbit-angle': `${index * span - 90}deg` } as React.CSSProperties}
+          style={{ '--orbit-angle': `${index * span - 90}deg`, '--orbit-x': tool.orbitX ?? '0px', '--orbit-y': tool.orbitY ?? '0px' } as React.CSSProperties}
         />
       ))}
       {tools.map((tool, index) => (
@@ -154,7 +156,7 @@ export function OrbitalControl({
               key={tool.id}
               type="button"
               className={`knx-orbit-tool is-${toolState} tone-${tone}`}
-              style={{ '--orbit-angle': `${index * span - 90}deg` } as React.CSSProperties}
+              style={{ '--orbit-angle': `${index * span - 90}deg`, '--orbit-x': tool.orbitX ?? '0px', '--orbit-y': tool.orbitY ?? '0px' } as React.CSSProperties}
               onClick={tool.onClick}
               disabled={tool.disabled || toolState === 'disabled' || toolState === 'unavailable' || toolState === 'loading'}
               aria-current={toolState === 'active' && tool.active === undefined ? 'step' : undefined}

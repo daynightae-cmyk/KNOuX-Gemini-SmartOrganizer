@@ -39,12 +39,16 @@ const access = [
   ['System Performance', 'Monitor and optimize your system health.', Monitor, 'system'],
 ] as const;
 
+const orbitPositions = [
+  ['0px', '-105px'], ['166px', '-52px'], ['166px', '52px'], ['0px', '105px'], ['-166px', '52px'], ['-166px', '-52px'],
+] as const;
+
 const satelliteTools = [
   { id: 'scan', label: 'Smart Scan', icon: Search, target: 'smart_scan' },
   { id: 'files', label: 'Files', icon: Folder, target: 'files' },
   { id: 'apps', label: 'Applications', icon: Grid2X2, target: 'applications' },
-  { id: 'storage', label: 'Storage', icon: Database, target: 'storage' },
   { id: 'system', label: 'System', icon: Monitor, target: 'system' },
+  { id: 'storage', label: 'Storage', icon: Database, target: 'storage' },
   { id: 'automation', label: 'Automation', icon: Zap, target: 'automation' },
 ];
 
@@ -89,7 +93,7 @@ export const ApprovedHomeScreen: React.FC<Props> = ({ isArabic, theme, setTheme,
         <main className="approved-main">
           <section className="approved-hero">
             <div className="approved-orbit visual-sprint">
-              <OrbitalControl title="KNOuX" subtitle="SmartOrganizer" eyebrow="" onActivate={() => go('smart_scan')} tools={satelliteTools.map((tool) => ({ ...tool, onClick: () => go(tool.target), tone: 'violet' as const }))} />
+              <OrbitalControl title="KNOuX" subtitle="SmartOrganizer" eyebrow="" onActivate={() => go('smart_scan')} tools={satelliteTools.map((tool, index) => ({ ...tool, onClick: () => go(tool.target), tone: 'violet' as const, orbitX: orbitPositions[index][0], orbitY: orbitPositions[index][1] }))} />
             </div>
             <div className="approved-welcome">
               <div className="approved-welcome-title"><IconBox tone="violet"><Zap /></IconBox><div><h1>Welcome to KNOuX</h1><p>Your intelligent system organizer for a cleaner,<br />faster, and more secure Windows experience.</p></div></div>

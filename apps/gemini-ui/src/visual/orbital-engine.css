@@ -135,8 +135,8 @@ html:not([data-theme='light']) .visual-sprint .knx-orbit {
 /* orbit nodes ----------------------------------------------------------- */
 .visual-sprint .knx-orbit-node {
   position: absolute;
-  left: calc(50% + var(--orbit-rx) * cos(var(--orbit-angle)));
-  top: calc(50% + var(--orbit-ry) * sin(var(--orbit-angle)));
+  left: calc(50% + var(--orbit-x, 0px));
+  top: calc(50% + var(--orbit-y, 0px));
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -253,8 +253,8 @@ html:not([data-theme='light']) .visual-sprint .knx-orbit {
 
 .visual-sprint .knx-orbit-tool {
   position: absolute;
-  left: calc(50% + var(--orbit-rx) * cos(var(--orbit-angle)));
-  top: calc(50% + var(--orbit-ry) * sin(var(--orbit-angle)));
+  left: calc(50% + var(--orbit-x, 0px));
+  top: calc(50% + var(--orbit-y, 0px));
   transform: translate(-50%, -58%);
   display: flex;
   flex-direction: column;
