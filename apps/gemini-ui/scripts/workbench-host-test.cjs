@@ -30,6 +30,9 @@ const cleanupPage = read('src/pages/CleanupPage.tsx');
 const cleanupBody = read('src/cleanup/ServiceWorkspace.tsx');
 const startupPage = read('src/pages/StartupPage.tsx');
 const startupBody = read('src/startup/ServiceWorkspace.tsx');
+const systemPage = read('src/pages/SystemPage.tsx');
+const systemBody = read('src/system/SystemServiceWorkspaces.tsx');
+const systemCss = read('src/system.css');
 const failures = [];
 
 function check(name, run) {
@@ -171,6 +174,28 @@ check('Startup integrates a pinned/expanded workbench with gated service bodies'
   assert.match(startupBody, /startup-service-focus/);
 });
 
+check('System/Network/Hardware integrates a pinned/expanded workbench with 36 measured bodies', () => {
+  assert.match(systemBody, /ServiceWorkbenchHost/);
+  assert.match(systemBody, /data-testid="system-workbench-side-shell"/);
+  assert.match(systemBody, /data-testid="system-workbench-expanded-shell"/);
+  assert.match(systemBody, /testId="system-workbench"/);
+  assert.match(systemBody, /testId="system-workbench-expanded"/);
+  assert.match(systemBody, /mode === 'side'/);
+  assert.match(systemPage, /system-workbench-tool-select/);
+  assert.match(systemPage, /knoux\.system\.workbench\.mode/);
+  assert.match(systemPage, /knoux\.system\.workbench\.width/);
+  assert.match(systemPage, /data-testid="system-workspace"/);
+  assert.match(systemPage, /data-testid="system-actionbar"/);
+  const mapped = systemBody.match(/^\s{2}'(?:system|network|hardware)-[a-z0-9-]+':\s*[A-Za-z]/gm) || [];
+  assert.equal(mapped.length, 36, `expected 36 service workbench entries, found ${mapped.length}`);
+  // The pinned rail is narrower than the full sheet, so the shared host needs
+  // explicit layout adaptation and no 5px status dot left behind in a chip row.
+  assert.match(systemCss, /\[data-workbench-mode='side'\] \.sys-split-2,/);
+  assert.match(systemCss, /\[data-workbench-mode='side'\] \.sys-adapter-card,[\s\S]*flex-wrap: wrap/);
+  assert.match(systemCss, /\.sys-lane-sev \{[\s\S]*?flex-wrap: wrap;[\s\S]*?\}/);
+  assert.match(systemCss, /\.sys-timeline-row \{[\s\S]*?grid-template-columns: 34px 88px minmax\(0, 1fr\) auto;/);
+});
+
 check('no old generic ServiceWorkspaceHost is imported by any migrated domain', () => {
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
@@ -179,9 +204,11 @@ check('no old generic ServiceWorkspaceHost is imported by any migrated domain', 
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(appsPage), 'old generic host must not be used by Applications');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(cleanupPage), 'old generic host must not be used by Cleanup');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(startupPage), 'old generic host must not be used by Startup');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(systemPage), 'old generic host must not be used by System');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(systemBody), 'old generic host must not be used by System bodies');
 });
 
-const result = { ok: failures.length === 0, checks: 12, failures };
+const result = { ok: failures.length === 0, checks: 13, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');

@@ -87,6 +87,7 @@ import {
 } from '../system/ui';
 import { useSystem } from '../system/useSystem';
 import { SystemServiceWorkspace, hasSystemWorkbench } from '../system/SystemServiceWorkspaces';
+import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import '../system.css';
 
 export interface SystemPageProps {
@@ -229,6 +230,21 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
   const snapshot = controller.snapshot;
 
   const [activeService, setActiveService] = useState<string | null>(null);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.system.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try {
+      const value = Number(localStorage.getItem('knoux.system.workbench.width'));
+      return Number.isFinite(value) && value >= 380 ? Math.min(860, value) : 620;
+    } catch { return 620; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.system.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.system.workbench.width', String(workbenchWidth));
+    } catch { /* storage can be unavailable in private contexts */ }
+  }, [workbenchMode, workbenchWidth]);
   const [world, setWorld] = useState<SystemWorld>('system');
   const [serviceQuery, setServiceQuery] = useState('');
   const [processQuery, setProcessQuery] = useState('');
@@ -306,6 +322,23 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
     setActiveService(null);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   }, []);
+
+  const systemWorkbenchToolSelector = (
+    <select
+      data-testid="system-workbench-tool-select"
+      aria-label={t(locale, 'Switch measured service', 'تبديل الخدمة المقيسة')}
+      title={activeService ? serviceLabel(activeService, locale) : t(locale, 'Switch measured service', 'تبديل الخدمة المقيسة')}
+      value={activeService || ''}
+      onChange={(event) => {
+        if (isSystemServiceId(event.target.value)) openService(event.target.value);
+      }}
+      className="max-w-[168px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {SERVICE_CATALOG.map((entry) => (
+        <option key={entry.id} value={entry.id}>{shortServiceLabel(entry.id, locale)}</option>
+      ))}
+    </select>
+  );
 
   const timelineSeries = useMemo(() => {
     if (timelineMetric === 'cpuPercent') return cpuSeries;
@@ -1000,6 +1033,11 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
           controller={controller}
           onOpenService={openService}
           onClose={closeService}
+          mode={workbenchMode}
+          onModeChange={setWorkbenchMode}
+          width={workbenchWidth}
+          onResize={setWorkbenchWidth}
+          toolSelector={systemWorkbenchToolSelector}
         />
       ) : null}
     </div>

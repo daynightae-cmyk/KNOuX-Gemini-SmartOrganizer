@@ -2345,6 +2345,73 @@ html[data-theme='light'] .sys-info-note.is-good { background: #ecfdf5; }
   color: var(--sys-muted-2);
 }
 
+/* --------------------------------------------------------------------------
+   Pinned rail: the thirty-six bodies were composed for a full-width sheet.
+   Inside the ~620px side workbench every two-column split becomes one column,
+   dense stat grids lose their extra tracks and wide heroes wrap, so no panel
+   has to clip or scroll sideways to stay readable. Expanded mode keeps the
+   original composition.
+   -------------------------------------------------------------------------- */
+[data-workbench-mode='side'] .sys-split-2,
+[data-workbench-mode='side'] .sys-split-ledger,
+[data-workbench-mode='side'] .sys-split-consumers,
+[data-workbench-mode='side'] .sys-split-timeline,
+[data-workbench-mode='side'] .sys-split-trace,
+[data-workbench-mode='side'] .sys-split-binary,
+[data-workbench-mode='side'] .sys-split-links,
+[data-workbench-mode='side'] .sys-diag-layout,
+[data-workbench-mode='side'] .sys-hosts-layout,
+[data-workbench-mode='side'] .sys-graph-layout,
+[data-workbench-mode='side'] .sys-perf-layout,
+[data-workbench-mode='side'] .sys-live-grid,
+[data-workbench-mode='side'] .sys-wear-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+[data-workbench-mode='side'] .sys-split-2 > .sys-span-2 { grid-column: span 1; }
+
+[data-workbench-mode='side'] .sys-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+[data-workbench-mode='side'] .sys-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+[data-workbench-mode='side'] .sys-grid-3 > :last-child:nth-child(odd) { grid-column: span 2; }
+
+[data-workbench-mode='side'] .sys-toolbar-row { row-gap: 4px; }
+[data-workbench-mode='side'] .sys-toolbar-spacer { flex-basis: 100%; min-width: 0; }
+
+[data-workbench-mode='side'] .sys-battery-hero,
+[data-workbench-mode='side'] .sys-cpu-hero,
+[data-workbench-mode='side'] .sys-gpu-bay,
+[data-workbench-mode='side'] .sys-disk-bays,
+[data-workbench-mode='side'] .sys-monitor-card,
+[data-workbench-mode='side'] .sys-adapter-rack,
+[data-workbench-mode='side'] .sys-report-hero,
+[data-workbench-mode='side'] .sys-wifi-hero,
+[data-workbench-mode='side'] .sys-wear-hero,
+[data-workbench-mode='side'] .sys-throughput-hero {
+  flex-wrap: wrap;
+}
+
+[data-workbench-mode='side'] .sys-wb-head { flex-wrap: wrap; }
+[data-workbench-mode='side'] .sys-wb-badges { flex-wrap: wrap; }
+
+[data-workbench-mode='side'] .sys-table-wrap { max-width: 100%; }
+[data-workbench-mode='side'] .sys-panel,
+[data-workbench-mode='side'] .sys-stack,
+[data-workbench-mode='side'] .sys-workbench { min-width: 0; }
+/* Adapter and proxy cards carry a name, a description and a mono address in
+   one row. In the pinned rail that row is too narrow, so the cards wrap and
+   the address block takes its own line instead of being crushed to 5px. */
+[data-workbench-mode='side'] .sys-adapter-card,
+[data-workbench-mode='side'] .sys-proxy-card { flex-wrap: wrap; }
+[data-workbench-mode='side'] .sys-adapter-card > strong,
+[data-workbench-mode='side'] .sys-adapter-card > em,
+[data-workbench-mode='side'] .sys-proxy-card > strong,
+[data-workbench-mode='side'] .sys-proxy-card > em { min-width: 0; overflow-wrap: anywhere; }
+[data-workbench-mode='side'] .sys-adapter-meta { flex-basis: 100%; flex-direction: row; flex-wrap: wrap; gap: 6px; }
+[data-workbench-mode='side'] .sys-proxy-source { flex-basis: 100%; overflow-wrap: anywhere; }
+/* Three 190px mixer strips in a 588px rail leave the endpoint name 29px wide;
+   two wider columns keep the measured name readable. */
+[data-workbench-mode='side'] .sys-audio-mixer { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
 .sys-service-overlay {
   position: fixed;
   inset: 0;
@@ -2753,7 +2820,9 @@ html[data-theme='light'] .sys-service-scrim {
 
 .sys-timeline-row {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr) auto;
+  /* axis · time · copy · severity. The severity chip needs its own track; a
+     three-track grid pushed it under the axis and crushed the label. */
+  grid-template-columns: 34px 88px minmax(0, 1fr) auto;
   gap: 8px;
   align-items: start;
   padding: 4px 8px;
@@ -2842,16 +2911,16 @@ html[data-theme='light'] .sys-service-scrim {
 
 .sys-lane-card-icon svg { width: 9px; height: 9px; }
 
+/* Severity rollup sits beside the three lane cards: it is a chip cluster, not
+   a single status dot, so the counters stay readable in the pinned rail. */
 .sys-lane-sev {
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: var(--sys-muted-2);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  max-width: 100%;
 }
-
-.sys-lane-sev.is-warn { background: var(--sys-amber); }
-.sys-lane-sev.is-bad { background: var(--sys-rose); }
-.sys-lane-sev.is-good { background: var(--sys-emerald); }
 
 /* --------------------------------------------------------------------------
    Driver / process / socket lists

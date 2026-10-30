@@ -241,8 +241,8 @@ export function DriverInventoryWorkbench({ locale, snapshot, controller }: Workb
                         aria-selected={selected?.id === driver.id}
                       >
                         <td>
-                          <strong className="sys-row-name">{driver.deviceName}</strong>
-                          <span className="sys-row-sub">{driver.infName || t(locale, 'INF not returned', 'INF غير متاح')}</span>
+                          <strong className="sys-row-name" title={driver.deviceName}>{driver.deviceName}</strong>
+                          <span className="sys-row-sub" title={driver.infName || undefined}>{driver.infName || t(locale, 'INF not returned', 'INF غير متاح')}</span>
                         </td>
                         <td className="sys-mono">{driver.deviceClass || '—'}</td>
                         <td>{driver.provider || '—'}</td>
@@ -443,7 +443,7 @@ export function LogChannelWorkbench({ locale, snapshot, controller }: WorkbenchP
                       }}
                       aria-selected={selected?.name === channel.name}
                     >
-                      <td><strong className="sys-row-name sys-mono">{channel.name}</strong></td>
+                      <td><strong className="sys-row-name sys-mono" title={channel.name}>{channel.name}</strong></td>
                       <td className="sys-mono">{formatCount(channel.recordCount)}</td>
                       <td className="sys-mono">{formatBytes(channel.fileSizeBytes)}</td>
                       <td>{channel.retention || '—'}</td>
@@ -1211,8 +1211,8 @@ export function TimelineWorkbench({ locale, snapshot, controller }: WorkbenchPro
                       <em>{locale === AR ? meta.ar : meta.en}</em>
                     </span>
                     <span className="sys-timeline-copy">
-                      <strong>{event.title}</strong>
-                      <em>{event.kind} · {event.source}</em>
+                      <strong title={event.title}>{event.title}</strong>
+                      <em title={`${event.kind} · ${event.source}`}>{event.kind} · {event.source}</em>
                     </span>
                     <Chip tone={sev.tone}>{locale === AR ? sev.ar : sev.en}</Chip>
                   </button>

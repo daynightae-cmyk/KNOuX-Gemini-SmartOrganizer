@@ -480,7 +480,7 @@ export function EventLedgerWorkbench({ locale, snapshot, controller }: Workbench
                     <span className="sys-event-time">{formatTimestamp(event.timeCreated, locale)}</span>
                     <span className="sys-event-body">
                       <strong>{event.provider} · {event.eventId ?? '—'}</strong>
-                      <em>{event.message || t(locale, 'No message text returned.', 'لم يُعد نص الرسالة.')}</em>
+                      <em title={event.message || undefined}>{event.message || t(locale, 'No message text returned.', 'لم يُعد نص الرسالة.')}</em>
                     </span>
                     <span className="sys-event-channel">{event.channel}</span>
                   </button>
@@ -760,8 +760,8 @@ export function SignatureInspectorWorkbench({ locale, snapshot, controller }: Wo
                 className={cx('sys-binary-row', selected?.id === process.id && 'is-active')}
                 onClick={() => setSelectedPath(process.executablePath)}
               >
-                <span className="sys-binary-name">{process.name}</span>
-                <span className="sys-binary-path sys-mono">{process.executablePath}</span>
+                <span className="sys-binary-name" title={process.name}>{process.name}</span>
+                <span className="sys-binary-path sys-mono" title={process.executablePath || undefined}>{process.executablePath}</span>
                 <Chip tone={signatureMeta(process.signatureStatus).tone}>{process.signatureAvailable ? signatureMeta(process.signatureStatus).en : t(locale, 'Not checked', 'لم يُفحص')}</Chip>
               </button>
             ))}

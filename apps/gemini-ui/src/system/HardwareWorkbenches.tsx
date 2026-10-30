@@ -365,7 +365,21 @@ export function BatteryWorkbench({ locale, snapshot, controller }: WorkbenchProp
           </div>
         </>
       ) : (
-        <EmptyBlock icon={BatteryCharging} title={t(locale, 'No battery reported', 'لم تُبلَّغ أي بطارية')} message={t(locale, 'Win32_Battery returned no device. This is normal on a desktop; no synthetic battery or charge value is shown.', 'لم يُعد Win32_Battery أي جهاز. هذا طبيعي على سطح المكتب؛ لا تُعرض بطارية أو قيمة شحن اصطناعية.')} />
+        <>
+          <EmptyBlock icon={BatteryCharging} title={t(locale, 'No battery reported', 'لم تُبلَّغ أي بطارية')} message={t(locale, 'Win32_Battery returned no device. This is normal on a desktop; no synthetic battery or charge value is shown.', 'لم يُعد Win32_Battery أي جهاز. هذا طبيعي على سطح المكتب؛ لا تُعرض بطارية أو قيمة شحن اصطناعية.')} />
+          <div className="sys-toolbar-row">
+            <button type="button" className="sys-btn sys-btn-quiet" onClick={() => controller.refreshSnapshot(true)} disabled={controller.refreshing}>
+              <RefreshCw aria-hidden="true" />
+              {t(locale, 'Re-read hardware', 'إعادة قراءة العتاد')}
+            </button>
+            <ExportButton
+              fileName="knoux-battery.json"
+              payload={batteries}
+              label={t(locale, 'Export empty battery evidence', 'تصدير أدلة بطارية فارغة')}
+              onDone={(ok) => controller.showNotice(ok ? t(locale, 'Battery evidence exported.', 'صُدّدت أدلة البطارية.') : t(locale, 'The battery export could not start.', 'تعذّر بدء تصدير البطارية.'))}
+            />
+          </div>
+        </>
       )}
     </WorkbenchFrame>
   );
@@ -1284,8 +1298,8 @@ export function AudioWorkbench({ locale, snapshot, controller }: WorkbenchProps)
           <button type="button" key={endpoint.id} className={cx('sys-audio-strip', selected?.id === endpoint.id && 'is-active')} onClick={() => setSelectedId(endpoint.id)}>
             <span className="sys-audio-glyph" aria-hidden="true">{endpoint.kind === 'output' ? <Volume2 /> : <Activity />}</span>
             <span className="sys-audio-copy">
-              <strong>{endpoint.name}</strong>
-              <em>{endpoint.manufacturer || t(locale, 'Manufacturer unknown', 'المصنّع مجهول')}</em>
+              <strong title={endpoint.name}>{endpoint.name}</strong>
+              <em title={endpoint.manufacturer || undefined}>{endpoint.manufacturer || t(locale, 'Manufacturer unknown', 'المصنّع مجهول')}</em>
             </span>
             <span className="sys-audio-fader" aria-hidden="true"><span /></span>
             <Chip tone={String(endpoint.status).toLowerCase() === 'ok' ? 'good' : endpoint.status ? 'warn' : 'muted'}>{endpoint.status || '—'}</Chip>

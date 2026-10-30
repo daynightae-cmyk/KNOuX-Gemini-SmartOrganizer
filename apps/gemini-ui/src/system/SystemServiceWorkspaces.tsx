@@ -5,8 +5,8 @@
  * There is no generic fallback panel and no fixture source: a missing mapping
  * is a contract error, not a reason to invent readings.
  */
-import React, { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import React from 'react';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import type { SystemLocale } from './catalog';
 import { SERVICE_BY_ID, serviceLabel } from './catalog';
 import type { SystemController } from './useSystem';
@@ -107,73 +107,99 @@ export interface SystemServiceWorkspaceProps {
   controller: SystemController;
   onOpenService: (id: string) => void;
   onClose: () => void;
+  mode: WorkbenchMode;
+  onModeChange: (mode: WorkbenchMode) => void;
+  width: number;
+  onResize: (width: number) => void;
+  toolSelector?: React.ReactNode;
 }
 
 /**
- * Full-height, focus-managed service sheet. It renders on top of the measured
+ * Pinned or expanded service workbench. It renders on top of the measured
  * overview without unmounting it, so live samples keep flowing while a
- * workbench is open and every panel keeps its own inner scroll.
+ * workbench is open. The shared host owns chrome, resize, Escape and the rail
+ * scroll; each service supplies its own specialized measured body.
  */
-export function SystemServiceWorkspace({ serviceId, locale, controller, onOpenService, onClose }: SystemServiceWorkspaceProps) {
-  const closeRef = useRef<HTMLButtonElement | null>(null);
-  const sheetRef = useRef<HTMLDivElement | null>(null);
+export function SystemServiceWorkspace({
+  serviceId,
+  locale,
+  controller,
+  onOpenService,
+  onClose,
+  mode,
+  onModeChange,
+  width,
+  onResize,
+  toolSelector,
+}: SystemServiceWorkspaceProps) {
   const snapshot = controller.snapshot;
   const Component = SYSTEM_WORKBENCHES[serviceId];
 
-  useEffect(() => {
-    closeRef.current?.focus();
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-        return;
-      }
-      if (event.key !== 'Tab' || !sheetRef.current) return;
-      const focusable = [...sheetRef.current.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      )].filter((node) => node.offsetParent !== null);
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
-
   if (!snapshot || !Component) return null;
 
-  return (
-    <div className="sys-service-overlay" role="dialog" aria-modal="true" aria-label={serviceLabel(serviceId, locale)}>
-      <div className="sys-service-scrim" aria-hidden="true" onClick={onClose} />
-      <div className="sys-service-sheet" data-testid={`sys-service-shell-${serviceId}`} ref={sheetRef}>
-        <button
-          ref={closeRef}
-          type="button"
-          className="sys-service-close"
-          aria-label={locale === 'ar' ? 'إغلاق الخدمة' : 'Close service'}
-          onClick={onClose}
+  const body = (
+    <Component
+      locale={locale}
+      snapshot={snapshot}
+      series={controller.series}
+      controller={controller}
+      onOpenService={(id) => {
+        if (SERVICE_BY_ID[id] && hasSystemWorkbench(id)) onOpenService(id);
+      }}
+    />
+  );
+  const footer = (
+    <span className="text-amber-300">
+      {locale === 'ar'
+        ? 'للقراءة فقط · لا كتابة للعملية أو الخدمة أو السجل أو الشبكة أو الطاقة'
+        : 'Read-only · no process, service, driver, log, network or power write'}
+    </span>
+  );
+
+  if (mode === 'side') {
+    return (
+      <div
+        className="fixed end-3 top-14 bottom-20 z-50"
+        style={{ width }}
+        data-testid="system-workbench-side-shell"
+      >
+        <ServiceWorkbenchHost
+          serviceId={serviceId}
+          title={serviceLabel(serviceId, locale)}
+          subtitle={locale === 'ar' ? 'سياق مقيس · للقراءة فقط' : 'Measured context · read-only'}
+          locale={locale}
+          mode="side"
+          onModeChange={onModeChange}
+          onClose={onClose}
+          onResize={onResize}
+          minWidth={380}
+          maxWidth={860}
+          testId="system-workbench"
+          toolSelector={toolSelector}
+          footer={footer}
         >
-          <X aria-hidden="true" />
-          <span>{locale === 'ar' ? 'إغلاق' : 'Close'}</span>
-        </button>
-        <div className="sys-service-sheet-scroll">
-          <Component
-            locale={locale}
-            snapshot={snapshot}
-            series={controller.series}
-            controller={controller}
-            onOpenService={(id) => {
-              if (SERVICE_BY_ID[id] && hasSystemWorkbench(id)) onOpenService(id);
-            }}
-          />
-        </div>
+          {body}
+        </ServiceWorkbenchHost>
       </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="system-workbench-expanded-shell">
+      <ServiceWorkbenchHost
+        serviceId={serviceId}
+        title={serviceLabel(serviceId, locale)}
+        subtitle={locale === 'ar' ? 'سياق مقيس · للقراءة فقط' : 'Measured context · read-only'}
+        locale={locale}
+        mode="expanded"
+        onModeChange={onModeChange}
+        onClose={onClose}
+        testId="system-workbench-expanded"
+        toolSelector={toolSelector}
+        footer={footer}
+      >
+        {body}
+      </ServiceWorkbenchHost>
     </div>
   );
 }
