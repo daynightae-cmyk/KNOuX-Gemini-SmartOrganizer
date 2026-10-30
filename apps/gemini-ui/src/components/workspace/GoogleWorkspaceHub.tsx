@@ -44,6 +44,7 @@ import { useNavigation } from '../../context/NavigationContext';
 import { GoogleSheetsWorkbench, SCOPE_ROWS } from '../../workspace/GoogleSheetsWorkbench';
 import { useGoogleWorkspace } from '../../workspace/useGoogleWorkspace';
 import {KnouxOrbit} from '../../visual/KnouxOrbit';
+import {ServicePipeline} from '../../visual/ServicePipeline';
 
 interface GoogleWorkspaceHubProps {
   locale?: 'en' | 'ar';
@@ -1109,7 +1110,8 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
         <main className="flex-1 flex flex-col h-full overflow-hidden bg-gradient-to-b from-[#050c1b] via-[#050a15] to-[#030710] p-4 gap-4 text-slate-100 select-none">
 
       {/* Top Header & Connection Bar */}
-      <section className="rounded-xl bg-[#071328] border border-[#1b3f70] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl shrink-0">
+      <section className="knx-workspace-hero rounded-xl bg-[#071328] border border-[#1b3f70] p-4 flex flex-col gap-3 shadow-xl shrink-0">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.7)] border border-cyan-400/40 shrink-0">
             <Globe className="w-5 h-5 text-white" />
@@ -1154,6 +1156,47 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             </button>
           </div>
         </div>
+        </div>
+        <ServicePipeline
+          locale={isAr ? 'ar' : 'en'}
+          accent="blue"
+          testId="workspace-pipeline"
+          onSelect={() => setIsOAuthModalOpen(true)}
+          caption={
+            googleConnected
+              ? (isAr ? 'الجداول للقراءة فقط · الرمز في تخزين Windows المحمي' : 'Sheets read-only · token in Windows-protected storage')
+              : (isAr ? 'موافقة OAuth صريحة مطلوبة · لا يُحتفظ بأي رمز' : 'Explicit OAuth consent required · no token is held')
+          }
+          stages={[
+            {
+              id: 'connect',
+              label: isAr ? 'الربط' : 'Connect',
+              state: googleConnected ? 'complete' : googleConnection === 'error' ? 'failed' : 'gated',
+            },
+            {
+              id: 'review-scopes',
+              label: isAr ? 'مراجعة الصلاحيات' : 'Review scopes',
+              state: googleConnected ? 'complete' : 'active',
+            },
+            {
+              id: 'select-service',
+              label: isAr ? 'اختيار الخدمة' : 'Select service',
+              detail: isAr ? 'معاينة' : 'Preview',
+              state: 'partial',
+            },
+            {
+              id: 'preview-data',
+              label: isAr ? 'معاينة البيانات' : 'Preview data',
+              state: googleConnected && google.sheets.length ? 'complete' : 'pending',
+            },
+            {
+              id: 'sync-state',
+              label: isAr ? 'حالة المزامنة' : 'Sync state',
+              detail: isAr ? 'عند الطلب' : 'On demand',
+              state: 'pending',
+            },
+          ]}
+        />
       </section>
 
       {/* Main Grid Layout: Service Selector Sidebar + Service Content View */}

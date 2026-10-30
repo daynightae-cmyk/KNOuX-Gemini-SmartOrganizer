@@ -27,7 +27,7 @@ import {
 } from './model';
 import type { StartupLocale, StartupServiceId } from './model';
 import { OrbitalControl } from '../visual/OrbitalControl';
-import { HeroFeatures } from '../visual/HeroFeatures';
+import { ServicePipeline } from '../visual/ServicePipeline';
 
 export interface StartupHeroProps {
   locale: StartupLocale;
@@ -45,6 +45,7 @@ function stageTone(status: string): string {
 
 export function StartupHero({ locale, controller, onOpenService }: StartupHeroProps) {
   const scanning = controller.scanning;
+  const scanStages = controller.session?.stages || [];
 
   return (
     <section className="stp-hero">
@@ -71,25 +72,57 @@ export function StartupHero({ locale, controller, onOpenService }: StartupHeroPr
               'أدر برامج بدء التشغيل وحسّن أداء الإقلاع وأبقِ جهازك سريعًا ومتجاوبًا.'
             )}
           </p>
-          <HeroFeatures
-            items={[
+          <ServicePipeline
+            locale={locale}
+            accent="teal"
+            testId="startup-pipeline"
+            onSelect={id => onOpenService(id==='filter'?'startup-filter':id==='measure'?'startup-impact':id==='verify'?'startup-journal':'startup-overview')}
+            numbered
+            live={scanning}
+            progress={
+              scanning && scanStages.length
+                ? {
+                    done: scanStages.filter((stage) => stage.status === 'complete').length,
+                    total: scanStages.length,
+                    unit: t(locale, 'stages', 'مرحلة'),
+                  }
+                : null
+            }
+            caption={
+              controller.inventory
+                ? `${formatCount(controller.inventory.summary.total)} ${t(locale, 'measured autoruns', 'مدخل بدء مقيس')} · ${formatTimestamp(controller.inventory.observedAt, locale)} · ${t(locale, '0 changes applied', '0 تغييرات مطبقة')}`
+                : t(locale, 'Read-only inventory — every change is staged first', 'جرد للقراءة فقط — كل تغيير يُهيَّأ أولًا')
+            }
+            stages={[
               {
-                icon: <Rocket className="w-4 h-4" />,
-                title: t(locale, 'Faster boot time', 'إقلاع أسرع'),
-                detail: t(locale, 'Disable unnecessary startup programs from measured evidence.', 'عطّل برامج البدء غير الضرورية بناءً على أدلة مقيسة.'),
-                tone: '#7c5cff',
+                id: 'discover',
+                label: t(locale, 'Discover', 'اكتشاف'),
+                state: controller.inventory ? 'complete' : scanning ? 'active' : 'pending',
               },
               {
-                icon: <ShieldCheck className="w-4 h-4" />,
-                title: t(locale, 'More system resources', 'موارد نظام أكبر'),
-                detail: t(locale, 'Keep only what you need at sign-in; every change is staged.', 'أبقِ ما تحتاجه فقط عند الدخول؛ كل تغيير يُهيَّأ للمراجعة.'),
-                tone: '#3b82f6',
+                id: 'measure',
+                label: t(locale, 'Measure', 'قياس'),
+                state: controller.inventory?.summary ? 'complete' : scanning ? 'pending' : 'pending',
               },
               {
-                icon: <ListChecks className="w-4 h-4" />,
-                title: t(locale, 'Better control', 'تحكم أفضل'),
-                detail: t(locale, 'Inspect registry, folder and task evidence for each entry.', 'افحص أدلة التسجيل والمجلدات والمهام لكل مدخل.'),
-                tone: '#10b981',
+                id: 'filter',
+                label: t(locale, 'Filter', 'تصفية'),
+                state: controller.inventory ? 'complete' : 'pending',
+              },
+              {
+                id: 'review',
+                label: t(locale, 'Review', 'مراجعة'),
+                state: controller.plan && !scanning ? 'complete' : controller.inventory && !scanning ? 'active' : 'pending',
+              },
+              {
+                id: 'approve',
+                label: t(locale, 'Approve', 'موافقة'),
+                state: 'gated',
+              },
+              {
+                id: 'verify',
+                label: t(locale, 'Verify boot', 'تحقق الإقلاع'),
+                state: 'pending',
               },
             ]}
           />

@@ -1,0 +1,160 @@
+{
+  "sourceHashes": {
+    "src/visual/ServicePipeline.tsx": "ad9f82d5fd1166bce2e0d684ca2eca0616e50e577d98c3743d6986322391f565",
+    "src/visual/design-recovery.css": "a4bfeabc0a492a6b9b3bb99b49f88b9938904a2bc009662714514e39bacf29b5",
+    "src/operations/OrganizationStudioOverview.tsx": "e4ebb28b17edd5020635835e06b9f6988b905c6769df5775ddb425ccaf447ad9",
+    "electron/native/scan-bridge.cjs": "766dcfd878b6db46b6b83d6cd4658dc148795b92dc92cc924ffd21a5ce698114"
+  },
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T22:34:33.213Z",
+  "frames": [
+    {
+      "section": "home",
+      "theme": "light",
+      "file": "home-en-light-1920.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 1080,
+        "innerHeight": 1080,
+        "innerWidth": 1920,
+        "scrollWidth": 1920,
+        "geometry": {
+          ".approved-hero": {
+            "x": 209,
+            "y": 72,
+            "width": 1287,
+            "height": 290
+          },
+          ".approved-hero-actions": {
+            "x": 224,
+            "y": 246.96875,
+            "width": 665.890625,
+            "height": 32
+          },
+          ".approved-quick": {
+            "x": 209,
+            "y": 374,
+            "width": 1287,
+            "height": 332.25
+          }
+        },
+        "pipelines": [
+          {
+            "id": "home-pipeline",
+            "stages": [
+              {
+                "id": "recommend",
+                "state": "pending",
+                "text": "04RecommendPreview"
+              },
+              {
+                "id": "summarize",
+                "state": "pending",
+                "text": "03Summarize"
+              },
+              {
+                "id": "measure",
+                "state": "active",
+                "text": "02Measure"
+              },
+              {
+                "id": "connect",
+                "state": "pending",
+                "text": "01Connect"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "918",
+            "outletY": "-5",
+            "trackWidth": 665.890625
+          }
+        ]
+      }
+    },
+    {
+      "section": "studio",
+      "theme": "light",
+      "file": "studio-en-light-1920.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 1080,
+        "innerHeight": 1080,
+        "innerWidth": 1920,
+        "scrollWidth": 1920,
+        "geometry": {
+          ".osa-hero": {
+            "x": 242,
+            "y": 85,
+            "width": 1221,
+            "height": 250
+          },
+          ".osa-body": {
+            "x": 242,
+            "y": 397.5,
+            "width": 1221,
+            "height": 659.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07Undo"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03Plan"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02Classify"
+              },
+              {
+                "id": "source",
+                "state": "pending",
+                "text": "01Source"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "934",
+            "outletY": "38",
+            "trackWidth": 775.171875
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

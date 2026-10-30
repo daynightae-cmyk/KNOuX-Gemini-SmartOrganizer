@@ -317,6 +317,7 @@ class ScanBridge {
     this.sessionsDir = path.join(this.root, 'sessions');
     this.historyPath = path.join(this.root, 'history.json');
     this.active = new Map();
+    this.persistence = Promise.resolve();
     this.ready = false;
     this.emitRaw = emit;
     this.now = now;
@@ -489,7 +490,8 @@ class ScanBridge {
     const plan = this.normalizeRequest(request);
     const session = this.makeSession(plan);
     const controller = new AbortController();
-    this.active.set(session.id, { session, controller });
+    const active = { session, controller, completion: null };
+    this.active.set(session.id, active);
     this.emit({
       type: 'scan-started',
       sessionId: session.id,
@@ -498,7 +500,7 @@ class ScanBridge {
       stageCount: session.stages.length,
     });
     // IPC invoke returns immediately; measured work continues on the event stream.
-    void this.runSession(session, plan, controller).catch(async (error) => {
+    active.completion = this.runSession(session, plan, controller).catch(async (error) => {
       session.status = 'failed';
       session.finishedAt = nowIso();
       session.summary = this.buildSummary(session);
@@ -1648,6 +1650,14 @@ class ScanBridge {
   }
 
   async persist(session) {
+    // Serialize history read/modify/write and full-session retention together.
+    // Concurrent completions must not lose a summary or prune from stale lists.
+    const pending = this.persistence.then(() => this.persistSession(session));
+    this.persistence = pending.catch(() => {});
+    return pending;
+  }
+
+  async persistSession(session) {
     await this.init();
     const payload = {
       version: 1,
@@ -1687,7 +1697,14 @@ class ScanBridge {
     const id = safeId(sessionId);
     if (!id) throw scanError('SCAN_SESSION_INVALID', 'A valid scan session id is required.');
     const active = this.active.get(id);
-    if (active) return this.publicSession(active.session);
+    if (active) {
+      // A terminal response is a durable checkpoint, including bounded retention.
+      // Do not let polling start the next run before finalization has completed.
+      if (['complete', 'partial', 'cancelled', 'failed'].includes(active.session.status)) {
+        await active.completion;
+      }
+      return this.publicSession(active.session);
+    }
     try {
       const parsed = JSON.parse(await fsp.readFile(path.join(this.sessionsDir, `${id}.json`), 'utf8'));
       // v1 receipts wrap the session; tolerate an older unwrapped receipt.

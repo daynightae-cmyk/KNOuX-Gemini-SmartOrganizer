@@ -32,7 +32,7 @@ import {
   X,
 } from 'lucide-react';
 import { OrbitalControl } from '../visual/OrbitalControl';
-import { HeroFeatures } from '../visual/HeroFeatures';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
@@ -253,25 +253,52 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                     'شخّص مشكلات النظام وأصلحها واستعد الاستقرار وأعد جهازك إلى أفضل أداء — من أدلة مقيسة فقط.',
                   )}
                 </p>
-                <HeroFeatures
-                  items={[
+                <ServicePipeline
+                  locale={locale}
+                  accent="indigo"
+                  testId="repair-pipeline"
+                  onSelect={id => openWorkbench(id==='diagnose'?'repair-component-scan':id==='inspect'?'repair-files-verify':id==='verify'?'repair-component-check':selectedToolId)}
+                  live={controller.scanning}
+                  caption={
+                    selectedPlan
+                      ? t(locale, 'Staged preview only — execution stays gated', 'معاينة مهيأة فقط — التنفيذ يبقى محجوبًا')
+                      : t(locale, 'Evidence before action · no auto elevation', 'الدليل قبل الإجراء · بلا رفع تلقائي')
+                  }
+                  stages={[
                     {
-                      icon: <Wrench className="w-4 h-4" />,
-                      title: t(locale, 'Fix common problems', 'إصلاح المشكلات الشائعة'),
-                      detail: t(locale, 'Identify failing components from measured evidence.', 'حدّد المكوّنات المتعثرة من أدلة مقيسة.'),
-                      tone: '#7c5cff',
+                      id: 'diagnose',
+                      label: t(locale, 'Diagnose', 'تشخيص'),
+                      state: snapshot ? 'complete' : controller.scanning ? 'active' : 'pending',
                     },
                     {
-                      icon: <Terminal className="w-4 h-4" />,
-                      title: t(locale, 'Advanced repair tools', 'أدوات إصلاح متقدمة'),
-                      detail: t(locale, 'Review SFC, DISM, CHKDSK and network commands before staging.', 'راجع أوامر SFC وDISM وCHKDSK والشبكة قبل التهيئة.'),
-                      tone: '#3b82f6',
+                      id: 'inspect',
+                      label: t(locale, 'Inspect', 'فحص'),
+                      state: snapshot ? 'complete' : 'pending',
                     },
                     {
-                      icon: <ShieldCheck className="w-4 h-4" />,
-                      title: t(locale, 'Safe and reversible', 'آمن وقابل للتراجع'),
-                      detail: t(locale, 'No repair executes in this mission; every action stays staged.', 'لا يُنفَّذ أي إصلاح في هذه المهمة؛ كل إجراء يبقى مهيأ للمراجعة.'),
-                      tone: '#10b981',
+                      id: 'choose',
+                      label: t(locale, 'Choose', 'اختيار'),
+                      state: !snapshot ? 'pending' : selectedToolId ? 'complete' : 'active',
+                    },
+                    {
+                      id: 'review',
+                      label: t(locale, 'Review', 'مراجعة'),
+                      state: selectedPlan ? 'complete' : snapshot && selectedToolId ? 'active' : 'pending',
+                    },
+                    {
+                      id: 'confirm',
+                      label: t(locale, 'Confirm', 'تأكيد'),
+                      state: 'gated',
+                    },
+                    {
+                      id: 'execute',
+                      label: t(locale, 'Execute', 'تنفيذ'),
+                      state: 'gated',
+                    },
+                    {
+                      id: 'verify',
+                      label: t(locale, 'Verify', 'تحقق'),
+                      state: 'pending',
                     },
                   ]}
                 />

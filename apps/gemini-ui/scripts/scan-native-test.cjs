@@ -431,9 +431,30 @@ async function waitForSession(bridge, sessionId, done = ['complete', 'partial', 
   assert(missingSession.stages[0].status === 'failed' && /not installed/i.test(missingSession.stages[0].error?.message || ''), 'missing provider failure is explicit');
 
   // History and full-session retention are bounded. Reuse the fast quick plan.
+  // Hold persistence open to reproduce the terminal-status race deterministically.
+  const originalPersist = bridge.persist.bind(bridge);
+  let releasePersistence;
+  let reachedPersistence;
+  const persistenceReached = new Promise((resolve) => { reachedPersistence = resolve; });
+  const persistenceGate = new Promise((resolve) => { releasePersistence = resolve; });
+  bridge.persist = async (session) => {
+    reachedPersistence();
+    await persistenceGate;
+    return originalPersist(session);
+  };
+  const heldRun = await bridge.start({ mode: 'quick', sourceId: added.id });
+  await persistenceReached;
+  let terminalReturned = false;
+  const heldStatus = bridge.status(heldRun.sessionId).then((session) => { terminalReturned = true; return session; });
+  await sleep(50);
+  assert(!terminalReturned, 'terminal status does not precede durable persistence');
+  releasePersistence();
+  await heldStatus;
+  bridge.persist = originalPersist;
   for (let index = 0; index < 19; index += 1) {
     const run = await bridge.start({ mode: 'quick', sourceId: added.id });
     await waitForSession(bridge, run.sessionId);
+    assert(!bridge.active.has(run.sessionId), 'terminal polling waits for persisted session and retention');
   }
   const boundedHistory = await bridge.history();
   assert(boundedHistory.length === 20, `history is bounded to 20 entries (got ${boundedHistory.length})`);

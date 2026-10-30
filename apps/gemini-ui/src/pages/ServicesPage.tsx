@@ -56,7 +56,7 @@ import {
 } from '../services/ui';
 import { Chip, DataRows, Panel, downloadJson, cx } from '../system/ui';
 import { OrbitalControl } from '../visual/OrbitalControl';
-import { HeroFeatures } from '../visual/HeroFeatures';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import '../services.css';
 
 export interface ServicesPageProps {
@@ -210,25 +210,48 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 <span className="sys-hero-eyebrow">{t(locale, 'SERVICE COMMANDER · READ-ONLY', 'قائد الخدمات · للقراءة فقط')}</span>
                 <h1>{t(locale, 'Service', 'قائد')} <span>{t(locale, 'Commander', 'الخدمات')}</span></h1>
                 <p>{t(locale, 'View, manage, and understand Windows services for better performance, stability, and control over your system — without an SCM write.', 'اعرض خدمات Windows وافهمها لإدارة أفضل للأداء والاستقرار والتحكم في نظامك — دون أي كتابة في SCM.')}</p>
-                <HeroFeatures
-                  items={[
+                <ServicePipeline
+                  locale={locale}
+                  accent="rose"
+                  testId="services-pipeline"
+                  onSelect={id => { const targets={recover:'services-diagnose',policy:'services-config',preview:'services-config',dependencies:'services-dependencies',inspect:'services-search',discover:'services-inventory'} as const; openTool(targets[id as keyof typeof targets]); }}
+                  flow="right"
+                  live={controller.scanning}
+                  caption={
+                    snapshot
+                      ? `${formatCount(snapshot.summary.total)} ${t(locale, 'measured services', 'خدمة مقيسة')} · ${t(locale, 'receipt', 'إيصال')} ${snapshot.receipt.slice(0, 8)} · ${t(locale, '0 SCM writes', '0 كتابة SCM')}`
+                      : t(locale, 'Review the measured SCM register — no mutation', 'راجع سجل SCM المقيس — دون أي تغيير')
+                  }
+                  stages={[
                     {
-                      icon: <Wrench className="w-4 h-4" />,
-                      title: t(locale, 'Full control', 'تحكم كامل'),
-                      detail: t(locale, 'Review measured start, stop and dependency evidence; actions stay gated.', 'راجع أدلة التشغيل والإيقاف والاعتماديات المقيسة؛ الإجراءات تبقى محجوبة.'),
-                      tone: '#7c5cff',
+                      id: 'discover',
+                      label: t(locale, 'Discover', 'اكتشاف'),
+                      state: snapshot ? 'complete' : controller.scanning ? 'active' : 'pending',
                     },
                     {
-                      icon: <PlayCircle className="w-4 h-4" />,
-                      title: t(locale, 'Improve performance', 'تحسين الأداء'),
-                      detail: t(locale, 'Spot startup types and noisy services in the measured SCM register.', 'اكتشف أنواع البدء والخدمات المزدحمة في سجل SCM المقيس.'),
-                      tone: '#3b82f6',
+                      id: 'inspect',
+                      label: t(locale, 'Inspect', 'فحص'),
+                      state: snapshot ? 'complete' : 'pending',
                     },
                     {
-                      icon: <ShieldCheck className="w-4 h-4" />,
-                      title: t(locale, 'Stay secure', 'ابقَ آمنًا'),
-                      detail: t(locale, 'Protected services and policy denials remain visible and untouched.', 'الخدمات المحمية ورفض السياسة يبقون ظاهرين ودون تغيير.'),
-                      tone: '#10b981',
+                      id: 'dependencies',
+                      label: t(locale, 'Dependencies', 'اعتماديات'),
+                      state: snapshot ? 'complete' : 'pending',
+                    },
+                    {
+                      id: 'preview',
+                      label: t(locale, 'Preview', 'معاينة'),
+                      state: controller.plan ? 'complete' : snapshot ? 'partial' : 'pending',
+                    },
+                    {
+                      id: 'policy',
+                      label: t(locale, 'Policy', 'سياسة'),
+                      state: 'pending',
+                    },
+                    {
+                      id: 'recover',
+                      label: t(locale, 'Recover', 'استعادة'),
+                      state: 'gated',
                     },
                   ]}
                 />

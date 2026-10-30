@@ -40,7 +40,7 @@ import type { SystemCoverageStage, SystemMetrics } from '../../shared/native-con
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { OrbitalControl } from '../visual/OrbitalControl';
-import { HeroFeatures } from '../visual/HeroFeatures';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import {
   SERVICE_CATALOG,
   WORLD_META,
@@ -517,25 +517,43 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
                     'راقب أداء جهازك وحسّنه وأبقه في أفضل حالاته بقراءات أصلية مقيسة ومصادر واضحة.',
                   )}
                 </p>
-                <HeroFeatures
-                  items={[
+                <ServicePipeline
+                  locale={locale}
+                  accent="violet"
+                  testId="system-pipeline"
+                  onSelect={id => openService(id==='collect'?'system-processes':id==='sample'?'system-resources':id==='analyze'?'system-perf':id==='diagnose'?'system-health-check':'system-logs')}
+                  live={controller.scanning}
+                  caption={
+                    snapshot
+                      ? `${t(locale, 'Measured', 'مقيس')} · ${formatCount(snapshot.coverage.length)} ${t(locale, 'stages', 'مرحلة')} · ${t(locale, 'receipt', 'إيصال')} ${snapshot.receipt.slice(0, 8)}`
+                      : t(locale, 'Read-only observation — no mutation', 'مراقبة للقراءة فقط — دون أي تغيير')
+                  }
+                  stages={[
                     {
-                      icon: <Activity className="w-4 h-4" />,
-                      title: t(locale, 'Real-time monitoring', 'مراقبة مباشرة'),
-                      detail: t(locale, 'Each pulse is a bounded native sample with a named source.', 'كل نبضة عينة أصلية محدودة بمصدر مسمّى.'),
-                      tone: '#7c5cff',
+                      id: 'collect',
+                      label: t(locale, 'Collect', 'جمع'),
+                      state: snapshot ? (snapshot.coverage.every(stage => stage.status === 'complete') ? 'complete' : 'partial') : controller.scanning ? 'active' : 'pending',
                     },
                     {
-                      icon: <Gauge className="w-4 h-4" />,
-                      title: t(locale, 'Optimize performance', 'تحسين الأداء'),
-                      detail: t(locale, 'Read CPU, memory, disk and network evidence without mutation.', 'اقرأ أدلة المعالج والذاكرة والقرص والشبكة دون تغيير.'),
-                      tone: '#3b82f6',
+                      id: 'sample',
+                      label: t(locale, 'Sample', 'عينة'),
+                      state: snapshot?.coverage.find(stage => stage.key === 'system')?.status === 'complete' ? 'complete' : snapshot ? 'partial' : 'pending',
                     },
                     {
-                      icon: <ShieldCheck className="w-4 h-4" />,
-                      title: t(locale, 'Keep it stable', 'حافظ على الاستقرار'),
-                      detail: t(locale, 'Unavailable sensors remain explicitly unknown, never estimated.', 'المستشعرات غير المتاحة تبقى مجهولة صراحة، ولا تُقدَّر.'),
-                      tone: '#10b981',
+                      id: 'analyze',
+                      label: t(locale, 'Analyze', 'تحليل'),
+                      detail: t(locale, 'Measured evidence', 'أدلة مقيسة'),
+                      state: snapshot ? 'partial' : 'pending',
+                    },
+                    {
+                      id: 'diagnose',
+                      label: t(locale, 'Diagnose', 'تشخيص'),
+                      state: 'pending',
+                    },
+                    {
+                      id: 'report',
+                      label: t(locale, 'Report', 'تقرير'),
+                      state: 'pending',
                     },
                   ]}
                 />

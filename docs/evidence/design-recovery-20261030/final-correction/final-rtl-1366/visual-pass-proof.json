@@ -1,0 +1,743 @@
+{
+  "sourceHashes": {
+    "src/visual/ServicePipeline.tsx": "ad9f82d5fd1166bce2e0d684ca2eca0616e50e577d98c3743d6986322391f565",
+    "src/visual/design-recovery.css": "a4bfeabc0a492a6b9b3bb99b49f88b9938904a2bc009662714514e39bacf29b5",
+    "src/operations/OrganizationStudioOverview.tsx": "e4ebb28b17edd5020635835e06b9f6988b905c6769df5775ddb425ccaf447ad9",
+    "electron/native/scan-bridge.cjs": "766dcfd878b6db46b6b83d6cd4658dc148795b92dc92cc924ffd21a5ce698114"
+  },
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T22:33:14.793Z",
+  "frames": [
+    {
+      "section": "home",
+      "theme": "dark",
+      "file": "home-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".approved-hero": {
+            "x": 347,
+            "y": 72,
+            "width": 832,
+            "height": 245
+          },
+          ".approved-hero-actions": {
+            "x": 356,
+            "y": 216.671875,
+            "width": 432.1875,
+            "height": 32
+          },
+          ".approved-quick": {
+            "x": 347,
+            "y": 326,
+            "width": 832,
+            "height": 210
+          }
+        },
+        "pipelines": [
+          {
+            "id": "home-pipeline",
+            "stages": [
+              {
+                "id": "recommend",
+                "state": "pending",
+                "text": "04توصيةمعاينة"
+              },
+              {
+                "id": "summarize",
+                "state": "pending",
+                "text": "03تلخيص"
+              },
+              {
+                "id": "measure",
+                "state": "active",
+                "text": "02قياس"
+              },
+              {
+                "id": "connect",
+                "state": "pending",
+                "text": "01اتصال"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "574",
+            "outletY": "5",
+            "trackWidth": 432.1875
+          }
+        ]
+      }
+    },
+    {
+      "section": "studio",
+      "theme": "dark",
+      "file": "studio-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".osa-hero": {
+            "x": 349,
+            "y": 75,
+            "width": 805,
+            "height": 225
+          },
+          ".osa-body": {
+            "x": 349,
+            "y": 360.5,
+            "width": 805,
+            "height": 388.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07التراجع"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06التحقق"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05التنفيذ"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04المراجعة"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03الخطة"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02التصنيف"
+              },
+              {
+                "id": "source",
+                "state": "pending",
+                "text": "01المصدر"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "599",
+            "outletY": "59",
+            "trackWidth": 503.5
+          }
+        ]
+      }
+    },
+    {
+      "section": "workspace",
+      "theme": "dark",
+      "file": "workspace-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {},
+        "pipelines": [
+          {
+            "id": "workspace-pipeline",
+            "stages": [
+              {
+                "id": "sync-state",
+                "state": "pending",
+                "text": "05حالة المزامنةعند الطلب"
+              },
+              {
+                "id": "preview-data",
+                "state": "pending",
+                "text": "04معاينة البيانات"
+              },
+              {
+                "id": "select-service",
+                "state": "partial",
+                "text": "03اختيار الخدمةمعاينة"
+              },
+              {
+                "id": "review-scopes",
+                "state": "active",
+                "text": "02مراجعة الصلاحيات"
+              },
+              {
+                "id": "connect",
+                "state": "gated",
+                "text": "01الربط"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "898",
+            "outletY": "26",
+            "trackWidth": 776
+          }
+        ]
+      }
+    },
+    {
+      "section": "startup",
+      "theme": "dark",
+      "file": "startup-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 257.5
+          },
+          ".knx-command-metrics": {
+            "x": 365.5,
+            "y": 337.5,
+            "width": 748.5,
+            "height": 76
+          },
+          ".knx-command-inspector": {
+            "x": 12,
+            "y": 337.5,
+            "width": 341.5,
+            "height": 374
+          }
+        },
+        "pipelines": [
+          {
+            "id": "startup-pipeline",
+            "stages": [
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06تحقق الإقلاع"
+              },
+              {
+                "id": "approve",
+                "state": "gated",
+                "text": "05موافقة"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04مراجعة"
+              },
+              {
+                "id": "filter",
+                "state": "complete",
+                "text": "03تصفية"
+              },
+              {
+                "id": "measure",
+                "state": "complete",
+                "text": "02قياس"
+              },
+              {
+                "id": "discover",
+                "state": "complete",
+                "text": "01اكتشاف"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "797",
+            "outletY": "-7",
+            "trackWidth": 582.328125
+          }
+        ]
+      }
+    },
+    {
+      "section": "smart_scan",
+      "theme": "dark",
+      "file": "smart_scan-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 367.5,
+            "y": 72,
+            "width": 744.5,
+            "height": 256.546875
+          },
+          ".knx-command-metrics": {
+            "x": 367.5,
+            "y": 338.546875,
+            "width": 744.5,
+            "height": 84
+          },
+          ".knx-command-inspector": {
+            "x": 14,
+            "y": 72,
+            "width": 341.5,
+            "height": 597.90625
+          }
+        },
+        "pipelines": [
+          {
+            "id": "scan-pipeline",
+            "stages": [
+              {
+                "id": "cleanup-gate",
+                "state": "gated",
+                "text": "05بوابة التنظيف"
+              },
+              {
+                "id": "findings",
+                "state": "pending",
+                "text": "04النتائج"
+              },
+              {
+                "id": "deep",
+                "state": "pending",
+                "text": "03تحليل عميق"
+              },
+              {
+                "id": "quick",
+                "state": "pending",
+                "text": "02فحص سريع"
+              },
+              {
+                "id": "authorize",
+                "state": "active",
+                "text": "01مصادقة"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "505",
+            "outletY": "-41",
+            "trackWidth": 358.5
+          }
+        ]
+      }
+    },
+    {
+      "section": "applications",
+      "theme": "dark",
+      "file": "applications-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 259.703125
+          },
+          ".knx-command-metrics": {
+            "x": 365.5,
+            "y": 339.703125,
+            "width": 748.5,
+            "height": 76
+          },
+          ".knx-command-inspector": {
+            "x": 12,
+            "y": 339.703125,
+            "width": 341.5,
+            "height": 416.296875
+          }
+        },
+        "pipelines": [
+          {
+            "id": "apps-pipeline",
+            "stages": [
+              {
+                "id": "evidence",
+                "state": "complete",
+                "text": "06أدلة"
+              },
+              {
+                "id": "uninstall",
+                "state": "gated",
+                "text": "05مراجعة الإزالة"
+              },
+              {
+                "id": "footprint",
+                "state": "complete",
+                "text": "04بصمة"
+              },
+              {
+                "id": "updates",
+                "state": "pending",
+                "text": "03تحديثات"
+              },
+              {
+                "id": "inspect",
+                "state": "complete",
+                "text": "02فحص"
+              },
+              {
+                "id": "inventory",
+                "state": "complete",
+                "text": "01جرد"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "797",
+            "outletY": "10",
+            "trackWidth": 582.328125
+          }
+        ]
+      }
+    },
+    {
+      "section": "services",
+      "theme": "dark",
+      "file": "services-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 296
+          },
+          ".knx-command-metrics": {
+            "x": 365.5,
+            "y": 376,
+            "width": 748.5,
+            "height": 110
+          },
+          ".knx-command-inspector": {
+            "x": 12,
+            "y": 376,
+            "width": 341.5,
+            "height": 329
+          }
+        },
+        "pipelines": [
+          {
+            "id": "services-pipeline",
+            "stages": [
+              {
+                "id": "recover",
+                "state": "gated",
+                "text": "06استعادة"
+              },
+              {
+                "id": "policy",
+                "state": "pending",
+                "text": "05سياسة"
+              },
+              {
+                "id": "preview",
+                "state": "partial",
+                "text": "04معاينة"
+              },
+              {
+                "id": "dependencies",
+                "state": "complete",
+                "text": "03اعتماديات"
+              },
+              {
+                "id": "inspect",
+                "state": "complete",
+                "text": "02فحص"
+              },
+              {
+                "id": "discover",
+                "state": "complete",
+                "text": "01اكتشاف"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "797",
+            "outletY": "7",
+            "trackWidth": 582.328125
+          }
+        ]
+      }
+    },
+    {
+      "section": "repair",
+      "theme": "dark",
+      "file": "repair-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 365.5,
+            "y": 70,
+            "width": 748.5,
+            "height": 262.140625
+          },
+          ".knx-command-metrics": {
+            "x": 365.5,
+            "y": 342.140625,
+            "width": 748.5,
+            "height": 78
+          },
+          ".knx-command-inspector": {
+            "x": 12,
+            "y": 70,
+            "width": 341.5,
+            "height": 633
+          }
+        },
+        "pipelines": [
+          {
+            "id": "repair-pipeline",
+            "stages": [
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "07تحقق"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "06تنفيذ"
+              },
+              {
+                "id": "confirm",
+                "state": "gated",
+                "text": "05تأكيد"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04مراجعة"
+              },
+              {
+                "id": "choose",
+                "state": "pending",
+                "text": "03اختيار"
+              },
+              {
+                "id": "inspect",
+                "state": "pending",
+                "text": "02فحص"
+              },
+              {
+                "id": "diagnose",
+                "state": "active",
+                "text": "01تشخيص"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "509",
+            "outletY": "6",
+            "trackWidth": 360.5
+          }
+        ]
+      }
+    },
+    {
+      "section": "system",
+      "theme": "dark",
+      "file": "system-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 277.703125
+          },
+          ".knx-command-inspector": {
+            "x": 12,
+            "y": 425.703125,
+            "width": 341.5,
+            "height": 279.296875
+          }
+        },
+        "pipelines": [
+          {
+            "id": "system-pipeline",
+            "stages": [
+              {
+                "id": "report",
+                "state": "pending",
+                "text": "05تقرير"
+              },
+              {
+                "id": "diagnose",
+                "state": "pending",
+                "text": "04تشخيص"
+              },
+              {
+                "id": "analyze",
+                "state": "pending",
+                "text": "03تحليلأدلة مقيسة"
+              },
+              {
+                "id": "sample",
+                "state": "pending",
+                "text": "02عينة"
+              },
+              {
+                "id": "collect",
+                "state": "active",
+                "text": "01جمع"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "786",
+            "outletY": "23",
+            "trackWidth": 577.84375
+          }
+        ]
+      }
+    },
+    {
+      "section": "automation",
+      "theme": "dark",
+      "file": "automation-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 226
+          },
+          ".knx-command-metrics": {
+            "x": 12,
+            "y": 304,
+            "width": 1102,
+            "height": 54
+          }
+        },
+        "pipelines": [
+          {
+            "id": "automation-pipeline",
+            "stages": [
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06تحقق نهائي"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05تنفيذ"
+              },
+              {
+                "id": "approve",
+                "state": "gated",
+                "text": "04موافقة"
+              },
+              {
+                "id": "dry-run",
+                "state": "pending",
+                "text": "03تجربة جافةمعاينة فقط"
+              },
+              {
+                "id": "validate",
+                "state": "pending",
+                "text": "02تحقق"
+              },
+              {
+                "id": "trigger",
+                "state": "partial",
+                "text": "01مشغّلمسودة"
+              }
+            ]
+          }
+        ],
+        "criticalClipping": [],
+        "orbitalConnections": [
+          {
+            "outletX": "581",
+            "outletY": "36",
+            "trackWidth": 505.875
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

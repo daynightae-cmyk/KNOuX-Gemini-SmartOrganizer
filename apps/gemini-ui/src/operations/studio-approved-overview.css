@@ -221,3 +221,10 @@ html[data-theme=light] .osa-table thead th{background:#f7f3fc}
  .osa-card-actions>button span{display:none}
 }
 @media(prefers-reduced-motion:reduce){.osa-donut-segment{transition:none}}
+
+/* Owner reference 1: identity and pipeline on the reading-start side, the
+   orbital category wheel on the far side, glow following the wheel. */
+.osa-hero{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);background:radial-gradient(ellipse at 80% 46%,#8a5ce021,transparent 62%),radial-gradient(ellipse at 12% 12%,#3f74c821,transparent 60%),linear-gradient(115deg,#17273f,#111c32 62%,#152139)}
+html[data-theme=light] .osa-hero{background:radial-gradient(ellipse at 82% 42%,#e6d9fb94,transparent 62%),radial-gradient(ellipse at 12% 10%,#dbe6fb8c,transparent 62%),linear-gradient(120deg,#fff,#fcfaff 58%,#f3edfb)}
+.osa-hero-orbit{order:2}
+.osa-hero-copy{order:1}

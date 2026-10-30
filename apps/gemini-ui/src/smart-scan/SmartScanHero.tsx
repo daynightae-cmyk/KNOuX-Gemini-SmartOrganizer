@@ -26,7 +26,7 @@ import type { ScanSession, StudioSource } from '../../shared/native-contracts';
 import { modeLabel, sessionStatusLabel } from './model';
 import type { ActiveScanView } from './smartScan.types';
 import { OrbitalControl } from '../visual/OrbitalControl';
-import { HeroFeatures } from '../visual/HeroFeatures';
+import { ServicePipeline, pipelineStateFromStatus } from '../visual/ServicePipeline';
 
 export interface SmartScanHeroProps {
   isArabic: boolean;
@@ -101,25 +101,59 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
               ? 'افحص جهازك بحثًا عن مشكلات الأداء ومخاطر الأمان وآثار الخصوصية والملفات غير الضرورية، بقياس آمن للقراءة فقط.'
               : 'Scan your PC for performance issues, security risks, privacy traces, and unnecessary files with intelligent, safe scanning technology.'}
           </p>
-          <HeroFeatures
-            items={[
+          <ServicePipeline
+            locale={isArabic ? 'ar' : 'en'}
+            accent="sky"
+            testId="scan-pipeline"
+            onSelect={onOpenService ? id => onOpenService(id==='deep'?'deep_scan':id==='cleanup-gate'?'junk_cleaner':id==='findings'?'large_files_review':'quick_scan') : undefined}
+            live={isScanning}
+            progress={
+              active && Number.isFinite(active.progressPercent)
+                ? { done: Math.round(active.progressPercent), total: 100, unit: '%' }
+                : null
+            }
+            caption={
+              session
+                ? `${sessionStatusLabel(session.status, isArabic)} · ${modeLabel(session.mode, isArabic)} · ${session.findings.length} ${isArabic ? 'نتيجة' : 'findings'}`
+                : isArabic
+                  ? 'المصادقة أولًا — لا فحص بدون مصدر مصرح به'
+                  : 'Authorize first — no scan runs without a granted source'
+            }
+            stages={[
               {
-                icon: <ShieldCheck className="w-4 h-4" />,
-                title: isArabic ? 'فحص شامل' : 'Comprehensive scanning',
-                detail: isArabic ? 'يقيس المجلد المصرح به ومصادر Windows المدعومة في مسار واحد.' : 'Checks the authorized folder and supported Windows sources in one pass.',
-                tone: '#7c5cff',
+                id: 'authorize',
+                label: isArabic ? 'مصادقة' : 'Authorize',
+                state: sourceReady ? 'complete' : nativeAvailable ? 'active' : 'gated',
               },
               {
-                icon: <Zap className="w-4 h-4" />,
-                title: isArabic ? 'يكشف المشكلات مبكرًا' : 'Finds issues early',
-                detail: isArabic ? 'كل نتيجة مرتبطة بجلسة مقيسة، لا بأرقام تصميمية.' : 'Every finding stays tied to a measured session, never a design number.',
-                tone: '#f59e0b',
+                id: 'quick',
+                label: isArabic ? 'فحص سريع' : 'Quick Scan',
+                state:
+                  active?.mode === 'quick'
+                    ? 'active'
+                    : session && session.mode === 'quick' && !active
+                      ? pipelineStateFromStatus(session.status)
+                      : 'pending',
               },
               {
-                icon: <Activity className="w-4 h-4" />,
-                title: isArabic ? 'توصيات قابلة للتنفيذ' : 'Actionable recommendations',
-                detail: isArabic ? 'الفحص للقراءة فقط، والتنظيف خطوة منفصلة محجوبة بالموافقة.' : 'Scanning is read-only; cleanup is a separate, approval-gated step.',
-                tone: '#10b981',
+                id: 'deep',
+                label: isArabic ? 'تحليل عميق' : 'Deep Analysis',
+                state:
+                  active?.mode === 'deep'
+                    ? 'active'
+                    : session && session.mode === 'deep' && !active
+                      ? pipelineStateFromStatus(session.status)
+                      : 'pending',
+              },
+              {
+                id: 'findings',
+                label: isArabic ? 'النتائج' : 'Findings',
+                state: session && !active ? pipelineStateFromStatus(session.status) : 'pending',
+              },
+              {
+                id: 'cleanup-gate',
+                label: isArabic ? 'بوابة التنظيف' : 'Cleanup Gate',
+                state: 'gated',
               },
             ]}
           />

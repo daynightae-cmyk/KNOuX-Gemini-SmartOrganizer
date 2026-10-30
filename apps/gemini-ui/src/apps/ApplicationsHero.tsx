@@ -25,7 +25,7 @@ import {
 } from './model';
 import type { ApplicationsController } from './useApplications';
 import { OrbitalControl } from '../visual/OrbitalControl';
-import { HeroFeatures } from '../visual/HeroFeatures';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import type { DomainServiceKey } from '../lib/app-inventory';
 
 interface ApplicationsHeroProps {
@@ -114,25 +114,43 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
               'أدر كل تطبيق مثبت وحدّثه وافهمه. السجل مقيس وللقراءة فقط، ولا يغيّر Windows.'
             )}
           </p>
-          <HeroFeatures
-            items={[
+          <ServicePipeline
+            locale={locale}
+            accent="rose"
+            testId="apps-pipeline"
+            onSelect={id => onOpenService(id==='inventory'?'app-inventory':id==='inspect'||id==='signatures'?'app-identity':id==='updates'?'app-updates':id==='uninstall'?'app-uninstall-queue':id==='footprint'?'app-size':'app-search')}
+            live={refreshing || Boolean(controller.signatureBusyId) || controller.sizesBusy || controller.updatesBusy}
+            caption={coverageText(inventory, locale)}
+            stages={[
               {
-                icon: <ShieldCheck className="w-4 h-4" />,
-                title: t(locale, 'Safe & secure', 'آمن ومحمي'),
-                detail: t(locale, 'Inventory, signatures and publishers stay read-only.', 'الجرد والتواقيع والناشرون للقراءة فقط.'),
-                tone: '#7c5cff',
+                id: 'inventory',
+                label: t(locale, 'Inventory', 'جرد'),
+                state: inventory ? 'complete' : refreshing ? 'active' : 'pending',
               },
               {
-                icon: <Zap className="w-4 h-4" />,
-                title: t(locale, 'Better performance', 'أداء أفضل'),
-                detail: t(locale, 'Review startup links and the measured application footprint.', 'راجع ارتباطات الإقلاع والبصمة المقيسة للتطبيقات.'),
-                tone: '#f59e0b',
+                id: 'inspect',
+                label: t(locale, 'Inspect', 'فحص'),
+                state: controller.signatures ? 'complete' : controller.signatureBusyId ? 'active' : 'pending',
               },
               {
-                icon: <LayoutGrid className="w-4 h-4" />,
-                title: t(locale, 'More control', 'تحكم أكبر'),
-                detail: t(locale, 'Filter the register and open a measured dossier for one record.', 'رشّح السجل وافتح ملفًا مقيسًا لسجل واحد.'),
-                tone: '#10b981',
+                id: 'updates',
+                label: t(locale, 'Updates', 'تحديثات'),
+                state: controller.updates ? 'complete' : controller.updatesBusy ? 'active' : 'pending',
+              },
+              {
+                id: 'footprint',
+                label: t(locale, 'Footprint', 'بصمة'),
+                state: controller.sizes ? 'complete' : controller.sizesBusy ? 'active' : 'pending',
+              },
+              {
+                id: 'uninstall',
+                label: t(locale, 'Uninstall review', 'مراجعة الإزالة'),
+                state: 'gated',
+              },
+              {
+                id: 'evidence',
+                label: t(locale, 'Evidence', 'أدلة'),
+                state: inventory ? 'complete' : 'pending',
               },
             ]}
           />

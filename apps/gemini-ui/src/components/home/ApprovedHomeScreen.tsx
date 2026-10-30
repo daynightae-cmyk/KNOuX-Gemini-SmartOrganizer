@@ -4,6 +4,7 @@ import {
   MoreHorizontal, Search, Settings, Shield, Zap, Play, Pause, Gauge, Cpu, Monitor, Rocket, X,
 } from 'lucide-react';
 import { KnouxOrbit } from '../../visual/KnouxOrbit';
+import { ServicePipeline } from '../../visual/ServicePipeline';
 import type { AppTheme } from '../../context/NavigationContext';
 import type { HomeSnapshot } from '../../home/snapshot';
 import { deriveActivities, deriveVolumes, formatBytes } from '../../home/derive';
@@ -107,8 +108,56 @@ export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live }: Props)
       <ReferenceSidebar active="home" connected={live.status==='live'||live.status==='partial'}/>
       <main className="approved-main">
         <section className="approved-hero">
+          <div className="approved-hero-scene" aria-hidden="true">{[Folder,FileText,Grid2X2,Database,Shield,FileText].map((Icon,i)=><span key={i} style={{'--scene-index':i} as React.CSSProperties}><Icon/></span>)}</div>
           <div className="approved-orbit"><KnouxOrbit optics="home" state={live.status==='loading'?'loading':live.status==='native-required'?'unavailable':live.status==='partial'?'partial':'ready'} title="KNOuX" subtitle="SmartOrganizer" onActivate={() => setModal('scan')} tools={orbit.map(([label, , icon, target]) => ({ id: target, label:t(label,arabic[label]??label), icon, onClick: () => go(target) }))} /></div>
           <div className="approved-welcome"><div className="home-hero-heading"><IconBox><Zap/></IconBox><h1>{t('Welcome to','مرحبًا بك في')} <span>KNOuX</span></h1></div><p>{t('Your intelligent system organizer for a cleaner,','منظّم نظامك الذكي لتجربة Windows أنظف،')}<br />{t('faster, and more secure Windows experience.','وأسرع وأكثر أمانًا.')}</p>
+            <ServicePipeline
+              locale={isArabic ? 'ar' : 'en'}
+              accent="violet"
+              dense
+              onSelect={id => go(({connect:'system',measure:'smart_scan',summarize:'system',recommend:'smart_scan'} as Record<string,string>)[id])}
+              testId="home-pipeline"
+              live={live.status === 'loading'}
+              caption={
+                live.status === 'loading'
+                  ? t('Measuring live data…', 'جارٍ قياس البيانات الحية…')
+                  : live.status === 'live'
+                    ? t('Measured provider snapshot', 'لقطة مقيسة من المزوّدات')
+                    : live.status === 'partial'
+                      ? t('Partial measured — see notes', 'بيانات جزئية — راجع الملاحظات')
+                      : t('Native measurement required', 'القياس الأصلي مطلوب')
+              }
+              stages={[
+                {
+                  id: 'connect',
+                  label: t('Connect', 'اتصال'),
+                  state: live.status === 'native-required' ? 'gated' : Object.keys(live.observations).length ? 'complete' : 'pending',
+                },
+                {
+                  id: 'measure',
+                  label: t('Measure', 'قياس'),
+                  state: live.status === 'loading' ? 'active' : Object.keys(live.observations).length ? 'complete' : 'pending',
+                },
+                {
+                  id: 'summarize',
+                  label: t('Summarize', 'تلخيص'),
+                  state:
+                    live.status === 'loading'
+                      ? 'pending'
+                      : live.observations.scans && live.observations.system
+                        ? 'complete'
+                        : live.status === 'partial'
+                          ? 'partial'
+                          : 'pending',
+                },
+                {
+                  id: 'recommend',
+                  label: t('Recommend', 'توصية'),
+                  detail: t('Preview', 'معاينة'),
+                  state: latest ? 'partial' : 'pending',
+                },
+              ]}
+            />
             <div className="approved-kpis">{[Grid2X2, FileText, Zap, Shield].map((Icon, i) => <button className="approved-kpi" key={i} onClick={() => go(['applications', 'smart_scan', 'automation', 'system'][i])}><Icon /><span><strong>{kpis[i]}</strong><small>{t(['Applications', 'Total Findings', sample ? 'Automations' : 'Workflow Drafts', 'System Status'][i],arabic[['Applications', 'Total Findings', sample ? 'Automations' : 'Workflow Drafts', 'System Status'][i]]??'الأتمتة')}</small></span></button>)}</div>
             <div className="approved-hero-actions"><button className="approved-primary" onClick={() => setModal('scan')}>{t('Start a Quick Scan','بدء مراجعة الفحص')} <ChevronRight /></button><button className="approved-secondary" onClick={() => window.dispatchEvent(new Event('knoux:open-commands'))}><Grid2X2 />{t('Explore Tools','استكشاف الأدوات')}</button></div>
           </div>

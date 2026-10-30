@@ -1,0 +1,449 @@
+/**
+ * KNOuX — ServicePipeline glass tube.
+ *
+ * One material family for every domain header. Night keeps the violet/cyan
+ * cinematic glass; the light bridge gets a luminous daylight variant with the
+ * same geometry. Motion only exists inside prefers-reduced-motion: no-preference
+ * and never implies progress that the provider did not publish.
+ */
+
+.knx-pipe {
+  --knx-pipe-a: #a855f7;
+  --knx-pipe-b: #22d3ee;
+  position: relative;
+  margin: 12px 0 2px;
+  padding: 2px 0 0;
+  min-width: 0;
+}
+
+.knx-pipe-violet { --knx-pipe-a: #a855f7; --knx-pipe-b: #7c5cff; }
+.knx-pipe-blue { --knx-pipe-a: #60a5fa; --knx-pipe-b: #3b82f6; }
+.knx-pipe-teal { --knx-pipe-a: #2dd4bf; --knx-pipe-b: #0ea5e9; }
+.knx-pipe-amber { --knx-pipe-a: #fbbf24; --knx-pipe-b: #f59e0b; }
+.knx-pipe-emerald { --knx-pipe-a: #34d399; --knx-pipe-b: #10b981; }
+.knx-pipe-rose { --knx-pipe-a: #fb7185; --knx-pipe-b: #f43f5e; }
+.knx-pipe-indigo { --knx-pipe-a: #818cf8; --knx-pipe-b: #6366f1; }
+.knx-pipe-sky { --knx-pipe-a: #38bdf8; --knx-pipe-b: #0ea5e9; }
+
+.knx-pipe-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--knx-pipe-count, 5), minmax(0, 1fr));
+  gap: 4px;
+  padding: 0 2px;
+}
+
+/* The luminous tube the nodes sit on. */
+.knx-pipe-tube {
+  position: absolute;
+  inset-inline: 18px;
+  top: 17px;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--knx-pipe-a) 26%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.015) 55%, rgba(8, 4, 24, 0.25)),
+    color-mix(in srgb, var(--knx-pipe-a) 12%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 3px rgba(6, 2, 20, 0.45),
+    0 6px 18px -12px color-mix(in srgb, var(--knx-pipe-a) 55%, transparent);
+}
+
+.knx-pipe-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--knx-pipe-a), var(--knx-pipe-b));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--knx-pipe-a) 65%, transparent);
+  transition: width 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.knx-pipe-energy {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 38%;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--knx-pipe-b) 55%, transparent), transparent);
+}
+
+.knx-pipe.is-live .knx-pipe-energy,
+.knx-pipe.has-active .knx-pipe-energy {
+  opacity: 0.85;
+}
+
+/* Curved inlet from the orbital hub into the tube. */
+.knx-pipe-inlet {
+  position: absolute;
+  inset-inline-end: -26px;
+  top: 2px;
+  width: 76px;
+  height: 40px;
+  border-top: 2px solid color-mix(in srgb, var(--knx-pipe-b) 45%, transparent);
+  border-inline-end: 2px solid transparent;
+  border-radius: 60% 40% 0 0 / 100% 70% 0 0;
+  transform: rotate(-10deg);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.knx-pipe-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  z-index: 1;
+}
+
+button.knx-pipe-node { cursor: pointer; }
+button.knx-pipe-node:hover .knx-pipe-dot { transform: translateY(-1px); }
+
+.knx-pipe-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--knx-pipe-a) 34%, transparent);
+  background:
+    radial-gradient(120% 120% at 30% 20%, rgba(255, 255, 255, 0.16), transparent 45%),
+    linear-gradient(180deg, rgba(30, 20, 60, 0.55), rgba(10, 6, 26, 0.85));
+  color: color-mix(in srgb, var(--knx-pipe-a) 70%, #e8e4ff);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 6px 16px -10px rgba(2, 2, 18, 0.9);
+  transition: transform 160ms ease, box-shadow 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.knx-pipe-dot svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.2;
+}
+
+.knx-pipe-order {
+  position: absolute;
+  top: -5px;
+  inset-inline-start: -4px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--knx-pipe-a) 75%, #ffffff);
+  background: rgba(10, 6, 24, 0.9);
+  border: 1px solid color-mix(in srgb, var(--knx-pipe-a) 38%, transparent);
+}
+
+.knx-pipe-label {
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: rgba(233, 230, 255, 0.82);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.knx-pipe-detail {
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(203, 197, 235, 0.52);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Stage states */
+.knx-pipe-node.is-complete .knx-pipe-dot {
+  border-color: color-mix(in srgb, var(--knx-pipe-a) 62%, transparent);
+  color: #ffffff;
+  background:
+    radial-gradient(120% 120% at 30% 20%, rgba(255, 255, 255, 0.36), transparent 50%),
+    linear-gradient(160deg, var(--knx-pipe-a), color-mix(in srgb, var(--knx-pipe-b) 72%, #180a30));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 14px color-mix(in srgb, var(--knx-pipe-a) 45%, transparent);
+}
+
+.knx-pipe-node.is-active .knx-pipe-dot {
+  border-color: color-mix(in srgb, var(--knx-pipe-b) 78%, transparent);
+  color: #ffffff;
+  background:
+    radial-gradient(120% 120% at 30% 20%, rgba(255, 255, 255, 0.4), transparent 46%),
+    linear-gradient(160deg, var(--knx-pipe-b), var(--knx-pipe-a));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 0 0 4px color-mix(in srgb, var(--knx-pipe-b) 18%, transparent),
+    0 0 20px color-mix(in srgb, var(--knx-pipe-b) 55%, transparent);
+}
+
+.knx-pipe-node.is-active .knx-pipe-label { color: #ffffff; }
+
+.knx-pipe-node.is-gated .knx-pipe-dot {
+  border-color: rgba(251, 191, 36, 0.36);
+  color: rgba(253, 224, 171, 0.95);
+  background:
+    radial-gradient(120% 120% at 30% 20%, rgba(255, 255, 255, 0.1), transparent 45%),
+    linear-gradient(180deg, rgba(60, 44, 16, 0.6), rgba(24, 16, 6, 0.9));
+}
+
+.knx-pipe-node.is-gated .knx-pipe-label { color: rgba(253, 230, 186, 0.85); }
+
+.knx-pipe-node.is-failed .knx-pipe-dot {
+  border-color: rgba(251, 113, 133, 0.55);
+  color: #ffe4e6;
+  background: linear-gradient(180deg, rgba(90, 18, 40, 0.75), rgba(40, 8, 20, 0.92));
+}
+
+.knx-pipe-node.is-partial .knx-pipe-dot {
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #fde68a;
+  background: linear-gradient(180deg, rgba(72, 48, 12, 0.7), rgba(30, 18, 4, 0.92));
+}
+
+.knx-pipe-node.is-skipped .knx-pipe-dot { opacity: 0.55; }
+
+.knx-pipe-node.is-pending .knx-pipe-dot {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.knx-pipe-spark {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* Meter */
+.knx-pipe-meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  min-width: 0;
+}
+
+.knx-pipe-meter-rail {
+  position: relative;
+  flex: 1 1 auto;
+  height: 5px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--knx-pipe-a) 14%, rgba(6, 4, 18, 0.35));
+  border: 1px solid color-mix(in srgb, var(--knx-pipe-a) 20%, transparent);
+}
+
+.knx-pipe-meter-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--knx-pipe-a), var(--knx-pipe-b));
+  transition: width 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.knx-pipe-meter-echo {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 34%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--knx-pipe-b) 60%, transparent), transparent);
+}
+
+.knx-pipe-meter-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(214, 208, 245, 0.7);
+  white-space: nowrap;
+}
+
+.knx-pipe-meter-label strong {
+  font-size: 11px;
+  font-weight: 800;
+  color: color-mix(in srgb, var(--knx-pipe-b) 70%, #ffffff);
+}
+
+.knx-pipe-caption {
+  margin: 0;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: rgba(203, 197, 235, 0.48);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.knx-pipe-caption.is-standalone { margin-top: 7px; }
+
+/* Dense welcome-hero variant: same grammar, tighter silhouette. */
+.knx-pipe.is-dense { margin: 8px 0 0; }
+.knx-pipe.is-dense .knx-pipe-dot { width: 26px; height: 26px; }
+.knx-pipe.is-dense .knx-pipe-dot svg { width: 12px; height: 12px; }
+.knx-pipe.is-dense .knx-pipe-tube { top: 13px; height: 10px; }
+.knx-pipe.is-dense .knx-pipe-label { font-size: 9.5px; }
+.knx-pipe.is-dense .knx-pipe-order { display: none; }
+.knx-pipe.is-dense .knx-pipe-meter { margin-top: 5px; }
+.knx-pipe.is-dense .knx-pipe-caption { display: none; }
+
+/* Motion — only when the OS allows it. */
+@media (prefers-reduced-motion: no-preference) {
+  .knx-pipe.is-live .knx-pipe-energy,
+  .knx-pipe.has-active .knx-pipe-energy {
+    animation: knx-pipe-energy 3.4s linear infinite;
+  }
+
+  .knx-pipe-node.is-active .knx-pipe-dot::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--knx-pipe-b) 55%, transparent);
+    animation: knx-pipe-ring 2.2s ease-out infinite;
+  }
+
+  .knx-pipe-meter-echo { animation: knx-pipe-energy 2.6s linear infinite; }
+}
+
+@keyframes knx-pipe-energy {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(320%); }
+}
+
+@keyframes knx-pipe-ring {
+  0% { opacity: 0.75; transform: scale(0.82); }
+  70% { opacity: 0; transform: scale(1.28); }
+  100% { opacity: 0; transform: scale(1.28); }
+}
+
+/* RTL: the tube flows from the orbital hub which now sits on the left. */
+.knx-pipe[dir='rtl'] .knx-pipe-fill,
+.knx-pipe[dir='rtl'] .knx-pipe-meter-fill { left: auto; right: 0; }
+
+/* Chronology starts at the orbital hub on the right: fill and energy travel right to left. */
+.knx-pipe.is-flow-right .knx-pipe-fill,
+.knx-pipe.is-flow-right .knx-pipe-meter-fill { left: auto; right: 0; }
+.knx-pipe.is-flow-right .knx-pipe-energy { animation-direction: reverse; }
+.knx-pipe.is-flow-right .knx-pipe-meter-echo { animation-direction: reverse; }
+
+/* --------------------------------------------------------------------------
+   Daylight variant
+   -------------------------------------------------------------------------- */
+html[data-theme='light'] .knx-pipe-tube {
+  border-color: color-mix(in srgb, var(--knx-pipe-a) 30%, #cbd5e1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.35) 60%, rgba(148, 163, 184, 0.18)),
+    color-mix(in srgb, var(--knx-pipe-a) 10%, #f8fafc);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 2px rgba(148, 163, 184, 0.25),
+    0 8px 18px -14px color-mix(in srgb, var(--knx-pipe-a) 60%, transparent);
+}
+
+html[data-theme='light'] .knx-pipe-dot {
+  border-color: color-mix(in srgb, var(--knx-pipe-a) 40%, #cbd5e1);
+  color: color-mix(in srgb, var(--knx-pipe-a) 65%, #312e81);
+  background:
+    radial-gradient(120% 120% at 30% 20%, #ffffff, transparent 55%),
+    linear-gradient(180deg, #ffffff, #eef2fb);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 6px 14px -10px rgba(51, 65, 85, 0.45);
+}
+
+html[data-theme='light'] .knx-pipe-order {
+  color: color-mix(in srgb, var(--knx-pipe-a) 70%, #1e1b4b);
+  background: #ffffff;
+  border-color: color-mix(in srgb, var(--knx-pipe-a) 40%, #cbd5e1);
+}
+
+html[data-theme='light'] .knx-pipe-label { color: #1e1b4b; }
+html[data-theme='light'] .knx-pipe-detail { color: #64748b; }
+html[data-theme='light'] .knx-pipe-caption { color: #64748b; }
+html[data-theme='light'] .knx-pipe-meter-label { color: #475569; }
+html[data-theme='light'] .knx-pipe-meter-label strong { color: color-mix(in srgb, var(--knx-pipe-b) 80%, #1e1b4b); }
+
+html[data-theme='light'] .knx-pipe-node.is-complete .knx-pipe-dot,
+html[data-theme='light'] .knx-pipe-node.is-active .knx-pipe-dot {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+html[data-theme='light'] .knx-pipe-node.is-gated .knx-pipe-dot {
+  color: #92400e;
+  border-color: rgba(217, 119, 6, 0.4);
+  background: linear-gradient(180deg, #fffbeb, #fef3c7);
+}
+
+html[data-theme='light'] .knx-pipe-node.is-failed .knx-pipe-dot {
+  color: #9f1239;
+  border-color: rgba(225, 29, 72, 0.4);
+  background: linear-gradient(180deg, #fff1f2, #ffe4e6);
+}
+
+html[data-theme='light'] .knx-pipe-node.is-partial .knx-pipe-dot {
+  color: #92400e;
+  border-color: rgba(217, 119, 6, 0.35);
+  background: linear-gradient(180deg, #fffbeb, #fef9c3);
+}
+
+html[data-theme='light'] .knx-pipe-node.is-gated .knx-pipe-label { color: #92400e; }
+
+html[data-theme='light'] .knx-pipe-meter-rail {
+  background: rgba(148, 163, 184, 0.18);
+  border-color: rgba(100, 116, 139, 0.22);
+}
+
+html[data-theme='light'] .knx-pipe-inlet {
+  border-top-color: color-mix(in srgb, var(--knx-pipe-b) 38%, transparent);
+}
+
+/* Bounded screens: labels may wrap under 1280px instead of truncating apart. */
+@media (max-width: 1500px) {
+  .knx-pipe-label { font-size: 10px; }
+  .knx-pipe-caption { display: none; }
+  .knx-pipe-dot { width: 30px; height: 30px; }
+  .knx-pipe-tube { top: 15px; }
+}
+
+/* Ordinal bubbles are opt-in: only Startup's reference numbers its phases. */
+.knx-pipe .knx-pipe-order { display: none; }
+.knx-pipe.is-numbered .knx-pipe-order { display: grid; }
+
+/* Meter layout: the bar keeps a bounded width, the label never wraps, and the
+   provenance caption takes the remaining room with an ellipsis. */
+.knx-pipe-meter-rail { flex: 0 1 210px; min-width: 70px; }
+.knx-pipe-meter-label { flex: 0 0 auto; }
+.knx-pipe-caption { flex: 1 1 0; text-align: end; }
+
+/* Light theme: filled stage dots are white glyphs on a light surface, so the
+   label must stay ink rather than the night rule's white. */
+html[data-theme='light'] .knx-pipe-node.is-active .knx-pipe-label { color: #1e1b4b; }
+html[data-theme='light'] .knx-pipe-node.is-complete .knx-pipe-label { color: #1e1b4b; }
+html[data-theme='light'] .knx-pipe-node.is-gated .knx-pipe-label { color: #92400e; }

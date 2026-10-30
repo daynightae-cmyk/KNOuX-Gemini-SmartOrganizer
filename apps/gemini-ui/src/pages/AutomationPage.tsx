@@ -1,5 +1,6 @@
 import { CommandCanvas } from '../visual/CommandCanvas';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { ServicePipeline } from '../visual/ServicePipeline';
 /**
  * KNOuX SmartOrganizer - Flow Studio (Mission 13).
  *
@@ -258,6 +259,49 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                 <span className="sys-hero-eyebrow">{t(locale, 'FLOW STUDIO · LOCAL DRAFTS · NO EXECUTION', 'استوديو التدفق · مسودات محلية · بلا تنفيذ')}</span>
                 <h1>{t(locale, 'Flow', 'استوديو')} <span>{t(locale, 'Studio', 'التدفق')}</span></h1>
                 <p>{t(locale, 'Design typed workflow drafts, validate the DAG and inspect every blocked action before any future approval.', 'صمم مسودات سير عمل مهيكلة، وتحقق من DAG، وافحص كل إجراء محجوب قبل أي موافقة مستقبلية.')}</p>
+                <ServicePipeline
+                  locale={locale}
+                  accent="emerald"
+                  testId="automation-pipeline"
+                  onSelect={id => openTool(id==='trigger'?'auto-schedule-plan':id==='dry-run'||id==='verify'?'auto-run-history':'auto-smart-scan')}
+                  dense
+                  live={controller.scanning || Boolean(controller.busy)}
+                  caption={t(locale, 'Draft only · no executor shipped · nothing is scheduled', 'مسودة فقط · لا منفذ متوفر · لا شيء مجدول')}
+                  stages={[
+                    {
+                      id: 'trigger',
+                      label: t(locale, 'Trigger', 'مشغّل'),
+                      detail: t(locale, 'Draft', 'مسودة'),
+                      state: draft ? 'partial' : 'pending',
+                    },
+                    {
+                      id: 'validate',
+                      label: t(locale, 'Validate', 'تحقق'),
+                      state: dryRun?.workflowId === draft?.id && dryRun?.workflowVersion === draft?.version && dryRun?.valid ? 'complete' : 'pending',
+                    },
+                    {
+                      id: 'dry-run',
+                      label: t(locale, 'Dry run', 'تجربة جافة'),
+                      detail: t(locale, 'Preview only', 'معاينة فقط'),
+                      state: dryRun && draft && dryRun.workflowId === draft.id && dryRun.workflowVersion === draft.version ? 'complete' : 'pending',
+                    },
+                    {
+                      id: 'approve',
+                      label: t(locale, 'Approve', 'موافقة'),
+                      state: 'gated',
+                    },
+                    {
+                      id: 'execute',
+                      label: t(locale, 'Execute', 'تنفيذ'),
+                      state: 'gated',
+                    },
+                    {
+                      id: 'verify',
+                      label: t(locale, 'Verify', 'تحقق نهائي'),
+                      state: 'pending',
+                    },
+                  ]}
+                />
                 <div className="sys-hero-chips">
                   <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
                   <Chip tone="info" icon={LayoutTemplate}>{formatCount(snapshot?.templates.length || 0)} {t(locale, 'templates', 'قالب')}</Chip>

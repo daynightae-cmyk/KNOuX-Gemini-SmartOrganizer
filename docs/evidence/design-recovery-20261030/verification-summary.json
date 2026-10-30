@@ -1,0 +1,108 @@
+{
+  "observedAt": "2026-10-30T20:34:17.389931+00:00",
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "status": "PARTIALLY VERIFIED",
+  "commands": [
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:native",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:studio",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:home",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:system",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:automation",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:workbench",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:navigation",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:workspace",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:apps",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:startup",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:services",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:repair",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    },
+    {
+      "command": "npm run test:scan",
+      "exitCode": 0,
+      "evidence": "observed tool execution in this chat; not a copied command log"
+    }
+  ],
+  "scanRegression": {
+    "before": "full sessions are bounded to 10 files (got 11)",
+    "after": {
+      "history": 20,
+      "persistedSessions": 10,
+      "failures": []
+    },
+    "deterministicDelayedPersistenceRegression": "passed"
+  },
+  "runtime": "isolated Electron Main/Preload/Renderer; owner-file writes and OAuth not invoked",
+  "visualAcceptance": "OPEN; geometry success is not reference-fidelity approval",
+  "delivery": "local working tree only; no commit, push, merge or deployment",
+  "studioEffects": {
+    "command": "node scripts/studio-exec-test.cjs",
+    "exitCode": 0,
+    "checks": 13,
+    "moves": 40,
+    "originalHashesRestored": 40,
+    "ownerDataTouched": false
+  },
+  "studioServices": {
+    "command": "node scripts/studio-owner-fullstack-capture.mjs",
+    "exitCode": 0,
+    "captures": 38,
+    "rendererErrors": 0
+  }
+}

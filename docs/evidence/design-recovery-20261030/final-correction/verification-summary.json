@@ -1,0 +1,90 @@
+{
+  "status": "PARTIALLY VERIFIED",
+  "baseHead": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "capturedAt": "2026-10-30T22:37:04.8090439Z",
+  "commands": [
+    {
+      "exitCode": 0,
+      "command": "python scripts/verify-workspace.py (repository root)"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run lint"
+    },
+    {
+      "note": "Existing large chunk warning",
+      "exitCode": 0,
+      "command": "npm run build"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:home"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:navigation"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:workbench"
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run test:workspace"
+    },
+    {
+      "checks": 9,
+      "exitCode": 0,
+      "command": "node scripts/design-recovery-interactions.mjs"
+    },
+    {
+      "exitCode": 0,
+      "command": "git diff --check"
+    }
+  ],
+  "captures": [
+    {
+      "group": "final-reference",
+      "frames": 10,
+      "errors": [],
+      "exitCode": 0
+    },
+    {
+      "group": "final-opposite",
+      "frames": 10,
+      "errors": [],
+      "exitCode": 0
+    },
+    {
+      "group": "final-rtl-1366",
+      "frames": 10,
+      "errors": [],
+      "exitCode": 0
+    },
+    {
+      "group": "final-wide-1920",
+      "frames": 2,
+      "errors": [],
+      "exitCode": 0
+    }
+  ],
+  "referencesVerified": 11,
+  "nativeRegression": "Reused prior successful test:scan evidence: unchanged scan-bridge.cjs and regression SHA-256 match source-hashes.json",
+  "studioNative": "Executor unchanged; retained prior 13 fixture checks, 40 restored originals and 38 service captures. UI stage-navigation checks rerun.",
+  "ownership": "Other canonical Codex chat notLoaded; no conflicting writer detected; source freeze stable. Qoder GUI open; preserved.",
+  "notRun": [
+    "Windows 125% scaling",
+    "Windows 150% scaling",
+    "Packaged application",
+    "Installed application",
+    "Remote CI",
+    "Production"
+  ],
+  "ownerVisualApproval": "OPEN",
+  "remaining": [
+    "Concept artwork lighting and background illustration are not pixel identical",
+    "1366px panels retain bounded inner scrolling",
+    "Fast captures include provider-loading/empty/partial states; no native success inferred",
+    "Full 181 service acceptance remains open"
+  ]
+}

@@ -2,6 +2,7 @@ import {useMemo,useState,type CSSProperties} from 'react';
 import {Archive,ArrowRight,Check,ChevronRight,Copy,FileCode,FileText,FolderOpen,FolderTree,History,Images,Layers3,ListChecks,Play,Search,ShieldCheck,SlidersHorizontal,Sparkles,Video,Workflow} from 'lucide-react';
 import type {OperationFile,OperationReceipt} from '../../shared/operation-contract';
 import {OrbitalControl} from '../visual/OrbitalControl';
+import {ServicePipeline} from '../visual/ServicePipeline';
 import type {OrbitTone} from '../visual/KnouxOrbit';
 import {facetOf,formatBytes,organizationSuggestions,overviewGroups} from './organization-studio-model';
 
@@ -67,11 +68,6 @@ export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,on
   {icon:FolderTree,label:t('Categories','الفئات'),value:scanned?String(new Set(files.map(file=>facetOf(file))).size):'—',note:scanned?t('Detected','مكتشفة'):t('Awaiting','بالانتظار'),detail:scanned?t('Distinct measured categories','فئات مقيسة مختلفة'):t('No category has been measured yet','لم تُقس أي فئة بعد')},
   {icon:Copy,label:t('Duplicate Names','أسماء مكررة'),value:scanned?String(duplicates?.count??0):'—',note:duplicates?t('Names only','أسماء فقط'):t('None found','لا يوجد'),detail:t('Repeated names do not prove identical content','تطابق الأسماء لا يثبت تطابق المحتوى')},
  ];
- const features=[
-  {icon:FolderOpen,title:t('Smart Organization','تنظيم ذكي'),description:t('Understand your content','افهم محتواك'),stage:1},
-  {icon:Workflow,title:t('Clean Structure','هيكل نظيف'),description:t('Keep everything in place','أبقِ كل شيء في مكانه'),stage:4},
-  {icon:Sparkles,title:t('Find Anything','اعثر على أي شيء'),description:t('Instant file discovery','اكتشاف فوري للملفات'),stage:2},
- ];
  return <header className="osa-hero" data-testid="studio-overview-hero">
   <div className="osa-hero-orbit">
    <OrbitalControl title={busy?t('Native active','Native نشط'):t('Run Organization','تشغيل التنظيم')} subtitle={t('Analyze and preview your files','حلّل ملفاتك وعاينها')} running={busy} tools={tools} onActivate={()=>onStage(scanned?6:1)} eyebrow={t('Organization categories','فئات التنظيم')} testId="studio-overview-orbit"/>
@@ -80,7 +76,26 @@ export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,on
   <div className="osa-hero-copy">
    <div className="osa-identity"><span className="osa-emblem" aria-hidden="true"><FolderOpen/></span><div><h1>{t('Organization Studio','استوديو التنظيم')}</h1><p className="osa-tagline">{t('Organize • Categorize • Structure • Find Everything','نظّم • صنّف • هيكل • اعثر على كل شيء')}</p></div></div>
    <p className="osa-lede">{t('Turn your measured files into a clean, previewed structure. Nothing moves without an exact plan and Native confirmation.','حوّل ملفاتك المقيسة إلى هيكل واضح ومعاين. لا شيء ينتقل دون خطة دقيقة وتأكيد Native.')}</p>
-   <div className="osa-features">{features.map(({icon:Icon,title,description,stage})=><button key={title} type="button" onClick={()=>onStage(stage)}><span className="osa-feature-icon"><Icon aria-hidden="true"/></span><span><strong>{title}</strong><small>{description}</small></span></button>)}</div>
+   <ServicePipeline
+    locale={ar?'ar':'en'}
+    accent="violet"
+    testId="studio-overview-pipeline"
+    flow="right"
+    live={busy}
+    caption={scanned
+      ?t('Measured inventory — nothing moves without an approved plan','فهرس مقيس — لا شيء ينتقل دون خطة معتمدة')
+      :t('Authorize a source to measure this inventory','صرّح بمصدر لقياس هذا الفهرس')}
+    stages={[
+      {id:'source',label:t('Source','المصدر'),state:scanned?'complete':busy?'active':'pending'},
+      {id:'classify',label:t('Classify','التصنيف'),state:scanned?'complete':'pending'},
+      {id:'plan',label:t('Plan','الخطة'),state:scanned?'active':'pending'},
+      {id:'review',label:t('Review','المراجعة'),state:'pending'},
+      {id:'execute',label:t('Execute','التنفيذ'),state:receipt?.status==='failed'?'failed':receipt?.status==='completed' && receipt.completedFiles>0?'complete':receipt?.completedFiles?'partial':'gated'},
+      {id:'verify',label:t('Verify','التحقق'),state:receipt?.entries.length && receipt.entries.every(entry=>entry.hash && entry.verification && ['moved','copied-final'].includes(entry.state))?'complete':receipt?.completedFiles?'partial':'pending'},
+      {id:'undo',label:t('Undo','التراجع'),state:receipt?.undoCompletedFiles && receipt.undoCompletedFiles===receipt.completedFiles?'complete':receipt?.undoCompletedFiles?'partial':'pending'},
+    ]}
+    onSelect={(id)=>{const stage={source:1,classify:2,plan:4,review:6,execute:7,verify:8,undo:8}[id as 'source'|'classify'|'plan'|'review'|'execute'|'verify'|'undo'];if(stage)onStage(stage);}}
+   />
    <div className="osa-metrics">{metrics.map(({icon:Icon,label,value,note,detail})=><div key={label} title={detail}><span className="osa-kpi-icon"><Icon aria-hidden="true"/></span><span className="osa-kpi-copy"><strong>{value}</strong><span>{label}</span><small><i aria-hidden="true"/>{note}</small></span></div>)}</div>
    <button type="button" className="osa-duplicates" disabled={!duplicates} onClick={()=>onSuggestion(duplicates?.ids??[])} data-testid="studio-review-duplicates"><Copy aria-hidden="true"/><span><strong>{t('Review repeated names','مراجعة الأسماء المتكررة')}</strong><small>{duplicates?duplicates.count.toLocaleString()+' '+t('files share a name','ملفًا بأسماء متطابقة'):t('No repeated names in this inventory','لا أسماء متكررة في هذا الفهرس')}</small></span><ChevronRight aria-hidden="true"/></button>
    {receipt&&<p className="osa-receipt-line"><ShieldCheck aria-hidden="true"/>{t('Last Native receipt','آخر إيصال Native')}: {receipt.completedFiles} {t('verified','متحقق')} · {receipt.status}</p>}

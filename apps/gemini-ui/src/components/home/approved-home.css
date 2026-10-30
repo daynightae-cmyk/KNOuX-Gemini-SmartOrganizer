@@ -228,3 +228,33 @@
  .approved-home .approved-inspector .assistant-chips button{padding:3px 6px;font-size:8px}
  .approved-home .approved-sidebar nav button{min-height:30px;padding-block:3px}
 }
+
+/* Final Home composition (owner reference 11): welcome on the reading-start
+   side and the orbital hub on the far side, with the hero glow following it. */
+.home-corrective .approved-hero{grid-template-columns:minmax(0,52%) minmax(0,48%);background:radial-gradient(ellipse at 74% 50%,#b58dff26,transparent 58%),linear-gradient(130deg,#fbfaffdd,#f2ecffde)}
+.home-corrective[data-theme-mode=night] .approved-hero{background:radial-gradient(ellipse at 74% 45%,#5a20a846,transparent 59%),radial-gradient(ellipse at 67% 88%,#32277d40,transparent 55%),linear-gradient(120deg,#100d3c,#0b1438 65%,#101a46);box-shadow:inset 0 0 22px #9062ff15}
+.home-corrective .approved-welcome{order:1}
+.home-corrective .approved-orbit{order:2}
+.home-corrective .approved-orbit .knoux-orbit{left:auto;right:26px}
+@media(max-width:1450px){.home-corrective .approved-orbit .knoux-orbit{right:10px}}
+
+/* Quick Access copy must clamp cleanly above the Open action instead of
+   sliding under it when the row is height-constrained. */
+.home-corrective .approved-access-card p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:0}
+.home-corrective .approved-access-card{justify-content:flex-start}
+.home-corrective .approved-access-card>button{margin-top:auto}
+
+/* Home final: fit the hero's compact pipeline, KPI chips and actions inside
+   the fixed grid row without clipping, and keep the card copy at two lines. */
+.home-corrective .approved-main{grid-template-rows:minmax(0,1.38fr) minmax(0,.92fr) minmax(0,1fr)}
+.home-corrective .approved-welcome{padding:14px 18px 12px 8px}
+.home-corrective .approved-welcome h1{font-size:30px}
+.home-corrective .approved-welcome>p{font-size:13.5px;line-height:1.35;margin-top:6px}
+.home-corrective .approved-kpis{margin-top:8px}
+.home-corrective .approved-kpi{min-height:60px;padding:7px 6px!important}
+.home-corrective .approved-kpi>svg{width:19px;height:19px}
+.home-corrective .approved-kpi strong{font-size:15px}
+.home-corrective .approved-kpi small{font-size:8.5px;margin-top:2px}
+.home-corrective .approved-hero-actions{margin-top:10px}
+.home-corrective .approved-hero-actions .approved-primary,.home-corrective .approved-hero-actions .approved-secondary{height:36px;font-size:11.5px}
+.approved-home.home-corrective .approved-access-card p{-webkit-line-clamp:2;line-clamp:2}
