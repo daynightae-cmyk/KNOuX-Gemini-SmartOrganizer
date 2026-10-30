@@ -253,3 +253,65 @@
   background-color: rgba(13, 37, 75, 0.9) !important;
   border-left: 3px solid #38bdf8;
 }
+
+/* The service dock is a horizontal strip; keep its scrollbar quiet and its
+   cards snapping so the remaining services stay discoverable with the arrows. */
+.scan-services > .grid {
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.55) transparent;
+}
+.scan-services > .grid::-webkit-scrollbar {
+  height: 6px;
+}
+.scan-services > .grid::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.5);
+  border-radius: 999px;
+}
+.scan-services > .grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scan-services > .grid > button {
+  scroll-snap-align: start;
+}
+
+/* ==========================================================================
+   Service-body layout is container-driven, not viewport-driven.
+
+   The same ten renderers mount in a ~460 px pinned side workbench, in a
+   672 px dialog, and in a wide expanded view. Tailwind `sm:`/`lg:` key off
+   the window, so a 1672 px desktop gave the narrow side panel a four-column
+   KPI grid whose labels ellipsized ("INDEXED FI..."). These rules measure the
+   panel itself so each context gets a density it can actually read.
+   ========================================================================== */
+.scan-service-body {
+  container-type: inline-size;
+}
+
+.scan-service-body .scan-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scan-service-body .scan-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+@container (min-width: 620px) {
+  .scan-metric-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 720px) {
+  .scan-split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .scan-service-body .scan-split.scan-split-2-3 {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+}
+

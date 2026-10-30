@@ -235,6 +235,9 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
         setActiveServiceId(null);
         handleNavigate(workspace);
       }}
+      onOpenService={(serviceId) => {
+        if (services.some((entry) => entry.id === serviceId)) setActiveServiceId(serviceId);
+      }}
       onOpenCleanupGate={() => setCleanupOpen(true)}
       embedded
     />
@@ -394,6 +397,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               active={scan.active}
               isArabic={isArabic}
               busy={scan.busy}
+              sourceReady={Boolean(scan.selectedSource && scan.selectedSource.status === 'ready' && scan.selectedSource.fileCount > 0)}
               onCancelScan={() => void scan.cancelActive()}
               onExport={handleExport}
               onOpenCustomScan={openCustomScan}

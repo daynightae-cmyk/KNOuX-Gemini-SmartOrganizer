@@ -5,27 +5,37 @@
  * findings. No AI provider, credential or external call is used.
  */
 import React from 'react';
-import { CheckCircle2, FlaskConical, Lightbulb, ShieldAlert, Sparkles } from 'lucide-react';
-import { EmptyResult, Metric, StageStrip, type ServiceRendererProps } from './shared';
+import { ArrowUpRight, CheckCircle2, Filter, FlaskConical, Lightbulb, ShieldAlert, Sparkles } from 'lucide-react';
+import { CopyEvidence, EmptyResult, FilterChips, Metric, StageStrip, type ServiceRendererProps } from './shared';
 
-export const SmartRecommendationsRenderer: React.FC<ServiceRendererProps> = ({ service, session, isArabic }) => {
+type ConfidenceFilter = 'all' | 'measured' | 'derived';
+
+export const SmartRecommendationsRenderer: React.FC<ServiceRendererProps> = ({ service, session, isArabic, onOpenService }) => {
+  const [confidenceFilter, setConfidenceFilter] = React.useState<ConfidenceFilter>('all');
+  const [attentionOnly, setAttentionOnly] = React.useState(false);
+
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const recommendations = data.recommendations?.length ? data.recommendations : session?.recommendations || [];
   const measuredCount = recommendations.filter((entry) => entry.confidence === 'measured').length;
   const derivedCount = recommendations.filter((entry) => entry.confidence === 'derived').length;
   const attentionCount = recommendations.filter((entry) => entry.risk === 'attention').length;
+  const visible = recommendations.filter((entry) => {
+    if (attentionOnly && entry.risk !== 'attention') return false;
+    if (confidenceFilter === 'all') return true;
+    return entry.confidence === confidenceFilter;
+  });
 
   return (
     <div className="space-y-3 text-slate-100 font-sans">
       <div className="flex items-center justify-between gap-2 border-b border-[#143058] pb-2">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-white shadow-md">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-white shadow-md shrink-0">
             <Lightbulb className="w-5 h-5" />
           </div>
-          <div>
+          <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-1.5">
-              <h3 className="font-extrabold text-sm text-white">{isArabic ? 'توصيات مبنية على أدلة مقيسة' : 'Evidence-Based Recommendations'}</h3>
+              <h3 className="font-extrabold text-sm text-white break-words">{isArabic ? 'توصيات مبنية على أدلة مقيسة' : 'Evidence-Based Recommendations'}</h3>
               <span className="px-1.5 py-0.5 rounded bg-amber-400/15 text-amber-300 font-mono text-[9px] font-bold border border-amber-400/40">
                 LOCAL RULES
               </span>
@@ -35,20 +45,51 @@ export const SmartRecommendationsRenderer: React.FC<ServiceRendererProps> = ({ s
             </p>
           </div>
         </div>
-        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 font-mono text-[9px] font-bold border border-slate-700">
-          NO AI PROVIDER
-        </span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <CopyEvidence testId="scan-smart_recommendations-copy" payload={{ serviceId: service.serviceId, status: service.status, recommendations }} isArabic={isArabic} />
+          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 font-mono text-[9px] font-bold border border-slate-700">
+            NO AI PROVIDER
+          </span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'توصيات' : 'Recommendations'} value={String(recommendations.length)} sub={isArabic ? 'نتاج القواعد' : 'rule output'} />
         <Metric label={isArabic ? 'ثقة مقيسة' : 'Measured confidence'} value={String(measuredCount)} sub={isArabic ? 'دليل مباشر' : 'direct evidence'} tone="emerald" />
         <Metric label={isArabic ? 'ثقة مشتقة' : 'Derived confidence'} value={String(derivedCount)} sub={isArabic ? 'قاعدة فوق القياس' : 'rule over measurement'} tone="amber" />
         <Metric label={isArabic ? 'تحتاج انتباهًا' : 'Needs attention'} value={String(attentionCount)} sub={isArabic ? 'ليست إجراءً تلقائيًا' : 'not an automatic action'} tone={attentionCount ? 'rose' : 'cyan'} />
       </div>
 
-      <div className="space-y-1.5 max-h-[290px] overflow-y-auto knx-custom-scrollbar pr-0.5">
-        {recommendations.map((entry, index) => (
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <FilterChips
+          testId="scan-smart_recommendations-confidence-filter"
+          labelEn="Confidence"
+          labelAr="الثقة"
+          value={confidenceFilter}
+          onChange={setConfidenceFilter}
+          isArabic={isArabic}
+          options={[
+            { id: 'all' as ConfidenceFilter, labelEn: 'All', labelAr: 'الكل', count: recommendations.length },
+            { id: 'measured' as ConfidenceFilter, labelEn: 'Measured', labelAr: 'مقيس', count: measuredCount },
+            { id: 'derived' as ConfidenceFilter, labelEn: 'Derived', labelAr: 'مشتق', count: derivedCount },
+          ]}
+        />
+        <button
+          type="button"
+          onClick={() => setAttentionOnly((current) => !current)}
+          aria-pressed={attentionOnly}
+          data-testid="scan-smart_recommendations-attention-toggle"
+          className={`px-2 py-1 rounded-lg border text-[9px] font-bold transition cursor-pointer flex items-center gap-1 ${
+            attentionOnly ? 'bg-rose-600/25 border-rose-400/50 text-rose-200' : 'bg-[#0b1c35] border-[#1b3a63] text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Filter className="w-3 h-3" />
+          {isArabic ? 'الانتباه فقط' : 'Attention only'}
+        </button>
+      </div>
+
+      <div className="space-y-1.5 max-h-[290px] overflow-y-auto knx-custom-scrollbar pr-0.5" data-testid="scan-smart_recommendations-list">
+        {visible.map((entry, index) => (
           <div key={entry.id} className="rounded-xl border border-[#133059] bg-[#091a38] p-2.5">
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-start gap-2 min-w-0">
@@ -72,6 +113,18 @@ export const SmartRecommendationsRenderer: React.FC<ServiceRendererProps> = ({ s
             <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[9px]">
               <span className="px-1.5 py-0.5 rounded bg-[#071731] border border-[#11284a] text-slate-400 font-mono">{entry.evidence}</span>
               <span className="px-1.5 py-0.5 rounded bg-[#071731] border border-[#11284a] text-cyan-300 font-mono">{entry.target}</span>
+              {onOpenService ? (
+                <button
+                  type="button"
+                  onClick={() => onOpenService(entry.serviceId)}
+                  data-testid={`scan-recommendation-open-${entry.id}`}
+                  data-service-id={entry.serviceId}
+                  className="ms-auto px-1.5 py-0.5 rounded border border-cyan-400/40 bg-cyan-600/15 hover:bg-cyan-600/30 text-cyan-200 font-bold flex items-center gap-1 cursor-pointer"
+                >
+                  {isArabic ? 'افتح الخدمة' : 'Open service'}
+                  <ArrowUpRight className="w-3 h-3" />
+                </button>
+              ) : null}
             </div>
           </div>
         ))}
@@ -83,6 +136,16 @@ export const SmartRecommendationsRenderer: React.FC<ServiceRendererProps> = ({ s
             </p>
             <p className="text-[10px] text-slate-500 mt-1">
               {isArabic ? 'هذه نتيجة صادقة، وليست قائمة تجريبية.' : 'This is an honest result, not a design list.'}
+            </p>
+          </div>
+        ) : null}
+        {recommendations.length && !visible.length ? (
+          <div className="rounded-xl border border-dashed border-[#1b3a63] bg-[#071731] p-4 text-center">
+            <p className="text-xs font-bold text-slate-300">
+              {isArabic ? 'لا توصيات مطابقة للمرشح الحالي.' : 'No recommendation matches the current filter.'}
+            </p>
+            <p className="text-[10px] text-slate-500 mt-1">
+              {isArabic ? 'أزل المرشح لعرض التوصيات كاملة.' : 'Clear the filter to see every recommendation.'}
             </p>
           </div>
         ) : null}

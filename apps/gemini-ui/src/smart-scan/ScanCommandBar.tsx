@@ -16,6 +16,8 @@ export interface ScanCommandBarProps {
   active: ActiveScanView | null;
   isArabic?: boolean;
   busy?: boolean;
+  /** An authorized folder is indexed and ready to measure. */
+  sourceReady?: boolean;
   onCancelScan: () => void;
   onExport: () => void;
   onOpenCustomScan: () => void;
@@ -27,6 +29,7 @@ export const ScanCommandBar: React.FC<ScanCommandBarProps> = ({
   active,
   isArabic = false,
   busy = false,
+  sourceReady = false,
   onCancelScan,
   onExport,
   onOpenCustomScan,
@@ -66,7 +69,9 @@ export const ScanCommandBar: React.FC<ScanCommandBarProps> = ({
               ? (isArabic ? 'التقدم مشتق من المراحل المكتملة؛ الإلغاء يوقف ما يمكن إيقافه فقط.' : 'Progress is stage-weighted; cancellation stops what it can, honestly.')
               : session
                 ? `${session.sourceLabel || (isArabic ? 'مزودات النظام فقط' : 'system providers only')} · ${stagesCompleted}/${stagesTotal} ${isArabic ? 'مرحلة' : 'stages'} · ${formatDateTime(session.finishedAt, isArabic)}`
-                : (isArabic ? 'صرّح بمجلد من الأعلى وشغّل فحصًا مقيسًا.' : 'Authorize a folder above and run a measured scan.')}
+                : sourceReady
+                  ? (isArabic ? 'المجلد المصرح مفهرس وجاهز لفحص مقيس.' : 'The authorized folder is indexed and ready to measure.')
+                  : (isArabic ? 'صرّح بمجلد من الأعلى وشغّل فحصًا مقيسًا.' : 'Authorize a folder above and run a measured scan.')}
           </div>
         </div>
       </div>

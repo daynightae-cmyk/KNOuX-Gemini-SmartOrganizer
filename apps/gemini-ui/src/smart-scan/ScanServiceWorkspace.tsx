@@ -18,6 +18,7 @@ import { StartupImpactRenderer } from './service-renderers/StartupImpactRenderer
 import { AppHealthRenderer } from './service-renderers/AppHealthRenderer';
 import { SystemHealthPulseRenderer } from './service-renderers/SystemHealthPulseRenderer';
 import { SmartRecommendationsRenderer } from './service-renderers/SmartRecommendationsRenderer';
+import { EmptyResult } from './service-renderers/shared';
 
 export interface ScanServiceWorkspaceProps {
   service: ScanServiceMeta;
@@ -31,6 +32,7 @@ export interface ScanServiceWorkspaceProps {
   onClose: () => void;
   onRunService: (serviceId: string) => void;
   onNavigateToWorkspace?: (workspace: string) => void;
+  onOpenService?: (serviceId: string) => void;
   onOpenCleanupGate?: () => void;
   embedded?: boolean;
 }
@@ -47,11 +49,12 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   onClose,
   onRunService,
   onNavigateToWorkspace,
+  onOpenService,
   onOpenCleanupGate,
   embedded = false,
 }) => {
   const renderRenderer = () => {
-    const props = { service: result, session, isArabic, onNavigateToWorkspace };
+    const props = { service: result, session, isArabic, onNavigateToWorkspace, onOpenService };
     switch (service.id) {
       case 'quick_scan':
         return <QuickScanRenderer {...props} />;
@@ -78,12 +81,25 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   };
 
   const disabled = busy || scanActive || !canRun;
+  // A session only holds the services it measured, so a service that was not
+  // part of it must offer its own measurement instead of a dead end.
+  const body = result ? (
+    renderRenderer()
+  ) : (
+    <EmptyResult
+      service={result}
+      isArabic={isArabic}
+      onMeasure={() => onRunService(service.id)}
+      measureDisabled={disabled}
+      measureReason={!canRun ? runBlockedReason : null}
+    />
+  );
 
   if (embedded) {
     return (
       <div data-testid="scan-service-focus" className="flex flex-col gap-3">
         <p className="text-[10px] text-slate-400">{isArabic ? service.noteAr : service.noteEn}</p>
-        <div className="min-h-0 py-1">{renderRenderer()}</div>
+        <div data-testid={`scan-${service.id}-workbench`} className="scan-service-body min-h-0 py-1">{body}</div>
         <div className="flex flex-wrap items-center gap-2 border-t border-[#122e54] pt-2" data-testid="scan-service-actions">
           <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
             <ShieldCheck className="w-3 h-3 text-emerald-400" />
@@ -147,7 +163,7 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
           </button>
         </div>
 
-        <div className="py-1 overflow-y-auto knx-custom-scrollbar min-h-0">{renderRenderer()}</div>
+        <div className="scan-service-body py-1 overflow-y-auto knx-custom-scrollbar min-h-0">{body}</div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-[#122e54] pt-3">
           <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">

@@ -33,15 +33,15 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
         <WorkspaceLink workspace="applications" labelEn="Applications Hub" labelAr="مركز التطبيقات" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'برامج مثبتة' : 'Installed apps'} value={countLabel(total, isArabic)} sub={isArabic ? 'من السجل المقيس' : 'from measured registry'} />
         <Metric label={isArabic ? 'ناشرون' : 'Publishers'} value={String(publishers.length)} sub={publishers[0]?.publisher || (isArabic ? 'غير متاح' : 'unavailable')} />
         <Metric label={isArabic ? 'معروضة هنا' : 'Listed here'} value={String(listed)} sub={isArabic ? 'عينة عرض محدودة' : 'bounded display sample'} />
         <Metric label={isArabic ? 'إلغاء التثبيت' : 'Uninstall'} value={isArabic ? 'محجوز' : 'Gated'} sub={isArabic ? 'المهمة 05' : 'Mission 05'} tone="rose" />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
-        <div className="sm:col-span-2 rounded-xl border border-[#133059] bg-[#091a38] p-3">
+      <div className="scan-split scan-split-2-3 gap-2">
+        <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-violet-300 mb-2">
             <Building2 className="w-3.5 h-3.5" />
             {isArabic ? 'الناشرون المقيسون' : 'Measured publishers'}
@@ -65,7 +65,7 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
           </div>
         </div>
 
-        <div className="sm:col-span-3 rounded-xl border border-[#133059] bg-[#091a38] p-3">
+        <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-violet-300 mb-2">
             <Package className="w-3.5 h-3.5" />
             {isArabic ? 'أحدث البرامج المقيسة' : 'Measured installed software'}

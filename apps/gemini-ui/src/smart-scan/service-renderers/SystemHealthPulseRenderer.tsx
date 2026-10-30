@@ -7,9 +7,13 @@
  */
 import React from 'react';
 import { Activity, Cpu, HardDrive, Info, MemoryStick, Monitor, ShieldCheck } from 'lucide-react';
-import { EmptyResult, Metric, StageStrip, byteLabel, type ServiceRendererProps } from './shared';
+import { CopyEvidence, EmptyResult, Metric, StageStrip, WorkspaceLink, byteLabel, type ServiceRendererProps } from './shared';
 
-export const SystemHealthPulseRenderer: React.FC<ServiceRendererProps> = ({ service, session, isArabic }) => {
+type VolumeFilter = 'all' | 'low' | 'system';
+
+export const SystemHealthPulseRenderer: React.FC<ServiceRendererProps> = ({ service, session, isArabic, onNavigateToWorkspace }) => {
+  const [volumeFilter, setVolumeFilter] = React.useState<VolumeFilter>('all');
+
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const system = data.system;
@@ -20,6 +24,18 @@ export const SystemHealthPulseRenderer: React.FC<ServiceRendererProps> = ({ serv
     system?.systemDriveTotalBytes && system.systemDriveFreeBytes != null
       ? Math.round((system.systemDriveFreeBytes / system.systemDriveTotalBytes) * 100)
       : null;
+  const systemLetter = system?.systemDrive?.replace(/:.*$/, '').toUpperCase() || null;
+  const lowVolumeCount = volumes.filter((volume) => volume.freePercent < 10).length;
+  const visibleVolumes = volumes.filter((volume) => {
+    if (volumeFilter === 'low') return volume.freePercent < 10;
+    if (volumeFilter === 'system') return systemLetter ? volumeLetter(volume) === systemLetter : false;
+    return true;
+  });
+  const volumeFilters: Array<{ id: VolumeFilter; labelEn: string; labelAr: string; count: number }> = [
+    { id: 'all', labelEn: 'All volumes', labelAr: 'كل الوحدات', count: volumes.length },
+    { id: 'system', labelEn: 'System drive', labelAr: 'قرص النظام', count: volumes.filter((volume) => (systemLetter ? volumeLetter(volume) === systemLetter : false)).length },
+    { id: 'low', labelEn: 'Low free', labelAr: 'مساحة منخفضة', count: lowVolumeCount },
+  ];
 
   return (
     <div className="space-y-3 text-slate-100 font-sans">
@@ -35,26 +51,50 @@ export const SystemHealthPulseRenderer: React.FC<ServiceRendererProps> = ({ serv
             </p>
           </div>
         </div>
-        <span className="px-1.5 py-0.5 rounded bg-emerald-400/15 text-emerald-300 font-mono text-[9px] font-bold border border-emerald-400/40">
-          SNAPSHOT
-        </span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <CopyEvidence testId="scan-system_health_pulse-copy" payload={{ serviceId: service.serviceId, status: service.status, system, volumes, score, basis }} isArabic={isArabic} />
+          <span className="px-1.5 py-0.5 rounded bg-emerald-400/15 text-emerald-300 font-mono text-[9px] font-bold border border-emerald-400/40">
+            SNAPSHOT
+          </span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'حمل المعالج' : 'CPU load'} value={system?.cpuLoadPercent == null ? '—' : `${system.cpuLoadPercent}%`} sub={system?.cpuLoadSource || (isArabic ? 'لحظة الفحص' : 'scan moment')} />
         <Metric label={isArabic ? 'ضغط الذاكرة' : 'Memory pressure'} value={system?.memoryUsedPercent == null ? '—' : `${system.memoryUsedPercent}%`} sub={system?.memoryTotalBytes == null ? (isArabic ? 'غير متاح' : 'unavailable') : `${byteLabel(system.memoryFreeBytes, isArabic)} ${isArabic ? 'حرة' : 'free'}`} />
         <Metric label={isArabic ? 'مساحة قرص النظام' : 'System drive free'} value={systemDriveFreePercent == null ? '—' : `${systemDriveFreePercent}%`} sub={system?.systemDrive || (isArabic ? 'غير متاح' : 'unavailable')} tone={systemDriveFreePercent != null && systemDriveFreePercent < 10 ? 'rose' : 'emerald'} />
         <Metric label={isArabic ? 'درجة الصحة المقيسة' : 'Measured health score'} value={score == null ? '—' : `${score}/100`} sub={score == null ? (isArabic ? 'لا توجد إشارات رقمية كافية' : 'not enough numeric signals') : (isArabic ? 'مشتقة من إشارات مقيسة' : 'derived from measured signals')} tone={score == null ? 'amber' : 'emerald'} />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div className="scan-split gap-2">
         <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 mb-2">
-            <HardDrive className="w-3.5 h-3.5" />
-            {isArabic ? 'سعة الوحدات المقيسة' : 'Measured volume capacity'}
+          <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
+            <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300">
+              <HardDrive className="w-3.5 h-3.5" />
+              {isArabic ? 'سعة الوحدات المقيسة' : 'Measured volume capacity'}
+            </div>
+            <div className="flex flex-wrap items-center gap-1" role="group" aria-label={isArabic ? 'مرشح الوحدات' : 'Volume filter'} data-testid="scan-system_health_pulse-volume-filter">
+              {volumeFilters.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  aria-pressed={volumeFilter === option.id}
+                  data-filter-option={option.id}
+                  onClick={() => setVolumeFilter(option.id)}
+                  className={`px-1.5 py-0.5 rounded border text-[9px] font-bold transition cursor-pointer ${
+                    volumeFilter === option.id
+                      ? 'bg-emerald-600/25 border-emerald-400/50 text-emerald-100'
+                      : 'bg-[#0b1c35] border-[#1b3a63] text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {isArabic ? option.labelAr : option.labelEn}
+                  <span className="ms-1 font-mono opacity-70">{option.count}</span>
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="space-y-1.5 max-h-40 overflow-y-auto knx-custom-scrollbar">
-            {volumes.map((volume) => (
+          <div className="space-y-1.5 max-h-40 overflow-y-auto knx-custom-scrollbar" data-testid="scan-system_health_pulse-volume-list">
+            {visibleVolumes.map((volume) => (
               <div key={volume.id} className="text-[10px]">
                 <div className="flex items-center justify-between text-slate-300">
                   <span className="font-bold truncate">{volume.letter} {volume.label ? `· ${volume.label}` : ''}</span>
@@ -66,6 +106,7 @@ export const SystemHealthPulseRenderer: React.FC<ServiceRendererProps> = ({ serv
               </div>
             ))}
             {!volumes.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لم تُقرأ وحدات تخزين.' : 'No mounted volume was measured.'}</p> : null}
+            {volumes.length && !visibleVolumes.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لا وحدات مطابقة للمرشح الحالي.' : 'No volume matches the current filter.'}</p> : null}
           </div>
         </div>
 
@@ -108,10 +149,17 @@ export const SystemHealthPulseRenderer: React.FC<ServiceRendererProps> = ({ serv
         </span>
       </div>
 
-      <StageStrip service={service} isArabic={isArabic} />
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <StageStrip service={service} isArabic={isArabic} />
+        <WorkspaceLink workspace="system" labelEn="System Workspace" labelAr="مساحة النظام" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
+      </div>
     </div>
   );
 };
+
+function volumeLetter(volume: { letter: string }): string {
+  return volume.letter.replace(/:.*$/, '').toUpperCase();
+}
 
 function Row({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (

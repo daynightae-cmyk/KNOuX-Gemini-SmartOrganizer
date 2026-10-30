@@ -28,7 +28,7 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
         <WorkspaceLink workspace="storage" labelEn="Storage Atlas" labelAr="أطلس التخزين" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'مجموعات مؤكدة' : 'Verified groups'} value={String(verified?.summary?.verifiedGroups ?? 0)} sub={byteLabel(verified?.summary?.reclaimableVerifiedBytes, isArabic)} tone="emerald" />
         <Metric label={isArabic ? 'ملفات مجزأة' : 'Files hashed'} value={String(verified?.summary?.filesHashed ?? 0)} sub={byteLabel(verified?.summary?.bytesHashed, isArabic)} />
         <Metric label={isArabic ? 'مرشحات بالحجم' : 'Size candidates'} value={String(candidates.length)} sub={isArabic ? 'بيانات وصفية فقط' : 'metadata only'} tone="amber" />

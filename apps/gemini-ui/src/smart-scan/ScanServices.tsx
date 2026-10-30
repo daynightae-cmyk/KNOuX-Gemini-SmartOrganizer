@@ -5,9 +5,10 @@
  * coordinator. A tile opens the service workspace; it never implies that the
  * service has already run.
  */
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Activity,
+  ChevronLeft,
   ChevronRight,
   Copy,
   Grid,
@@ -58,6 +59,15 @@ export const ScanServices: React.FC<ScanServicesProps> = ({
   nativeAvailable = true,
 }) => {
   const resultById = new Map(results.map((result) => [result.serviceId, result]));
+  const stripRef = useRef<HTMLDivElement | null>(null);
+
+  // The dock is a horizontal strip, so it must stay reachable without a mouse
+  // wheel: the arrows move it by one visible page in the reading direction.
+  const scrollStrip = useCallback((direction: -1 | 1) => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    strip.scrollBy({ left: direction * strip.clientWidth * (isArabic ? -1 : 1), behavior: 'smooth' });
+  }, [isArabic]);
 
   return (
     <section data-testid="scan-services" className="scan-services bg-[#071329]/80 border border-[#11294a] rounded-2xl p-3.5 sm:p-4 flex flex-col gap-3 shadow-lg shrink-0">
@@ -66,6 +76,11 @@ export const ScanServices: React.FC<ScanServicesProps> = ({
           <h2 className="text-sm font-extrabold text-white flex items-center gap-2">
             <Layers className="w-4 h-4 text-cyan-400" />
             {isArabic ? 'خدمات الفحص المقيسة' : 'Measured Scan Services'}
+            {services.length ? (
+              <span data-testid="scan-services-count" className="px-1.5 py-0.5 rounded bg-[#0e213d] border border-[#1b3a63] text-[9px] font-mono font-bold text-slate-300">
+                {services.length}
+              </span>
+            ) : null}
           </h2>
           <p className="scan-services-copy text-[11px] text-slate-300 mt-0.5 font-medium">
             {isArabic
@@ -74,19 +89,39 @@ export const ScanServices: React.FC<ScanServicesProps> = ({
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={onOpenCustomScan}
-          disabled={!nativeAvailable || !services.length}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0e213d] hover:bg-[#163158] border border-cyan-500/30 text-xs text-cyan-300 font-bold transition cursor-pointer shadow-sm shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          <Settings className="w-3.5 h-3.5 text-cyan-400" />
-          <span>{isArabic ? 'فحص مخصص' : 'Custom Scan'}</span>
-        </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            data-testid="scan-services-prev"
+            onClick={() => scrollStrip(-1)}
+            aria-label={isArabic ? 'تمرير الخدمات لليمين' : 'Scroll services left'}
+            className="p-1.5 rounded-lg bg-[#0e213d] hover:bg-[#163158] border border-cyan-500/30 text-cyan-300 transition cursor-pointer"
+          >
+            {isArabic ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            type="button"
+            data-testid="scan-services-next"
+            onClick={() => scrollStrip(1)}
+            aria-label={isArabic ? 'تمرير الخدمات لليسار' : 'Scroll services right'}
+            className="p-1.5 rounded-lg bg-[#0e213d] hover:bg-[#163158] border border-cyan-500/30 text-cyan-300 transition cursor-pointer"
+          >
+            {isArabic ? <ChevronLeft className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            type="button"
+            onClick={onOpenCustomScan}
+            disabled={!nativeAvailable || !services.length}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0e213d] hover:bg-[#163158] border border-cyan-500/30 text-xs text-cyan-300 font-bold transition cursor-pointer shadow-sm shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            <Settings className="w-3.5 h-3.5 text-cyan-400" />
+            <span>{isArabic ? 'فحص مخصص' : 'Custom Scan'}</span>
+          </button>
+        </div>
       </div>
 
       {services.length ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
+        <div ref={stripRef} data-testid="scan-services-strip" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5">
           {services.map((service) => {
             const IconComp = ICONS[service.iconName] || Lightbulb;
             const isSelected = activeServiceId === service.id;

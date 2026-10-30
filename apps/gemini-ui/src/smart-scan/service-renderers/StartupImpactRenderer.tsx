@@ -33,15 +33,15 @@ export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service,
         <WorkspaceLink workspace="startup" labelEn="Startup Control" labelAr="التحكم بالإقلاع" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'عناصر الإقلاع' : 'Startup entries'} value={countLabel(items.length, isArabic)} sub={`${sourceEntries.length} ${isArabic ? 'مصادر مقيسة' : 'measured sources'}`} />
         <Metric label={isArabic ? 'قابلة للكتابة' : 'Writable entries'} value={countLabel(writable, isArabic)} sub={isArabic ? 'من الجرد المقيس' : 'from measured inventory'} tone="amber" />
         <Metric label={isArabic ? 'مصادر' : 'Sources'} value={String(sourceEntries.length)} sub={sourceEntries[0]?.[0] || (isArabic ? 'لا مصدر' : 'no source')} />
         <Metric label={isArabic ? 'زمن الإقلاع' : 'Boot time'} value={isArabic ? 'غير مقيس' : 'Not measured'} sub={isArabic ? 'لا تُعرض ثوانٍ مزعومة' : 'no fabricated seconds'} tone="rose" />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
-        <div className="sm:col-span-2 rounded-xl border border-[#133059] bg-[#091a38] p-3">
+      <div className="scan-split scan-split-2-3 gap-2">
+        <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="text-[10px] font-bold text-rose-300 mb-2">{isArabic ? 'التوزيع حسب المصدر' : 'Measured source distribution'}</div>
           <div className="space-y-1.5">
             {sourceEntries.map(([source, count]) => {
@@ -62,7 +62,7 @@ export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service,
           </div>
         </div>
 
-        <div className="sm:col-span-3 rounded-xl border border-[#133059] bg-[#091a38] p-3">
+        <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="text-[10px] font-bold text-rose-300 mb-2">{isArabic ? 'العناصر المقيسة' : 'Measured entries'}</div>
           <div className="space-y-1 max-h-40 overflow-y-auto knx-custom-scrollbar">
             {items.map((item) => (

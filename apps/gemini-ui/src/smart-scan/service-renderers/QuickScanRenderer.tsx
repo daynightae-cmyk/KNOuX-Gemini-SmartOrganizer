@@ -33,14 +33,14 @@ export const QuickScanRenderer: React.FC<ServiceRendererProps> = ({ service, isA
         </span>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'ملفات مفهرسة' : 'Indexed files'} value={countLabel(totals?.files, isArabic)} sub={byteLabel(totals?.bytes, isArabic)} />
         <Metric label={isArabic ? 'وحدات تخزين' : 'Mounted volumes'} value={String(volumes.length)} sub={`${volumes.filter((volume) => volume.isLowSpace).length} ${isArabic ? 'منخفضة' : 'low space'}`} tone="amber" />
         <Metric label={isArabic ? 'حمل المعالج' : 'CPU load'} value={system?.cpuLoadPercent == null ? '—' : `${system.cpuLoadPercent}%`} sub={isArabic ? 'لحظة الفحص' : 'momentary sample'} />
         <Metric label={isArabic ? 'خدمات ويندوز' : 'Windows services'} value={summary ? countLabel(summary.total, isArabic) : '—'} sub={summary ? `${countLabel(summary.running, isArabic)} ${isArabic ? 'قيد التشغيل' : 'running'}` : (isArabic ? 'غير متاح' : 'unavailable')} tone="emerald" />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div className="scan-split gap-2">
         <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-cyan-300 mb-2">
             <HardDrive className="w-3.5 h-3.5" />
