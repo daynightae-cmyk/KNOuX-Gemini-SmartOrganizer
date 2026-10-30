@@ -1,0 +1,3712 @@
+{
+  "domain": "System",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "9abe50a0237d74e01d25bb4f3bd4ccd27618a847",
+  "profileIsolated": true,
+  "sourceFiles": {
+    "src/pages/SystemPage.tsx": "e2a0b20626cc962f61a14531e2ce6197126c14eda3126a85137381ebcc083ffc",
+    "src/system/catalog.ts": "e2c37990179cc1cf88bc8122ebd6cddae34dc9c728ef755570c8dac7e3b6105f",
+    "src/system/model.ts": "c45f15daa4f652c84df7dd219d3adec8cab0cea4081e9c2c8bafd4bdc7e30a37",
+    "src/system/native.ts": "47e73ef85a1f16ee464d1abd8f49ba7827bccc358d60a7db0a9d692f845c8ce7",
+    "src/system/useSystem.ts": "9f3795b77ae6ac1186b1bfe41634df6d84361cbcdd655c51d9b6bb9d86c09c27",
+    "src/system/ui.tsx": "71be40f916070cfa054c909bba177cf60b3606c4d665dda4c3fa250f4d334c59",
+    "src/system/SystemServiceWorkspaces.tsx": "e0759d0fb143512d3a6efd9c1d3bff963c56d3e4e6d1cd38f5027fad0b04e46d",
+    "src/system/SystemWorkbenchesA.tsx": "f80ecb07e23281461c6dae77b5509e1f7ab0290299b3b68713f64187e26bb344",
+    "src/system/SystemWorkbenchesB.tsx": "6abbc6355ee490757aee72ddd8da47c15d02724720b73d29b6d3d784872d5d08",
+    "src/system/NetworkWorkbenches.tsx": "5032e6836edb2278f457017570921614dfa008cf2f1323a45a2c523ee566ceb2",
+    "src/system/HardwareWorkbenches.tsx": "5c38bd5f0300463d38751e8d0d9287b66c3084c3c1e0cc8dc1ebccad39a7563b",
+    "src/system.css": "c93fa43a1b0ceae9c405626cad527ce2149ec599a5ed8e00617d5f3e48d8ab1e",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "bbb3fa922c6877076afe040dccb51a8a08466a2ba8545f2e5cf4be4a9c136dd6",
+    "electron/native/system-bridge.cjs": "f6762a55245e7929ec3dc76fe30c036b9238bdea1ee0ce98906abd8e2b46b6f7",
+    "electron/native/system-providers.cjs": "80130a928b243f448a39e07a43e2c671612d58cd1c14ad542dad65eb3cfe4d72",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "captures": [
+    {
+      "file": "overview-1366x768-en-light.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "hash": "9bd3c6cb74e8a2366083c75fc949491a6ef17317df977a79daeb754fefeb14af",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1672x941-en-light.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "hash": "157cc76fc6fde008e91975de9901ae98ef9cadf59fbea56ed12022c8ba8551c7",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1920x1080-en-light.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "hash": "543781440cd5f6c2ff7268539ea71fee58fa8ce8d851b85aee9b035841089de6",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "system-health-check-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-health-check",
+      "hash": "d3bb091c65660a9a51b1aabcbc056c45eeb7af2ad24966ece1366a094b52255f",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-events-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-events",
+      "hash": "72777ef193655d2057e53456a6d2b2c8da3e9fe1a4f13846dd8d2efa72630967",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-processes-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-processes",
+      "hash": "c4fa35de794639d7843dbce9ba6c95ce6fb0799005d295bfddc256357b231ff3",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-signatures-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-signatures",
+      "hash": "e7616cc4bb5c7fa431bb29b90e8e2f50edd8e5d07ffd0891eb899e3037de68d6",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-uptime-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-uptime",
+      "hash": "c824bfeac0a3efc68df6928c99d77e9d0485718a065220801904ccc69c44cb19",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-perf-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-perf",
+      "hash": "6665801408eaa3797cb8c8a015e724d67fb39edb9c138724cd5779de1faed182",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-drivers-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-drivers",
+      "hash": "69c7ae289bfd168730f7f10602cfaa3e1706d1fe2cd6db8c74dc02b3ebe38b0c",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-logs-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-logs",
+      "hash": "22bc1f8e355178bb834b0a8fd82f3595a01a4a70004a6b6f3ead2e7fb74a93ce",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-resources-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-resources",
+      "hash": "07a3f0c683a6f8c6f8e28d73c5d9c627586df0daadc9fdb5e2fe952a525cbdf8",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-autostart-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-autostart",
+      "hash": "238e410aa24d5114c6ef2f853c14b7bf8a94045cb9d13370e7cadf369431aa1a",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-services-map-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-services-map",
+      "hash": "fadae98ef431d148c78d9aa835f87d64e908ba806db2e4a41a697fb0e2288503",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-timeline-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-timeline",
+      "hash": "8c8e392129a42158d12f625b36e704d3f1cffe95def3dad2d44ccd92fd88e013",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-interfaces-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-interfaces",
+      "hash": "8343fc1936e4297ee6492a7d3f1d4143ec563855b61b96d23be30c38fc8fda84",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-dns-config-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-dns-config",
+      "hash": "a05e0f9e79b80c862964a5dcbef228f2442bbcd1b1ca8b9d1bf4ad8789790716",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-adapters-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-adapters",
+      "hash": "b4543c8463cec5f929320f73e03919b04428bd6dcb6473ab88eccf26f90e589d",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-connectivity-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-connectivity",
+      "hash": "7118207ca29d38a77ffaaf52696a48a11351f2289964a7a45782ae662e939772",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-throughput-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-throughput",
+      "hash": "bcfe13a571cd6e3405a12bea080ed564c585423558df0835aecf8e81a080a8bf",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-traceroute-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-traceroute",
+      "hash": "ef6f46f8f968967f9a9def9724ddd09ad97bcc7ffb424b5c3b2fc528c3849605",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-topology-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-topology",
+      "hash": "f2d1bc1fc4628410e4a4a22e4d370349525f629146419e2852087f8b9b4ab1fa",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-ports-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-ports",
+      "hash": "89d930d7f51bf6b86f4d61370d5212e1247d8cff95266d3564b83d1fa35419e6",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-wifi-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-wifi",
+      "hash": "56730f4c6318f781a5db80a32873c94267ed140c9067b02dea395bcf09f34452",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-hosts-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-hosts",
+      "hash": "9e37b6a21ec815fdde10e820d151b95f3f1ff52c159ee5f8e84b41ce5b5c87db",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-proxies-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-proxies",
+      "hash": "192690cbac29a67028b43df1b418e947bd4fa3bf9091e8382ad54e5b4854e8a6",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-repair-link-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-repair-link",
+      "hash": "6dc17d6d6768eeb0aaf564ff15e28447c2a50b38a3b7b6ff90babcd7fb252084",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-inventory-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-inventory",
+      "hash": "63fa7a14689aed38eb64268dbbadfd4a8ab875dba54db557106a321e275decdd",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-battery-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-battery",
+      "hash": "47da792563a5dc7d6c30e045e48999319c85f7372bb831ba8d3b448b554fed1f",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-cpu-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-cpu",
+      "hash": "bfabc89ce042833a28875e93a9f72f1c887941deb09e0e422f76863c8dfa06d8",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-gpu-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-gpu",
+      "hash": "c520b45febfbfbc65ea92114ed8ae2e0b84ce9158ddcdbc4719eeba46b30b832",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-memory-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-memory",
+      "hash": "ce2bf18936e84c08b3687a3488cb4b6599957d21f7a16d0d026263881a799d4b",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-cycles-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-cycles",
+      "hash": "7c8d5d45f133b1bf0d90ba3935ce60450c965727d625b5cc129d6b519d6fd696",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-thermal-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-thermal",
+      "hash": "cff99f59a94630d3844d89f512bff8a037b6d40d40de1cbf848f049aa186a26e",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-disks-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-disks",
+      "hash": "8c443ca044875292527b19c4c3d3247e8e23c5807f5ff6b7237c617f333e6216",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-usb-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-usb",
+      "hash": "e6d0020840f21884a26f8a69c9cc304385a16264ba3cd430a348eeb141f2404b",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-display-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-display",
+      "hash": "02d1fb3f1d377008a3dac03bd6a762260f869baa36114c0a355f5f83ba7a45ae",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-audio-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-audio",
+      "hash": "5c626b5780cb88858f2cbe68797f7486cc6bb9ad6f6732e47d1e7dfdf613033a",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-health-report-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-health-report",
+      "hash": "a699be26196d2d45c438f4b3be58f3988ebba65148d5e842721376d691036001",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-health-check-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-health-check-expanded",
+      "hash": "a4c251ba9181da17dc15a865301fce261640ab6351163e0b640173e05382c549",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "system-processes-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-processes-expanded",
+      "hash": "54c8f7bb0445526a240927b2c0092ad5996c4f43ce49a2acb96ddb7f9a1d0049",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "system-events-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-events-expanded",
+      "hash": "c7d06e9f2f75668569ef56e9a0246f9e7bf264c8bb464a6b1d2827f840cf4fd2",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "system-services-map-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system-services-map-expanded",
+      "hash": "c336d83a4f722e758f7955ac582685c4ae2b47dbb59d9a51425ba3b9a3060d2a",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "network-topology-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-topology-expanded",
+      "hash": "bac9550acac46d16f121bc677e49a3769e17d9a968657a1037593a0778d89c9e",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "network-hosts-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "network-hosts-expanded",
+      "hash": "94b80307e269a51a3f85491f668f31536700cf5fbe23d6c1dd3251dd1584d87d",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "hardware-inventory-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-inventory-expanded",
+      "hash": "94fa99f9b95872ece4f37e09382f91df516c9bd461cb46aa9a990d5a36d7d4be",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "hardware-health-report-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hardware-health-report-expanded",
+      "hash": "0f4e30aa838c4d8a7b4ae44d777c1c96a816800e7c3be008f502a846586f538e",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "expanded"
+      }
+    },
+    {
+      "file": "overview-1672x941-ar-dark.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "hash": "ad337195d1888e8084481bc63856081e930fcc61f2bf29d0a0bc3c0213827ee1",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "system-health-check-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-health-check",
+      "hash": "201c268abde1958bb4abc8b713354668758f5e0b60d0e15ae910f98eca0e1291",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-events-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-events",
+      "hash": "1af70e3941d56e5067d8062e6bcbcb38ce72e05d9440d9fee8c8cf8250cde1cf",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-processes-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-processes",
+      "hash": "a970e2a69a9fa8e6cc97d3625174411cabc4c43bf088d628e1911d68fc8d8b69",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-signatures-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-signatures",
+      "hash": "5d3003c340e14d98234c42c857ed76b5ac515b5f3cce4b79ed236cec1186552e",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-uptime-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-uptime",
+      "hash": "d284c6a9890cf6bbc74f5a0a805bb79a8fb0f53acc6c901dc39b35d327790dee",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-perf-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-perf",
+      "hash": "732970c1cd5ceb917186ff8f7bd596cd961e6a5760ec6aa96484f7ea942bb2ab",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-drivers-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-drivers",
+      "hash": "7848270ff6c32ae09641310006505c398ae8f7c7522af9b15ebaf2b6209bf4b1",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-logs-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-logs",
+      "hash": "be3ab274d880710c795e2fc668010c12031f178ca36deafec3cecc7e84b2dfe1",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-resources-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-resources",
+      "hash": "785242543c5506e22a60e260bfeee1820112ab4738ba865fb4acab3def60e459",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-autostart-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-autostart",
+      "hash": "8a1d8c96f4d37bd9dc0bf05f6064358a16b3125bd4db95572854ed7704b9a995",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-services-map-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-services-map",
+      "hash": "84f6f5947ff784daf0651313c01ad8ea1ef2f78019b7bcf4893f66a6529aba40",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system-timeline-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system-timeline",
+      "hash": "2465d102d348bb327b35631a64d0b5de5c230b4354fe137e09f81f3712b29433",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-interfaces-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-interfaces",
+      "hash": "219a50e0d4f7be163fb6b1111c9feff3fa30a0fd26ed12b481e6cbb9d991e07c",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-dns-config-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-dns-config",
+      "hash": "e7fbbed2fff47320f220bc4fb91fc25e196cd4bbb543f4d16aeee5c09fa11295",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-adapters-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-adapters",
+      "hash": "a353357437dde81e2c717e44d940a2bca9b3db8b1bd2df97600cc544d5432857",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-connectivity-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-connectivity",
+      "hash": "7fbba786491dab8fe76c0e49ecf3868b9a14560766f1fd200cc4663dbe5a7b39",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-throughput-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-throughput",
+      "hash": "d8991fb289ae9cd480ffa6335cee2a2dcdc61a7fea5561b2c77871b96d8fbde5",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-traceroute-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-traceroute",
+      "hash": "2c21577b16145ed9160684ddf697f1f2e4cef7ae7c5fcc2cec22b703f50ea621",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-topology-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-topology",
+      "hash": "7191fad1ba4a4f10eb34227494ee030431dbc98f3fb466b61bf2d46534ce83ee",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-ports-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-ports",
+      "hash": "7c61467ca4ed19a198a002a0ae22ad5a130d5c11bb398e65448562942554816d",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-wifi-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-wifi",
+      "hash": "ea2af30ae24eea814e92b707ec63bbd3c7af2503200e94a7b1a17c77e773ac39",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-hosts-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-hosts",
+      "hash": "ad343d713b2665b75aa78e52c070a80dbe9ba9f68ca9be3912bb60e10a9e46a1",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-proxies-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-proxies",
+      "hash": "98e9d81864c9fe3e4272ea2a85488ee28d465a06c620087e6a52d544bdc8424f",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "network-repair-link-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "network-repair-link",
+      "hash": "2bbfa092d271278afd26851f07fa037a4f104d6a28f5d548716959a074ea571f",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-inventory-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-inventory",
+      "hash": "640fee361e767fcce0f3ef694a472e0f6e9827d7b65dd0cef67ffb602657a195",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-battery-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-battery",
+      "hash": "d0067fcd295b1e39ea6218edd232a1d268a85875acaf17f98fbd2e3eccb10207",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-cpu-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-cpu",
+      "hash": "0074678bab238a59ba3939693a81d5703a18ef32967fc7add7259af91aed1b7d",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-gpu-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-gpu",
+      "hash": "7c2473b8c4130126ffa1b8832260a41423d076743378bf1633ec6c6b9edcdc6f",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-memory-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-memory",
+      "hash": "28d4b1c995892656a8d615eea66bd0e5515b04f63b0bd13f0cf0a3806faeff2e",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-cycles-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-cycles",
+      "hash": "2beacd2494169b3ce660ef43b2b611082a5050f6b99c1213f877cb52f0dbb6c3",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-thermal-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-thermal",
+      "hash": "e65d9e155e6b77934397407c468518de32d724a5270ac732c345a9140d3675e9",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-disks-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-disks",
+      "hash": "853e2f16179eadda16aa95435caa630529dc669cc9695c01a07cb3c01085b376",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-usb-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-usb",
+      "hash": "1ae25ceb337ac1931620cc97d5c316796aaf561cc49091c30ebac5cb4dcf1eae",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-display-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-display",
+      "hash": "b0d4ab7f0330dc42804260626fc737a3568397db0f4c6b10b0b4f5d279d07c32",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-audio-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-audio",
+      "hash": "a0f3cf71ec62a23662cda03f5a5ff7ff9abf910ac64c58c619315afdb4966b77",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hardware-health-report-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hardware-health-report",
+      "hash": "eb84d0157c1b599f550067a0f4ee1c3078cfcbf432acadbf6276dfb85c0a9a3c",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "cards": 13,
+        "workbench": "side"
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "system-health-check",
+      "locale": "en",
+      "theme": "light",
+      "signature": "02a6fd0ff51d54aa",
+      "text": "Service 01 · system-health-checkLive Pulse OverviewFour measured instruments with source chips and a timestamped performance series.AvailableRead-onlyPerfOSCPU loadMeasured44.0%3.2 GHz—MemoryMeasured8",
+      "controls": 11,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-events",
+      "locale": "en",
+      "theme": "light",
+      "signature": "3eab12b8c9ed67a3",
+      "text": "Service 02 · system-eventsEvent Severity LedgerBounded System and Application warnings and errors with a severity timeline.AvailableRead-onlyGet-WinEvent System/ApplicationAll channelsApplicationSyste",
+      "controls": 110,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 182
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 12,
+      "tables": []
+    },
+    {
+      "key": "system-processes",
+      "locale": "en",
+      "theme": "light",
+      "signature": "0775ae8688d915d7",
+      "text": "Service 03 · system-processesActive Process RegisterMeasured PIDs, parent PIDs, working sets, threads and CPU share. Termination is not exposed.AvailableRead-onlyWin32_ProcessCPURAMPIDNameThreadsVerif",
+      "controls": 11,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "sys-panel-body sys-panel-body-flush",
+          "over": 3
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-pager",
+          "over": 3
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 23
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 11
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "system-signatures",
+      "locale": "en",
+      "theme": "light",
+      "signature": "5e00100fcff75636",
+      "text": "Service 04 · system-signaturesBinary Certificate InspectorAuthenticode verification for a bounded set of measured executable paths.AvailableRead-onlyGet-AuthenticodeSignatureMeasured binaries53 candid",
+      "controls": 58,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 36
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 115
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 5
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 15
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 49
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 239
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 11
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 150
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 10,
+      "tables": []
+    },
+    {
+      "key": "system-uptime",
+      "locale": "en",
+      "theme": "light",
+      "signature": "46dc9eea60dbc9fe",
+      "text": "Service 05 · system-uptimeBoot & Session ClockLast boot, live uptime and measured boot diagnostics. No shutdown reason is invented.AvailableRead-onlyWin32_OperatingSystemActive session clock7d 09:24:5",
+      "controls": 6,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-perf",
+      "locale": "en",
+      "theme": "light",
+      "signature": "69c7b426287d65e2",
+      "text": "Service 06 · system-perfLive Performance PulseLive CPU, memory, disk and network samples with measured timestamps.AvailableRead-onlyPerfOS / PerfDisk / Tcpip counters1s5s15sPause local chartSample now",
+      "controls": 17,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-drivers",
+      "locale": "en",
+      "theme": "light",
+      "signature": "668f56fa8d7e6e6d",
+      "text": "Service 07 · system-driversDriver Inventory & SignaturesSigned-driver inventory with provider, version, INF and WHQL evidence.AvailableRead-onlyWin32_PnPSignedDriverAll classesAUDIOENDPOINTBLUETOOTHCD",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name",
+          "over": 105
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 1,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 697,
+          "scroll": 697,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "system-logs",
+      "locale": "en",
+      "theme": "light",
+      "signature": "55ae38d412c855b5",
+      "text": "Service 08 · system-logsEvent Log Channel ExplorerChannel paths, sizes, retention and record counts. Log clearing is not exposed.AvailableRead-onlyGet-WinEvent -ListLogRecordsSizeNameEnabled onlyChann",
+      "controls": 8,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 19
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 24
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 77
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 72
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 5
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 62
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 34
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 77
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 12,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "system-resources",
+      "locale": "en",
+      "theme": "light",
+      "signature": "34add8de28070d11",
+      "text": "Service 09 · system-resourcesTop Resource ConsumersRanks measured processes by CPU, memory, disk or handles. Protected processes stay read-only.AvailableRead-onlyWin32_ProcessCPU shareWorking setHandl",
+      "controls": 19,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-autostart",
+      "locale": "en",
+      "theme": "light",
+      "signature": "39217ddf7d0da000",
+      "text": "Service 10 · system-autostartApp-to-Process LinksCross-links autoruns to measured processes and services; unresolved rows stay unlinked.PartialRead-onlyWin32_StartupCommandAllProcessServiceUnlinkedAll",
+      "controls": 18,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-services-map",
+      "locale": "en",
+      "theme": "light",
+      "signature": "59c3d77be168b8d3",
+      "text": "Service 11 · system-services-mapService Dependency GraphDirected dependency map with protected-service badges. Service control is not exposed.AvailableRead-onlyWin32_ServiceAllRunningStoppedProtected ",
+      "controls": 209,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-timeline",
+      "locale": "en",
+      "theme": "light",
+      "signature": "11b9e95dfa1b0373",
+      "text": "Service 12 · system-timelineUnified Event TimelineWindows and observation lanes are measured; the KNOuX lane is empty because nothing was mutated.PartialRead-onlyMeasured Windows eventsAll lanesWindow",
+      "controls": 62,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-interfaces",
+      "locale": "en",
+      "theme": "light",
+      "signature": "150262c79b1fd7e1",
+      "text": "Service 13 · network-interfacesNetwork Interfaces ConsoleMeasured adapter, address, gateway, DNS and DHCP state for every interface.AvailableRead-onlyGet-NetAdapterAllUpDownShow virtualWindows network",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "network-dns-config",
+      "locale": "en",
+      "theme": "light",
+      "signature": "2604e6c5a05a629b",
+      "text": "Service 14 · network-dns-configDNS Resolver DossierPer-adapter resolvers, suffix search and a bounded test query draft.AvailableRead-onlyGet-DnsClientResolver mapTest queryWindows network settingsUniq",
+      "controls": 5,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-adapters",
+      "locale": "en",
+      "theme": "light",
+      "signature": "09252fefa9d57aff",
+      "text": "Service 15 · network-adaptersNetwork Hardware AtlasPhysical and virtual adapter rack with measured link, MAC and bus evidence.AvailableRead-onlyGet-NetAdapterAll adaptersPhysicalVirtualUnknownWindows ",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-connectivity",
+      "locale": "en",
+      "theme": "light",
+      "signature": "23c48c93be852a91",
+      "text": "Service 16 · network-connectivityConnectivity DiagnosticBounded DNS, TCP and HTTP sequence against one validated target.AvailableRead-onlyNode dns / net / httpDNSTCPHTTPICMPTargetRun diagnosticTarget ",
+      "controls": 10,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-throughput",
+      "locale": "en",
+      "theme": "light",
+      "signature": "48751d30dfcdc879",
+      "text": "Service 17 · network-throughputReal-Time Traffic PulseMeasured download and upload counters with pause and unit controls. No traffic is generated.AvailableRead-onlyGet-Counter Network Interface1s5s15s",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-traceroute",
+      "locale": "en",
+      "theme": "light",
+      "signature": "d32e985081973d5f",
+      "text": "Service 18 · network-tracerouteHop Route VisualizerBounded hop trace on explicit request with measured loss and timeout markers.AvailableRead-onlytracert executable, fixed argumentsTarget5 hops8 hops1",
+      "controls": 5,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "sys-panel-body sys-panel-body-flush",
+          "over": 76
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-hop-ladder",
+          "over": 76
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-hop-row",
+          "over": 76
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-hop-copy",
+          "over": 83
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-mono",
+          "over": 83
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-hop-copy",
+          "over": 7
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-mono",
+          "over": 7
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-hop-row",
+          "over": 9
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-topology",
+      "locale": "en",
+      "theme": "light",
+      "signature": "fb2e6a2da687188d",
+      "text": "Service 19 · network-topologyLAN Topology MapOnly observed ARP/NDP neighbors and routes. No subnet sweep or packet injection.PartialRead-onlyGet-NetNeighborAllIPv4IPv6NeighboursRoutesObserved LAN only",
+      "controls": 7,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-ports",
+      "locale": "en",
+      "theme": "light",
+      "signature": "ee79b717677feb93",
+      "text": "Service 20 · network-portsActive Socket ExplorerActive TCP/UDP endpoints with measured process owners. No socket is closed.AvailableRead-onlyGet-NetTCPConnectionAllTCPUDPAny stateListeningEstablishedT",
+      "controls": 11,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 15
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 3
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "network-wifi",
+      "locale": "en",
+      "theme": "light",
+      "signature": "201ebadc347d3d90",
+      "text": "Service 21 · network-wifiWi-Fi Signal InstrumentSignal, radio and profile evidence when the Windows WLAN service answers.PartialRead-onlynetsh wlan show interfaces / profilesconnectedWindows Wi-Fi set",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "sys-kv-grid sys-kv-grid-2",
+          "over": 8
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value sys-mono",
+          "over": 67
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-field",
+          "over": 7
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-field-label",
+          "over": 7
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value",
+          "over": 19
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-field",
+          "over": 8
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-field-label",
+          "over": 8
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value",
+          "over": 19
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 6,
+      "tables": []
+    },
+    {
+      "key": "network-hosts",
+      "locale": "en",
+      "theme": "light",
+      "signature": "e0922321fcdb562b",
+      "text": "Service 22 · network-hostsWindows Hosts InspectorReads the real hosts file. Draft edits are immutable previews; writing is gated.GatedRead-onlyC:\\Windows\\System32\\drivers\\etc\\hostsReadableCopy pathCop",
+      "controls": 31,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-proxies",
+      "locale": "en",
+      "theme": "light",
+      "signature": "2fb7d64dd4743e4a",
+      "text": "Service 23 · network-proxiesProxy & WinHTTP GraphReads WinINET, WinHTTP and auto-detect lanes with provenance. Nothing is written.AvailableRead-onlyInternet SettingsEffective: directWindows network se",
+      "controls": 6,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-repair-link",
+      "locale": "en",
+      "theme": "light",
+      "signature": "5e13a9cc599b0316",
+      "text": "Service 24 · network-repair-linkNetwork Recovery PreviewStages DNS flush, Winsock reset and TCP/IP reset previews. Execution is not exposed.GatedRead-onlyLocal gated preview over measured evidenceReco",
+      "controls": 7,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "sys-wb-identity",
+          "over": 5
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-wb-copy",
+          "over": 5
+        },
+        {
+          "tag": "H2",
+          "cls": "",
+          "over": 5
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-inventory",
+      "locale": "en",
+      "theme": "light",
+      "signature": "3444af2c01fbc6db",
+      "text": "Service 25 · hardware-inventoryDevice Hardware AtlasMeasured system, CPU, GPU, memory, disk, battery, USB, display and audio inventory.AvailableRead-onlyCIMOverviewComponentsProblem devicesInclude ide",
+      "controls": 5,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-battery",
+      "locale": "en",
+      "theme": "light",
+      "signature": "5dc206718361704e",
+      "text": "Service 26 · hardware-batteryBattery Charge & HealthCharge, power source and capacity are measured. Cycle count appears only when Windows exposes it.PartialRead-onlyWin32_BatteryNo battery reportedWin",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-cpu",
+      "locale": "en",
+      "theme": "light",
+      "signature": "f28f65ca1e33e79f",
+      "text": "Service 27 · hardware-cpuProcessor Architecture & Core DieCores, logical processors, clock, cache and virtualization firmware evidence from CIM.AvailableRead-onlyWin32_ProcessorShow processor IDCPUPro",
+      "controls": 3,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-gpu",
+      "locale": "en",
+      "theme": "light",
+      "signature": "b6c9cafbe43138a5",
+      "text": "Service 28 · hardware-gpuGraphics Adapter BayAdapter, driver and VRAM values are measured. DirectX/Vulkan support is not inferred from a name.PartialRead-onlyWin32_VideoControllerWindows display setti",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value sys-mono",
+          "over": 26
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 1,
+      "tables": []
+    },
+    {
+      "key": "hardware-memory",
+      "locale": "en",
+      "theme": "light",
+      "signature": "fde011b43b386f77",
+      "text": "Service 29 · hardware-memoryDIMM Slots & Memory LayoutModule size, locator, bank, speed and manufacturer as reported by Windows.AvailableRead-onlyWin32_PhysicalMemoryReported total12.0 GBModules2Locat",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-cycles",
+      "locale": "en",
+      "theme": "light",
+      "signature": "2fbd066ad7e76505",
+      "text": "Service 30 · hardware-cyclesBattery Wear & Cycle LedgerReports only Windows-provided cycle and reliability counters; unavailable fields stay unknown.PartialRead-onlyBatteryCycleCountBattery wearStorag",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-thermal",
+      "locale": "en",
+      "theme": "light",
+      "signature": "3ad05eca01ba5bbd",
+      "text": "Service 31 · hardware-thermalThermal Sensors BoardShows readings only when firmware exposes them. No sensor is simulated when Windows denies access.PartialRead-onlyMSAcpi_ThermalZoneTemperatureNo ther",
+      "controls": 1,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-disks",
+      "locale": "en",
+      "theme": "light",
+      "signature": "81e3717df802424a",
+      "text": "Service 32 · hardware-disksPhysical Disks & Bus InterfaceDisk model, bus, media, health and available reliability counters. No SMART command is invented.AvailableRead-onlyGet-PhysicalDiskPhysical disk",
+      "controls": 3,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-usb",
+      "locale": "en",
+      "theme": "light",
+      "signature": "ae68fc94ad690b5e",
+      "text": "Service 33 · hardware-usbUSB Controller & Device TreeController, hub and device evidence from CIM. Speed and power stay unknown when Windows omits them.AvailableRead-onlyWin32_USBControllerAllControll",
+      "controls": 18,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-display",
+      "locale": "en",
+      "theme": "light",
+      "signature": "99c1928a3bea1473",
+      "text": "Service 34 · hardware-displayMonitor Topology & ResolutionMeasured monitor identity, current mode and refresh. HDR stays unknown without a supported provider.PartialRead-onlyWmiMonitorIDWindows displa",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-audio",
+      "locale": "en",
+      "theme": "light",
+      "signature": "e24d2495a59dbec7",
+      "text": "Service 35 · hardware-audioAudio Endpoint MixerEndpoint names, status and controllers are measured. Default-device claims require CoreAudio.PartialRead-onlyWin32_SoundDeviceAllOutputInputWindows sound",
+      "controls": 13,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 35
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 32
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 68
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 32
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 19
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 5,
+      "tables": []
+    },
+    {
+      "key": "hardware-health-report",
+      "locale": "en",
+      "theme": "light",
+      "signature": "8454a7bcb7b5a07f",
+      "text": "Service 36 · hardware-health-reportHardware Evidence ReportBuilds a redacted read-only report that separates validated components from unknown readings.AvailableRead-onlyMeasured snapshot onlyRedact s",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-health-check",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "a251e122405c6c93",
+      "text": "خدمة 01 · system-health-checkنظرة النبض الحيويأربع أدوات قياس مقيسة مع شارات المصدر وسلسلة أداء موقوتة.متاحللقراءة فقطPerfOSحمل المعالجمقيس44.0%3.2 GHz—الذاكرةمقيس88.5%10.5 GB / 11.9 GB—إدخال/إخراج ال",
+      "controls": 11,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-events",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "044b7f876852cf21",
+      "text": "خدمة 02 · system-eventsسجل شدة الأحداثتحذيرات وأخطاء محدودة من System وApplication مع خط زمني للشدة.متاحللقراءة فقطGet-WinEvent System/Applicationكل القنواتApplicationSystemالكلخطأتحذيرمعلومات24 ساعة7",
+      "controls": 110,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 182
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "over": 1736
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 12,
+      "tables": []
+    },
+    {
+      "key": "system-processes",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "37a3aca1bfc77f02",
+      "text": "خدمة 03 · system-processesسجل العمليات النشطةمعرفات العمليات والآباء ومجموعات العمل والخيوط وحصة المعالج. الإنهاء غير متاح.متاحللقراءة فقطWin32_ProcessالمعالجالذاكرةPIDالاسمالخيوطتحقق من التوقيعسجل ال",
+      "controls": 11,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "sys-panel-body sys-panel-body-flush",
+          "over": 3
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-pager",
+          "over": 3
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 13
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 11
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "system-signatures",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "5a377f8c4c256b08",
+      "text": "خدمة 04 · system-signaturesفاحص شهادات الملفاتتحقق Authenticode لمجموعة محدودة من مسارات الملفات التنفيذية المقيسة.متاحللقراءة فقطGet-AuthenticodeSignatureالملفات المقيسة53 مسار مرشحadb.exeK:\\Android\\",
+      "controls": 58,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 30
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 93
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 44
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 215
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 9
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 123
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-name",
+          "over": 11
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-binary-path sys-mono",
+          "over": 39
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 8,
+      "tables": []
+    },
+    {
+      "key": "system-uptime",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "e0ee78e1635086e7",
+      "text": "خدمة 05 · system-uptimeساعة الإقلاع والجلسةآخر إقلاع ومدة التشغيل وأحداث تشخيص الإقلاع المقيسة. لا يُختلق سبب الإيقاف.متاحللقراءة فقطWin32_OperatingSystemساعة الجلسة النشطة7d 09:27:507d 9h 27m · 23‏/1",
+      "controls": 6,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-perf",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "2d570db0f9e05142",
+      "text": "خدمة 06 · system-perfنبض الأداء الحيعينات حية للمعالج والذاكرة والقرص والشبكة بطوابع زمنية مقيسة.متاحللقراءة فقطPerfOS / PerfDisk / Tcpip counters1s5s15sإيقاف المخطط مؤقتًاقياس الآنالمعالجالذاكرةالقرص",
+      "controls": 17,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-drivers",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "9fdfd6602a282720",
+      "text": "خدمة 07 · system-driversجرد برامج التشغيل والتواقيعجرد برامج التشغيل الموقعة مع المزود والإصدار وINF وأدلة WHQL.متاحللقراءة فقطWin32_PnPSignedDriverكل الفئاتAUDIOENDPOINTBLUETOOTHCDROMCOMPUTERDISKDRIV",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name",
+          "over": 105
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 1,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 683,
+          "scroll": 683,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "system-logs",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "3914c04fed2909fa",
+      "text": "خدمة 08 · system-logsمستكشف قنوات سجل الأحداثمسارات القنوات وأحجامها وسياسة الاحتفاظ وعدد السجلات. مسح السجل غير متاح.متاحللقراءة فقطGet-WinEvent -ListLogالسجلاتالحجمالاسمالممكّنة فقطالقنواتالسجلاتالق",
+      "controls": 8,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 19
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 24
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 77
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 72
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 5
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 62
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 34
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-row-name sys-mono",
+          "over": 77
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 12,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "system-resources",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "9a748c81f6b395cd",
+      "text": "خدمة 09 · system-resourcesأعلى مستهلكي الموارديرتب العمليات المقيسة حسب المعالج أو الذاكرة أو القرص أو المقابض. العمليات المحمية للقراءة فقط.متاحللقراءة فقطWin32_Processحصة المعالجمجموعة العملالمقابضا",
+      "controls": 19,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-autostart",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "5948588242c914ff",
+      "text": "خدمة 10 · system-autostartروابط التطبيقات والعملياتيربط مداخل البدء بالعمليات والخدمات المقيسة؛ الصفوف غير المحلولة تبقى غير مرتبطة.جزئيللقراءة فقطWin32_StartupCommandالكلعمليةخدمةغير مرتبطكل النطاقات",
+      "controls": 18,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-services-map",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "edd11457597d0687",
+      "text": "خدمة 11 · system-services-mapرسم اعتماديات الخدماتخريطة اعتماديات موجهة مع شارات الخدمات المحمية. التحكم بالخدمات غير متاح.متاحللقراءة فقطWin32_Serviceالكلقيد التشغيلمتوقفةالمحمية فقط125 قيد التشغيل16",
+      "controls": 209,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "system-timeline",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "c0dac13b65ec9804",
+      "text": "خدمة 12 · system-timelineالخط الزمني الموحدمسارات Windows والملاحظات مقيسة؛ مسار KNOuX فارغ لأن شيئًا لم يُغيَّر.جزئيللقراءة فقطMeasured Windows eventsكل المساراتWindowsالمراقبةKNOuXكل الشدائدمعلوماتت",
+      "controls": 62,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-interfaces",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "9e61e88475f0909d",
+      "text": "خدمة 13 · network-interfacesوحدة تحكم واجهات الشبكةحالة المحول والعنوان والبوابة وDNS وDHCP المقيسة لكل واجهة.متاحللقراءة فقطGet-NetAdapterالكلمتصلةغير متصلةإظهار الافتراضيةإعدادات الشبكة في Windowsال",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "network-dns-config",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "96a1e4e1f09bbbe9",
+      "text": "خدمة 14 · network-dns-configملف محللات DNSمحللات لكل محول وبحث اللواحق ومسودة استعلام اختبار محدود.متاحللقراءة فقطGet-DnsClientخريطة المحللاتاستعلام اختبارإعدادات الشبكة في Windowsمحللات فريدة1محولات ",
+      "controls": 5,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-adapters",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "c2d5fb06cc98fe9e",
+      "text": "خدمة 15 · network-adaptersأطلس عتاد الشبكةرف المحولات الفعلية والافتراضية مع أدلة الوصلة وMAC والناقل.متاحللقراءة فقطGet-NetAdapterكل المحولاتفعليةافتراضيةمجهولةإعدادات الشبكة في Windowsفعلية2افتراضية",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-connectivity",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "45ac12516b7630b3",
+      "text": "خدمة 16 · network-connectivityتشخيص الاتصالتسلسل DNS وTCP وHTTP محدود مقابل هدف واحد مُتحقق منه.متاحللقراءة فقطNode dns / net / httpDNSTCPHTTPICMPالهدفتشغيل التشخيصالهدف متحققتسلسل التشخيصDNS · exampl",
+      "controls": 10,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-throughput",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "64e69dafcfc842bf",
+      "text": "خدمة 17 · network-throughputنبض حركة المرور الحيعدّادات التنزيل والرفع المقيسة مع التحكم بالإيقاف والوحدة. لا يُولَّد أي مرور.متاحللقراءة فقطGet-Counter Network Interface1s5s15sتلقائيKB/sMB/sإيقاف الق",
+      "controls": 9,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-traceroute",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "ace0e31a05772d55",
+      "text": "خدمة 18 · network-tracerouteمتتبع مسار القفزاتتتبع قفزات محدود عند الطلب الصريح مع علامات الفقد والمهلة المقيسة.متاحللقراءة فقطtracert executable, fixed argumentsالهدف5 قفزة8 قفزة10 قفزة12 قفزة15 قفزة",
+      "controls": 5,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-topology",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "3819d04bb52c060f",
+      "text": "خدمة 19 · network-topologyخريطة طوبولوجيا الشبكةفقط جيران ARP/NDP والمسارات المرصودة. لا مسح شبكة فرعية ولا حقن حزم.جزئيللقراءة فقطGet-NetNeighborالكلIPv4IPv6الجيرانالمساراتشبكة LAN المرصودة فقطالجيرا",
+      "controls": 7,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-ports",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "5ee05a74539adcbb",
+      "text": "خدمة 20 · network-portsمستكشف المقابس النشطةنقاط TCP/UDP النشطة مع مالكي العمليات المقيسين. لا يُغلق أي مقبس.متاحللقراءة فقطGet-NetTCPConnectionالكلTCPUDPأي حالةيستمعمؤسسTCP302UDP58يستمع0مؤسس0مستكشف ا",
+      "controls": 11,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 6
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "sys-btn sys-btn-quiet",
+          "over": 3
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 586,
+          "scroll": 586,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "network-wifi",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "2454a7e5c33952ab",
+      "text": "خدمة 21 · network-wifiأداة إشارة Wi-Fiأدلة الإشارة والراديو والملف الشخصي عندما تستجيب خدمة WLAN في Windows.جزئيللقراءة فقطnetsh wlan show interfaces / profilesconnectedإعدادات Wi-Fi في Windows99%الإش",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value sys-mono",
+          "over": 66
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-field",
+          "over": 5
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-field-label",
+          "over": 5
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value",
+          "over": 18
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value",
+          "over": 18
+        },
+        {
+          "tag": "DIV",
+          "cls": "sys-field",
+          "over": 6
+        },
+        {
+          "tag": "SPAN",
+          "cls": "sys-field-label",
+          "over": 6
+        },
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value",
+          "over": 44
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 6,
+      "tables": []
+    },
+    {
+      "key": "network-hosts",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "0e4a8be0b2710232",
+      "text": "خدمة 22 · network-hostsفاحص ملف hostsيقرأ ملف hosts الحقيقي. مسودات التعديل معاينات ثابتة؛ الكتابة محمية بموافقة.محميللقراءة فقطC:\\Windows\\System32\\drivers\\etc\\hostsمقروءنسخ المسارنسخ SHA-25607‏/12‏/2",
+      "controls": 31,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-proxies",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "c1ad5cf6a4d1157b",
+      "text": "خدمة 23 · network-proxiesرسم الوكيل وWinHTTPيقرأ مسارات WinINET وWinHTTP والاكتشاف التلقائي مع المصدر. لا يُكتب شيء.متاحللقراءة فقطInternet Settingsالفعال: directإعدادات الشبكة في WindowsWinINETمباشرل",
+      "controls": 6,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "network-repair-link",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "38a7f14e22fa6f6b",
+      "text": "خدمة 24 · network-repair-linkمعاينة استعادة الشبكةيهيّئ معاينات مسح DNS وإعادة Winsock وTCP/IP. التنفيذ غير متاح.محميللقراءة فقطLocal gated preview over measured evidenceمعاينة الاستعادةهيّئ خطة استعا",
+      "controls": 7,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-inventory",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "a8a454b68faaa589",
+      "text": "خدمة 25 · hardware-inventoryأطلس عتاد الجهازجرد مقيس للنظام والمعالج والرسوميات والذاكرة والقرص والبطارية وUSB والعرض والصوت.متاحللقراءة فقطCIMنظرة عامةالمكوناتالأجهزة المعطوبةتضمين المعرفاتتصدير الأط",
+      "controls": 5,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-battery",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "1b2479c2eac684c2",
+      "text": "خدمة 26 · hardware-batteryشحن البطارية وصحتهاالشحن ومصدر الطاقة والسعة مقيسة. عدد الدورات يظهر فقط عندما يوفره Windows.جزئيللقراءة فقطWin32_Batteryلم تُبلَّغ أي بطاريةلم يُعد Win32_Battery أي جهاز. هذ",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-cpu",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "4085a5e807eb55ca",
+      "text": "خدمة 27 · hardware-cpuبنية المعالج وقالب النوىالنوى والمعالجات المنطقية والتردد والذاكرة المخبئية وأدلة المحاكاة من CIM.متاحللقراءة فقطWin32_Processorإظهار معرف المعالجCPUحزمة المعالجIntel(R) Core(TM)",
+      "controls": 3,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-gpu",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "a59d13867bfc7166",
+      "text": "خدمة 28 · hardware-gpuخليج محولات الرسومياتالمحول وبرنامج التشغيل وVRAM مقيسة. دعم DirectX/Vulkan لا يُستنتج من الاسم.جزئيللقراءة فقطWin32_VideoControllerإعدادات العرض في WindowsIntel(R) HD Graphics 4",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "sys-field-value sys-mono",
+          "over": 26
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 1,
+      "tables": []
+    },
+    {
+      "key": "hardware-memory",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "bf529c5970dc876c",
+      "text": "خدمة 29 · hardware-memoryمنافذ DIMM وتخطيط الذاكرةحجم الشريحة والموقع والبنك والسرعة والمصنّع كما يبلّغ Windows.متاحللقراءة فقطWin32_PhysicalMemoryالإجمالي المبلّغ12.0 GBالشرائح2المواقع2الاستخدام الحي",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-cycles",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "b8b7be50677ec979",
+      "text": "خدمة 30 · hardware-cyclesسجل تآكل البطارية والدوراتيعرض فقط عدادات الدورات والموثوقية التي يوفرها Windows؛ الحقول غير المتاحة تبقى مجهولة.جزئيللقراءة فقطBatteryCycleCountتآكل البطاريةموثوقية التخزينلا",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-thermal",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "856dc85a16b2b184",
+      "text": "خدمة 31 · hardware-thermalلوحة مستشعرات الحرارةيعرض القراءات فقط عندما يكشفها البرنامج الثابت. لا يُحاكى مستشعر عند منع Windows.جزئيللقراءة فقطMSAcpi_ThermalZoneTemperatureلا قراءة حرارية متاحةالبرنام",
+      "controls": 1,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-disks",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "7a5f46720be12dd3",
+      "text": "خدمة 32 · hardware-disksالأقراص الفعلية وناقل الواجهةطراز القرص والناقل والوسائط والصحة وعدادات الموثوقية المتاحة. لا يُختلق أمر SMART.متاحللقراءة فقطGet-PhysicalDiskالأقراص الفعلية1السعة المبلّغة238 ",
+      "controls": 3,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-usb",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "d91fac2bc6d01382",
+      "text": "خدمة 33 · hardware-usbشجرة وحدات USB والأجهزةأدلة الوحدات والموزعات والأجهزة من CIM. السرعة والطاقة تبقى مجهولة عند إغفال Windows.متاحللقراءة فقطWin32_USBControllerالكلوحداتموزعاتأجهزةشجرة أجهزة USB11",
+      "controls": 18,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-display",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "acedfe8afac37bb7",
+      "text": "خدمة 34 · hardware-displayطوبولوجيا الشاشات والدقةهوية الشاشة والوضع الحالي ومعدل التحديث مقيسة. HDR يبقى مجهولًا دون مزود مدعوم.جزئيللقراءة فقطWmiMonitorIDإعدادات العرض في Windowsالوضع غير مُبلَّغLEN",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "hardware-audio",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "2d1a2b5251f0a24a",
+      "text": "خدمة 35 · hardware-audioمازج أجهزة الصوتأسماء نقاط الصوت وحالتها ووحدات التحكم مقيسة. ادعاء الجهاز الافتراضي يتطلب CoreAudio.جزئيللقراءة فقطWin32_SoundDeviceالكلإخراجإدخالإعدادات الصوت في WindowsHeadp",
+      "controls": 13,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 35
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 32
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 68
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 32
+        },
+        {
+          "tag": "STRONG",
+          "cls": "",
+          "over": 19
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 5,
+      "tables": []
+    },
+    {
+      "key": "hardware-health-report",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "16e82b5de1f7a233",
+      "text": "خدمة 36 · hardware-health-reportتقرير أدلة العتاديبني تقريرًا مقروءًا فقط ومُنقّحًا يفصل المكونات المتحقق منها عن القراءات المجهولة.متاحللقراءة فقطMeasured snapshot onlyتنقيح الأرقام التسلسلية ومعرفات",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    }
+  ],
+  "probes": [
+    {
+      "probe": "system-snapshot",
+      "banner": "Measured observatory320 processes · 272 services · 300 events · 4 interfaces · 30 Oct 2026, 21:31MEASURED",
+      "footer": "Measured snapshot ready320 processes · 272 services · 300 events · 4 interfaces1 warnings1 live samplesHardware reportFull pulseRefresh data",
+      "cards": 13,
+      "coverage": 9,
+      "warnings": "1 measured warning(s)"
+    },
+    {
+      "probe": "system-health-check-rail",
+      "overflowY": "auto",
+      "over": 381,
+      "lastPanelOverhang": -114
+    },
+    {
+      "probe": "system-events-rail",
+      "overflowY": "auto",
+      "over": 455,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-processes-rail",
+      "overflowY": "auto",
+      "over": 1351,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-signatures-rail",
+      "overflowY": "auto",
+      "over": 207,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "system-uptime-rail",
+      "overflowY": "auto",
+      "over": 218,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-perf-rail",
+      "overflowY": "auto",
+      "over": 798,
+      "lastPanelOverhang": -92
+    },
+    {
+      "probe": "system-drivers-rail",
+      "overflowY": "auto",
+      "over": 4149,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "system-drivers-tables-scroll",
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 697,
+          "scroll": 697,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "probe": "system-logs-rail",
+      "overflowY": "auto",
+      "over": 7300,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "system-resources-rail",
+      "overflowY": "auto",
+      "over": 70,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-autostart-rail",
+      "overflowY": "auto",
+      "over": 323,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-services-map-rail",
+      "overflowY": "auto",
+      "over": 274,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-timeline-rail",
+      "overflowY": "auto",
+      "over": 331,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "network-interfaces-rail",
+      "overflowY": "auto",
+      "over": 591,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-dns-config-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -85
+    },
+    {
+      "probe": "network-adapters-rail",
+      "overflowY": "auto",
+      "over": 206,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "network-connectivity-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -81
+    },
+    {
+      "probe": "network-throughput-rail",
+      "overflowY": "auto",
+      "over": 1090,
+      "lastPanelOverhang": -98
+    },
+    {
+      "probe": "network-traceroute-rail",
+      "overflowY": "auto",
+      "over": 526,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-topology-rail",
+      "overflowY": "auto",
+      "over": 8028,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-ports-rail",
+      "overflowY": "auto",
+      "over": 1217,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-wifi-rail",
+      "overflowY": "auto",
+      "over": 49,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-hosts-rail",
+      "overflowY": "auto",
+      "over": 308,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-proxies-rail",
+      "overflowY": "auto",
+      "over": 133,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-repair-link-rail",
+      "overflowY": "auto",
+      "over": 293,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-inventory-rail",
+      "overflowY": "auto",
+      "over": 103,
+      "lastPanelOverhang": -79
+    },
+    {
+      "probe": "hardware-battery-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -125
+    },
+    {
+      "probe": "hardware-cpu-rail",
+      "overflowY": "auto",
+      "over": 85,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-gpu-rail",
+      "overflowY": "auto",
+      "over": 63,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "hardware-memory-rail",
+      "overflowY": "auto",
+      "over": 45,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-cycles-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -162
+    },
+    {
+      "probe": "hardware-thermal-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -315
+    },
+    {
+      "probe": "hardware-disks-rail",
+      "overflowY": "auto",
+      "over": 49,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-usb-rail",
+      "overflowY": "auto",
+      "over": 309,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-display-rail",
+      "overflowY": "auto",
+      "over": 151,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-audio-rail",
+      "overflowY": "auto",
+      "over": 87,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-health-report-rail",
+      "overflowY": "auto",
+      "over": 1262,
+      "lastPanelOverhang": -83
+    },
+    {
+      "probe": "expanded-system-health-check",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "expanded-system-processes",
+      "overflowX": 0,
+      "tables": [
+        {
+          "wrap": 922,
+          "scroll": 922
+        }
+      ]
+    },
+    {
+      "probe": "expanded-system-events",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "expanded-system-services-map",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "expanded-network-topology",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "expanded-network-hosts",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "expanded-hardware-inventory",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "expanded-hardware-health-report",
+      "overflowX": 0,
+      "tables": []
+    },
+    {
+      "probe": "system-tool-selector",
+      "switched": true
+    },
+    {
+      "probe": "system-health-check-rail",
+      "overflowY": "auto",
+      "over": 509,
+      "lastPanelOverhang": -114
+    },
+    {
+      "probe": "system-events-rail",
+      "overflowY": "auto",
+      "over": 408,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-processes-rail",
+      "overflowY": "auto",
+      "over": 1351,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-signatures-rail",
+      "overflowY": "auto",
+      "over": 169,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "system-uptime-rail",
+      "overflowY": "auto",
+      "over": 218,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-perf-rail",
+      "overflowY": "auto",
+      "over": 735,
+      "lastPanelOverhang": -91
+    },
+    {
+      "probe": "system-drivers-rail",
+      "overflowY": "auto",
+      "over": 4123,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-drivers-tables-scroll",
+      "tables": [
+        {
+          "wrap": 586,
+          "table": 683,
+          "scroll": 683,
+          "overflowX": "auto",
+          "height": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "probe": "system-logs-rail",
+      "overflowY": "auto",
+      "over": 7300,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "system-resources-rail",
+      "overflowY": "auto",
+      "over": 70,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-autostart-rail",
+      "overflowY": "auto",
+      "over": 313,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "system-services-map-rail",
+      "overflowY": "auto",
+      "over": 263,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "system-timeline-rail",
+      "overflowY": "auto",
+      "over": 298,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-interfaces-rail",
+      "overflowY": "auto",
+      "over": 580,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-dns-config-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -96
+    },
+    {
+      "probe": "network-adapters-rail",
+      "overflowY": "auto",
+      "over": 194,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-connectivity-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -92
+    },
+    {
+      "probe": "network-throughput-rail",
+      "overflowY": "auto",
+      "over": 1004,
+      "lastPanelOverhang": -70
+    },
+    {
+      "probe": "network-traceroute-rail",
+      "overflowY": "auto",
+      "over": 534,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-topology-rail",
+      "overflowY": "auto",
+      "over": 7912,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-ports-rail",
+      "overflowY": "auto",
+      "over": 1217,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-wifi-rail",
+      "overflowY": "auto",
+      "over": 23,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-hosts-rail",
+      "overflowY": "auto",
+      "over": 282,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-proxies-rail",
+      "overflowY": "auto",
+      "over": 122,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "network-repair-link-rail",
+      "overflowY": "auto",
+      "over": 293,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "hardware-inventory-rail",
+      "overflowY": "auto",
+      "over": 81,
+      "lastPanelOverhang": -68
+    },
+    {
+      "probe": "hardware-battery-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -136
+    },
+    {
+      "probe": "hardware-cpu-rail",
+      "overflowY": "auto",
+      "over": 63,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-gpu-rail",
+      "overflowY": "auto",
+      "over": 63,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "hardware-memory-rail",
+      "overflowY": "auto",
+      "over": 19,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-cycles-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -162
+    },
+    {
+      "probe": "hardware-thermal-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -353
+    },
+    {
+      "probe": "hardware-disks-rail",
+      "overflowY": "auto",
+      "over": 39,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "hardware-usb-rail",
+      "overflowY": "auto",
+      "over": 287,
+      "lastPanelOverhang": -41
+    },
+    {
+      "probe": "hardware-display-rail",
+      "overflowY": "auto",
+      "over": 140,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-audio-rail",
+      "overflowY": "auto",
+      "over": 76,
+      "lastPanelOverhang": -40
+    },
+    {
+      "probe": "hardware-health-report-rail",
+      "overflowY": "auto",
+      "over": 1230,
+      "lastPanelOverhang": -83
+    }
+  ],
+  "issues": [],
+  "checks": [
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    "Thirty-six distinct System/Network/Hardware service bodies verified across DAY/NIGHT and EN/AR (36 signatures)",
+    "Every captured body exposes at least one measured control and no undisclosed ellipsized value",
+    "Every pinned rail scrolls and reaches its last measured panel; no body clips sideways"
+  ],
+  "errors": [],
+  "ok": true
+}
