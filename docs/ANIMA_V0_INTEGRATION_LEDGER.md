@@ -78,5 +78,20 @@ Open: the treemap is partly below the fold at 1672×941 because the shared canva
 
 Next domain per the owner queue: Cleanup Safety Vault.
 
+## Cleanup Safety Vault — audit, no product change (BLOCKED_WITH_EVIDENCE)
+
+Baseline: canonical local main `be399c7`. Audit only; the working tree also carried unrelated in-flight edits under `src/features/cinematic-entry/` from another writer, which were left untouched and uncommitted.
+
+Finding: the committed Cleanup screen already matches the approved reference shape and is the strictest screen in the app. Hero with the wheel on the right, four measured evidence tiles, workspaces for the candidate register, an inspector carrying an eight-step read/classify/select/review/approve/execute/verify/recover strip, twelve specialisations labelled AVAILABLE / GATED / PARTIAL, and an explicit statement that no delete, move, recycle, empty or DISM channel exists. No blanket "safe" or universal undo claim is displayed; amounts are measured candidate sizes only. It emits zero operation receipts.
+
+Blocked addition: the approved reference also carries a six-module "Cleanup Modules" strip. Implementing it as a shared-state bulk selector was attempted and reverted. The shared canvas fixes the Cleanup workspace pane to roughly half of the remaining canvas (measured 226 px at 1672×941, two equal rows), and the hero cannot shrink without changing the approved orbit geometry. A per-domain row override was written and bundled but the pane still resolved to two equal 108 px tracks, so the new strip was clipped and the candidate register lost half its height. Halving the register — the only place measured candidates are reviewed before consent — is not an acceptable trade for a decorative grid in a deletion-adjacent screen, so the change was fully reverted rather than shipped half-working.
+
+Condition to unblock: the shared canvas must stop hard-splitting the Cleanup overview pane (for example `grid-template-rows:auto minmax(0,1fr)` for this domain with the body allowed to grow), or the module strip must be given a non-hero home. Both are shared-layout changes that need their own verified slice.
+
+Evidence: `docs/evidence/cleanup-audit/baseline/` — 12 actual Electron captures (EN/AR × DAY/NIGHT × 1366/1672/1920), six orbit buttons, zero page overflow, zero renderer errors, plus `proof.json`. No packaged-Electron run.
+
+Next domain per the owner queue: Smart Scan.
+
+
 
 
