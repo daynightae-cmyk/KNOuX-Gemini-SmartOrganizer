@@ -209,13 +209,14 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
     <select
       data-testid="startup-workbench-tool-select"
       aria-label={t(locale, 'Switch startup service', 'تبديل خدمة الإقلاع')}
+      title={activeService ? startupServiceLabel(activeService) : t(locale, 'Switch startup service', 'تبديل خدمة الإقلاع')}
       value={activeService || ''}
       onChange={(event) => {
         if ((SERVICE_IDS as readonly string[]).includes(event.target.value)) {
           setActiveService(event.target.value as StartupServiceId);
         }
       }}
-      className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+      className="max-w-[190px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
     >
       {SERVICE_IDS.map((id) => (
         <option key={id} value={id}>{startupServiceLabel(id)}</option>

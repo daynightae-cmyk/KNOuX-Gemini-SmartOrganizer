@@ -617,13 +617,18 @@
   line-height: 1.3;
 }
 
+/* Provenance strings ("3 registry · 0 folders · 1 tasks") do not fit one line
+   in a quarter-width tile; a single-line ellipsis cut them mid-word. Two lines
+   keep the whole measurement visible without growing the row beyond a digit. */
 .stp-kpi-sub {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
+  overflow-wrap: anywhere;
   color: #5f738c;
   font-size: 6.9px;
-  line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.28;
 }
 
 .stp-bootline {
@@ -1884,6 +1889,9 @@
   gap: 6px;
   min-height: 0;
   padding: 8px 9px;
+  /* A capped subpanel used to cut its own evidence mid-row with no way to
+     reach it (overflow:hidden on the parent). Scroll the body instead. */
+  overflow-y: auto;
 }
 
 .stp-svc-stack {
@@ -1905,6 +1913,14 @@
   gap: 8px;
   min-width: 0;
 }
+
+/* The pinned rail is ~540px: a 280px second column plus a 1.25fr first column
+   cannot both fit, so the first column was squeezed to a sliver and the command
+   block clipped. Stack the pair in side mode and keep the full split when the
+   host is expanded. */
+[data-workbench-mode='side'] .stp-svc-split { grid-template-columns: minmax(0, 1fr); }
+[data-workbench-mode='side'] .stp-svc-split > .stp-subpanel { max-height: none; }
+[data-workbench-mode='side'] .stp-diff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .stp-svc-split > .stp-subpanel {
   max-height: 430px;
@@ -1944,15 +1960,19 @@
   white-space: nowrap;
 }
 
+/* Stat notes carry the evidence behind the value, so they must not be cut at
+   one line in a three-up rail. Two lines, then the tooltip discloses the rest. */
 .stp-stat em {
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
+  overflow-wrap: anywhere;
   margin-top: 1px;
   color: #526882;
   font-size: 6.4px;
   font-style: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.3;
 }
 
 .stp-stat-cyan { border-color: rgba(34, 211, 238, 0.3); }
@@ -2247,6 +2267,14 @@
   background: rgba(14, 42, 74, 0.4);
 }
 
+/* Both matrices lead with the identifying column (entry / service). At fixed
+   layout the rail split four equal columns and cut those names to a dozen
+   characters; give the identifier the width the reading order implies. */
+[data-workbench-mode='side'] .stp-mini-table th:nth-child(1) { width: 44%; }
+[data-workbench-mode='side'] .stp-mini-table th:nth-child(2) { width: 22%; }
+[data-workbench-mode='side'] .stp-mini-table th:nth-child(3) { width: 21%; }
+[data-workbench-mode='side'] .stp-mini-table th:nth-child(4) { width: 13%; }
+
 .stp-diff-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2281,15 +2309,19 @@
   white-space: nowrap;
 }
 
+/* Evidence under a value ("StartupApproved: enabled") is the whole point of the
+   cell. One nowrap line cut it at rail width; let it take two lines instead. */
 .stp-diff-grid em {
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
+  overflow-wrap: anywhere;
   margin-top: 1px;
   color: #526882;
   font-size: 6.2px;
   font-style: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.3;
 }
 
 .stp-review-flow {
@@ -2344,6 +2376,12 @@
 }
 
 .stp-command-block {
+  /* Label and value are both inline by default, so "Measured command" ran
+     straight into the path with no separation. Stack them: the label is a
+     caption, the command is the evidence. */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   padding: 5px 7px;
   border: 1px solid #143153;
   border-radius: 7px;
@@ -2352,6 +2390,20 @@
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 6.5px;
   line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.stp-command-block > span {
+  color: #5f738c;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 6.4px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.stp-command-block > code {
+  color: #b6c7dc;
+  white-space: normal;
   overflow-wrap: anywhere;
 }
 
@@ -2565,6 +2617,31 @@
   gap: 4px;
 }
 
+/* These were unstyled buttons: the app reset strips their chrome, so the
+   facets rendered as one run of words ("All sources Registry Run …"). Give
+   them the pill affordance the rest of the console uses. */
+.stp-query-facets button {
+  padding: 2px 7px;
+  border: 1px solid #1d3a58;
+  border-radius: 999px;
+  background: rgba(8, 23, 43, 0.6);
+  color: #7f94ad;
+  font-size: 6.6px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.stp-query-facets button:hover {
+  border-color: #2b527c;
+  color: #cbd5e1;
+}
+
+.stp-query-facets button.is-active {
+  border-color: rgba(34, 211, 238, 0.55);
+  background: rgba(8, 145, 178, 0.22);
+  color: #a5f3fc;
+}
+
 .stp-facet-label {
   color: #5b7189;
   font-size: 6.4px;
@@ -2712,6 +2789,27 @@
   background: rgba(7, 22, 43, 0.65);
 }
 
+/* Caption above its measured value; inline they read "Delay offset30 minutes". */
+.stp-delay-control label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.stp-delay-control label span {
+  color: #5f738c;
+  font-size: 6.4px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.stp-delay-control label strong {
+  color: #e2e8f0;
+  font-size: 8.4px;
+  font-weight: 700;
+}
+
 .stp-delay-lanes {
   display: flex;
   flex-direction: column;
@@ -2794,7 +2892,32 @@
 .stp-delay-conflict {
   color: #fcd34d;
   font-size: 6.4px;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* The lane is a three-column row: name, track, conflict note. In the pinned
+   rail those columns cannot all fit, so the note was pushed outside the panel
+   and the track got a horizontal scroller. Stack the note under the lane. */
+[data-workbench-mode='side'] .stp-delay-lane {
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+[data-workbench-mode='side'] .stp-delay-lane-name {
+  width: auto;
+  flex: 1 1 100%;
+}
+
+[data-workbench-mode='side'] .stp-delay-track {
+  flex: 1 1 100%;
+  width: 100%;
+}
+
+[data-workbench-mode='side'] .stp-delay-conflict {
+  flex: 1 1 100%;
+  padding-top: 1px;
 }
 
 .stp-batch-list {
@@ -2828,6 +2951,29 @@
   font-size: 6.2px;
   font-weight: 800;
   flex-shrink: 0;
+}
+
+/* The name and its source line are two different facts; inline they read as
+   "IDManRegistry Run · Enabled". Stack and ellipsize each. */
+.stp-batch-card strong,
+.stp-batch-card em {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stp-batch-card strong {
+  color: #dbeafe;
+  font-size: 7.6px;
+  font-weight: 700;
+}
+
+.stp-batch-card em {
+  margin-top: 1px;
+  color: #5f738c;
+  font-size: 6.5px;
+  font-style: normal;
 }
 
 .stp-batch-controls {
@@ -3752,10 +3898,13 @@ html[data-theme='light'] .stp-command-block { border-color: #e2edf7; background:
 html[data-theme='light'] .stp-query { border-color: #d7e6f4; background: #ffffff; color: #0e7490; }
 html[data-theme='light'] .stp-query input { color: #0f172a; }
 html[data-theme='light'] .stp-query-stats, html[data-theme='light'] .stp-query-hint, html[data-theme='light'] .stp-facet-label { color: #64748b; }
+html[data-theme='light'] .stp-query-facets button { border-color: #dbe8f5; background: #ffffff; color: #475569; }
+html[data-theme='light'] .stp-query-facets button.is-active { border-color: #7dd3fc; background: #e0f2fe; color: #0e7490; }
 html[data-theme='light'] .stp-impact-time { color: #0e7490; }
 html[data-theme='light'] .stp-impact-copy strong { color: #0f172a; }
 html[data-theme='light'] .stp-impact-copy span { color: #64748b; }
 html[data-theme='light'] .stp-delay-track { background: #eef4fa; }
+html[data-theme='light'] .stp-delay-conflict { color: #b45309; }
 html[data-theme='light'] .stp-delay-original { color: #64748b; }
 html[data-theme='light'] .stp-delay-proposed { border-color: #7dd3fc; background: #e0f2fe; color: #0e7490; }
 html[data-theme='light'] .stp-swimlane-track { background: #eef4fa; }
@@ -3813,6 +3962,11 @@ html[data-theme='light'] .stp-plan-gate-foot { border-top-color: #e2edf7; backgr
 .stp-picker-path {
   display: block;
   overflow: hidden;
+  /* A nowrap flex item defaults to its full min-content width, so the path
+     overflowed the row and was clipped mid-directory instead of ellipsized.
+     It gets a share of the row and is allowed to shrink. */
+  flex: 0 1 46%;
+  min-width: 0;
   color: #4f6883;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 5.9px;

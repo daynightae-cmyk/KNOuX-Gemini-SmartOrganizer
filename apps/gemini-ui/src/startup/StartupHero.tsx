@@ -270,10 +270,10 @@ export function StartupMetrics({ locale, controller }: { locale: StartupLocale; 
         <div className="min-w-0">
           <div className="stp-kpi-value">{boot?.available ? formatCount(boot.eventCount) : '—'}</div>
           <div className="stp-kpi-title">{t(locale, 'Boot diagnostics events', 'أحداث تشخيص الإقلاع')}</div>
-          <div className="stp-kpi-sub">
+          <div className="stp-kpi-sub" title={t(locale, 'Windows did not publish a boot event in the diagnostics log', 'لم ينشر Windows حدث إقلاع في سجل التشخيص')}>
             {boot?.lastBootAt
               ? `${t(locale, 'Last boot', 'آخر إقلاع')}: ${formatTimestamp(boot.lastBootAt, locale)}`
-              : t(locale, 'Windows did not publish a boot event', 'لم ينشر Windows حدث إقلاع')}
+              : t(locale, 'No boot event published', 'لم يُنشر حدث إقلاع')}
           </div>
         </div>
       </div>
@@ -283,8 +283,10 @@ export function StartupMetrics({ locale, controller }: { locale: StartupLocale; 
         <div className="min-w-0">
           <div className="stp-kpi-value">{formatUptime(boot?.uptimeSeconds)}</div>
           <div className="stp-kpi-title">{t(locale, 'Measured uptime', 'مدة التشغيل المقيسة')}</div>
-          <div className="stp-kpi-sub">
-            {t(locale, 'Win32_OperatingSystem.LastBootUpTime', 'Win32_OperatingSystem.LastBootUpTime')}
+          {/* The WMI class is provenance, not a label the owner reads. Keep it in
+              the tooltip and show the measurement it backs. */}
+          <div className="stp-kpi-sub" title="Win32_OperatingSystem.LastBootUpTime">
+            {t(locale, 'Since the last measured boot', 'منذ آخر إقلاع مقيس')}
           </div>
         </div>
       </div>

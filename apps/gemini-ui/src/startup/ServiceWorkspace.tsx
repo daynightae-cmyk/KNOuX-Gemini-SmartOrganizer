@@ -170,9 +170,9 @@ function StatTile({
 }) {
   return (
     <div className={`stp-stat stp-stat-${tone}`}>
-      <span>{label}</span>
+      <span title={label}>{label}</span>
       <strong>{value}</strong>
-      {note ? <em>{note}</em> : null}
+      {note ? <em title={note}>{note}</em> : null}
     </div>
   );
 }
@@ -572,7 +572,11 @@ export function ServiceWorkspace({
             <tbody>
               {entries.slice(0, 40).map((entry) => (
                 <tr key={entry.id} className={entry.id === selected?.id ? 'is-selected' : ''} onClick={() => setSelectedId(entry.id)}>
-                  <td><span className="stp-row-name" title={entry.name}>{entry.name}</span><span className="stp-row-sub">{entry.publisher || t(locale, 'Publisher not measured', 'لم يُقس الناشر')}</span></td>
+                  {/* Block children: these were inline spans inside a
+                      nowrap cell, so the name ran straight into the publisher
+                      ("IDManPublisher not measured"). Stack them the way the
+                      register's own rows do, and disclose the sub line. */}
+                  <td><div className="stp-row-name" title={entry.name}>{entry.name}</div><div className="stp-row-sub" title={entry.publisher || t(locale, 'Publisher not measured', 'لم يُقس الناشر')}>{entry.publisher || t(locale, 'Publisher not measured', 'لم يُقس الناشر')}</div></td>
                   <td>{sourceLabel(entry.sourceKind, locale)}</td>
                   <td>{signatureLabel(entry.signature, locale)}</td>
                   <td><span className={`stp-badge stp-badge-${STATE_META[entry.state].tone}`}><span className="stp-badge-dot" />{stateLabel(entry.state, locale)}</span></td>
@@ -629,7 +633,7 @@ export function ServiceWorkspace({
             <div className="stp-diff-grid">
               <div><span>{t(locale, 'Before', 'قبل')}</span><strong>{target.state}</strong><em>{target.approvedState === 'unknown' ? t(locale, 'No StartupApproved value', 'لا قيمة StartupApproved') : `StartupApproved: ${target.approvedState}`}</em></div>
               <div><span>{t(locale, 'After (preview)', 'بعد (معاينة)')}</span><strong>{disableMode === 'disable' ? 'disabled' : 'enabled'}</strong><em>{t(locale, 'Not written', 'لم يُكتب')}</em></div>
-              <div><span>{t(locale, 'Measured boot delay', 'تأخير الإقلاع المقيس')}</span><strong>{t(locale, 'Not published', 'غير منشور')}</strong><em>{t(locale, 'No per-entry value from Windows', 'لا قيمة لكل مدخل من Windows')}</em></div>
+              <div><span>{t(locale, 'Measured boot delay', 'تأخير الإقلاع المقيس')}</span><strong>{t(locale, 'Not published', 'غير منشور')}</strong><em title={t(locale, 'Windows publishes no per-entry boot-delay value', 'لا ينشر Windows قيمة تأخير إقلاع لكل مدخل')}>{t(locale, 'Not published per entry', 'غير منشور لكل مدخل')}</em></div>
               <div><span>{t(locale, 'Estimated boot saving', 'توفير الإقلاع المقدر')}</span><strong className="stp-tone-muted">{t(locale, 'Not claimed', 'غير مُدّعى')}</strong><em>{t(locale, 'mission constraint', 'قيد المهمة')}</em></div>
             </div>
             <div className="stp-check-list">
@@ -754,7 +758,7 @@ export function ServiceWorkspace({
     return (
       <div className="stp-svc-stack">
         <div className="stp-svc-stats">
-          <StatTile label={t(locale, 'Registry keys', 'مفاتيح التسجيل')} value={formatCount(inventory?.coverage.registryKeys)} note={t(locale, 'Allowlisted Run/RunOnce + StartupApproved', 'Run/RunOnce وStartupApproved المسموح بها')} />
+          <StatTile label={t(locale, 'Registry keys', 'مفاتيح التسجيل')} value={formatCount(inventory?.coverage.registryKeys)} note={t(locale, 'Run/RunOnce + StartupApproved', 'Run/RunOnce + StartupApproved')} />
           <StatTile label={t(locale, 'Startup folders', 'مجلدات البدء')} value={formatCount(inventory?.coverage.startupFolders)} note="%APPDATA% + %ProgramData%" tone="violet" />
           <StatTile label={t(locale, 'Scheduled tasks', 'المهام المجدولة')} value={formatCount(inventory?.coverage.scheduledTasks)} note={t(locale, 'Logon and boot triggers', 'محفزات الدخول والإقلاع')} tone="amber" />
           <StatTile label={t(locale, 'Services measured', 'الخدمات المقيسة')} value={formatCount(inventory?.coverage.servicesMeasured)} note={t(locale, 'Automatic + delayed-auto', 'تلقائي + مؤجل')} tone="emerald" />
@@ -945,7 +949,7 @@ export function ServiceWorkspace({
                 <span className={`stp-picker-check ${entry.id === selected?.id ? 'is-on' : ''}`}>{entry.id === selected?.id ? <CheckCircle2 className="w-3 h-3" /> : null}</span>
                 <span className="min-w-0">
                   <span className="stp-picker-name" title={entry.name}>{entry.name}</span>
-                  <span className="stp-picker-sub">{sourceLabel(entry.sourceKind, locale)} · {signatureLabel(entry.signature, locale)}</span>
+                  <span className="stp-picker-sub" title={`${sourceLabel(entry.sourceKind, locale)} · ${signatureLabel(entry.signature, locale)}`}>{sourceLabel(entry.sourceKind, locale)} · {signatureLabel(entry.signature, locale)}</span>
                 </span>
                 <span className="stp-picker-path" title={entry.executable || entry.location}>{entry.executable || entry.location}</span>
               </button>
@@ -1117,7 +1121,7 @@ export function ServiceWorkspace({
               <tbody>
                 {filteredServices.map((item) => (
                   <tr key={item.id} className={item.id === selectedService?.id ? 'is-selected' : ''} onClick={() => setSelectedServiceId(item.id)}>
-                    <td><span className="stp-row-name" title={item.displayName || item.name}>{item.displayName || item.name}</span><span className="stp-row-sub">{item.name}</span></td>
+                    <td><div className="stp-row-name" title={item.displayName || item.name}>{item.displayName || item.name}</div><div className="stp-row-sub" title={item.name}>{item.name}</div></td>
                     <td><span className={`stp-badge stp-badge-${SERVICE_STARTUP_META[item.startupType].tone}`}>{serviceStartupLabel(item.startupType, locale)}</span></td>
                     <td>{item.running ? t(locale, 'Running', 'قيد التشغيل') : item.state}</td>
                     <td className="stp-mono">{item.processId ?? '—'}</td>
@@ -1193,11 +1197,11 @@ export function ServiceWorkspace({
               return groups;
             }, {})).map(([group, groupTasks]) => (
               <div key={group} className="stp-task-group">
-                <div className="stp-task-group-head"><FolderTree className="w-3 h-3" />{group}</div>
+                <div className="stp-task-group-head" title={group}><FolderTree className="w-3 h-3" />{group}</div>
                 {groupTasks.map((task) => (
                   <button key={task.id} type="button" className={`stp-task-row ${task.id === selectedTask?.id ? 'is-active' : ''}`} onClick={() => setSelectedTaskId(task.id)}>
                     <CalendarClock className="w-3.5 h-3.5" />
-                    <span className="min-w-0"><strong>{task.name}</strong><em>{taskTriggerLabel(task.triggers, locale)}</em></span>
+                    <span className="min-w-0"><strong title={task.name}>{task.name}</strong><em title={taskTriggerLabel(task.triggers, locale)}>{taskTriggerLabel(task.triggers, locale)}</em></span>
                     <span className={`stp-badge stp-badge-${task.state.toLowerCase() === 'disabled' ? 'bad' : 'good'}`}>{task.state}</span>
                     {task.protected ? <Lock className="w-3 h-3 stp-icon-amber" /> : null}
                   </button>
@@ -1294,7 +1298,7 @@ export function ServiceWorkspace({
           <div className="stp-delay-lanes">
             {delayConflicts.map(({ entry, conflicts }) => (
               <div key={entry.id} className="stp-delay-lane">
-                <div className="stp-delay-lane-name"><strong>{entry.name}</strong><span>{sourceLabel(entry.sourceKind, locale)}</span></div>
+                <div className="stp-delay-lane-name"><strong title={entry.name}>{entry.name}</strong><span>{sourceLabel(entry.sourceKind, locale)}</span></div>
                 <div className="stp-delay-track">
                   <span className="stp-delay-original">{t(locale, 'Original', 'الأصلي')}</span>
                   <span className="stp-delay-arrow"><ArrowRight className="w-3 h-3" /></span>
@@ -1340,7 +1344,7 @@ export function ServiceWorkspace({
             {batchEntries.map((entry, index) => (
               <div key={entry.id} className="stp-batch-card">
                 <span className="stp-batch-index">{index + 1}</span>
-                <div className="min-w-0"><strong>{entry.name}</strong><em>{sourceLabel(entry.sourceKind, locale)} · {stateLabel(entry.state, locale)}</em></div>
+                <div className="min-w-0"><strong title={entry.name}>{entry.name}</strong><em title={`${sourceLabel(entry.sourceKind, locale)} · ${stateLabel(entry.state, locale)}`}>{sourceLabel(entry.sourceKind, locale)} · {stateLabel(entry.state, locale)}</em></div>
                 <div className="stp-batch-controls">
                   <button type="button" className="stp-icon-btn" disabled={index === 0} onClick={() => {
                     setBatchIds((current) => {
@@ -1370,7 +1374,7 @@ export function ServiceWorkspace({
       <SubPanel title={t(locale, 'Execution review dock', 'رصيف مراجعة التنفيذ')} sub={t(locale, 'Rights and affected sources are measured per item', 'الحقوق والمصادر المتأثرة مقيسة لكل عنصر')}>
         <div className="stp-svc-stats">
           <StatTile label={t(locale, 'Total queued actions', 'إجمالي الإجراءات المصطفة')} value={formatCount(batchEntries.length)} note={t(locale, 'immutable review only', 'مراجعة ثابتة فقط')} />
-          <StatTile label={t(locale, 'Affected registry locations', 'مواقع التسجيل المتأثرة')} value={formatCount(batchSources.filter((source) => source.startsWith('registry')).length)} note={`${formatCount(batchSources.length)} ${t(locale, 'source kinds', 'أنواع مصادر')}`} tone="violet" />
+          <StatTile label={t(locale, 'Registry locations', 'مواقع التسجيل')} value={formatCount(batchSources.filter((source) => source.startsWith('registry')).length)} note={`${formatCount(batchSources.length)} ${t(locale, 'source kinds', 'أنواع مصادر')}`} tone="violet" />
           <StatTile label={t(locale, 'Administrative rights', 'حقوق إدارية')} value={formatCount(batchElevation)} note={t(locale, 'items require elevation', 'عنصرًا يتطلب رفع صلاحيات')} tone="amber" />
           <StatTile label={t(locale, 'Protected blockers', 'حاجبات محمية')} value={formatCount(batchProtected)} note={t(locale, 'cannot be staged', 'لا يمكن تهيئتها')} tone="rose" />
         </div>
