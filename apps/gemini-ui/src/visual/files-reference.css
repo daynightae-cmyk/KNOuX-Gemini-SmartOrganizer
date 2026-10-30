@@ -135,3 +135,47 @@ html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testi
   .visual-sprint[data-visual-section='files'] [data-testid='files-footer'] > div:nth-child(2) { display:none; }
 }
 .visual-sprint[data-visual-section='files'] [data-testid='files-workspace'][data-workbench-side='true'] { grid-template-columns:minmax(0,1fr) var(--files-inspector-width); }
+
+/* Files service workbenches are a light measured console in DAY. The shell is
+   shared with sibling domains, so every surface change stays scoped to the
+   Files workbench test ids and leaves NIGHT exactly as authored. */
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] {
+  background: var(--v-panel-soft) !important;
+  border-color: var(--v-line) !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid='files-workbench-expanded-shell'] {
+  background: #eef2ff !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-[#07152b]'],
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-[#040d1c]'] {
+  background: #f7f8ff !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-[#0a1c38]'],
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-[#08162b]'] {
+  background: #e8ecfa !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-[#0e274d]'],
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-[#1b1340]'] {
+  background: #ecebff !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='border-[#132c52]'],
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='border-[#173766]'],
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='border-[#0f2545]'],
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='border-[#1b3f70]'] {
+  border-color: var(--v-line) !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class*='from-[#2476ff]'] {
+  background-image: linear-gradient(90deg, #2476ff, #26c6ff) !important;
+}
+html[data-theme='light'] .visual-sprint[data-visual-section='files'] [data-testid^='files-workbench'] [class~='bg-black/60'] {
+  background: #eef1fb !important;
+}
+.visual-sprint[data-visual-section='files'] :is([data-testid='files-workbench'],[data-testid='files-workbench-expanded']) header > div:first-child > div {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+.visual-sprint[data-visual-section='files'] :is([data-testid='files-workbench'],[data-testid='files-workbench-expanded']) header > div:first-child > div > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

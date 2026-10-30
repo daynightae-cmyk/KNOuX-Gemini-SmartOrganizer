@@ -30,6 +30,16 @@ const PNG = Buffer.from(
 );
 await writeFile(path.join(f.source, 'visual-preview.png'), PNG);
 f.originals['visual-preview.png'] = sha(PNG);
+const TOTAL = Object.keys(f.originals).length;
+
+// Authorize and scan the disposable fixture through the real native bridge so
+// the app boots into a measured index of this temporary folder only.
+const { StudioBridge } = require('../electron/native/studio-bridge.cjs');
+const studio = new StudioBridge({ userDataPath: f.profile, nativeImage: null, isPackaged: false, chooseFolder: async () => f.source, emit: () => {} });
+await studio.init();
+const grant = await studio.addSource(f.source);
+await studio.scanSource(grant.id);
+await studio.dispose();
 
 const env = { ...process.env };
 delete env.ELECTRON_RUN_AS_NODE;
@@ -44,7 +54,7 @@ const proof = {
   domain: 'Files & Instant Search',
   runtime: null,
   sourceCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', windowsHide: true }).trim(),
-  fixture: { files: 40, images: 1, profileIsolated: true },
+  fixture: { files: 41, images: 1, profileIsolated: true },
   sourceFiles: {},
   captures: [],
   services: [],
@@ -60,6 +70,7 @@ const WATCHED = [
   'src/files/useFilesNative.ts',
   'src/files/native.ts',
   'src/lib/file-inventory.ts',
+  'src/visual/files-reference.css',
   'src/components/workbench/ServiceWorkbenchHost.tsx',
   'electron/native/studio-bridge.cjs',
   'electron/native/operation-engine.cjs',
@@ -114,8 +125,8 @@ try {
     }, { locale, theme });
     await page.reload({ waitUntil: 'domcontentloaded' });
     await page.getByTestId('files-workspace').waitFor({ timeout: 30000 });
-    await expect(rows).toHaveCount(40, { timeout: 90000 });
-    await expect(page.getByTestId('files-native-banner')).toContainText(/40/, { timeout: 30000 });
+    await expect(rows).toHaveCount(TOTAL, { timeout: 90000 });
+    await expect(page.getByTestId('files-native-banner')).toContainText(new RegExp(String(TOTAL)), { timeout: 30000 });
     await page.waitForTimeout(320);
   }
 
@@ -126,8 +137,14 @@ try {
   }
 
   async function openService(entry) {
-    await openTools();
-    await page.getByTestId(`files-service-${entry.key}`).click();
+    // A pinned side workbench replaces the dossier/tools panels by design, so
+    // once it is open the typed tool selector is the only visible switcher.
+    if (await page.getByTestId('files-workbench').count()) {
+      await page.getByTestId('files-workbench-tool-select').selectOption(entry.key);
+    } else {
+      await openTools();
+      await page.getByTestId(`files-service-${entry.key}`).click();
+    }
     await expect(page.getByTestId(entry.body)).toBeVisible({ timeout: 15000 });
     await page.waitForTimeout(180);
   }
@@ -176,7 +193,7 @@ try {
     expect(geo.overflow).toBeLessThanOrEqual(2);
     expect(geo.theme).toBe(theme);
     expect(geo.dir).toBe(locale === 'ar' ? 'rtl' : 'ltr');
-    expect(geo.rows).toBe(40);
+    expect(geo.rows).toBe(TOTAL);
     const w = await app.browserWindow(page);
     await w.evaluate((win) => { win.show(); win.moveTop(); win.webContents.invalidate(); });
     await page.waitForTimeout(120);
