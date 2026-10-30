@@ -93,6 +93,22 @@ try {
     location.hash = 'system';
   });
 
+  async function waitMeasured(limitMs = 360000) {
+    const start = Date.now();
+    let last = null;
+    while (Date.now() - start < limitMs) {
+      last = await page.evaluate(() => ({
+        chip: document.querySelector('[data-testid="system-native-banner"] .sys-banner-chip')?.textContent?.trim() || '',
+        scanning: Boolean(document.querySelector('[data-testid="system-scan-progress"]')),
+        cards: document.querySelectorAll('[data-testid^="system-service-"]').length,
+        error: document.querySelector('.sys-error')?.textContent?.replace(/\s+/g, ' ').trim().slice(0, 180) || null,
+      }));
+      if (/measured|مقيس/i.test(last.chip) && !last.scanning && last.cards >= 12) return;
+      await page.waitForTimeout(1000);
+    }
+    throw new Error(`measured snapshot did not settle: ${JSON.stringify(last)}`);
+  }
+
   async function boot(locale, theme) {
     await page.evaluate(({ locale, theme }) => {
       localStorage.setItem('knoux_locale', locale);
@@ -103,20 +119,49 @@ try {
     await page.getByTestId('system-workspace').waitFor({ timeout: 45000 });
     // The first visit starts a bounded nine-stage native scan. Wait for a real
     // measured snapshot: the banner chip flips to MEASURED and the progress
-    // panel disappears. No number is taken from a loading state.
-    await page.waitForFunction(() => {
-      const banner = document.querySelector('[data-testid="system-native-banner"]');
-      const chip = banner?.querySelector('.sys-banner-chip')?.textContent?.trim() || '';
-      const scanning = Boolean(document.querySelector('[data-testid="system-scan-progress"]'));
-      const cards = document.querySelectorAll('[data-testid^="system-service-"]').length;
-      return /measured|مقيس/i.test(chip) && !scanning && cards >= 12;
-    }, null, { timeout: 240000 });
+    // panel disappears. No number is taken from a loading state. The poll runs
+    // from Node so an occluded renderer cannot throttle it into a false timeout.
+    await waitMeasured();
     await page.waitForTimeout(1200);
   }
 
   async function viewport(width, height) {
     const w = await app.browserWindow(page);
-    await w.evaluate((win, [ww, hh]) => win.setContentSize(ww, hh), [width, height]);
+    // Windows can refuse or defer a content resize while the window is
+    // maximized or a previous resize is still settling, which would silently
+    // capture the old viewport. Normalize the window state, apply the size,
+    // verify the renderer actually sees it, and report the real dimensions if
+    // three attempts still fail.
+    let state = null;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      state = await w.evaluate((win, [ww, hh]) => {
+        if (win.isMaximized()) win.unmaximize();
+        if (win.isFullScreen()) win.setFullScreen(false);
+        if (win.isMinimized()) win.restore();
+        win.setContentSize(ww, hh, false);
+        return { maximized: win.isMaximized(), fullScreen: win.isFullScreen(), bounds: win.getBounds() };
+      }, [width, height]);
+      try {
+        // Poll from the Node side: an occluded renderer throttles rAF, so a
+        // waitForFunction could time out even though the resize already landed.
+        let actual = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+        for (let tick = 0; tick < 25 && (actual.width !== width || actual.height !== height); tick += 1) {
+          await page.waitForTimeout(120);
+          actual = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+        }
+        if (actual.width !== width || actual.height !== height) {
+          if (attempt === 2) {
+            throw new Error(`viewport did not reach ${width}x${height}; renderer reported ${actual.width}x${actual.height}; window ${JSON.stringify(state)}`);
+          }
+          await page.waitForTimeout(500);
+        } else {
+          break;
+        }
+      } catch (error) {
+        if (attempt === 2) throw error;
+        await page.waitForTimeout(500);
+      }
+    }
     await page.waitForTimeout(160);
   }
 

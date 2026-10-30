@@ -367,18 +367,31 @@ export function BatteryWorkbench({ locale, snapshot, controller }: WorkbenchProp
       ) : (
         <>
           <EmptyBlock icon={BatteryCharging} title={t(locale, 'No battery reported', 'لم تُبلَّغ أي بطارية')} message={t(locale, 'Win32_Battery returned no device. This is normal on a desktop; no synthetic battery or charge value is shown.', 'لم يُعد Win32_Battery أي جهاز. هذا طبيعي على سطح المكتب؛ لا تُعرض بطارية أو قيمة شحن اصطناعية.')} />
-          <div className="sys-toolbar-row">
-            <button type="button" className="sys-btn sys-btn-quiet" onClick={() => controller.refreshSnapshot(true)} disabled={controller.refreshing}>
-              <RefreshCw aria-hidden="true" />
-              {t(locale, 'Re-read hardware', 'إعادة قراءة العتاد')}
-            </button>
-            <ExportButton
-              fileName="knoux-battery.json"
-              payload={batteries}
-              label={t(locale, 'Export empty battery evidence', 'تصدير أدلة بطارية فارغة')}
-              onDone={(ok) => controller.showNotice(ok ? t(locale, 'Battery evidence exported.', 'صُدّدت أدلة البطارية.') : t(locale, 'The battery export could not start.', 'تعذّر بدء تصدير البطارية.'))}
+          <Panel title={t(locale, 'What is not claimed', 'ما لا يُدّعى')} icon={ShieldAlert}>
+            <DataRows
+              rows={[
+                { label: t(locale, 'Charge level', 'مستوى الشحن'), value: t(locale, 'Not measured', 'غير مقيس'), tone: 'muted' },
+                { label: t(locale, 'Design capacity', 'السعة التصميمية'), value: t(locale, 'Not measured', 'غير مقيسة'), tone: 'muted' },
+                { label: t(locale, 'Full charge capacity', 'سعة الشحن الكامل'), value: t(locale, 'Not measured', 'غير مقيسة'), tone: 'muted' },
+                { label: t(locale, 'Cycle count', 'عدد الدورات'), value: t(locale, 'Not measured', 'غير مقيس'), tone: 'muted' },
+              ]}
             />
-          </div>
+            <InfoNote tone="muted">
+              {t(locale, 'A desktop or virtual machine may expose no battery. The instrument stays explicitly empty instead of drawing a charge, health or runtime estimate from nothing.', 'قد لا يكشف سطح المكتب أو الجهاز الافتراضي أي بطارية. تبقى الأداة فارغة صراحةً بدل رسم شحن أو صحة أو مدة تشغيل من لا شيء.')}
+            </InfoNote>
+            <div className="sys-toolbar-row">
+              <button type="button" className="sys-btn sys-btn-quiet" onClick={() => controller.refreshSnapshot(true)} disabled={controller.refreshing}>
+                <RefreshCw aria-hidden="true" />
+                {t(locale, 'Re-read hardware', 'إعادة قراءة العتاد')}
+              </button>
+              <ExportButton
+                fileName="knoux-battery.json"
+                payload={batteries}
+                label={t(locale, 'Export empty battery evidence', 'تصدير أدلة بطارية فارغة')}
+                onDone={(ok) => controller.showNotice(ok ? t(locale, 'Battery evidence exported.', 'صُدّدت أدلة البطارية.') : t(locale, 'The battery export could not start.', 'تعذّر بدء تصدير البطارية.'))}
+              />
+            </div>
+          </Panel>
         </>
       )}
     </WorkbenchFrame>
@@ -750,7 +763,22 @@ export function CycleLedgerWorkbench({ locale, snapshot, controller }: Workbench
             })}
           </div>
         ) : (
-          <EmptyBlock icon={BatteryCharging} title={t(locale, 'No battery to audit', 'لا بطارية للتدقيق')} message={t(locale, 'The battery provider returned no device; there is no wear or cycle evidence to show.', 'لم يُعد مزود البطارية أي جهاز؛ لا توجد أدلة تآكل أو دورات للعرض.')} />
+          <>
+            <EmptyBlock icon={BatteryCharging} title={t(locale, 'No battery to audit', 'لا بطارية للتدقيق')} message={t(locale, 'The battery provider returned no device; there is no wear or cycle evidence to show.', 'لم يُعد مزود البطارية أي جهاز؛ لا توجد أدلة تآكل أو دورات للعرض.')} />
+            <Panel title={t(locale, 'What is not claimed', 'ما لا يُدّعى')} icon={ShieldAlert}>
+              <DataRows
+                rows={[
+                  { label: t(locale, 'Design capacity', 'السعة التصميمية'), value: t(locale, 'Not measured', 'غير مقيسة'), tone: 'muted' },
+                  { label: t(locale, 'Full charge capacity', 'سعة الشحن الكامل'), value: t(locale, 'Not measured', 'غير مقيسة'), tone: 'muted' },
+                  { label: t(locale, 'Cycle count', 'عدد الدورات'), value: t(locale, 'Not measured', 'غير مقيس'), tone: 'muted' },
+                  { label: t(locale, 'Derived wear', 'التآكل المشتق'), value: t(locale, 'Not measured', 'غير مقيس'), tone: 'muted' },
+                ]}
+              />
+              <InfoNote tone="muted">
+                {t(locale, 'The wear ledger needs a measured battery. No percentage, cycle count or wear estimate is substituted when Windows returns no device.', 'يحتاج سجل التآكل إلى بطارية مقيسة. لا تُستبدل أي نسبة أو عدد دورات أو تقدير تآكل عندما لا يعيد Windows جهازًا.')}
+              </InfoNote>
+            </Panel>
+          </>
         )
       ) : disks.length ? (
         <div className="sys-split-2">
