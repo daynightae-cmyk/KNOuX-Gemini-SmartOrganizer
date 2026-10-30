@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "scope": "Explicit model fixtures; no renderer provider substitutes",
+  "checks": [
+    "Missing, denied, failed, fixture and wrong-version envelopes never become measurements",
+    "Genuine measured zero/empty values remain distinct from unavailable and partial providers",
+    "No provider yields six unavailable KPIs and no fabricated activity or cleanup estimate",
+    "A newer zero-candidate scan suppresses stale older cleanup recommendations",
+    "Organization activity derives verified/restored counts from actual receipts; cancellation is not success",
+    "Pending Home reads coalesce across navigation; availability timeout rejects and allows a real retry after the original request finishes"
+  ]
+}

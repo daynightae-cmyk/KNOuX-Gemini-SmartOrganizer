@@ -1,0 +1,37 @@
+[
+  {
+    "log": "lint.log",
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  {
+    "log": "test-home.log",
+    "command": "npm run test:home",
+    "exitCode": 0
+  },
+  {
+    "log": "test-native.log",
+    "command": "npm run test:native",
+    "exitCode": 0
+  },
+  {
+    "log": "test-navigation.log",
+    "command": "npm run test:navigation",
+    "exitCode": 0
+  },
+  {
+    "log": "test-workbench.log",
+    "command": "npm run test:workbench",
+    "exitCode": 0
+  },
+  {
+    "log": "test-studio.log",
+    "command": "npm run test:studio",
+    "exitCode": 0
+  },
+  {
+    "log": "home-provider.log",
+    "command": "node --import tsx scripts/home-provider-test.mjs",
+    "exitCode": 0
+  }
+]

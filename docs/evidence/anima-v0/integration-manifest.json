@@ -1,0 +1,139 @@
+{
+  "baseSha": "770396bc9388b94f72a493fd41a7f4fede46be92",
+  "branch": "codex/anima-v0-integration-20261030",
+  "inputs": [
+    {
+      "path": "KNOuX-Latest-Source-Code.zip",
+      "sha256": "e22c846715c25e174660f11e32a603853d44604d2dcf2a4dfe2a1f654f4d2742",
+      "members": 1349,
+      "crc": "VERIFIED"
+    },
+    {
+      "path": "KNOuX_FireShot_Organized_Source_RECOVERED_PARTIAL.zip",
+      "sha256": "3ad68ad3360fa750c74155febb79147f85ba6262d2c495ea49a5b88672a4fc99",
+      "members": 36,
+      "crc": "VERIFIED"
+    },
+    {
+      "path": "KNOuX_APPROVED_ANIMA_VISUAL_REFERENCES_2026-10-30.zip",
+      "sha256": "29f54372cb6acec7432254aa6a8a92a74bbb649bfe6087064101e9591404034d",
+      "members": 14,
+      "crc": "VERIFIED"
+    },
+    {
+      "path": "KNOuX_CODEX_ANIMA_V0_SAFE_VISUAL_INTEGRATION_2026-10-30.md",
+      "sha256": "57286d3d60ca76795572a16d00fcfc44776e4167399ddd22f10f4c23b22a7d20"
+    }
+  ],
+  "preservation": {
+    "externalRoot": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624",
+    "files": 643,
+    "worktrees": 8,
+    "verifiedBundle": "all-refs.bundle",
+    "manifest": "preservation.json",
+    "excluded": [
+      ".git",
+      "node_modules",
+      "generated build/cache directories",
+      "secret environment/credential files"
+    ],
+    "ignoredInventoryScope": "docs, missions, renderer src/public/scripts/tests/electron/shared, root scripts/electron"
+  },
+  "archiveComparison": {
+    "identicalNormalized": 652,
+    "additive": 643,
+    "requiresReview": 54,
+    "cloudWipCompleteness": "UNVERIFIED; no current cloud access/export identity was compared"
+  },
+  "files": [
+    {
+      "path": "apps/gemini-ui/src/components/home/ApprovedHomeScreen.tsx",
+      "sha256": "b6276ce46a52a8b52c9430cc150050a9868d160d12b64421f9aafa822f9e57c3",
+      "provenance": "V0_UI_DONOR + LOCAL_ADAPTER"
+    },
+    {
+      "path": "apps/gemini-ui/src/components/home/approved-home.css",
+      "sha256": "b1c49c712f18f66a779b5e9cb4c9dc2b8755fc2fafeaad14e9280f52be5dc15e",
+      "provenance": "V0_UI_DONOR + LOCAL_ADAPTER"
+    },
+    {
+      "path": "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx",
+      "sha256": "6d6cc60617c857ba4769a434804d22bd53e2483cfd25ddec3d8a4c781e41b3ac",
+      "provenance": "V0_UI_DONOR + LOCAL_ADAPTER"
+    },
+    {
+      "path": "apps/gemini-ui/src/home/snapshot.ts",
+      "sha256": "2472ca164e71d2b830651c9417cdc1cdf880e7c2ee04f37789ec354307b3329f",
+      "provenance": "LOCAL"
+    },
+    {
+      "path": "apps/gemini-ui/src/home/live.ts",
+      "sha256": "7bc9eeef61ceb9fca92d27cff6b72b25941da8a9dc428c07dcc014ab46a1ed1e",
+      "provenance": "LOCAL"
+    },
+    {
+      "path": "apps/gemini-ui/src/pages/HomePage.tsx",
+      "sha256": "c77d69c062497c29dcfbc63cc1498d3d1bc08637f08a5ed6e61dd9c48c9089dc",
+      "provenance": "LOCAL"
+    },
+    {
+      "path": "apps/gemini-ui/src/visual/KnouxOrbit.tsx",
+      "sha256": "abb1bcab50aa99aeb8e1711297e81efaf23a41deafc5c4a0dd640a3353a114d2",
+      "provenance": "V0_UI_DONOR + LOCAL_ADAPTER"
+    },
+    {
+      "path": "apps/gemini-ui/src/visual/knoux-orbit.css",
+      "sha256": "a5f9c4b5cea062fae5bc9c29a96d5e12eebbb0acf2b9436b0c9e4c257445ebcc",
+      "provenance": "V0_UI_DONOR + LOCAL_ADAPTER"
+    },
+    {
+      "path": "apps/gemini-ui/scripts/home-live-test.cjs",
+      "sha256": "2757e2c8ffce7917ed10f16d54863deb90530407f4b66933d407511d659d8d60",
+      "provenance": "LOCAL"
+    },
+    {
+      "path": "apps/gemini-ui/scripts/home-integration-electron.mjs",
+      "sha256": "f5ab8670d8f65c6940580ea2195f8fe813868a49a046b229e2b391c0134ea43b",
+      "provenance": "LOCAL"
+    },
+    {
+      "path": "scripts/verify-workspace.py",
+      "sha256": "ae428e14de9c71faca4c923bd346e78a847de99b2921ba4b0f8a0d9a8d9ac433",
+      "provenance": "LOCAL"
+    }
+  ],
+  "native": {
+    "newChannels": [],
+    "modifiedMainPreloadContractsProviders": [],
+    "homeReads": [
+      "system.summary",
+      "services.summary",
+      "files.sources",
+      "files.inventory.query",
+      "scan.history",
+      "apps.inventory",
+      "automation.workflows",
+      "automation.journal",
+      "organization history"
+    ],
+    "effects": "No Home executor; handoff to existing consent-bound workbenches"
+  },
+  "visualGate": "PARTIALLY VERIFIED; actual Electron matrix and manual reference comparison; owner acceptance OPEN",
+  "sections": {
+    "Home": "IMPLEMENTED; final packaged verification pending",
+    "Organization Studio": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Files": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Storage Atlas": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Automation": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Applications": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Startup": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "System": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Services": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Repair": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Smart Scan": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Cleanup": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Google Workspace": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Settings": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Cinematic Splash": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE"
+  }
+}

@@ -33,14 +33,14 @@ function check(name, run) {
 
 console.log('[home-live-test]');
 
-check('Home uses the measured live hook and derives every panel', () => {
+check('Home retains local measured aggregation and mounts approved composition', () => {
   assert.match(homePage, /useHomeLive\(\)/);
-  assert.match(homePage, /deriveKpis\(homeLive\)/);
-  assert.match(homePage, /deriveActivities\(homeLive\)/);
-  assert.match(homePage, /deriveQuickAccess\(homeLive\)/);
-  assert.match(homePage, /deriveVolumes\(homeLive\)/);
-  assert.match(homePage, /derivePendingActions\(homeLive\)/);
-  assert.match(homePage, /data-testid="home-workspace"/);
+  assert.match(homePage, /<ApprovedHomeScreen/);
+  const screen=read('src/components/home/ApprovedHomeScreen.tsx');
+  assert.match(screen, /deriveActivities\(live\)/);
+  assert.match(screen, /deriveVolumes\(live\)/);
+  assert.match(screen, /data-testid="home-workspace"/);
+  assert.match(screen, /useState\(false\)/);
 });
 
 check('the live hook reads only existing measured bridges', () => {
@@ -104,7 +104,7 @@ check('Home insight is measured or explicitly unmeasured', () => {
 
 check('the command palette is labelled as workspace navigation, not file search', () => {
   assert.match(homePage, /Jump to a workspace, service, or tool/);
-  assert.match(homePage, /setPaletteSearch\(value\)/);
+  assert.match(homePage, /setQuery\(e.target.value\)/);
   assert.ok(!/Search for files, applications, settings, or run a command/.test(homePage + commandCenter), 'misleading global file search must be gone');
 });
 

@@ -1,0 +1,21 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 build
+> vite build
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 1858 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                       1.75 kB │ gzip:   0.78 kB
+dist/assets/knoux-official-logo-BvEPOS0-.png        229.17 kB
+dist/assets/knoux-circular-logo-day-CoiS9pFV.png  1,310.61 kB
+dist/assets/index-MNSNyRCE.css                      839.88 kB │ gzip: 130.01 kB
+dist/assets/index-DYGBY45R.js                     1,986.65 kB │ gzip: 507.71 kB
+
+✓ built in 2.55s
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

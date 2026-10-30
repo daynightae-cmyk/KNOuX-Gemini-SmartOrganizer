@@ -1,0 +1,19 @@
+# Anima × v0 × Windows integration ledger
+
+## Home slice — 2026-10-30
+
+Baseline: canonical main `770396bc9388b94f72a493fd41a7f4fede46be92`. Isolated branch `codex/anima-v0-integration-20261030`; local main integration is owner-authorized after verification. No remote publication authorized. Live remote main observed `d1ba8765704952816384abbe305ec01c0bf62854`; cached origin/main remains stale.
+
+Provenance: approved Home DAY/NIGHT PNGs define composition. Verified supplied v0 ZIP provides ApprovedHomeScreen, CSS, ReferenceChrome and procedural SVG optics. Local NavigationContext, useHomeLive, original logo, native providers, receipt derivation and typed KnouxOrbit contracts remain authoritative. No Electron Main, Preload, IPC contract, organization engine or vault modification. Original Home components remain recoverable and their source files remain intact. Anima partial recovery has 20 missing App imports and no intact native implementation; not installed over the application. Its illustrative suggestions were not represented as live facts.
+
+Implemented: left procedural orbit with six native-route controls, Welcome/KPIs, six Quick Access cards, findings/automation/system panels, System/Storage/Assistant/Activity inspector. DAY/NIGHT share geometry. Native observation timestamps are retained rather than stamped as renderer time. Unknown metrics remain unknown. Local deterministic assistant suggestions start no model request. Scope review hands off to existing Smart Scan. Ctrl+K search is explicitly workspace navigation. Dialogs trap focus and close with Escape. Some Arabic secondary copy remains English.
+
+Preservation: external `D:/KNOUX-Workspace/KNOuX_ANIMA_V0_INTEGRATION_20261030_062624/` retains verified all-refs.bundle, 643 SHA-verified copied files from eight original worktrees, status snapshots, all archive members and donor comparison. Generated/vendor directories and secret environment files were excluded. All pre-existing worktrees/branches/stashes/evidence retained. Unified historical commits `d063813` and `a46468e` are patch-equivalent on main (`git cherry -v`); `d12b488` is not patch-equivalent and remains preserved for explicit path disposition. No blanket historical merge performed.
+
+Verification: see `docs/evidence/anima-v0/checks.json`, raw logs and `home-development/proof.json`. TypeScript, build, native contract, navigation, workbench, Studio and Home/model regressions exit 0. Development Electron captures 12 EN/AR × DAY/NIGHT × size cases at 1366×768, 1672×941, 1920×1080; no page/main overflow, theme geometry parity, six route handoffs, keyboard search, reduced motion, two motion frames with stationary satellites, real preload absence and zero operation receipts. Packaged confirmation pending.
+
+Visual acceptance OPEN: procedural depth, typography, orbital contours and exact spacing differ from the approved art. Live metrics intentionally differ from illustrative reference numbers. At 1366, summaries/inspector scroll inside bounded panels and long descriptions are clamped with full tooltips. Reference ZIP includes no approved Files/Smart Scan/Cleanup screenshot; existing screen pack remains preserved. No exact-match or production claim.
+
+Remaining domains: local implementations preserved; v0 donors inventoried and available, not transplanted by this Home slice. Scheduler effects, privileged Windows changes, account connectivity, signing/installation and production runtime are not certified. Header theme remains existing DAY/NIGHT preference; System-following theme is a Settings integration gap.
+
+Delivery: candidate source modified locally; commit/main SHA and packaged evidence will be recorded after the gate. Cleanup: one mission-owned reusable worktree, one dependency junction and external packaging/backup evidence remain; no historical cleanup.

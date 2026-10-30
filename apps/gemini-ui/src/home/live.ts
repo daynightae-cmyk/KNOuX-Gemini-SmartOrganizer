@@ -5,6 +5,7 @@
  * read-only bridge or is rendered as "not measured" with the owning service
  * link. Heavy scans are not started automatically from Home.
  */
+import type {HomeObservations} from './snapshot';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
   AppsInventory,
@@ -41,6 +42,7 @@ export interface HomeLiveState {
   available: {workflows:boolean;journal:boolean};
   errors: string[];
   observedAt: string | null;
+  observations?: HomeObservations;
 }
 
 const EMPTY: HomeLiveState = {
@@ -105,7 +107,20 @@ export function useHomeLive() {
       }
     }
 
-    const observedAt = new Date().toISOString();
+    const observations:HomeObservations={};
+    const results=[systemResult,servicesResult,sourcesResult,scansResult,appsResult,workflowsResult,journalResult];
+    const data=[system,services,sourceData,scanData,apps,workflowData,journalData];
+    const domains=['system','services','sources','scans','apps','workflows','journal'] as const;
+    domains.forEach((domain,index)=>{
+      const result=results[index];
+      if(data[index]==null||result.status!=='fulfilled'||!result.value)return;
+      const envelope=result.value,at=Date.parse(envelope.observedAt);
+      if(!Number.isFinite(at))return;
+      const stale=Date.now()-at>60000||at-Date.now()>5000;
+      observations[domain]={source:envelope.source,observedAt:envelope.observedAt,stale,partial:envelope.status==='partial'};
+      if(stale)errors.push(domain+': stale provider observation');
+    });
+    const observedAt=Object.values(observations).map(o=>o.observedAt).sort()[0]??null;
     const hasMeasuredCore = Boolean(system || services || sourceData || scanData || apps || workflowData || journalData);
     const status: HomeLiveStatus = !hasMeasuredCore
       ? 'native-required'
@@ -126,6 +141,7 @@ export function useHomeLive() {
       apps,
       errors: [...new Set(errors)],
       observedAt,
+      observations,
     });
   }, []);
 

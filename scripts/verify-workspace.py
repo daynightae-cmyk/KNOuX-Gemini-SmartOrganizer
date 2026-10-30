@@ -15,6 +15,9 @@ LIVE_BRANCH="codex/live-organization-20261027"
 # Owner-authorized permanent local integration staging checkout; exact path and branch only.
 UNIFIED_WORKTREE=(EXPECTED/".worktrees"/"unified-20261028")
 UNIFIED_BRANCH="integration/knoux-unified-20261028"
+# Exact reusable isolation authorized by the owner's Anima/v0 integration mission.
+ANIMA_WORKTREE=(EXPECTED/".worktrees"/"anima-v0-integration")
+ANIMA_BRANCH="codex/anima-v0-integration-20261030"
 def git(*args):
  p=subprocess.run(["git","-C",str(ROOT),*args],capture_output=True,text=True,encoding="utf-8",errors="replace")
  if p.returncode:raise RuntimeError("git "+str(args)+": "+p.stderr)
@@ -24,11 +27,12 @@ try:
  is_visual=(ROOT.resolve()==VISUAL_WORKTREE.resolve())
  is_live=(ROOT.resolve()==LIVE_WORKTREE.resolve())
  is_unified=(ROOT.resolve()==UNIFIED_WORKTREE.resolve())
- assert is_canonical or is_visual or is_live or is_unified,"WRONG WORKSPACE: "+str(ROOT)
+ is_anima=(ROOT.resolve()==ANIMA_WORKTREE.resolve())
+ assert is_canonical or is_visual or is_live or is_unified or is_anima,"WRONG WORKSPACE: "+str(ROOT)
  assert Path(git("rev-parse","--show-toplevel")).resolve()==ROOT.resolve(),"WRONG GIT TOP LEVEL"
  assert Path(git("rev-parse","--path-format=absolute","--git-common-dir")).resolve()==(EXPECTED/".git").resolve(),"WRONG GIT COMMON DIR"
  assert git("remote","get-url","origin").rstrip("/")==REMOTE,"WRONG REMOTE"
- expected_branch=UNIFIED_BRANCH if is_unified else BRANCH if is_canonical else LIVE_BRANCH if is_live else VISUAL_BRANCH
+ expected_branch=ANIMA_BRANCH if is_anima else UNIFIED_BRANCH if is_unified else BRANCH if is_canonical else LIVE_BRANCH if is_live else VISUAL_BRANCH
  assert git("branch","--show-current")==expected_branch,"WRONG BRANCH"
  assert (ROOT/"missions"/"STANDALONE_AUTONOMOUS_ENTRY.md").is_file(),"MISSING MISSION ENTRY"
  assert (ROOT/"apps"/"gemini-ui"/"electron"/"main.cjs").is_file(),"MISSING GEMINI MAIN"
