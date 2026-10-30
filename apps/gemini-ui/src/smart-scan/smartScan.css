@@ -286,6 +286,10 @@
    ========================================================================== */
 .scan-service-body {
   container-type: inline-size;
+  /* A vertical scroller computes a horizontal one too, so a sub-pixel rounding
+     differential would paint a stray horizontal bar across the panel body.
+     Nothing in a service body is meant to scroll sideways. */
+  overflow-x: hidden;
 }
 
 .scan-service-body .scan-metric-grid {
@@ -311,7 +315,9 @@
 }
 
 @container (min-width: 620px) {
-  .scan-metric-grid {
+  /* Keep the body prefix: these rules must outrank the two-column defaults
+     above, and an unprefixed selector loses to them on specificity. */
+  .scan-service-body .scan-metric-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
@@ -325,7 +331,7 @@
 }
 
 @container (min-width: 720px) {
-  .scan-split {
+  .scan-service-body .scan-split {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

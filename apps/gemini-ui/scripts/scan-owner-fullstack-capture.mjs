@@ -198,6 +198,44 @@ try {
     expect(geo.dir).toBe(locale === 'ar' ? 'rtl' : 'ltr');
     expect(geo.tiles).toBe(10);
     expect(Math.abs(geo.mainOverflowX ?? 0)).toBeLessThanOrEqual(2);
+    // The six overview KPIs are the page's own row, so they need the same
+    // ellipsis gate the workbench bodies get.
+    const kpiClipped = await page.evaluate(() => Array.from(document.querySelectorAll('[data-testid^="scan-kpi-"]:not([data-testid$="-value"])')).flatMap((card) => (
+      Array.from(card.querySelectorAll('[data-metric-label],[data-metric-value]'))
+        .filter((node) => node.scrollWidth - node.clientWidth > 1 || node.scrollHeight - node.clientHeight > 1)
+        .map((node) => ({ kpi: card.getAttribute('data-testid'), text: (node.textContent || '').trim() }))
+    )));
+    expect(kpiClipped, `${name} ellipsized overview KPI`).toEqual([]);
+    // A card whose content overflows its box hides the provenance row under the
+    // panel below it: no ellipsis, no scrollbar, just a missing line.
+    const kpiOverflow = await page.evaluate(() => Array.from(document.querySelectorAll('[data-testid^="scan-kpi-"]:not([data-testid$="-value"])'))
+      .map((card) => {
+        const box = card.getBoundingClientRect();
+        const last = card.lastElementChild.getBoundingClientRect();
+        return { kpi: card.getAttribute('data-testid'), over: Math.round(last.bottom - box.bottom) };
+      })
+      .filter((row) => row.over > 0));
+    expect(kpiOverflow, `${name} KPI card overflows its own box`).toEqual([]);
+    // The provenance row must be painted, not dropped: a card that keeps only
+    // label and value hides whether the figure was measured or unavailable.
+    // The command canvas deliberately hides sub rows below 820 px of height,
+    // so only taller windows are held to this rule.
+    if (height > 820) {
+      const kpiSubs = await page.evaluate(() => Array.from(document.querySelectorAll('[data-testid^="scan-kpi-"]:not([data-testid$="-value"])'))
+        .map((card) => {
+          const sub = card.querySelector('[data-metric-sub], .scan-metric-sub');
+          const box = card.getBoundingClientRect();
+          if (!sub) return { kpi: card.getAttribute('data-testid'), state: 'missing' };
+          const r = sub.getBoundingClientRect();
+          const style = getComputedStyle(sub);
+          return {
+            kpi: card.getAttribute('data-testid'),
+            state: style.display === 'none' || r.height === 0 ? 'hidden' : r.bottom > box.bottom + 1 ? 'clipped' : 'shown',
+          };
+        })
+        .filter((row) => row.state !== 'shown'));
+      expect(kpiSubs, `${name} KPI provenance row not shown`).toEqual([]);
+    }
     const w = await app.browserWindow(page);
     await w.evaluate((win) => { win.show(); win.moveTop(); win.webContents.invalidate(); });
     await page.waitForTimeout(120);
@@ -269,7 +307,7 @@ try {
     const clipped = await body.evaluate((el) => {
       const read = (sel) => Array.from(el.querySelectorAll(sel)).map((node) => ({
         text: (node.textContent || '').trim(),
-        lost: node.scrollWidth - node.clientWidth,
+        lost: Math.max(node.scrollWidth - node.clientWidth, node.scrollHeight - node.clientHeight),
       }));
       return {
         labels: read('[data-metric-label]').filter((n) => n.lost > 1),
@@ -284,7 +322,26 @@ try {
     expect(info.overflowX).toBeLessThanOrEqual(2);
     expect(clipped.labels.map((n) => n.text), `${name} ellipsized KPI labels`).toEqual([]);
     expect(clipped.values.map((n) => n.text), `${name} ellipsized KPI values`).toEqual([]);
+    // A ~460 px pinned panel has room for two KPI columns, not four.
+    const sideTracks = await body.evaluate((el) => {
+      const grid = el.querySelector('.scan-metric-grid');
+      return grid ? getComputedStyle(grid).gridTemplateColumns.split(' ').length : 0;
+    });
+    if (sideTracks) expect(sideTracks, `${name} side-panel KPI columns`).toBe(2);
     await capture(`${name}-${locale}-${theme}-1672`, 1672, 941, locale, theme, name);
+    // The run action must sit inside the visible panel, not be pushed under the
+    // host footer by a long body: a clipped button is unreachable in a pinned
+    // workbench, and a screenshot alone shows only its top edge.
+    const actions = page.getByTestId('scan-service-actions');
+    if (await actions.count()) {
+      const fit = await actions.evaluate((el) => {
+        const scroller = el.closest('.files-scrollbar');
+        const a = el.getBoundingClientRect();
+        const s = scroller ? scroller.getBoundingClientRect() : a;
+        return { clipped: Math.round(a.bottom - s.bottom), scrolled: scroller ? scroller.scrollTop : 0 };
+      });
+      expect(fit.clipped, `${name} action row clipped by ${fit.clipped}px`).toBeLessThanOrEqual(0);
+    }
     return info;
   }
 
@@ -332,6 +389,14 @@ try {
 
       await page.getByTestId('workbench-mode-toggle').click();
       await expect(page.getByTestId('scan-workbench-expanded-shell')).toBeVisible({ timeout: 10000 });
+      // Container queries must actually resolve: an unprefixed rule loses on
+      // specificity and would silently leave the wide body at two columns.
+      const expandedTracks = await page.getByTestId('scan-deep_scan-workbench').evaluate((el) => {
+        const grid = el.querySelector('.scan-metric-grid');
+        return grid ? getComputedStyle(grid).gridTemplateColumns.split(' ').length : 0;
+      });
+      expect(expandedTracks, `expanded body KPI columns = ${expandedTracks}`).toBe(4);
+      proof.probes.push({ probe: 'expanded-container-tracks', tracks: expandedTracks });
       await capture('deep_scan-expanded-en-light-1672', 1672, 941, 'en', 'light', 'deep_scan-expanded');
       await page.getByTestId('workbench-mode-toggle').click();
       await expect(page.getByTestId('scan-workbench-side-shell')).toBeVisible({ timeout: 10000 });

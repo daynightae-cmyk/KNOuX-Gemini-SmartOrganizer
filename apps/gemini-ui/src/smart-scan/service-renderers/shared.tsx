@@ -136,7 +136,7 @@ export function WorkspaceLink({
     <button
       type="button"
       onClick={() => onNavigateToWorkspace(workspace)}
-      className="px-3 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/35 border border-cyan-400/40 text-[11px] font-bold text-cyan-200 transition cursor-pointer flex items-center gap-1.5"
+      className="px-3 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/35 border border-cyan-400/40 text-[11px] font-bold text-cyan-200 transition cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap"
     >
       <span>{isArabic ? labelAr : labelEn}</span>
       <ExternalLink className="w-3.5 h-3.5" />

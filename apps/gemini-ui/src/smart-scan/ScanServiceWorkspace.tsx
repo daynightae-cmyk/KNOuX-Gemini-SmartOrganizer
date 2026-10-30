@@ -97,10 +97,17 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
 
   if (embedded) {
     return (
-      <div data-testid="scan-service-focus" className="flex flex-col gap-3">
-        <p className="text-[10px] text-slate-400">{isArabic ? service.noteAr : service.noteEn}</p>
-        <div data-testid={`scan-${service.id}-workbench`} className="scan-service-body min-h-0 py-1">{body}</div>
-        <div className="flex flex-wrap items-center gap-2 border-t border-[#122e54] pt-2" data-testid="scan-service-actions">
+      <div data-testid="scan-service-focus" className="flex h-full min-h-0 flex-col gap-3">
+        <p className="shrink-0 text-[10px] text-slate-400">{isArabic ? service.noteAr : service.noteEn}</p>
+        {/* Only the measured body scrolls, so the action row stays reachable
+            instead of being pushed under the host footer. */}
+        <div
+          data-testid={`scan-${service.id}-workbench`}
+          className="scan-service-body min-h-0 flex-1 overflow-y-auto knx-custom-scrollbar py-1"
+        >
+          {body}
+        </div>
+        <div className="flex shrink-0 flex-wrap items-center gap-2 border-t border-[#122e54] pt-2" data-testid="scan-service-actions">
           <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
             <ShieldCheck className="w-3 h-3 text-emerald-400" />
             {isArabic ? 'قراءة فقط · بلا قناة تغيير' : 'read-only · no mutation channel'}

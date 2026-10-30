@@ -1533,8 +1533,8 @@ class ScanBridge {
       },
       {
         id: 'space',
-        labelEn: 'Verified duplicate bytes',
-        labelAr: 'بايتات مكررة متحقق منها',
+        labelEn: 'Duplicate bytes',
+        labelAr: 'بايتات مكررة',
         value: duplicatesMeasured ? formatBytes(verifiedBytes) : '—',
         subtextEn: duplicatesMeasured
           ? `${summary.verifiedDuplicateGroups || 0} verified group(s)`
@@ -1559,8 +1559,8 @@ class ScanBridge {
       },
       {
         id: 'health',
-        labelEn: 'Measured health score',
-        labelAr: 'درجة الصحة المقيسة',
+        labelEn: 'Health score',
+        labelAr: 'درجة الصحة',
         value: score == null ? '—' : `${score}/100`,
         subtextEn: score == null ? 'No numeric signals' : 'Measured signals',
         subtextAr: score == null ? 'لا توجد إشارات رقمية' : 'إشارات مقيسة',

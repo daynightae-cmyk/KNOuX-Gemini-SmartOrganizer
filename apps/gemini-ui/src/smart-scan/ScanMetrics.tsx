@@ -19,9 +19,9 @@ const PLACEHOLDERS: Array<Pick<KpiMetric, 'id' | 'labelEn' | 'labelAr' | 'indica
   { id: 'coverage', labelEn: 'Stage coverage', labelAr: 'تغطية المراحل', indicatorType: 'ring', accentColor: 'cyan' },
   { id: 'files', labelEn: 'Files indexed', labelAr: 'الملفات المفهرسة', indicatorType: 'stack', accentColor: 'blue' },
   { id: 'issues', labelEn: 'Findings', labelAr: 'النتائج', indicatorType: 'alert', accentColor: 'red' },
-  { id: 'space', labelEn: 'Verified duplicates', labelAr: 'مكررات متحقق منها', indicatorType: 'disk', accentColor: 'purple' },
+  { id: 'space', labelEn: 'Duplicate bytes', labelAr: 'بايتات مكررة', indicatorType: 'disk', accentColor: 'purple' },
   { id: 'privacy', labelEn: 'Origin markers', labelAr: 'علامات الأصل', indicatorType: 'shield', accentColor: 'teal' },
-  { id: 'health', labelEn: 'Measured health score', labelAr: 'درجة الصحة المقيسة', indicatorType: 'sparkline', accentColor: 'green' },
+  { id: 'health', labelEn: 'Health score', labelAr: 'درجة الصحة', indicatorType: 'sparkline', accentColor: 'green' },
 ];
 
 const TONE: Record<KpiMetric['accentColor'], { border: string; icon: string; value: string; sub: string }> = {
@@ -79,14 +79,17 @@ export const ScanMetrics: React.FC<ScanMetricsProps> = ({ metrics, isArabic = fa
             className={`scan-metric-card bg-[#07152b]/90 border border-[#132c4f] rounded-xl p-3 flex flex-col justify-between transition-all shadow-md ${tone.border} ${unavailable ? 'opacity-70' : ''}`}
             title={unavailable ? (isArabic ? 'لم تُقس هذه القيمة في الجلسة المحددة' : 'This value was not measured in the selected session') : undefined}
           >
-            <div className="flex items-center justify-between mb-1 gap-1">
-              <span className="scan-metric-label text-[11px] font-medium text-slate-300 truncate">{isArabic ? metric.labelAr : metric.labelEn}</span>
-              <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 border ${tone.icon}`}>
+            {/* The icon shares the value row, not the label row: six cards at
+                1366 leave barely 65 px beside an icon chip, which forced the
+                label into a clamp with an ellipsis that hid what was measured. */}
+            <span data-metric-label className="scan-metric-label text-[11px] font-medium leading-tight text-slate-300">{isArabic ? metric.labelAr : metric.labelEn}</span>
+
+            <div className="flex items-center justify-between gap-1">
+              <div data-testid={`scan-kpi-${metric.id}-value`} data-metric-value className={`text-xl font-black font-mono tracking-tight ${tone.value}`}>{metric.value}</div>
+              <div className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 border ${tone.icon}`}>
                 <IndicatorIcon type={metric.indicatorType} />
               </div>
             </div>
-
-            <div data-testid={`scan-kpi-${metric.id}-value`} className={`text-xl font-black font-mono tracking-tight ${tone.value}`}>{metric.value}</div>
 
             <div className="flex items-center justify-between text-[10px] mt-1 font-medium gap-1">
               <span className={`scan-metric-sub leading-tight ${tone.sub}`} title={isArabic ? metric.subtextAr : metric.subtextEn}>{isArabic ? metric.subtextAr : metric.subtextEn}</span>

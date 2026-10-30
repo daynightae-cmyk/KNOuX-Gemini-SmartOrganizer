@@ -210,8 +210,8 @@ function kpiFromSummary(session: ScanSession): KpiMetric[] {
     },
     {
       id: 'space',
-      labelEn: 'Verified duplicate bytes',
-      labelAr: 'بايتات مكررة متحقق منها',
+      labelEn: 'Duplicate bytes',
+      labelAr: 'بايتات مكررة',
       value: duplicateMeasured ? formatBytes(summary.verifiedReclaimableBytes, false) : '—',
       subtextEn: duplicateMeasured
         ? `${summary.verifiedDuplicateGroups || 0} verified group(s)`
@@ -236,8 +236,8 @@ function kpiFromSummary(session: ScanSession): KpiMetric[] {
     },
     {
       id: 'health',
-      labelEn: 'Measured health score',
-      labelAr: 'درجة الصحة المقيسة',
+      labelEn: 'Health score',
+      labelAr: 'درجة الصحة',
       value: summary.healthScore == null ? '—' : `${summary.healthScore}/100`,
       subtextEn: summary.healthScore == null ? 'No numeric signals' : 'Measured signals',
       subtextAr: summary.healthScore == null ? 'لا توجد إشارات رقمية' : 'إشارات مقيسة',

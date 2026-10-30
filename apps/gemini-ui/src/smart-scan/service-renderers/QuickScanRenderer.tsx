@@ -17,7 +17,7 @@ export const QuickScanRenderer: React.FC<ServiceRendererProps> = ({ service, isA
   return (
     <div className="space-y-3 text-slate-100 font-sans">
       <div className="flex items-center justify-between gap-2 border-b border-[#143058] pb-2">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5 min-w-0">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-white shadow-md">
             <Gauge className="w-5 h-5" />
           </div>
