@@ -46,3 +46,18 @@ Visual acceptance OPEN: the procedural ring set is lighter than the approved ren
 
 Next domain per the owner queue: Files & Instant Search.
 
+## Files & Instant Search — approved satellite identities
+
+Baseline: canonical local main `c71927a`. Implemented directly in main. No branch, worktree or remote change.
+
+Provenance: approved DAY reference `missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/da155a67f925__KNOuX SmartOrganizer File Explorer (1).png`. The existing Files hero, measured index, native query, table, inspector and Studio handoff were already present and were preserved. Only the shared orbit's six tool identities and their wiring changed, plus one real filter.
+
+Implemented: the six approved satellite identities now replace the previous Find/Images/Organize/Filters/Sources/Preview set — Recent (sorts by modification date), Large Files (sorts by size), Categories (moves focus to the type filter row), Duplicates (a new repeated-name filter), Locations (opens the advanced panel and focuses the location select), Tags (disabled with a stated reason). The Duplicates filter compares names only and shows a persistent notice saying that identical names do not prove identical content; it is renderer-side and therefore also applies to a measured page returned by the native query.
+
+Verification: TypeScript exit 0; production build exit 0; Files, navigation, Studio and workbench suites pass. Actual Electron at 1672×941 DAY/NIGHT: six orbit buttons, no page overflow, zero renderer errors (`docs/evidence/files-audit/final/`). Electron interaction probe: all six labels correct, one disabled node, Large Files → `size_desc`, Recent → `date_desc`, Categories → focus on the filter row, Locations → focus on `files-location`, Duplicates notice appears and clears.
+
+Open: the satellite arrangement uses the shared six-point orbit geometry rather than the reference's irregular cluster; Tags is unavailable because the indexed contract exposes no tag metadata; the reference's per-row "Indexed" status column, coloured type pills, "All Locations / Any Date / Any Size" selects and Recommended Actions panel are still absent. No packaged-Electron run for this increment.
+
+Next domain per the owner queue: Storage Atlas.
+
+

@@ -84,6 +84,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [selectedSizeFilter, setSelectedSizeFilter] = useState('Any');
   const [dateFilter, setDateFilter] = useState<'any' | 'today' | 'week' | 'month'>('any');
   const [locationFilter, setLocationFilter] = useState('all');
+  const [duplicateOnly, setDuplicateOnly] = useState(false);
   const [sortBy, setSortBy] = useState<'date_desc' | 'name_asc' | 'size_desc'>('date_desc');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [activeService, setActiveService] = useState<FilesServiceKey | null>(null);
@@ -146,7 +147,13 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
       zip: ['zip', 'rar', '7z', 'tar', 'gz'],
     };
     const allowedExtensions = extensionSets[selectedExtension] || null;
+    const nameCounts = new Map<string, number>();
+    for (const file of sourceFiles) {
+      const key = file.name.trim().toLowerCase();
+      nameCounts.set(key, (nameCounts.get(key) || 0) + 1);
+    }
     const rows = sourceFiles.filter((file) => {
+      if (duplicateOnly && (nameCounts.get(file.name.trim().toLowerCase()) || 0) < 2) return false;
       if (!['all', 'files'].includes(activeCategory) && file.category !== activeCategory) return false;
       if (!measured && locationFilter !== 'all' && file.source !== locationFilter) return false;
       if (activeCategory === 'folders') return false;
@@ -176,7 +183,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
       if (sortBy === 'size_desc') return b.sizeBytes - a.sizeBytes;
       return new Date(b.dateModifiedRaw).getTime() - new Date(a.dateModifiedRaw).getTime();
     });
-  }, [sourceFiles, activeCategory, searchQuery, selectedExtension, selectedSizeFilter, dateFilter, sortBy, measured, locationFilter]);
+  }, [sourceFiles, activeCategory, searchQuery, selectedExtension, selectedSizeFilter, dateFilter, sortBy, measured, locationFilter, duplicateOnly]);
 
   // Measured mode asks the native query whenever a visible filter changes.
   useEffect(() => {
@@ -508,12 +515,12 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 <OrbitalControl coreIcon={FolderOpen} title={locale === 'en' ? 'Explore Files' : 'استكشف الملفات'} subtitle={locale === 'en' ? 'Find, organize and manage' : 'ابحث ونظّم وأدر ملفاتك'}
                   onActivate={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()}
                   tools={[
-                    { id: 'search', label: locale === 'en' ? 'Find' : 'بحث', icon: Search, onClick: () => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus() },
-                    { id: 'images', label: locale === 'en' ? 'Images' : 'الصور', icon: ImageIcon, onClick: () => setActiveCategory('images') },
-                    { id: 'plan', label: locale === 'en' ? 'Organize' : 'تنظيم', icon: FolderTree, onClick: handleOpenStudio },
-                    { id: 'filters', label: locale === 'en' ? 'Filters' : 'الفلاتر', icon: Sliders, onClick: () => { const panel = document.querySelector<HTMLDetailsElement>('.knx-files-advanced'); if (panel) panel.open = true; document.querySelector<HTMLSelectElement>('[data-testid="files-extension"]')?.focus(); } },
-                    { id: 'sources', label: locale === 'en' ? 'Sources' : 'المصادر', icon: Folder, onClick: () => void filesNative.addSource(), disabled: !filesNative.available },
-                    { id: 'preview', label: locale === 'en' ? 'Preview' : 'المعاينة', icon: Maximize2, onClick: () => setPreviewExpanded(p => !p) },
+                    { id: 'recent', label: locale === 'en' ? 'Recent' : 'الأحدث', icon: Clock, onClick: () => setSortBy('date_desc'), active: sortBy === 'date_desc' },
+                    { id: 'large', label: locale === 'en' ? 'Large Files' : 'ملفات كبيرة', icon: HardDrive, onClick: () => setSortBy('size_desc'), active: sortBy === 'size_desc' },
+                    { id: 'categories', label: locale === 'en' ? 'Categories' : 'الفئات', icon: Layers, onClick: () => document.querySelector<HTMLElement>('[data-testid="files-categories"]')?.focus(), hint: locale === 'en' ? 'Focus the type filter row' : 'الانتقال إلى صف تصفية النوع' },
+                    { id: 'duplicates', label: locale === 'en' ? 'Duplicates' : 'المكرر', icon: Copy, onClick: () => setDuplicateOnly(v => !v), active: duplicateOnly, hint: locale === 'en' ? 'Repeated file names. Same names do not prove identical content.' : 'أسماء ملفات مكررة. تشابه الأسماء لا يثبت تطابق المحتوى.' },
+                    { id: 'locations', label: locale === 'en' ? 'Locations' : 'المواقع', icon: FolderTree, onClick: () => { const panel = document.querySelector<HTMLDetailsElement>('.knx-files-advanced'); if (panel) panel.open = true; requestAnimationFrame(() => document.querySelector<HTMLSelectElement>('[data-testid="files-location"]')?.focus()); }, hint: locale === 'en' ? 'Open the location filter' : 'فتح تصفية الموقع' },
+                    { id: 'tags', label: locale === 'en' ? 'Tags' : 'الوسوم', icon: Tag, onClick: () => undefined, disabled: true, hint: locale === 'en' ? 'Not available: the indexed contract exposes no tags' : 'غير متاح: عقد الفهرس لا يوفر وسومًا' },
                   ]} />
               </div>
             </div>
@@ -585,7 +592,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             />
 
             {/* Category Filter Pills (9 categories) */}
-            <div className="knx-files-categories flex flex-wrap items-center gap-1.5 pb-1 mb-2">
+            <div className="knx-files-categories flex flex-wrap items-center gap-1.5 pb-1 mb-2" data-testid="files-categories" tabIndex={-1} role="group" aria-label={locale === 'en' ? 'File type filters' : 'تصفية نوع الملف'}>
               {categoryPills.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeCategory === tab.id;
@@ -682,6 +689,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 <div className="relative">
                   <select
                     value={measured ? (filesNative.source?.label || 'authorized') : locationFilter}
+                    data-testid="files-location"
+                    aria-label={measured ? (locale === 'en' ? 'Authorized source' : 'المصدر المصرّح') : (locale === 'en' ? 'Location filter' : 'تصفية الموقع')}
                     onChange={(e) => setLocationFilter(e.target.value)}
                     disabled={measured}
                     title={measured ? 'Measured mode queries one authorized source at a time.' : undefined}
@@ -816,6 +825,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
           <div className="knx-files-split flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
             {/* Left-Center Results Table */}
             <div className="knx-files-results flex-1 bg-[#061226] rounded-xl border border-[#132c52] overflow-hidden flex flex-col min-h-0 select-none shadow-inner">
+              {duplicateOnly && <div className="flex items-center gap-2 px-3 py-1.5 text-[10px] text-amber-200 bg-amber-500/10 border-b border-amber-400/30" role="status" data-testid="files-duplicate-notice"><Copy className="w-3 h-3 shrink-0" aria-hidden="true"/><span className="flex-1">{locale === 'en' ? 'Repeated names only. Same names do not prove identical content.' : 'أسماء متكررة فقط. تشابه الأسماء لا يثبت تطابق المحتوى.'}</span><button type="button" onClick={() => setDuplicateOnly(false)} className="underline shrink-0">{locale === 'en' ? 'Clear' : 'مسح'}</button></div>}
               {/* Table Header */}
               <div className="h-8 bg-[#091a33] border-b border-[#132c52] px-3 flex items-center text-[11px] font-semibold text-slate-400">
                 <div className="w-8 shrink-0 flex items-center">
