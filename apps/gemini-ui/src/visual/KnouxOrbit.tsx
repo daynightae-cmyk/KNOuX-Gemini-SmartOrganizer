@@ -3,7 +3,7 @@ import {Play,type LucideIcon} from 'lucide-react';
 import {KnouxMark} from './ReferenceAtmosphere';
 import './knoux-orbit.css';
 
-export type OrbitTone='violet'|'blue'|'teal'|'amber'|'emerald'|'rose'|'indigo'|'sky';
+export type OrbitTone='violet'|'blue'|'teal'|'amber'|'emerald'|'rose'|'indigo'|'sky'|'red';
 export type OrbitToolState='available'|'active'|'loading'|'failed'|'disabled'|'unavailable';
 export type KnouxOrbitState='ready'|'loading'|'partial'|'failed'|'unavailable';
 export interface OrbitTool{
@@ -17,7 +17,7 @@ export interface KnouxOrbitProps{
  state?:KnouxOrbitState;eyebrow?:string;coreIcon?:LucideIcon;className?:string;testId?:string;
  optics?:'home';decorativeMotion?:boolean;
 }
-const tones:OrbitTone[]=['violet','blue','teal','amber','emerald','rose','indigo','sky'];
+const tones:OrbitTone[]=['violet','blue','teal','amber','emerald','rose','indigo','sky','red'];
 const stateLabel:Record<OrbitToolState,string>={available:'available',active:'current',loading:'loading',failed:'failed',disabled:'disabled',unavailable:'unavailable'};
 /** Shared vector instrument. Static controls sit above an independent decorative
  * SVG layer. A sweep is ambient light, never a percentage or simulated progress. */

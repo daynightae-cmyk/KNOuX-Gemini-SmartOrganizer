@@ -1,0 +1,64 @@
+{
+  "acceptance": "OWNER_REVIEW_REQUIRED",
+  "method": "Exact-size side-by-side, 50 percent overlay and absolute pixel difference. Reference and render carry deliberately different data (illustrative versus measured), so differences are expected; no similarity score is produced.",
+  "comparisons": [
+    {
+      "theme": "day",
+      "size": [
+        1672,
+        941
+      ],
+      "reference": {
+        "file": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/be739fbf4012__KNOuX Organization Studio Dashboard.png",
+        "sha256": "be739fbf40121e9be6c5d4cfcb278a6c12ba443034255b8c39b1b6bfb74cf293"
+      },
+      "actual": {
+        "file": "docs/evidence/studio-interior/round8/en-light-1672.png",
+        "sha256": "c3bd07bcc6cf8c3e124c64809107de35157549d8f70f23118fc3f1f79eefcbce"
+      },
+      "outputs": {
+        "side-by-side": {
+          "file": "docs/evidence/studio-interior/comparison/overview-day-side-by-side.png",
+          "sha256": "c9de08e31b7e2eaf6683f0f22046be5ea58ec3bd375f070b8f7dec70b0a9ebaa"
+        },
+        "overlay-50pct": {
+          "file": "docs/evidence/studio-interior/comparison/overview-day-overlay-50pct.png",
+          "sha256": "06bde86398131ebfd5e3f55dd951b32a539eaf5a266bea8f5d6e3e3eb7542182"
+        },
+        "difference": {
+          "file": "docs/evidence/studio-interior/comparison/overview-day-difference.png",
+          "sha256": "044f026280d292920910e5e93c893b0960d036e7c31c3f2d74119605a3588d5a"
+        }
+      }
+    },
+    {
+      "theme": "night",
+      "size": [
+        1672,
+        941
+      ],
+      "reference": {
+        "file": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/01_organization-studio.png",
+        "sha256": "fdac6aad9362d81694a177e95b1f85a0c7a4ff599ef89be8470ca9323bff1617"
+      },
+      "actual": {
+        "file": "docs/evidence/studio-interior/round8/en-dark-1672.png",
+        "sha256": "11f38e03397b8e2ceaee65dfa060ce0e1c69a97339cbefc79665801f8f5184c4"
+      },
+      "outputs": {
+        "side-by-side": {
+          "file": "docs/evidence/studio-interior/comparison/overview-night-side-by-side.png",
+          "sha256": "b04b2226c35c511a5c7a2ef657399bf175b750eaf9715ac08514d2dc06b9047b"
+        },
+        "overlay-50pct": {
+          "file": "docs/evidence/studio-interior/comparison/overview-night-overlay-50pct.png",
+          "sha256": "1e56f46754a5b56cec9613bb7039ec705162db2d4e82ee03e70ed8de390b4816"
+        },
+        "difference": {
+          "file": "docs/evidence/studio-interior/comparison/overview-night-difference.png",
+          "sha256": "48d067bcb160b6abfd8a55640023620c4ce09670777f5dc94a5c1cce20d7f373"
+        }
+      }
+    }
+  ]
+}
