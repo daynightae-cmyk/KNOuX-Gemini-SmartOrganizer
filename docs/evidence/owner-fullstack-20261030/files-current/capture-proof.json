@@ -1,0 +1,1139 @@
+{
+  "domain": "Files & Instant Search",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "5553602ceca99500e38cbde3311838296d0f7b75",
+  "fixture": {
+    "files": 41,
+    "images": 1,
+    "profileIsolated": true
+  },
+  "sourceFiles": {
+    "src/pages/FilesPage.tsx": "ac073ab688f4b7f5f3339c140685d16d462330db2e56497c3a178dc69f1bbed3",
+    "src/files/FilesServiceFocus.tsx": "1b8c6204259b94e2c561c32242f468cdf373b29119b3d7ec16a238b0aa3e76ab",
+    "src/files/useFilesNative.ts": "becf9b95039323b90a2e492d43f8093aafeefe0bf34a927ac4bbdc4b3b6b658d",
+    "src/files/native.ts": "57737478ab0f5a71cfd9071d5e51e0fd3d50fe8aab5bbd77b9422594de917cb0",
+    "src/lib/file-inventory.ts": "0964702435e4570ea381be4280893c202a3743105afa86aea10a94c193b1190c",
+    "src/visual/files-reference.css": "84f61a6b1a0955484d0d41981d90637d91ffebd565bb069ab7f1eaecafe55ea6",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "c060f6e011adea7f6d45cce66afc098ed1ac2883a154577d8d3654d632a5dbd8",
+    "electron/native/studio-bridge.cjs": "68bb22f858d21be801deb4a14b1578089c0d3ec96b01b5efc50b8190961d8018",
+    "electron/native/operation-engine.cjs": "c085bf2ca96e94ee6a05705cf1e7da013cc190fa3c304097d259f0f5dbcbb7cf",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "captures": [
+    {
+      "file": "overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "downloads-inventory-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "downloads-inventory",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "organize-preview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "organize-preview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "organize-apply-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "organize-apply",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "organize-undo-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "organize-undo",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "empty-folders-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "empty-folders",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hash-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hash",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "search-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "search",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "type-map-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "type-map",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "recents-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "recents",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "largest-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "largest",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "metadata-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "metadata",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "provenance-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "provenance",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hash-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "hash-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": null
+      }
+    },
+    {
+      "file": "downloads-inventory-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "downloads-inventory",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "organize-preview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "organize-preview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "organize-apply-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "organize-apply",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "organize-undo-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "organize-undo",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "empty-folders-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "empty-folders",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "hash-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "hash",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "search-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "search",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "type-map-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "type-map",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "recents-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "recents",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "largest-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "largest",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "metadata-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "metadata",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "provenance-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "provenance",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "bannerVisible": true,
+        "rows": 41,
+        "workbench": "side"
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "file-downloads-inventory",
+      "body": "files-downloads-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-downloads-workbench",
+      "text": "Files41Bytes6.1 KBFolders1Authorized sourcesourceLast scan2026-10-30T11:50:56.030ZCoveragecompleteCategory distributiond",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "file-organize-preview",
+      "body": "files-organize-preview-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-organize-preview-workbench",
+      "text": "Measured files41Selected scope0 · 0.0 MBPlans are built from measured file identities and previewed as an exact before/a",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-apply",
+      "body": "files-organize-apply-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-organize-apply-workbench",
+      "text": "Execution happens only inside Studio stage 07: exact plan, plan hash, explicit native confirmation, per-file postconditi",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-undo",
+      "body": "files-organize-undo-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-organize-undo-workbench",
+      "text": "Undo is derived from the verified receipt of the exact executed operation, then re-verified hash by hash before any file",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-empty-folders",
+      "body": "files-empty-folders-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-empty-folders-workbench",
+      "text": "Scan empty folders0 empty folders · 1 scanned",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-hash",
+      "body": "files-hash-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-hash-workbench",
+      "text": "visual-preview.pngCompute SHA-256918acaf770e1ac0922ed958ffbcfc715897e25a4b95058642505a0dbe02915a3",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-search",
+      "body": "files-search-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-search-workbench",
+      "text": "Read-only native querySearch, category, extension, size and date filters call the measured index. The ledger shows the f",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-type-map",
+      "body": "files-type-map-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-type-map-workbench",
+      "text": "Rank the ledger by size.png6.docx5.js5.mp35.zip5.pdf5",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-recents",
+      "body": "files-recents-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-recents-workbench",
+      "text": "Sort the ledger by newestitem-39.docx167 Bvisual-preview.png375 Bitem-31.docx159 Bitem-32.png160 Bitem-33.mp4161 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-largest",
+      "body": "files-largest-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-largest-workbench",
+      "text": "Sort the ledger by largestvisual-preview.png375 Bitem-39.docx167 Bitem-38.js166 Bitem-37.mp3165 Bitem-36.zip164 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-metadata",
+      "body": "files-metadata-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-metadata-workbench",
+      "text": "visual-preview.png375 bytesC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source\\visual-preview.pngNo Zon",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-provenance",
+      "body": "files-provenance-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "files-provenance-workbench",
+      "text": "complete coverageC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source2026-10-30T11:50:56.030ZMetadata-on",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-downloads-inventory",
+      "body": "files-downloads-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-downloads-workbench",
+      "text": "Files41Bytes6.1 KBFolders1Authorized sourcesourceLast scan2026-10-30T11:50:56.030ZCoveragecompleteCategory distributiond",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "file-organize-preview",
+      "body": "files-organize-preview-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-organize-preview-workbench",
+      "text": "Measured files41Selected scope0 · 0.0 MBPlans are built from measured file identities and previewed as an exact before/a",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-apply",
+      "body": "files-organize-apply-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-organize-apply-workbench",
+      "text": "Execution happens only inside Studio stage 07: exact plan, plan hash, explicit native confirmation, per-file postconditi",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-undo",
+      "body": "files-organize-undo-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-organize-undo-workbench",
+      "text": "Undo is derived from the verified receipt of the exact executed operation, then re-verified hash by hash before any file",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-empty-folders",
+      "body": "files-empty-folders-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-empty-folders-workbench",
+      "text": "Scan empty folders0 empty folders · 1 scanned",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-hash",
+      "body": "files-hash-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-hash-workbench",
+      "text": "visual-preview.pngCompute SHA-256918acaf770e1ac0922ed958ffbcfc715897e25a4b95058642505a0dbe02915a3",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-search",
+      "body": "files-search-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-search-workbench",
+      "text": "Read-only native querySearch, category, extension, size and date filters call the measured index. The ledger shows the f",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-type-map",
+      "body": "files-type-map-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-type-map-workbench",
+      "text": "Rank the ledger by size.png6.docx5.js5.mp35.zip5.pdf5",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-recents",
+      "body": "files-recents-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-recents-workbench",
+      "text": "Sort the ledger by newestitem-39.docx167 Bvisual-preview.png375 Bitem-31.docx159 Bitem-32.png160 Bitem-33.mp4161 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-largest",
+      "body": "files-largest-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-largest-workbench",
+      "text": "Sort the ledger by largestvisual-preview.png375 Bitem-39.docx167 Bitem-38.js166 Bitem-37.mp3165 Bitem-36.zip164 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-metadata",
+      "body": "files-metadata-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-metadata-workbench",
+      "text": "visual-preview.png375 bytesC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source\\visual-preview.pngNo Zon",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-provenance",
+      "body": "files-provenance-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "files-provenance-workbench",
+      "text": "complete coverageC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source2026-10-30T11:50:56.030ZMetadata-on",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-downloads-inventory",
+      "body": "files-downloads-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-downloads-workbench",
+      "text": "ملفات41بايت6.1 KBمجلدات1المصدر المصرحsourceآخر فحص2026-10-30T11:50:56.030Zالتغطيةcompleteتوزيع الفئاتdocument10image6cod",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "file-organize-preview",
+      "body": "files-organize-preview-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-organize-preview-workbench",
+      "text": "ملفات مقيسة41النطاق المحدد0 · 0.0 MBتُبنى الخطط من هويات الملفات المقيسة وتُعاين كخطة دقيقة قبل/بعد مع بصمة خطة. لا تُجه",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-apply",
+      "body": "files-organize-apply-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-organize-apply-workbench",
+      "text": "يحدث التنفيذ فقط في المرحلة 07 من الاستوديو: خطة دقيقة وبصمة خطة وتأكيد Native صريح وإيصالات تحقق لكل ملف وعكس متحقق. لا",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-undo",
+      "body": "files-organize-undo-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-organize-undo-workbench",
+      "text": "يُشتق التراجع من إيصال العملية المنفذة المتحقق، ثم يُتحقق تجزئةً بتجزئة قبل استعادة أي ملف. لا تعرض الملفات قناة تراجع م",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-empty-folders",
+      "body": "files-empty-folders-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-empty-folders-workbench",
+      "text": "فحص المجلدات الفارغة0 مجلد فارغ · 1 scanned",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-hash",
+      "body": "files-hash-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-hash-workbench",
+      "text": "visual-preview.pngحساب SHA-256918acaf770e1ac0922ed958ffbcfc715897e25a4b95058642505a0dbe02915a3",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-search",
+      "body": "files-search-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-search-workbench",
+      "text": "استعلام أصلي للقراءة فقطالبحث والفئة والامتداد والحجم والتاريخ تستدعي الفهرس المقيس. يعرض السجل أول 200 نتيجة.الانتقال إ",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-type-map",
+      "body": "files-type-map-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-type-map-workbench",
+      "text": "ترتيب السجل حسب الحجم.png6.docx5.js5.mp35.zip5.pdf5",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-recents",
+      "body": "files-recents-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-recents-workbench",
+      "text": "ترتيب السجل بالأحدثitem-39.docx167 Bvisual-preview.png375 Bitem-31.docx159 Bitem-32.png160 Bitem-33.mp4161 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-largest",
+      "body": "files-largest-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-largest-workbench",
+      "text": "ترتيب السجل بالأكبرvisual-preview.png375 Bitem-39.docx167 Bitem-38.js166 Bitem-37.mp3165 Bitem-36.zip164 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-metadata",
+      "body": "files-metadata-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-metadata-workbench",
+      "text": "visual-preview.png375 bytesC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source\\visual-preview.pngNo Zon",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-provenance",
+      "body": "files-provenance-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "files-provenance-workbench",
+      "text": "complete coverageC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source2026-10-30T11:50:56.030Zفحص للبيانا",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-downloads-inventory",
+      "body": "files-downloads-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-downloads-workbench",
+      "text": "ملفات41بايت6.1 KBمجلدات1المصدر المصرحsourceآخر فحص2026-10-30T11:50:56.030Zالتغطيةcompleteتوزيع الفئاتdocument10image6cod",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "file-organize-preview",
+      "body": "files-organize-preview-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-organize-preview-workbench",
+      "text": "ملفات مقيسة41النطاق المحدد0 · 0.0 MBتُبنى الخطط من هويات الملفات المقيسة وتُعاين كخطة دقيقة قبل/بعد مع بصمة خطة. لا تُجه",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-apply",
+      "body": "files-organize-apply-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-organize-apply-workbench",
+      "text": "يحدث التنفيذ فقط في المرحلة 07 من الاستوديو: خطة دقيقة وبصمة خطة وتأكيد Native صريح وإيصالات تحقق لكل ملف وعكس متحقق. لا",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-organize-undo",
+      "body": "files-organize-undo-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-organize-undo-workbench",
+      "text": "يُشتق التراجع من إيصال العملية المنفذة المتحقق، ثم يُتحقق تجزئةً بتجزئة قبل استعادة أي ملف. لا تعرض الملفات قناة تراجع م",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-empty-folders",
+      "body": "files-empty-folders-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-empty-folders-workbench",
+      "text": "فحص المجلدات الفارغة0 مجلد فارغ · 1 scanned",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-hash",
+      "body": "files-hash-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-hash-workbench",
+      "text": "visual-preview.pngحساب SHA-256918acaf770e1ac0922ed958ffbcfc715897e25a4b95058642505a0dbe02915a3",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-search",
+      "body": "files-search-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-search-workbench",
+      "text": "استعلام أصلي للقراءة فقطالبحث والفئة والامتداد والحجم والتاريخ تستدعي الفهرس المقيس. يعرض السجل أول 200 نتيجة.الانتقال إ",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-type-map",
+      "body": "files-type-map-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-type-map-workbench",
+      "text": "ترتيب السجل حسب الحجم.png6.docx5.js5.mp35.zip5.pdf5",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-recents",
+      "body": "files-recents-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-recents-workbench",
+      "text": "ترتيب السجل بالأحدثitem-39.docx167 Bvisual-preview.png375 Bitem-31.docx159 Bitem-32.png160 Bitem-33.mp4161 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-largest",
+      "body": "files-largest-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-largest-workbench",
+      "text": "ترتيب السجل بالأكبرvisual-preview.png375 Bitem-39.docx167 Bitem-38.js166 Bitem-37.mp3165 Bitem-36.zip164 B",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-metadata",
+      "body": "files-metadata-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-metadata-workbench",
+      "text": "visual-preview.png375 bytesC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source\\visual-preview.pngNo Zon",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "file-provenance",
+      "body": "files-provenance-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "files-provenance-workbench",
+      "text": "complete coverageC:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-3GepOa\\source2026-10-30T11:50:56.030Zفحص للبيانا",
+      "controls": 1,
+      "visible": true
+    }
+  ],
+  "integration": [
+    {
+      "service": "file-organize-preview",
+      "stage": "mission-03-06"
+    },
+    {
+      "service": "file-organize-apply",
+      "stage": "mission-03-07"
+    },
+    {
+      "service": "file-organize-undo",
+      "stage": "mission-03-08"
+    }
+  ],
+  "checks": [
+    "Selected a measured file through the row menu; native metadata and hash context are attached",
+    "Expanded and pinned workbench modes both render the service body",
+    "Twelve distinct Files service bodies verified across DAY/NIGHT and EN/AR (12 signatures)",
+    "All twelve bodies expose distinct measured content and at least one control",
+    "Organize preview/apply/undo hand off to Studio stages 06/07/08 with the service body still owning the entry point",
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    {
+      "sourceUnchanged": true,
+      "fixtureFiles": 41
+    }
+  ],
+  "errors": [],
+  "ok": true
+}
