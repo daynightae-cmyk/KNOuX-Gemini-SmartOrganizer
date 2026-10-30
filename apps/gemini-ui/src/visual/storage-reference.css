@@ -9,3 +9,11 @@
 .visual-sprint[data-visual-section='storage'] .treemap-tile { box-shadow:inset 0 1px 0 #ffffff44,0 2px 8px #10092722; }
 @media (max-width:1370px) { .visual-sprint[data-visual-section='storage'] [data-testid='storage-workspace'] { grid-template-columns:minmax(0,1fr) 300px; }.visual-sprint[data-visual-section='storage'] .knx-storage-hero { grid-template-columns:1fr; min-height:160px; padding:24px; }.visual-sprint[data-visual-section='storage'] .knx-storage-hero .knx-orbit { display:none; } }
 @media (max-width:1050px) { .visual-sprint[data-visual-section='storage'] [data-testid='storage-workspace'] { display:flex; flex-direction:column; }.visual-sprint[data-visual-section='storage'] .knx-storage-analysis-grid { display:flex; flex-direction:column; gap:14px; }.visual-sprint[data-visual-section='storage'] .knx-storage-inspector { height:auto; max-height:700px; position:static; } }
+
+/* The measured atlas banner carries scope, counts and four controls. The
+   shared status strip clamps it to 56px and scrolls, which clips the trailing
+   read-only note mid-word. Storage lets the strip size to its content and the
+   action group wrap instead. */
+.visual-sprint[data-visual-section='storage'] .knx-command-canvas .knx-command-status { max-height:none; overflow:visible; }
+.visual-sprint[data-visual-section='storage'] [data-testid='storage-native-banner'] > span:last-child { flex-wrap:wrap; row-gap:3px; justify-content:flex-end; min-width:0; }
+.visual-sprint[data-visual-section='storage'] [data-testid='storage-native-banner'] > span:last-child > span:last-child { white-space:normal; }
