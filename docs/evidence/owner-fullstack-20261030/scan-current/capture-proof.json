@@ -1,0 +1,1259 @@
+{
+  "domain": "Smart Scan",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "ac6cec4fadf30cbbbcbea5be21450c8ba04cf6aa",
+  "fixture": {
+    "files": 40,
+    "zoneMarked": 3,
+    "profileIsolated": true
+  },
+  "sourceFiles": {
+    "src/smart-scan/SmartScanPage.tsx": "b4edb6dcf7fbee2666f2ce1c8db92fe7f9ab45db143fa024f6bbd6f33df15056",
+    "src/smart-scan/ScanServices.tsx": "b45e99f0ed788379f872c4f7dd331ada1bf42f272d9e85bd4a4b3440c9895eb6",
+    "src/smart-scan/ScanCommandBar.tsx": "223a97e75ff0306d42636eb9b02f7841a9e4e591108067212899e4dcecee072e",
+    "src/smart-scan/ScanServiceWorkspace.tsx": "a7a51ebc22171fe18a724eb17cf2ad9274077ebd38af2905a6595146dbc62bfd",
+    "src/smart-scan/useSmartScan.ts": "ab41901fd8dfde6e2e222182d871ce937f9a94b2d36446e5b4786fea143394ac",
+    "src/smart-scan/service-renderers/shared.tsx": "dcca634fae3acbc791d8fab3a5546f576a0267cf78ca4f5bd3ac4ae4292a359a",
+    "src/smart-scan/service-renderers/DeepScanRenderer.tsx": "2181a5bbe169d164f432307b35742925a6b50fd061766bc3c59a314fc4efef4c",
+    "src/smart-scan/service-renderers/PrivacyTraceRenderer.tsx": "45be534d0be474a2e937e4e5b9e1bbcc29878c0a46de3d2cc53fa308ac26e6d4",
+    "src/smart-scan/service-renderers/SmartRecommendationsRenderer.tsx": "7af735c0e28e9fa510e0c769761d02a3311b3ce92b6a4a12ae7f2492054b5995",
+    "src/smart-scan/service-renderers/SystemHealthPulseRenderer.tsx": "4c7b061beff700f60eb57a5bc0b2690a64a30afae0d71410b05eee14dcd18726",
+    "src/smart-scan/smartScan.css": "ddfee18e72bbc4baa2f4685c02283e1c0e67bfd6902a3b60ff613e38da84c1a4",
+    "src/visual/section-fidelity.css": "caf246b7adda82e1dac24023c52c00fd1745116b08937e9c5d75eaa59859f61c",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "c060f6e011adea7f6d45cce66afc098ed1ac2883a154577d8d3654d632a5dbd8",
+    "electron/native/scan-bridge.cjs": "55e57945d5dcc1a19c3fb29f43105ccfb4dfad4ad9babc29170717c8a69c20fa",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "captures": [
+    {
+      "file": "quick_scan-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "quick_scan",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "deep_scan-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "deep_scan",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "deep_scan-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "deep_scan-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "duplicate_finder-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "duplicate_finder",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "large_files_review-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "large_files_review",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "junk_cleaner-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "junk_cleaner",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "privacy_trace_check-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "privacy_trace_check",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup_impact_check-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup_impact_check",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app_health_review-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app_health_review",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system_health_pulse-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "system_health_pulse",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "smart_recommendations-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "smart_recommendations",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "quick_scan-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "quick_scan",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "deep_scan-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "deep_scan",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "duplicate_finder-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "duplicate_finder",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "large_files_review-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "large_files_review",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "junk_cleaner-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "junk_cleaner",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "privacy_trace_check-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "privacy_trace_check",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup_impact_check-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup_impact_check",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app_health_review-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app_health_review",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "system_health_pulse-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "system_health_pulse",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "smart_recommendations-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "smart_recommendations",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "overview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 10,
+        "workbench": null
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "quick_scan",
+      "body": "scan-quick_scan-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-quick_scan-workbench",
+      "text": "Measured Quick ScanAuthorized inventory + capacity + system + servicesREAD-ONLYIndexed files405.8 KBMounted volumes33 lo",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"no",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "deep_scan",
+      "body": "scan-deep_scan-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-deep_scan-workbench",
+      "text": "Measured Deep ScanAll read-only providers with bounded duplicate hashingCopy measured evidenceCOMPLETEIndexed files405.8",
+      "controls": 13,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-blue-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "duplicate_finder",
+      "body": "scan-duplicate_finder-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-duplicate_finder-workbench",
+      "text": "Measured Duplicate FinderByte-identical files via SHA-256 inside the authorized folderStorage AtlasVerified groups00 BFi",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"no",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "large_files_review",
+      "body": "scan-large_files_review-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-large_files_review-workbench",
+      "text": "Measured Large FilesRanked from actual file sizes in the authorized folderStorage AtlasRanked files20largest filesCombin",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-500 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"non",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "junk_cleaner",
+      "body": "scan-junk_cleaner-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-junk_cleaner-workbench",
+      "text": "Junk Cleaner — Measurement OnlyEmpty-folder discovery inside the authorized folderCleanup WorkspaceEmpty folders0measure",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-500 to-fuchsia-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fil",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "privacy_trace_check",
+      "body": "scan-privacy_trace_check-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-privacy_trace_check-workbench",
+      "text": "Privacy Trace Check — Measured SampleDownload-origin markers from Zone.Identifier inside the authorized folderCopy measu",
+      "controls": 5,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "text-[9px] text-slate-500 mt-0.5 truncate",
+          "over": 26,
+          "cw": 195
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-mono text-slate-300 truncate min-w-0",
+          "over": 6,
+          "cw": 60
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-mono text-slate-300 truncate min-w-0",
+          "over": 13,
+          "cw": 60
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-mono text-slate-300 truncate min-w-0",
+          "over": 13,
+          "cw": 60
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": [
+          "https://downloads.example.test/setup.exe"
+        ]
+      }
+    },
+    {
+      "key": "startup_impact_check",
+      "body": "scan-startup_impact_check-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-startup_impact_check-workbench",
+      "text": "Startup Impact — Measured InventoryAutostart entries from Win32_StartupCommand with no invented boot secondsStartup Cont",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-orange-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 49,
+          "cw": 334
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "app_health_review",
+      "body": "scan-app_health_review-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-app_health_review-workbench",
+      "text": "App Health — Measured Install InventoryFrom the uninstall registry; no “unused” verdict or uninstall actionApplications ",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-500 to-purple-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 27,
+          "cw": 321
+        },
+        {
+          "tag": "DIV",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 48,
+          "cw": 321
+        },
+        {
+          "tag": "DIV",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 44,
+          "cw": 321
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "system_health_pulse",
+      "body": "scan-system_health_pulse-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-system_health_pulse-workbench",
+      "text": "System Health Pulse — Momentary MeasurementCPU load, memory pressure and volume capacity at scan timeCopy measured evide",
+      "controls": 5,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-lime-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "text-[9px] text-slate-500 mt-0.5 truncate",
+          "over": 82,
+          "cw": 195
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": [
+          "Win32_PerfFormattedData_PerfOS_Processor (_Total)"
+        ]
+      }
+    },
+    {
+      "key": "smart_recommendations",
+      "body": "scan-smart_recommendations-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "scan-smart_recommendations-workbench",
+      "text": "Evidence-Based RecommendationsLOCAL RULESDeterministic local rules over measured findings.Copy measured evidenceNO AI PR",
+      "controls": 11,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-white shadow-md shrink-0\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 ",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "flex items-center gap-2.5 min-w-0",
+          "over": 21,
+          "cw": 153
+        },
+        {
+          "tag": "DIV",
+          "cls": "min-w-0",
+          "over": 21,
+          "cw": 107
+        },
+        {
+          "tag": "DIV",
+          "cls": "flex flex-wrap items-center gap-1.5",
+          "over": 21,
+          "cw": 107
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "quick_scan",
+      "body": "scan-quick_scan-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-quick_scan-workbench",
+      "text": "مركز الفحص السريع المقيسفهرس المجلد المصرح به + السعة + النظام + الخدماتREAD-ONLYملفات مفهرسة405.8 ك.بوحدات تخزين33 منخف",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"no",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "deep_scan",
+      "body": "scan-deep_scan-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-deep_scan-workbench",
+      "text": "مساحة الفحص العميق المقيسجميع المزودات للقراءة فقط مع تجزئة مكررات محدودةنسخ الأدلة المقيسةCOMPLETEملفات مفهرسة405.8 ك.ب",
+      "controls": 13,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-blue-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "duplicate_finder",
+      "body": "scan-duplicate_finder-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-duplicate_finder-workbench",
+      "text": "مكتشف المكررات المقيسبايتات متطابقة عبر SHA-256 داخل المجلد المصرح بهأطلس التخزينمجموعات مؤكدة0٠ بايتملفات مجزأة0٠ بايتم",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"no",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "large_files_review",
+      "body": "scan-large_files_review-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-large_files_review-workbench",
+      "text": "مراجعة الملفات الكبيرة المقيسةمرتبة من أحجام الملفات الفعلية داخل المجلد المصرح بهأطلس التخزينملفات مرصودة20أكبر الملفات",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-500 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"non",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "junk_cleaner",
+      "body": "scan-junk_cleaner-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-junk_cleaner-workbench",
+      "text": "منظف المخلفات — قياس فقطاكتشاف المجلدات الفارغة داخل المجلد المصرح بهمساحة التنظيفمجلدات فارغة0مقيسةمجلدات مفحوصة1ضمن ال",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-500 to-fuchsia-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fil",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "privacy_trace_check",
+      "body": "scan-privacy_trace_check-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-privacy_trace_check-workbench",
+      "text": "فحص آثار الخصوصية — عينة مقيسةعلامات أصل التنزيل من Zone.Identifier داخل المجلد المصرح بهنسخ الأدلة المقيسةREAD-ONLYملفا",
+      "controls": 5,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "text-[9px] text-slate-500 mt-0.5 truncate",
+          "over": 26,
+          "cw": 195
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-mono text-slate-300 truncate min-w-0",
+          "over": 6,
+          "cw": 60
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-mono text-slate-300 truncate min-w-0",
+          "over": 13,
+          "cw": 60
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-mono text-slate-300 truncate min-w-0",
+          "over": 13,
+          "cw": 60
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": [
+          "https://downloads.example.test/setup.exe"
+        ]
+      }
+    },
+    {
+      "key": "startup_impact_check",
+      "body": "scan-startup_impact_check-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-startup_impact_check-workbench",
+      "text": "فحص تأثير الإقلاع — جرد مقيسعناصر بدء التشغيل من Win32_StartupCommand دون اختلاق زمن إقلاعالتحكم بالإقلاععناصر الإقلاع10",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-orange-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 58,
+          "cw": 325
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        },
+        {
+          "tag": "SPAN",
+          "cls": "truncate",
+          "over": 371,
+          "cw": 262
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "app_health_review",
+      "body": "scan-app_health_review-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-app_health_review-workbench",
+      "text": "صحة البرامج — جرد التثبيت المقيسمن سجل إلغاء التثبيت؛ دون حكم \"غير مستخدم\" أو إلغاء تثبيتمركز التطبيقاتبرامج مثبتة53من ا",
+      "controls": 1,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-500 to-purple-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 27,
+          "cw": 321
+        },
+        {
+          "tag": "DIV",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 48,
+          "cw": 321
+        },
+        {
+          "tag": "DIV",
+          "cls": "font-bold text-slate-200 truncate",
+          "over": 44,
+          "cw": 321
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    },
+    {
+      "key": "system_health_pulse",
+      "body": "scan-system_health_pulse-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-system_health_pulse-workbench",
+      "text": "نبض صحة النظام — قياس لحظيحمل المعالج والذاكرة وسعة الوحدات لحظة الفحصنسخ الأدلة المقيسةSNAPSHOTحمل المعالج34%Win32_Perf",
+      "controls": 5,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-lime-400 flex items-center justify-center text-white shadow-md\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=",
+      "offenders": [],
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "text-[9px] text-slate-500 mt-0.5 truncate",
+          "over": 82,
+          "cw": 195
+        }
+      ],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": [
+          "Win32_PerfFormattedData_PerfOS_Processor (_Total)"
+        ]
+      }
+    },
+    {
+      "key": "smart_recommendations",
+      "body": "scan-smart_recommendations-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "scan-smart_recommendations-workbench",
+      "text": "توصيات مبنية على أدلة مقيسةLOCAL RULESDeterministic local rules over measured findings.نسخ الأدلة المقيسةNO AI PROVIDERت",
+      "controls": 11,
+      "visible": true,
+      "overflowX": 0,
+      "measured": true,
+      "html": "<div class=\"space-y-3 text-slate-100 font-sans\"><div class=\"flex items-center justify-between gap-2 border-b border-[#143058] pb-2\"><div class=\"flex items-center gap-2.5 min-w-0\"><div class=\"w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-white shadow-md shrink-0\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 ",
+      "offenders": [],
+      "scrollers": [],
+      "clipped": {
+        "labels": [],
+        "values": [],
+        "subs": []
+      }
+    }
+  ],
+  "probes": [
+    {
+      "probe": "deep-stage-filter",
+      "option": "complete",
+      "rows": 9,
+      "expectedComplete": 9
+    },
+    {
+      "probe": "deep-stage-inspector",
+      "expanded": "Authorized folder inventoryMeasuredprovider: Studio/Files inventoryduration: 1 ms40 indexed file(s), 5.8 KB inside the authorized folder."
+    },
+    {
+      "probe": "deep-copy-evidence",
+      "state": "copied"
+    },
+    {
+      "probe": "expanded-container-tracks",
+      "tracks": 4
+    },
+    {
+      "probe": "privacy-marker-filter",
+      "rows": 3,
+      "zoneRows": 3
+    },
+    {
+      "probe": "privacy-host-filter",
+      "host": "https://downloads.example.test/setup.exe3"
+    },
+    {
+      "probe": "recommendation-attention-filter",
+      "before": 6,
+      "after": 4
+    },
+    {
+      "probe": "recommendation-open-service",
+      "targetService": "system_health_pulse",
+      "selected": "system_health_pulse"
+    },
+    {
+      "probe": "health-volume-filter",
+      "option": "low",
+      "rows": 3,
+      "expectedLow": 3
+    },
+    {
+      "probe": "health-copy-evidence",
+      "state": "copied"
+    },
+    {
+      "probe": "services-strip-scroll",
+      "scrollBefore": 0,
+      "scrollAfter": 970
+    }
+  ],
+  "checks": [
+    "Expanded and pinned workbench modes both render the measured service body",
+    "Ten distinct Smart Scan service bodies verified across DAY/NIGHT and EN/AR (10 signatures)",
+    "All ten bodies expose distinct measured content and at least one control",
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    {
+      "sourceUnchanged": true,
+      "zoneUnchanged": true,
+      "fixtureFiles": 40,
+      "zoneMarked": 3
+    }
+  ],
+  "errors": [],
+  "ok": true
+}
