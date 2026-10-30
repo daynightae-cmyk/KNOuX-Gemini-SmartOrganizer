@@ -28,7 +28,7 @@ export const JunkCleanerRenderer: React.FC<ServiceRendererProps> = ({ service, i
         <WorkspaceLink workspace="cleanup" labelEn="Cleanup Workspace" labelAr="مساحة التنظيف" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="scan-metric-trio gap-2">
         <Metric label={isArabic ? 'مجلدات فارغة' : 'Empty folders'} value={String(empty?.summary?.emptyFolders ?? 0)} sub={isArabic ? 'مقيسة' : 'measured'} tone="amber" />
         <Metric label={isArabic ? 'مجلدات مفحوصة' : 'Folders walked'} value={String(empty?.summary?.foldersScanned ?? 0)} sub={isArabic ? 'ضمن الحد' : 'bounded walk'} />
         <Metric label={isArabic ? 'التنظيف' : 'Cleanup'} value={isArabic ? 'محجوز' : 'Gated'} sub={isArabic ? 'المهمة 08' : 'Mission 08'} tone="rose" />

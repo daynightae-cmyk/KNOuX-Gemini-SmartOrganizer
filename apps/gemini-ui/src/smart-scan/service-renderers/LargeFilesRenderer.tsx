@@ -27,7 +27,7 @@ export const LargeFilesRenderer: React.FC<ServiceRendererProps> = ({ service, is
         <WorkspaceLink workspace="storage" labelEn="Storage Atlas" labelAr="أطلس التخزين" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      <div className="scan-metric-trio gap-2">
         <Metric label={isArabic ? 'ملفات مرصودة' : 'Ranked files'} value={String(data.count ?? files.length)} sub={isArabic ? 'أكبر الملفات' : 'largest files'} />
         <Metric label={isArabic ? 'حجم مجمع' : 'Combined bytes'} value={byteLabel(data.totalBytes, isArabic)} sub={isArabic ? 'قياس فعلي' : 'measured'} tone="emerald" />
         <Metric label={isArabic ? 'عتبة التنبيه' : 'Finding threshold'} value={byteLabel(threshold, isArabic)} sub={isArabic ? 'ملفات أكبر تظهر كنتيجة' : 'larger files become findings'} tone="amber" />

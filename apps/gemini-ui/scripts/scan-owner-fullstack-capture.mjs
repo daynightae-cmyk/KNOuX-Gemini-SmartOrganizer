@@ -263,11 +263,27 @@ try {
         return out.slice(0, 8);
       })(),
     }));
+    // Ellipsized KPI text is invisible to an overflow check: the container is
+    // exactly as wide as its box and the label simply loses its tail. Compare
+    // each measured label and value against its own scroll box instead.
+    const clipped = await body.evaluate((el) => {
+      const read = (sel) => Array.from(el.querySelectorAll(sel)).map((node) => ({
+        text: (node.textContent || '').trim(),
+        lost: node.scrollWidth - node.clientWidth,
+      }));
+      return {
+        labels: read('[data-metric-label]').filter((n) => n.lost > 1),
+        values: read('[data-metric-value]').filter((n) => n.lost > 1),
+        subs: read('[data-metric-sub]').filter((n) => n.lost > 1).map((n) => n.text),
+      };
+    });
     seenBodies.add(info.testId);
-    proof.services.push({ key: name, body: entry.body, locale, theme, ...info });
+    proof.services.push({ key: name, body: entry.body, locale, theme, ...info, clipped });
     expect(info.visible).toBe(true);
     expect(info.controls, `${name} body controls :: ${info.html}`).toBeGreaterThan(0);
     expect(info.overflowX).toBeLessThanOrEqual(2);
+    expect(clipped.labels.map((n) => n.text), `${name} ellipsized KPI labels`).toEqual([]);
+    expect(clipped.values.map((n) => n.text), `${name} ellipsized KPI values`).toEqual([]);
     await capture(`${name}-${locale}-${theme}-1672`, 1672, 941, locale, theme, name);
     return info;
   }

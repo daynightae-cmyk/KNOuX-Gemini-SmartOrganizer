@@ -70,9 +70,9 @@ export function Metric({ label, value, tone = 'cyan', sub }: { label: string; va
   };
   return (
     <div className={`rounded-xl border bg-[#071731] px-3 py-2 min-w-0 overflow-hidden ${tones[tone]}`}>
-      <div className="text-[9px] uppercase tracking-wide text-slate-500 font-bold truncate" title={label}>{label}</div>
-      <div className="text-sm font-black font-mono mt-0.5 truncate" title={value}>{value}</div>
-      {sub ? <div className="text-[9px] text-slate-500 mt-0.5 truncate" title={sub}>{sub}</div> : null}
+      <div data-metric-label className="text-[9px] uppercase tracking-wide text-slate-500 font-bold truncate" title={label}>{label}</div>
+      <div data-metric-value className="text-sm font-black font-mono mt-0.5 truncate" title={value}>{value}</div>
+      {sub ? <div data-metric-sub className="text-[9px] text-slate-500 mt-0.5 truncate" title={sub}>{sub}</div> : null}
     </div>
   );
 }

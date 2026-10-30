@@ -299,9 +299,28 @@
   align-items: start;
 }
 
+/* Three-KPI rows get two readable cells and a full-width third inside the
+   panel; only a wide body earns the literal three-across row. */
+.scan-service-body .scan-metric-trio {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scan-service-body .scan-metric-trio > :nth-child(3) {
+  grid-column: 1 / -1;
+}
+
 @container (min-width: 620px) {
   .scan-metric-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .scan-service-body .scan-metric-trio {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .scan-service-body .scan-metric-trio > :nth-child(3) {
+    grid-column: auto;
   }
 }
 
