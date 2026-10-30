@@ -6,3 +6,6 @@ docs/evidence/m0-20261028/gh013-main/** -text whitespace=cr-at-eol
 
 # Raw Anima/v0 verification receipts remain byte-exact (including log whitespace).
 docs/evidence/anima-v0/** -text -whitespace
+
+# The Files owner-pilot run receipts are evidence of the measured pilot, same rule.
+docs/evidence/files-owner-pilot/** -text -whitespace
