@@ -1,0 +1,1849 @@
+{
+  "domain": "Startup",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "d472ffc60bf35807c4d858b3103bd23451504e85",
+  "profileIsolated": true,
+  "sourceFiles": {
+    "src/pages/StartupPage.tsx": "47e3da3e608df29a059bfa27aa58ea1c34b12ddc73c9df88fd8dc67a644f612b",
+    "src/startup/StartupHero.tsx": "3e3f940acfa730d91e03f1f1c887f0746b6bdb577b13925cf0ea12bec2ee818b",
+    "src/startup/AutorunRegister.tsx": "5f654d0857459d6efcacbab6c59845a92310be8936e0da41fa654c3aafe96545",
+    "src/startup/AutorunInspector.tsx": "51ccd7afeace479d93519936276b9c62973d98671751b747a901fb41968b5639",
+    "src/startup/ServiceRail.tsx": "00e5c478342333cbc4a5a67adfd7554603257882e8dc9d8a568bbd955a9a8645",
+    "src/startup/ServiceWorkspace.tsx": "27419841b595d5918f8df2ebe9f71777423469cf68d110b43dd0ee584fa03bd1",
+    "src/startup/PlanGate.tsx": "64a69ab183b91413182ec7c8976fe5c2602afda53ccdbbd2949ac02dfccab032",
+    "src/startup/useStartup.ts": "07a46aac8eb92a5f4dcb42888d9ff3b47b1dccfb2ae8da3aeca50cdf353f0f71",
+    "src/startup/native.ts": "8611adce163e341b39f62c307a2dee322e5f4da8d7d31bc06e14a4cf4d05d67a",
+    "src/startup/model.ts": "b9e4980f8e28b565782363fe7eff77150c3d3556b802616af964b01f85953c9d",
+    "src/startup.css": "4bbfe754b13c6bf9491e4a7cbaf28b3d6f16d2f26f1d7f5a3356c0d8b4d01475",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "bbb3fa922c6877076afe040dccb51a8a08466a2ba8545f2e5cf4be4a9c136dd6",
+    "electron/native/startup-bridge.cjs": "c56e7c75afe1834676508192f57277606896cfa38ae658fd1869af9cf4250144",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "captures": [
+    {
+      "file": "overview-1366x768-en-light.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1672x941-en-light.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1920x1080-en-light.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "startup-overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-disable-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-disable",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-restore-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-restore",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-sources-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-sources",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-journal-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-journal",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-filter-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-filter",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-impact-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-impact",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-services-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-services",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-tasks-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-tasks",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-tasks-dossier-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-tasks",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-delay-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-delay",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-batch-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-batch",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-undo-all-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-undo-all",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-overview-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-overview-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "startup-filter-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-filter-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "startup-services-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-services-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "startup-tasks-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "startup-tasks-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1672x941-ar-dark.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "startup-overview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-disable-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-disable",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-restore-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-restore",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-sources-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-sources",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-journal-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-journal",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-filter-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-filter",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-impact-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-impact",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-services-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-services",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-tasks-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-tasks",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-delay-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-delay",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-batch-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-batch",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "startup-undo-all-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "startup-undo-all",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 13,
+        "workbench": "side"
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "startup-overview",
+      "locale": "en",
+      "theme": "light",
+      "signature": "b63c2fd0417ce1d6",
+      "text": "Measured autorun entries and the Windows startup sequence. Nothing is toggled.Registry autoruns12HKCU + HKLMStartup folders1User + all usersLogon tasks41At logon / at bootProtected",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "",
+          "over": 7
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 77
+        },
+        {
+          "tag": "TD",
+          "cls": "",
+          "over": 7
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 78
+        },
+        {
+          "tag": "TD",
+          "cls": "",
+          "over": 7
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 68
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 69
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 121
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 7,
+      "tables": [
+        {
+          "wrap": 506,
+          "table": 506,
+          "scroll": 506,
+          "th": [
+            {
+              "text": "ENTRY",
+              "w": 223,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SOURCE",
+              "w": 111,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SIGNATURE",
+              "w": 106,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "STATE",
+              "w": 66,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ],
+      "subpanels": [
+        {
+          "title": "Measured boot evidence",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Source coverage",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Dense autorun register",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-disable",
+      "locale": "en",
+      "theme": "light",
+      "signature": "0da4ee70dc9dc9cd",
+      "text": "Stages an immutable disable review with protected-item and elevation checks.Selected startup cardMeasured source and stateIDManRegistry Run · Current user · EnabledStandardCurrent ",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Selected startup card",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Before / after review",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Staged review dock",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-restore",
+      "locale": "en",
+      "theme": "light",
+      "signature": "b21395659e914221",
+      "text": "No startup change has been made, so no restoration entry exists yet.Restoration is gatedOnly an explicitly approved, verified startup change may append a journal entry. No write ch",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Journal timeline",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Original / current value",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-sources",
+      "locale": "en",
+      "theme": "light",
+      "signature": "ce90885867d33467",
+      "text": "Shows exactly which registry keys, folders, tasks and services were read.Registry keys4Run/RunOnce + StartupApprovedStartup folders1%APPDATA% + %ProgramData%Scheduled tasks41Logon ",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Coverage evidence",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Selected evidence",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-journal",
+      "locale": "en",
+      "theme": "light",
+      "signature": "367e1ba8c158619d",
+      "text": "The journal is empty because Mission 09 never mutates startup state.The append-only startup journal is emptyNo startup change has been executed, so the append-only journal has no e",
+      "controls": 3,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Chronological events",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Audit event details",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-filter",
+      "locale": "en",
+      "theme": "light",
+      "signature": "2343598f338d933f",
+      "text": "Filters the measured register by name, source, scope, state and signature.↑↓ · EnterAll sourcesRegistry RunRegistry RunOnceStartup FolderLogon TaskPublisher verificationAnyValid si",
+      "controls": 66,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 207
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 196
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 9
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 16
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-name",
+          "over": 5
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 171
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-name",
+          "over": 4
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 62
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 12,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Keyboard-first results",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Quick inspection",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-impact",
+      "locale": "en",
+      "theme": "light",
+      "signature": "6832dcdee7f20eee",
+      "text": "Boot diagnostics events are measured; per-entry seconds are not invented.Measured events0Diagnostics-PerformanceAttributed entries0Name evidence onlyLast boot23 Oct 202612:06:44Mea",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Boot event timeline",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Selected event evidence",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Attributed entries & recommendation",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-services",
+      "locale": "en",
+      "theme": "light",
+      "signature": "274f12439adffa5f",
+      "text": "Reads automatic and delayed-auto services; service policy changes are gated.Boot services64Automatic + delayed-autoDelayed auto11Scheduling evidenceRunning58Measured process stateP",
+      "controls": 8,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 115
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 51
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 2,
+      "tables": [
+        {
+          "wrap": 502,
+          "table": 502,
+          "scroll": 502,
+          "th": [
+            {
+              "text": "SERVICE",
+              "w": 221,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "STARTUP",
+              "w": 110,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "STATE",
+              "w": 105,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "PID",
+              "w": 65,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ],
+      "subpanels": [
+        {
+          "title": "Service boot policy matrix",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Selected service dossier",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-tasks",
+      "locale": "en",
+      "theme": "light",
+      "signature": "f70bb586ab7f5d70",
+      "text": "Reads task triggers and run history; disabling a task is gated.Logon tasks41Logon + boot triggersEnabled30Measured task stateProtected33Windows maintenanceHighest run level16Elevat",
+      "controls": 47,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Scheduler tree",
+          "cut": 1571,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Trigger & runtime dossier",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-delay",
+      "locale": "en",
+      "theme": "light",
+      "signature": "09b5319de2a86ab4",
+      "text": "Drafts delay offsets only where the source supports scheduling. No shim is written.Choose entriesDelay semantics depend on the measured sourceAD RMS Rights Policy Template Manageme",
+      "controls": 59,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Choose entries",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Original vs proposed lanes",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Delay review dock",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-batch",
+      "locale": "en",
+      "theme": "light",
+      "signature": "b809c11c37941fff",
+      "text": "Builds an immutable batch review with source and rights evidence.Add measured itemsSelection is bound to the measured inventoryAD RMS Rights Policy Template Management (Automated)L",
+      "controls": 60,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Add measured items",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Batch staging tray",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Execution review dock",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-undo-all",
+      "locale": "en",
+      "theme": "light",
+      "signature": "266961fe54f27c28",
+      "text": "No batch session exists because no startup change was executed.Mass rollback is gatedMass rollback requires a verified prior batch session and its journal. No write channel exists ",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "Journal sessions",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "Rollback review",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-overview",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "4f67183052fae899",
+      "text": "مداخل بدء مقيسة وتسلسل إقلاع Windows. لا يُغيَّر أي شيء.مداخل التسجيل12HKCU + HKLMمجلدات البدء1المستخدم + كل المستخدمينمهام الدخول41عند الدخول / الإقلاعمداخل محمية40محجوبة عن التهي",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 29
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 29
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 12
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 13
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 53
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 4
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 6,
+      "tables": [
+        {
+          "wrap": 506,
+          "table": 506,
+          "scroll": 506,
+          "th": [
+            {
+              "text": "المدخل",
+              "w": 223,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المصدر",
+              "w": 111,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "التوقيع",
+              "w": 106,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الحالة",
+              "w": 66,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ],
+      "subpanels": [
+        {
+          "title": "أدلة الإقلاع المقيسة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "تغطية المصادر",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "سجل بدء كثيف",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-disable",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "a679421790d5cdb7",
+      "text": "يُعدّ مراجعة تعطيل ثابتة مع فحص العناصر المحمية ورفع الصلاحيات.بطاقة البدء المحددةالمصدر والحالة المقيسةIDManتسجيل Run · المستخدم الحالي · مفعّلقياسيالحالة الحاليةمفعّلتسجيل Runالح",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "بطاقة البدء المحددة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "مراجعة قبل / بعد",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "رصيف المراجعة المُهيَّأة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-restore",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "4f7c5e90bcdc8616",
+      "text": "لم يُجرَ أي تغيير على بدء التشغيل، لذا لا يوجد مدخل استعادة بعد.الاستعادة محجوبةOnly an explicitly approved, verified startup change may append a journal entry. No write channel ex",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "الخط الزمني للسجل",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "القيمة الأصلية / الحالية",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-sources",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "8a6d6ee006bceb98",
+      "text": "يُظهر مفاتيح التسجيل والمجلدات والمهام والخدمات التي قُرئت بدقة.مفاتيح التسجيل4Run/RunOnce + StartupApprovedمجلدات البدء1%APPDATA% + %ProgramData%المهام المجدولة41محفزات الدخول وال",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "أدلة التغطية",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "الدليل المحدد",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-journal",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "9d80ca6530b17e55",
+      "text": "السجل فارغ لأن المهمة 09 لا تغيّر حالة بدء التشغيل إطلاقًا.سجل بدء التشغيل الإضافي فارغNo startup change has been executed, so the append-only journal has no entries.0 حدثكل التوار",
+      "controls": 3,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "الأحداث الزمنية",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "تفاصيل حدث التدقيق",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-filter",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "1fa5e95a267b9e7c",
+      "text": "يُرشّح السجل المقيس بالاسم والمصدر والنطاق والحالة والتوقيع.↑↓ · Enterكل المصادرتسجيل Runتسجيل RunOnceمجلد البدءمهمة دخولتحقق الناشرالكلتوقيع صالحموقّع غير موثوقغير موقّعالتوقيع غي",
+      "controls": 66,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 207
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 196
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 9
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 16
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 172
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 62
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 87
+        },
+        {
+          "tag": "SPAN",
+          "cls": "stp-picker-path",
+          "over": 72
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 12,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "نتائج لوحة المفاتيح",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "فحص سريع",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-impact",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "78543252a359497c",
+      "text": "أحداث تشخيص الإقلاع مقيسة؛ لا تُختلق ثوانٍ لكل مدخل.الأحداث المقيسة0Diagnostics-Performanceالمداخل المنسوبة0دليل الاسم فقطآخر إقلاع23 أكتوبر 202612:06:44 ممدة التشغيل631,290ثانيةكل",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "الخط الزمني لأحداث الإقلاع",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "دليل الحدث المحدد",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "المداخل المنسوبة والتوصية",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-services",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "eca5ff65bcb14a3c",
+      "text": "يقرأ الخدمات التلقائية والمؤجلة؛ تغيير سياسة الخدمة محجوب.خدمات الإقلاع64تلقائي + مؤجلتلقائي مؤجل11دليل الجدولةقيد التشغيل58حالة عملية مقيسةمحمي6تهيئة السياسة محجوبةالكلتلقائيتلقائ",
+      "controls": 8,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 77
+        },
+        {
+          "tag": "DIV",
+          "cls": "stp-row-name",
+          "over": 16
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 2,
+      "tables": [
+        {
+          "wrap": 502,
+          "table": 502,
+          "scroll": 502,
+          "th": [
+            {
+              "text": "الخدمة",
+              "w": 221,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "البدء",
+              "w": 110,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الحالة",
+              "w": 105,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "PID",
+              "w": 65,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ],
+      "subpanels": [
+        {
+          "title": "مصفوفة سياسة بدء الخدمات",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "ملف الخدمة المحددة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-tasks",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "91557bf6525e8251",
+      "text": "يقرأ محفزات المهام وسجل تشغيلها؛ تعطيل المهمة محجوب.مهام الدخول41محفزات الدخول والإقلاعمفعّلة30حالة المهمة المقيسةمحمية33صيانة Windowsأعلى مستوى تشغيل16دليل رفع الصلاحياتكل المهامم",
+      "controls": 47,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "شجرة المجدول",
+          "cut": 1571,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "ملف المحفز والتشغيل",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-delay",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "8c875cb0a15664be",
+      "text": "يصوغ إزاحات تأخير فقط حيث يدعم المصدر الجدولة. لا يُكتب أي غلاف.اختيار المداخلدلالات التأخير تعتمد على المصدر المقيسAD RMS Rights Policy Template Management (Automated)مهمة دخول · ",
+      "controls": 59,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "اختيار المداخل",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "المسارات الأصلية مقابل المقترحة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "رصيف مراجعة التأخير",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-batch",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "7d9fee59756399be",
+      "text": "يبني مراجعة دفعة ثابتة مع أدلة المصدر والصلاحيات.إضافة عناصر مقيسةالتحديد مرتبط بالجرد المقيسAD RMS Rights Policy Template Management (Automated)مهمة دخول · معطّلAD RMS Rights Poli",
+      "controls": 60,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "إضافة عناصر مقيسة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "صينية تهيئة الدفعة",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "رصيف مراجعة التنفيذ",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    },
+    {
+      "key": "startup-undo-all",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "42dfea97b71699ad",
+      "text": "لا توجد جلسة دفعة لأن أي تغيير في بدء التشغيل لم يُنفَّذ.التراجع الجماعي محجوبMass rollback requires a verified prior batch session and its journal. No write channel exists in this",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [],
+      "subpanels": [
+        {
+          "title": "جلسات السجل",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        },
+        {
+          "title": "مراجعة التراجع",
+          "cut": 0,
+          "wideX": 0,
+          "overflowY": "auto"
+        }
+      ]
+    }
+  ],
+  "probes": [
+    {
+      "probe": "startup-register",
+      "entries": "54",
+      "protected": "40",
+      "registerRows": 54,
+      "banner": "Measured Boot Control54 autoruns · 64 services · 41 logon tasks · 30 Oct 2026, 19:28 · mutation: noneMEASURED2 warnings"
+    },
+    {
+      "probe": "startup-overview-rail",
+      "overflowY": "auto",
+      "over": 1075,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-disable-rail",
+      "overflowY": "auto",
+      "over": 40,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "busy-timeout",
+      "label": "startup-restore"
+    },
+    {
+      "probe": "startup-restore-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -215
+    },
+    {
+      "probe": "startup-sources-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -132
+    },
+    {
+      "probe": "startup-journal-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -202
+    },
+    {
+      "probe": "startup-filter-rail",
+      "overflowY": "auto",
+      "over": 120,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-impact-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -96
+    },
+    {
+      "probe": "startup-services-rail",
+      "overflowY": "auto",
+      "over": 137,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-tasks-rail",
+      "overflowY": "auto",
+      "over": 163,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-tasks-rail-end",
+      "scrollTop": 163,
+      "scrollH": 864,
+      "clientH": 701
+    },
+    {
+      "probe": "startup-delay-rail",
+      "overflowY": "auto",
+      "over": 155,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-batch-rail",
+      "overflowY": "auto",
+      "over": 76,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "busy-timeout",
+      "label": "startup-undo-all"
+    },
+    {
+      "probe": "startup-undo-all-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -190
+    },
+    {
+      "probe": "expanded-startup-overview",
+      "overflowX": 0,
+      "tableWrap": 1594
+    },
+    {
+      "probe": "expanded-startup-filter",
+      "overflowX": 0,
+      "tableWrap": 1622
+    },
+    {
+      "probe": "expanded-startup-services",
+      "overflowX": 0,
+      "tableWrap": 871
+    },
+    {
+      "probe": "expanded-startup-tasks",
+      "overflowX": 0,
+      "tableWrap": 1622
+    },
+    {
+      "probe": "startup-tool-selector",
+      "switched": true
+    },
+    {
+      "probe": "startup-overview-rail",
+      "overflowY": "auto",
+      "over": 1214,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-disable-rail",
+      "overflowY": "auto",
+      "over": 57,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "busy-timeout",
+      "label": "startup-restore"
+    },
+    {
+      "probe": "startup-restore-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -215
+    },
+    {
+      "probe": "startup-sources-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -161
+    },
+    {
+      "probe": "startup-journal-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -202
+    },
+    {
+      "probe": "startup-filter-rail",
+      "overflowY": "auto",
+      "over": 120,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-impact-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -106
+    },
+    {
+      "probe": "startup-services-rail",
+      "overflowY": "auto",
+      "over": 137,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-tasks-rail",
+      "overflowY": "auto",
+      "over": 154,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-delay-rail",
+      "overflowY": "auto",
+      "over": 155,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "startup-batch-rail",
+      "overflowY": "auto",
+      "over": 76,
+      "lastPanelOverhang": -32
+    },
+    {
+      "probe": "busy-timeout",
+      "label": "startup-undo-all"
+    },
+    {
+      "probe": "startup-undo-all-rail",
+      "overflowY": "auto",
+      "over": 0,
+      "lastPanelOverhang": -200
+    }
+  ],
+  "checks": [
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    "Twelve distinct Startup service bodies verified across DAY/NIGHT and EN/AR (12 signatures)",
+    "Every captured body exposes at least one measured control and no ellipsized value"
+  ],
+  "errors": [],
+  "ok": true
+}
