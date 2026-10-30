@@ -1,0 +1,113 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(locator).not.toHaveAttribute(expected) failed
+
+Locator: getByTestId('home-live-status')
+Expected: not "loading"
+Timeout: 60000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "not toHaveAttribute" getByTestId('home-live-status') with timeout 60000ms
+  - waiting for getByTestId('home-live-status')
+    26 × locator resolved to <div data-status="loading" data-testid="home-live-status" class="mt-1 flex items-center gap-2 flex-wrap">…</div>
+       - unexpected value "loading"
+
+    at captureRawStack (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright-core\lib\coreBundle.js:9282:17)
+    at callMatcherAsStep (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright\lib\matchers\expect.js:13316:57)
+    at Object.toHaveAttribute (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright\lib\matchers\expect.js:13308:23)
+    at D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\scripts\home-anima-electron.mjs:37:106 {
+  matcherResult: {
+    name: 'toHaveAttribute',
+    expected: 'loading',
+    message: 'expect(locator).not.toHaveAttribute(expected) failed\n' +
+      '\n' +
+      "Locator: getByTestId('home-live-status')\n" +
+      'Expected: not "loading"\n' +
+      'Timeout: 60000ms\n' +
+      'Error: element(s) not found\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "not toHaveAttribute" getByTestId('home-live-status') with timeout 60000ms\n` +
+      "  - waiting for getByTestId('home-live-status')\n" +
+      '    26 × locator resolved to <div data-status="loading" data-testid="home-live-status" class="mt-1 flex items-center gap-2 flex-wrap">…</div>\n' +
+      '       - unexpected value "loading"\n',
+    pass: true,
+    actual: undefined,
+    log: [
+      `  - Expect "not toHaveAttribute" getByTestId('home-live-status') with timeout 60000ms`,
+      "  - waiting for getByTestId('home-live-status')",
+      '    26 × locator resolved to <div data-status="loading" data-testid="home-live-status" class="mt-1 flex items-center gap-2 flex-wrap">…</div>',
+      '       - unexpected value "loading"'
+    ],
+    timeout: 60000,
+    ariaSnapshot: '- banner:\n' +
+      '  - text: K KNOuX SmartOrganizer Settings & Engine Configuration / Performance, Services & AI Tuning\n' +
+      '  - combobox "Search files, apps, settings, or ask KNOuX... (Ctrl+K)"\n' +
+      '  - text: Ctrl + K\n' +
+      '  - button "العربية"\n' +
+      '  - button "Switch to dark theme" [pressed]\n' +
+      '  - button "Phase status notices"\n' +
+      '  - button "Open KNOuX AI Copilot"\n' +
+      '  - button "Settings"\n' +
+      '  - button "Minimize"\n' +
+      '  - button "Maximize"\n' +
+      '  - button "Close"\n' +
+      '- complementary:\n' +
+      '  - text: K KNOuX SmartOrganizer\n' +
+      '  - navigation:\n' +
+      '    - button "Home"\n' +
+      '    - button "Smart Scan AI"\n' +
+      '    - button "Organization Studio"\n' +
+      '    - button "Google Workspace 1P"\n' +
+      '    - button "Applications"\n' +
+      '    - button "Files"\n' +
+      '    - button "Storage"\n' +
+      '    - button "Cleanup"\n' +
+      '    - button "Startup"\n' +
+      '    - button "System"\n' +
+      '    - button "Repair"\n' +
+      '    - button "Services"\n' +
+      '    - button "Automation"\n' +
+      '    - button "Settings"\n' +
+      '  - button "Native bridge v1 · read-only v2.4.0 Measured machine + service summaries"\n' +
+      '- main:\n' +
+      '  - text: KNOuX Control Center v2.4 Preferences only — no engine provider connected\n' +
+      '  - heading "KNOuX Engine & Services Control Center" [level=1]\n' +
+      '  - paragraph: Local non-secret preferences plus honest capability status for engine, guards, AI keys and Google Workspace. No engine executor, automatic guard, Google account or live AI is connected in this phase.\n' +
+      '  - button "Save Preferences"\n' +
+      '  - button "Engine & Turbo Hardware"\n' +
+      '  - button "AI Copilot & OpenRouter Keys"\n' +
+      '  - button "Google Workspace Hub (10 APIs)"\n' +
+      '  - button "Automated Protection & Guards"\n' +
+      '  - button "Neon Glass Customization"\n' +
+      '  - button "Language & Locale"\n' +
+      '  - button "Profile Preferences Backup"\n' +
+      '  - button "Replay KNOuX intro · sound & motion preferences"\n' +
+      '  - heading "KNOuX Engine Performance & Hardware Allocation" [level=3]\n' +
+      '  - paragraph: Control scanning speed, RAM cache limits, and CPU multithreading behavior.\n' +
+      '  - text: These are UI preferences only. No native engine provider is connected; they do not change scan speed, RAM cache or CPU threads at runtime.\n' +
+      '  - button "Maximum Turbo Engine Max multi-threading & instant sector scans":\n' +
+      '    - text: Maximum Turbo Engine\n' +
+      '    - paragraph: Max multi-threading & instant sector scans\n' +
+      '  - button "Balanced Smart Mode Optimized resource allocation for daily tasks" [pressed]:\n' +
+      '    - text: Balanced Smart Mode\n' +
+      '    - paragraph: Optimized resource allocation for daily tasks\n' +
+      '  - button "Silent Eco Efficiency Low background priority for battery saving":\n' +
+      '    - text: Silent Eco Efficiency\n' +
+      '    - paragraph: Low background priority for battery saving\n' +
+      '  - text: RAM Allocation Limit (Background Cache) 4 GB\n' +
+      '  - slider: "4"\n' +
+      '  - text: 1 GB (Minimal) 8 GB (Optimal) 16 GB (Extreme) CPU Multithreading Allocation 8 Threads\n' +
+      '  - combobox:\n' +
+      '    - option "4 Threads (Low Impact)"\n' +
+      '    - option "8 Threads (Standard)" [selected]\n' +
+      '    - option "16 Threads (Full Multi-Core Turbo)"\n' +
+      '    - option "32 Threads (Extreme Parallel Workstation)"\n' +
+      '- contentinfo: "Preferences profile: local, non-secret only Secrets: session memory only — native vault not connected Live AI: not connected"'
+  }
+}
+
+Node.js v24.21.0

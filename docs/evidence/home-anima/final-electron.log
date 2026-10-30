@@ -1,0 +1,50 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(locator).toHaveText(expected) failed
+
+Locator:  getByTestId('home-kpi-kpi-services-value')
+Expected: "126 / 272"
+Received: "124 / 272"
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveText" getByTestId('home-kpi-kpi-services-value') with timeout 5000ms
+  - waiting for getByTestId('home-kpi-kpi-services-value')
+    14 × locator resolved to <div dir="ltr" data-testid="home-kpi-kpi-services-value" class="text-base sm:text-lg font-black text-white tracking-tight flex items-baseline justify-end gap-1">…</div>
+       - unexpected value "124 / 272"
+
+    at captureRawStack (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright-core\lib\coreBundle.js:9282:17)
+    at callMatcherAsStep (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright\lib\matchers\expect.js:13316:57)
+    at Object.toHaveText (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright\lib\matchers\expect.js:13308:23)
+    at D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\scripts\home-anima-electron.mjs:26:91 {
+  matcherResult: {
+    name: 'toHaveText',
+    expected: '126 / 272',
+    message: 'expect(locator).toHaveText(expected) failed\n' +
+      '\n' +
+      "Locator:  getByTestId('home-kpi-kpi-services-value')\n" +
+      'Expected: "126 / 272"\n' +
+      'Received: "124 / 272"\n' +
+      'Timeout:  5000ms\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "toHaveText" getByTestId('home-kpi-kpi-services-value') with timeout 5000ms\n` +
+      "  - waiting for getByTestId('home-kpi-kpi-services-value')\n" +
+      '    14 × locator resolved to <div dir="ltr" data-testid="home-kpi-kpi-services-value" class="text-base sm:text-lg font-black text-white tracking-tight flex items-baseline justify-end gap-1">…</div>\n' +
+      '       - unexpected value "124 / 272"\n',
+    pass: false,
+    actual: '124 / 272',
+    log: [
+      `  - Expect "toHaveText" getByTestId('home-kpi-kpi-services-value') with timeout 5000ms`,
+      "  - waiting for getByTestId('home-kpi-kpi-services-value')",
+      '    14 × locator resolved to <div dir="ltr" data-testid="home-kpi-kpi-services-value" class="text-base sm:text-lg font-black text-white tracking-tight flex items-baseline justify-end gap-1">…</div>',
+      '       - unexpected value "124 / 272"'
+    ],
+    timeout: 5000,
+    ariaSnapshot: '- text: 124 / 272'
+  }
+}
+
+Node.js v24.21.0

@@ -1,0 +1,31 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(received).toBeCloseTo(expected, precision)
+
+Expected: 1.55
+Received: 1
+
+Expected precision:    2
+Expected difference: < 0.005
+Received difference:   0.55
+    at captureRawStack (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright-core\lib\coreBundle.js:9282:17)
+    at callMatcherAsStep (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright\lib\matchers\expect.js:13316:57)
+    at Object.toBeCloseTo (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\node_modules\playwright\lib\matchers\expect.js:13308:23)
+    at D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\scripts\home-anima-electron.mjs:42:586 {
+  matcherResult: {
+    message: 'expect(received).toBeCloseTo(expected, precision)\n' +
+      '\n' +
+      'Expected: 1.55\n' +
+      'Received: 1\n' +
+      '\n' +
+      'Expected precision:    2\n' +
+      'Expected difference: < 0.005\n' +
+      'Received difference:   0.55',
+    pass: false,
+    name: 'toBeCloseTo'
+  }
+}
+
+Node.js v24.21.0

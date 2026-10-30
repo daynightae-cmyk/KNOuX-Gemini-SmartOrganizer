@@ -1,0 +1,16 @@
+[home-live-test]
+  ✓ Home uses the measured live hook and derives every panel
+  ✓ the live hook reads only existing measured bridges
+  ✓ all obsolete Home fixture totals are removed
+  ✓ KPI cards expose measured values and no decorative fake trend
+  ✓ system overview uses current native samples, not a fake timeline
+  ✓ storage, quick access and activity render only measured props
+  ✓ pending actions are review-only and never claim execution from Home
+  ✓ Home insight is measured or explicitly unmeasured
+  ✓ the command palette is labelled as workspace navigation, not file search
+{
+  "ok": true,
+  "checks": 10,
+  "failures": []
+}
+[home-live-test] PASS
