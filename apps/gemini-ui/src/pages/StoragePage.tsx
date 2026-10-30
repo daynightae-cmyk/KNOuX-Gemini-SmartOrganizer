@@ -70,6 +70,8 @@ import { StorageServiceFocus, storageServiceLabel } from '../storage/StorageServ
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
 import '../storage.css';
+import '../storage/atlas-panels.css';
+import { StorageDrivesPanel, StorageHeroMetrics, StorageVolumeAnalysis } from '../storage/StorageAtlasPanels';
 import { OrbitalControl } from '../visual/OrbitalControl';
 import { HeroFeatures } from '../visual/HeroFeatures';
 
@@ -182,22 +184,6 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
     }));
   }, [analysis]);
 
-  const metricValues = useMemo(() => {
-    if (!nativeAvailable) {
-      return { volumes: '3', capacity: '3.72 TB', free: '1.28 TB', low: '1', physical: '2' };
-    }
-    if (!measuredVolumes) {
-      return { volumes: '—', capacity: '—', free: '—', low: '—', physical: '—' };
-    }
-    return {
-      volumes: String(storageNative.volumes.length),
-      capacity: formatStorageBytes(storageNative.volumes.reduce((sum, volume) => sum + volume.totalBytes, 0)),
-      free: formatStorageBytes(storageNative.volumes.reduce((sum, volume) => sum + volume.freeBytes, 0)),
-      low: String(storageNative.volumes.filter((volume) => volume.isLowSpace).length),
-      physical: '—',
-    };
-  }, [measuredVolumes, nativeAvailable, storageNative.volumes]);
-
   const filteredVolumes = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) return displayVolumes;
@@ -225,6 +211,18 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
       return;
     }
     setActiveTab('treemap');
+  };
+
+  // The six approved orbit nodes resolve to a real measured volume, never to an
+  // invented one. The Extreme selector is a plain max() over reported bytes.
+  const focusExtremeVolume = (score: (volume: VolumeItem) => number) => {
+    const best = [...displayVolumes].sort((a, b) => score(b) - score(a))[0];
+    if (!best) {
+      showToast(isArabic ? 'لا توجد أحجام مقيسة لاختيارها.' : 'No measured volume is available to select.');
+      return;
+    }
+    setVolumePinnedByUser(true);
+    setSelectedVolumeId(best.id);
   };
 
   const handleCopyReport = async () => {
@@ -323,8 +321,21 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
           <CommandCanvas locale={isArabic ? 'ar' : 'en'} statusTypes={[StorageBanner]}>
           {/* Hero Section */}
-          <div className="knx-storage-hero relative z-10">
-            <div>
+          <div className="knx-storage-hero atl-hero relative z-10">
+            <div className="atl-hero-orbit">
+              <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}
+              eyebrow={isArabic ? 'نطاقات التخزين' : 'Storage scopes'}
+              onActivate={() => void storageNative.chooseSource()} disabled={!nativeAvailable || storageNative.scanning} running={storageNative.scanning}
+              tools={[
+                { id: 'drives', label: isArabic ? 'الأقراص' : 'Drives', icon: HardDrive, position: { x: 21, y: 12 }, hint: isArabic ? 'أعد قراءة الأحجام المقيسة' : 'Re-read the measured volumes', onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
+                { id: 'used', label: isArabic ? 'المستخدم' : 'Used Space', icon: PieChart, position: { x: 79, y: 12 }, hint: isArabic ? 'اختر الوحدة الأكثر استخدامًا' : 'Select the volume using the most space', onClick: () => focusExtremeVolume((volume) => volume.usedPercent) },
+                { id: 'free', label: isArabic ? 'الحرة' : 'Free Space', icon: PieChart, position: { x: 93, y: 50 }, hint: isArabic ? 'اختر الوحدة الأكبر مساحة حرة' : 'Select the volume with the most free bytes', onClick: () => focusExtremeVolume((volume) => volume.freeBytes) },
+                { id: 'treemap', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, position: { x: 79, y: 88 }, onClick: () => { setActiveTab('treemap'); document.querySelector('[data-testid="storage-tab-treemap"]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } },
+                { id: 'folders', label: isArabic ? 'أكبر المجلدات' : 'Largest Folders', icon: FolderTree, position: { x: 21, y: 88 }, onClick: () => { setActiveTab('folders'); document.querySelector('[data-testid="storage-tab-folders"]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } },
+                { id: 'reclaim', label: isArabic ? 'الاستعادة' : 'Reclaim', icon: Sparkles, position: { x: 7, y: 50 }, hint: isArabic ? 'افتح مراجعة الاستعادة' : 'Open the reclaim review', onClick: () => setActiveService('storage-reclaim') },
+              ]} />
+            </div>
+            <div className="atl-hero-copy">
               <div className="knx-eyebrow">KNOuX / {isArabic ? 'التخزين' : 'STORAGE ATLAS'}</div>
               <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
                 <span>{isArabic ? 'أطلس الأقراص' : 'Volume Atlas'}</span>
@@ -332,41 +343,17 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               <p className="text-xs text-slate-300 mt-0.5">
                 {isArabic ? 'تصوّر تخزينك واعرف ما يستهلك المساحة، ثم راجع توصيات الاستعادة الآمنة.' : 'Visualize your storage, find what is taking space, and review safe reclamation opportunities.'}
               </p>
-              <HeroFeatures
-                items={[
-                  {
-                    icon: <HardDrive className="w-4 h-4" />,
-                    title: isArabic ? 'استكشف تخزينك' : 'Explore your storage',
-                    detail: isArabic ? 'شاهد كيف تُستخدم المساحة عبر الأقراص والمجلدات المقيسة.' : 'See how space is used across measured drives and folders.',
-                    tone: '#3b82f6',
-                  },
-                  {
-                    icon: <FolderTree className="w-4 h-4" />,
-                    title: isArabic ? 'اكتشف الملفات الكبيرة' : 'Find space hogs',
-                    detail: isArabic ? 'حدّد الملفات والمجلدات الكبيرة من الفحص المصرح به.' : 'Identify large files and folders from the authorized scan.',
-                    tone: '#a855f7',
-                  },
-                  {
-                    icon: <Layers className="w-4 h-4" />,
-                    title: isArabic ? 'استعد المساحة' : 'Reclaim space',
-                    detail: isArabic ? 'التوصيات للقراءة فقط حتى توافق على إجراء منفصل.' : 'Recommendations stay read-only until a separate action is approved.',
-                    tone: '#10b981',
-                  },
-                ]}
-              />
+              <StorageHeroMetrics
+                  ar={isArabic}
+                  volumes={displayVolumes}
+                  pending={volumesPending}
+                  error={storageNative.volumesError}
+                  scanning={storageNative.scanning}
+                  onExplore={() => void storageNative.chooseSource()}
+                />
             </div>
 
-            <OrbitalControl title={isArabic ? 'تحليل التخزين' : 'Analyze Storage'} subtitle={isArabic ? 'اختر نطاقاً للقياس' : 'Choose a scope. See the detail.'}
-              eyebrow={isArabic ? 'نطاقات التخزين' : 'Storage scopes'}
-              onActivate={() => void storageNative.chooseSource()} disabled={!nativeAvailable || storageNative.scanning} running={storageNative.scanning}
-              tools={[
-                { id: 'volumes', label: isArabic ? 'الوحدات' : 'Volumes', icon: HardDrive, onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
-                { id: 'map', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, onClick: () => setActiveTab('treemap'), active: activeTab === 'treemap' },
-                { id: 'large', label: isArabic ? 'الكبيرة' : 'Large files', icon: Folder, onClick: () => setActiveTab('large'), active: activeTab === 'large' },
-                { id: 'disks', label: isArabic ? 'الأقراص' : 'Disk details', icon: Server, onClick: () => setActiveService('storage-disks') },
-                { id: 'duplicates', label: isArabic ? 'المكررات' : 'Duplicates', icon: Copy, onClick: () => setActiveService('storage-duplicates') },
-                { id: 'folders', label: isArabic ? 'المجلدات' : 'Top folders', icon: FolderTree, onClick: () => setActiveService('storage-top-folders') },
-              ]} />
+            
           </div>
 
           <StorageBanner
@@ -388,182 +375,24 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             onRefreshVolumes={() => void storageNative.refreshVolumes()}
           />
 
-          {/* 4. Top Measurement Strip (5 Cards) */}
-          <div className="knx-storage-metrics grid grid-cols-2 md:grid-cols-5 gap-3">
-            {/* 1. Connected Volumes */}
-            <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-slate-700/60 flex items-center gap-3 shadow-lg shadow-black/20">
-              <div className="p-2.5 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300">
-                <HardDrive className="w-5 h-5" />
-              </div>
-              <div>
-                <div data-testid="storage-volume-count" className="text-xl font-extrabold font-mono text-white leading-none">{metricValues.volumes}</div>
-                <div className="text-[11px] text-slate-400 mt-1 font-medium">{isArabic ? 'الوحدات المتصلة' : 'Connected Volumes'}</div>
-              </div>
-            </div>
-
-            {/* 2. Measured Capacity */}
-            <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-slate-700/60 flex items-center gap-3 shadow-lg shadow-black/20">
-              <div className="p-2.5 rounded-xl bg-blue-950/70 border border-blue-500/40 text-blue-300">
-                <Database className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xl font-extrabold font-mono text-white leading-none">{metricValues.capacity}</div>
-                <div className="text-[11px] text-slate-400 mt-1 font-medium">{isArabic ? 'السعة المقيسة' : 'Measured Capacity'}</div>
-              </div>
-            </div>
-
-            {/* 3. Available Space */}
-            <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-slate-700/60 flex items-center gap-3 shadow-lg shadow-black/20">
-              <div className="p-2.5 rounded-xl bg-emerald-950/70 border border-emerald-500/40 text-emerald-400">
-                <PieChart className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xl font-extrabold font-mono text-white leading-none">{metricValues.free}</div>
-                <div className="text-[11px] text-slate-400 mt-1 font-medium">{isArabic ? 'المساحة المتاحة' : 'Available Space'}</div>
-              </div>
-            </div>
-
-            {/* 4. Low-Space Volumes */}
-            <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-rose-500/40 flex items-center gap-3 shadow-lg shadow-rose-950/20">
-              <div className="p-2.5 rounded-xl bg-rose-950/70 border border-rose-500/50 text-rose-400">
-                <AlertTriangle className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xl font-extrabold font-mono text-rose-300 leading-none">{metricValues.low}</div>
-                <div className="text-[11px] text-rose-300/80 mt-1 font-medium">{isArabic ? 'وحدات منخفضة السعة' : 'Low-Space Volumes'}</div>
-              </div>
-            </div>
-
-            {/* 5. Physical Drives */}
-            <div className="p-3.5 rounded-xl bg-[#091838]/85 border border-slate-700/60 flex items-center gap-3 shadow-lg shadow-black/20">
-              <div className="p-2.5 rounded-xl bg-purple-950/70 border border-purple-500/40 text-purple-300">
-                <Server className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-xl font-extrabold font-mono text-white leading-none" title="Physical disk identity is not exposed by the current provider.">{metricValues.physical}</div>
-                <div className="text-[11px] text-slate-400 mt-1 font-medium">{isArabic ? 'محركات فيزيائية · غير متاح' : 'Physical Drives · N/A'}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 5. Main Volume Bays (3 Columns) */}
-          <div className="knx-storage-volumes grid grid-cols-1 md:grid-cols-3 gap-3">
-            {filteredVolumes.map((vol) => {
-              const isSelected = vol.id === selectedVolume?.id;
-              return (
-                <div
-                  key={vol.id}
-                  data-testid={`storage-volume-${vol.letter.replace(':', '')}`}
-                  data-selected={isSelected}
-                  onClick={() => { setVolumePinnedByUser(true); setSelectedVolumeId(vol.id); }}
-                  className={`volume-bay p-4 rounded-2xl cursor-pointer relative transition-all ${
-                    isSelected ? 'volume-bay-selected' : ''
-                  }`}
-                >
-                  {/* Top line: Drive Badge, Label, and Free space indicator */}
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-[#0e1d3d] border border-cyan-500/30 text-cyan-300">
-                        <HardDrive className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-lg font-bold font-mono text-white">{vol.letter}</span>
-                          <span className="text-xs font-semibold text-slate-300">{vol.name}</span>
-                        </div>
-                        <div className="text-[10px] text-slate-400 font-mono">{vol.filesystem}</div>
-                      </div>
-                    </div>
-
-                    <div className="text-right">
-                      <div className="text-sm font-extrabold font-mono text-white">
-                        {vol.freeDisplay} <span className="text-xs text-slate-400 font-normal">{isArabic ? 'متاحة' : 'free'}</span>
-                      </div>
-                      <div className="text-[10px] text-slate-400 font-mono">{isArabic ? 'من' : 'of'} {vol.totalDisplay}</div>
-                    </div>
-                  </div>
-
-                  {/* Meter Bar */}
-                  <div className="mt-2 space-y-1.5">
-                    <div className="w-full bg-[#050f24] rounded-full h-2.5 overflow-hidden border border-slate-700/60 p-[1px]">
-                      <div
-                        className={`h-full rounded-full transition-all duration-500 ${
-                          vol.isLowSpace
-                            ? 'bg-gradient-to-r from-blue-500 via-cyan-400 to-rose-500'
-                            : 'bg-gradient-to-r from-blue-600 to-cyan-400'
-                        }`}
-                        style={{ width: `${vol.usedPercent}%` }}
-                      />
-                    </div>
-                    <div className="flex justify-between items-center text-[10px] font-mono text-slate-400">
-                      <span className="flex items-center gap-1.5">
-                        <span className={`w-2 h-2 rounded-full inline-block ${vol.isLowSpace ? 'bg-rose-400' : 'bg-cyan-400'}`} />
-                        {isArabic ? 'مستخدم' : 'Used'} {vol.usedDisplay} ({vol.usedPercent}%)
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
-                        {isArabic ? 'متاح' : 'Free'} {vol.freeDisplay} ({vol.freePercent}%)
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Actions in Drive Card */}
-                  <div className="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleWalkVolume(vol);
-                      }}
-                      className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 ${
-                        isSelected
-                          ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-900/40'
-                          : 'bg-[#091c3d] hover:bg-slate-800 text-slate-200 border border-slate-700'
-                      }`}
-                    >
-                      <span>{isArabic ? 'تصفح هذه الوحدة' : 'Walk This Volume'}</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveTab('folders');
-                      }}
-                      className="py-1.5 px-3 rounded-lg text-xs font-medium bg-[#08152e] hover:bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5 transition"
-                    >
-                      <Folder className="w-3.5 h-3.5 text-amber-400" />
-                      <span>{isArabic ? 'استكشاف المجلد' : 'Explore Folder'}</span>
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveService('storage-disks');
-                      }}
-                      className="p-1.5 rounded-lg bg-[#08152e] hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-slate-200 transition"
-                      title="Volume details"
-                    >
-                      <MoreVertical className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-            {!filteredVolumes.length && (
-              <div className="md:col-span-3 p-6 rounded-2xl border border-dashed border-slate-700 bg-[#071329] flex flex-col items-center justify-center gap-2 text-center">
-                <HardDrive className="w-7 h-7 text-slate-600" />
-                <div className="text-xs font-semibold text-slate-300">
-                  {volumesPending
-                    ? (isArabic ? 'جارٍ قراءة أحجام Windows المقيسة…' : 'Reading measured Windows volumes…')
-                    : storageNative.volumesError
-                    ? (isArabic ? 'تعذر قياس أحجام Windows.' : 'Measured volumes could not be read.')
-                    : searchQuery.trim()
-                    ? (isArabic ? 'لا توجد وحدات تطابق البحث.' : 'No volumes match the search.')
-                    : (isArabic ? 'لا توجد وحدات مقيسة.' : 'No measured volumes.')}
-                </div>
-                <div className="text-[10px] text-slate-500">{isArabic ? 'لا تُعرض بيانات تصميم بديلة داخل عميل Electron.' : 'Fixture values are not substituted inside the Electron client.'}</div>
-              </div>
-            )}
+          <div className="knx-storage-volumes atl-drives-slot">
+            <StorageDrivesPanel
+              ar={isArabic}
+              volumes={displayVolumes}
+              pending={volumesPending}
+              error={storageNative.volumesError}
+              selectedId={selectedVolume?.id ?? null}
+              activeAnalysis={activeTab}
+              onSelect={(id) => { setVolumePinnedByUser(true); setSelectedVolumeId(id); }}
+              onWalk={handleWalkVolume}
+              onDetails={() => setActiveService('storage-disks')}
+              onAnalysis={(tab) => setActiveTab(tab)}
+              onReclaim={() => setActiveService('storage-reclaim')}
+              onOpenSource={() => void storageNative.chooseSource()}
+              onReload={() => void storageNative.refreshVolumes()}
+              search={searchQuery}
+              onSearch={setSearchQuery}
+            />
           </div>
 
           {/* 6. Lower Analysis Workspace (Left 2/3) + Volume Inspector (Right 1/3) */}
@@ -903,129 +732,15 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
             {/* Right 4 Cols: Volume Inspector & Analysis Workflow */}
             <div className="knx-storage-inspector lg:col-span-4 flex flex-col gap-3">
-              {/* Volume Inspector Card */}
-              {selectedVolume ? (
-              <div className="bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3 max-h-[300px] overflow-y-auto storage-scrollbar">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                  <h3 className="text-sm font-bold text-white tracking-wide">
-                    {isArabic ? 'فاحص وحدة التخزين' : 'Volume Inspector'}
-                  </h3>
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold border ${measuredVolumes ? 'bg-emerald-950 text-emerald-300 border-emerald-700' : 'bg-amber-950 text-amber-300 border-amber-700'}`}>
-                    {measuredVolumes ? (isArabic ? 'مقيس' : 'MEASURED') : (isArabic ? 'تجريبي' : 'FIXTURE')}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-300">
-                    <HardDrive className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <div data-testid="storage-inspector-volume" data-volume-letter={selectedVolume.letter} className="text-base font-bold font-mono text-white leading-none">
-                      {selectedVolume.letter}\
-                    </div>
-                    <div className="text-xs text-slate-400 mt-1">{selectedVolume.name}</div>
-                  </div>
-                </div>
-
-                {/* Specs Grid */}
-                <div className="space-y-1.5 text-xs pt-1 border-t border-slate-800">
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'نظام الملفات' : 'File System'}</span>
-                    <span className="font-mono text-slate-200 font-semibold">{selectedVolume.filesystem}</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'التسمية' : 'Label'}</span>
-                    <span className="font-mono text-slate-200">{selectedVolume.name}</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'الجهاز الفيزيائي' : 'Physical Device'}</span>
-                    <span className="font-mono text-slate-300 text-[11px] truncate max-w-[170px]" title={selectedVolume.physicalDevice}>
-                      {selectedVolume.physicalDevice}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'الرقم التسلسلي / الصحة' : 'Volume Serial / Health'}</span>
-                    <span className="text-amber-300/90 text-[10px] text-right">{isArabic ? 'غير متاح من المزود الحالي' : 'Unavailable from current provider'}</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'المساحة المستخدمة' : 'Used Space'}</span>
-                    <span className="font-mono text-slate-200">{selectedVolume.usedDisplay} ({selectedVolume.usedPercent}%)</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'المساحة المتاحة' : 'Free Space'}</span>
-                    <span className="font-mono text-emerald-400 font-semibold">{selectedVolume.freeDisplay} ({selectedVolume.freePercent}%)</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'السعة' : 'Capacity'}</span>
-                    <span className="font-mono text-slate-200">{selectedVolume.totalDisplay}</span>
-                  </div>
-
-                  {/* Dual Bar */}
-                  <div className="py-1">
-                    <div className="w-full bg-slate-900 rounded-full h-2 overflow-hidden flex">
-                      <div className="bg-rose-500 h-full" style={{ width: `${selectedVolume.usedPercent}%` }} />
-                      <div className="bg-emerald-400 h-full" style={{ width: `${selectedVolume.freePercent}%` }} />
-                    </div>
-                    <div className="flex justify-between text-[10px] font-mono text-slate-400 mt-1">
-                      <span className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" /> Used {selectedVolume.usedDisplay}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" /> Free {selectedVolume.freeDisplay}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between py-0.5 pt-2 border-t border-slate-800">
-                    <span className="text-slate-400">{isArabic ? 'بايتات النطاق المقيس' : 'Measured Scope Bytes'}</span>
-                    <span className="font-mono text-slate-200">
-                      {scopeMatchesSelected && analysis ? formatStorageBytes(analysis.totals.bytes) : (isArabic ? 'لا يوجد نطاق' : 'No measured scope')}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'تفصيل المحتوى' : 'Content Breakdown'}</span>
-                    <span className="font-mono text-slate-300 text-[11px]">
-                      {scopeMatchesSelected && analysis
-                        ? `${analysis.totals.files.toLocaleString()} files, ${analysis.totals.folders.toLocaleString()} folders`
-                        : (isArabic ? 'لم يتم فحص هذه الوحدة' : 'This volume was not scanned')}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'مصدر الفحص' : 'Scan Source'}</span>
-                    <span className="text-slate-300">{selectedVolume.scanSource}</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'وقت الفحص' : 'Scan Timestamp'}</span>
-                    <span className="font-mono text-slate-400 text-[11px]">{selectedVolume.scanTimestamp}</span>
-                  </div>
-                  <div className="flex justify-between py-0.5">
-                    <span className="text-slate-400">{isArabic ? 'حدود البيانات الوصفية' : 'Metadata Limitations'}</span>
-                    <span className="text-amber-400/90 text-[10px] text-right truncate max-w-[160px]" title={selectedVolume.metadataLimitations}>
-                      {selectedVolume.metadataLimitations}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-1 pt-1.5 border-t border-slate-800">
-                    <span className="text-slate-400">{isArabic ? 'توفر الإجراءات' : 'Action Availability'}</span>
-                    <span className="text-amber-300 font-medium text-[11px] flex items-center gap-1 text-right">
-                      <span className="w-2 h-2 rounded-full bg-amber-400 inline-block shrink-0" />
-                      {isArabic ? 'قراءة فقط؛ التنظيف/إلغاء التجزئة/SMART محظورة' : 'Read-only; cleanup/defrag/SMART gated'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              ) : (
-                <div className="bg-[#071329] border border-dashed border-slate-700 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 text-center min-h-[160px]">
-                  <HardDrive className="w-7 h-7 text-slate-600" />
-                  <div className="text-xs font-semibold text-slate-300">
-                    {volumesPending
-                      ? (isArabic ? 'جارٍ قراءة أحجام Windows المقيسة…' : 'Reading measured Windows volumes…')
-                      : (isArabic ? 'فاحص الوحدة غير متاح.' : 'Volume inspector unavailable.')}
-                  </div>
-                  <div className="text-[10px] text-slate-500">
-                    {isArabic ? 'لن تُستبدل البيانات التجريبية بالقياسات الفاشلة.' : 'Fixture values are never substituted for failed measurements.'}
-                  </div>
-                </div>
-              )}
+              <StorageVolumeAnalysis
+                ar={isArabic}
+                volume={selectedVolume}
+                duplicateBytes={storageNative.duplicates ? storageNative.duplicates.summary.reclaimableVerifiedBytes : null}
+                duplicatesVerified={Boolean(storageNative.duplicates)}
+                onReclaim={() => setActiveService('storage-reclaim')}
+                onService={(id) => setActiveService(id)}
+                onOpenSource={() => void storageNative.chooseSource()}
+              />
 
               {/* Analysis Workflow Timeline (5 Steps) */}
               <div className="bg-[#071329] border border-slate-700/60 rounded-2xl p-4 shadow-xl">

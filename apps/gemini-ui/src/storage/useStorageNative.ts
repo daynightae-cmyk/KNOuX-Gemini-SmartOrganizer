@@ -66,15 +66,25 @@ export function useStorageNative() {
     if (!getStorageShell()) return;
     setVolumesLoading(true);
     try {
-      const envelope = await loadStorageVolumes();
-      if (!envelope || envelope.status !== 'complete' || !envelope.data) {
-        setVolumesError(envelope?.error?.message || 'The measured volume provider did not return data.');
+      // A cold native provider can swallow the first request without ever
+      // settling, so every read is bounded and retried once before failing.
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const envelope = await Promise.race([
+          loadStorageVolumes(),
+          new Promise<null>((resolve) => { setTimeout(() => resolve(null), 12_000); }),
+        ]);
+        if (envelope === null) continue;
+        if (envelope.status !== 'complete' || !envelope.data) {
+          setVolumesError(envelope.error?.message || 'The measured volume provider did not return data.');
+          return;
+        }
+        setVolumes(envelope.data.volumes);
+        setHistory(envelope.data.history);
+        setVolumesWarnings(envelope.data.warnings);
+        setVolumesError(null);
         return;
       }
-      setVolumes(envelope.data.volumes);
-      setHistory(envelope.data.history);
-      setVolumesWarnings(envelope.data.warnings);
-      setVolumesError(null);
+      setVolumesError('The volume provider did not answer in time. Reload volumes to retry.');
     } catch (providerError) {
       setVolumesError(providerError instanceof Error ? providerError.message : 'Storage volumes could not be read.');
     } finally {
@@ -180,38 +190,52 @@ export function useStorageNative() {
   }, [loadAnalysis, setActiveSource, sources]);
 
   useEffect(() => {
-    if (!getStorageShell()) return;
-    setAvailable(true);
+    // The preload bridge can land after the first paint on a cold start. The
+    // previous guard returned here and never read volumes again.
     let active = true;
-    const unsubscribe = subscribeFilesProgress((event: StudioProgressEvent) => {
-      if (!active) return;
-      if (event.type === 'scan-progress') {
-        setProgress({ files: event.files || 0, folders: event.folders || 0, bytes: event.bytes || 0 });
-      }
-      if (event.type === 'scan-failed') setError(event.message || 'The scope scan failed.');
-    });
-    void loadVolumes();
-    const refreshLiveScope = (event?: Event) => {
-      const preferred = (event as CustomEvent<{ sourceId?: string }> | undefined)?.detail?.sourceId || sourceRef.current?.id;
-      void (async () => {
-      const listed = await listFilesSources();
-      if (!active) return;
-      if (listed?.status === 'complete' && Array.isArray(listed.data)) {
-        setSources(listed.data);
-        const ready = listed.data.find(entry=>entry.id===preferred && ['ready','partial'].includes(entry.status)) || listed.data.find(entry=>['ready','partial'].includes(entry.status));
-        if (ready) {
-          setActiveSource(ready);
-          await loadAnalysis(ready);
+    let poll: ReturnType<typeof setInterval> | null = null;
+    let detach: (() => void) | null = null;
+    const init = () => {
+      if (!active) return true;
+      if (!getStorageShell()) return false;
+      if (poll) { clearInterval(poll); poll = null; }
+      setAvailable(true);
+      const unsubscribe = subscribeFilesProgress((event: StudioProgressEvent) => {
+        if (!active) return;
+        if (event.type === 'scan-progress') {
+          setProgress({ files: event.files || 0, folders: event.folders || 0, bytes: event.bytes || 0 });
         }
-      }
-      })().catch(error => { if (active) setError(String(error)); });
+        if (event.type === 'scan-failed') setError(event.message || 'The scope scan failed.');
+      });
+      void loadVolumes();
+      const refreshLiveScope = (event?: Event) => {
+        const preferred = (event as CustomEvent<{ sourceId?: string }> | undefined)?.detail?.sourceId || sourceRef.current?.id;
+        void (async () => {
+        const listed = await listFilesSources();
+        if (!active) return;
+        if (listed?.status === 'complete' && Array.isArray(listed.data)) {
+          setSources(listed.data);
+          const ready = listed.data.find(entry=>entry.id===preferred && ['ready','partial'].includes(entry.status)) || listed.data.find(entry=>['ready','partial'].includes(entry.status));
+          if (ready) {
+            setActiveSource(ready);
+            await loadAnalysis(ready);
+          }
+        }
+        })().catch(error => { if (active) setError(String(error)); });
+      };
+      refreshLiveScope();
+      window.addEventListener('knoux:organization-updated',refreshLiveScope);
+      detach = () => {
+        unsubscribe();
+        window.removeEventListener('knoux:organization-updated',refreshLiveScope);
+      };
+      return true;
     };
-    refreshLiveScope();
-    window.addEventListener('knoux:organization-updated',refreshLiveScope);
+    if (!init()) poll = setInterval(() => { if (init()) { if (poll) clearInterval(poll); poll = null; } }, 250);
     return () => {
       active = false;
-      unsubscribe();
-      window.removeEventListener('knoux:organization-updated',refreshLiveScope);
+      if (poll) clearInterval(poll);
+      detach?.();
     };
   }, [loadAnalysis, loadVolumes, setActiveSource]);
 

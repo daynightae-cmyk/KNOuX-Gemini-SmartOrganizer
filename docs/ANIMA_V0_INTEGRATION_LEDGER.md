@@ -60,4 +60,23 @@ Open: the satellite arrangement uses the shared six-point orbit geometry rather 
 
 Next domain per the owner queue: Storage Atlas.
 
+## Storage Atlas — approved overview composition
+
+Baseline: canonical local main `761f504`. Implemented directly in main. No branch, worktree or remote change.
+
+Provenance: approved DAY reference `missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/7b47c1be7801__KNOuX Smart Storage Atlas Dashboard.png`, NIGHT `missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/05_storage.png`. The existing read-only provider (`knouxStorageV1` → `storage.volumes`), treemap navigation, duplicate verification and cleanup handoff are preserved. No Main, Preload, IPC contract or provider method was added.
+
+Implemented: the hero now matches the approved shape — procedural orbit on the left carrying the six approved nodes (Drives, Used Space, Free Space, Treemap, Largest Folders, Reclaim) with identity, four measured capacity tiles and an "Explore Storage" action on the right. The retired five-card strip became the approved drive register: All Drives / Local Disks / External Drives / Largest Folders / File Types / Reclaimable with a drives search and a real table (drive, label, file system, capacity, used, free, proportional usage bar, status, row actions). Selecting a row drives the inspector. The right inspector is now Volume Analysis: measured used/free doughnut, legend, metadata, itemised reclaim review and an "Analyze & Reclaim" action that opens the existing review workbench.
+
+Honesty boundaries: Local Disks and External Drives are disabled because the provider does not expose drive type; no SMART/health badge is shown for the same reason and the panel says so. Reclaim rows other than verified duplicates read "Not measured" instead of an invented estimate, and the footnote states nothing is deleted here. Volume values are the machine's real measurements (C: 96.6 %, D: 98.8 %, K: 94.7 % at capture time), so they differ from the reference's illustrative numbers by design.
+
+Provider robustness fixed while verifying: the storage hook returned early when the preload bridge was not present at first paint, leaving volumes permanently unread; it now polls briefly for the bridge. A cold `storage.volumes` call can also never settle, so every read is bounded at 12 s and retried once before surfacing a retryable error — the drives panel gained a "Reload volumes" action for that state. Both defects reproduced in Electron before the fix and are covered by the captures that show measured rows.
+
+Verification: TypeScript exit 0; production build exit 0; Storage, native-contract, navigation, Studio and Files suites pass. Actual Electron at 1366×768, 1672×941 and 1920×1080, EN/AR × DAY/NIGHT: 12 cases, six orbit buttons, no page overflow, zero renderer errors (`docs/evidence/storage-atlas/final/`). Comparison artifacts (side-by-side, overlay, difference, manifest) are in `docs/evidence/storage-atlas/comparison/`, labelled OWNER_REVIEW_REQUIRED.
+
+Open: the treemap is partly below the fold at 1672×941 because the shared canvas gives the overview pane ~365 px; the reference's drive "Actions" ellipsis is two explicit icon buttons; per-volume cache/Temp/Update/Bin amounts remain unmeasured until a provider exists; packaged Electron was not re-run for this increment.
+
+Next domain per the owner queue: Cleanup Safety Vault.
+
+
 

@@ -1,0 +1,64 @@
+{
+  "acceptance": "OWNER_REVIEW_REQUIRED",
+  "method": "Exact-size side-by-side, 50 percent overlay and absolute pixel difference. The reference carries illustrative values while the render carries this machine’s measured volumes, so differences are expected; no similarity score is produced.",
+  "comparisons": [
+    {
+      "theme": "day",
+      "size": [
+        1672,
+        941
+      ],
+      "reference": {
+        "file": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/7b47c1be7801__KNOuX Smart Storage Atlas Dashboard.png",
+        "sha256": "7b47c1be7801c1a1e1335abfd80d7b833a56a3166a3e3a3aaec1627f5178a960"
+      },
+      "actual": {
+        "file": "docs/evidence/storage-atlas/final2/en-light-1672.png",
+        "sha256": "ea9b6e0fc8ca5e9e42857b53f6697237be89c3ee66c0f0b830b395c28ba40fef"
+      },
+      "outputs": {
+        "side-by-side": {
+          "file": "docs/evidence/storage-atlas/comparison/overview-day-side-by-side.png",
+          "sha256": "148e968e7be8b1c65b939b55beee49c88fcd1c740de1acf007c6f06e4ab526e8"
+        },
+        "overlay-50pct": {
+          "file": "docs/evidence/storage-atlas/comparison/overview-day-overlay-50pct.png",
+          "sha256": "c0a9137d009247da7e246969b0c1c240157b893b86f565123bbce5942fdefd18"
+        },
+        "difference": {
+          "file": "docs/evidence/storage-atlas/comparison/overview-day-difference.png",
+          "sha256": "83462f0d03691b5db5d7aa96960b0c4227d063be7ce65e9bed88d7070b357975"
+        }
+      }
+    },
+    {
+      "theme": "night",
+      "size": [
+        1672,
+        941
+      ],
+      "reference": {
+        "file": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/05_storage.png",
+        "sha256": "1fab50a2a5e2aba273bbde323e68aa1218c32cf597829c187452e36b514fdc7f"
+      },
+      "actual": {
+        "file": "docs/evidence/storage-atlas/final2/en-dark-1672.png",
+        "sha256": "6ec62eafe97e29d049b1cc18df9fe974a51a4851a14303b1f16a1f7824e33a2d"
+      },
+      "outputs": {
+        "side-by-side": {
+          "file": "docs/evidence/storage-atlas/comparison/overview-night-side-by-side.png",
+          "sha256": "550c3785bf933e7a34f699e97a69c33c4252baceb79a7002c26da566097f207c"
+        },
+        "overlay-50pct": {
+          "file": "docs/evidence/storage-atlas/comparison/overview-night-overlay-50pct.png",
+          "sha256": "f98ba889d10271be46d43db69f81fd490826cc70e6423d99d5fb76b8cbde5d4f"
+        },
+        "difference": {
+          "file": "docs/evidence/storage-atlas/comparison/overview-night-difference.png",
+          "sha256": "78dfcaee80c690431a933604bcbecb7eb7bbe72847f60133e3079d49601dfa52"
+        }
+      }
+    }
+  ]
+}
