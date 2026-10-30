@@ -1,0 +1,1146 @@
+{
+  "domain": "Cleanup Safety Vault",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "54d673a74328f803a6741d8e4c98659d8d24395d",
+  "isolation": {
+    "profile": true,
+    "userprofile": true,
+    "temp": true,
+    "localStorage": true,
+    "scannedCategories": [
+      "temp",
+      "browser",
+      "logs"
+    ],
+    "excludedCategories": [
+      "recycle",
+      "update"
+    ],
+    "excludedReason": "Owner Recycle Bin metadata and the Windows servicing store are not read for evidence."
+  },
+  "fixture": {
+    "roots": 3,
+    "files": 8
+  },
+  "sourceFiles": {
+    "src/pages/CleanupPage.tsx": "ea09113e72bb0916c45be8f22bc59c248573f040580f79555c8d3af91cc89bca",
+    "src/cleanup/ServiceWorkspace.tsx": "774fff5e7d5dbd09d4712a93b41043bb94d2c239686bb976e878f654568b488e",
+    "src/cleanup/CleanupHero.tsx": "98ecea2919fd294ad3d7b0c20599cb924d3eff3292bb93a2d462bb1766962a33",
+    "src/cleanup/CandidateRegister.tsx": "f3a3eb23ea2d8549a932e1c2092b036d2b0011cc778e9205a1f67f09848c4a7a",
+    "src/cleanup/useCleanup.ts": "1ff201faf78ee9ed86dafe61ca7dee172d6bcec66605a2fe7b3e54d138990fad",
+    "src/cleanup/native.ts": "c1a4ab1ce4cf6e1d8b7ee07b314f271883ff58f92a77149e4b803073c0249af1",
+    "src/operations/StorageCleanupLiveWorkbench.tsx": "373eb13382af37d51c83e3ce0fb67cc2876068c9f84face8d9cdf18d04a07447",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "c060f6e011adea7f6d45cce66afc098ed1ac2883a154577d8d3654d632a5dbd8",
+    "electron/native/cleanup-bridge.cjs": "06953206d5dca647f87de4b45d5a3132d777cb8e2730b7f47bd645af9fe1867a",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "captures": [
+    {
+      "file": "overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "temp-preview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "temp-preview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "temp-quarantine-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "temp-quarantine",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "temp-undo-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "temp-undo",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "quarantine-list-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "quarantine-list",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "estimate-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "estimate",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "recycle-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "recycle",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "unused-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "unused",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "update-cache-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "update-cache",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "browser-cache-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "browser-cache",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "logs-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "logs",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "schedule-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "schedule",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "reports-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "reports",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "estimate-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "estimate-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": null
+      }
+    },
+    {
+      "file": "temp-preview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "temp-preview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "temp-quarantine-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "temp-quarantine",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "temp-undo-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "temp-undo",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "quarantine-list-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "quarantine-list",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "estimate-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "estimate",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "recycle-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "recycle",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "unused-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "unused",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "update-cache-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "update-cache",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "browser-cache-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "browser-cache",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "logs-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "logs",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "schedule-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "schedule",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "reports-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "reports",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": false,
+        "workbench": "side"
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "cleanup-temp-preview",
+      "body": "cleanup-cleanup-temp-preview-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-temp-preview-workbench",
+      "text": "Measured temp items14.00 KBEligible4.00 KB1 itemsNeeds review0 B0 itemsBlocked0 B0 itemsAll safety classesEligibleNeeds reviewBlockedToggle safe defaultsStage c",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-quarantine",
+      "body": "cleanup-cleanup-temp-quarantine-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-temp-quarantine-workbench",
+      "text": "Vault entries00 BRetention14 daysSafety policySelected scope220.0 KBConflicts0must clear before approvalBefore / after move flowStaging only. The vault is read,",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-undo",
+      "body": "cleanup-cleanup-temp-undo-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-temp-undo-workbench",
+      "text": "Journal entries0No journal yetVerified entries0Vault items00 BRestorable now0Approval channel absentJournal timelineChoose an entry to compare its stored recove",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "cleanup-quarantine-list",
+      "body": "cleanup-cleanup-quarantine-list-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-quarantine-list-workbench",
+      "text": "Newest firstLargest first0 entriesRetention: 14 dOpen keeper reviewVault ledgerGrouped by the journal that produced the entry. Links are never followed.NameKind",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "cleanup-estimate",
+      "body": "cleanup-cleanup-estimate-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-estimate-workbench",
+      "text": "Eligible space (100% safe)20.0 KB2 itemsUncertain space28 B1 need reviewLocked system space60.5 MB4 blockedExcluded user space0 categoriesNever measured by poli",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-recycle",
+      "body": "cleanup-cleanup-recycle-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-recycle-workbench",
+      "text": "Bin items0Measured bytes0 BVolumes0Purge channelGatedNever reversibleNo Recycle Bin volume was reported. Run discovery to measure the current-user bin.All file ",
+      "controls": 4,
+      "visible": true
+    },
+    {
+      "key": "cleanup-unused",
+      "body": "cleanup-cleanup-unused-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-unused-workbench",
+      "text": "Dormant items—needs-sourceThreshold90 dModified time onlySelected00 BSourceNoneAge-band explorerWindows last-access timestamps are commonly disabled; dormancy u",
+      "controls": 7,
+      "visible": true
+    },
+    {
+      "key": "cleanup-update-cache",
+      "body": "cleanup-cleanup-update-cache-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-update-cache-workbench",
+      "text": "WinSxS store evidence0 B0 measured entriesSoftwareDistribution0 B0 measured entriesBlocked by policy0Servicing handoff onlyDISM channelAbsentNo elevation reques",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-browser-cache",
+      "body": "cleanup-cleanup-browser-cache-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-browser-cache-workbench",
+      "text": "Browser cache measured14.0 KB2 profilesCookies / historyExcluded0 BSaved passwordsProtectedNever readActive session warnings2Owning process detectedGoogle Chrom",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-logs",
+      "body": "cleanup-cleanup-logs-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-logs-workbench",
+      "text": "Crash dump evidence16.0 KB1 sourcesWindows Error Reporting28 B1 sourcesWindows-owned logs2Blocked from cleanupRetention draft30 dNot persistedAll log sourcesApp",
+      "controls": 13,
+      "visible": true
+    },
+    {
+      "key": "cleanup-schedule",
+      "body": "cleanup-cleanup-schedule-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-schedule-workbench",
+      "text": "Draft occurrences5dailyNext execution31 Oct 2026, 02:00Quiet hours00:00–06:00RespectedPersisted tasks0Draft onlySchedule draftCompose a read-only scan draft. No",
+      "controls": 9,
+      "visible": true
+    },
+    {
+      "key": "cleanup-reports",
+      "body": "cleanup-cleanup-reports-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "cleanup-cleanup-reports-workbench",
+      "text": "Toggle redactionJSONPDFExport preview reportInspect audit trailInitial measured footprint30 Oct 2026, 16:37Candidates7Eligible evidence20.0 KBReview / blocked28",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-preview",
+      "body": "cleanup-cleanup-temp-preview-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-temp-preview-workbench",
+      "text": "Measured temp items14.00 KBEligible4.00 KB1 itemsNeeds review0 B0 itemsBlocked0 B0 itemsAll safety classesEligibleNeeds reviewBlockedToggle safe defaultsStage c",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-quarantine",
+      "body": "cleanup-cleanup-temp-quarantine-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-temp-quarantine-workbench",
+      "text": "Vault entries00 BRetention14 daysSafety policySelected scope220.0 KBConflicts0must clear before approvalBefore / after move flowStaging only. The vault is read,",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-undo",
+      "body": "cleanup-cleanup-temp-undo-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-temp-undo-workbench",
+      "text": "Journal entries0No journal yetVerified entries0Vault items00 BRestorable now0Approval channel absentJournal timelineChoose an entry to compare its stored recove",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "cleanup-quarantine-list",
+      "body": "cleanup-cleanup-quarantine-list-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-quarantine-list-workbench",
+      "text": "Newest firstLargest first0 entriesRetention: 14 dOpen keeper reviewVault ledgerGrouped by the journal that produced the entry. Links are never followed.NameKind",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "cleanup-estimate",
+      "body": "cleanup-cleanup-estimate-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-estimate-workbench",
+      "text": "Eligible space (100% safe)20.0 KB2 itemsUncertain space28 B1 need reviewLocked system space60.5 MB4 blockedExcluded user space0 categoriesNever measured by poli",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-recycle",
+      "body": "cleanup-cleanup-recycle-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-recycle-workbench",
+      "text": "Bin items0Measured bytes0 BVolumes0Purge channelGatedNever reversibleNo Recycle Bin volume was reported. Run discovery to measure the current-user bin.All file ",
+      "controls": 4,
+      "visible": true
+    },
+    {
+      "key": "cleanup-unused",
+      "body": "cleanup-cleanup-unused-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-unused-workbench",
+      "text": "Dormant items—needs-sourceThreshold90 dModified time onlySelected00 BSourceNoneAge-band explorerWindows last-access timestamps are commonly disabled; dormancy u",
+      "controls": 7,
+      "visible": true
+    },
+    {
+      "key": "cleanup-update-cache",
+      "body": "cleanup-cleanup-update-cache-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-update-cache-workbench",
+      "text": "WinSxS store evidence0 B0 measured entriesSoftwareDistribution0 B0 measured entriesBlocked by policy0Servicing handoff onlyDISM channelAbsentNo elevation reques",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-browser-cache",
+      "body": "cleanup-cleanup-browser-cache-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-browser-cache-workbench",
+      "text": "Browser cache measured14.0 KB2 profilesCookies / historyExcluded0 BSaved passwordsProtectedNever readActive session warnings2Owning process detectedGoogle Chrom",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-logs",
+      "body": "cleanup-cleanup-logs-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-logs-workbench",
+      "text": "Crash dump evidence16.0 KB1 sourcesWindows Error Reporting28 B1 sourcesWindows-owned logs2Blocked from cleanupRetention draft30 dNot persistedAll log sourcesApp",
+      "controls": 13,
+      "visible": true
+    },
+    {
+      "key": "cleanup-schedule",
+      "body": "cleanup-cleanup-schedule-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-schedule-workbench",
+      "text": "Draft occurrences5dailyNext execution31 Oct 2026, 02:00Quiet hours00:00–06:00RespectedPersisted tasks0Draft onlySchedule draftCompose a read-only scan draft. No",
+      "controls": 9,
+      "visible": true
+    },
+    {
+      "key": "cleanup-reports",
+      "body": "cleanup-cleanup-reports-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-reports-workbench",
+      "text": "Toggle redactionJSONPDFExport preview reportInspect audit trailInitial measured footprint30 Oct 2026, 16:37Candidates7Eligible evidence20.0 KBReview / blocked28",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-preview",
+      "body": "cleanup-cleanup-temp-preview-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-temp-preview-workbench",
+      "text": "عناصر مؤقتة مقيسة14.00 KBمؤهل4.00 KB1 عنصرًايحتاج مراجعة0 B0 عنصرًامحجوب0 B0 عنصرًاكل تصنيفات الأمانمؤهليحتاج مراجعةمحجوبتبديل الافتراضي الآمنإعداد مقترح التنظي",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-quarantine",
+      "body": "cleanup-cleanup-temp-quarantine-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-temp-quarantine-workbench",
+      "text": "عناصر الحجر00 Bالاحتفاظ14 يومًاسياسة الأمانالنطاق المحدد220.0 KBالتعارضات0يجب إزالتها قبل الموافقةمسار النقل قبل / بعدتهيئة فقط. يُقرأ الحجر ولا يُكتب فيه في ال",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-undo",
+      "body": "cleanup-cleanup-temp-undo-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-temp-undo-workbench",
+      "text": "مدخلات السجل0لا سجل بعدمدخلات متحقق منها0عناصر الحجر00 Bقابل للاستعادة الآن0قناة الموافقة غائبةالخط الزمني للسجلاختر مدخلًا لمقارنة أدلة الاسترداد المخزّنة.لا ي",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "cleanup-quarantine-list",
+      "body": "cleanup-cleanup-quarantine-list-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-quarantine-list-workbench",
+      "text": "الأحدث أولًاالأكبر أولًا0 عنصرًاالاحتفاظ: 14 dافتح مراجعة النسخ المحتفظةسجل الحجرمجمّعة حسب السجل الذي أنتج العنصر. لا تُتبَّع الروابط.الاسمالنوعتاريخ الحجرالحج",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "cleanup-estimate",
+      "body": "cleanup-cleanup-estimate-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-estimate-workbench",
+      "text": "مساحة مؤهلة (آمنة 100%)20.0 KB2 عنصرًامساحة غير مؤكدة28 B1 تحتاج مراجعةمساحة نظام مقفلة60.5 MB4 محجوبمساحة مستخدم مستبعدة0 فئاتلا تُقاس بالسياسة أبدًاتفصيل توفي",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-recycle",
+      "body": "cleanup-cleanup-recycle-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-recycle-workbench",
+      "text": "عناصر السلة0الأحجام المقيسة0 Bوحدات التخزين0قناة الإزالةمحجوبلا تُستعاد أبدًالم تُعلن وحدة سلة محذوفات. شغّل الاستكشاف لقياس سلة المستخدم الحالي.كل أنواع الملفا",
+      "controls": 4,
+      "visible": true
+    },
+    {
+      "key": "cleanup-unused",
+      "body": "cleanup-cleanup-unused-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-unused-workbench",
+      "text": "عناصر خاملة—needs-sourceالحد90 dوقت التعديل فقطمحدد00 Bالمصدرلا يوجدمستكشف نطاقات العمرWindows last-access timestamps are commonly disabled; dormancy uses modif",
+      "controls": 7,
+      "visible": true
+    },
+    {
+      "key": "cleanup-update-cache",
+      "body": "cleanup-cleanup-update-cache-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-update-cache-workbench",
+      "text": "دليل مخزن WinSxS0 B0 مدخلًا مقيسًاSoftwareDistribution0 B0 مدخلًا مقيسًامحجوب بالسياسة0تسليم خدمة فقطقناة DISMغائبةلا رفع صلاحياتمراحل الخدمةاختر مرحلة لفحص أدل",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-browser-cache",
+      "body": "cleanup-cleanup-browser-cache-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-browser-cache-workbench",
+      "text": "ذاكرة المتصفح المقيسة14.0 KB2 ملفًا شخصيًاالارتباطات / السجلمستبعدة0 Bكلمات المرور المحفوظةمحميةلا تُقرأ أبدًاتحذيرات الجلسات النشطة2عُثر على العملية المالكةGoo",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-logs",
+      "body": "cleanup-cleanup-logs-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-logs-workbench",
+      "text": "دليل تفريغات الأعطال16.0 KB1 مصدرًاتقارير أخطاء Windows28 B1 مصدرًاسجلات Windows المملوكة2محجوبة عن التنظيفمسودة الاحتفاظ30 dغير محفوظةكل مصادر السجلاتApplicati",
+      "controls": 13,
+      "visible": true
+    },
+    {
+      "key": "cleanup-schedule",
+      "body": "cleanup-cleanup-schedule-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-schedule-workbench",
+      "text": "المواعيد في المسودة5dailyالتنفيذ التالي31‏/10‏/2026، 2:00 صالساعات الهادئة00:00–06:00محترمةالمهام المحفوظة0مسودة فقطمسودة الجدولأنشئ مسودة فحص للقراءة فقط. لا ت",
+      "controls": 9,
+      "visible": true
+    },
+    {
+      "key": "cleanup-reports",
+      "body": "cleanup-cleanup-reports-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "cleanup-cleanup-reports-workbench",
+      "text": "تبديل الحجبJSONPDFتصدير التقريرفحص مسار التدقيقالبصمة المقيسة الأولية30‏/10‏/2026، 4:37 مالمرشحون7الدليل المؤهل20.0 KBمراجعة / محجوب28 B / 60.5 MBالجلسةddb34767",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-preview",
+      "body": "cleanup-cleanup-temp-preview-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-temp-preview-workbench",
+      "text": "عناصر مؤقتة مقيسة14.00 KBمؤهل4.00 KB1 عنصرًايحتاج مراجعة0 B0 عنصرًامحجوب0 B0 عنصرًاكل تصنيفات الأمانمؤهليحتاج مراجعةمحجوبتبديل الافتراضي الآمنإعداد مقترح التنظي",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-quarantine",
+      "body": "cleanup-cleanup-temp-quarantine-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-temp-quarantine-workbench",
+      "text": "عناصر الحجر00 Bالاحتفاظ14 يومًاسياسة الأمانالنطاق المحدد220.0 KBالتعارضات0يجب إزالتها قبل الموافقةمسار النقل قبل / بعدتهيئة فقط. يُقرأ الحجر ولا يُكتب فيه في ال",
+      "controls": 5,
+      "visible": true
+    },
+    {
+      "key": "cleanup-temp-undo",
+      "body": "cleanup-cleanup-temp-undo-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-temp-undo-workbench",
+      "text": "مدخلات السجل0لا سجل بعدمدخلات متحقق منها0عناصر الحجر00 Bقابل للاستعادة الآن0قناة الموافقة غائبةالخط الزمني للسجلاختر مدخلًا لمقارنة أدلة الاسترداد المخزّنة.لا ي",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "cleanup-quarantine-list",
+      "body": "cleanup-cleanup-quarantine-list-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-quarantine-list-workbench",
+      "text": "الأحدث أولًاالأكبر أولًا0 عنصرًاالاحتفاظ: 14 dافتح مراجعة النسخ المحتفظةسجل الحجرمجمّعة حسب السجل الذي أنتج العنصر. لا تُتبَّع الروابط.الاسمالنوعتاريخ الحجرالحج",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "cleanup-estimate",
+      "body": "cleanup-cleanup-estimate-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-estimate-workbench",
+      "text": "مساحة مؤهلة (آمنة 100%)20.0 KB2 عنصرًامساحة غير مؤكدة28 B1 تحتاج مراجعةمساحة نظام مقفلة60.5 MB4 محجوبمساحة مستخدم مستبعدة0 فئاتلا تُقاس بالسياسة أبدًاتفصيل توفي",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-recycle",
+      "body": "cleanup-cleanup-recycle-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-recycle-workbench",
+      "text": "عناصر السلة0الأحجام المقيسة0 Bوحدات التخزين0قناة الإزالةمحجوبلا تُستعاد أبدًالم تُعلن وحدة سلة محذوفات. شغّل الاستكشاف لقياس سلة المستخدم الحالي.كل أنواع الملفا",
+      "controls": 4,
+      "visible": true
+    },
+    {
+      "key": "cleanup-unused",
+      "body": "cleanup-cleanup-unused-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-unused-workbench",
+      "text": "عناصر خاملة—needs-sourceالحد90 dوقت التعديل فقطمحدد00 Bالمصدرلا يوجدمستكشف نطاقات العمرWindows last-access timestamps are commonly disabled; dormancy uses modif",
+      "controls": 7,
+      "visible": true
+    },
+    {
+      "key": "cleanup-update-cache",
+      "body": "cleanup-cleanup-update-cache-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-update-cache-workbench",
+      "text": "دليل مخزن WinSxS0 B0 مدخلًا مقيسًاSoftwareDistribution0 B0 مدخلًا مقيسًامحجوب بالسياسة0تسليم خدمة فقطقناة DISMغائبةلا رفع صلاحياتمراحل الخدمةاختر مرحلة لفحص أدل",
+      "controls": 8,
+      "visible": true
+    },
+    {
+      "key": "cleanup-browser-cache",
+      "body": "cleanup-cleanup-browser-cache-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-browser-cache-workbench",
+      "text": "ذاكرة المتصفح المقيسة14.0 KB2 ملفًا شخصيًاالارتباطات / السجلمستبعدة0 Bكلمات المرور المحفوظةمحميةلا تُقرأ أبدًاتحذيرات الجلسات النشطة2عُثر على العملية المالكةGoo",
+      "controls": 6,
+      "visible": true
+    },
+    {
+      "key": "cleanup-logs",
+      "body": "cleanup-cleanup-logs-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-logs-workbench",
+      "text": "دليل تفريغات الأعطال16.0 KB1 مصدرًاتقارير أخطاء Windows28 B1 مصدرًاسجلات Windows المملوكة2محجوبة عن التنظيفمسودة الاحتفاظ30 dغير محفوظةكل مصادر السجلاتApplicati",
+      "controls": 13,
+      "visible": true
+    },
+    {
+      "key": "cleanup-schedule",
+      "body": "cleanup-cleanup-schedule-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-schedule-workbench",
+      "text": "المواعيد في المسودة5dailyالتنفيذ التالي31‏/10‏/2026، 2:00 صالساعات الهادئة00:00–06:00محترمةالمهام المحفوظة0مسودة فقطمسودة الجدولأنشئ مسودة فحص للقراءة فقط. لا ت",
+      "controls": 9,
+      "visible": true
+    },
+    {
+      "key": "cleanup-reports",
+      "body": "cleanup-cleanup-reports-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "cleanup-cleanup-reports-workbench",
+      "text": "تبديل الحجبJSONPDFتصدير التقريرفحص مسار التدقيقالبصمة المقيسة الأولية30‏/10‏/2026، 4:38 مالمرشحون7الدليل المؤهل20.0 KBمراجعة / محجوب28 B / 60.5 MBالجلسةddb34767",
+      "controls": 5,
+      "visible": true
+    }
+  ],
+  "probes": [
+    {
+      "probe": "measured-discovery",
+      "state": "Last measured 16:37:28READ-ONLY",
+      "banner": "Measured Clean Room7 candidates · 7 roots measured · 30 Oct 2026, 16:37 · mutation: noneMEASURED3 warnings",
+      "kpi": {
+        "candidates": "7",
+        "eligible": "20.0 KB",
+        "review": "1"
+      }
+    },
+    {
+      "probe": "estimate-recalc",
+      "summary": "Recalculated the measured estimate draft; nothing executed."
+    },
+    {
+      "probe": "schedule-compose",
+      "occurrences": 5
+    },
+    {
+      "probe": "report-export",
+      "toast": "The read-only report was copied as JSON. No file was written or deleted."
+    },
+    {
+      "probe": "safe-defaults",
+      "actionbar": "1 selected4.00 KBLive Safety VaultReview selected itemsSave reportAdjust scopeCa"
+    }
+  ],
+  "checks": [
+    {
+      "scannedCategories": [
+        "temp",
+        "browser",
+        "logs"
+      ],
+      "measuredKpi": {
+        "candidates": "7",
+        "eligible": "20.0 KB",
+        "review": "1"
+      }
+    },
+    "Expanded and pinned workbench modes both render the Cleanup service body",
+    "Twelve distinct Cleanup service bodies verified across DAY/NIGHT and EN/AR (12 signatures)",
+    "All twelve bodies expose distinct measured content and at least one control",
+    "cleanup-temp-quarantine hands off to the executing Safety Vault without replacing its own scene",
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    {
+      "fixtureUnchanged": true,
+      "fixtureFiles": 8
+    }
+  ],
+  "errors": [],
+  "ok": true
+}
