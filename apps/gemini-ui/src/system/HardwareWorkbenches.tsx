@@ -392,6 +392,16 @@ export function BatteryWorkbench({ locale, snapshot, controller }: WorkbenchProp
               />
             </div>
           </Panel>
+          <Panel title={t(locale, 'Instrument contract', 'عقد الأداة')} icon={Database}>
+            <DataRows
+              rows={[
+                { label: t(locale, 'Source', 'المصدر'), value: 'Win32_Battery · root/WMI BatteryStaticData · BatteryFullChargedCapacity' },
+                { label: t(locale, 'Scope', 'النطاق'), value: t(locale, 'Physical batteries only; a desktop or virtual machine returns no row', 'البطاريات الفعلية فقط؛ سطح المكتب أو الجهاز الافتراضي لا يُعيد أي صف'), tone: 'muted' },
+                { label: t(locale, 'Charge math', 'حساب الشحن'), value: t(locale, 'Ratios of measured capacities only; never a default value', 'نسب من السعات المقيسة فقط؛ لا قيمة افتراضية أبدًا'), tone: 'muted' },
+                { label: t(locale, 'Mutation', 'الكتابة'), value: t(locale, 'None; power and thermal policy is gated to Mission 14', 'لا توجد؛ سياسة الطاقة والحرارة محجوبة للمهمة 14'), tone: 'muted' },
+              ]}
+            />
+          </Panel>
         </>
       )}
     </WorkbenchFrame>
@@ -777,6 +787,16 @@ export function CycleLedgerWorkbench({ locale, snapshot, controller }: Workbench
               <InfoNote tone="muted">
                 {t(locale, 'The wear ledger needs a measured battery. No percentage, cycle count or wear estimate is substituted when Windows returns no device.', 'يحتاج سجل التآكل إلى بطارية مقيسة. لا تُستبدل أي نسبة أو عدد دورات أو تقدير تآكل عندما لا يعيد Windows جهازًا.')}
               </InfoNote>
+            </Panel>
+            <Panel title={t(locale, 'Ledger contract', 'عقد السجل')} icon={Database}>
+              <DataRows
+                rows={[
+                  { label: t(locale, 'Source', 'المصدر'), value: 'root/WMI BatteryStaticData · BatteryFullChargedCapacity · Win32_Battery' },
+                  { label: t(locale, 'Wear math', 'حساب التآكل'), value: t(locale, '1 − full ÷ design, only when both capacities are measured', '1 − الكامل ÷ التصميمي، فقط عند قياس السعتين'), tone: 'muted' },
+                  { label: t(locale, 'Cycle count', 'عدد الدورات'), value: t(locale, 'Reported by Windows only when exposed; never estimated', 'يبلغ عنه Windows فقط عند إتاحته؛ لا يُقدَّر أبدًا'), tone: 'muted' },
+                  { label: t(locale, 'Mutation', 'الكتابة'), value: t(locale, 'None; power and thermal policy is gated to Mission 14', 'لا توجد؛ سياسة الطاقة والحرارة محجوبة للمهمة 14'), tone: 'muted' },
+                ]}
+              />
             </Panel>
           </>
         )

@@ -123,6 +123,7 @@ try {
     // from Node so an occluded renderer cannot throttle it into a false timeout.
     await waitMeasured();
     await page.waitForTimeout(1200);
+    await clearOverlays();
   }
 
   async function viewport(width, height) {
@@ -226,11 +227,26 @@ try {
   }
 
   async function openService(key) {
+    await clearOverlays();
     if (!(await page.getByTestId('system-workbench-side-shell').count())) await openFirst();
     const select = page.getByTestId('system-workbench-tool-select');
     await select.selectOption(key);
     await expect(page.getByTestId(`sys-service-workspace-${key}`)).toBeVisible({ timeout: 20000 });
     await page.waitForTimeout(450);
+  }
+
+  // The AI Copilot is a user-invoked overlay anchored to the same bottom-end
+  // corner as the service rail. It must never be open while a measured body is
+  // being inspected, or Playwright would be clicking panel chrome instead of
+  // the workbench. Close it through its own Minimize control, record that the
+  // state existed, and never fake a clean run.
+  async function clearOverlays() {
+    const panel = page.locator('[class*="bottom-[7.5rem]"]');
+    if (!(await panel.count())) return;
+    const minimize = panel.first().locator('button[title="Minimize"]');
+    if (await minimize.count()) await minimize.first().click({ timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(200);
+    proof.probes.push({ probe: 'assistant-overlay-closed', stillOpen: (await panel.count()) > 0 });
   }
 
   async function closeWorkbench() {
@@ -289,7 +305,12 @@ try {
     for (const selector of rowSelectors) {
       const rows = body.locator(selector);
       if (await rows.count() > 1) {
-        await rows.nth(1).click({ force: true }).catch(() => {});
+        // Never force a click here. A forced click ignores the hit test, so a
+        // card that is momentarily under the footer bar or a backdrop would
+        // send the pointer into the overlay chrome (which can close the
+        // workbench) instead of selecting the row. A refused click is skipped
+        // and the body itself remains the evidence.
+        await rows.nth(1).click({ timeout: 5000 }).catch(() => {});
         await page.waitForTimeout(260);
         break;
       }
