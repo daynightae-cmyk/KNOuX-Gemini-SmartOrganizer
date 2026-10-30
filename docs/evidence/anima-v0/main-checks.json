@@ -1,0 +1,37 @@
+[
+  {
+    "log": "main-lint.log",
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  {
+    "log": "main-test-home.log",
+    "command": "npm run test:home",
+    "exitCode": 0
+  },
+  {
+    "log": "main-test-native.log",
+    "command": "npm run test:native",
+    "exitCode": 0
+  },
+  {
+    "log": "main-test-navigation.log",
+    "command": "npm run test:navigation",
+    "exitCode": 0
+  },
+  {
+    "log": "main-test-workbench.log",
+    "command": "npm run test:workbench",
+    "exitCode": 0
+  },
+  {
+    "log": "main-test-studio.log",
+    "command": "npm run test:studio",
+    "exitCode": 0
+  },
+  {
+    "log": "main-build.log",
+    "command": "npm run build",
+    "exitCode": 0
+  }
+]

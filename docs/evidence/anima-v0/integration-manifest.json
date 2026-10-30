@@ -37,7 +37,11 @@
       "generated build/cache directories",
       "secret environment/credential files"
     ],
-    "ignoredInventoryScope": "docs, missions, renderer src/public/scripts/tests/electron/shared, root scripts/electron"
+    "ignoredInventoryScope": "docs, missions, renderer src/public/scripts/tests/electron/shared, root scripts/electron",
+    "canonicalOriginalRecheck": {
+      "files": 191,
+      "changed": []
+    }
   },
   "archiveComparison": {
     "identicalNormalized": 652,
@@ -120,7 +124,7 @@
   },
   "visualGate": "PARTIALLY VERIFIED; actual Electron matrix and manual reference comparison; owner acceptance OPEN",
   "sections": {
-    "Home": "IMPLEMENTED; final packaged verification pending",
+    "Home": "IMPLEMENTED AND RUNTIME VERIFIED IN DEVELOPMENT AND PACKAGED ELECTRON; VISUAL ACCEPTANCE OPEN",
     "Organization Studio": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
     "Files": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
     "Storage Atlas": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
@@ -135,5 +139,109 @@
     "Google Workspace": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
     "Settings": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
     "Cinematic Splash": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE"
+  },
+  "testedImplementationSha": "743ce4db94b7ac9f407ed5b132390ff966a56ebc",
+  "localMainIntegratedSha": "743ce4db94b7ac9f407ed5b132390ff966a56ebc",
+  "packaged": {
+    "proof": "home-packaged/proof.json",
+    "packageIntegrity": "package-integrity.json",
+    "unsigned": true,
+    "installedAppVerified": false
+  },
+  "sharedRegression": {
+    "sections": [
+      "studio",
+      "files",
+      "automation"
+    ],
+    "cases": 18,
+    "proof": "shared-regression/proof.json"
+  },
+  "nativeCompatibility": [
+    {
+      "section": "Home",
+      "bridge": "knouxShell + existing Files/Scan/Apps/Automation/Operations",
+      "ipcChange": false,
+      "status": "PRESERVED; Home read/runtime verified"
+    },
+    {
+      "section": "Organization Studio",
+      "bridge": "knouxOperationsV1 + knouxStudioV1",
+      "ipcChange": false,
+      "status": "PRESERVED; shared orbit runtime verified"
+    },
+    {
+      "section": "Files",
+      "bridge": "knouxFilesV1",
+      "ipcChange": false,
+      "status": "PRESERVED; shared orbit runtime verified"
+    },
+    {
+      "section": "Storage Atlas / Cleanup",
+      "bridge": "existing Storage bridge + knouxOperationsV1 Storage Vault",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Automation",
+      "bridge": "knouxAutomationV1",
+      "ipcChange": false,
+      "status": "PRESERVED; shared orbit runtime verified"
+    },
+    {
+      "section": "Applications",
+      "bridge": "knouxAppsV1",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Startup",
+      "bridge": "knouxStartupV1",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "System",
+      "bridge": "knouxSystemV1",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Services",
+      "bridge": "knouxServicesV1",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Repair",
+      "bridge": "knouxRepairV1",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Smart Scan",
+      "bridge": "knouxScanV1",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Google Workspace",
+      "bridge": "existing Google OAuth bridge",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    },
+    {
+      "section": "Settings / Cinematic Splash",
+      "bridge": "existing settings, AI session, readiness bridge",
+      "ipcChange": false,
+      "status": "PRESERVED; per-domain runtime not rerun in this slice"
+    }
+  ],
+  "mainVerification": {
+    "sha": "743ce4db94b7ac9f407ed5b132390ff966a56ebc",
+    "checks": "main-checks.json",
+    "runtime": "home-main/proof.json",
+    "cases": 12,
+    "status": "VERIFIED WITH VISUAL ACCEPTANCE OPEN"
   }
 }
