@@ -1,0 +1,1147 @@
+{
+  "domain": "Storage Atlas",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "7db63cd79bfc4bd61ef86233762581f04dc604e5",
+  "fixture": {
+    "files": 36,
+    "duplicatePairBytes": 1572864,
+    "profileIsolated": true
+  },
+  "sourceFiles": {
+    "src/pages/StoragePage.tsx": "358284a7b06ba5c06d418f6996a11ac35deafe641c385fbfaed6fa3dbfd56898",
+    "src/storage/StorageServiceFocus.tsx": "1197ac13c1058665b9a0fa54037f178858d51672632591fa193d2f0a342dd818",
+    "src/storage/useStorageNative.ts": "b708fd1909e342e09193e760166b6cb925c04b9a3fd5e8ba66e6a72f2101f132",
+    "src/storage/native.ts": "4f5126519364f2c6fffc2bdfef9fc08a8915ba400f7961e9bfa9d071d1f07bf7",
+    "src/storage/StorageAtlasPanels.tsx": "915ad15e69f7ca47b9e33c07cd6b76e99236fd4255c57c74ce331a23d299ae6e",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "c060f6e011adea7f6d45cce66afc098ed1ac2883a154577d8d3654d632a5dbd8",
+    "electron/native/storage-bridge.cjs": "1d9bc99b64197497dd0ef5737c95b480e10e140e04ad8b926bff891634229200",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "volumes": [
+    "C",
+    "D",
+    "K"
+  ],
+  "captures": [
+    {
+      "file": "overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "disks-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "disks",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "large-files-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "large-files",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "duplicates-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "duplicates",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "treemap-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "treemap",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "top-folders-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "top-folders",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "filetypes-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "filetypes",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "scan-overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "scan-overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "fragmentation-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "fragmentation",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "smart-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "smart",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "reclaim-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "reclaim",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "history-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "history",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "removable-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "removable",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "smart-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "smart-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": null
+      }
+    },
+    {
+      "file": "disks-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "disks",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "large-files-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "large-files",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "duplicates-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "duplicates",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "treemap-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "treemap",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "top-folders-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "top-folders",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "filetypes-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "filetypes",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "scan-overview-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "scan-overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "fragmentation-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "fragmentation",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "smart-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "smart",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "reclaim-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "reclaim",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "history-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "history",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "removable-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "removable",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollsInternally": true,
+        "workbench": "side"
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "storage-disks",
+      "body": "storage-storage-disks-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-disks-workbench",
+      "text": "C: Mounted volume2.3 GB free / 130.7 GBNTFS · used 98.2%low spaceD: Day Night5.2 GB free / 58.6 GBNTFS · used 91.1%low spaceK: KNOuX PROJECT",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-large-files",
+      "body": "storage-storage-large-files-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-large-files-workbench",
+      "text": "heavy-archive.zip2.0 MBalpha-copy.bin1.5 MBalpha-copy.bin1.5 MBquadrant.png96 KBitem-29.mp3157 BLargest 5 of 36 indexed files · 5.1 MBOpen l",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-duplicates",
+      "body": "storage-storage-duplicates-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-duplicates-workbench",
+      "text": "Size candidates1Potential wasted1.5 MBSize matches are not proof; only files ≥ 1.0 MB are candidates and verification is bounded.Verify cont",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-treemap",
+      "body": "storage-storage-treemap-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-treemap-workbench",
+      "text": "Folders modeled4Indexed bytes5.1 MBLargest nodebulk · 2.0 MBNodes returned5C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-ImBxIU\\sou",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-top-folders",
+      "body": "storage-storage-top-folders-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-top-folders-workbench",
+      "text": "bulk2.0 MB · 39%media1.6 MB · 31%archive1.5 MB · 29%docs72 B · 0%Open ranking",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-filetypes",
+      "body": "storage-storage-filetypes-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-filetypes-workbench",
+      "text": ".bin2 · 3.0 MB.zip5 · 2.0 MB.png5 · 97 KB.txt5 · 616 B.mp34 · 579 B.pdf4 · 571 BOpen types",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-scan-overview",
+      "body": "storage-storage-scan-overview-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-scan-overview-workbench",
+      "text": "Complete for the scopeFiles36Folders5Bytes analyzed5.1 MBLast scan2026-10-30T12:21:42.172ZPermissionread-onlyC:\\Users\\day night\\AppData\\Loca",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-fragmentation",
+      "body": "storage-storage-fragmentation-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-fragmentation-workbench",
+      "text": "No defragmentation or TRIM operation is exposed in this build. The native allowlist only serves volumes, history, analysis and duplicate ver",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-smart",
+      "body": "storage-storage-smart-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-smart-workbench",
+      "text": "No supported health provider is exposed, so no reliability score is shown. The probe reports exactly what the measured provider returns inst",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-reclaim",
+      "body": "storage-storage-reclaim-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-reclaim-workbench",
+      "text": "This page deletes nothing. The numbers below are measured review candidates, not a deletion plan, and every plan must be staged and reviewed",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-history",
+      "body": "storage-storage-history-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-history-workbench",
+      "text": "3 capacity snapshots10/30/2026, 4:22:03 PM10.1 GB free10/30/2026, 4:21:48 PM10.1 GB free10/30/2026, 4:21:48 PM10.1 GB freeCopy trendOpen Fil",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-removable",
+      "body": "storage-storage-removable-workbench",
+      "locale": "en",
+      "theme": "light",
+      "testId": "storage-storage-removable-workbench",
+      "text": "Drive type is not exposed by the current provider, so removable media cannot be distinguished from fixed disks. Every row below is a measure",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-disks",
+      "body": "storage-storage-disks-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-disks-workbench",
+      "text": "C: Mounted volume2.3 GB free / 130.7 GBNTFS · used 98.2%low spaceD: Day Night5.2 GB free / 58.6 GBNTFS · used 91.1%low spaceK: KNOuX PROJECT",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-large-files",
+      "body": "storage-storage-large-files-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-large-files-workbench",
+      "text": "heavy-archive.zip2.0 MBalpha-copy.bin1.5 MBalpha-copy.bin1.5 MBquadrant.png96 KBitem-29.mp3157 BLargest 5 of 36 indexed files · 5.1 MBOpen l",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-duplicates",
+      "body": "storage-storage-duplicates-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-duplicates-workbench",
+      "text": "Size candidates1Potential wasted1.5 MBSize matches are not proof; only files ≥ 1.0 MB are candidates and verification is bounded.Verify cont",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-treemap",
+      "body": "storage-storage-treemap-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-treemap-workbench",
+      "text": "Folders modeled4Indexed bytes5.1 MBLargest nodebulk · 2.0 MBNodes returned5C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-ImBxIU\\sou",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-top-folders",
+      "body": "storage-storage-top-folders-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-top-folders-workbench",
+      "text": "bulk2.0 MB · 39%media1.6 MB · 31%archive1.5 MB · 29%docs72 B · 0%Open ranking",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-filetypes",
+      "body": "storage-storage-filetypes-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-filetypes-workbench",
+      "text": ".bin2 · 3.0 MB.zip5 · 2.0 MB.png5 · 97 KB.txt5 · 616 B.mp34 · 579 B.pdf4 · 571 BOpen types",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-scan-overview",
+      "body": "storage-storage-scan-overview-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-scan-overview-workbench",
+      "text": "Complete for the scopeFiles36Folders5Bytes analyzed5.1 MBLast scan2026-10-30T12:21:42.172ZPermissionread-onlyC:\\Users\\day night\\AppData\\Loca",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-fragmentation",
+      "body": "storage-storage-fragmentation-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-fragmentation-workbench",
+      "text": "No defragmentation or TRIM operation is exposed in this build. The native allowlist only serves volumes, history, analysis and duplicate ver",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-smart",
+      "body": "storage-storage-smart-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-smart-workbench",
+      "text": "No supported health provider is exposed, so no reliability score is shown. The probe reports exactly what the measured provider returns inst",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-reclaim",
+      "body": "storage-storage-reclaim-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-reclaim-workbench",
+      "text": "This page deletes nothing. The numbers below are measured review candidates, not a deletion plan, and every plan must be staged and reviewed",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-history",
+      "body": "storage-storage-history-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-history-workbench",
+      "text": "6 capacity snapshots10/30/2026, 4:22:20 PM10.1 GB free10/30/2026, 4:22:12 PM10.1 GB free10/30/2026, 4:22:07 PM10.1 GB freeCopy trendOpen Fil",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-removable",
+      "body": "storage-storage-removable-workbench",
+      "locale": "en",
+      "theme": "dark",
+      "testId": "storage-storage-removable-workbench",
+      "text": "Drive type is not exposed by the current provider, so removable media cannot be distinguished from fixed disks. Every row below is a measure",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-disks",
+      "body": "storage-storage-disks-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-disks-workbench",
+      "text": "C: Mounted volume2.3 GB free / 130.7 GBNTFS · مستخدم 98.2%مساحة منخفضةD: Day Night5.2 GB free / 58.6 GBNTFS · مستخدم 91.1%مساحة منخفضةK: KNO",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-large-files",
+      "body": "storage-storage-large-files-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-large-files-workbench",
+      "text": "heavy-archive.zip2.0 MBalpha-copy.bin1.5 MBalpha-copy.bin1.5 MBquadrant.png96 KBitem-29.mp3157 Bأكبر 5 من 36 ملفًا مفهرسًا · 5.1 MBفتح السجل",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-duplicates",
+      "body": "storage-storage-duplicates-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-duplicates-workbench",
+      "text": "مرشحات الحجم1بايتات مهدورة محتملة1.5 MBالمطابقة بالحجم ليست دليلًا؛ المرشحات فقط للملفات ≥ 1.0 MB والتحقق محدود.تحقق من المحتوىملفات تم تجزئ",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-treemap",
+      "body": "storage-storage-treemap-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-treemap-workbench",
+      "text": "العقد4الحجم المفهرس5.1 MBأكبر عقدةbulk · 2.0 MBالعقد المعادة5C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-ImBxIU\\sourceفتح الخريطة",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-top-folders",
+      "body": "storage-storage-top-folders-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-top-folders-workbench",
+      "text": "bulk2.0 MB · 39%media1.6 MB · 31%archive1.5 MB · 29%docs72 B · 0%فتح الترتيب",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-filetypes",
+      "body": "storage-storage-filetypes-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-filetypes-workbench",
+      "text": ".bin2 · 3.0 MB.zip5 · 2.0 MB.png5 · 97 KB.txt5 · 616 B.mp34 · 579 B.pdf4 · 571 Bفتح الأنواع",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-scan-overview",
+      "body": "storage-storage-scan-overview-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-scan-overview-workbench",
+      "text": "تغطية مكتملة للنطاقالملفات36المجلدات5البايتات المحللة5.1 MBآخر فحص2026-10-30T12:21:42.172Zالإذنread-onlyC:\\Users\\day night\\AppData\\Local\\Tem",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-fragmentation",
+      "body": "storage-storage-fragmentation-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-fragmentation-workbench",
+      "text": "لا تُعرض أي عملية إلغاء تجزئة أو TRIM في هذا البناء. قائمة القنوات الأصلية تخدم الأحجام والسجل والتحليل وتحقق التكرار فقط، لذا لا يمكن قياس ",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-smart",
+      "body": "storage-storage-smart-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-smart-workbench",
+      "text": "لا يوجد مزود صحة مدعوم، لذلك لا تُعرض درجة موثوقية. يبلّغ الفحص عما يعيده المزود المقيس فعلًا بدلًا من اختلاق القياسات.الأحجام المفحوصة3أحجا",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-reclaim",
+      "body": "storage-storage-reclaim-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-reclaim-workbench",
+      "text": "هذه الصفحة لا تحذف شيئًا. الأرقام أدناه مرشحات مقيسة للمراجعة وليست خطة حذف، وكل خطة تُجهّز وتُراجع في التنظيف أو الاستوديو.بايتات تكرار مؤك",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-history",
+      "body": "storage-storage-history-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-history-workbench",
+      "text": "9 لقطة سعة10/30/2026, 4:22:33 PM10.1 GB free10/30/2026, 4:22:25 PM10.1 GB free10/30/2026, 4:22:23 PM10.1 GB freeنسخ الاتجاهفتح نطاق الملفات",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-removable",
+      "body": "storage-storage-removable-workbench",
+      "locale": "ar",
+      "theme": "light",
+      "testId": "storage-storage-removable-workbench",
+      "text": "نوع محرك الأقراص غير متاح من المزود الحالي، لذا لا يمكن تمييز الوسائط القابلة للإزالة عن الأقراص الثابتة. كل صف أدناه حجم مقيس.C: NTFS128.4 ",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-disks",
+      "body": "storage-storage-disks-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-disks-workbench",
+      "text": "C: Mounted volume2.3 GB free / 130.7 GBNTFS · مستخدم 98.2%مساحة منخفضةD: Day Night5.2 GB free / 58.6 GBNTFS · مستخدم 91.1%مساحة منخفضةK: KNO",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-large-files",
+      "body": "storage-storage-large-files-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-large-files-workbench",
+      "text": "heavy-archive.zip2.0 MBalpha-copy.bin1.5 MBalpha-copy.bin1.5 MBquadrant.png96 KBitem-29.mp3157 Bأكبر 5 من 36 ملفًا مفهرسًا · 5.1 MBفتح السجل",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-duplicates",
+      "body": "storage-storage-duplicates-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-duplicates-workbench",
+      "text": "مرشحات الحجم1بايتات مهدورة محتملة1.5 MBالمطابقة بالحجم ليست دليلًا؛ المرشحات فقط للملفات ≥ 1.0 MB والتحقق محدود.تحقق من المحتوىملفات تم تجزئ",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-treemap",
+      "body": "storage-storage-treemap-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-treemap-workbench",
+      "text": "العقد4الحجم المفهرس5.1 MBأكبر عقدةbulk · 2.0 MBالعقد المعادة5C:\\Users\\day night\\AppData\\Local\\Temp\\knoux-live-owned-ImBxIU\\sourceفتح الخريطة",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-top-folders",
+      "body": "storage-storage-top-folders-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-top-folders-workbench",
+      "text": "bulk2.0 MB · 39%media1.6 MB · 31%archive1.5 MB · 29%docs72 B · 0%فتح الترتيب",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-filetypes",
+      "body": "storage-storage-filetypes-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-filetypes-workbench",
+      "text": ".bin2 · 3.0 MB.zip5 · 2.0 MB.png5 · 97 KB.txt5 · 616 B.mp34 · 579 B.pdf4 · 571 Bفتح الأنواع",
+      "controls": 1,
+      "visible": true
+    },
+    {
+      "key": "storage-scan-overview",
+      "body": "storage-storage-scan-overview-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-scan-overview-workbench",
+      "text": "تغطية مكتملة للنطاقالملفات36المجلدات5البايتات المحللة5.1 MBآخر فحص2026-10-30T12:21:42.172Zالإذنread-onlyC:\\Users\\day night\\AppData\\Local\\Tem",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-fragmentation",
+      "body": "storage-storage-fragmentation-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-fragmentation-workbench",
+      "text": "لا تُعرض أي عملية إلغاء تجزئة أو TRIM في هذا البناء. قائمة القنوات الأصلية تخدم الأحجام والسجل والتحليل وتحقق التكرار فقط، لذا لا يمكن قياس ",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-smart",
+      "body": "storage-storage-smart-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-smart-workbench",
+      "text": "لا يوجد مزود صحة مدعوم، لذلك لا تُعرض درجة موثوقية. يبلّغ الفحص عما يعيده المزود المقيس فعلًا بدلًا من اختلاق القياسات.الأحجام المفحوصة3أحجا",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-reclaim",
+      "body": "storage-storage-reclaim-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-reclaim-workbench",
+      "text": "هذه الصفحة لا تحذف شيئًا. الأرقام أدناه مرشحات مقيسة للمراجعة وليست خطة حذف، وكل خطة تُجهّز وتُراجع في التنظيف أو الاستوديو.بايتات تكرار مؤك",
+      "controls": 3,
+      "visible": true
+    },
+    {
+      "key": "storage-history",
+      "body": "storage-storage-history-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-history-workbench",
+      "text": "12 لقطة سعة10/30/2026, 4:22:53 PM10.1 GB free10/30/2026, 4:22:37 PM10.1 GB free10/30/2026, 4:22:36 PM10.1 GB freeنسخ الاتجاهفتح نطاق الملفات",
+      "controls": 2,
+      "visible": true
+    },
+    {
+      "key": "storage-removable",
+      "body": "storage-storage-removable-workbench",
+      "locale": "ar",
+      "theme": "dark",
+      "testId": "storage-storage-removable-workbench",
+      "text": "نوع محرك الأقراص غير متاح من المزود الحالي، لذا لا يمكن تمييز الوسائط القابلة للإزالة عن الأقراص الثابتة. كل صف أدناه حجم مقيس.C: NTFS128.4 ",
+      "controls": 2,
+      "visible": true
+    }
+  ],
+  "probes": [
+    {
+      "probe": "duplicate-verification",
+      "summary": "Size candidates1Potential wasted1.5 MBSize matches are not proof; only files ≥ 1.0 MB are candidates and verification is bounded.Verify contentFiles hashed2 · 3.0 MBVerified groups1Verified reclaimable1.5 MB11314f7b4e07b"
+    },
+    {
+      "probe": "smart-support",
+      "summary": "No supported health provider is exposed, so no reliability score is shown. The probe reports exactly what the measured provider returns instead of inventing telemetry.Volumes probed3Volumes with SMART0 / 3Volumes with id"
+    },
+    {
+      "probe": "duplicate-verification",
+      "summary": "Size candidates1Potential wasted1.5 MBSize matches are not proof; only files ≥ 1.0 MB are candidates and verification is bounded.Verify contentFiles hashed2 · 3.0 MBVerified groups1Verified reclaimable1.5 MB11314f7b4e07b"
+    },
+    {
+      "probe": "smart-support",
+      "summary": "No supported health provider is exposed, so no reliability score is shown. The probe reports exactly what the measured provider returns instead of inventing telemetry.Volumes probed3Volumes with SMART0 / 3Volumes with id"
+    },
+    {
+      "probe": "duplicate-verification",
+      "summary": "مرشحات الحجم1بايتات مهدورة محتملة1.5 MBالمطابقة بالحجم ليست دليلًا؛ المرشحات فقط للملفات ≥ 1.0 MB والتحقق محدود.تحقق من المحتوىملفات تم تجزئتها2 · 3.0 MBمجموعات مؤكدة1قابل للاستعادة مؤكدًا1.5 MB11314f7b4e07b984…2 × 1.5 M"
+    },
+    {
+      "probe": "smart-support",
+      "summary": "لا يوجد مزود صحة مدعوم، لذلك لا تُعرض درجة موثوقية. يبلّغ الفحص عما يعيده المزود المقيس فعلًا بدلًا من اختلاق القياسات.الأحجام المفحوصة3أحجام تدعم SMART0 / 3أحجام بهوية فيزيائية0 / 3C: NTFSSMART غير متاحD: NTFSSMART غير "
+    },
+    {
+      "probe": "duplicate-verification",
+      "summary": "مرشحات الحجم1بايتات مهدورة محتملة1.5 MBالمطابقة بالحجم ليست دليلًا؛ المرشحات فقط للملفات ≥ 1.0 MB والتحقق محدود.تحقق من المحتوىملفات تم تجزئتها2 · 3.0 MBمجموعات مؤكدة1قابل للاستعادة مؤكدًا1.5 MB11314f7b4e07b984…2 × 1.5 M"
+    },
+    {
+      "probe": "smart-support",
+      "summary": "لا يوجد مزود صحة مدعوم، لذلك لا تُعرض درجة موثوقية. يبلّغ الفحص عما يعيده المزود المقيس فعلًا بدلًا من اختلاق القياسات.الأحجام المفحوصة3أحجام تدعم SMART0 / 3أحجام بهوية فيزيائية0 / 3C: NTFSSMART غير متاحD: NTFSSMART غير "
+    }
+  ],
+  "checks": [
+    {
+      "measuredVolumeLetters": [
+        "C",
+        "D",
+        "K"
+      ]
+    },
+    {
+      "exportProbe": "Scan coverage copied to the clipboard."
+    },
+    "Expanded and pinned workbench modes both render the Storage service body",
+    {
+      "exportProbe": "Scan coverage copied to the clipboard."
+    },
+    {
+      "exportProbe": "Scan coverage copied to the clipboard."
+    },
+    {
+      "exportProbe": "Scan coverage copied to the clipboard."
+    },
+    "Twelve distinct Storage service bodies verified across DAY/NIGHT and EN/AR (12 signatures)",
+    "All twelve bodies expose distinct measured content and at least one control",
+    "storage-reclaim hands off to the executing Safety Vault with its keeper selection view",
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    {
+      "sourceUnchanged": true,
+      "fixtureFiles": 36
+    }
+  ],
+  "errors": [],
+  "ok": true
+}
