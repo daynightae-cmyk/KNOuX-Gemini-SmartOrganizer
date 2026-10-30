@@ -261,6 +261,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  /* "5.65 MB" is a digit run plus a Latin unit. Under an RTL paragraph the
+     neutral space flips the pair to "MB 5.65". plaintext resolves each value
+     by its own first strong character instead of the page direction. */
+  unicode-bidi: plaintext;
 }
 
 .apps-kpi-label {
@@ -485,6 +489,59 @@
   background: rgba(4, 13, 28, 0.55);
 }
 
+/* Service workbenches render the same tables in a 540px pinned column and a
+   full-width expanded column. Auto layout let one long cell (a publisher, an
+   evidence sentence, a package ID) starve the rest of the row, so every
+   measured table pins its own column budget and clips per cell instead. */
+.apps-table-wrap-service .apps-table {
+  table-layout: fixed;
+}
+
+.apps-table-wrap-service .apps-table th {
+  /* A pinned workbench gives every column ~100px. Header labels therefore use a
+     tighter tracking and break at a word boundary when a column is narrow,
+     so no label is ever covered by the next header background. */
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+  letter-spacing: 0.06em;
+  font-size: 7.2px;
+  line-height: 1.2;
+  padding: 5px 6px;
+}
+
+.apps-table-wrap-service .apps-table td {
+  overflow: hidden;
+  vertical-align: top;
+  padding: 4px 6px;
+}
+
+.apps-cell-clip {
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Inside a pinned workbench a product name is the row's identity, so it gets
+   two lines instead of a single-line ellipsis. Capped at two lines so the
+   ledger keeps a predictable row height and the table stays scannable. */
+.apps-table-wrap-service .apps-row-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+
+.apps-cell-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
 .apps-table {
   width: 100%;
   border-collapse: collapse;
@@ -691,6 +748,7 @@
 .apps-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-variant-numeric: tabular-nums;
+  unicode-bidi: plaintext;
 }
 
 .apps-muted {
@@ -1194,14 +1252,19 @@
 }
 
 .apps-mini-kpi span {
-  display: block;
+  display: -webkit-box;
   color: #64748b;
   font-size: 7px;
+  line-height: 1.35;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  /* Two lines instead of an ellipsis: upstream labels such as
+     "Measured Appx/MSIX recommendations" were being cut to "RECO…". */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  text-overflow: ellipsis;
+  min-height: 1.35em;
 }
 
 .apps-mini-kpi strong {
@@ -1214,6 +1277,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  unicode-bidi: plaintext;
 }
 
 .apps-mini-kpi-good strong { color: #6ee7b7; }

@@ -73,6 +73,20 @@ export function formatTimestamp(value: string | null | undefined, locale: AppsLo
   }).format(date);
 }
 
+/**
+ * Time-only rendering for compact KPI tiles. A full date-time string does not
+ * fit a 120px tile and used to be truncated mid-value.
+ */
+export function formatClock(value: string | null | undefined, locale: AppsLocale): string {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '—';
+  return new Intl.DateTimeFormat(locale === 'ar' ? 'ar' : 'en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+}
+
 export function scopeLabel(scope: AppRecord['scope'], locale: AppsLocale): string {
   if (locale === 'ar') {
     if (scope === 'per-user') return 'لكل مستخدم';

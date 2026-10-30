@@ -242,7 +242,7 @@ async function waitForSession(bridge, sessionId, done = ['complete', 'partial', 
   assert(capabilities.services.length === 10, 'ten Smart Scan services are advertised');
   assert(capabilities.stages.length === 10, 'ten measured scan stages are advertised');
   assert(capabilities.gatedOperations.some((entry) => entry.id === 'cleanup.execute' && entry.mission === '08'), 'cleanup remains gated to Mission 08');
-  assert(capabilities.gatedOperations.some((entry) => entry.id === 'applications.uninstall' && entry.mission === '05'), 'uninstall remains gated to Mission 05');
+  assert(capabilities.gatedOperations.some((entry) => entry.id === 'applications.uninstall' && entry.mission === '08'), 'uninstall remains gated to Mission 08, matching the app bridge');
 
   let missingSource = null;
   try {

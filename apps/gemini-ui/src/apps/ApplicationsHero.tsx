@@ -235,7 +235,7 @@ export const ApplicationsMetrics: React.FC<{ locale: AppsLocale; controller: App
         testId="apps-kpi-publishers"
         label={t(locale, 'Publishers', 'الناشرون')}
         value={kpis ? formatCount(kpis.publishers) : '—'}
-        sub={t(locale, 'Distinct measured registry/package publishers', 'ناشرون متمايزون في السجل/الحزم')}
+        sub={t(locale, 'Measured registry + Appx', 'السجل + Appx')}
         icon={<Building2 className="w-4 h-4" />}
         accent="#a855f7"
       />

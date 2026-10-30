@@ -87,7 +87,12 @@ check('Files service bodies are not empty generic sheets', () => {
   assert.match(filesBody, /Category distribution/);
   assert.match(filesBody, /Recent indexed files/);
   assert.match(filesBody, /Plan in Studio/);
-  assert.match(filesBody, /BLOCKED\. No apply or undo capability/);
+  // The apply body was reworded in 2351fae from "BLOCKED. No apply or undo" to the
+  // explicit Studio-stage-07 handoff. Keep asserting the real guarantee: Files itself
+  // exposes no execute channel and execution stays inside Studio's consent gate.
+  assert.match(filesBody, /Execution happens only inside Studio stage 07/);
+  assert.match(filesBody, /No execute channel is exposed in Files/);
+  assert.match(filesBody, /verified inverse/);
 });
 
 check('Studio embeds one consent-bound operation model instead of a generic overlay', () => {

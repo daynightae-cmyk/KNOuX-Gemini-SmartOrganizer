@@ -41,11 +41,13 @@ import type { DomainServiceKey } from './catalog';
 import { DOMAIN_SERVICES_META, SERVICE_ACCENTS } from './catalog';
 import {
   formatBytes,
+  formatClock,
   formatCount,
   formatDate,
   formatTimestamp,
   groupPublishers,
   recentApps,
+  scopeLabel,
   serviceDescription,
   serviceStateLabel,
   serviceTitle,
@@ -88,11 +90,11 @@ function serviceIcon(key: DomainServiceKey, className = 'w-4 h-4') {
   }
 }
 
-function MiniKpi({ label, value, tone = 'default' }: { label: string; value: string; tone?: 'default' | 'good' | 'warn' | 'bad' }) {
+function MiniKpi({ label, value, tone = 'default', title }: { label: string; value: string; tone?: 'default' | 'good' | 'warn' | 'bad'; title?: string }) {
   return (
     <div className={`apps-mini-kpi apps-mini-kpi-${tone}`}>
-      <span>{label}</span>
-      <strong>{value}</strong>
+      <span title={label}>{label}</span>
+      <strong title={title ?? value}>{value}</strong>
     </div>
   );
 }
@@ -433,22 +435,29 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
             </div>
             <div className="apps-table-wrap apps-table-wrap-service">
               <table className="apps-table">
+                <colgroup>
+                  <col style={{ width: '36%' }} />
+                  <col style={{ width: '18%' }} />
+                  <col style={{ width: '16%' }} />
+                  <col style={{ width: '14%' }} />
+                  <col style={{ width: '16%' }} />
+                </colgroup>
                 <thead>
                   <tr>
                     <th>{t(locale, 'Application', 'التطبيق')}</th>
                     <th>{t(locale, 'Publisher', 'الناشر')}</th>
                     <th>{t(locale, 'Version', 'الإصدار')}</th>
                     <th>{t(locale, 'Scope', 'النطاق')}</th>
-                    <th className="apps-col-num">{t(locale, 'Footprint', 'البصمة')}</th>
+                    <th className="apps-col-num" title={t(locale, 'Measured footprint', 'البصمة المقيسة')}>{t(locale, 'Size', 'الحجم')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {searchMatches.map((app) => (
                     <tr key={app.id} onClick={() => onSelectApp(app.id)} className={selectedApp?.id === app.id ? 'apps-row-selected' : undefined}>
-                      <td><span className="apps-row-name">{app.name}</span></td>
-                      <td className="apps-muted">{app.publisher || '—'}</td>
-                      <td className="apps-mono">{app.version || '—'}</td>
-                      <td>{app.scope}</td>
+                      <td><span className="apps-row-name" title={app.name}>{app.name}</span></td>
+                      <td className="apps-muted apps-cell-clip" title={app.publisher || undefined}>{app.publisher || '—'}</td>
+                      <td className="apps-mono apps-cell-clip" title={app.version || undefined}>{app.version || '—'}</td>
+                      <td><span className="apps-tag apps-tag-muted">{scopeLabel(app.scope, locale)}</span></td>
                       <td className="apps-col-num apps-mono">{formatBytes(sizeOf(app))}</td>
                     </tr>
                   ))}
@@ -478,20 +487,28 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
             </p>
             <div className="apps-table-wrap apps-table-wrap-service">
               <table className="apps-table">
+                <colgroup>
+                  <col style={{ width: '36%' }} />
+                  <col style={{ width: '8%' }} />
+                  <col style={{ width: '11%' }} />
+                  <col style={{ width: '13%' }} />
+                  <col style={{ width: '15%' }} />
+                  <col style={{ width: '17%' }} />
+                </colgroup>
                 <thead>
                   <tr>
                     <th>{t(locale, 'Publisher', 'الناشر')}</th>
                     <th className="apps-col-num">{t(locale, 'Apps', 'التطبيقات')}</th>
                     <th className="apps-col-num">{t(locale, 'Verified', 'موثّق')}</th>
-                    <th className="apps-col-num">{t(locale, 'Invalid / unsigned', 'غير صالح / بدون توقيع')}</th>
+                    <th className="apps-col-num" title={t(locale, 'Invalid / unsigned', 'غير صالح / بدون توقيع')}>{t(locale, 'Unsigned', 'بلا توقيع')}</th>
                     <th className="apps-col-num">{t(locale, 'Unverified', 'غير مؤكد')}</th>
-                    <th>{t(locale, 'Trust evidence', 'دليل الثقة')}</th>
+                    <th title={t(locale, 'Trust evidence', 'دليل الثقة')}>{t(locale, 'Trust', 'الثقة')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {publisherGroups.slice(0, 200).map((group) => (
                     <tr key={group.publisher}>
-                      <td><span className="apps-row-name">{group.publisher}</span></td>
+                      <td><span className="apps-row-name" title={group.publisher}>{group.publisher}</span></td>
                       <td className="apps-col-num apps-mono">{formatCount(group.count)}</td>
                       <td className="apps-col-num apps-mono text-emerald-400">{formatCount(group.verified)}</td>
                       <td className="apps-col-num apps-mono text-rose-400">{formatCount(group.invalid)}</td>
@@ -546,6 +563,13 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
             </p>
             <div className="apps-table-wrap apps-table-wrap-service">
               <table className="apps-table">
+                <colgroup>
+                  <col style={{ width: '17%' }} />
+                  <col style={{ width: '34%' }} />
+                  <col style={{ width: '23%' }} />
+                  <col style={{ width: '16%' }} />
+                  <col style={{ width: '10%' }} />
+                </colgroup>
                 <thead>
                   <tr>
                     <th>{t(locale, 'Install date', 'تاريخ التثبيت')}</th>
@@ -558,11 +582,11 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 <tbody>
                   {recent.map((app) => (
                     <tr key={app.id} onClick={() => onSelectApp(app.id)}>
-                      <td className="apps-mono">{formatDate(app.installDate, locale)}</td>
-                      <td><span className="apps-row-name">{app.name}</span></td>
-                      <td className="apps-muted">{app.publisher || '—'}</td>
-                      <td className="apps-mono">{app.version || '—'}</td>
-                      <td className="apps-muted">{app.source === 'appx-msix' ? 'Appx/MSIX' : t(locale, 'Registry', 'السجل')}</td>
+                      <td className="apps-mono apps-cell-clip">{formatDate(app.installDate, locale)}</td>
+                      <td><span className="apps-row-name" title={app.name}>{app.name}</span></td>
+                      <td className="apps-muted apps-cell-clip" title={app.publisher || undefined}>{app.publisher || '—'}</td>
+                      <td className="apps-mono apps-cell-clip" title={app.version || undefined}>{app.version || '—'}</td>
+                      <td className="apps-muted apps-cell-clip">{app.source === 'appx-msix' ? 'Appx/MSIX' : t(locale, 'Registry', 'السجل')}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -588,8 +612,8 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 <p>
                   {t(
                     locale,
-                    'This workspace builds an immutable, non-executable review plan. No uninstall IPC, elevation or file/registry write exists in Mission 05.',
-                    'تنشئ هذه المساحة خطة مراجعة ثابتة غير قابلة للتنفيذ. لا توجد قناة إزالة أو رفع صلاحيات أو كتابة ملفات/سجل في المهمة 05.'
+                    'This workspace builds an immutable, non-executable review plan. This domain build ships no uninstall IPC, elevation or file/registry write; execution stays gated to Mission 08.',
+                    'تنشئ هذه المساحة خطة مراجعة ثابتة غير قابلة للتنفيذ. لا تشحن هذه النسخة أي قناة إزالة أو رفع صلاحيات أو كتابة ملفات/سجل؛ ويبقى التنفيذ محجوبًا حتى المهمة 08.'
                   )}
                 </p>
               </div>
@@ -709,15 +733,25 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                   <MiniKpi label={t(locale, 'Stale registrations', 'تسجيلات قديمة')} value={formatCount(controller.leftovers.staleCount)} tone="warn" />
                   <MiniKpi label={t(locale, 'AppData name candidates', 'مرشحات أسماء AppData')} value={formatCount(controller.leftovers.candidateCount)} />
                   <MiniKpi label={t(locale, 'Scanned roots', 'الجذور المفحوصة')} value={formatCount(controller.leftovers.scannedRoots.length)} />
-                  <MiniKpi label={t(locale, 'Observed', 'وقت القياس')} value={formatTimestamp(controller.leftovers.observedAt, locale)} />
+                  <MiniKpi
+                    label={t(locale, 'Observed at', 'وقت القياس')}
+                    value={formatClock(controller.leftovers.observedAt, locale)}
+                    title={formatTimestamp(controller.leftovers.observedAt, locale)}
+                  />
                 </div>
                 <div className="apps-table-wrap apps-table-wrap-service">
                   <table className="apps-table">
+                    <colgroup>
+                      <col style={{ width: '32%' }} />
+                      <col style={{ width: '16%' }} />
+                      <col style={{ width: '14%' }} />
+                      <col style={{ width: '38%' }} />
+                    </colgroup>
                     <thead>
                       <tr>
                         <th>{t(locale, 'Candidate', 'المرشح')}</th>
                         <th>{t(locale, 'Kind', 'النوع')}</th>
-                        <th>{t(locale, 'Confidence', 'الثقة')}</th>
+                        <th title={t(locale, 'Confidence', 'الثقة')}>{t(locale, 'Conf.', 'الثقة')}</th>
                         <th>{t(locale, 'Evidence', 'الدليل')}</th>
                       </tr>
                     </thead>
@@ -725,12 +759,12 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                       {controller.leftovers.candidates.map((candidate) => (
                         <tr key={candidate.id}>
                           <td>
-                            <span className="apps-row-name">{candidate.label}</span>
-                            <span className="apps-mono text-[9px] text-slate-500 break-all">{candidate.path}</span>
+                            <span className="apps-row-name" title={candidate.label}>{candidate.label}</span>
+                            <span className="apps-mono apps-cell-clip block text-[9px] text-slate-500" title={candidate.path}>{candidate.path}</span>
                           </td>
-                          <td className="apps-muted">{candidate.kind === 'stale-registration' ? t(locale, 'Stale registration', 'تسجيل قديم') : t(locale, 'AppData folder', 'مجلد AppData')}</td>
+                          <td className="apps-muted"><span className="apps-cell-clamp">{candidate.kind === 'stale-registration' ? t(locale, 'Stale registration', 'تسجيل قديم') : t(locale, 'AppData folder', 'مجلد AppData')}</span></td>
                           <td><span className={`apps-tag ${candidate.confidence === 'medium' ? 'apps-tag-warn' : 'apps-tag-muted'}`}>{candidate.confidence.toUpperCase()}</span></td>
-                          <td className="apps-muted text-[10px]">{candidate.reason}</td>
+                          <td className="apps-muted text-[10px]"><span className="apps-cell-clamp" title={candidate.reason}>{candidate.reason}</span></td>
                         </tr>
                       ))}
                     </tbody>
@@ -817,6 +851,12 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 {updates.items.length ? (
                   <div className="apps-table-wrap apps-table-wrap-service">
                     <table className="apps-table">
+                      <colgroup>
+                        <col style={{ width: '42%' }} />
+                        <col style={{ width: '17%' }} />
+                        <col style={{ width: '17%' }} />
+                        <col style={{ width: '24%' }} />
+                      </colgroup>
                       <thead>
                         <tr>
                           <th>{t(locale, 'Application', 'التطبيق')}</th>
@@ -828,10 +868,13 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                       <tbody>
                         {updates.items.map((item) => (
                           <tr key={`${item.id}-${item.available}`}>
-                            <td><span className="apps-row-name">{item.name}</span><span className="apps-mono text-[9px] text-slate-500">{item.id}</span></td>
-                            <td className="apps-mono">{item.current || '—'}</td>
-                            <td className="apps-mono text-cyan-300">{item.available || '—'}</td>
-                            <td className="apps-muted">{item.source || '—'}</td>
+                            <td>
+                              <span className="apps-row-name" title={item.name}>{item.name}</span>
+                              <span className="apps-mono apps-cell-clip block text-[9px] text-slate-500" title={item.id}>{item.id}</span>
+                            </td>
+                            <td className="apps-mono apps-cell-clip" title={item.current || undefined}>{item.current || '—'}</td>
+                            <td className="apps-mono apps-cell-clip text-cyan-300" title={item.available || undefined}>{item.available || '—'}</td>
+                            <td className="apps-muted apps-cell-clip" title={item.source || undefined}>{item.source || '—'}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -1048,6 +1091,12 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
             {packages?.packages.length ? (
               <div className="apps-table-wrap apps-table-wrap-service">
                 <table className="apps-table">
+                  <colgroup>
+                    <col style={{ width: '30%' }} />
+                    <col style={{ width: '27%' }} />
+                    <col style={{ width: '22%' }} />
+                    <col style={{ width: '21%' }} />
+                  </colgroup>
                   <thead>
                     <tr>
                       <th>{t(locale, 'Package', 'الحزمة')}</th>
@@ -1059,10 +1108,10 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                   <tbody>
                     {packages.packages.map((entry) => (
                       <tr key={`${entry.id}-${entry.version}`}>
-                        <td><span className="apps-row-name">{entry.name}</span></td>
-                        <td className="apps-mono text-[10px] break-all">{entry.id}</td>
-                        <td className="apps-mono">{entry.version || '—'}</td>
-                        <td className="apps-muted">{entry.source || '—'}</td>
+                        <td><span className="apps-row-name" title={entry.name}>{entry.name}</span></td>
+                        <td className="apps-mono apps-cell-clip text-[10px]" title={entry.id}>{entry.id}</td>
+                        <td className="apps-mono apps-cell-clip" title={entry.version || undefined}>{entry.version || '—'}</td>
+                        <td className="apps-muted apps-cell-clip" title={entry.source || undefined}>{entry.source || '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1141,22 +1190,29 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 </div>
                 <div className="apps-table-wrap apps-table-wrap-service">
                   <table className="apps-table">
+                    <colgroup>
+                      <col style={{ width: '12%' }} />
+                      <col style={{ width: '26%' }} />
+                      <col style={{ width: '26%' }} />
+                      <col style={{ width: '26%' }} />
+                      <col style={{ width: '10%' }} />
+                    </colgroup>
                     <thead>
                       <tr>
                         <th>{t(locale, 'Key', 'المفتاح')}</th>
-                        <th>{t(locale, 'Registered handler', 'المعالج المسجل')}</th>
+                        <th title={t(locale, 'Registered handler', 'المعالج المسجل')}>{t(locale, 'Handler', 'المعالج')}</th>
                         <th>{t(locale, 'UserChoice', 'اختيار المستخدم')}</th>
-                        <th>{t(locale, 'Executable', 'الملف التنفيذي')}</th>
+                        <th title={t(locale, 'Executable command', 'الملف التنفيذي')}>{t(locale, 'Exe', 'التنفيذي')}</th>
                         <th>{t(locale, 'State', 'الحالة')}</th>
                       </tr>
                     </thead>
                     <tbody>
                       {assocRows.map((entry) => (
                         <tr key={`${entry.kind}-${entry.key}`}>
-                          <td className="apps-mono">{entry.key}</td>
-                          <td className="apps-muted text-[10px] break-all">{entry.handlerName || entry.progId || '—'}</td>
-                          <td className="apps-muted text-[10px] break-all">{entry.userChoice || '—'}</td>
-                          <td className="apps-mono text-[10px]">{entry.commandExe || '—'}</td>
+                          <td className="apps-mono apps-cell-clip" title={entry.key}>{entry.key}</td>
+                          <td className="apps-muted text-[10px]"><span className="apps-cell-clamp" title={entry.handlerName || entry.progId || undefined}>{entry.handlerName || entry.progId || '—'}</span></td>
+                          <td className="apps-muted text-[10px]"><span className="apps-cell-clamp" title={entry.userChoice || undefined}>{entry.userChoice || '—'}</span></td>
+                          <td className="apps-mono text-[10px]"><span className="apps-cell-clamp" title={entry.commandExe || undefined}>{entry.commandExe || '—'}</span></td>
                           <td>
                             <span className={`apps-tag ${entry.conflict ? 'apps-tag-warn' : 'apps-tag-muted'}`}>
                               {entry.conflict ? t(locale, 'CONFLICT', 'تعارض') : t(locale, 'SAMPLED', 'عينة')}
@@ -1213,29 +1269,37 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
 
             <div className="apps-table-wrap apps-table-wrap-service">
               <table className="apps-table">
+                <colgroup>
+                  <col style={{ width: '21%' }} />
+                  <col style={{ width: '12%' }} />
+                  <col style={{ width: '24%' }} />
+                  <col style={{ width: '17%' }} />
+                  <col style={{ width: '12%' }} />
+                  <col style={{ width: '14%' }} />
+                </colgroup>
                 <thead>
                   <tr>
                     <th>{t(locale, 'Entry', 'المدخل')}</th>
                     <th>{t(locale, 'Source', 'المصدر')}</th>
-                    <th>{t(locale, 'Executable', 'الملف التنفيذي')}</th>
-                    <th>{t(locale, 'Linked application', 'التطبيق المرتبط')}</th>
-                    <th>{t(locale, 'Key writable', 'المفتاح قابل للكتابة')}</th>
-                    <th>{t(locale, 'Boot seconds', 'ثواني الإقلاع')}</th>
+                    <th title={t(locale, 'Executable command', 'الملف التنفيذي')}>{t(locale, 'Exe', 'التنفيذي')}</th>
+                    <th title={t(locale, 'Linked application', 'التطبيق المرتبط')}>{t(locale, 'Linked app', 'التطبيق')}</th>
+                    <th title={t(locale, 'Key writable', 'المفتاح قابل للكتابة')}>{t(locale, 'Writable', 'الكتابة')}</th>
+                    <th title={t(locale, 'Boot seconds', 'ثواني الإقلاع')}>{t(locale, 'Boot s', 'الإقلاع')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {startupRows.map((entry) => (
                     <tr key={entry.id}>
-                      <td><span className="apps-row-name">{entry.name}</span></td>
-                      <td className="apps-muted">{startupSourceLabel(entry.source, locale)}</td>
-                      <td className="apps-mono text-[10px]">{entry.executable || '—'}</td>
-                      <td className="apps-muted">{entry.linkedAppName || '—'}</td>
+                      <td><span className="apps-row-name" title={entry.name}>{entry.name}</span></td>
+                      <td className="apps-muted"><span className="apps-cell-clamp">{startupSourceLabel(entry.source, locale)}</span></td>
+                      <td className="apps-mono text-[10px]"><span className="apps-cell-clamp" title={entry.executable || undefined}>{entry.executable || '—'}</span></td>
+                      <td className="apps-muted"><span className="apps-cell-clamp" title={entry.linkedAppName || undefined}>{entry.linkedAppName || '—'}</span></td>
                       <td>
                         <span className={`apps-tag ${entry.writable ? 'apps-tag-warn' : 'apps-tag-muted'}`}>
                           {entry.writable ? t(locale, 'YES', 'نعم') : t(locale, 'NO', 'لا')}
                         </span>
                       </td>
-                      <td className="apps-muted">{t(locale, 'not measured', 'غير مقيسة')}</td>
+                      <td className="apps-muted"><span className="apps-cell-clamp">{t(locale, 'not measured', 'غير مقيسة')}</span></td>
                     </tr>
                   ))}
                 </tbody>

@@ -365,7 +365,7 @@ class ScanBridge {
       gatedOperations: [
         { id: 'cleanup.execute', mission: '08', title: 'Delete or quarantine junk/temp files', reason: 'Destructive file operations require explicit approval.' },
         { id: 'startup.mutate', mission: '09', title: 'Enable/disable or delay startup items', reason: 'Startup mutation is not exposed by the read-only platform.' },
-        { id: 'applications.uninstall', mission: '05', title: 'Uninstall applications', reason: 'Uninstall is a privileged, irreversible operation.' },
+        { id: 'applications.uninstall', mission: '08', title: 'Uninstall applications', reason: 'Uninstall is a privileged, irreversible operation.' },
         { id: 'duplicates.delete', mission: '08', title: 'Delete duplicate files', reason: 'Only verification is implemented; deletion requires approval.' },
         { id: 'wholeVolume.rawScan', mission: '02/10', title: 'Raw whole-volume analysis', reason: 'Only an explicitly authorized folder and mounted-volume capacity are measured.' },
       ],

@@ -118,13 +118,17 @@ export function ServiceWorkbenchHost({
         />
       ) : null}
       <header className="flex shrink-0 items-start justify-between gap-2 border-b border-[#0f2545] px-3 py-2.5">
-        <div className="min-w-0">
+        {/* flex-1: the label block owns the remaining width, so a service title
+            is only truncated when the header is genuinely too narrow for it.
+            Without it the block shrank to its widest child and long titles
+            were cut while empty space sat beside them. */}
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             <span className="text-[9px] font-mono uppercase tracking-wide text-cyan-300">{serviceId}</span>
             <span className="text-[8px] font-mono px-1 py-0.5 rounded border border-[#1b3f70] text-slate-400">{mode === 'side' ? (isAr ? 'جانبية' : 'SIDE') : (isAr ? 'موسعة' : 'EXPANDED')}</span>
           </div>
-          <h2 className="truncate text-xs font-bold text-white">{title}</h2>
-          {subtitle ? <p className="truncate text-[10px] text-slate-400">{subtitle}</p> : null}
+          <h2 className="truncate text-xs font-bold text-white" title={title}>{title}</h2>
+          {subtitle ? <p className="truncate text-[10px] text-slate-400" title={subtitle}>{subtitle}</p> : null}
         </div>
         <div className="flex shrink-0 items-center gap-1">
           {toolSelector}

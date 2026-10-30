@@ -19,6 +19,12 @@
 .visual-sprint[data-visual-section='applications'] .apps-work-grid { grid-template-columns: minmax(0,1fr) 360px; gap: 18px; min-height: 420px; }
 .visual-sprint[data-visual-section='applications'] .apps-table th { font-size: 12px; padding: 12px; }
 .visual-sprint[data-visual-section='applications'] .apps-table td { font-size: 14px; padding: 12px; }
+/* The pinned service workbench is a data panel, not a page section. The
+   page-scale table type above cannot fit six measured columns in a ~540px rail:
+   every header stacked one letter per line. Inside the workbench only, fall back
+   to the compact tool scale that applications.css defines for it. */
+.visual-sprint[data-visual-section='applications'] .apps-table-wrap-service .apps-table th { font-size: 7.4px; padding: 5px 6px; letter-spacing: 0.06em; }
+.visual-sprint[data-visual-section='applications'] .apps-table-wrap-service .apps-table td { font-size: 9.5px; padding: 4px 6px; }
 .visual-sprint[data-visual-section='applications'] .apps-service-grid { grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 14px; padding: 16px; }
 .visual-sprint[data-visual-section='applications'] .apps-service-card { min-height: 110px; padding: 18px !important; align-items: flex-start; gap: 14px; }
 .visual-sprint[data-visual-section='applications'] .apps-service-icon { width: 42px; height: 42px; border-radius: 13px; }
