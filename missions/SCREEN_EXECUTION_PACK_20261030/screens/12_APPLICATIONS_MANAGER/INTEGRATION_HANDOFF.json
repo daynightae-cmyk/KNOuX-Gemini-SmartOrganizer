@@ -1,0 +1,84 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "applications",
+  "screen": "Applications Manager",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/12_APPLICATIONS_MANAGER/SCREEN_TASK.md",
+  "sourcePrompt": "12_applications_manager_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/38dc803f92b7__KNOuX Applications Management Dashboard (1).png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/04_applications.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+    "apps/gemini-ui/src/applications.css"
+  ],
+  "orbitNodes": "Installed Apps / Updates / App Health / Permissions / Disk Usage / Startup Apps",
+  "providerPlan": "Reuse existing appsInventory and other apps.* contracts, not a competing inventory service. No blind uninstall/repair commands; signed publisher proof and write consent must be verified.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/05_APPLICATIONS_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "app-inventory",
+      "name": "Installed Applications Register",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-inventory.md"
+    },
+    {
+      "id": "app-identity",
+      "name": "App Identity & Authenticode Trust",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-identity.md"
+    },
+    {
+      "id": "app-search",
+      "name": "Multi-Parameter Software Search",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-search.md"
+    },
+    {
+      "id": "app-publisher",
+      "name": "Publisher Intelligence & Reputation",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-publisher.md"
+    },
+    {
+      "id": "app-recent",
+      "name": "Recently Changed Applications",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-recent.md"
+    },
+    {
+      "id": "app-uninstall-queue",
+      "name": "Bulk Uninstall Queue & Batch Manager",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-uninstall-queue.md"
+    },
+    {
+      "id": "app-leftovers",
+      "name": "Orphaned Leftover Trace Analysis",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-leftovers.md"
+    },
+    {
+      "id": "app-updates",
+      "name": "Software Update Center",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-updates.md"
+    },
+    {
+      "id": "app-size",
+      "name": "Software Storage Footprint Treemap",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-size.md"
+    },
+    {
+      "id": "app-store-packages",
+      "name": "Package Center & WinGet Browser",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-store-packages.md"
+    },
+    {
+      "id": "app-associations",
+      "name": "File Extension & Protocol Matrix",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-associations.md"
+    },
+    {
+      "id": "app-startup-impact",
+      "name": "Software Boot Impact Analyzer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/05_APPLICATIONS/app-startup-impact.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

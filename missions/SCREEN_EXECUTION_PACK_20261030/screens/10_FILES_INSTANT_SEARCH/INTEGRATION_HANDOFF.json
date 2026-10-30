@@ -1,0 +1,85 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "files",
+  "screen": "Files & Instant Search",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/10_FILES_INSTANT_SEARCH/SCREEN_TASK.md",
+  "sourcePrompt": "10_files_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/da155a67f925__KNOuX SmartOrganizer File Explorer (1).png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/02_files-instant-search.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/FilesPage.tsx",
+    "apps/gemini-ui/src/files.css",
+    "apps/gemini-ui/src/visual/files-reference.css"
+  ],
+  "orbitNodes": "Recent / Large Files / Categories / Duplicates / Locations / Tags",
+  "providerPlan": "Source-backed index, bounded pagination and keyboard virtualization, cancellation; duplicate grouping by bytes+hash and optional byte compare; no invented document preview.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/06_FILES_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "file-downloads-inventory",
+      "name": "Downloads Folder Inventory",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-downloads-inventory.md"
+    },
+    {
+      "id": "file-organize-preview",
+      "name": "Visual Rule Builder & Organization Studio",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-organize-preview.md"
+    },
+    {
+      "id": "file-organize-apply",
+      "name": "Organization Staging & Change Review",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-organize-apply.md"
+    },
+    {
+      "id": "file-organize-undo",
+      "name": "File Organization Undo Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-organize-undo.md"
+    },
+    {
+      "id": "file-empty-folders",
+      "name": "Sparse Empty Folder Explorer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-empty-folders.md"
+    },
+    {
+      "id": "file-hash",
+      "name": "Cryptographic Hash Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-hash.md"
+    },
+    {
+      "id": "file-search",
+      "name": "Instant Everything-Style File Search",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-search.md"
+    },
+    {
+      "id": "file-type-map",
+      "name": "File Format Type Distribution",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-type-map.md"
+    },
+    {
+      "id": "file-recents",
+      "name": "Recent File Timeline Histogram",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-recents.md"
+    },
+    {
+      "id": "file-largest",
+      "name": "Ranked Large File Explorer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-largest.md"
+    },
+    {
+      "id": "file-metadata",
+      "name": "Deep File Metadata & Attributes Dossier",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-metadata.md"
+    },
+    {
+      "id": "file-provenance",
+      "name": "Trust Evidence & Provenance Board",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/06_FILES/file-provenance.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

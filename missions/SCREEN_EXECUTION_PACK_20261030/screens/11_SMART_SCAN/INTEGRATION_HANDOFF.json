@@ -1,0 +1,74 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "smart_scan",
+  "screen": "Smart Scan",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/11_SMART_SCAN/SCREEN_TASK.md",
+  "sourcePrompt": "11_smart_scan_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/3e6fa9d94908__KNOuX Smart Scan Dashboard (2).png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/03_smart-scan.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/SmartScanPage.tsx",
+    "apps/gemini-ui/src/visual/scan-reference.css"
+  ],
+  "orbitNodes": "Deep Scan / Quick Scan / System Health / Privacy / Apps / Startup",
+  "providerPlan": "Never label synthetic client animation as scan completion; preserve permission and source/time evidence; do not expose user secrets under privacy scanning.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/02_SMART_SCAN_FULL_DOMAIN.md",
+  "serviceCount": 10,
+  "services": [
+    {
+      "id": "mission-02-01",
+      "name": "Quick Scan",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-01.md"
+    },
+    {
+      "id": "mission-02-02",
+      "name": "Deep Scan",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-02.md"
+    },
+    {
+      "id": "mission-02-03",
+      "name": "Duplicate Finder",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-03.md"
+    },
+    {
+      "id": "mission-02-04",
+      "name": "Large Files",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-04.md"
+    },
+    {
+      "id": "mission-02-05",
+      "name": "Junk Cleaner",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-05.md"
+    },
+    {
+      "id": "mission-02-06",
+      "name": "Privacy Trace Check",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-06.md"
+    },
+    {
+      "id": "mission-02-07",
+      "name": "Startup Impact",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-07.md"
+    },
+    {
+      "id": "mission-02-08",
+      "name": "App Health",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-08.md"
+    },
+    {
+      "id": "mission-02-09",
+      "name": "System Health Pulse",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-09.md"
+    },
+    {
+      "id": "mission-02-10",
+      "name": "Smart Recommendations",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/02_SMART_SCAN/mission-02-10.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

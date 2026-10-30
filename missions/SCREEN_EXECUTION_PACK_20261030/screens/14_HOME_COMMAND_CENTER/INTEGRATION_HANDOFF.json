@@ -1,0 +1,85 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "home",
+  "screen": "Home Command Center",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/14_HOME_COMMAND_CENTER/SCREEN_TASK.md",
+  "sourcePrompt": "14_home_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/07186f4a375c__KNOuX SmartOrganizer Dashboard (1).png",
+  "nightScreenshot": null,
+  "visualSourceWarning": "Night geometry follows same DAY screenshot; no pixel-match claim.",
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/HomePage.tsx",
+    "apps/gemini-ui/src/components/home/HomeOrbit.tsx",
+    "apps/gemini-ui/src/home-command-center.css"
+  ],
+  "orbitNodes": "Smart Scan / Files / Applications / System / Storage / Automation",
+  "providerPlan": "Aggregate truthfully available provider snapshots with timestamp and capability, no fictional KPI. Reuse shared KnouxOrbit and existing navigation without rebuilding shell.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/01_HOME_COMMAND_CENTER_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "mission-01-01",
+      "name": "Smart Scan",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-01.md"
+    },
+    {
+      "id": "mission-01-02",
+      "name": "Organize Files",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-02.md"
+    },
+    {
+      "id": "mission-01-03",
+      "name": "Applications",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-03.md"
+    },
+    {
+      "id": "mission-01-04",
+      "name": "Storage",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-04.md"
+    },
+    {
+      "id": "mission-01-05",
+      "name": "Cleanup",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-05.md"
+    },
+    {
+      "id": "mission-01-06",
+      "name": "Startup Control",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-06.md"
+    },
+    {
+      "id": "mission-01-07",
+      "name": "System Live Pulse",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-07.md"
+    },
+    {
+      "id": "mission-01-08",
+      "name": "Repair Lab",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-08.md"
+    },
+    {
+      "id": "mission-01-09",
+      "name": "Global Search",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-09.md"
+    },
+    {
+      "id": "mission-01-10",
+      "name": "KNOuX Insight",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-10.md"
+    },
+    {
+      "id": "mission-01-11",
+      "name": "Recent Activity",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-11.md"
+    },
+    {
+      "id": "mission-01-12",
+      "name": "Pending Safe Actions",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/01_HOME_COMMAND_CENTER/mission-01-12.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "repair",
+  "screen": "Recovery & Repair Lab",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/06_RECOVERY_REPAIR/SCREEN_TASK.md",
+  "sourcePrompt": "06_recovery_repair_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/71991fec39ad__KNOuX Recovery & Repair Dashboard.png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/09_repair.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/RepairPage.tsx",
+    "apps/gemini-ui/src/repair.css"
+  ],
+  "orbitNodes": "SFC / DISM / CHKDSK / Repair Logs / Network Reset / Restore Point",
+  "providerPlan": "SFC/DISM/CHKDSK/network/restore plans must be narrowly validated, deny arbitrary shell, mark unimplemented native calls explicitly and never claim fixed issues from demo.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/11_REPAIR_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "repair-component-check",
+      "name": "DISM CheckHealth Diagnostic Console",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-component-check.md"
+    },
+    {
+      "id": "repair-component-scan",
+      "name": "DISM ScanHealth 7-Stage Console",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-component-scan.md"
+    },
+    {
+      "id": "repair-component-restore",
+      "name": "DISM RestoreHealth System Repair Wizard",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-component-restore.md"
+    },
+    {
+      "id": "repair-files-verify",
+      "name": "SFC VerifyOnly File Integrity Shield",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-files-verify.md"
+    },
+    {
+      "id": "repair-files-repair",
+      "name": "SFC ScanNow Protected File Repair Wizard",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-files-repair.md"
+    },
+    {
+      "id": "repair-dns-flush",
+      "name": "DNS Resolver Cache Refresh Preview",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-dns-flush.md"
+    },
+    {
+      "id": "repair-winsock-reset",
+      "name": "Winsock Catalog Disruption Risk Review",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-winsock-reset.md"
+    },
+    {
+      "id": "repair-tcpip-reset",
+      "name": "TCP/IP Stack Reset Configuration Diff",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-tcpip-reset.md"
+    },
+    {
+      "id": "repair-history",
+      "name": "System Repair Audit Journal",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-history.md"
+    },
+    {
+      "id": "repair-troubleshooters",
+      "name": "Windows Troubleshooter Gateway",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-troubleshooters.md"
+    },
+    {
+      "id": "repair-restore-point",
+      "name": "System Restore Point Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-restore-point.md"
+    },
+    {
+      "id": "repair-update-reset",
+      "name": "Windows Update Servicing Reset Wizard",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/11_REPAIR/repair-update-reset.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "services",
+  "screen": "Service Commander",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/05_SERVICE_COMMANDER/SCREEN_TASK.md",
+  "sourcePrompt": "05_service_commander_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/aaad11e434a9__KNOuX Service Commander Dashboard.png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/10_services.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/ServicesPage.tsx",
+    "apps/gemini-ui/src/services.css"
+  ],
+  "orbitNodes": "Running / Stopped / Recovery / Startup Type / Events / Dependencies",
+  "providerPlan": "Never stop protected Windows services in regular tests; distinguish display name and service key, verify impact on dependent services, no shell bridge.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/12_SERVICES_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "services-inventory",
+      "name": "Windows SCM Service Register",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-inventory.md"
+    },
+    {
+      "id": "services-control",
+      "name": "Service State Change Review & Guard",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-control.md"
+    },
+    {
+      "id": "services-undo",
+      "name": "Service Startup Policy Undo Journal",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-undo.md"
+    },
+    {
+      "id": "services-dependencies",
+      "name": "Interactive Service Dependency Network",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-dependencies.md"
+    },
+    {
+      "id": "services-protected",
+      "name": "Protected Windows Core Services Atlas",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-protected.md"
+    },
+    {
+      "id": "services-search",
+      "name": "SCM Keyboard-First Query Console",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-search.md"
+    },
+    {
+      "id": "services-startup-report",
+      "name": "Startup Policy Distribution Analytics",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-startup-report.md"
+    },
+    {
+      "id": "services-state-history",
+      "name": "Service Transition State History",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-state-history.md"
+    },
+    {
+      "id": "services-dependents",
+      "name": "Cascade Service Dependency Impact Tree",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-dependents.md"
+    },
+    {
+      "id": "services-diagnose",
+      "name": "SCM Fault Investigation & Diagnostics",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-diagnose.md"
+    },
+    {
+      "id": "services-config",
+      "name": "Startup Policy Configuration Diff",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-config.md"
+    },
+    {
+      "id": "services-perf",
+      "name": "Shared-Process svchost.exe Monitor",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/12_SERVICES/services-perf.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

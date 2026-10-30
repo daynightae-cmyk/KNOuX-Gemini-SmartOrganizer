@@ -1,0 +1,65 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "settings",
+  "screen": "Settings & AI Assistant",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/09_SETTINGS_AI_ASSISTANT/SCREEN_TASK.md",
+  "sourcePrompt": "09_settings_ai_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/55e51928c655__KNOuX SmartOrganizer Settings Dashboard.png",
+  "nightScreenshot": null,
+  "visualSourceWarning": "Night geometry follows same DAY screenshot; no pixel-match claim.",
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/SettingsPage.tsx",
+    "apps/gemini-ui/src/components/chat/KNOuXAssistantChat.tsx",
+    "apps/gemini-ui/src/components/chat/ApiKeySetupModal.tsx"
+  ],
+  "orbitNodes": "Appearance / Language / Accessibility / AI Providers / Privacy / Engine",
+  "providerPlan": "Session-safe or native protected credentials, no localStorage secrets, deny-by-default AI tools and no fabricated connected model/usage/events.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/14_SETTINGS_ASSISTANT_FULL_DOMAIN.md",
+  "serviceCount": 8,
+  "services": [
+    {
+      "id": "mission-14-01",
+      "name": "Engine & Turbo Hardware",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-01.md"
+    },
+    {
+      "id": "mission-14-02",
+      "name": "AI Copilot & Provider Keys",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-02.md"
+    },
+    {
+      "id": "mission-14-03",
+      "name": "Google Workspace Hub",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-03.md"
+    },
+    {
+      "id": "mission-14-04",
+      "name": "Automated Protection & Guards",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-04.md"
+    },
+    {
+      "id": "mission-14-05",
+      "name": "Neon Glass Customization",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-05.md"
+    },
+    {
+      "id": "mission-14-06",
+      "name": "Language & Locale",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-06.md"
+    },
+    {
+      "id": "mission-14-07",
+      "name": "Profile Backup & System Restore",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-07.md"
+    },
+    {
+      "id": "mission-14-08",
+      "name": "AI Assistant Chat",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/14_SETTINGS_ASSISTANT/mission-14-08.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

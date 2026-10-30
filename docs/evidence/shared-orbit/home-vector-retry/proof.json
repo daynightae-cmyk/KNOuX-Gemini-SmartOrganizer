@@ -1,0 +1,207 @@
+{
+  "sourceCommit": "c88a0f59bdb876ab244635bb80464d3d5e98b9bc",
+  "profile": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-dnvSgn\\profile",
+  "fixtureProof": {
+    "root": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-dnvSgn",
+    "operationId": "7f656a09-9eae-4d45-930b-66e11c43b979",
+    "completed": 3,
+    "restored": 3,
+    "hashesVerified": true
+  },
+  "checks": [
+    "KPIs match the actual read-only IPC responses delivered to Home, without a later Windows resample; activity reads a real move/restore receipt",
+    "Shared SVG/vector instrument with six visible icon/label buttons; the only image is the small authentic hub logo",
+    "Six actual orbital buttons and keyboard activation navigate to existing workspaces without executing effects"
+  ],
+  "errors": [],
+  "views": [],
+  "geometry": {
+    "light": {
+      "x": 1187,
+      "y": 101,
+      "width": 440,
+      "height": 300,
+      "buttons": [
+        {
+          "x": 1350,
+          "y": 185.75,
+          "width": 114,
+          "height": 130.5
+        },
+        {
+          "x": 1288,
+          "y": 115.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1438,
+          "y": 115.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1243,
+          "y": 217.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1483,
+          "y": 217.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1288,
+          "y": 319.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1438,
+          "y": 319.90625,
+          "width": 88,
+          "height": 72.1875
+        }
+      ]
+    },
+    "dark": {
+      "x": 1187,
+      "y": 101,
+      "width": 440,
+      "height": 300,
+      "buttons": [
+        {
+          "x": 1350,
+          "y": 185.75,
+          "width": 114,
+          "height": 130.5
+        },
+        {
+          "x": 1288,
+          "y": 115.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1438,
+          "y": 115.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1243,
+          "y": 217.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1483,
+          "y": 217.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1288,
+          "y": 319.90625,
+          "width": 88,
+          "height": 72.1875
+        },
+        {
+          "x": 1438,
+          "y": 319.90625,
+          "width": 88,
+          "height": 72.1875
+        }
+      ]
+    }
+  },
+  "requests": [
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-official-logo-BvEPOS0-.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-circular-logo-day-CoiS9pFV.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-official-logo-BvEPOS0-.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-circular-logo-day-CoiS9pFV.png"
+  ],
+  "sourceFiles": {
+    "src/components/home/HomeOrbit.tsx": "33ff1d13931ee953ca17bf096e0046c318213f4008a4df8acc98a8e9349a1931",
+    "src/components/home/home-orbit.css": "c93fcfcd031f785451b7f7aac316bf3de6e1d763744050128c8f4d4b96d0cff3",
+    "src/visual/KnouxOrbit.tsx": "0668d5cd3fa9c72fd46bc0f2a0fb86e3b519b91ad8e1d3c25da75d118d6ab4f3",
+    "src/visual/knoux-orbit.css": "222e8c2dd9717309599e9685a8f43db3a22c04861552381479d10a39cae44b9c",
+    "src/visual/OrbitalControl.tsx": "5708c0f0791472686ae596dd387c4982869fac598b8f7d96a5b96ec9412884a5",
+    "src/components/home/HomeCommandCenter.tsx": "713b2f4a57bd8245872218de0ca486a15033ed5a4221d75bfd719d9a11697514",
+    "src/components/home/HomeDashboardPanels.tsx": "6e9cf259b32640252b5c244ae39ee26a3799582d1fbc9e03a9c21b18fa8847a1",
+    "src/home/live.ts": "8168951bee31d1b98c48efc15cf4b16bd9cc33543efbda42f83109fed371e378",
+    "src/home/derive.ts": "6f3bd3281a1dae45cb5ded6bd8bdd9e7d0fcf24cc2da84073d415cbc20c3f422",
+    "src/home/provider-result.ts": "e94a43661c9ec99119009082a27e4b5cf70a26148e869aa5537570fe22953c7c"
+  },
+  "runtime": {
+    "packaged": false,
+    "version": "43.4.1"
+  },
+  "providers": [
+    {
+      "kind": "workflows",
+      "value": "0",
+      "status": "complete",
+      "requestId": "d1eb541d-309c-482c-afe1-c987a78bd8a9",
+      "observedAt": "2026-10-28T11:00:18.167Z"
+    },
+    {
+      "kind": "workflows",
+      "value": "0",
+      "status": "complete",
+      "requestId": "ec3a1471-89f7-4d6f-ae0f-40f1d89d3d51",
+      "observedAt": "2026-10-28T11:00:18.644Z"
+    },
+    {
+      "kind": "services",
+      "value": "121 / 272",
+      "status": "complete",
+      "requestId": "8ebdf6e4-2631-4707-bb63-155be8c427f7",
+      "observedAt": "2026-10-28T11:00:23.272Z"
+    },
+    {
+      "kind": "services",
+      "value": "121 / 272",
+      "status": "complete",
+      "requestId": "6ff34746-bcd5-4324-8dfd-7d4d58c6b614",
+      "observedAt": "2026-10-28T11:00:23.320Z"
+    },
+    {
+      "kind": "apps",
+      "value": "149",
+      "status": "complete",
+      "requestId": "a45bc958-a85b-484a-9bfd-d1c25a23d84e",
+      "observedAt": "2026-10-28T11:00:26.641Z"
+    },
+    {
+      "kind": "apps",
+      "value": "149",
+      "status": "complete",
+      "requestId": "efe542b7-1f61-4ed9-90ae-e7fd53d78eac",
+      "observedAt": "2026-10-28T11:00:26.650Z"
+    },
+    {
+      "kind": "workflows",
+      "value": "0",
+      "status": "complete",
+      "requestId": "a44d90d8-aae9-48b7-8d9c-723dd2a8eca3",
+      "observedAt": "2026-10-28T11:00:36.127Z"
+    },
+    {
+      "kind": "services",
+      "value": "122 / 272",
+      "status": "complete",
+      "requestId": "d2c88e04-023e-4ad7-85e3-44c9255ae3bb",
+      "observedAt": "2026-10-28T11:00:37.875Z"
+    },
+    {
+      "kind": "apps",
+      "value": "149",
+      "status": "complete",
+      "requestId": "d891b53f-f86b-4375-b08c-5c15aad38096",
+      "observedAt": "2026-10-28T11:00:39.821Z"
+    }
+  ]
+}

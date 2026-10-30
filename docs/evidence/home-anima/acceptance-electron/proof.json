@@ -1,0 +1,101 @@
+{
+  "sourceCommit": "c88a0f59bdb876ab244635bb80464d3d5e98b9bc",
+  "profile": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-VfrQvg\\profile",
+  "fixtureProof": {
+    "root": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-live-owned-VfrQvg",
+    "operationId": "91ee40a5-14fc-446c-9e9e-0c30fff43812",
+    "completed": 3,
+    "restored": 3,
+    "hashesVerified": true
+  },
+  "checks": [
+    "KPIs match the actual read-only IPC responses delivered to Home, without a later Windows resample; activity reads a real move/restore receipt",
+    "Recovered local PNG dimensions and exact SHA-256 preserved",
+    "Six actual orbital buttons and keyboard activation navigate to existing workspaces without executing effects"
+  ],
+  "errors": [],
+  "views": [],
+  "geometry": {},
+  "requests": [
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-official-logo-BvEPOS0-.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-circular-logo-day-CoiS9pFV.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-orbital-emblem-C71lnjjk.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-official-logo-BvEPOS0-.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-circular-logo-day-CoiS9pFV.png",
+    "file:///D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer/apps/gemini-ui/dist/assets/knoux-orbital-emblem-C71lnjjk.png"
+  ],
+  "sourceFiles": {
+    "src/components/home/RecoveredHomeOrbit.tsx": "f652166490f1d08421e0c7bc2749c1a34b2533f0393e51c08f05b63986f31f93",
+    "src/components/home/recovered-home-orbit.css": "361b96933cc0e29dc569b7700f0413d23dfed3fb627655ed42db832fa07c0696",
+    "src/components/home/HomeCommandCenter.tsx": "aa646aaaebf419e26945e8ae69f16de1c6c73027e932df7239c8cdf7a0650d97",
+    "src/components/home/HomeDashboardPanels.tsx": "6e9cf259b32640252b5c244ae39ee26a3799582d1fbc9e03a9c21b18fa8847a1",
+    "src/home/live.ts": "57b3b9ffe225e34db0d39af0342263b009d2233e08bb9ad043917a0d68a96b81",
+    "src/home/derive.ts": "6f3bd3281a1dae45cb5ded6bd8bdd9e7d0fcf24cc2da84073d415cbc20c3f422",
+    "src/home/provider-result.ts": "e94a43661c9ec99119009082a27e4b5cf70a26148e869aa5537570fe22953c7c"
+  },
+  "providers": [
+    {
+      "kind": "workflows",
+      "value": "0",
+      "status": "complete",
+      "requestId": "8fb0b016-f9c3-44b7-a0d4-52d1d46c4346",
+      "observedAt": "2026-10-28T10:19:24.590Z"
+    },
+    {
+      "kind": "workflows",
+      "value": "0",
+      "status": "complete",
+      "requestId": "6b3cb9c3-c500-46f3-98c9-a737a9073d26",
+      "observedAt": "2026-10-28T10:19:25.980Z"
+    },
+    {
+      "kind": "services",
+      "value": "121 / 272",
+      "status": "complete",
+      "requestId": "2bb710ab-8113-4abf-a223-5f2f5d69292c",
+      "observedAt": "2026-10-28T10:19:48.474Z"
+    },
+    {
+      "kind": "services",
+      "value": "121 / 272",
+      "status": "complete",
+      "requestId": "8bfd2401-8af7-4de6-b87f-31a0a3d5b21c",
+      "observedAt": "2026-10-28T10:19:49.146Z"
+    },
+    {
+      "kind": "apps",
+      "value": "149",
+      "status": "complete",
+      "requestId": "faa82e9b-cacf-43a0-a0dc-69ca7010fd7f",
+      "observedAt": "2026-10-28T10:19:54.068Z"
+    },
+    {
+      "kind": "apps",
+      "value": "149",
+      "status": "complete",
+      "requestId": "1c72033e-1d38-4738-bb01-3c3d1290c260",
+      "observedAt": "2026-10-28T10:19:55.061Z"
+    },
+    {
+      "kind": "workflows",
+      "value": "0",
+      "status": "complete",
+      "requestId": "14ef605f-9a55-4648-bf04-f1cfc850c73d",
+      "observedAt": "2026-10-28T10:19:58.439Z"
+    },
+    {
+      "kind": "services",
+      "value": "121 / 272",
+      "status": "complete",
+      "requestId": "a153f9d8-f994-44f7-a368-cce810f01e5c",
+      "observedAt": "2026-10-28T10:20:03.663Z"
+    },
+    {
+      "kind": "apps",
+      "value": "149",
+      "status": "complete",
+      "requestId": "e4272318-0b46-403c-9970-b53a320efd47",
+      "observedAt": "2026-10-28T10:20:07.675Z"
+    }
+  ]
+}

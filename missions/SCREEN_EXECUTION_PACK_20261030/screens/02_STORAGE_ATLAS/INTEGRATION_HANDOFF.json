@@ -1,0 +1,84 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "storage",
+  "screen": "Storage Atlas",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/02_STORAGE_ATLAS/SCREEN_TASK.md",
+  "sourcePrompt": "02_storage_atlas_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/7b47c1be7801__KNOuX Smart Storage Atlas Dashboard.png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/05_storage.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/StoragePage.tsx",
+    "apps/gemini-ui/src/storage.css"
+  ],
+  "orbitNodes": "Drives / Used Space / Free Space / Treemap / Largest Folders / Reclaim",
+  "providerPlan": "Reuse volume and scan providers, handle hardlinks, sparse files, junctions, drive disconnects, permission errors; distinguish actual disk bytes from estimated reclaim.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/07_STORAGE_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "storage-disks",
+      "name": "Volume Bays & Partition Manager",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-disks.md"
+    },
+    {
+      "id": "storage-large-files",
+      "name": "Heavy-File Storage Ledger",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-large-files.md"
+    },
+    {
+      "id": "storage-duplicates",
+      "name": "Byte-Exact Duplicate Hash Groups",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-duplicates.md"
+    },
+    {
+      "id": "storage-treemap",
+      "name": "Interactive Storage Space Treemap",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-treemap.md"
+    },
+    {
+      "id": "storage-top-folders",
+      "name": "Folder Ranking Waterfall",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-top-folders.md"
+    },
+    {
+      "id": "storage-filetypes",
+      "name": "Storage Byte Distribution by Category",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-filetypes.md"
+    },
+    {
+      "id": "storage-scan-overview",
+      "name": "Drive Coverage & Scan Dashboard",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-scan-overview.md"
+    },
+    {
+      "id": "storage-fragmentation",
+      "name": "Drive Optimization & TRIM Dossier",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-fragmentation.md"
+    },
+    {
+      "id": "storage-smart",
+      "name": "Disk Reliability & S.M.A.R.T. Health",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-smart.md"
+    },
+    {
+      "id": "storage-reclaim",
+      "name": "Storage Reclaim Planner & Basket",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-reclaim.md"
+    },
+    {
+      "id": "storage-history",
+      "name": "Capacity Trend Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-history.md"
+    },
+    {
+      "id": "storage-removable",
+      "name": "Removable USB & External Volume Dock",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/07_STORAGE/storage-removable.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

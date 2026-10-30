@@ -1,0 +1,84 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "startup",
+  "screen": "Startup Control",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/03_STARTUP_CONTROL/SCREEN_TASK.md",
+  "sourcePrompt": "03_startup_control_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/0776c9d29da1__KNOuX SmartOrganizer Startup Dashboard.png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/07_startup.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/StartupPage.tsx",
+    "apps/gemini-ui/src/startup.css"
+  ],
+  "orbitNodes": "High Impact / Medium Impact / Low Impact / Disabled / Timeline / Recommendations",
+  "providerPlan": "Read known Windows startup sources with user/system permission distinctions; no fake boot estimates or silent Registry/Task Scheduler mutation.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/09_STARTUP_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "startup-overview",
+      "name": "Windows Boot Autorun Register",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-overview.md"
+    },
+    {
+      "id": "startup-disable",
+      "name": "Autorun State Change Preview",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-disable.md"
+    },
+    {
+      "id": "startup-restore",
+      "name": "Startup Restoration & Rollback",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-restore.md"
+    },
+    {
+      "id": "startup-sources",
+      "name": "Autorun Source Coverage Map",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-sources.md"
+    },
+    {
+      "id": "startup-journal",
+      "name": "Startup Change Audit Journal",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-journal.md"
+    },
+    {
+      "id": "startup-filter",
+      "name": "Keyboard-First Autorun Query Console",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-filter.md"
+    },
+    {
+      "id": "startup-impact",
+      "name": "Boot Sequence Impact Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-impact.md"
+    },
+    {
+      "id": "startup-services",
+      "name": "Service Boot Policy Matrix",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-services.md"
+    },
+    {
+      "id": "startup-tasks",
+      "name": "Logon Scheduled Task Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-tasks.md"
+    },
+    {
+      "id": "startup-delay",
+      "name": "Delayed Launch Planner",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-delay.md"
+    },
+    {
+      "id": "startup-batch",
+      "name": "Autorun Batch Staging Tray",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-batch.md"
+    },
+    {
+      "id": "startup-undo-all",
+      "name": "Batch Recovery & Mass Rollback Workspace",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/09_STARTUP/startup-undo-all.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

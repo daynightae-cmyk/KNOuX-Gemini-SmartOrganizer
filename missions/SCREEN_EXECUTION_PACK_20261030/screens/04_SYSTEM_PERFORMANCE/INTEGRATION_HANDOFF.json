@@ -1,0 +1,205 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "system",
+  "screen": "System Performance",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/04_SYSTEM_PERFORMANCE/SCREEN_TASK.md",
+  "sourcePrompt": "04_system_performance_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/0b2e4bb676e3__KNOuX System Performance Dashboard.png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/08_system.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/SystemPage.tsx",
+    "apps/gemini-ui/src/system/useSystem.ts",
+    "apps/gemini-ui/src/system/SystemServiceWorkspaces.tsx"
+  ],
+  "orbitNodes": "CPU / Memory / Stability / Disk / Temperature / Network",
+  "providerPlan": "Existing systemSnapshot and SystemBridge should be audited, not recreated. Null unavailable sensors, cancel polling on unmount, real timeseries only, reject fake health.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/10_SYSTEM_FULL_DOMAIN.md",
+  "serviceCount": 36,
+  "services": [
+    {
+      "id": "system-health-check",
+      "name": "System Pulse Overview Console",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-health-check.md"
+    },
+    {
+      "id": "system-events",
+      "name": "Windows Event Log Severity Ledger",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-events.md"
+    },
+    {
+      "id": "system-processes",
+      "name": "Active Process Register & Resources",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-processes.md"
+    },
+    {
+      "id": "system-signatures",
+      "name": "System Binary Certificate Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-signatures.md"
+    },
+    {
+      "id": "system-uptime",
+      "name": "System Boot & Session Clock Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-uptime.md"
+    },
+    {
+      "id": "system-perf",
+      "name": "Live Performance Pulse Charts",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-perf.md"
+    },
+    {
+      "id": "system-drivers",
+      "name": "Device Driver Inventory & Signatures",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-drivers.md"
+    },
+    {
+      "id": "system-logs",
+      "name": "Event Log Channel Explorer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-logs.md"
+    },
+    {
+      "id": "system-resources",
+      "name": "Top Resource Consuming Processes",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-resources.md"
+    },
+    {
+      "id": "system-autostart",
+      "name": "App-to-Process Cross-Service Links",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-autostart.md"
+    },
+    {
+      "id": "system-services-map",
+      "name": "System Service Dependency Graph",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-services-map.md"
+    },
+    {
+      "id": "system-timeline",
+      "name": "Unified System Event Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/system-timeline.md"
+    },
+    {
+      "id": "network-interfaces",
+      "name": "Network Interfaces Console",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-interfaces.md"
+    },
+    {
+      "id": "network-dns-config",
+      "name": "DNS Resolver Configuration Dossier",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-dns-config.md"
+    },
+    {
+      "id": "network-adapters",
+      "name": "Network Hardware Atlas & NIC Rack",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-adapters.md"
+    },
+    {
+      "id": "network-connectivity",
+      "name": "Connectivity Diagnostic Step Sequence",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-connectivity.md"
+    },
+    {
+      "id": "network-throughput",
+      "name": "Real-Time Traffic & Throughput Chart",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-throughput.md"
+    },
+    {
+      "id": "network-traceroute",
+      "name": "Hop Route & Latency Visualizer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-traceroute.md"
+    },
+    {
+      "id": "network-topology",
+      "name": "LAN Topology & Node Relationship Map",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-topology.md"
+    },
+    {
+      "id": "network-ports",
+      "name": "Active Socket & Port Explorer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-ports.md"
+    },
+    {
+      "id": "network-wifi",
+      "name": "Wireless Wi-Fi Status & Signal Instrument",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-wifi.md"
+    },
+    {
+      "id": "network-hosts",
+      "name": "Windows Hosts File Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-hosts.md"
+    },
+    {
+      "id": "network-proxies",
+      "name": "Proxy & WinHTTP Configuration Graph",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-proxies.md"
+    },
+    {
+      "id": "network-repair-link",
+      "name": "Network Recovery & Reset Gateway",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/network-repair-link.md"
+    },
+    {
+      "id": "hardware-inventory",
+      "name": "Device Hardware Atlas & Components",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-inventory.md"
+    },
+    {
+      "id": "hardware-battery",
+      "name": "Battery Charge & Health Instrument",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-battery.md"
+    },
+    {
+      "id": "hardware-cpu",
+      "name": "Processor Architecture & Core Die",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-cpu.md"
+    },
+    {
+      "id": "hardware-gpu",
+      "name": "Graphics Adapter Bay & VRAM",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-gpu.md"
+    },
+    {
+      "id": "hardware-memory",
+      "name": "DIMM RAM Slots & Memory Layout",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-memory.md"
+    },
+    {
+      "id": "hardware-cycles",
+      "name": "Battery Wear & Cycle Count Ledger",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-cycles.md"
+    },
+    {
+      "id": "hardware-thermal",
+      "name": "Thermal Sensors & Temperature Board",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-thermal.md"
+    },
+    {
+      "id": "hardware-disks",
+      "name": "Physical Disk Drives & Bus Interface",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-disks.md"
+    },
+    {
+      "id": "hardware-usb",
+      "name": "USB Controller & Device Topology Tree",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-usb.md"
+    },
+    {
+      "id": "hardware-display",
+      "name": "Monitor Topology & Resolution Canvas",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-display.md"
+    },
+    {
+      "id": "hardware-audio",
+      "name": "Audio Endpoint Mixer & Devices",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-audio.md"
+    },
+    {
+      "id": "hardware-health-report",
+      "name": "Hardware Evidence & Diagnostic Report",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/10_SYSTEM/hardware-health-report.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

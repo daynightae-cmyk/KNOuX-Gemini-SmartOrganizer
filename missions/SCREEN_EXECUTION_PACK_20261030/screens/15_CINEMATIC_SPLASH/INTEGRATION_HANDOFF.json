@@ -1,0 +1,22 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "cinematic-entry",
+  "screen": "Cinematic Splash / Intro",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/15_CINEMATIC_SPLASH/SCREEN_TASK.md",
+  "sourcePrompt": "15_cinematic_splash_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/2eb2384ca715__01-splash.png",
+  "nightScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/def9e27b189e__splash-night-approved.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/features/cinematic-entry/CinematicEntry.tsx"
+  ],
+  "orbitNodes": "NO six-node utility orbit: cinematic original KNOuX glass sphere",
+  "providerPlan": "Real readiness handshake, no false Windows readiness; skip/replay/mute, reduced motion and audio-policy fallback. Owned/licensed sound only; avoid arbitrary autoplay and full-screen image-only scene.",
+  "canonicalDomain": null,
+  "serviceCount": 0,
+  "services": [],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

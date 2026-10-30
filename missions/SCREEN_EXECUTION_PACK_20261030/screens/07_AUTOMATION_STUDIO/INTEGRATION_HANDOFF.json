@@ -1,0 +1,85 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "automation",
+  "screen": "Automation Studio",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/07_AUTOMATION_STUDIO/SCREEN_TASK.md",
+  "sourcePrompt": "07_automation_studio_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/fa3ffdc43778__Pastel Purple Automation Studio Dashboard.png",
+  "nightScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/bd3bf69c511b__08_AUTOMATION_NIGHT_1672x941.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/AutomationPage.tsx",
+    "apps/gemini-ui/src/automation/useAutomation.ts",
+    "apps/gemini-ui/src/automation/AutomationServiceWorkspaces.tsx"
+  ],
+  "orbitNodes": "Triggers / Schedules / Actions / Safety / History / Conditions",
+  "providerPlan": "Reuse existing automation.capabilities/start/status/cancel/snapshot/workflows/save/templates/dryRun/schedulePreview/validateImport/journal/report already wired in preload/Main. Local draft or dry-run is NOT Windows execution.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/13_AUTOMATION_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "auto-smart-scan",
+      "name": "Smart Scan Automated Workflow Flow",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-smart-scan.md"
+    },
+    {
+      "id": "auto-schedule-manager",
+      "name": "Weekly Automation Calendar & Task Manager",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-schedule-manager.md"
+    },
+    {
+      "id": "auto-run-history",
+      "name": "Automation Run History Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-run-history.md"
+    },
+    {
+      "id": "auto-templates",
+      "name": "Workflow Template Gallery & Library",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-templates.md"
+    },
+    {
+      "id": "auto-schedule-plan",
+      "name": "Recurrence Composer & Cron Preview",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-schedule-plan.md"
+    },
+    {
+      "id": "auto-cleanup-plan",
+      "name": "Safe Automated Cleanup Pipeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-cleanup-plan.md"
+    },
+    {
+      "id": "auto-notify",
+      "name": "Notification Channel Routing Board",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-notify.md"
+    },
+    {
+      "id": "auto-quiet-hours",
+      "name": "Quiet Hours 24-Hour Dial",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-quiet-hours.md"
+    },
+    {
+      "id": "auto-battery-policy",
+      "name": "Power-Aware Scheduler & Battery Gating",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-battery-policy.md"
+    },
+    {
+      "id": "auto-retention",
+      "name": "Artifact Retention Policy Timeline",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-retention.md"
+    },
+    {
+      "id": "auto-export",
+      "name": "Workflow Export & Schema Transfer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-export.md"
+    },
+    {
+      "id": "auto-backup-plan",
+      "name": "Backup Flow & Verification Designer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/13_AUTOMATION/auto-backup-plan.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

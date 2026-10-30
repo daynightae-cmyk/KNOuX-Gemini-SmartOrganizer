@@ -1,0 +1,84 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "cleanup",
+  "screen": "Cleanup Safety Vault",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/13_CLEANUP_SAFETY_VAULT/SCREEN_TASK.md",
+  "sourcePrompt": "13_smart_cleanup_V0_EXECUTE.md",
+  "dayScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/day/06_cleanup.png",
+  "nightScreenshot": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/06_cleanup.png",
+  "visualSourceWarning": null,
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/pages/CleanupPage.tsx",
+    "apps/gemini-ui/src/operations/StorageCleanupLiveWorkbench.tsx"
+  ],
+  "orbitNodes": "KEEP EXACT SIX FROM EXISTING APPROVED CLEANUP REFERENCE",
+  "providerPlan": "Reuse existing Cleanup/Vault bridge. No silent delete or absolute safe-to-remove claims without policy and proof; handle locks, symlinks, conflicts and partial failures.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/08_CLEANUP_FULL_DOMAIN.md",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "cleanup-temp-preview",
+      "name": "Temporary Files Candidate Safety Ledger",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-temp-preview.md"
+    },
+    {
+      "id": "cleanup-temp-quarantine",
+      "name": "Quarantine Review & Safety Vault",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-temp-quarantine.md"
+    },
+    {
+      "id": "cleanup-temp-undo",
+      "name": "Cleanup Recovery Console & Journal",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-temp-undo.md"
+    },
+    {
+      "id": "cleanup-quarantine-list",
+      "name": "Quarantine Vault File Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-quarantine-list.md"
+    },
+    {
+      "id": "cleanup-estimate",
+      "name": "Space Savings Breakdown & Calculator",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-estimate.md"
+    },
+    {
+      "id": "cleanup-recycle",
+      "name": "Recycle Bin Multi-Volume Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-recycle.md"
+    },
+    {
+      "id": "cleanup-unused",
+      "name": "Dormancy & Unused Files Explorer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-unused.md"
+    },
+    {
+      "id": "cleanup-update-cache",
+      "name": "Windows Update & Servicing Cache Gateway",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-update-cache.md"
+    },
+    {
+      "id": "cleanup-browser-cache",
+      "name": "Web Browser Profile Cache Inspector",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-browser-cache.md"
+    },
+    {
+      "id": "cleanup-logs",
+      "name": "Log Retention & Dump Explorer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-logs.md"
+    },
+    {
+      "id": "cleanup-schedule",
+      "name": "Automated Cleanup Schedule Composer",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-schedule.md"
+    },
+    {
+      "id": "cleanup-reports",
+      "name": "Before/After Cleanup Report Studio",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/08_CLEANUP/cleanup-reports.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}

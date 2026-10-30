@@ -1,0 +1,400 @@
+{
+  "schema": "knoux.screens.2026-10-30",
+  "repoRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+  "generatedAt": "2026-10-30",
+  "screenCount": 15,
+  "canonicalCount": 181,
+  "notes": "Specifications only. Source V0 prompts+canonical 181 service IDs; no native status promises.",
+  "screens": [
+    {
+      "screen": "01",
+      "name": "Organization Studio",
+      "route": "studio",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/01_ORGANIZATION_STUDIO/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/01_ORGANIZATION_STUDIO/INTEGRATION_HANDOFF.json",
+      "serviceCount": 9,
+      "serviceIds": [
+        "mission-03-01",
+        "mission-03-02",
+        "mission-03-03",
+        "mission-03-04",
+        "mission-03-05",
+        "mission-03-06",
+        "mission-03-07",
+        "mission-03-08",
+        "mission-03-09"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/be739fbf4012__KNOuX Organization Studio Dashboard.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/01_organization-studio.png"
+      }
+    },
+    {
+      "screen": "02",
+      "name": "Storage Atlas",
+      "route": "storage",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/02_STORAGE_ATLAS/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/02_STORAGE_ATLAS/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "storage-disks",
+        "storage-large-files",
+        "storage-duplicates",
+        "storage-treemap",
+        "storage-top-folders",
+        "storage-filetypes",
+        "storage-scan-overview",
+        "storage-fragmentation",
+        "storage-smart",
+        "storage-reclaim",
+        "storage-history",
+        "storage-removable"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/7b47c1be7801__KNOuX Smart Storage Atlas Dashboard.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/05_storage.png"
+      }
+    },
+    {
+      "screen": "03",
+      "name": "Startup Control",
+      "route": "startup",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/03_STARTUP_CONTROL/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/03_STARTUP_CONTROL/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "startup-overview",
+        "startup-disable",
+        "startup-restore",
+        "startup-sources",
+        "startup-journal",
+        "startup-filter",
+        "startup-impact",
+        "startup-services",
+        "startup-tasks",
+        "startup-delay",
+        "startup-batch",
+        "startup-undo-all"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/0776c9d29da1__KNOuX SmartOrganizer Startup Dashboard.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/07_startup.png"
+      }
+    },
+    {
+      "screen": "04",
+      "name": "System Performance",
+      "route": "system",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/04_SYSTEM_PERFORMANCE/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/04_SYSTEM_PERFORMANCE/INTEGRATION_HANDOFF.json",
+      "serviceCount": 36,
+      "serviceIds": [
+        "system-health-check",
+        "system-events",
+        "system-processes",
+        "system-signatures",
+        "system-uptime",
+        "system-perf",
+        "system-drivers",
+        "system-logs",
+        "system-resources",
+        "system-autostart",
+        "system-services-map",
+        "system-timeline",
+        "network-interfaces",
+        "network-dns-config",
+        "network-adapters",
+        "network-connectivity",
+        "network-throughput",
+        "network-traceroute",
+        "network-topology",
+        "network-ports",
+        "network-wifi",
+        "network-hosts",
+        "network-proxies",
+        "network-repair-link",
+        "hardware-inventory",
+        "hardware-battery",
+        "hardware-cpu",
+        "hardware-gpu",
+        "hardware-memory",
+        "hardware-cycles",
+        "hardware-thermal",
+        "hardware-disks",
+        "hardware-usb",
+        "hardware-display",
+        "hardware-audio",
+        "hardware-health-report"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/0b2e4bb676e3__KNOuX System Performance Dashboard.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/08_system.png"
+      }
+    },
+    {
+      "screen": "05",
+      "name": "Service Commander",
+      "route": "services",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/05_SERVICE_COMMANDER/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/05_SERVICE_COMMANDER/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "services-inventory",
+        "services-control",
+        "services-undo",
+        "services-dependencies",
+        "services-protected",
+        "services-search",
+        "services-startup-report",
+        "services-state-history",
+        "services-dependents",
+        "services-diagnose",
+        "services-config",
+        "services-perf"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/aaad11e434a9__KNOuX Service Commander Dashboard.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/10_services.png"
+      }
+    },
+    {
+      "screen": "06",
+      "name": "Recovery & Repair Lab",
+      "route": "repair",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/06_RECOVERY_REPAIR/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/06_RECOVERY_REPAIR/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "repair-component-check",
+        "repair-component-scan",
+        "repair-component-restore",
+        "repair-files-verify",
+        "repair-files-repair",
+        "repair-dns-flush",
+        "repair-winsock-reset",
+        "repair-tcpip-reset",
+        "repair-history",
+        "repair-troubleshooters",
+        "repair-restore-point",
+        "repair-update-reset"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/71991fec39ad__KNOuX Recovery & Repair Dashboard.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/09_repair.png"
+      }
+    },
+    {
+      "screen": "07",
+      "name": "Automation Studio",
+      "route": "automation",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/07_AUTOMATION_STUDIO/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/07_AUTOMATION_STUDIO/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "auto-smart-scan",
+        "auto-schedule-manager",
+        "auto-run-history",
+        "auto-templates",
+        "auto-schedule-plan",
+        "auto-cleanup-plan",
+        "auto-notify",
+        "auto-quiet-hours",
+        "auto-battery-policy",
+        "auto-retention",
+        "auto-export",
+        "auto-backup-plan"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/fa3ffdc43778__Pastel Purple Automation Studio Dashboard.png",
+        "night": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/bd3bf69c511b__08_AUTOMATION_NIGHT_1672x941.png"
+      }
+    },
+    {
+      "screen": "08",
+      "name": "Google Workspace",
+      "route": "workspace",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/08_GOOGLE_WORKSPACE/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/08_GOOGLE_WORKSPACE/INTEGRATION_HANDOFF.json",
+      "serviceCount": 10,
+      "serviceIds": [
+        "mission-04-01",
+        "mission-04-02",
+        "mission-04-03",
+        "mission-04-04",
+        "mission-04-05",
+        "mission-04-06",
+        "mission-04-07",
+        "mission-04-08",
+        "mission-04-09",
+        "mission-04-10"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/9dcb4c40bacf__KNOuX Google Workspace Dashboard.png",
+        "night": null
+      }
+    },
+    {
+      "screen": "09",
+      "name": "Settings & AI Assistant",
+      "route": "settings",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/09_SETTINGS_AI_ASSISTANT/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/09_SETTINGS_AI_ASSISTANT/INTEGRATION_HANDOFF.json",
+      "serviceCount": 8,
+      "serviceIds": [
+        "mission-14-01",
+        "mission-14-02",
+        "mission-14-03",
+        "mission-14-04",
+        "mission-14-05",
+        "mission-14-06",
+        "mission-14-07",
+        "mission-14-08"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/55e51928c655__KNOuX SmartOrganizer Settings Dashboard.png",
+        "night": null
+      }
+    },
+    {
+      "screen": "10",
+      "name": "Files & Instant Search",
+      "route": "files",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/10_FILES_INSTANT_SEARCH/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/10_FILES_INSTANT_SEARCH/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "file-downloads-inventory",
+        "file-organize-preview",
+        "file-organize-apply",
+        "file-organize-undo",
+        "file-empty-folders",
+        "file-hash",
+        "file-search",
+        "file-type-map",
+        "file-recents",
+        "file-largest",
+        "file-metadata",
+        "file-provenance"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/da155a67f925__KNOuX SmartOrganizer File Explorer (1).png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/02_files-instant-search.png"
+      }
+    },
+    {
+      "screen": "11",
+      "name": "Smart Scan",
+      "route": "smart_scan",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/11_SMART_SCAN/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/11_SMART_SCAN/INTEGRATION_HANDOFF.json",
+      "serviceCount": 10,
+      "serviceIds": [
+        "mission-02-01",
+        "mission-02-02",
+        "mission-02-03",
+        "mission-02-04",
+        "mission-02-05",
+        "mission-02-06",
+        "mission-02-07",
+        "mission-02-08",
+        "mission-02-09",
+        "mission-02-10"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/3e6fa9d94908__KNOuX Smart Scan Dashboard (2).png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/03_smart-scan.png"
+      }
+    },
+    {
+      "screen": "12",
+      "name": "Applications Manager",
+      "route": "applications",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/12_APPLICATIONS_MANAGER/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/12_APPLICATIONS_MANAGER/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "app-inventory",
+        "app-identity",
+        "app-search",
+        "app-publisher",
+        "app-recent",
+        "app-uninstall-queue",
+        "app-leftovers",
+        "app-updates",
+        "app-size",
+        "app-store-packages",
+        "app-associations",
+        "app-startup-impact"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/38dc803f92b7__KNOuX Applications Management Dashboard (1).png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/04_applications.png"
+      }
+    },
+    {
+      "screen": "13",
+      "name": "Cleanup Safety Vault",
+      "route": "cleanup",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/13_CLEANUP_SAFETY_VAULT/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/13_CLEANUP_SAFETY_VAULT/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "cleanup-temp-preview",
+        "cleanup-temp-quarantine",
+        "cleanup-temp-undo",
+        "cleanup-quarantine-list",
+        "cleanup-estimate",
+        "cleanup-recycle",
+        "cleanup-unused",
+        "cleanup-update-cache",
+        "cleanup-browser-cache",
+        "cleanup-logs",
+        "cleanup-schedule",
+        "cleanup-reports"
+      ],
+      "references": {
+        "day": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/day/06_cleanup.png",
+        "night": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/06_cleanup.png"
+      }
+    },
+    {
+      "screen": "14",
+      "name": "Home Command Center",
+      "route": "home",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/14_HOME_COMMAND_CENTER/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/14_HOME_COMMAND_CENTER/INTEGRATION_HANDOFF.json",
+      "serviceCount": 12,
+      "serviceIds": [
+        "mission-01-01",
+        "mission-01-02",
+        "mission-01-03",
+        "mission-01-04",
+        "mission-01-05",
+        "mission-01-06",
+        "mission-01-07",
+        "mission-01-08",
+        "mission-01-09",
+        "mission-01-10",
+        "mission-01-11",
+        "mission-01-12"
+      ],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/07186f4a375c__KNOuX SmartOrganizer Dashboard (1).png",
+        "night": null
+      }
+    },
+    {
+      "screen": "15",
+      "name": "Cinematic Splash / Intro",
+      "route": "cinematic-entry",
+      "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/15_CINEMATIC_SPLASH/SCREEN_TASK.md",
+      "handoff": "missions/SCREEN_EXECUTION_PACK_20261030/screens/15_CINEMATIC_SPLASH/INTEGRATION_HANDOFF.json",
+      "serviceCount": 0,
+      "serviceIds": [],
+      "references": {
+        "day": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/2eb2384ca715__01-splash.png",
+        "night": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/def9e27b189e__splash-night-approved.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "knoux.screen.handoff.v1",
+  "status": "NOT_AUDITED",
+  "route": "workspace",
+  "screen": "Google Workspace",
+  "mission": "missions/SCREEN_EXECUTION_PACK_20261030/screens/08_GOOGLE_WORKSPACE/SCREEN_TASK.md",
+  "sourcePrompt": "08_google_workspace_V0_EXECUTE.md",
+  "dayScreenshot": "missions/SCREEN_EXECUTION_PACK_20261030/REFERENCE_IMAGES_UNIQUE/9dcb4c40bacf__KNOuX Google Workspace Dashboard.png",
+  "nightScreenshot": null,
+  "visualSourceWarning": "Night geometry follows same DAY screenshot; no pixel-match claim.",
+  "rendererEntryPaths": [
+    "apps/gemini-ui/src/components/workspace/GoogleWorkspaceHub.tsx"
+  ],
+  "orbitNodes": "Drive / Gmail / Sheets / Calendar / Tasks / Connections",
+  "providerPlan": "Current confirmed support includes limited Sheets read-only only where consented. Other APIs must be independently verified; no fake connected account/email/Drive listings or token exposure.",
+  "canonicalDomain": "missions/UNIFIED_FULL_DOMAIN_EXECUTION_20261028/DOMAINS/04_GOOGLE_WORKSPACE_FULL_DOMAIN.md",
+  "serviceCount": 10,
+  "services": [
+    {
+      "id": "mission-04-01",
+      "name": "Google Sheets",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-01.md"
+    },
+    {
+      "id": "mission-04-02",
+      "name": "Gmail",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-02.md"
+    },
+    {
+      "id": "mission-04-03",
+      "name": "Google Tasks",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-03.md"
+    },
+    {
+      "id": "mission-04-04",
+      "name": "Google Forms",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-04.md"
+    },
+    {
+      "id": "mission-04-05",
+      "name": "Google Contacts",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-05.md"
+    },
+    {
+      "id": "mission-04-06",
+      "name": "Google Calendar",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-06.md"
+    },
+    {
+      "id": "mission-04-07",
+      "name": "Google Picker",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-07.md"
+    },
+    {
+      "id": "mission-04-08",
+      "name": "Google Slides",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-08.md"
+    },
+    {
+      "id": "mission-04-09",
+      "name": "Google Chat",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-09.md"
+    },
+    {
+      "id": "mission-04-10",
+      "name": "Google Classroom",
+      "canonicalSpec": "missions/SERVICE_PREVIEW_LIVE_EXECUTION_20261027/services/04_GOOGLE_WORKSPACE/mission-04-10.md"
+    }
+  ],
+  "providerStatus": "MUST_AUDIT",
+  "windowsRuntimeVerified": false,
+  "ownerVisualApproved": false
+}
