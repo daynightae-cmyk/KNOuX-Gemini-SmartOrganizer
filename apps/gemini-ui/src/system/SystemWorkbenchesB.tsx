@@ -241,8 +241,8 @@ export function DriverInventoryWorkbench({ locale, snapshot, controller }: Workb
                         aria-selected={selected?.id === driver.id}
                       >
                         <td>
-                          <strong className="sys-row-name" title={driver.deviceName}>{driver.deviceName}</strong>
-                          <span className="sys-row-sub" title={driver.infName || undefined}>{driver.infName || t(locale, 'INF not returned', 'INF غير متاح')}</span>
+                          <strong className="sys-row-name" title={driver.deviceName} dir="auto">{driver.deviceName}</strong>
+                          <span className="sys-row-sub" title={driver.infName || undefined} dir="auto">{driver.infName || t(locale, 'INF not returned', 'INF غير متاح')}</span>
                         </td>
                         <td className="sys-mono">{driver.deviceClass || '—'}</td>
                         <td>{driver.provider || '—'}</td>
@@ -443,7 +443,7 @@ export function LogChannelWorkbench({ locale, snapshot, controller }: WorkbenchP
                       }}
                       aria-selected={selected?.name === channel.name}
                     >
-                      <td><strong className="sys-row-name sys-mono" title={channel.name}>{channel.name}</strong></td>
+                      <td><strong className="sys-row-name sys-mono" title={channel.name} dir="auto">{channel.name}</strong></td>
                       <td className="sys-mono">{formatCount(channel.recordCount)}</td>
                       <td className="sys-mono">{formatBytes(channel.fileSizeBytes)}</td>
                       <td>{channel.retention || '—'}</td>
@@ -825,7 +825,7 @@ export function AutostartLinksWorkbench({ locale, snapshot, controller, onOpenSe
                     onClick={() => setSelectedId(link.id)}
                   >
                     <span className={cx('sys-link-node', `is-${meta.tone}`)} aria-hidden="true" />
-                    <span className="sys-link-copy">
+                    <span className="sys-link-copy" dir="auto">
                       <strong>{link.name}</strong>
                       <em className="sys-mono">{link.source} · {link.scope}</em>
                     </span>
@@ -1210,7 +1210,7 @@ export function TimelineWorkbench({ locale, snapshot, controller }: WorkbenchPro
                       <strong>{formatTimestamp(event.at, locale)}</strong>
                       <em>{locale === AR ? meta.ar : meta.en}</em>
                     </span>
-                    <span className="sys-timeline-copy">
+                    <span className="sys-timeline-copy" dir="auto">
                       <strong title={event.title}>{event.title}</strong>
                       <em title={`${event.kind} · ${event.source}`}>{event.kind} · {event.source}</em>
                     </span>

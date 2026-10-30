@@ -39,13 +39,13 @@ import {
   startSystemScan,
   verifySystemSignatures,
 } from './native';
+import type { SystemLocale } from './catalog';
+import { t } from './model';
 
 export interface SystemActionError {
   code: string;
   message: string;
-}
-
-function toActionError(error: unknown, fallbackCode: string, fallbackMessage: string): SystemActionError {
+}function toActionError(error: unknown, fallbackCode: string, fallbackMessage: string): SystemActionError {
   if (error && typeof error === 'object') {
     const candidate = error as { code?: unknown; message?: unknown };
     return {
@@ -59,7 +59,7 @@ function toActionError(error: unknown, fallbackCode: string, fallbackMessage: st
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const MAX_SERIES = 120;
 
-export function useSystem() {
+export function useSystem(locale: SystemLocale = 'en') {
   const nativeAvailable = useMemo(() => Boolean(getSystemShell()), []);
   const [capabilities, setCapabilities] = useState<SystemCapabilities | null>(null);
   const [snapshot, setSnapshot] = useState<SystemSnapshot | null>(null);
@@ -157,15 +157,23 @@ export function useSystem() {
           const failedStages = envelope.data.coverage.filter((stage) => stage.status === 'unavailable').length;
           showNotice(
             current.status === 'partial'
-              ? `Measured observatory completed partially: ${envelope.data.processCount} process(es), ${failedStages} unavailable stage(s), ${envelope.data.warnings.length} warning(s).`
-              : `Measured observatory complete: ${envelope.data.processCount} process(es), ${envelope.data.services.length} service(s), ${envelope.data.events.length} event(s).`,
+              ? t(
+                  locale,
+                  `Measured observatory completed partially: ${envelope.data.processCount} process(es), ${failedStages} unavailable stage(s), ${envelope.data.warnings.length} warning(s).`,
+                  `اكتمل المرصد المقيس جزئيًا: ${envelope.data.processCount} عملية، ${failedStages} مرحلة غير متاحة، ${envelope.data.warnings.length} تحذير.`,
+                )
+              : t(
+                  locale,
+                  `Measured observatory complete: ${envelope.data.processCount} process(es), ${envelope.data.services.length} service(s), ${envelope.data.events.length} event(s).`,
+                  `اكتمل المرصد المقيس: ${envelope.data.processCount} عملية، ${envelope.data.services.length} خدمة، ${envelope.data.events.length} حدث.`,
+                ),
           );
           void queryEvents({ limit: 100 });
         }
         return current;
       }
       if (current.status === 'cancelled') {
-        showNotice('Observatory scan cancelled. No partial snapshot was published.');
+        showNotice(t(locale, 'Observatory scan cancelled. No partial snapshot was published.', 'أُلغي مسح المرصد. لم تُنشر أي لقطة جزئية.'));
       } else if (current.status === 'failed') {
         setActionError({
           code: 'SYSTEM_SCAN_FAILED',
@@ -183,7 +191,7 @@ export function useSystem() {
         sessionRef.current = null;
       }
     }
-  }, [applySnapshot, nativeAvailable, queryEvents, showNotice]);
+  }, [applySnapshot, locale, nativeAvailable, queryEvents, showNotice]);
 
   useEffect(() => {
     if (!nativeAvailable) {
@@ -236,14 +244,14 @@ export function useSystem() {
       sessionRef.current = null;
       if (mounted.current) {
         setSession((current) => (current && current.id === sessionId ? { ...current, status: 'cancelled' } : current));
-        showNotice('Cancellation requested. Measured stages stop at the next safe boundary.');
+        showNotice(t(locale, 'Cancellation requested. Measured stages stop at the next safe boundary.', 'طُلب الإلغاء. تتوقف المراحل المقيسة عند أقرب حد آمن.'));
       }
     } catch (error) {
       setActionError(toActionError(error, 'SYSTEM_CANCEL_FAILED', 'The observatory session could not be cancelled.'));
     } finally {
       if (mounted.current) setCancelling(false);
     }
-  }, [scanning, session?.id, showNotice]);
+  }, [locale, scanning, session?.id, showNotice]);
 
   const refreshSnapshot = useCallback(async (announce = false) => {
     if (!nativeAvailable) return null;
@@ -253,7 +261,7 @@ export function useSystem() {
       const envelope = await loadSystemSnapshot();
       if (envelope?.data) {
         applySnapshot(envelope.data);
-        if (announce) showNotice('The measured snapshot was re-read from the native coordinator.');
+        if (announce) showNotice(t(locale, 'The measured snapshot was re-read from the native coordinator.', 'أُعيدت قراءة اللقطة المقيسة من المنسّق الأصلي.'));
         return envelope.data;
       }
       return null;
@@ -263,7 +271,7 @@ export function useSystem() {
     } finally {
       if (mounted.current) setRefreshing(false);
     }
-  }, [applySnapshot, nativeAvailable, showNotice]);
+  }, [applySnapshot, locale, nativeAvailable, showNotice]);
 
   const sampleNow = useCallback(async (silent = false) => {
     if (!nativeAvailable || samplingRef.current) return null;
@@ -390,14 +398,14 @@ export function useSystem() {
     try {
       const envelope = await openSystemSettings(target);
       if (envelope?.data?.opened) {
-        showNotice(`Windows Settings opened at the supported ${target} handoff.`);
+        showNotice(t(locale, `Windows Settings opened at the supported ${target} handoff.`, `فُتحت إعدادات Windows عند انتقال ${target} المدعوم.`));
       }
     } catch (error) {
       setActionError(toActionError(error, 'SYSTEM_SETTINGS_FAILED', 'The Windows Settings handoff failed.'));
     } finally {
       if (mounted.current) setBusy(null);
     }
-  }, [nativeAvailable, showNotice]);
+  }, [locale, nativeAvailable, showNotice]);
 
   const clearError = useCallback(() => setActionError(null), []);
   const clearNotice = useCallback(() => setNotice(null), []);

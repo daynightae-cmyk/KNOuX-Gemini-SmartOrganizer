@@ -226,7 +226,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
   const [localLocale, setLocalLocale] = useState<SystemLocale | null>(null);
   const locale: SystemLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
-  const controller = useSystem();
+  const controller = useSystem(locale);
   const snapshot = controller.snapshot;
 
   const [activeService, setActiveService] = useState<string | null>(null);

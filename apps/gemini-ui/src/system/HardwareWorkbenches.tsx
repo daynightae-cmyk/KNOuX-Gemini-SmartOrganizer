@@ -1297,7 +1297,7 @@ export function AudioWorkbench({ locale, snapshot, controller }: WorkbenchProps)
         {rows.map((endpoint) => (
           <button type="button" key={endpoint.id} className={cx('sys-audio-strip', selected?.id === endpoint.id && 'is-active')} onClick={() => setSelectedId(endpoint.id)}>
             <span className="sys-audio-glyph" aria-hidden="true">{endpoint.kind === 'output' ? <Volume2 /> : <Activity />}</span>
-            <span className="sys-audio-copy">
+            <span className="sys-audio-copy" dir="auto">
               <strong title={endpoint.name}>{endpoint.name}</strong>
               <em title={endpoint.manufacturer || undefined}>{endpoint.manufacturer || t(locale, 'Manufacturer unknown', 'المصنّع مجهول')}</em>
             </span>

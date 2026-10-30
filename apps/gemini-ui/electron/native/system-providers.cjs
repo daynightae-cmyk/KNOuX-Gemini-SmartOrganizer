@@ -192,6 +192,21 @@ function text(value) {
   return normalized || null;
 }
 
+/**
+ * Get-WinEvent serializes UserId as a SecurityIdentifier object
+ * ({ BinaryLength, AccountDomainSid, Value }) in Windows PowerShell JSON.
+ * Stringifying that object yields "[object Object]", so read the Value field
+ * explicitly and keep the measured SID text only.
+ */
+function sidText(value) {
+  if (value == null) return null;
+  if (typeof value === 'object') {
+    const candidate = value.Value ?? value.value ?? value.Sid ?? value.sid ?? value.StringSid ?? null;
+    return candidate == null ? null : text(candidate);
+  }
+  return text(value);
+}
+
 function clip(value, max = 500) {
   const normalized = text(value);
   if (!normalized) return null;
@@ -870,7 +885,7 @@ function normalizeEvents(raw) {
       levelName: text(entry.LevelDisplayName),
       timeCreated: time,
       message: clip(entry.Message, 600) || '',
-      userSid: text(entry.UserId),
+      userSid: sidText(entry.UserId),
       activityId: text(entry.ActivityId),
       source: 'Get-WinEvent'
     };

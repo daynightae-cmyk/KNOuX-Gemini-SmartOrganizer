@@ -579,8 +579,8 @@ export function AdaptersWorkbench({ locale, snapshot, controller }: WorkbenchPro
           >
             <span className={cx('sys-adapter-led', String(entry.status).toLowerCase() === 'up' ? 'is-live' : 'is-idle')} aria-hidden="true" />
             <span className="sys-adapter-kind">{interfaceKind(entry) === 'virtual' ? t(locale, 'Virtual', 'افتراضي') : interfaceKind(entry) === 'physical' ? t(locale, 'Physical', 'فعلي') : t(locale, 'Unknown', 'مجهول')}</span>
-            <strong>{entry.name}</strong>
-            <em>{entry.description || entry.interfaceType || t(locale, 'No description returned', 'لم يُعد وصف')}</em>
+            <strong dir="auto">{entry.name}</strong>
+            <em dir="auto">{entry.description || entry.interfaceType || t(locale, 'No description returned', 'لم يُعد وصف')}</em>
             <span className="sys-adapter-meta">
               <span className="sys-mono">{entry.mac || '—'}</span>
               <span>{entry.linkSpeed || '—'}</span>
@@ -1562,7 +1562,7 @@ export function HostsWorkbench({ locale, snapshot, controller }: WorkbenchProps)
                   title={entry.raw}
                 >
                   <span className="sys-hosts-line">{entry.lineNumber}</span>
-                  <span className="sys-hosts-raw sys-mono">{entry.raw || ' '}</span>
+                  <span className="sys-hosts-raw sys-mono" dir="ltr">{entry.raw || ' '}</span>
                   <Chip tone={entry.active ? 'good' : 'muted'}>{entry.active ? t(locale, 'Active', 'نشط') : t(locale, 'Inactive', 'غير نشط')}</Chip>
                 </button>
               ))}
@@ -1712,7 +1712,7 @@ export function ProxiesWorkbench({ locale, snapshot, controller }: WorkbenchProp
             <span className="sys-proxy-lane">{entry.lane}</span>
             <strong>{entry.enabled == null ? t(locale, 'Unknown', 'مجهول') : entry.enabled ? t(locale, 'Enabled', 'ممكّن') : t(locale, 'Direct', 'مباشر')}</strong>
             <em className="sys-mono">{entry.proxyServer || t(locale, 'No proxy server', 'لا خادم وكيل')}</em>
-            <span className="sys-proxy-source">{entry.source}</span>
+            <span className="sys-proxy-source" dir="auto">{entry.source}</span>
           </button>
         ))}
       </div>
@@ -1741,7 +1741,7 @@ export function ProxiesWorkbench({ locale, snapshot, controller }: WorkbenchProp
             {proxies.lanes.map((entry) => (
               <div className="sys-proxy-graph-row" key={entry.lane}>
                 <span className={cx('sys-proxy-graph-node', entry.enabled ? 'is-live' : 'is-idle')} aria-hidden="true" />
-                <span className="sys-proxy-graph-copy">
+                <span className="sys-proxy-graph-copy" dir="auto">
                   <strong>{entry.lane}</strong>
                   <em>{entry.provenance}</em>
                 </span>

@@ -1813,6 +1813,11 @@ html[data-theme='light'] .sys-panel-head {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  /* Arabic layout with Latin units ("238 GB") or hashes reverses word order
+     when the value inherits rtl. plaintext resolves each value from its own
+     first strong character, so measured numbers and identifiers keep their
+     order while Arabic sentences stay right-to-left. */
+  unicode-bidi: plaintext;
 }
 
 .sys-field-hint {
@@ -1870,11 +1875,16 @@ html[data-theme='light'] .sys-panel-head {
   font-weight: 600;
   text-align: end;
   overflow-wrap: anywhere;
+  unicode-bidi: plaintext;
 }
 
 .sys-mono {
   font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
   font-variant-numeric: tabular-nums;
+  /* Mono is reserved for measured identifiers, paths and units. Resolving
+     each one from its own first strong character keeps "238 GB" or a GUID in
+     order inside an Arabic layout without forcing the surrounding UI to LTR. */
+  unicode-bidi: plaintext;
 }
 
 .sys-muted-text {
@@ -2050,6 +2060,7 @@ html[data-theme='light'] .sys-info-note.is-good { background: #ecfdf5; }
   font-size: 11px;
   font-weight: 800;
   color: var(--sys-ink);
+  unicode-bidi: plaintext;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

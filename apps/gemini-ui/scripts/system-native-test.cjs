@@ -146,8 +146,8 @@ const SERVICES = {
 
 const EVENTS = {
   events: [
-    { LogName: 'System', RecordId: 501, Id: 41, ProviderName: 'Microsoft-Windows-Kernel-Power', Level: 2, LevelDisplayName: 'Error', TimeCreated: '2026-10-26T11:00:00.000Z', Message: 'The system rebooting without cleanly shutting down.' },
-    { LogName: 'Application', RecordId: 88, Id: 1000, ProviderName: 'KNOuX Test', Level: 3, LevelDisplayName: 'Warning', TimeCreated: '2026-10-26T10:30:00.000Z', Message: 'A measured test warning.' },
+    { LogName: 'System', RecordId: 501, Id: 41, ProviderName: 'Microsoft-Windows-Kernel-Power', Level: 2, LevelDisplayName: 'Error', TimeCreated: '2026-10-26T11:00:00.000Z', Message: 'The system rebooting without cleanly shutting down.', UserId: { BinaryLength: 12, AccountDomainSid: null, Value: 'S-1-5-18' } },
+    { LogName: 'Application', RecordId: 88, Id: 1000, ProviderName: 'KNOuX Test', Level: 3, LevelDisplayName: 'Warning', TimeCreated: '2026-10-26T10:30:00.000Z', Message: 'A measured test warning.', UserId: null },
     { LogName: 'System', RecordId: 77, Id: 12, ProviderName: 'Kernel-General', Level: 4, LevelDisplayName: 'Information', TimeCreated: '2026-10-26T10:00:00.000Z', Message: 'The operating system started.' },
   ],
   channels: [{ LogName: 'System', RecordCount: 5000, FileSize: 1048576, IsEnabled: true, LogMode: 'Circular', LogFilePath: 'C:\\Windows\\System32\\winevt\\Logs\\System.evtx', LastWriteTime: '2026-10-26T11:00:00.000Z' }],
@@ -310,6 +310,9 @@ async function main() {
   assert(snapshot.services.length === 2 && snapshot.serviceEdges.length === 2, 'services and dependency edges are measured');
   assert(snapshot.startupLinks.length === 1 && snapshot.startupLinks[0].linkType === 'process-match', 'autorun links resolve by measured process evidence');
   assert(snapshot.events.length === 3 && snapshot.eventChannels.length === 1, 'events and channels are measured');
+  const sidEvent = snapshot.events.find((entry) => entry.recordId === 501);
+  assert(sidEvent.userSid === 'S-1-5-18', 'a serialized SecurityIdentifier object is reduced to its measured SID text');
+  assert(snapshot.events.every((entry) => entry.userSid == null || !/object Object/.test(entry.userSid)), 'no event leaks a stringified object as its user SID');
   assert(snapshot.boot.lastBootTime === '2026-10-26T09:00:00.000Z' && snapshot.boot.events.length === 1, 'boot evidence is measured');
   assert(snapshot.drivers.length === 2 && snapshot.drivers.filter((entry) => entry.signed === false).length === 1, 'signed driver evidence is retained');
   assert(snapshot.interfaces.length === 1 && snapshot.interfaces[0].ipv4.length === 1 && snapshot.interfaces[0].dnsServers.length === 2, 'interface addresses and DNS are measured');
@@ -428,7 +431,7 @@ async function main() {
     assert(!pageSource.includes(`'${service.id}': undefined`), `no empty workbench placeholder for ${service.id}`);
   }
   assert(/SERVICE_CATALOG: ServiceCatalogEntry\[\]/.test(catalogSource), 'the catalog is a typed descriptor array');
-  assert(/useSystem\(\)/.test(pageSource), 'SystemPage consumes the measured controller');
+  assert(/useSystem\(locale\)/.test(pageSource), 'SystemPage consumes the measured controller with the active locale');
   assert(/SystemServiceWorkspace/.test(pageSource), 'SystemPage mounts specialised service workbenches');
   assert(!/system-inventory/.test(pageSource), 'SystemPage imports no fixture inventory module');
   assert(!/\bINITIAL_[A-Z]/.test(pageSource) && !/\bSAMPLE_[A-Z]/.test(pageSource), 'SystemPage references no fixture constants');
