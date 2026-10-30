@@ -321,7 +321,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   // Aggregate selected files info
   const selectedCount = checkedFileIds.size;
-  const openLiveOrganization = () => window.dispatchEvent(new CustomEvent('knoux:live-organization', {detail: measured && filesNative.source ? {path:filesNative.source.path,relativeFiles:sourceFiles.filter(f=>checkedFileIds.has(f.id)&&f.nativeRelative).map(f=>f.nativeRelative)} : undefined}));
+  const openLiveOrganization = (stageId = 1) => window.dispatchEvent(new CustomEvent('knoux:live-organization', {detail: {...(measured && filesNative.source ? {path:filesNative.source.path,relativeFiles:sourceFiles.filter(f=>checkedFileIds.has(f.id)&&f.nativeRelative).map(f=>f.nativeRelative)} : {}),stageId}}));
   const selectedSizeFormatted =
     selectedCount === 1
       ? sourceFiles.find((f) => checkedFileIds.has(f.id))?.sizeFormatted || '0 B'
@@ -390,7 +390,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
     setSelectedFile(filteredFiles[nextIndex]);
   };
 
-  const handleOpenStudio = () => {
+  const handleOpenStudio = (stageId = 6) => {
+    openLiveOrganization(typeof stageId === 'number' ? stageId : 6);
     if (onNavigateSection) onNavigateSection('studio');
     else navigateTo('studio');
     showToast('Studio opened — plan execution still needs explicit approval.');
@@ -428,12 +429,15 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         hash={selectedHash}
         emptyFolders={filesNative.emptyFolders}
         emptyFoldersLoading={filesNative.emptyFoldersLoading}
+        scopeCount={selectedCount}
+        scopeBytes={selectedSizeFormatted}
         onClose={() => setActiveService(null)}
         onAdd={() => void filesNative.addSource()}
         onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
         onOpenStudio={handleOpenStudio}
         onLoadEmpty={() => void filesNative.loadEmptyFolders()}
         onHash={() => void handleHashFile()}
+        onSort={(value) => setSortBy(value)}
         embedded
       />
     );
@@ -1257,7 +1261,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
                 {/* Add to Organization Plan Button */}
                 <button
-                  onClick={handleOpenStudio}
+                  onClick={() => handleOpenStudio(6)}
                   className="knx-files-primary w-full py-2 rounded-lg bg-gradient-to-r from-[#713bff] to-[#5123bb] hover:from-[#844dff] hover:to-[#612de0] text-xs font-bold flex items-center justify-center gap-1.5 shadow-[0_0_14px_rgba(113,59,255,0.5)] border border-purple-400/50 cursor-pointer"
                 >
                   <FolderTree className="w-3.5 h-3.5" />
@@ -1305,7 +1309,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                       {selectedFile.suggestedAction || 'Move to Pictures\\Nature\\ and rename using YYYY-MM-DD_Location format.'}
                     </div>
                   </div>
-                  <button onClick={handleOpenStudio} title="Review this in the Studio plan" className="shrink-0">
+                  <button onClick={() => handleOpenStudio(6)} title="Review this in the Studio plan" className="shrink-0">
                     <ArrowRight className="w-3.5 h-3.5 text-cyan-400 mt-0.5" />
                   </button>
                 </div>
@@ -1324,7 +1328,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                       key={serv.key}
                       data-service-key={serv.key}
                       data-testid={`files-service-${serv.key}`}
-                      onClick={() => ['file-organize-preview','file-organize-apply','file-organize-undo'].includes(serv.key) ? openLiveOrganization() : setActiveService(serv.key)}
+                      onClick={() => setActiveService(serv.key)}
                       className="p-1.5 rounded-lg bg-[#091a33] hover:bg-[#122e57] text-cyan-300 hover:text-white border border-[#142e56] hover:border-[#2476ff]/60 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group"
                       title={serv.labelEn}
                     >
@@ -1402,11 +1406,11 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             </div>
 
             {/* Opt-in native live workflow; the approved overview stays intact. */}
-            <button data-testid="files-live-organization" className="knx-files-primary" onClick={openLiveOrganization}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
+            <button data-testid="files-live-organization" className="knx-files-primary" onClick={() => openLiveOrganization(1)}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
             {/* Right Action Button */}
             <button
               data-testid="files-plan-cta"
-              onClick={handleOpenStudio}
+              onClick={() => handleOpenStudio(6)}
               className="knx-files-primary px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#713bff] via-[#2476ff] to-[#1c5fdb] hover:from-[#844dff] hover:to-[#226cf0] text-xs font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(36,118,255,0.6)] border border-cyan-400/50 cursor-pointer"
             >
               <span>{L.planStudio}</span>
