@@ -1,0 +1,2262 @@
+{
+  "domain": "Applications",
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "9b5d6af5c0ead1d4ebbec494b4e4e9b80d4e4398",
+  "profileIsolated": true,
+  "sourceFiles": {
+    "src/pages/ApplicationsPage.tsx": "8985eae7b0ab54233b68c99955fbd0ede0eaa597cf8173b1631bea3793fae5cc",
+    "src/apps/ApplicationsHero.tsx": "57503318087dbfb79a2d67b849af912946818f2b28dbd3d9a729f841ce9dad85",
+    "src/apps/ApplicationServices.tsx": "79cc049a843bde519ff1ca14452063f04f3dca50b4f64a6544e0787b12b7edd4",
+    "src/apps/AppRegister.tsx": "40cb96001feb7a66d3ac634340e02813bd2d6414c8af5f96d7df6ba63f42b524",
+    "src/apps/AppDossier.tsx": "048f26affab0ab3374c57c35113876732d409c95b82f4c0e5d83de430c09d97b",
+    "src/apps/AppServiceWorkspace.tsx": "7731945b98a16a22ee68300bddd0c838504502e1138036a140b83fb09b444437",
+    "src/apps/useApplications.ts": "4ca335c51d825cfb40a43e88de4fe9b37df2c7ce9e4850d885003789568fa2ff",
+    "src/apps/native.ts": "bf34579c3e500876e9a035c0db62314594c15b72db6867321811ccaf4ff74368",
+    "src/apps/model.ts": "f9781a471d8b16e93a8e3f72c15d60fc7d9c8ea53e455ca330106b60d56d965b",
+    "src/apps/catalog.ts": "377e0bd210de04ca3704530c65774c950cdf01a6ca9097668de9faee2ba15b0e",
+    "src/applications.css": "28b6af8fbf449572719e2098505a479a06b027487ceb4911e0dc26c9e7747491",
+    "src/components/workbench/ServiceWorkbenchHost.tsx": "bbb3fa922c6877076afe040dccb51a8a08466a2ba8545f2e5cf4be4a9c136dd6",
+    "electron/native/app-bridge.cjs": "0ca6448e2ce976cf8c1eaf5e8acc61ef5029dbbaf6dd2d1c7bb8c6e765b5d41d",
+    "electron/preload.cjs": "be4f3379eae27114f1011a011e86ae13d0603d33f97f4b549c97f8869a8040d8",
+    "shared/native-contracts.ts": "ac87c9626dfa94d61e36114cd999a121421ff224a6af6455f682684113fdc01e"
+  },
+  "captures": [
+    {
+      "file": "overview-1366x768-en-light.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1672x941-en-light.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1920x1080-en-light.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "app-inventory-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-inventory",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-identity-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-identity",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-search-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-search",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-publisher-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-publisher",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-recent-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-recent",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-uninstall-queue-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-uninstall-queue",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "apps-plan-gate-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-uninstall-queue",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-leftovers-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-leftovers",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-updates-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-updates",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-size-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-size",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-store-packages-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-store-packages",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-associations-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-associations",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-startup-impact-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-startup-impact",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-inventory-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-inventory-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "app-search-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-search-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "app-store-packages-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-store-packages-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "app-associations-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-associations-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "app-startup-impact-expanded-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "app-startup-impact-expanded",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "overview-1672x941-ar-dark.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": null
+      }
+    },
+    {
+      "file": "app-inventory-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-inventory",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-identity-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-identity",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-search-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-search",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-publisher-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-publisher",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-recent-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-recent",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-uninstall-queue-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-uninstall-queue",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-leftovers-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-leftovers",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-updates-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-updates",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-size-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-size",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-store-packages-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-store-packages",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-associations-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-associations",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    },
+    {
+      "file": "app-startup-impact-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "app-startup-impact",
+      "geo": {
+        "overflow": 0,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "rtl",
+        "mainOverflowX": 0,
+        "tiles": 12,
+        "workbench": "side"
+      }
+    }
+  ],
+  "services": [
+    {
+      "key": "app-inventory",
+      "locale": "en",
+      "theme": "light",
+      "signature": "3e02fa37a9cc201d",
+      "text": "AVAILABLEprovider: UninstallRegistry + Get-AppxPackageDense measured register with publisher and registry evidence.Installed records149Per machine42Per user11Packaged96Protected60S",
+      "controls": 1,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-identity",
+      "locale": "en",
+      "theme": "light",
+      "signature": "a70914e7d3c540d0",
+      "text": "AVAILABLEprovider: Get-AuthenticodeSignatureAuthenticode status, signer chain and package identity for one app.201527c705-839a-4832-9118-54d4Bd6a0c89CN=Microsoft Windows, O=Microso",
+      "controls": 23,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-search",
+      "locale": "en",
+      "theme": "light",
+      "signature": "df74d6ba5f5899e5",
+      "text": "AVAILABLEprovider: Measured inventoryInstant multi-parameter query over the measured inventory.120 / 149ApplicationPublisherVersionScopeSize7-Zip 26.05 (x64)Igor Pavlov26.05Per mac",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            179,
+            89,
+            80,
+            70,
+            80
+          ],
+          "th": [
+            {
+              "text": "APPLICATION",
+              "w": 179,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "PUBLISHER",
+              "w": 89,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "VERSION",
+              "w": 80,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SCOPE",
+              "w": 70,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SIZE",
+              "w": 80,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-publisher",
+      "locale": "en",
+      "theme": "light",
+      "signature": "57a5b3d5ec47791c",
+      "text": "PARTIALprovider: Registry publisher + verified signaturesVendors grouped by measured signing evidence, not reputation claims.Trust is derived only from signatures verified in this ",
+      "controls": 1,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 2,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            179,
+            40,
+            55,
+            65,
+            75,
+            85
+          ],
+          "th": [
+            {
+              "text": "PUBLISHER",
+              "w": 179,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "APPS",
+              "w": 40,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "VERIFIED",
+              "w": 55,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "UNSIGNED",
+              "w": 65,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "UNVERIFIED",
+              "w": 75,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "TRUST",
+              "w": 85,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-recent",
+      "locale": "en",
+      "theme": "light",
+      "signature": "62f1bdf507168b3e",
+      "text": "PARTIALprovider: Registry InstallDateInstall dates and installer evidence; modification history is not tracked.30 days90 daysAll dated39 recordsOnly registry InstallDate is measure",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 38
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 17
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 2,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            84,
+            169,
+            114,
+            80,
+            50
+          ],
+          "th": [
+            {
+              "text": "INSTALL DATE",
+              "w": 84,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "APPLICATION",
+              "w": 169,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "PUBLISHER",
+              "w": 114,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "VERSION",
+              "w": 80,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SOURCE",
+              "w": 50,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-uninstall-queue",
+      "locale": "en",
+      "theme": "light",
+      "signature": "9f7e53ac0fcb6c6c",
+      "text": "GATEDprovider: Immutable plan previewImmutable review plan, dependency risk and blocked execution gate.Execution is blocked — Mission 08This workspace builds an immutable, non-exec",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-leftovers",
+      "locale": "en",
+      "theme": "light",
+      "signature": "002695bad2859980",
+      "text": "PARTIALprovider: Bounded AppData/ProgramData namingName-match candidates and stale registrations; nothing is deleted.mutation nonecandidates onlyMeasure leftover candidatesStale re",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 43
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 23
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 18
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 58
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 63
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 18
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 112
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 28
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 491,
+          "table": 491,
+          "scroll": 491,
+          "cols": [
+            157,
+            79,
+            69,
+            187
+          ],
+          "th": [
+            {
+              "text": "CANDIDATE",
+              "w": 157,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "KIND",
+              "w": 79,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "CONF.",
+              "w": 69,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "EVIDENCE",
+              "w": 187,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-updates",
+      "locale": "en",
+      "theme": "light",
+      "signature": "ae0d0ccf1dc74687",
+      "text": "PARTIALprovider: WinGet CLI (optional)Read-only WinGet upgrade evidence and a gated update proposal.Install and update execution is blocked — Mission 11WinGet is invoked read-only.",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 5
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 512,
+          "table": 512,
+          "scroll": 512,
+          "cols": [
+            215,
+            87,
+            87,
+            123
+          ],
+          "th": [
+            {
+              "text": "APPLICATION",
+              "w": 215,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "CURRENT",
+              "w": 87,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "AVAILABLE",
+              "w": 87,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SOURCE",
+              "w": 123,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-size",
+      "locale": "en",
+      "theme": "light",
+      "signature": "395bfba6e62d8c10",
+      "text": "PARTIALprovider: Bounded install-location measurementReported versus measured install footprint with bounded scans.Measurement walks install folders only, skips reparse points and ",
+      "controls": 119,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 10
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 17
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 17
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 15
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 5
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 3
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 4
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 13
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-store-packages",
+      "locale": "en",
+      "theme": "light",
+      "signature": "2d2652d363958aed",
+      "text": "PARTIALprovider: Get-AppxPackage + WinGet discoveryInstalled Appx/MSIX packages and optional WinGet discovery.WinGet installedDiscover repositoryRead package listMeasured Appx/MSIX",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 249
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 165
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 228
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 176
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 124
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 191
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 218
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 218
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            149,
+            134,
+            109,
+            104
+          ],
+          "th": [
+            {
+              "text": "PACKAGE",
+              "w": 149,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "IDENTIFIER",
+              "w": 134,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "VERSION",
+              "w": 109,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SOURCE",
+              "w": 104,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-associations",
+      "locale": "en",
+      "theme": "light",
+      "signature": "ad1a52e939285d4e",
+      "text": "PARTIALprovider: HKCR sample + UserChoiceBounded association sample with a Settings handoff, never a write.ExtensionsProtocolsOpen Windows Default AppsRead bounded sampleExtensions",
+      "controls": 6,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 47
+        },
+        {
+          "tag": "TD",
+          "cls": "",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 26
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 21
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 5
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 491,
+          "table": 491,
+          "scroll": 491,
+          "cols": [
+            59,
+            128,
+            128,
+            128,
+            49
+          ],
+          "th": [
+            {
+              "text": "KEY",
+              "w": 59,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "HANDLER",
+              "w": 128,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "USERCHOICE",
+              "w": 128,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "EXE",
+              "w": 128,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "STATE",
+              "w": 49,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-startup-impact",
+      "locale": "en",
+      "theme": "light",
+      "signature": "aab5e168ec05066b",
+      "text": "PARTIALprovider: Win32_StartupCommand linkageMeasured startup linkage; boot seconds are never invented.Startup mutation is blocked — Mission 09Only measured Win32_StartupCommand li",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 3,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            104,
+            60,
+            119,
+            84,
+            60,
+            70
+          ],
+          "th": [
+            {
+              "text": "ENTRY",
+              "w": 104,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "SOURCE",
+              "w": 60,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "EXE",
+              "w": 119,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "LINKED APP",
+              "w": 84,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "WRITABLE",
+              "w": 60,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "BOOT S",
+              "w": 70,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-inventory",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "d5ecc20859c2fd75",
+      "text": "متاحالمزوّد: UninstallRegistry + Get-AppxPackageسجل كثيف مقيس مع أدلة الناشر والسجل.سجلات مثبتة149لكل الجهاز42لكل مستخدم11حزم96محمية60تسجيلات قديمة0التغطية المقيسةعناصر السجل53عناص",
+      "controls": 1,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-identity",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "6cfd29eea428cc39",
+      "text": "متاحالمزوّد: Get-AuthenticodeSignatureحالة Authenticode وسلسلة التوقيع وهوية الحزمة لتطبيق واحد.201527c705-839a-4832-9118-54d4Bd6a0c89CN=Microsoft Windows, O=Microsoft Corporation,",
+      "controls": 23,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-muted",
+          "over": 85
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-search",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "3dcb526c9fd21d60",
+      "text": "متاحالمزوّد: Measured inventoryاستعلام فوري متعدد المعايير على الجرد المقيس.120 / 149التطبيقالناشرالإصدارالنطاقالحجم7-Zip 26.05 (x64)Igor Pavlov26.05لكل الجهاز5.65 MBWinRAR 7.23 (6",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 16
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-muted apps-cell-clip",
+          "over": 42
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            179,
+            89,
+            80,
+            70,
+            80
+          ],
+          "th": [
+            {
+              "text": "التطبيق",
+              "w": 179,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الناشر",
+              "w": 89,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الإصدار",
+              "w": 80,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "النطاق",
+              "w": 70,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الحجم",
+              "w": 80,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-publisher",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "f95ce83db60a7d9f",
+      "text": "جزئيالمزوّد: Registry publisher + verified signaturesناشرون مجمعون حسب أدلة التوقيع المقيسة، لا ادعاءات السمعة.تُشتق الثقة فقط من التواقيع التي تم التحقق منها في هذه الجلسة. أسماء ",
+      "controls": 1,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 2,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            179,
+            40,
+            55,
+            65,
+            75,
+            85
+          ],
+          "th": [
+            {
+              "text": "الناشر",
+              "w": 179,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "التطبيقات",
+              "w": 40,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "موثّق",
+              "w": 55,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "بلا توقيع",
+              "w": 65,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "غير مؤكد",
+              "w": 75,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الثقة",
+              "w": 85,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-recent",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "aa2d0ae4ccd7a24f",
+      "text": "جزئيالمزوّد: Registry InstallDateتواريخ التثبيت وأدلة المثبت؛ سجل التعديل غير متتبع.30 يومًا90 يومًاكل المؤرخة39 سجليُقاس فقط تاريخ التثبيت في السجل. سجل التحديث أو التعديل غير متت",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 2,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            84,
+            169,
+            114,
+            80,
+            50
+          ],
+          "th": [
+            {
+              "text": "تاريخ التثبيت",
+              "w": 84,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "التطبيق",
+              "w": 169,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الناشر",
+              "w": 114,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الإصدار",
+              "w": 80,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المصدر",
+              "w": 50,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-uninstall-queue",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "4c2b04d960e75594",
+      "text": "مقيّدالمزوّد: Immutable plan previewخطة مراجعة ثابتة ومخاطر التبعية وبوابة تنفيذ محجوبة.التنفيذ محجوب — المهمة 08تنشئ هذه المساحة خطة مراجعة ثابتة غير قابلة للتنفيذ. لا تشحن هذه ال",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-leftovers",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "a54b98674c6d0c0a",
+      "text": "جزئيالمزوّد: Bounded AppData/ProgramData namingمرشحات مطابقة أسماء وتسجيلات قديمة؛ لا يُحذف شيء.دون تغييرمرشحات فقطقياس مرشحات البقاياتسجيلات قديمة0مرشحات أسماء AppData60الجذور الم",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 43
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 23
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 18
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 58
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 63
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 18
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 112
+        },
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 28
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 491,
+          "table": 491,
+          "scroll": 491,
+          "cols": [
+            157,
+            79,
+            69,
+            187
+          ],
+          "th": [
+            {
+              "text": "المرشح",
+              "w": 157,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "النوع",
+              "w": 79,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الثقة",
+              "w": 69,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الدليل",
+              "w": 187,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-updates",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "8c9a1eeb4275c63e",
+      "text": "جزئيالمزوّد: WinGet CLI (optional)أدلة تحديث WinGet للقراءة فقط واقتراح تحديث محجوب.تنفيذ التثبيت والتحديث محجوب — المهمة 11يُستدعى WinGet للقراءة فقط. لا تُقبل اتفاقيات المصدر تلق",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "apps-mono apps-cell-clip block text-[9px] text-slate-500",
+          "over": 5
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 512,
+          "table": 512,
+          "scroll": 512,
+          "cols": [
+            215,
+            87,
+            87,
+            123
+          ],
+          "th": [
+            {
+              "text": "التطبيق",
+              "w": 215,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الحالي",
+              "w": 87,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المتاح",
+              "w": 87,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المصدر",
+              "w": 123,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-size",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "6056c8f34ba43376",
+      "text": "جزئيالمزوّد: Bounded install-location measurementالبصمة المبلغة مقابل المقيسة مع فحص محدود.يقيس مجلدات التثبيت فقط، ويتجاوز نقاط إعادة التحليل، ويفرض ميزانيات على العناصر والعمق وا",
+      "controls": 119,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 10
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 17
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 17
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 15
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 5
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 3
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 4
+        },
+        {
+          "tag": "SPAN",
+          "cls": "min-w-0 flex-1",
+          "over": 13
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": []
+    },
+    {
+      "key": "app-store-packages",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "dbabcb6d83fb0a94",
+      "text": "جزئيالمزوّد: Get-AppxPackage + WinGet discoveryحزم Appx/MSIX المثبتة واستكشاف WinGet الاختياري.مثبت عبر WinGetاستكشاف المستودعقراءة قائمة الحزمسجلات Appx/MSIX المقيسة96WinGetv1.29.",
+      "controls": 4,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 243
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 159
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 222
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 170
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 118
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 185
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 212
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip text-[10px]",
+          "over": 212
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            149,
+            134,
+            109,
+            104
+          ],
+          "th": [
+            {
+              "text": "الحزمة",
+              "w": 149,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المعرّف",
+              "w": 134,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الإصدار",
+              "w": 109,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المصدر",
+              "w": 104,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-associations",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "df1f1390a660c4b6",
+      "text": "جزئيالمزوّد: HKCR sample + UserChoiceعينة ارتباطات محدودة مع انتقال للإعدادات، دون أي كتابة.الامتداداتالبروتوكولاتفتح التطبيقات الافتراضية في ويندوزقراءة عينة محدودةامتدادات في الع",
+      "controls": 6,
+      "overflowX": 0,
+      "scrollers": [
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 41
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 20
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 15
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 10
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 4
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 10
+        },
+        {
+          "tag": "TD",
+          "cls": "apps-mono apps-cell-clip",
+          "over": 15
+        }
+      ],
+      "clipped": [],
+      "disclosedTooltips": 0,
+      "tables": [
+        {
+          "wrap": 491,
+          "table": 491,
+          "scroll": 491,
+          "cols": [
+            59,
+            128,
+            128,
+            128,
+            49
+          ],
+          "th": [
+            {
+              "text": "المفتاح",
+              "w": 59,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المعالج",
+              "w": 128,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "اختيار المستخدم",
+              "w": 128,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "التنفيذي",
+              "w": 128,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الحالة",
+              "w": 49,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "app-startup-impact",
+      "locale": "ar",
+      "theme": "dark",
+      "signature": "da3889f209acee21",
+      "text": "جزئيالمزوّد: Win32_StartupCommand linkageارتباط الإقلاع مقيس؛ ثواني الإقلاع لا تُختلق أبداً.تغيير الإقلاع محجوب — المهمة 09يُعرض فقط ارتباط Win32_StartupCommand المقيس. ثواني الإقل",
+      "controls": 2,
+      "overflowX": 0,
+      "scrollers": [],
+      "clipped": [],
+      "disclosedTooltips": 3,
+      "tables": [
+        {
+          "wrap": 497,
+          "table": 497,
+          "scroll": 497,
+          "cols": [
+            104,
+            60,
+            119,
+            84,
+            60,
+            70
+          ],
+          "th": [
+            {
+              "text": "المدخل",
+              "w": 104,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "المصدر",
+              "w": 60,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "التنفيذي",
+              "w": 119,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "التطبيق",
+              "w": 84,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الكتابة",
+              "w": 60,
+              "clipped": false,
+              "lines": 1
+            },
+            {
+              "text": "الإقلاع",
+              "w": 70,
+              "clipped": false,
+              "lines": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "probes": [
+    {
+      "probe": "apps-inventory",
+      "installed": "149",
+      "registerRows": 149,
+      "banner": "Measured native inventory149 applications · 149 source records · 30 Oct 2026, 18:26 · 6,948 msMEASURED4 warnings"
+    },
+    {
+      "probe": "apps-plan-gate",
+      "gate": "Removal approval gate This plan is immutable and non-executable. Mission 08 owns execution and requires a separate explicit approval. PLAN 3131d9b50a85bf51 APPLICATIONS 1 BLOCKED 0 RECLAIM EVIDENCE 5.65 MB RECLAIM SOURCE",
+      "blocked": true
+    },
+    {
+      "probe": "expanded-app-inventory",
+      "overflowX": 0,
+      "tableWrap": 1622
+    },
+    {
+      "probe": "expanded-app-search",
+      "overflowX": 0,
+      "tableWrap": 1605
+    },
+    {
+      "probe": "expanded-app-store-packages",
+      "overflowX": 0,
+      "tableWrap": 1605
+    },
+    {
+      "probe": "expanded-app-associations",
+      "overflowX": 0,
+      "tableWrap": 1599
+    },
+    {
+      "probe": "expanded-app-startup-impact",
+      "overflowX": 0,
+      "tableWrap": 1620
+    },
+    {
+      "probe": "apps-tool-selector",
+      "switched": true
+    }
+  ],
+  "checks": [
+    {
+      "security": {
+        "contextIsolation": true,
+        "sandbox": true,
+        "nodeIntegration": false,
+        "webSecurity": true
+      }
+    },
+    "Twelve distinct Applications service bodies verified across DAY/NIGHT and EN/AR (12 signatures)",
+    "Every captured body exposes at least one measured control and no ellipsized label"
+  ],
+  "errors": [],
+  "ok": true
+}
