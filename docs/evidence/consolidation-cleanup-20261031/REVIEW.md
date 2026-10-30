@@ -15,3 +15,10 @@ All current untracked visual evidence and the existing capture utility are integ
 Historical branches/worktree snapshots do not replace current approved visuals or native providers. No OS/service/registry/account or owner-file operation is performed. Remote protection must be honored; no force push or history rewrite.
 
 Verification from final source pass: TypeScript/build, Home/navigation/workbench/workspace tests, nine Electron checks and 32 captures passed. This consolidation adds evidence only; workspace guard and TypeScript/build are refreshed. Installed/package/scaling/owner acceptance remain unverified.
+
+## Actual result
+Eight linked worktrees unregistered and removed through Git; twelve merged local branches deleted normally. Only canonical main remains registered. The stash was dropped; a corrected POSIX-path blob check confirms all eleven archive versions are committed verbatim. The first verification command used Windows separators in a Git object path and failed; the corrected check passed without any content loss.
+
+The Anima remnant is a node_modules junction to canonical dependencies, not 762 MB of duplicated data. Generated temporary build (374251224 bytes) and removal of residual empty directories were rejected by automatic approval review with only 'blocked by policy'; no workaround deletion was attempted. External historical recovery packages remain unaudited and retained.
+
+Observed free disk increase: 5902893056 bytes; free now: 10382536704 bytes. See result.json for exact inventory and CI URL. Normal push to origin/main succeeded at 6bfd22f and its GitHub run completed successfully. Final report synchronization follows in Git history.

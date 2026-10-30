@@ -1,0 +1,35 @@
+{
+  "startingHead": "a6dca26224a3a3638df815c6a85f649642797de4",
+  "consolidationHead": "6bfd22ffe37b38df171341e637b2007e4fc461cc",
+  "initialFreeBytes": 4479643648,
+  "observedFreeBytes": 10382536704,
+  "netFreeIncreaseBytes": 5902893056,
+  "removedRegisteredWorktrees": 8,
+  "removedMergedLocalBranches": 12,
+  "stash": "Empty; all 11 original blob IDs verified verbatim in committed recovered-stash evidence",
+  "remainingLocalBranches": [
+    "main"
+  ],
+  "remainingRegisteredWorktrees": [
+    "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer 6bfd22f [main]"
+  ],
+  "typecheckExitCode": 0,
+  "buildExitCode": 0,
+  "remoteObserved": "6bfd22ffe37b38df171341e637b2007e4fc461cc",
+  "ci": {
+    "sha": "6bfd22ffe37b38df171341e637b2007e4fc461cc",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41142848177"
+  },
+  "remaining": {
+    "worktreePathRemnant": "Empty parent directories and node_modules junction targeting canonical dependencies; no second dependency copy",
+    "blockedTemporaryBuild": "apps/gemini-ui/release-gemini/win-unpacked.tmp",
+    "blockedTemporaryBuildBytes": 374251224,
+    "deletionBlockReason": "Automatic approval review: blocked by policy, without detailed reason. No alternative deletion mechanism attempted.",
+    "externalHistoricalRecoveryPackages": "Not deleted: outside the audited linked worktrees; no complete unique-content proof for every external package."
+  },
+  "ownerFilesChanged": false,
+  "forcePush": false,
+  "historyRewrite": false
+}
