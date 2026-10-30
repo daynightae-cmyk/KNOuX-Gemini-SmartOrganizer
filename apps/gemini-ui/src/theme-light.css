@@ -832,3 +832,24 @@ html[data-theme='light'] video {
 html[data-theme='light'] :focus-visible {
   outline-color: #0369a1;
 }
+
+/* --------------------------------------------------------------------------
+   Storage service workbenches (Volume Atlas)
+   The twelve workbodies are authored in the NIGHT palette. DAY remaps their
+   measured surfaces globally; the quiet secondary action slate is the only
+   tone without a daylight counterpart, so it is scoped here instead of
+   changing sibling domains.
+   -------------------------------------------------------------------------- */
+html[data-theme='light'] .storage-viewport [class~='bg-[#0a1c38]'] {
+  background-color: #e8eefa !important;
+}
+html[data-theme='light'] .storage-viewport [class~='border-[#173766]'] {
+  border-color: var(--knx-day-line) !important;
+}
+html[data-theme='light'] .storage-viewport [data-testid='storage-workbench-expanded-shell'] {
+  background: #eef2ff !important;
+}
+html[data-theme='light'] .storage-viewport [data-testid='storage-workbench-expanded'] {
+  background: #f7f8ff !important;
+  border-color: var(--knx-day-line) !important;
+}

@@ -88,8 +88,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [treemapZoomNode, setTreemapZoomNode] = useState<string | null>(null);
   const [selectedTreemapItem, setSelectedTreemapItem] = useState<string>('Windows (93.6 GB)');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
-  const [activeService, setLegacyActiveService] = useState<string | null>(null);
-  const setActiveService=(id:string|null)=>{if(id&&['storage-large-files', 'storage-duplicates', 'storage-treemap', 'storage-top-folders', 'storage-filetypes', 'storage-reclaim'].includes(id)){setLegacyActiveService(null);window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live',{detail:{serviceId:id}}));}else setLegacyActiveService(id);};
+  const [activeService, setActiveService] = useState<string | null>(null);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.storage.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -272,11 +271,26 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
       onClose={() => setActiveService(null)}
       onChoose={() => void storageNative.chooseSource()}
       onRescan={() => void storageNative.rescan()}
+      onRefreshVolumes={() => storageNative.refreshVolumes()}
+      onCopy={(label, text) => {
+        void (async () => {
+          try {
+            await navigator.clipboard.writeText(text);
+            showToast(`${label} copied to the clipboard.`);
+          } catch {
+            showToast('Clipboard access is unavailable.');
+          }
+        })();
+      }}
       onTab={(tab) => { setActiveTab(tab); setActiveService(null); }}
       onVerify={() => void storageNative.verifyDuplicates()}
       onNavigateFiles={() => navigateSection('files')}
       onNavigateCleanup={() => navigateSection('cleanup')}
       onNavigateStudio={() => navigateSection('studio')}
+      onOpenVault={() => {
+        setActiveService(null);
+        window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live', { detail: { serviceId: 'storage-reclaim' } }));
+      }}
       embedded
     />
   ) : null;
@@ -816,7 +830,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <button data-testid="storage-live-vault" className="knx-files-primary" onClick={()=>setActiveService('storage-duplicates')}>{isArabic?'استرداد حي آمن':'Live safe reclaim'}</button>
+          <button data-testid="storage-live-vault" className="knx-files-primary" onClick={() => window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live', { detail: { serviceId: 'storage-reclaim' } }))}>{isArabic?'استرداد حي آمن':'Live safe reclaim'}</button>
           <button
             data-testid="storage-inspect"
             onClick={() => setActiveService('storage-disks')}
@@ -885,7 +899,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                   aria-label={isArabic ? 'تبديل خدمة التخزين' : 'Switch storage service'}
                   value={activeService}
                   onChange={(event) => setActiveService(event.target.value)}
-                  className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+                  className="max-w-[190px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
                 >
                   {STORAGE_SERVICES_CATALOG.map((entry) => (
                     <option key={entry.id} value={entry.serviceKey}>{isArabic ? storageServiceLabel(entry.serviceKey, true).title : entry.name}</option>
@@ -914,7 +928,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                   aria-label={isArabic ? 'تبديل خدمة التخزين' : 'Switch storage service'}
                   value={activeService}
                   onChange={(event) => setActiveService(event.target.value)}
-                  className="max-w-[150px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+                  className="max-w-[190px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
                 >
                   {STORAGE_SERVICES_CATALOG.map((entry) => (
                     <option key={entry.id} value={entry.serviceKey}>{isArabic ? storageServiceLabel(entry.serviceKey, true).title : entry.name}</option>

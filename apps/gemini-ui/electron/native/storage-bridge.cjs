@@ -220,6 +220,9 @@ class StorageBridge {
 
   async analysis(sourceId) {
     const { source, record } = this.requireSource(sourceId);
+    // `requireSource` holds the stored grant ({id, path, addedAt}); the
+    // contract promises a measured StudioSource with file/folder counts.
+    const granted = this.studio.publicSource(source);
     const overview = await this.files.overview(sourceId);
     if (!overview) throw storageError('STORAGE_OVERVIEW_FAILED', 'The measured file overview is unavailable.');
     const { tree, truncated } = this.buildTree(record);
@@ -268,14 +271,14 @@ class StorageBridge {
 
     return {
       sourceId,
-      source,
+      source: granted,
       totals: {
         ...overview.totals,
         analyzedBytes: tree.sizeBytes,
       },
       coverage: {
         files: record.files.length,
-        folders: source.folderCount,
+        folders: granted.folderCount,
         partial: Boolean(record.summary?.partial || record.summary?.truncated || truncated),
         warnings: [...(overview.warnings || []), ...(truncated ? ['Treemap node limit reached; deeper folders are aggregated.'] : [])],
         lastScanned: overview.scannedAt,
