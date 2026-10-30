@@ -69,6 +69,8 @@ import './visual/reference-restraint.css';
 import './visual/orbital-engine.css';
 import './visual/command-canvas.css';
 import './visual/section-fidelity.css';
+// Motion polish loads last so it can refine, never replace, the domain styles.
+import './visual/knoux-motion.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 
 export type { AppSection } from './context/NavigationContext';

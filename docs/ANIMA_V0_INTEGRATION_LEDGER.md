@@ -92,6 +92,21 @@ Evidence: `docs/evidence/cleanup-audit/baseline/` — 12 actual Electron capture
 
 Next domain per the owner queue: Smart Scan.
 
+## Shared motion layer
+
+Baseline: canonical local main `77026b5`. One new stylesheet (`src/visual/knoux-motion.css`) imported last in `App.tsx`; no component, token or layout file changed.
+
+Scope: orbital core entrance and a breathing halo, staggered satellite entrance on the chips only, drifting dashed rings, faster comet sweep, twinkling nodes, satellite hover lift and press, focus and selected ring pulses, hover sheen and press feedback on the known primary buttons, animated tab underline, staggered panel and KPI entrance, table row accent on hover, donut draw-in, sidebar hover shift with a one-shot active glow, and an online engine-dot pulse.
+
+Guard rails: every rule lives inside `prefers-reduced-motion: no-preference`, animates only transform, opacity, stroke-dashoffset and small shadows, and never touches geometry or a colour token. No layout property, timer, request or state was added.
+
+Regression caught and fixed during verification: the first entrance animation animating `transform` on the absolutely positioned core and satellites erased their `translate(-50%, -50%)`, shifting the wheel and letting the core cover the Duplicates label. The keyframes now carry that translate, and chips animate separately so hover still works.
+
+Verification: TypeScript exit 0; production build exit 0. Actual Electron at 1672×941 over Studio, Files, Storage and Cleanup in DAY and NIGHT: 8 cases, zero page overflow, six orbit buttons each, zero renderer errors. Two frames 900 ms apart prove the decorative sweep advanced from `-89.8px` to `-624.1px` while all six satellite boxes stayed pixel-identical. With `prefers-reduced-motion: reduce` emulated, every animation resolves to `none`. See `docs/evidence/motion-polish/final/`.
+
+Open: motion is verified at 1672×941 only, not at the other viewports or in packaged Electron; the concurrent cinematic-entry work was not touched.
+
+
 
 
 

@@ -1,0 +1,155 @@
+/* KNOuX motion layer.
+   Additive polish only: transforms, opacity and small shadow animations on
+   elements that already exist. No geometry, no layout property, no colour
+   token is changed here, so DAY/NIGHT structure and the approved compositions
+   stay identical. Every rule is inside prefers-reduced-motion: no-preference. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ---------------------------------------------------------------- route */
+  @keyframes knx-fade-in { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes knx-rise { from { opacity: 0; transform: translate3d(0, 10px, 0) } to { opacity: 1; transform: none } }
+  /* The core and chips are absolutely positioned with translate(-50%,-50%);
+     an entrance that animates transform must carry that translate or the
+     element lands half a box off-centre. */
+  @keyframes knx-core-in { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.86) } 62% { opacity: 1; transform: translate(-50%, -50%) scale(1.03) } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1) } }
+  @keyframes knx-chip-in { 0% { opacity: 0; transform: scale(.86) } 100% { opacity: 1; transform: scale(1) } }
+  @keyframes knx-breathe { 0%, 100% { opacity: .38; transform: scale(.94) } 50% { opacity: .9; transform: scale(1.05) } }
+  @keyframes knx-twinkle { 0%, 100% { opacity: .35 } 45% { opacity: 1 } 62% { opacity: .6 } }
+  @keyframes knx-dash-drift { to { stroke-dashoffset: -1000 } }
+  @keyframes knx-sheen { 0% { opacity: 0; transform: translateX(-160%) skewX(-16deg) } 25% { opacity: .9 } 100% { opacity: 0; transform: translateX(320%) skewX(-16deg) } }
+  @keyframes knx-underline { from { transform: scaleX(0); opacity: .2 } to { transform: scaleX(1); opacity: 1 } }
+  @keyframes knx-donut-in { from { opacity: 0; transform: rotate(-126deg) scale(.9) } to { opacity: 1; transform: rotate(-90deg) scale(1) } }
+  @keyframes knx-focus-ring { 0% { box-shadow: 0 0 0 0 rgba(167, 139, 250, .55) } 70% { box-shadow: 0 0 0 9px rgba(167, 139, 250, 0) } 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0) } }
+  @keyframes knx-nav-glow { 0% { box-shadow: 0 0 0 0 rgba(167, 139, 250, .45) } 100% { box-shadow: 0 0 0 12px rgba(167, 139, 250, 0) } }
+  @keyframes knx-dot { 0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .45) } 60% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0) } }
+
+  .knx-command-canvas, .os-studio, .approved-home { animation: knx-fade-in .32s ease-out both }
+
+  /* --------------------------------------------------------- orbital core */
+  .knx-orbit-tools > button { animation: knx-fade-in .42s ease-out backwards }
+  .knx-orbit-tools > button .knx-orbit-chip { animation: knx-chip-in .52s cubic-bezier(.22, 1, .36, 1) backwards }
+  .knx-orbit-tools > button:nth-child(1) { animation-delay: .02s }
+  .knx-orbit-tools > button:nth-child(2) { animation-delay: .08s }
+  .knx-orbit-tools > button:nth-child(3) { animation-delay: .14s }
+  .knx-orbit-tools > button:nth-child(4) { animation-delay: .2s }
+  .knx-orbit-tools > button:nth-child(5) { animation-delay: .26s }
+  .knx-orbit-tools > button:nth-child(6) { animation-delay: .32s }
+
+  .knx-orbit-core { animation: knx-core-in .62s cubic-bezier(.22, 1, .36, 1) backwards }
+  .knx-orbit-core::after {
+    content: '';
+    position: absolute;
+    inset: -11px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(circle, rgba(167, 139, 250, .32), rgba(139, 92, 246, .12) 55%, transparent 72%);
+    animation: knx-breathe 5.6s ease-in-out infinite;
+  }
+
+  /* Only the decorative SVG rings and particles move; satellites stay put. */
+  .knx-vector-segments { animation: knx-dash-drift 52s linear infinite }
+  .knx-vector-sweep { animation-duration: 18s !important }
+  .knx-vector-highlights > circle { animation: knx-twinkle 3.8s ease-in-out infinite }
+  .knx-vector-highlights > circle:nth-child(2n) { animation-delay: -1.3s }
+  .knx-vector-highlights > circle:nth-child(3n) { animation-delay: -2.4s }
+  .knx-vector-particles > circle { animation: knx-twinkle 6.4s ease-in-out infinite; animation-delay: var(--particle-phase) }
+
+  .knx-orbit-chip { transition: transform .2s cubic-bezier(.22, 1, .36, 1), box-shadow .2s ease, border-color .2s ease }
+  .knx-orbit-tool:hover:not(:disabled) .knx-orbit-chip { transform: translateY(-3px) scale(1.06) }
+  .knx-orbit-tool:active:not(:disabled) .knx-orbit-chip { transform: translateY(-1px) scale(.99) }
+  .knx-orbit-tool:focus-visible .knx-orbit-chip { animation: knx-focus-ring 1.9s ease-out infinite }
+  .knx-orbit-tool[aria-pressed='true'] .knx-orbit-chip { animation: knx-focus-ring 2.6s ease-out infinite }
+
+  /* --------------------------------------------------------------- buttons */
+  :is(.osa-run, .atl-explore, .atl-reclaim-cta, .os-primary, .knx-files-primary, .knx-command-tabs button[aria-pressed='true']) {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  :is(.osa-run, .atl-explore, .atl-reclaim-cta, .os-primary, .knx-files-primary, .knx-command-tabs button[aria-pressed='true'])::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 34%;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .38), transparent);
+    transform: translateX(-160%) skewX(-16deg);
+  }
+  :is(.osa-run, .atl-explore, .atl-reclaim-cta, .os-primary, .knx-files-primary, .knx-command-tabs button[aria-pressed='true']):hover:not(:disabled)::after {
+    animation: knx-sheen .85s cubic-bezier(.3, .7, .3, 1);
+  }
+
+  .visual-sprint button:not(.knx-orbit-tool):not(.knx-orbit-core):not(.knx-orbit__tool):not(.knx-orbit__core) {
+    transition: background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease, transform .14s ease;
+  }
+  .visual-sprint button:not(.knx-orbit-tool):not(.knx-orbit-core):not(.knx-orbit__tool):not(.knx-orbit__core):active:not(:disabled) {
+    transform: translateY(1px) scale(.988);
+    transition-duration: .06s;
+  }
+
+  /* ------------------------------------------------------------------ tabs */
+  .osa-tabs > button, .atl-tabs > button { position: relative }
+  .osa-tabs > button[aria-pressed='true']::after,
+  .atl-tabs > button[aria-pressed='true']::after {
+    content: '';
+    position: absolute;
+    left: 16%;
+    right: 16%;
+    bottom: 3px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, .6);
+    transform-origin: center;
+    animation: knx-underline .34s cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  /* -------------------------------------------------- panels, tiles, tables */
+  .osa-body > .osa-card { animation: knx-rise .44s cubic-bezier(.22, 1, .36, 1) both }
+  .osa-body > .osa-card:nth-child(2) { animation-delay: .07s }
+  .osa-body > .osa-card:nth-child(3) { animation-delay: .13s }
+  .atl-drives { animation: knx-rise .4s cubic-bezier(.22, 1, .36, 1) both }
+  .atl-analysis { animation: knx-rise .44s cubic-bezier(.22, 1, .36, 1) .08s both }
+
+  .osa-metrics > div, .atl-hero-metrics > div { animation: knx-rise .42s cubic-bezier(.22, 1, .36, 1) both }
+  .osa-metrics > div:nth-child(2), .atl-hero-metrics > div:nth-child(2) { animation-delay: .05s }
+  .osa-metrics > div:nth-child(3), .atl-hero-metrics > div:nth-child(3) { animation-delay: .1s }
+  .osa-metrics > div:nth-child(4), .atl-hero-metrics > div:nth-child(4) { animation-delay: .15s }
+
+  .osa-card, .atl-drives, .atl-analysis { transition: border-color .2s ease, box-shadow .2s ease }
+  .osa-card:hover, .atl-drives:hover, .atl-analysis:hover { border-color: rgba(167, 139, 250, .45) }
+
+  .atl-table tbody tr, .osa-table tbody tr { position: relative; transition: background-color .16s ease }
+  .atl-table tbody tr::before, .osa-table tbody tr::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #a78bfa, #8b5cf6);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .18s ease;
+  }
+  .atl-table tbody tr:hover::before, .osa-table tbody tr:hover::before { transform: scaleY(1) }
+
+  /* ---------------------------------------------------------------- donuts */
+  .osa-donut svg, .atl-donut svg { animation: knx-donut-in .95s cubic-bezier(.22, 1, .36, 1) both }
+
+  /* --------------------------------------------------------------- sidebar */
+  .approved-sidebar nav button { transition: background-color .18s ease, color .18s ease, transform .18s ease }
+  .approved-sidebar nav button:hover { transform: translateX(2px) }
+  .os-studio[dir='rtl'] .approved-sidebar nav button:hover { transform: translateX(-2px) }
+  .approved-sidebar nav button.active { animation: knx-nav-glow 2.4s ease-out 1 }
+  .approved-engine .engine-dot:not(.offline) { animation: knx-dot 3.2s ease-out infinite }
+}
+
+/* Hard stop for anyone who asked the OS to reduce motion. */
+@media (prefers-reduced-motion: reduce) {
+  .knx-orbit-core::after { animation: none; opacity: .35 }
+  .knx-vector-segments, .knx-vector-highlights > circle, .knx-vector-particles > circle { animation: none !important }
+}

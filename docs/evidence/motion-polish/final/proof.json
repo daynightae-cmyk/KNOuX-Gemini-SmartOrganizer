@@ -1,0 +1,197 @@
+{
+  "cases": [
+    {
+      "route": "studio",
+      "theme": "light",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Documents",
+        "Images",
+        "Archives",
+        "Duplicates",
+        "Code",
+        "Videos"
+      ]
+    },
+    {
+      "route": "studio",
+      "theme": "dark",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Documents",
+        "Images",
+        "Archives",
+        "Duplicates",
+        "Code",
+        "Videos"
+      ]
+    },
+    {
+      "route": "files",
+      "theme": "light",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Recent",
+        "Large Files",
+        "Categories",
+        "Duplicates",
+        "Locations",
+        "Tags (disabled)"
+      ]
+    },
+    {
+      "route": "files",
+      "theme": "dark",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Recent",
+        "Large Files",
+        "Categories",
+        "Duplicates",
+        "Locations",
+        "Tags (disabled)"
+      ]
+    },
+    {
+      "route": "storage",
+      "theme": "light",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Drives",
+        "Used Space",
+        "Free Space",
+        "Treemap",
+        "Largest Folders",
+        "Reclaim"
+      ]
+    },
+    {
+      "route": "storage",
+      "theme": "dark",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Drives",
+        "Used Space",
+        "Free Space",
+        "Treemap",
+        "Largest Folders",
+        "Reclaim"
+      ]
+    },
+    {
+      "route": "cleanup",
+      "theme": "light",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Temporary Files",
+        "Browser Cache",
+        "Diagnostic Logs",
+        "Recycle Bin",
+        "Windows Update",
+        "Unused Items"
+      ]
+    },
+    {
+      "route": "cleanup",
+      "theme": "dark",
+      "overflow": 0,
+      "orbit": 6,
+      "tools": [
+        "Temporary Files",
+        "Browser Cache",
+        "Diagnostic Logs",
+        "Recycle Bin",
+        "Windows Update",
+        "Unused Items"
+      ]
+    }
+  ],
+  "motion": {
+    "sweepBefore": {
+      "dash": "-73.1484px",
+      "anim": "knoux-light-sweep"
+    },
+    "sweepAfter": {
+      "dash": "-162.039px",
+      "anim": "knoux-light-sweep"
+    },
+    "satellitesStationary": true,
+    "before": [
+      [
+        294,
+        108,
+        95
+      ],
+      [
+        556,
+        108,
+        95
+      ],
+      [
+        615,
+        212,
+        95
+      ],
+      [
+        556,
+        310,
+        95
+      ],
+      [
+        294,
+        310,
+        95
+      ],
+      [
+        236,
+        212,
+        95
+      ]
+    ],
+    "after": [
+      [
+        294,
+        108,
+        95
+      ],
+      [
+        556,
+        108,
+        95
+      ],
+      [
+        615,
+        212,
+        95
+      ],
+      [
+        556,
+        310,
+        95
+      ],
+      [
+        294,
+        310,
+        95
+      ],
+      [
+        236,
+        212,
+        95
+      ]
+    ]
+  },
+  "reduced": {
+    "segments": "none",
+    "tool": "none"
+  },
+  "errors": [],
+  "ok": true
+}
