@@ -85,6 +85,8 @@ export interface ServiceWorkspaceProps {
   onToggleSelected: (id: string) => void;
   onStagePlan: (ids: string[], mode: CleanupPlan['mode']) => void;
   onClose: () => void;
+  /** Opens the executing Safety Vault workbench. Absent in a browser preview. */
+  onOpenVault?: () => void;
   embedded?: boolean;
 }
 
@@ -98,6 +100,7 @@ interface BranchProps {
   onApplySelection: (ids: string[]) => void;
   onToggleSelected: (id: string) => void;
   onStagePlan: (ids: string[], mode: CleanupPlan['mode']) => void;
+  onOpenVault?: () => void;
 }
 
 function sumBytes(items: Array<{ sizeBytes: number | null }>): number {
@@ -297,6 +300,7 @@ function TempPreviewWorkspace({
   onApplySelection,
   onToggleSelected,
   onStagePlan,
+  onOpenVault,
 }: BranchProps) {
   const [query, setQuery] = useState('');
   const [safety, setSafety] = useState<'all' | CleanupSafety>('all');
@@ -364,6 +368,17 @@ function TempPreviewWorkspace({
         >
           <Lock className="w-3.5 h-3.5" />
           {t(locale, 'Stage cleanup proposal', 'إعداد مقترح التنظيف')}
+        </button>
+        <button
+          type="button"
+          className="cln-btn cln-btn-quiet"
+          data-testid="cleanup-temp-preview-vault"
+          onClick={onOpenVault}
+          disabled={!onOpenVault}
+          title={t(locale, 'Opens the executing Safety Vault where a verified keeper must be chosen manually.', 'يفتح خزنة الأمان المنفذة حيث يجب اختيار النسخة المحتفظة يدويًا.')}
+        >
+          <Archive className="w-3.5 h-3.5" />
+          {t(locale, 'Review in Safety Vault', 'راجع في خزنة الأمان')}
         </button>
       </div>
 
@@ -438,6 +453,7 @@ function QuarantineWorkspace({
   candidates,
   selectedIds,
   onStagePlan,
+  onOpenVault,
 }: BranchProps) {
   const [acknowledged, setAcknowledged] = useState(false);
   const [scopeMode, setScopeMode] = useState<'selection' | 'eligible'>('eligible');
@@ -544,6 +560,17 @@ function QuarantineWorkspace({
             <Lock className="w-3.5 h-3.5" />
             {t(locale, 'Stage quarantine review', 'إعداد مراجعة الحجر')} ({formatCount(scope.length)})
           </button>
+          <button
+            type="button"
+            className="cln-btn cln-btn-quiet"
+            data-testid="cleanup-temp-quarantine-vault"
+            onClick={onOpenVault}
+            disabled={!onOpenVault}
+            title={t(locale, 'Opens the executing Safety Vault with the keeper selection view.', 'يفتح خزنة الأمان المنفذة على عرض اختيار النسخ المحتفظة.')}
+          >
+            <Archive className="w-3.5 h-3.5" />
+            {t(locale, 'Open executing Safety Vault', 'افتح خزنة الأمان المنفذة')}
+          </button>
           <span className="cln-muted">{t(locale, 'Execution stays disabled in the plan gate.', 'يبقى التنفيذ معطّلًا في بوابة الخطة.')}</span>
         </div>
       </Section>
@@ -555,7 +582,7 @@ function QuarantineWorkspace({
 /* 03 — Undo Cleanup                                                   */
 /* ------------------------------------------------------------------ */
 
-function UndoWorkspace({ locale, controller }: BranchProps) {
+function UndoWorkspace({ locale, controller, onOpenVault }: BranchProps) {
   const quarantine = controller.quarantine;
   const entries = quarantine?.journal.entries || [];
   const [entryId, setEntryId] = useState<string | null>(null);
@@ -675,6 +702,17 @@ function UndoWorkspace({ locale, controller }: BranchProps) {
             <ClipboardCopy className="w-3.5 h-3.5" />
             {t(locale, 'Stage restoration draft', 'إعداد مسودة الاستعادة')}
           </button>
+          <button
+            type="button"
+            className="cln-btn cln-btn-quiet"
+            data-testid="cleanup-temp-undo-vault"
+            onClick={onOpenVault}
+            disabled={!onOpenVault}
+            title={t(locale, 'Opens the Safety Vault receipt list to inspect verified transfers.', 'يفتح قائمة إيصالات خزنة الأمان لفحص النقل المتحقق.')}
+          >
+            <Archive className="w-3.5 h-3.5" />
+            {t(locale, 'Inspect vault receipts', 'افحص إيصالات الخزنة')}
+          </button>
           {draft ? (
             <span className="cln-chip cln-chip-warn">
               {t(locale, 'Draft', 'مسودة')} · {formatCount(draft.itemIds.length)} · {formatTimestamp(draft.createdAt, locale)}
@@ -695,7 +733,7 @@ function UndoWorkspace({ locale, controller }: BranchProps) {
 /* 04 — Quarantine Browser                                             */
 /* ------------------------------------------------------------------ */
 
-function VaultWorkspace({ locale, controller }: BranchProps) {
+function VaultWorkspace({ locale, controller, onOpenVault }: BranchProps) {
   const quarantine = controller.quarantine;
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<'date' | 'size'>('date');
@@ -734,6 +772,17 @@ function VaultWorkspace({ locale, controller }: BranchProps) {
         </select>
         <span className="cln-chip cln-chip-muted">{formatCount(items.length)} {t(locale, 'entries', 'عنصرًا')}</span>
         <span className="cln-chip cln-chip-muted">{t(locale, 'Retention', 'الاحتفاظ')}: {retention} d</span>
+        <button
+          type="button"
+          className="cln-btn cln-btn-quiet"
+          data-testid="cleanup-quarantine-list-vault"
+          onClick={onOpenVault}
+          disabled={!onOpenVault}
+          title={t(locale, 'Opens the executing Safety Vault duplicate keeper view.', 'يفتح عرض اختيار النسخ المحتفظة في خزنة الأمان المنفذة.')}
+        >
+          <Archive className="w-3.5 h-3.5" />
+          {t(locale, 'Open keeper review', 'افتح مراجعة النسخ المحتفظة')}
+        </button>
       </div>
 
       <div className="cln-svc-split cln-svc-split-wide">
@@ -887,6 +936,7 @@ function EstimateWorkspace({
           <button
             type="button"
             className="cln-btn cln-btn-primary"
+            data-testid="cleanup-estimate-recalc"
             onClick={() => {
               setRecalculatedAt(new Date().toISOString());
               controller.showNotice(t(locale, 'The estimate draft was recalculated from measured sizes. Nothing was executed.', 'أُعيد حساب مسودة التقدير من الأحجام المقيسة. لم يُنفّذ شيء.'));
@@ -1662,6 +1712,7 @@ function ScheduleWorkspace({ locale, controller }: BranchProps) {
             <button
               type="button"
               className="cln-btn cln-btn-primary"
+              data-testid="cleanup-schedule-compose"
               disabled={!categories.length || !controller.nativeAvailable}
               onClick={() => void controller.loadSchedule({ frequency, time, weekdays, categories })}
             >
@@ -1767,7 +1818,7 @@ function ReportsWorkspace({ locale, controller }: BranchProps) {
           <button type="button" aria-pressed={format === 'json'} className={format === 'json' ? 'is-active' : ''} onClick={() => setFormat('json')}>JSON</button>
           <button type="button" aria-pressed={format === 'pdf'} className={format === 'pdf' ? 'is-active' : ''} onClick={() => setFormat('pdf')}>PDF</button>
         </div>
-        <button type="button" className="cln-btn cln-btn-primary" onClick={() => void exportReport()} disabled={!report || format === 'pdf'}>
+        <button type="button" className="cln-btn cln-btn-primary" data-testid="cleanup-reports-export" onClick={() => void exportReport()} disabled={!report || format === 'pdf'}>
           <ClipboardCopy className="w-3.5 h-3.5" />
           {t(locale, 'Export preview report', 'تصدير التقرير')}
         </button>
@@ -1875,6 +1926,7 @@ export function ServiceWorkspace({
   onToggleSelected,
   onStagePlan,
   onClose,
+  onOpenVault,
   embedded = false,
 }: ServiceWorkspaceProps) {
   const capability = controller.capabilities?.services.find((entry) => entry.id === service);
@@ -1898,6 +1950,7 @@ export function ServiceWorkspace({
     onApplySelection,
     onToggleSelected,
     onStagePlan,
+    onOpenVault,
   };
 
   const renderWorkspaceBody = () => (
@@ -1931,7 +1984,7 @@ export function ServiceWorkspace({
     return (
       <div data-testid="cleanup-service-focus" className="flex flex-col gap-2">
         <p className="text-[10px] text-slate-400">{note}</p>
-        {renderWorkspaceBody()}
+        <div data-testid={`cleanup-${service}-workbench`}>{renderWorkspaceBody()}</div>
         <div className="cln-service-foot-gate">
           <Lock className="w-3.5 h-3.5 shrink-0" />
           <div>
