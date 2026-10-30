@@ -110,13 +110,27 @@ try {
   }
 
   async function boot(locale, theme) {
-    await page.evaluate(({ locale, theme }) => {
-      localStorage.setItem('knoux_locale', locale);
-      localStorage.setItem('knoux_theme', theme);
-      location.hash = 'system';
-    }, { locale, theme });
-    await page.reload({ waitUntil: 'domcontentloaded' });
-    await page.getByTestId('system-workspace').waitFor({ timeout: 45000 });
+    // A fresh isolated profile starts with the app's dark default. If the very
+    // first evaluate lands before the window has navigated to the app origin
+    // (about:blank), the write is discarded, so verify what the renderer
+    // actually applied and rewrite once instead of capturing the wrong theme.
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      await page.evaluate(({ locale, theme }) => {
+        localStorage.setItem('knoux_locale', locale);
+        localStorage.setItem('knoux_theme', theme);
+        location.hash = 'system';
+      }, { locale, theme });
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await page.getByTestId('system-workspace').waitFor({ timeout: 45000 });
+      const applied = await page.evaluate(() => ({
+        theme: document.documentElement.dataset.theme === 'light' ? 'light' : 'dark',
+        locale: localStorage.getItem('knoux_locale'),
+        dir: document.documentElement.getAttribute('dir'),
+      }));
+      if (applied.theme === theme && applied.locale === locale && applied.dir === (locale === 'ar' ? 'rtl' : 'ltr')) break;
+      if (attempt === 2) throw new Error(`boot did not apply ${locale}/${theme}: ${JSON.stringify(applied)}`);
+      await page.waitForTimeout(400);
+    }
     // The first visit starts a bounded nine-stage native scan. Wait for a real
     // measured snapshot: the banner chip flips to MEASURED and the progress
     // panel disappears. No number is taken from a loading state. The poll runs
