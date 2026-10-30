@@ -2392,13 +2392,20 @@ html[data-theme='light'] .sys-info-note.is-good { background: #ecfdf5; }
 [data-workbench-mode='side'] .sys-cpu-hero,
 [data-workbench-mode='side'] .sys-gpu-bay,
 [data-workbench-mode='side'] .sys-disk-bays,
-[data-workbench-mode='side'] .sys-monitor-card,
 [data-workbench-mode='side'] .sys-adapter-rack,
 [data-workbench-mode='side'] .sys-report-hero,
 [data-workbench-mode='side'] .sys-wifi-hero,
 [data-workbench-mode='side'] .sys-wear-hero,
 [data-workbench-mode='side'] .sys-throughput-hero {
   flex-wrap: wrap;
+}
+/* The monitor card is a column, not a row. Forcing flex-wrap on it made the
+   16:10 screen collapse into a ~30px strip with its resolution clipped. Pin a
+   real preview height for the pinned rail instead; expanded mode keeps the
+   original aspect ratio. */
+[data-workbench-mode='side'] .sys-monitor-screen {
+  aspect-ratio: auto;
+  height: 140px;
 }
 
 [data-workbench-mode='side'] .sys-wb-head { flex-wrap: wrap; }

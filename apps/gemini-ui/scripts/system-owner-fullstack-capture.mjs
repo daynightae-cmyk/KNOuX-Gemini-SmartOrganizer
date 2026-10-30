@@ -15,13 +15,21 @@ import { _electron as electron, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { mkdir, writeFile, readFile, mkdtemp } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, mkdtemp, readdir, unlink } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
 const require = createRequire(import.meta.url);
 const OUT = path.resolve(process.env.KNOUX_SYSTEM_CAPTURE_DIR || '../../docs/evidence/owner-fullstack-20261030/system-current');
 await mkdir(OUT, { recursive: true });
+// A failed or stale run must not leave earlier PNGs behind to be mistaken for
+// this run's evidence. Clear only the default evidence directory; an explicit
+// KNOUX_SYSTEM_CAPTURE_DIR belongs to the caller.
+if (!process.env.KNOUX_SYSTEM_CAPTURE_DIR) {
+  for (const entry of await readdir(OUT)) {
+    if (entry.endsWith('.png')) await unlink(path.join(OUT, entry));
+  }
+}
 
 const profile = await mkdtemp(path.join(os.tmpdir(), 'knoux-system-capture-'));
 const env = { ...process.env };
@@ -216,13 +224,19 @@ try {
     expect(geo.theme).toBe(theme);
     expect(geo.dir).toBe(locale === 'ar' ? 'rtl' : 'ltr');
     expect(Math.abs(geo.mainOverflowX ?? 0)).toBeLessThanOrEqual(2);
-    const w = await app.browserWindow(page);
-    await w.evaluate((win) => { win.show(); win.moveTop(); win.webContents.invalidate(); });
-    await page.waitForTimeout(120);
-    const png = await w.evaluate(async (win) => (await win.webContents.capturePage()).toPNG().toString('base64'));
+    // Capture through the page CDP pipeline rather than webContents.capturePage:
+    // capturePage can hand back the last composited frame when the OS window is
+    // not producing new frames, which previously wrote one service's pixels
+    // under another service's file name. page.screenshot drives a fresh frame.
     const file = `${name}.png`;
-    await writeFile(path.join(OUT, file), Buffer.from(png, 'base64'));
-    proof.captures.push({ file, width, height, locale, theme, service, geo });
+    const target = path.join(OUT, file);
+    await page.screenshot({ path: target, animations: 'disabled', timeout: 20000 });
+    const hash = createHash('sha256').update(await readFile(target)).digest('hex');
+    const previous = proof.captures[proof.captures.length - 1];
+    if (previous && previous.hash === hash) {
+      throw new Error(`stale frame: ${file} is pixel-identical to ${previous.file}`);
+    }
+    proof.captures.push({ file, width, height, locale, theme, service, hash, geo });
     return geo;
   }
 
@@ -245,6 +259,7 @@ try {
     if (!(await page.getByTestId('system-workbench-side-shell').count())) await openFirst();
     const select = page.getByTestId('system-workbench-tool-select');
     await select.selectOption(key);
+    expect(await select.inputValue()).toBe(key);
     await expect(page.getByTestId(`sys-service-workspace-${key}`)).toBeVisible({ timeout: 20000 });
     await page.waitForTimeout(450);
   }
@@ -405,6 +420,10 @@ try {
       })(),
     }));
     const signature = createHash('sha256').update(info.text).digest('hex').slice(0, 16);
+    // Bind the asserted body to the pixels: the measured body of service K must
+    // name K in its own text, so a screenshot of a different service can never
+    // be filed under K without the DOM evidence disagreeing.
+    if (!info.text.includes(key)) proof.issues.push({ key, locale, kind: 'body-key-missing', detail: info.text.slice(0, 120) });
     proof.services.push({
       key,
       locale,

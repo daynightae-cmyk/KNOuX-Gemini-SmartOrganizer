@@ -1235,7 +1235,11 @@ export function DisplayWorkbench({ locale, snapshot, controller }: WorkbenchProp
             onClick={() => setSelectedId(monitor.id)}
           >
             <span className="sys-monitor-screen" aria-hidden="true">
-              <span className="sys-monitor-resolution">{monitor.width ?? '—'}×{monitor.height ?? '—'}</span>
+              <span className="sys-monitor-resolution">
+                {monitor.width == null && monitor.height == null
+                  ? t(locale, 'Mode not reported', 'الوضع غير مُبلَّغ')
+                  : `${monitor.width ?? '—'}×${monitor.height ?? '—'}`}
+              </span>
             </span>
             <span className="sys-monitor-stand" aria-hidden="true" />
             <span className="sys-monitor-copy">
