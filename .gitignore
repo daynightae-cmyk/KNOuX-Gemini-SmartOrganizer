@@ -28,3 +28,7 @@
 # Reviewed archives: every unique member is versioned; original containers preserved outside Git.
 /missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/references.rar
 /missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references_backups/**/references.rar
+# Day/night sprint container (sha256 6c01d73308a540d0139d8044ad8a6d4071d11295a5b36fcd11802bb4f4c3a7d6).
+# All 70 of its members are versioned under migration-history/m0-20261028/visual-sprint-d586601/**
+# and docs/evidence/visual-sprint/**, so only the redundant container itself stays local.
+**/docs/evidence/visual-sprint/visual-sprint.rar
