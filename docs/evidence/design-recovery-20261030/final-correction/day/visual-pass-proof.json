@@ -1,0 +1,144 @@
+{
+  "sourceHashes": {
+    "src/visual/ServicePipeline.tsx": "6b8ab17f8df8f2ace7770449b26718fedf9b4caf79bde9cd0801577a7a5bce44",
+    "src/visual/design-recovery.css": "0258a915e3348727e38fa780723417964f94fb56d5d0f4803635f06c68bc7f99",
+    "src/operations/OrganizationStudioOverview.tsx": "b29563c502826fdbc339b01e99a7a013cc925840893cbd214707abbe3c7d3c75",
+    "electron/native/scan-bridge.cjs": "766dcfd878b6db46b6b83d6cd4658dc148795b92dc92cc924ffd21a5ce698114"
+  },
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T21:40:56.376Z",
+  "frames": [
+    {
+      "section": "home",
+      "theme": "light",
+      "file": "home-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".approved-hero": {
+            "x": 209,
+            "y": 72,
+            "width": 1039,
+            "height": 282.296875
+          },
+          ".approved-hero-actions": {
+            "x": 224,
+            "y": 253.375,
+            "width": 531.96875,
+            "height": 32
+          },
+          ".approved-quick": {
+            "x": 209,
+            "y": 366.296875,
+            "width": 1039,
+            "height": 268.28125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "home-pipeline",
+            "stages": [
+              {
+                "id": "recommend",
+                "state": "pending",
+                "text": "04RecommendPreview"
+              },
+              {
+                "id": "summarize",
+                "state": "pending",
+                "text": "03Summarize"
+              },
+              {
+                "id": "measure",
+                "state": "active",
+                "text": "02Measure"
+              },
+              {
+                "id": "connect",
+                "state": "pending",
+                "text": "01Connect"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "studio",
+      "theme": "light",
+      "file": "studio-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".osa-hero": {
+            "x": 242,
+            "y": 85,
+            "width": 973,
+            "height": 250
+          },
+          ".osa-body": {
+            "x": 242,
+            "y": 397.5,
+            "width": 973,
+            "height": 520.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07Undo"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03Plan"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02Classify"
+              },
+              {
+                "id": "source",
+                "state": "pending",
+                "text": "01Source"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

@@ -1,0 +1,267 @@
+{
+  "sourceHashes": {
+    "src/visual/ServicePipeline.tsx": "7d868207a7fa8c81e54ef3740462c8b01dc3693abeb1e2be995cf2918daa0740",
+    "src/visual/design-recovery.css": "917c43f70d35a19e8a09eb50064855d6f98244ee5ca29803ebdba65ca7784aaa",
+    "src/operations/OrganizationStudioOverview.tsx": "113e54ee48ee6026ac6239f0bad1df2c7ab9f77f0d14e1cc54c5702ec10e6657",
+    "electron/native/scan-bridge.cjs": "766dcfd878b6db46b6b83d6cd4658dc148795b92dc92cc924ffd21a5ce698114"
+  },
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T20:30:50.318Z",
+  "frames": [
+    {
+      "section": "home",
+      "theme": "light",
+      "file": "home-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".approved-hero": {
+            "x": 229,
+            "y": 80,
+            "width": 1029,
+            "height": 321.9375
+          },
+          ".approved-hero-actions": {
+            "x": 244,
+            "y": 270.9375,
+            "width": 526.578125,
+            "height": 32
+          },
+          ".approved-quick": {
+            "x": 229,
+            "y": 413.9375,
+            "width": 1029,
+            "height": 251.53125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "home-pipeline",
+            "stages": [
+              {
+                "id": "connect",
+                "state": "complete",
+                "text": "01Connect"
+              },
+              {
+                "id": "measure",
+                "state": "active",
+                "text": "02Measure"
+              },
+              {
+                "id": "summarize",
+                "state": "pending",
+                "text": "03Summarize"
+              },
+              {
+                "id": "recommend",
+                "state": "pending",
+                "text": "04Recommend"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "studio",
+      "theme": "light",
+      "file": "studio-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".osa-hero": {
+            "x": 242,
+            "y": 85,
+            "width": 973,
+            "height": 300
+          },
+          ".osa-body": {
+            "x": 242,
+            "y": 447.5,
+            "width": 973,
+            "height": 470.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07Undo"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03Plan"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02Classify"
+              },
+              {
+                "id": "source",
+                "state": "active",
+                "text": "01Source"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "system",
+      "theme": "light",
+      "file": "system-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 327.796875
+          },
+          ".knx-command-inspector": {
+            "x": 1246,
+            "y": 483.796875,
+            "width": 414,
+            "height": 394.203125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "system-pipeline",
+            "stages": [
+              {
+                "id": "collect",
+                "state": "active",
+                "text": "01Collect"
+              },
+              {
+                "id": "sample",
+                "state": "pending",
+                "text": "02Sample"
+              },
+              {
+                "id": "analyze",
+                "state": "pending",
+                "text": "03Analyze"
+              },
+              {
+                "id": "diagnose",
+                "state": "pending",
+                "text": "04Diagnose"
+              },
+              {
+                "id": "report",
+                "state": "pending",
+                "text": "05Report"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "automation",
+      "theme": "light",
+      "file": "automation-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 265.984375
+          },
+          ".knx-command-metrics": {
+            "x": 252,
+            "y": 345.984375,
+            "width": 1408,
+            "height": 64
+          }
+        },
+        "pipelines": [
+          {
+            "id": "automation-pipeline",
+            "stages": [
+              {
+                "id": "trigger",
+                "state": "pending",
+                "text": "01Trigger"
+              },
+              {
+                "id": "validate",
+                "state": "pending",
+                "text": "02Validate"
+              },
+              {
+                "id": "dry-run",
+                "state": "pending",
+                "text": "03Dry run"
+              },
+              {
+                "id": "approve",
+                "state": "gated",
+                "text": "04Approve"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

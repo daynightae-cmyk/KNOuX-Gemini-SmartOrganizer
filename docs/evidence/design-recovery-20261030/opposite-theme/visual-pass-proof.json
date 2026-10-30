@@ -1,0 +1,657 @@
+{
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T20:17:21.370Z",
+  "frames": [
+    {
+      "section": "home",
+      "theme": "dark",
+      "file": "home-en-dark-1672.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".approved-hero": {
+            "x": 229,
+            "y": 80,
+            "width": 1029,
+            "height": 321.9375
+          },
+          ".approved-hero-actions": {
+            "x": 244,
+            "y": 270.9375,
+            "width": 526.578125,
+            "height": 32
+          },
+          ".approved-quick": {
+            "x": 229,
+            "y": 413.9375,
+            "width": 1029,
+            "height": 251.53125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "home-pipeline",
+            "stages": [
+              {
+                "id": "connect",
+                "state": "complete",
+                "text": "01Connect"
+              },
+              {
+                "id": "measure",
+                "state": "active",
+                "text": "02Measure"
+              },
+              {
+                "id": "summarize",
+                "state": "pending",
+                "text": "03Summarize"
+              },
+              {
+                "id": "recommend",
+                "state": "pending",
+                "text": "04Recommend"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "studio",
+      "theme": "dark",
+      "file": "studio-en-dark-1672.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".osa-hero": {
+            "x": 242,
+            "y": 85,
+            "width": 973,
+            "height": 300
+          },
+          ".osa-body": {
+            "x": 242,
+            "y": 447.5,
+            "width": 973,
+            "height": 470.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07Undo"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03Plan"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02Classify"
+              },
+              {
+                "id": "source",
+                "state": "active",
+                "text": "01Source"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "workspace",
+      "theme": "dark",
+      "file": "workspace-en-dark-1672.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {},
+        "pipelines": [
+          {
+            "id": "workspace-pipeline",
+            "stages": [
+              {
+                "id": "sync-state",
+                "state": "pending",
+                "text": "01Sync state"
+              },
+              {
+                "id": "preview-data",
+                "state": "pending",
+                "text": "02Preview data"
+              },
+              {
+                "id": "select-service",
+                "state": "complete",
+                "text": "03Select service"
+              },
+              {
+                "id": "review-scopes",
+                "state": "active",
+                "text": "04Review scopes"
+              },
+              {
+                "id": "connect",
+                "state": "gated",
+                "text": "05Connect"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "startup",
+      "theme": "dark",
+      "file": "startup-en-dark-1672.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 319.5
+          },
+          ".knx-command-metrics": {
+            "x": 252,
+            "y": 399.5,
+            "width": 982,
+            "height": 94
+          },
+          ".knx-command-inspector": {
+            "x": 1246,
+            "y": 399.5,
+            "width": 414,
+            "height": 483
+          }
+        },
+        "pipelines": [
+          {
+            "id": "startup-pipeline",
+            "stages": [
+              {
+                "id": "discover",
+                "state": "complete",
+                "text": "01Discover"
+              },
+              {
+                "id": "measure",
+                "state": "complete",
+                "text": "02Measure"
+              },
+              {
+                "id": "filter",
+                "state": "complete",
+                "text": "03Filter"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "approve",
+                "state": "gated",
+                "text": "05Approve"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify boot"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "smart_scan",
+      "theme": "dark",
+      "file": "smart_scan-en-dark-1672.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 254,
+            "y": 72,
+            "width": 978,
+            "height": 281.09375
+          },
+          ".knx-command-metrics": {
+            "x": 254,
+            "y": 363.09375,
+            "width": 978,
+            "height": 92.6875
+          },
+          ".knx-command-inspector": {
+            "x": 1244,
+            "y": 72,
+            "width": 414,
+            "height": 770.90625
+          }
+        },
+        "pipelines": [
+          {
+            "id": "scan-pipeline",
+            "stages": [
+              {
+                "id": "authorize",
+                "state": "active",
+                "text": "01Authorize"
+              },
+              {
+                "id": "quick",
+                "state": "pending",
+                "text": "02Quick Scan"
+              },
+              {
+                "id": "deep",
+                "state": "pending",
+                "text": "03Deep Analysis"
+              },
+              {
+                "id": "findings",
+                "state": "pending",
+                "text": "04Findings"
+              },
+              {
+                "id": "cleanup-gate",
+                "state": "gated",
+                "text": "05Cleanup Gate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "applications",
+      "theme": "light",
+      "file": "applications-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 348.1875
+          },
+          ".knx-command-metrics": {
+            "x": 252,
+            "y": 428.1875,
+            "width": 982,
+            "height": 94
+          },
+          ".knx-command-inspector": {
+            "x": 1246,
+            "y": 428.1875,
+            "width": 414,
+            "height": 500.8125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "apps-pipeline",
+            "stages": [
+              {
+                "id": "inventory",
+                "state": "pending",
+                "text": "01Inventory"
+              },
+              {
+                "id": "inspect",
+                "state": "complete",
+                "text": "02Inspect"
+              },
+              {
+                "id": "updates",
+                "state": "pending",
+                "text": "03Updates"
+              },
+              {
+                "id": "footprint",
+                "state": "complete",
+                "text": "04Footprint"
+              },
+              {
+                "id": "uninstall",
+                "state": "gated",
+                "text": "05Uninstall review"
+              },
+              {
+                "id": "evidence",
+                "state": "pending",
+                "text": "06Evidence"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "services",
+      "theme": "light",
+      "file": "services-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 343.796875
+          },
+          ".knx-command-metrics": {
+            "x": 252,
+            "y": 423.796875,
+            "width": 982,
+            "height": 100
+          },
+          ".knx-command-inspector": {
+            "x": 1246,
+            "y": 423.796875,
+            "width": 414,
+            "height": 454.203125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "services-pipeline",
+            "stages": [
+              {
+                "id": "discover",
+                "state": "active",
+                "text": "06Discover"
+              },
+              {
+                "id": "inspect",
+                "state": "pending",
+                "text": "05Inspect"
+              },
+              {
+                "id": "dependencies",
+                "state": "pending",
+                "text": "04Dependencies"
+              },
+              {
+                "id": "preview",
+                "state": "pending",
+                "text": "03Preview"
+              },
+              {
+                "id": "policy",
+                "state": "pending",
+                "text": "02Policy"
+              },
+              {
+                "id": "recover",
+                "state": "gated",
+                "text": "01Recover"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "repair",
+      "theme": "light",
+      "file": "repair-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 982,
+            "height": 372.796875
+          },
+          ".knx-command-metrics": {
+            "x": 252,
+            "y": 452.796875,
+            "width": 982,
+            "height": 100
+          },
+          ".knx-command-inspector": {
+            "x": 1246,
+            "y": 70,
+            "width": 414,
+            "height": 806
+          }
+        },
+        "pipelines": [
+          {
+            "id": "repair-pipeline",
+            "stages": [
+              {
+                "id": "diagnose",
+                "state": "active",
+                "text": "01Diagnose"
+              },
+              {
+                "id": "inspect",
+                "state": "pending",
+                "text": "02Inspect"
+              },
+              {
+                "id": "choose",
+                "state": "pending",
+                "text": "03Choose"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "confirm",
+                "state": "gated",
+                "text": "05Confirm"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "06Execute"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "07Verify"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "system",
+      "theme": "light",
+      "file": "system-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 327.796875
+          },
+          ".knx-command-inspector": {
+            "x": 1246,
+            "y": 483.796875,
+            "width": 414,
+            "height": 394.203125
+          }
+        },
+        "pipelines": [
+          {
+            "id": "system-pipeline",
+            "stages": [
+              {
+                "id": "collect",
+                "state": "active",
+                "text": "01Collect"
+              },
+              {
+                "id": "sample",
+                "state": "pending",
+                "text": "02Sample"
+              },
+              {
+                "id": "analyze",
+                "state": "pending",
+                "text": "03Analyze"
+              },
+              {
+                "id": "diagnose",
+                "state": "pending",
+                "text": "04Diagnose"
+              },
+              {
+                "id": "report",
+                "state": "pending",
+                "text": "05Report"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "automation",
+      "theme": "light",
+      "file": "automation-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 252,
+            "y": 70,
+            "width": 1408,
+            "height": 265.984375
+          },
+          ".knx-command-metrics": {
+            "x": 252,
+            "y": 345.984375,
+            "width": 1408,
+            "height": 64
+          }
+        },
+        "pipelines": [
+          {
+            "id": "automation-pipeline",
+            "stages": [
+              {
+                "id": "trigger",
+                "state": "pending",
+                "text": "01Trigger"
+              },
+              {
+                "id": "validate",
+                "state": "pending",
+                "text": "02Validate"
+              },
+              {
+                "id": "dry-run",
+                "state": "pending",
+                "text": "03Dry run"
+              },
+              {
+                "id": "approve",
+                "state": "gated",
+                "text": "04Approve"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

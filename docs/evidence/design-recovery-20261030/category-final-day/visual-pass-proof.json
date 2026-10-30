@@ -1,0 +1,84 @@
+{
+  "sourceHashes": {
+    "src/visual/ServicePipeline.tsx": "7d868207a7fa8c81e54ef3740462c8b01dc3693abeb1e2be995cf2918daa0740",
+    "src/visual/design-recovery.css": "01b52da29c11e23ebb47fbf2549d93b867eeb0d5dbd7bff901f36f9d6d0609ac",
+    "src/operations/OrganizationStudioOverview.tsx": "113e54ee48ee6026ac6239f0bad1df2c7ab9f77f0d14e1cc54c5702ec10e6657",
+    "electron/native/scan-bridge.cjs": "766dcfd878b6db46b6b83d6cd4658dc148795b92dc92cc924ffd21a5ce698114"
+  },
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T20:53:08.929Z",
+  "frames": [
+    {
+      "section": "studio",
+      "theme": "light",
+      "file": "studio-en-light-1672.png",
+      "applied": {
+        "theme": "light",
+        "dir": "ltr",
+        "scrollHeight": 941,
+        "innerHeight": 941,
+        "innerWidth": 1672,
+        "scrollWidth": 1672,
+        "geometry": {
+          ".osa-hero": {
+            "x": 242,
+            "y": 85,
+            "width": 973,
+            "height": 300
+          },
+          ".osa-body": {
+            "x": 242,
+            "y": 447.5,
+            "width": 973,
+            "height": 470.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07Undo"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06Verify"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05Execute"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04Review"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03Plan"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02Classify"
+              },
+              {
+                "id": "source",
+                "state": "active",
+                "text": "01Source"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

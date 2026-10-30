@@ -1,0 +1,261 @@
+{
+  "head": "5075a6e6cf90c8d45463204fee3754b1ce427384",
+  "workingTree": "uncommitted",
+  "capturedAt": "2026-10-30T20:23:19.776Z",
+  "frames": [
+    {
+      "section": "home",
+      "theme": "dark",
+      "file": "home-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".approved-hero": {
+            "x": 347,
+            "y": 72,
+            "width": 817,
+            "height": 261.453125
+          },
+          ".approved-hero-actions": {
+            "x": 730.90625,
+            "y": 224.890625,
+            "width": 424.09375,
+            "height": 32
+          },
+          ".approved-quick": {
+            "x": 347,
+            "y": 342.453125,
+            "width": 817,
+            "height": 204.265625
+          }
+        },
+        "pipelines": [
+          {
+            "id": "home-pipeline",
+            "stages": [
+              {
+                "id": "connect",
+                "state": "complete",
+                "text": "01اتصال"
+              },
+              {
+                "id": "measure",
+                "state": "complete",
+                "text": "02قياس"
+              },
+              {
+                "id": "summarize",
+                "state": "partial",
+                "text": "03تلخيص"
+              },
+              {
+                "id": "recommend",
+                "state": "partial",
+                "text": "04توصية"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "studio",
+      "theme": "dark",
+      "file": "studio-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".osa-hero": {
+            "x": 349,
+            "y": 75,
+            "width": 805,
+            "height": 270
+          },
+          ".osa-body": {
+            "x": 349,
+            "y": 405.5,
+            "width": 805,
+            "height": 343.5
+          }
+        },
+        "pipelines": [
+          {
+            "id": "studio-overview-pipeline",
+            "stages": [
+              {
+                "id": "undo",
+                "state": "pending",
+                "text": "07التراجع"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06التحقق"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05التنفيذ"
+              },
+              {
+                "id": "review",
+                "state": "pending",
+                "text": "04المراجعة"
+              },
+              {
+                "id": "plan",
+                "state": "pending",
+                "text": "03الخطة"
+              },
+              {
+                "id": "classify",
+                "state": "pending",
+                "text": "02التصنيف"
+              },
+              {
+                "id": "source",
+                "state": "active",
+                "text": "01المصدر"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "system",
+      "theme": "dark",
+      "file": "system-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 255.703125
+          },
+          ".knx-command-inspector": {
+            "x": 12,
+            "y": 403.703125,
+            "width": 341.5,
+            "height": 301.296875
+          }
+        },
+        "pipelines": [
+          {
+            "id": "system-pipeline",
+            "stages": [
+              {
+                "id": "collect",
+                "state": "active",
+                "text": "01جمع"
+              },
+              {
+                "id": "sample",
+                "state": "pending",
+                "text": "02عينة"
+              },
+              {
+                "id": "analyze",
+                "state": "pending",
+                "text": "03تحليل"
+              },
+              {
+                "id": "diagnose",
+                "state": "pending",
+                "text": "04تشخيص"
+              },
+              {
+                "id": "report",
+                "state": "pending",
+                "text": "05تقرير"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "section": "automation",
+      "theme": "dark",
+      "file": "automation-ar-dark-1366.png",
+      "applied": {
+        "theme": "dark",
+        "dir": "rtl",
+        "scrollHeight": 768,
+        "innerHeight": 768,
+        "innerWidth": 1366,
+        "scrollWidth": 1366,
+        "geometry": {
+          ".knx-command-hero": {
+            "x": 12,
+            "y": 70,
+            "width": 1102,
+            "height": 226
+          },
+          ".knx-command-metrics": {
+            "x": 12,
+            "y": 304,
+            "width": 1102,
+            "height": 54
+          }
+        },
+        "pipelines": [
+          {
+            "id": "automation-pipeline",
+            "stages": [
+              {
+                "id": "trigger",
+                "state": "pending",
+                "text": "01مشغّل"
+              },
+              {
+                "id": "validate",
+                "state": "pending",
+                "text": "02تحقق"
+              },
+              {
+                "id": "dry-run",
+                "state": "pending",
+                "text": "03تجربة جافة"
+              },
+              {
+                "id": "approve",
+                "state": "gated",
+                "text": "04موافقة"
+              },
+              {
+                "id": "execute",
+                "state": "gated",
+                "text": "05تنفيذ"
+              },
+              {
+                "id": "verify",
+                "state": "pending",
+                "text": "06تحقق نهائي"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true
+}
