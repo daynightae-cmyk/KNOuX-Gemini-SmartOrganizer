@@ -77,7 +77,7 @@
     },
     {
       "path": "apps/gemini-ui/src/pages/HomePage.tsx",
-      "sha256": "c77d69c062497c29dcfbc63cc1498d3d1bc08637f08a5ed6e61dd9c48c9089dc",
+      "sha256": "bdc08666f79c391ac577b79310c9c6f1f45bdc9ad2beee55f847a7d783929080",
       "provenance": "LOCAL"
     },
     {
@@ -97,13 +97,28 @@
     },
     {
       "path": "apps/gemini-ui/scripts/home-integration-electron.mjs",
-      "sha256": "f5ab8670d8f65c6940580ea2195f8fe813868a49a046b229e2b391c0134ea43b",
+      "sha256": "61ad4fd3f229fdd4fef2511f8039b1d0f6a190e6e29c8c53fb3399111b1e5b58",
       "provenance": "LOCAL"
     },
     {
       "path": "scripts/verify-workspace.py",
       "sha256": "ae428e14de9c71faca4c923bd346e78a847de99b2921ba4b0f8a0d9a8d9ac433",
       "provenance": "LOCAL"
+    },
+    {
+      "path": "apps/gemini-ui/src/studio/StudioPage.tsx",
+      "sha256": "4163885fddafe75ed54729426923c03685dc4b41c9feea50163ccccf061ccd78",
+      "provenance": "LOCAL_ADAPTER + SHARED_V0_CHROME"
+    },
+    {
+      "path": "apps/gemini-ui/src/studio/studio-integration.css",
+      "sha256": "42f9f19d4bd39f8c786af63c5be24131f13bfb16d70e7d250345f5130468c84d",
+      "provenance": "LOCAL_ADAPTER + SHARED_V0_CHROME"
+    },
+    {
+      "path": "apps/gemini-ui/scripts/studio-chrome-electron.mjs",
+      "sha256": "bae27648d48c62a23428ce274c45ba89e8e22aa9e122ac9e44b217cdb9379a91",
+      "provenance": "LOCAL_ADAPTER + SHARED_V0_CHROME"
     }
   ],
   "native": {
@@ -125,7 +140,7 @@
   "visualGate": "PARTIALLY VERIFIED; actual Electron matrix and manual reference comparison; owner acceptance OPEN",
   "sections": {
     "Home": "IMPLEMENTED AND RUNTIME VERIFIED IN DEVELOPMENT AND PACKAGED ELECTRON; VISUAL ACCEPTANCE OPEN",
-    "Organization Studio": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
+    "Organization Studio": "SHARED CHROME AND STAGE SEARCH IMPLEMENTED; EXISTING NATIVE WORKSPACE PRESERVED; DEVELOPMENT RUNTIME VERIFIED; FULL VISUAL COMPOSITION OPEN",
     "Files": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
     "Storage Atlas": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
     "Automation": "LOCAL PRESERVED; V0 DONOR AVAILABLE BUT NOT INTEGRATED IN THIS SLICE",
@@ -243,5 +258,64 @@
     "runtime": "home-main/proof.json",
     "cases": 12,
     "status": "VERIFIED WITH VISUAL ACCEPTANCE OPEN"
+  },
+  "studioIncrement": {
+    "sourceBase": "54515fb",
+    "provenance": "V0 shared chrome + local Studio portal and operation engine",
+    "visualAcceptance": "OPEN; local interior retained; not exact approved composition",
+    "packaged": "NOT VERIFIED for Studio increment",
+    "fixtureChecks": 13,
+    "runtimeCases": 12,
+    "newIpc": [],
+    "cleanup": [
+      {
+        "path": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\review",
+        "removed": true,
+        "reason": "Mission-generated redundant extraction or superseded package; original archives, incoming extraction, package-final and evidence preserved"
+      },
+      {
+        "path": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\package",
+        "removed": true,
+        "reason": "Mission-generated redundant extraction or superseded package; original archives, incoming extraction, package-final and evidence preserved"
+      }
+    ],
+    "checks": [
+      {
+        "command": "npm run lint",
+        "exitCode": 0,
+        "seconds": 16.22,
+        "log": "studio-check-lint.log"
+      },
+      {
+        "command": "npm run test:home",
+        "exitCode": 0,
+        "seconds": 4.94,
+        "log": "studio-check-test-home.log"
+      },
+      {
+        "command": "npm run test:native",
+        "exitCode": 0,
+        "seconds": 4.78,
+        "log": "studio-check-test-native.log"
+      },
+      {
+        "command": "npm run test:studio",
+        "exitCode": 0,
+        "seconds": 9.34,
+        "log": "studio-check-test-studio.log"
+      },
+      {
+        "command": "npm run test:workbench",
+        "exitCode": 0,
+        "seconds": 7.83,
+        "log": "studio-check-test-workbench.log"
+      },
+      {
+        "command": "npm run test:navigation",
+        "exitCode": 0,
+        "seconds": 1.94,
+        "log": "studio-check-test-navigation.log"
+      }
+    ]
   }
 }

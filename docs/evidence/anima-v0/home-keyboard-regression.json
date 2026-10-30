@@ -1,0 +1,1795 @@
+{
+  "sourceCommit": "54515fb512bbca6adfc0a83221323e57d091075a",
+  "profile": "C:\\Users\\DAYNIG~1\\AppData\\Local\\Temp\\knoux-home-integration-qK1Ypd",
+  "sourceFiles": {
+    "src/pages/HomePage.tsx": "bdc08666f79c391ac577b79310c9c6f1f45bdc9ad2beee55f847a7d783929080",
+    "src/components/home/ApprovedHomeScreen.tsx": "b6276ce46a52a8b52c9430cc150050a9868d160d12b64421f9aafa822f9e57c3",
+    "src/components/home/approved-home.css": "b1c49c712f18f66a779b5e9cb4c9dc2b8755fc2fafeaad14e9280f52be5dc15e",
+    "src/home/live.ts": "7bc9eeef61ceb9fca92d27cff6b72b25941da8a9dc428c07dcc014ab46a1ed1e",
+    "src/visual/KnouxOrbit.tsx": "abb1bcab50aa99aeb8e1711297e81efaf23a41deafc5c4a0dd640a3353a114d2",
+    "src/visual/knoux-orbit.css": "a5f9c4b5cea062fae5bc9c29a96d5e12eebbb0acf2b9436b0c9e4c257445ebcc"
+  },
+  "cases": [
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 229,
+        "y": 80,
+        "width": 1029,
+        "height": 316.5
+      },
+      "orbit": {
+        "x": 246,
+        "y": 95,
+        "width": 466.09375,
+        "height": 286.5
+      },
+      "lower": {
+        "x": 229,
+        "y": 669.5625,
+        "width": 1029,
+        "height": 259.4375
+      },
+      "tools": [
+        {
+          "label": "Smart Scan",
+          "x": 437.046875,
+          "y": 84.90625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Files",
+          "x": 586.1875,
+          "y": 142.21875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Applications",
+          "x": 604.828125,
+          "y": 228.15625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "System",
+          "x": 492.96875,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Storage",
+          "x": 343.828125,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Automation",
+          "x": 287.890625,
+          "y": 199.515625,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 202,
+        "y": 72,
+        "width": 817,
+        "height": 249.890625
+      },
+      "orbit": {
+        "x": 219,
+        "y": 87,
+        "width": 363.265625,
+        "height": 219.890625
+      },
+      "lower": {
+        "x": 202,
+        "y": 555.328125,
+        "width": 817,
+        "height": 204.671875
+      },
+      "tools": [
+        {
+          "label": "Smart Scan",
+          "x": 368.125,
+          "y": 76.578125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Files",
+          "x": 484.375,
+          "y": 120.5625,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Applications",
+          "x": 498.90625,
+          "y": 186.53125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "System",
+          "x": 411.71875,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Storage",
+          "x": 295.46875,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Automation",
+          "x": 251.875,
+          "y": 164.546875,
+          "width": 65,
+          "height": 56
+        }
+      ]
+    },
+    {
+      "locale": "en",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 229,
+        "y": 80,
+        "width": 1277,
+        "height": 369.828125
+      },
+      "orbit": {
+        "x": 269.1875,
+        "y": 95,
+        "width": 540,
+        "height": 339.828125
+      },
+      "lower": {
+        "x": 229,
+        "y": 764.84375,
+        "width": 1277,
+        "height": 303.15625
+      },
+      "tools": [
+        {
+          "label": "Smart Scan",
+          "x": 497.1875,
+          "y": 89.171875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Files",
+          "x": 669.984375,
+          "y": 157.140625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Applications",
+          "x": 691.578125,
+          "y": 259.09375,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "System",
+          "x": 561.984375,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Storage",
+          "x": 389.1875,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Automation",
+          "x": 324.375,
+          "y": 225.109375,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 229,
+        "y": 80,
+        "width": 1029,
+        "height": 316.5
+      },
+      "orbit": {
+        "x": 246,
+        "y": 95,
+        "width": 466.09375,
+        "height": 286.5
+      },
+      "lower": {
+        "x": 229,
+        "y": 669.5625,
+        "width": 1029,
+        "height": 259.4375
+      },
+      "tools": [
+        {
+          "label": "Smart Scan",
+          "x": 437.046875,
+          "y": 84.90625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Files",
+          "x": 586.1875,
+          "y": 142.21875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Applications",
+          "x": 604.828125,
+          "y": 228.15625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "System",
+          "x": 492.96875,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Storage",
+          "x": 343.828125,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Automation",
+          "x": 287.890625,
+          "y": 199.515625,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 202,
+        "y": 72,
+        "width": 817,
+        "height": 249.890625
+      },
+      "orbit": {
+        "x": 219,
+        "y": 87,
+        "width": 363.265625,
+        "height": 219.890625
+      },
+      "lower": {
+        "x": 202,
+        "y": 555.328125,
+        "width": 817,
+        "height": 204.671875
+      },
+      "tools": [
+        {
+          "label": "Smart Scan",
+          "x": 368.125,
+          "y": 76.578125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Files",
+          "x": 484.375,
+          "y": 120.5625,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Applications",
+          "x": 498.90625,
+          "y": 186.53125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "System",
+          "x": 411.71875,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Storage",
+          "x": 295.46875,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "Automation",
+          "x": 251.875,
+          "y": 164.546875,
+          "width": 65,
+          "height": 56
+        }
+      ]
+    },
+    {
+      "locale": "en",
+      "theme": "dark",
+      "width": 1920,
+      "height": 1080,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 229,
+        "y": 80,
+        "width": 1277,
+        "height": 369.828125
+      },
+      "orbit": {
+        "x": 269.1875,
+        "y": 95,
+        "width": 540,
+        "height": 339.828125
+      },
+      "lower": {
+        "x": 229,
+        "y": 764.84375,
+        "width": 1277,
+        "height": 303.15625
+      },
+      "tools": [
+        {
+          "label": "Smart Scan",
+          "x": 497.1875,
+          "y": 89.171875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Files",
+          "x": 669.984375,
+          "y": 157.140625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Applications",
+          "x": 691.578125,
+          "y": 259.09375,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "System",
+          "x": 561.984375,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Storage",
+          "x": 389.1875,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "Automation",
+          "x": 324.375,
+          "y": 225.109375,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "theme": "light",
+      "width": 1672,
+      "height": 941,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 414,
+        "y": 80,
+        "width": 1029,
+        "height": 316.5
+      },
+      "orbit": {
+        "x": 959.90625,
+        "y": 95,
+        "width": 466.09375,
+        "height": 286.5
+      },
+      "lower": {
+        "x": 414,
+        "y": 669.5625,
+        "width": 1029,
+        "height": 259.4375
+      },
+      "tools": [
+        {
+          "label": "الفحص الذكي",
+          "x": 1150.953125,
+          "y": 84.90625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الملفات",
+          "x": 1300.09375,
+          "y": 142.21875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التطبيقات",
+          "x": 1318.734375,
+          "y": 228.15625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "النظام",
+          "x": 1206.875,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التخزين",
+          "x": 1057.734375,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الأتمتة",
+          "x": 1001.796875,
+          "y": 199.515625,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 347,
+        "y": 72,
+        "width": 817,
+        "height": 249.890625
+      },
+      "orbit": {
+        "x": 783.734375,
+        "y": 87,
+        "width": 363.265625,
+        "height": 219.890625
+      },
+      "lower": {
+        "x": 347,
+        "y": 555.328125,
+        "width": 817,
+        "height": 204.671875
+      },
+      "tools": [
+        {
+          "label": "الفحص الذكي",
+          "x": 932.859375,
+          "y": 76.578125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "الملفات",
+          "x": 1049.109375,
+          "y": 120.5625,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "التطبيقات",
+          "x": 1063.640625,
+          "y": 186.53125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "النظام",
+          "x": 976.453125,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "التخزين",
+          "x": 860.203125,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "الأتمتة",
+          "x": 816.609375,
+          "y": 164.546875,
+          "width": 65,
+          "height": 56
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "theme": "light",
+      "width": 1920,
+      "height": 1080,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 414,
+        "y": 80,
+        "width": 1277,
+        "height": 369.828125
+      },
+      "orbit": {
+        "x": 1110.8125,
+        "y": 95,
+        "width": 540,
+        "height": 339.828125
+      },
+      "lower": {
+        "x": 414,
+        "y": 764.84375,
+        "width": 1277,
+        "height": 303.15625
+      },
+      "tools": [
+        {
+          "label": "الفحص الذكي",
+          "x": 1338.8125,
+          "y": 89.171875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الملفات",
+          "x": 1511.609375,
+          "y": 157.140625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التطبيقات",
+          "x": 1533.203125,
+          "y": 259.09375,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "النظام",
+          "x": 1403.609375,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التخزين",
+          "x": 1230.8125,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الأتمتة",
+          "x": 1166,
+          "y": 225.109375,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "theme": "dark",
+      "width": 1672,
+      "height": 941,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 414,
+        "y": 80,
+        "width": 1029,
+        "height": 316.5
+      },
+      "orbit": {
+        "x": 959.90625,
+        "y": 95,
+        "width": 466.09375,
+        "height": 286.5
+      },
+      "lower": {
+        "x": 414,
+        "y": 669.5625,
+        "width": 1029,
+        "height": 259.4375
+      },
+      "tools": [
+        {
+          "label": "الفحص الذكي",
+          "x": 1150.953125,
+          "y": 84.90625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الملفات",
+          "x": 1300.09375,
+          "y": 142.21875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التطبيقات",
+          "x": 1318.734375,
+          "y": 228.15625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "النظام",
+          "x": 1206.875,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التخزين",
+          "x": 1057.734375,
+          "y": 302.65625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الأتمتة",
+          "x": 1001.796875,
+          "y": 199.515625,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 347,
+        "y": 72,
+        "width": 817,
+        "height": 249.890625
+      },
+      "orbit": {
+        "x": 783.734375,
+        "y": 87,
+        "width": 363.265625,
+        "height": 219.890625
+      },
+      "lower": {
+        "x": 347,
+        "y": 555.328125,
+        "width": 817,
+        "height": 204.671875
+      },
+      "tools": [
+        {
+          "label": "الفحص الذكي",
+          "x": 932.859375,
+          "y": 76.578125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "الملفات",
+          "x": 1049.109375,
+          "y": 120.5625,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "التطبيقات",
+          "x": 1063.640625,
+          "y": 186.53125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "النظام",
+          "x": 976.453125,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "التخزين",
+          "x": 860.203125,
+          "y": 243.703125,
+          "width": 65,
+          "height": 56
+        },
+        {
+          "label": "الأتمتة",
+          "x": 816.609375,
+          "y": 164.546875,
+          "width": 65,
+          "height": 56
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "theme": "dark",
+      "width": 1920,
+      "height": 1080,
+      "pageOverflow": 0,
+      "mainOverflow": 0,
+      "hero": {
+        "x": 414,
+        "y": 80,
+        "width": 1277,
+        "height": 369.828125
+      },
+      "orbit": {
+        "x": 1110.8125,
+        "y": 95,
+        "width": 540,
+        "height": 339.828125
+      },
+      "lower": {
+        "x": 414,
+        "y": 764.84375,
+        "width": 1277,
+        "height": 303.15625
+      },
+      "tools": [
+        {
+          "label": "الفحص الذكي",
+          "x": 1338.8125,
+          "y": 89.171875,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الملفات",
+          "x": 1511.609375,
+          "y": 157.140625,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التطبيقات",
+          "x": 1533.203125,
+          "y": 259.09375,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "النظام",
+          "x": 1403.609375,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "التخزين",
+          "x": 1230.8125,
+          "y": 347.453125,
+          "width": 84,
+          "height": 66
+        },
+        {
+          "label": "الأتمتة",
+          "x": 1166,
+          "y": 225.109375,
+          "width": 84,
+          "height": 66
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "Six orbital controls navigate existing routes",
+    "Keyboard satellite and command palette Enter navigation; Enter does not activate restored language focus",
+    "Two real animation frames differ while six satellite bounds remain fixed",
+    "Scope review starts no operation; isolated native history remains empty; reduced motion stops decoration",
+    "Actual Electron window without preload shows unknown measurements"
+  ],
+  "errors": [],
+  "ok": true,
+  "runtime": {
+    "packaged": false,
+    "version": "43.4.1"
+  },
+  "reducedMotion": true,
+  "bridge": {
+    "contractVersion": 1,
+    "requestId": "971bc48f-7cab-4388-aa0c-e477db1b3ad4",
+    "capability": "bridge.status",
+    "status": "available",
+    "source": "KNOuX Gemini Electron main",
+    "observedAt": "2026-10-30T03:12:17.734Z",
+    "permission": "read-only",
+    "warnings": [],
+    "provenance": {
+      "provider": "Electron main process",
+      "mode": "measured",
+      "observedAt": "2026-10-30T03:12:17.734Z",
+      "coverage": "full",
+      "permissions": [
+        "read-only"
+      ],
+      "warnings": []
+    },
+    "data": {
+      "bridge": "ready",
+      "platform": "win32",
+      "appVersion": "0.4.0-gemini.0",
+      "packaged": false,
+      "providerMode": "measured",
+      "fixtureEnabled": false,
+      "capabilities": [
+        {
+          "id": "bridge.status",
+          "title": "Bridge handshake",
+          "mode": "read-only",
+          "channel": "knoux:native:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "system.summary",
+          "title": "Machine summary",
+          "mode": "read-only",
+          "channel": "knoux:native:v1:system-summary",
+          "status": "available"
+        },
+        {
+          "id": "services.summary",
+          "title": "Windows service summary",
+          "mode": "read-only",
+          "channel": "knoux:native:v1:services-summary",
+          "status": "available"
+        },
+        {
+          "id": "folder.choose",
+          "title": "Choose a folder",
+          "mode": "user-initiated",
+          "channel": "knoux:native:v1:choose-folder",
+          "status": "available"
+        },
+        {
+          "id": "studio.sources",
+          "title": "Studio authorized sources",
+          "mode": "read-only",
+          "channel": "knoux:studio:v1:sources",
+          "status": "available"
+        },
+        {
+          "id": "studio.source.choose",
+          "title": "Choose and authorize a source folder",
+          "mode": "user-initiated",
+          "channel": "knoux:studio:v1:source-choose",
+          "status": "available"
+        },
+        {
+          "id": "studio.source.remove",
+          "title": "Revoke a source grant",
+          "mode": "user-initiated",
+          "channel": "knoux:studio:v1:source-remove",
+          "status": "available"
+        },
+        {
+          "id": "studio.inventory.scan",
+          "title": "Read-only source inventory",
+          "mode": "read-only",
+          "channel": "knoux:studio:v1:inventory-scan",
+          "status": "available"
+        },
+        {
+          "id": "studio.inventory.cancel",
+          "title": "Cancel an inventory scan",
+          "mode": "user-initiated",
+          "channel": "knoux:studio:v1:inventory-cancel",
+          "status": "available"
+        },
+        {
+          "id": "studio.inventory.query",
+          "title": "Query measured inventory",
+          "mode": "read-only",
+          "channel": "knoux:studio:v1:inventory-query",
+          "status": "available"
+        },
+        {
+          "id": "studio.thumbnails",
+          "title": "Bounded native thumbnails",
+          "mode": "read-only",
+          "channel": "knoux:studio:v1:thumbnails",
+          "status": "available"
+        },
+        {
+          "id": "studio.destination.choose",
+          "title": "Choose an output destination",
+          "mode": "user-initiated",
+          "channel": "knoux:studio:v1:destination-choose",
+          "status": "available"
+        },
+        {
+          "id": "studio.plan.preview",
+          "title": "Immutable organization plan preview",
+          "mode": "read-only",
+          "channel": "knoux:studio:v1:plan-preview",
+          "status": "available"
+        },
+        {
+          "id": "studio.preview.history",
+          "title": "Plan preview receipts",
+          "mode": "read-only",
+          "channel": "knoux:studio:v1:preview-history",
+          "status": "available"
+        },
+        {
+          "id": "files.sources",
+          "title": "Files authorized sources",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:sources",
+          "status": "available"
+        },
+        {
+          "id": "files.source.choose",
+          "title": "Choose and authorize a Files source",
+          "mode": "user-initiated",
+          "channel": "knoux:files:v1:source-choose",
+          "status": "available"
+        },
+        {
+          "id": "files.inventory.scan",
+          "title": "Read-only Files inventory",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:inventory-scan",
+          "status": "available"
+        },
+        {
+          "id": "files.inventory.cancel",
+          "title": "Cancel a Files inventory scan",
+          "mode": "user-initiated",
+          "channel": "knoux:files:v1:inventory-cancel",
+          "status": "available"
+        },
+        {
+          "id": "files.inventory.query",
+          "title": "Query the measured Files inventory",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:inventory-query",
+          "status": "available"
+        },
+        {
+          "id": "files.thumbnails",
+          "title": "Bounded Files thumbnails",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:thumbnails",
+          "status": "available"
+        },
+        {
+          "id": "files.overview",
+          "title": "Measured file distributions and rankings",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:overview",
+          "status": "available"
+        },
+        {
+          "id": "files.metadata",
+          "title": "Measured file metadata dossier",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:metadata",
+          "status": "available"
+        },
+        {
+          "id": "files.hash",
+          "title": "Bounded read-only file hash",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:hash",
+          "status": "available"
+        },
+        {
+          "id": "files.emptyFolders",
+          "title": "Bounded empty-folder discovery",
+          "mode": "read-only",
+          "channel": "knoux:files:v1:empty-folders",
+          "status": "available"
+        },
+        {
+          "id": "files.open",
+          "title": "Open an indexed file with the Windows shell",
+          "mode": "user-initiated",
+          "channel": "knoux:files:v1:open",
+          "status": "available"
+        },
+        {
+          "id": "files.reveal",
+          "title": "Reveal an indexed file in Explorer",
+          "mode": "user-initiated",
+          "channel": "knoux:files:v1:reveal",
+          "status": "available"
+        },
+        {
+          "id": "storage.volumes",
+          "title": "Measured mounted volumes and capacity snapshots",
+          "mode": "read-only",
+          "channel": "knoux:storage:v1:volumes",
+          "status": "available"
+        },
+        {
+          "id": "storage.history",
+          "title": "Measured capacity history",
+          "mode": "read-only",
+          "channel": "knoux:storage:v1:history",
+          "status": "available"
+        },
+        {
+          "id": "storage.analysis",
+          "title": "Measured folder tree and storage intelligence",
+          "mode": "read-only",
+          "channel": "knoux:storage:v1:analysis",
+          "status": "available"
+        },
+        {
+          "id": "storage.duplicates.verify",
+          "title": "Bounded byte-exact duplicate verification",
+          "mode": "read-only",
+          "channel": "knoux:storage:v1:duplicates",
+          "status": "available"
+        },
+        {
+          "id": "scan.capabilities",
+          "title": "Read-only Smart Scan services and gated operations",
+          "mode": "read-only",
+          "channel": "knoux:scan:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "scan.sources",
+          "title": "Authorized sources available to Smart Scan",
+          "mode": "read-only",
+          "channel": "knoux:scan:v1:sources",
+          "status": "available"
+        },
+        {
+          "id": "scan.source.choose",
+          "title": "Choose and authorize a Smart Scan source",
+          "mode": "user-initiated",
+          "channel": "knoux:scan:v1:source-choose",
+          "status": "available"
+        },
+        {
+          "id": "scan.source.index",
+          "title": "Index a Smart Scan source read-only",
+          "mode": "read-only",
+          "channel": "knoux:scan:v1:source-index",
+          "status": "available"
+        },
+        {
+          "id": "scan.start",
+          "title": "Run a measured read-only Smart Scan",
+          "mode": "read-only",
+          "channel": "knoux:scan:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "scan.cancel",
+          "title": "Cancel a running Smart Scan",
+          "mode": "user-initiated",
+          "channel": "knoux:scan:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "scan.status",
+          "title": "Measured Smart Scan session",
+          "mode": "read-only",
+          "channel": "knoux:scan:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "scan.history",
+          "title": "Persisted Smart Scan history",
+          "mode": "read-only",
+          "channel": "knoux:scan:v1:history",
+          "status": "available"
+        },
+        {
+          "id": "apps.capabilities",
+          "title": "Read-only application services and gates",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "apps.inventory",
+          "title": "Measured installed-software inventory",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:inventory",
+          "status": "available"
+        },
+        {
+          "id": "apps.signature",
+          "title": "Authenticode verification for one application",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:signature",
+          "status": "available"
+        },
+        {
+          "id": "apps.associations",
+          "title": "Bounded file and protocol association sample",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:associations",
+          "status": "available"
+        },
+        {
+          "id": "apps.sizes",
+          "title": "Bounded install-location footprint measurement",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:sizes",
+          "status": "available"
+        },
+        {
+          "id": "apps.sizes.cancel",
+          "title": "Cancel a bounded footprint measurement",
+          "mode": "user-initiated",
+          "channel": "knoux:apps:v1:sizes-cancel",
+          "status": "available"
+        },
+        {
+          "id": "apps.leftovers",
+          "title": "Name-match leftover candidates and stale registrations",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:leftovers",
+          "status": "available"
+        },
+        {
+          "id": "apps.updates",
+          "title": "Read-only WinGet upgrade query",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:updates",
+          "status": "available"
+        },
+        {
+          "id": "apps.plan",
+          "title": "Immutable uninstall review plan",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:plan",
+          "status": "available"
+        },
+        {
+          "id": "apps.packages",
+          "title": "Measured packages and optional WinGet discovery",
+          "mode": "read-only",
+          "channel": "knoux:apps:v1:packages",
+          "status": "available"
+        },
+        {
+          "id": "apps.settings.open",
+          "title": "Open a fixed Windows Settings page",
+          "mode": "user-initiated",
+          "channel": "knoux:apps:v1:open-settings",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.capabilities",
+          "title": "Read-only Clean Room capabilities and safety policy",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.start",
+          "title": "Start a bounded measured cleanup discovery",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.status",
+          "title": "Poll measured cleanup discovery progress",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.cancel",
+          "title": "Cancel a running cleanup discovery",
+          "mode": "user-initiated",
+          "channel": "knoux:cleanup:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.inventory",
+          "title": "Read the last measured cleanup candidate inventory",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:inventory",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.estimate",
+          "title": "Safety-classified reclaim estimate",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:estimate",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.quarantine",
+          "title": "Quarantine vault and cleanup journal reader",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:quarantine",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.unused",
+          "title": "Dormant files inside an authorized Studio source",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:unused",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.plan",
+          "title": "Immutable review-only cleanup plan",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:plan",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.schedule",
+          "title": "Read-only cleanup schedule draft",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:schedule",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.report",
+          "title": "Measured before/after cleanup report",
+          "mode": "read-only",
+          "channel": "knoux:cleanup:v1:report",
+          "status": "available"
+        },
+        {
+          "id": "cleanup.settings.open",
+          "title": "Open a fixed Windows Settings page",
+          "mode": "user-initiated",
+          "channel": "knoux:cleanup:v1:open-settings",
+          "status": "available"
+        },
+        {
+          "id": "startup.capabilities",
+          "title": "Read-only Boot Control capabilities and gates",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "startup.start",
+          "title": "Start a bounded measured startup inventory",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "startup.status",
+          "title": "Poll measured startup scan progress",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "startup.cancel",
+          "title": "Cancel a running startup scan",
+          "mode": "user-initiated",
+          "channel": "knoux:startup:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "startup.inventory",
+          "title": "Read the last measured startup inventory",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:inventory",
+          "status": "available"
+        },
+        {
+          "id": "startup.services",
+          "title": "Measured automatic and delayed-auto services",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:services",
+          "status": "available"
+        },
+        {
+          "id": "startup.tasks",
+          "title": "Measured logon and boot scheduled tasks",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:tasks",
+          "status": "available"
+        },
+        {
+          "id": "startup.impact",
+          "title": "Measured boot diagnostics impact evidence",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:impact",
+          "status": "available"
+        },
+        {
+          "id": "startup.journal",
+          "title": "Startup change journal reader",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:journal",
+          "status": "available"
+        },
+        {
+          "id": "startup.sessions",
+          "title": "Batch startup session reader",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:sessions",
+          "status": "available"
+        },
+        {
+          "id": "startup.plan",
+          "title": "Immutable review-only startup plan",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:plan",
+          "status": "available"
+        },
+        {
+          "id": "startup.report",
+          "title": "Measured read-only startup report",
+          "mode": "read-only",
+          "channel": "knoux:startup:v1:report",
+          "status": "available"
+        },
+        {
+          "id": "startup.settings.open",
+          "title": "Open the fixed Windows Startup Apps settings page",
+          "mode": "user-initiated",
+          "channel": "knoux:startup:v1:open-settings",
+          "status": "available"
+        },
+        {
+          "id": "system.capabilities",
+          "title": "System, network and hardware capability discovery",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "system.start",
+          "title": "Start a bounded measured observatory scan",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "system.status",
+          "title": "Poll measured observatory scan progress",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "system.cancel",
+          "title": "Cancel a running observatory scan",
+          "mode": "user-initiated",
+          "channel": "knoux:system:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "system.snapshot",
+          "title": "Read the last measured system, network and hardware snapshot",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:snapshot",
+          "status": "available"
+        },
+        {
+          "id": "system.sample",
+          "title": "Read a timestamped performance counter sample",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:sample",
+          "status": "available"
+        },
+        {
+          "id": "system.processes",
+          "title": "Read the measured process register",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:processes",
+          "status": "available"
+        },
+        {
+          "id": "system.events",
+          "title": "Query measured Windows event records",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:events",
+          "status": "available"
+        },
+        {
+          "id": "system.signatures",
+          "title": "Verify Authenticode signatures for measured binaries",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:signatures",
+          "status": "available"
+        },
+        {
+          "id": "system.diagnostics",
+          "title": "Run bounded DNS, TCP and HTTP diagnostics against one validated target",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:diagnostics",
+          "status": "available"
+        },
+        {
+          "id": "system.traceroute",
+          "title": "Run a bounded hop trace against one validated target",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:traceroute",
+          "status": "available"
+        },
+        {
+          "id": "system.hosts",
+          "title": "Read the Windows hosts file without writing it",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:hosts",
+          "status": "available"
+        },
+        {
+          "id": "system.hosts.plan",
+          "title": "Stage an immutable hosts edit review",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:hosts-plan",
+          "status": "available"
+        },
+        {
+          "id": "system.report",
+          "title": "Build a measured read-only diagnostics report",
+          "mode": "read-only",
+          "channel": "knoux:system:v1:report",
+          "status": "available"
+        },
+        {
+          "id": "system.settings.open",
+          "title": "Open a fixed Windows diagnostics settings page",
+          "mode": "user-initiated",
+          "channel": "knoux:system:v1:open-settings",
+          "status": "available"
+        },
+        {
+          "id": "repair.capabilities",
+          "title": "Discover the twelve Recovery Lab tools and their gates",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "repair.start",
+          "title": "Start a bounded read-only repair-evidence discovery",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "repair.status",
+          "title": "Poll read-only repair-evidence discovery progress",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "repair.cancel",
+          "title": "Cancel a running read-only repair discovery",
+          "mode": "user-initiated",
+          "channel": "knoux:repair:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "repair.snapshot",
+          "title": "Read the last measured repair evidence",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:snapshot",
+          "status": "available"
+        },
+        {
+          "id": "repair.plan",
+          "title": "Stage an immutable repair preview without executing it",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:plan",
+          "status": "available"
+        },
+        {
+          "id": "repair.journal",
+          "title": "Read the append-only repair preview journal",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:journal",
+          "status": "available"
+        },
+        {
+          "id": "repair.report",
+          "title": "Build a redacted read-only repair evidence report",
+          "mode": "read-only",
+          "channel": "knoux:repair:v1:report",
+          "status": "available"
+        },
+        {
+          "id": "repair.settings.open",
+          "title": "Open an allowlisted Windows recovery settings page",
+          "mode": "user-initiated",
+          "channel": "knoux:repair:v1:open-settings",
+          "status": "available"
+        },
+        {
+          "id": "services.capabilities",
+          "title": "Discover the twelve Service Commander tools",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "services.start",
+          "title": "Start a bounded read-only Windows service discovery",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "services.status",
+          "title": "Poll read-only service discovery progress",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "services.cancel",
+          "title": "Cancel a running read-only service discovery",
+          "mode": "user-initiated",
+          "channel": "knoux:services:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "services.snapshot",
+          "title": "Read the last measured service register",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:snapshot",
+          "status": "available"
+        },
+        {
+          "id": "services.plan",
+          "title": "Stage an immutable service-operation preview",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:plan",
+          "status": "available"
+        },
+        {
+          "id": "services.journal",
+          "title": "Read the append-only service preview journal",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:journal",
+          "status": "available"
+        },
+        {
+          "id": "services.report",
+          "title": "Build a redacted read-only service evidence report",
+          "mode": "read-only",
+          "channel": "knoux:services:v1:report",
+          "status": "available"
+        },
+        {
+          "id": "automation.capabilities",
+          "title": "Discover the twelve Flow Studio tools",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:capabilities",
+          "status": "available"
+        },
+        {
+          "id": "automation.start",
+          "title": "Start a bounded read-only workflow-evidence discovery",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:start",
+          "status": "available"
+        },
+        {
+          "id": "automation.status",
+          "title": "Poll workflow-evidence discovery progress",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "automation.cancel",
+          "title": "Cancel a running workflow-evidence discovery",
+          "mode": "user-initiated",
+          "channel": "knoux:automation:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "automation.snapshot",
+          "title": "Read measured workflow, template and runtime evidence",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:snapshot",
+          "status": "available"
+        },
+        {
+          "id": "automation.workflows",
+          "title": "Read persisted local workflow drafts",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:workflows",
+          "status": "available"
+        },
+        {
+          "id": "automation.save",
+          "title": "Save a validated local workflow draft with a new version",
+          "mode": "user-initiated",
+          "channel": "knoux:automation:v1:save",
+          "status": "available"
+        },
+        {
+          "id": "automation.templates",
+          "title": "Read built-in workflow templates",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:templates",
+          "status": "available"
+        },
+        {
+          "id": "automation.dryRun",
+          "title": "Validate and dry-run a workflow without execution",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:dry-run",
+          "status": "available"
+        },
+        {
+          "id": "automation.schedulePreview",
+          "title": "Preview local schedule occurrences with DST handling",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:schedule-preview",
+          "status": "available"
+        },
+        {
+          "id": "automation.validateImport",
+          "title": "Validate an imported workflow schema",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:validate-import",
+          "status": "available"
+        },
+        {
+          "id": "automation.journal",
+          "title": "Read the append-only dry-run journal",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:journal",
+          "status": "available"
+        },
+        {
+          "id": "automation.report",
+          "title": "Build a redacted read-only workflow report",
+          "mode": "read-only",
+          "channel": "knoux:automation:v1:report",
+          "status": "available"
+        },
+        {
+          "id": "google.status",
+          "title": "Read the minimized Google connection state without token material",
+          "mode": "read-only",
+          "channel": "knoux:google:v1:status",
+          "status": "available"
+        },
+        {
+          "id": "google.connect",
+          "title": "Open the reviewed Google desktop consent URL in the system browser",
+          "mode": "user-initiated",
+          "channel": "knoux:google:v1:connect",
+          "status": "available"
+        },
+        {
+          "id": "google.cancel",
+          "title": "Cancel an in-progress Google loopback authorization",
+          "mode": "user-initiated",
+          "channel": "knoux:google:v1:cancel",
+          "status": "available"
+        },
+        {
+          "id": "google.disconnect",
+          "title": "Revoke and delete the locally stored Google grant",
+          "mode": "user-initiated",
+          "channel": "knoux:google:v1:disconnect",
+          "status": "available"
+        },
+        {
+          "id": "google.sheets.list",
+          "title": "Read metadata for user-selected spreadsheets only",
+          "mode": "read-only",
+          "channel": "knoux:google:v1:sheets",
+          "status": "available"
+        },
+        {
+          "id": "google.sheets.add",
+          "title": "Remember a validated user-selected spreadsheet URL or ID",
+          "mode": "user-initiated",
+          "channel": "knoux:google:v1:sheet-add",
+          "status": "available"
+        },
+        {
+          "id": "google.sheets.remove",
+          "title": "Remove a spreadsheet from the local selection",
+          "mode": "user-initiated",
+          "channel": "knoux:google:v1:sheet-remove",
+          "status": "available"
+        },
+        {
+          "id": "google.sheets.read",
+          "title": "Read bounded values from a selected spreadsheet after explicit action",
+          "mode": "read-only",
+          "channel": "knoux:google:v1:sheet-read",
+          "status": "available"
+        }
+      ],
+      "contractVersion": 1,
+      "electronVersion": "43.4.1"
+    }
+  },
+  "providerWarnings": "Notifications & provider evidence\n\nLOADING · Local native observations; each effect requires its own approval.\n\nNo verified notifications yet.\n\nRefresh observations",
+  "providerDetails": "Measured sources · partial · oldest observation 2026-10-30T03:12:13.452Z",
+  "receipts": 0,
+  "finalRoute": {
+    "hash": "#home"
+  }
+}
