@@ -654,9 +654,9 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
 
           {/* Real measured activity only. */}
           <div className="space-y-1.5">
-            {activities.length ? activities.map((act) => (
+            {activities.length ? activities.map((act, index) => (
               <div
-                key={act.id}
+                key={`${act.id}-${index}`}
                 data-testid="home-activity-row"
                 onClick={() => setSelectedActivity(act)}
                 className="flex items-center justify-between p-1.5 rounded-lg hover:bg-[#0a1b38] transition cursor-pointer group"
@@ -735,13 +735,13 @@ export const HomeDashboardPanels: React.FC<HomeDashboardPanelsProps> = ({
           </p>
 
           <div className="space-y-1.5 mb-2.5">
-            {pendingActions.length ? pendingActions.map((act) => {
+            {pendingActions.length ? pendingActions.map((act, index) => {
               const isSelected = selectedActionIds.includes(act.id);
               const isExpanded = expandedActionId === act.id;
 
               return (
                 <div
-                  key={act.id}
+                  key={`${act.id}-${index}`}
                   className="p-1.5 rounded-lg bg-[#040b19]/60 border border-[#102444] hover:border-[#1a3d6d] transition"
                 >
                   <div className="flex items-center justify-between">
