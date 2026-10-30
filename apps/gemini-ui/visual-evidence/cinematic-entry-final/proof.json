@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "commit": "d156db2faeab92f0103820f5fe19bee033c4cd65",
+  "platform": "win32",
+  "bridge": "ready",
+  "screens": [
+    "ready-1672x941-en-dark",
+    "ready-1672x941-ar-dark",
+    "ready-1672x941-en-light",
+    "ready-1366x768-en-dark",
+    "ready-1366x768-ar-light",
+    "ready-1920x1080-en-dark",
+    "ready-1920x1080-ar-light",
+    "entering-1672x941-en-dark",
+    "home-1672x941-en-dark",
+    "reduced-motion-1672x941-ar-dark"
+  ],
+  "checks": [
+    "viewport 1672x941 en dark",
+    "viewport 1672x941 ar dark",
+    "viewport 1672x941 en light",
+    "viewport 1366x768 en dark",
+    "viewport 1366x768 ar light",
+    "viewport 1920x1080 en dark",
+    "viewport 1920x1080 ar light",
+    "release frame pinned at the real 320 ms animation mark (overlay 0.909 before pin, 0.887 at the photographed frame)",
+    "Real Home mounted after ACTIVE at 1672x941",
+    "Reduced motion static frame, Tab focus inside dialog, Escape skips into the real Home"
+  ],
+  "security": {
+    "contextIsolation": true,
+    "sandbox": true,
+    "nodeIntegration": false
+  },
+  "enteringOpacity": 0.88737,
+  "lastNativeNote": "ready"
+}
