@@ -16,6 +16,8 @@ The existing ServicePipeline measures the real orbit outlet and all phase centre
 
 Shared workbench headers now carry each actual service icon and purpose, retaining specialized controls. Studio's nine service headers are compact. Flow Studio now gives the library, real graph and inspector their own columns, connects actual graph ports, centres branching paths, fits actual scaled bounds and exposes schedule/dry-run controls in an expandable panel. Draft/available/partial/gated labels stay honest.
 
+[Actual Electron AI provider proof](ai-providers/proof.json) also confirms all three bundled logos loaded, with no credential entry or connection.
+
 Windows applications/startup read actual binary icons through bounded, identifier-only IPC; missing icons remain a neutral fallback. Local/realpath guards reject network paths. Lazy requests are deduplicated, cached and limited to three concurrent reads. Google and the three existing AI provider logos are bundled locally with source URLs and SHA-256 manifests. Logos imply no new integration or account connection.
 
 ## VERIFICATION
@@ -41,4 +43,4 @@ Original approved [entry capture](../cinematic-entry/1366x768-en-dark-ready.webp
 The full local PNG matrix is preserved and hashed in capture-manifest.json. Only representative frames and the compact motion recording are versioned, to avoid duplicating tens of megabytes of evidence. Concept illustration/lighting detail and some typography still differ; pixel equality and owner approval are not claimed.
 
 ## DELIVERY & REMAINING GAPS
-Implementation is directly on canonical main. Exact resulting commit and remote/CI state are recorded in delivery.json after integration. Packaged/installed runtime and Windows 125/150% scaling are NOT_RUN. Native icon extraction is exercised in development Electron, not an installed package. Full individual acceptance of 181 services remains OPEN. GPU performance is bounded in code but not benchmarked. Owner visual signoff remains OPEN.
+Implementation is directly on canonical main and pushed as `d8329d3fecfeeda3fcbf9b15261e7fa82107a2f1`. [Windows CI](https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41170046595) passed lint, build and all 18 test commands. The existing cinematic CI does not trigger on main; its browser/runtime evidence was exercised locally. [Delivery record](delivery.json) records exact source SHA, CI steps and post-commit local checks. The evidence-only followup uses `[skip ci]` to avoid repeating this suite without code changes. Packaged/installed runtime and Windows 125/150% scaling are NOT_RUN. Native icon extraction is exercised in development Electron, not an installed package. Full individual acceptance of 181 services remains OPEN. GPU performance is bounded in code but not benchmarked. Owner visual signoff remains OPEN.

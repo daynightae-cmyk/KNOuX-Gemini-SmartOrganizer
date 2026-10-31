@@ -1,0 +1,271 @@
+{
+  "base": "4e07b52e082f6edaf4514a7390853e5625aa3507",
+  "implementationCommit": "d8329d3fecfeeda3fcbf9b15261e7fa82107a2f1",
+  "implementationPushedTo": "origin/main",
+  "remoteShaVerifiedAtImplementationPush": "d8329d3fecfeeda3fcbf9b15261e7fa82107a2f1",
+  "ci": {
+    "conclusion": "success",
+    "headSha": "d8329d3fecfeeda3fcbf9b15261e7fa82107a2f1",
+    "jobs": [
+      {
+        "completedAt": "2026-10-31T04:57:59Z",
+        "conclusion": "success",
+        "databaseId": 124445839479,
+        "name": "native-contract",
+        "startedAt": "2026-10-31T04:48:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-31T04:48:33Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-31T04:48:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:56:32Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-10-31T04:48:33Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:56:46Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "startedAt": "2026-10-31T04:56:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:07Z",
+            "conclusion": "success",
+            "name": "Run npm ci --prefix apps/gemini-ui",
+            "number": 4,
+            "startedAt": "2026-10-31T04:56:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:11Z",
+            "conclusion": "success",
+            "name": "Run npm run lint",
+            "number": 5,
+            "startedAt": "2026-10-31T04:57:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:14Z",
+            "conclusion": "success",
+            "name": "Run npm run build",
+            "number": 6,
+            "startedAt": "2026-10-31T04:57:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:15Z",
+            "conclusion": "success",
+            "name": "Run npm run test:native",
+            "number": 7,
+            "startedAt": "2026-10-31T04:57:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:27Z",
+            "conclusion": "success",
+            "name": "Run npm run test:studio",
+            "number": 8,
+            "startedAt": "2026-10-31T04:57:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:29Z",
+            "conclusion": "success",
+            "name": "Run npm run test:files",
+            "number": 9,
+            "startedAt": "2026-10-31T04:57:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:30Z",
+            "conclusion": "success",
+            "name": "Run npm run test:storage",
+            "number": 10,
+            "startedAt": "2026-10-31T04:57:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:35Z",
+            "conclusion": "success",
+            "name": "Run npm run test:scan",
+            "number": 11,
+            "startedAt": "2026-10-31T04:57:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:37Z",
+            "conclusion": "success",
+            "name": "Run npm run test:apps",
+            "number": 12,
+            "startedAt": "2026-10-31T04:57:35Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:39Z",
+            "conclusion": "success",
+            "name": "Run npm run test:cleanup",
+            "number": 13,
+            "startedAt": "2026-10-31T04:57:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:40Z",
+            "conclusion": "success",
+            "name": "Run npm run test:startup",
+            "number": 14,
+            "startedAt": "2026-10-31T04:57:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:42Z",
+            "conclusion": "success",
+            "name": "Run npm run test:system",
+            "number": 15,
+            "startedAt": "2026-10-31T04:57:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:43Z",
+            "conclusion": "success",
+            "name": "Run npm run test:repair",
+            "number": 16,
+            "startedAt": "2026-10-31T04:57:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:45Z",
+            "conclusion": "success",
+            "name": "Run npm run test:services",
+            "number": 17,
+            "startedAt": "2026-10-31T04:57:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:46Z",
+            "conclusion": "success",
+            "name": "Run npm run test:automation",
+            "number": 18,
+            "startedAt": "2026-10-31T04:57:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:48Z",
+            "conclusion": "success",
+            "name": "Run npm run test:workspace",
+            "number": 19,
+            "startedAt": "2026-10-31T04:57:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:50Z",
+            "conclusion": "success",
+            "name": "Run npm run test:google",
+            "number": 20,
+            "startedAt": "2026-10-31T04:57:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:51Z",
+            "conclusion": "success",
+            "name": "Run npm run test:settings",
+            "number": 21,
+            "startedAt": "2026-10-31T04:57:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:52Z",
+            "conclusion": "success",
+            "name": "Run npm run test:home",
+            "number": 22,
+            "startedAt": "2026-10-31T04:57:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:54Z",
+            "conclusion": "success",
+            "name": "Run npm run test:workbench",
+            "number": 23,
+            "startedAt": "2026-10-31T04:57:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:55Z",
+            "conclusion": "success",
+            "name": "Run npm run test:navigation",
+            "number": 24,
+            "startedAt": "2026-10-31T04:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:56Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 47,
+            "startedAt": "2026-10-31T04:57:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 48,
+            "startedAt": "2026-10-31T04:57:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-31T04:57:58Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 49,
+            "startedAt": "2026-10-31T04:57:58Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41170046595/job/124445839479"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41170046595"
+  },
+  "postCommitLocalChecks": [
+    {
+      "command": "npm run test:native",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run test:apps",
+      "exitCode": 0
+    }
+  ],
+  "preservationComparison": {
+    "exitCode": 0,
+    "unchangedPaths": [
+      "electron/native/operation-engine.cjs",
+      "electron/native/operation-ipc.cjs",
+      "electron/native/studio-bridge.cjs",
+      "electron/native/scan-bridge.cjs",
+      "src/apps/catalog.ts",
+      "src/automation/catalog.ts",
+      "src/repair/catalog.ts",
+      "src/services/catalog.ts",
+      "src/system/catalog.ts"
+    ]
+  },
+  "evidenceFollowup": "This record and AI-logo proof are a documentation-only followup; its commit SHA is available from Git history. Code CI applies to implementationCommit; the followup does not alter application or tests.",
+  "packagedInstalled": "NOT_RUN",
+  "windows125Percent": "NOT_RUN",
+  "windows150Percent": "NOT_RUN",
+  "ownerVisualSignoff": "OPEN",
+  "productionDeployment": "NOT_RUN"
+}
