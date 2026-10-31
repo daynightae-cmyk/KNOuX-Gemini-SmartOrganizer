@@ -2,6 +2,8 @@
 
 Owner requested current work integrated on main, synchronized and old app worktrees/duplicate data removed.
 
+**Actual cleanup status: BLOCKED_AUTOMATIC_APPROVAL_REVIEW.** The entire guarded deletion command was rejected before process creation with only `blocked by policy`. No detailed reason was supplied. All selected files and the old clone metadata remain; **zero files deleted and zero bytes reclaimed by this followup**. No alternative deletion mechanism or workaround was attempted. The manifests are review/preservation evidence, not a completed cleanup receipt.
+
 ## Reality
 Canonical main started clean at f247980f936f881de4282a28dd9fa94dfdc53f3e. Refreshed origin/main matches (0 ahead/0 behind). Only canonical main is a local branch and registered worktree; stash is empty. Prior consolidation already integrated/preserved eight linked worktrees and eleven stash versions. No redundant merge is needed.
 

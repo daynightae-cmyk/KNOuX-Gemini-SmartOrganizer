@@ -1,0 +1,36 @@
+{
+  "status": "BLOCKED_AUTOMATIC_APPROVAL_REVIEW",
+  "startingHead": "f247980f936f881de4282a28dd9fa94dfdc53f3e",
+  "preservationManifestCommit": "fa0961e9bbc1399a98380e893c6d9b8d3532bae8",
+  "action": "Delete manifest-reviewed obsolete external package runtime duplicates and losslessly preserved launcher copies; remove reviewed historical-clone duplicates, metadata, generated dist and detach its dependency junction",
+  "rejection": "blocked by policy",
+  "detailedReasonProvided": false,
+  "commandStarted": false,
+  "filesDeleted": 0,
+  "bytesFreedByThisPass": 0,
+  "packageBytesIdentifiedForRecovery": 5240779144,
+  "cloneDuplicateWorkingBytesIdentified": 930229935,
+  "allSelectedFilesStillPresent": true,
+  "canonicalDependenciesRetained": true,
+  "registeredWorktrees": [
+    "worktree D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer",
+    "HEAD fa0961e9bbc1399a98380e893c6d9b8d3532bae8",
+    "branch refs/heads/main",
+    ""
+  ],
+  "stashCount": 0,
+  "applicationChanged": false,
+  "deletionWorkaroundAttempted": false,
+  "uniqueCloneFilesRetained": 56,
+  "uniquePackageFilesRetained": 24,
+  "retainedLauncherDeltas": 14,
+  "recordedAt": "2026-10-31T06:27:21.135330+00:00",
+  "verification": {
+    "workspaceGuardExitCode": 0,
+    "typescriptExitCode": 0,
+    "applicationSourceComparisonExitCode": 0,
+    "diffCheckExitCode": 0,
+    "build": "Reused: application source unchanged from verified implementation d8329d3",
+    "implementationCI": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41170046595"
+  }
+}
