@@ -3,7 +3,13 @@
  * Matches Windows desktop iconography in REF-02
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Package } from 'lucide-react';
+
+/** Official provider artwork, bundled locally; selecting a logo never connects an account. */
+export function AiProviderIcon({ provider }: { provider: 'openrouter' | 'openai' | 'anthropic' }) {
+  return <img className="knx-ai-provider-icon" src={`./brands/ai/${provider}.png`} alt="" aria-hidden="true" draggable={false} />;
+}
 
 interface AppIconProps {
   name: string;
@@ -199,4 +205,48 @@ export function AppIcon({ name, className = 'w-5 h-5', size }: AppIconProps) {
       {name.charAt(0).toUpperCase()}
     </div>
   );
+}
+
+// Only inventory IDs cross IPC. Requests are lazy, deduplicated and limited to
+// three concurrent native lookups so a large register cannot flood the shell.
+const nativeIcons = new Map<string, Promise<string | null>>();
+const iconQueue: Array<() => void> = [];
+let iconRequests = 0;
+function loadNativeIcon(appId: string, source: 'apps' | 'startup'): Promise<string | null> {
+  const key = `${source}:${appId}`;
+  const cached = nativeIcons.get(key);
+  if (cached) return cached;
+  const request = new Promise<string | null>((resolve) => {
+    const run = async () => {
+      iconRequests += 1;
+      try {
+        const result = await (source === 'startup' ? window.knouxStartupV1?.icon?.(appId) : window.knouxAppsV1?.icon?.(appId));
+        const data = result?.data?.dataUrl || null;
+        resolve(data?.startsWith('data:image/png;base64,') ? data : null);
+      } catch { resolve(null); }
+      finally { iconRequests -= 1; iconQueue.shift()?.(); }
+    };
+    if (iconRequests < 3) void run(); else iconQueue.push(() => void run());
+  });
+  if (nativeIcons.size >= 256) nativeIcons.delete(nativeIcons.keys().next().value!);
+  nativeIcons.set(key, request);
+  return request;
+}
+
+export function NativeAppIcon({ appId, source = 'apps', className = '' }: { appId: string; source?: 'apps' | 'startup'; className?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [icon, setIcon] = useState<{ id: string; url: string } | null>(null);
+  useEffect(() => {
+    let current = true;
+    const element = ref.current;
+    if (!element) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      void loadNativeIcon(appId, source).then((url) => { if (current && url) setIcon({ id: `${source}:${appId}`, url }); });
+    }, { rootMargin: '80px' });
+    observer.observe(element);
+    return () => { current = false; observer.disconnect(); };
+  }, [appId, source]);
+  return <span ref={ref} className={`knx-native-app-icon ${className}`} aria-hidden="true">{icon?.id === `${source}:${appId}` ? <img src={icon.url} alt="" draggable={false} /> : <Package />}</span>;
 }

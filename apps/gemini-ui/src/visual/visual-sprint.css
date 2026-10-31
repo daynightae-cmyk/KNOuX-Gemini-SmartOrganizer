@@ -1,3 +1,24 @@
+/* Semantic night materials. Existing domain aliases consume this palette in
+   design-recovery.css; daylight retains its independently authored tokens. */
+html:not([data-theme='light']) {
+  --knx-night-canvas:#080b16;
+  --knx-night-surface:#11192b;
+  --knx-night-raised:#19243b;
+  --knx-night-inset:#0c1324;
+  --knx-night-line:#354361;
+  --knx-night-line-soft:#293650;
+  --knx-night-ink:#f2f4ff;
+  --knx-night-secondary:#c8d2e9;
+  --knx-night-muted:#a8b6d1;
+  --knx-night-accent:#b69aff;
+  --knx-night-cyan:#5bdcff;
+  --knx-night-success:#62e4b5;
+  --knx-night-warning:#ffd179;
+  --knx-night-error:#ff96ae;
+  --knx-night-info:#8ab8ff;
+  --knx-night-shadow:inset 0 1px 0 #dbe6ff0b,0 12px 32px #03061055;
+  color-scheme:dark;
+}
 .visual-sprint {
   --v-bg: #0c0b20; --v-panel: rgba(31,27,67,.78); --v-panel-soft: rgba(40,35,79,.45);
   --v-ink: #f5f2ff; --v-muted: #b9b3d8; --v-line: rgba(173,151,255,.24); --v-accent: #b7a0ff;

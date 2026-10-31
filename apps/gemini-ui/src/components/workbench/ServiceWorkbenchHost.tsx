@@ -16,6 +16,7 @@ export interface ServiceWorkbenchHostProps {
   serviceId: string;
   title: string;
   subtitle?: string;
+  icon?: React.ReactNode;
   locale: 'en' | 'ar';
   mode: WorkbenchMode;
   onModeChange: (mode: WorkbenchMode) => void;
@@ -33,6 +34,7 @@ export function ServiceWorkbenchHost({
   serviceId,
   title,
   subtitle,
+  icon,
   locale,
   mode,
   onModeChange,
@@ -87,6 +89,7 @@ export function ServiceWorkbenchHost({
       ref={rootRef}
       data-testid={testId || `workbench-${serviceId}`}
       data-workbench-mode={mode}
+      data-service-workbench="true"
       dir={isAr ? 'rtl' : 'ltr'}
       className={
         mode === 'expanded'
@@ -117,7 +120,8 @@ export function ServiceWorkbenchHost({
           }}
         />
       ) : null}
-      <header className="flex shrink-0 items-start justify-between gap-2 border-b border-[#0f2545] px-3 py-2.5">
+      <header className="knx-workbench-heading flex shrink-0 items-start justify-between gap-2 border-b border-[#0f2545] px-3 py-2.5">
+        {icon ? <span className="knx-workbench-icon" aria-hidden="true">{icon}</span> : null}
         {/* flex-1: the label block owns the remaining width, so a service title
             is only truncated when the header is genuinely too narrow for it.
             Without it the block shrank to its widest child and long titles
@@ -155,7 +159,7 @@ export function ServiceWorkbenchHost({
           </button>
         </div>
       </header>
-      <div className="min-h-0 flex-1 overflow-y-auto files-scrollbar p-3">{children}</div>
+      <div className="knx-workbench-content min-h-0 flex-1 overflow-y-auto files-scrollbar p-3">{children}</div>
       {footer ? <footer className="shrink-0 border-t border-[#0f2545] px-3 py-2 text-[10px] text-slate-400">{footer}</footer> : null}
     </div>
   );

@@ -35,7 +35,7 @@ interface ApplicationServicesProps {
   onOpenService: (service: DomainServiceKey) => void;
 }
 
-function serviceIcon(key: DomainServiceKey, className = 'w-3.5 h-3.5') {
+export function serviceIcon(key: DomainServiceKey, className = 'w-3.5 h-3.5') {
   switch (key) {
     case 'app-inventory': return <LayoutGrid className={className} />;
     case 'app-identity': return <ShieldCheck className={className} />;

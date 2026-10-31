@@ -1,0 +1,158 @@
+{
+  "status": "PARTIALLY VERIFIED / OWNER_REVIEW_REQUIRED",
+  "base": "4e07b52e082f6edaf4514a7390853e5625aa3507",
+  "checks": [
+    {
+      "command": "python scripts/verify-workspace.py",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "note": "Existing large-chunk warning remains"
+    },
+    {
+      "command": "npm run test:apps",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:native",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:startup",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:workbench",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:automation",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:navigation",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:settings",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "npm run test:workspace",
+      "exitCode": 0,
+      "reuse": "Earlier in this implementation session; relevant source unchanged since passing run"
+    },
+    {
+      "command": "node --import tsx --test tests/entry/model.test.ts",
+      "exitCode": 0,
+      "passed": 3
+    },
+    {
+      "command": "npx playwright test --config tests/entry/playwright.config.ts --grep-invert 'Settings choice cards' --workers=1",
+      "exitCode": 1,
+      "passed": 21,
+      "failed": 1,
+      "note": "Transition test sampled an overshot wall-clock animation; corrected to controlled clock and actual CSS midpoint"
+    },
+    {
+      "command": "npx playwright test --config tests/entry/playwright.config.ts --grep 'real shell paints once' --workers=1",
+      "exitCode": 0,
+      "passed": 1
+    },
+    {
+      "command": "npx playwright test --config tests/entry/playwright.config.ts --grep 'Settings choice cards' --workers=1",
+      "exitCode": 0,
+      "passed": 1,
+      "note": "Local preference selection and honest native-engine notice retained"
+    },
+    {
+      "command": "node scripts/design-recovery-interactions.mjs",
+      "exitCode": 0,
+      "passed": 14
+    },
+    {
+      "command": "node scripts/studio-owner-fullstack-capture.mjs",
+      "exitCode": 0,
+      "captures": 38
+    },
+    {
+      "command": "node scripts/cinematic-owner-capture.mjs",
+      "exitCode": 0,
+      "captures": 9,
+      "video": "cinematic/entry-motion.webm"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "notRun": [
+    "Packaged/installed runtime",
+    "Windows 125% scaling",
+    "Windows 150% scaling",
+    "181 individual service acceptance",
+    "GPU benchmark"
+  ],
+  "ownerVisualApproval": "OPEN",
+  "ci": "Awaiting final main synchronization; see delivery record",
+  "sourceFiles": {
+    "apps/gemini-ui/electron/main.cjs": "a8ecf44ebc3e8f8fe5f5ffeee09dd06a61c67eff93048cf7b145f2098ffe0f0c",
+    "apps/gemini-ui/electron/native/app-bridge.cjs": "5bd6f3b92a7d42ca7d0c93364dbc10e05d872ec21db9ea97e4b0d1a5e63510b4",
+    "apps/gemini-ui/electron/preload.cjs": "f3d41d51ec26bb8dadb185e4f35056991423951682d7832ee451f9be68331e64",
+    "apps/gemini-ui/scripts/apps-native-test.cjs": "3eb450f8a5b55ab82f9b1ca210c3305cfd521f2c79dab9222bf91219f508e26a",
+    "apps/gemini-ui/scripts/design-recovery-capture.mjs": "1234107ea18183cd7da983c6d525e71d82f2a43233a2ca6132e7d2ed91ba200b",
+    "apps/gemini-ui/scripts/design-recovery-interactions.mjs": "ff144d3968f4508b781062bd7b671d39ad90e30c716f7bd8828bd400d8fd0f22",
+    "apps/gemini-ui/scripts/studio-owner-fullstack-capture.mjs": "00d201cd580ad82fc80d9489507bc3a9857a45a65695a0ed440c53df4e8f63b8",
+    "apps/gemini-ui/shared/native-contract.json": "68960dd15206cfff1e5a04f3ee479a56fbd9f95cff718e941fab9138dcb6938f",
+    "apps/gemini-ui/shared/native-contracts.ts": "07379f09c7db35b39dc31866ad96aefa3b00723238c582440f1aba295ea9a83e",
+    "apps/gemini-ui/src/apps/AppDossier.tsx": "e6c22d1687e4426f3a687874d9e5d5b59644db84f198e7ba4512f3a40141778c",
+    "apps/gemini-ui/src/apps/AppRegister.tsx": "d9df5d0cb7590139707d8892280d54763a34a297f7cdc7f6e0400e92803ba666",
+    "apps/gemini-ui/src/apps/ApplicationServices.tsx": "f98ad32ffd20cb9ce28608abc43c7108a2fac05c93bea58085e89df182d61bf2",
+    "apps/gemini-ui/src/automation/ui.tsx": "c60cfb0c9ef6fdefb82a39ee3f9ded66ee67b03501ee7804d55ff4d1a542cc44",
+    "apps/gemini-ui/src/components/app/AppIcon.tsx": "3366ffa9a37593259aed053fe38f8b8fc65e030d6c446b99f3396a3c886fedee",
+    "apps/gemini-ui/src/components/chat/ApiKeySetupModal.tsx": "c41685af8f5f0a6478e905ee5f3347e2ce2dfa1d2427c21099f538db7a50f92b",
+    "apps/gemini-ui/src/components/chat/KNOuXAssistantChat.tsx": "ddacb99c2d9f0eed545e39eaf54782e87da1f4e1b3f5db82acbbc79b6c46f58f",
+    "apps/gemini-ui/src/components/home/approved-home.css": "92a9e148820bb97db60d2db131b7f619b4d68d2cba67a55c0f7147af57a3d3f4",
+    "apps/gemini-ui/src/components/workbench/ServiceWorkbenchHost.tsx": "43a7c19c24692488ae839671fec623cc23377f09153cc4d4b87219a8239b36f5",
+    "apps/gemini-ui/src/components/workspace/GoogleWorkspaceHub.tsx": "cd91163a4ae62229a47d1725db45c3f5ce6769a14caea79270b4c0bd63ad8319",
+    "apps/gemini-ui/src/features/cinematic-entry/CinematicEntry.tsx": "b09d0e632ea2a72e2de0f250a328d415a90dbe5fb75be4f4afe81bb2736fbf8a",
+    "apps/gemini-ui/src/features/cinematic-entry/entry.css": "269477e16309041ef9a0b6e42a03858eef82fb160c5e5e258674f3984f035074",
+    "apps/gemini-ui/src/features/cinematic-entry/particles.ts": "a8c049072e03b4e0eb7df3c9a8a54fad8d52278dd1049179f803e273ddddf684",
+    "apps/gemini-ui/src/operations/OrganizationStudioFocus.tsx": "53234b0c210fcea5fa846f05b48253e39743bbfc03d2e7408b24bbc538d84fc0",
+    "apps/gemini-ui/src/pages/ApplicationsPage.tsx": "dfe47a21a9531fd4a6f5d23f5dc22d1eac8173e2c181ed7df99ee6f5b0116fb7",
+    "apps/gemini-ui/src/pages/AutomationPage.tsx": "475506cd7752ff1d55c74b12ecc93a1350ff8b43ddb7b0e3e6ef01076d9bf5a1",
+    "apps/gemini-ui/src/pages/CleanupPage.tsx": "c55dbe6fea6af9e34c50784876b6ab01ad24459c9ac81b7a5c91f37e7604c5b4",
+    "apps/gemini-ui/src/pages/FilesPage.tsx": "f57a9551e938f4b90cf55ab7bf3401dbcfb66bfe99bf657d74a0beb1370ebe60",
+    "apps/gemini-ui/src/pages/SettingsPage.tsx": "65d243018d734c9d7cbddd406721ac28d3d7af57d074657e54991d447ffb6c2e",
+    "apps/gemini-ui/src/pages/StartupPage.tsx": "c8d43d3193a8d576b09ea159e009e30f9234ad2aa09ddb0bfb184097c25050c8",
+    "apps/gemini-ui/src/pages/StoragePage.tsx": "9f7d94fc9b945b888e42958aab4f914f8895c918deafca9de3901be5780ba635",
+    "apps/gemini-ui/src/smart-scan/ScanServices.tsx": "1f11c399c7f7e48750e06dc69a9e2da840f735077f5353b62164371404322547",
+    "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx": "2aa1dcbb3ba670299ba5efdf67a38bf763a8a5879e1f853b0510846051dc4eaa",
+    "apps/gemini-ui/src/startup/AutorunInspector.tsx": "d56b3cdeac57d8821908246cc344da1bf91f3a3d91a9cd29699a6addd8edfe99",
+    "apps/gemini-ui/src/startup/AutorunRegister.tsx": "e295da02a981917dabbe4f1f1e34f106f6dea9274138679c7afd4ab16b1710b1",
+    "apps/gemini-ui/src/studio/StudioPage.tsx": "c9dc872318484025ef53ae0e94f5410d4e098e3e010dc792e7903a8c09668949",
+    "apps/gemini-ui/src/visual/KnouxOrbit.tsx": "0b189cd92b30fc2c1255416023579257bf0b0a557fad50e8435a5c0ac2bd2342",
+    "apps/gemini-ui/src/visual/ServicePipeline.tsx": "df82c89adba7a8a97c8d392dcca2b75da5187b6e14e18d5e34a034461eba6ada",
+    "apps/gemini-ui/src/visual/design-recovery.css": "598c25199f36e59cc279cedddb164a6b4c8614a2f5107215c754e27014b65a33",
+    "apps/gemini-ui/src/visual/visual-sprint.css": "9d16010552f09af731de9fbe14620211ca0293a0f828453931b265c259454ab3",
+    "apps/gemini-ui/src/workspace/GoogleSheetsWorkbench.tsx": "11feaee8734ea4bd5a3306f859167402cdaad07df013c5cfbb71b6d6030864f6",
+    "apps/gemini-ui/tests/entry/entry.spec.ts": "bc9166af9cb6d79370aee256494f40896871e9c51dc94e503b07bdfc4a297d28",
+    "docs/evidence/design-recovery-20261030/comparisons.html": "0eed5a7ff8d91ea8c68279fe69aee1fc55da9a613339e8b5200f359a2b2d7687",
+    "apps/gemini-ui/src/components/workspace/GoogleProductIcon.tsx": "768f1e7f785456beae4d58a3fbe7ee043cc56ffd27b4d60ef67b0dd03444aff3",
+    "apps/gemini-ui/scripts/cinematic-owner-capture.mjs": "82471780d8e0366965eef48be14262400385ff668fe2d98159e27c2d3005dc5c"
+  },
+  "captureAuthority": "Studio chrome final proofs supersede the Studio frames in earlier root matrices; final Home NIGHT proof supersedes earlier Home NIGHT. Studio 38-frame set was rerun after the chrome fix."
+}

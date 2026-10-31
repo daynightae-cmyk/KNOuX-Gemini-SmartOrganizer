@@ -137,15 +137,17 @@ export function WorkflowCanvas({
       list.push(node.id);
       groups.set(level, list);
     }
+    const maxRows = Math.max(1, ...[...groups.values()].map((entries) => entries.length));
     const positions = new Map<string, { x: number; y: number }>();
     for (const [level, ids] of groups) {
       ids.forEach((id, index) => {
-        positions.set(id, { x: 30 + level * 205, y: 24 + index * 94 });
+        // Center single stages between parallel branches so the wires read as
+        // one continuous workflow rather than a row of disconnected cards.
+        positions.set(id, { x: 28 + level * 238, y: 28 + index * 160 + (maxRows - ids.length) * 80 });
       });
     }
     const maxLevel = Math.max(0, ...groups.keys());
-    const maxRows = Math.max(1, ...[...groups.values()].map((entries) => entries.length));
-    return { positions, width: 60 + maxLevel * 205 + 175, height: 48 + maxRows * 94 + 50 };
+    return { positions, width: 56 + maxLevel * 238 + 184, height: 56 + (maxRows - 1) * 160 + 124 };
   }, [workflow.edges, workflow.nodes]);
 
   const fit = () => {
@@ -153,17 +155,23 @@ export function WorkflowCanvas({
     if (!element) return;
     const scaleX = (element.clientWidth - 32) / layout.width;
     const scaleY = (element.clientHeight - 32) / layout.height;
-    setZoom(Math.max(0.55, Math.min(1, scaleX, scaleY)));
+    setZoom(Math.max(0.35, Math.min(1, scaleX, scaleY)));
     element.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
     const element = containerRef.current;
     if (!element) return;
-    const scaleX = (element.clientWidth - 24) / layout.width;
-    const scaleY = (element.clientHeight - 24) / layout.height;
-    setZoom(Math.max(0.55, Math.min(1, scaleX, scaleY)));
+    const resize = () => {
+      const scaleX = (element.clientWidth - 24) / layout.width;
+      const scaleY = (element.clientHeight - 24) / layout.height;
+      setZoom(Math.max(0.35, Math.min(1, scaleX, scaleY)));
+    };
+    resize();
     element.scrollTo({ left: 0, top: 0 });
+    const observer = new ResizeObserver(resize);
+    observer.observe(element);
+    return () => observer.disconnect();
   }, [layout.height, layout.width, workflow.id, workflow.nodes.length]);
 
   return (
@@ -179,33 +187,38 @@ export function WorkflowCanvas({
           <button type="button" className={cx('sys-btn sys-btn-quiet', minimap && 'is-active')} aria-pressed={minimap} onClick={() => setMinimap((value) => !value)}>{t(locale, 'Minimap', 'خريطة مصغرة')}</button>
         </div>
       </div>
-      <div ref={containerRef} className="auto-canvas knx-custom-scrollbar" data-testid="automation-canvas">
-        <div className="auto-canvas-inner" style={{ width: layout.width, height: layout.height, transform: `scale(${zoom})`, transformOrigin: 'top left' }}>
+      <div ref={containerRef} dir="ltr" className="auto-canvas knx-custom-scrollbar" data-testid="automation-canvas">
+        <div className="auto-canvas-plane" style={{ width: layout.width * zoom, height: layout.height * zoom, position: 'relative', margin: 'auto' }}>
+        <div className="auto-canvas-inner" style={{ position: 'absolute', width: layout.width, height: layout.height, transform: `scale(${zoom})`, transformOrigin: 'top left' }}>
           <svg viewBox={`0 0 ${layout.width} ${layout.height}`} className="auto-canvas-edges" aria-hidden="true">
             {workflow.edges.map((edge) => {
               const from = layout.positions.get(edge.from);
               const to = layout.positions.get(edge.to);
               if (!from || !to) return null;
-              const x1 = from.x + 152;
-              const y1 = from.y + 34;
+              const x1 = from.x + 184;
+              const y1 = from.y + 62;
               const x2 = to.x;
-              const y2 = to.y + 34;
+              const y2 = to.y + 62;
               const mid = (x1 + x2) / 2;
-              return <path key={`${edge.from}-${edge.to}`} d={`M${x1} ${y1} C${mid} ${y1}, ${mid} ${y2}, ${x2} ${y2}`} className="auto-edge" />;
+              const d = `M${x1} ${y1} C${mid} ${y1}, ${mid} ${y2}, ${x2} ${y2}`;
+              return <g key={`${edge.from}-${edge.to}`}><path d={d} className="auto-edge-glass" /><path d={d} className="auto-edge" /></g>;
             })}
           </svg>
           {workflow.nodes.map((node) => {
             const position = layout.positions.get(node.id);
             if (!position) return null;
-            const Icon = NODE_ICONS[node.type];
+            const tool = node.toolId === 'platform' ? null : TOOL_BY_ID[node.toolId];
+            const Icon = tool?.icon || NODE_ICONS[node.type];
             const meta = NODE_TYPE_META[node.type];
             return (
               <button
                 key={node.id}
                 type="button"
+                dir={locale === 'ar' ? 'rtl' : 'ltr'}
                 className={cx('auto-node', selectedNodeId === node.id && 'is-active', `is-${node.type}`)}
                 style={{ left: position.x, top: position.y }}
                 onClick={() => onSelect(node.id)}
+                aria-pressed={selectedNodeId === node.id}
                 data-testid={`automation-node-${node.id}`}
               >
                 <span className="auto-node-port is-in" aria-hidden="true" />
@@ -215,10 +228,12 @@ export function WorkflowCanvas({
                 </span>
                 <strong>{node.label}</strong>
                 <em>{node.toolId === 'platform' ? t(locale, 'Platform node', 'عقدة منصة') : toolLabel(node.toolId, locale)}</em>
+                <span className="auto-node-detail">{tool ? t(locale, STATE_META[tool.state].en, STATE_META[tool.state].ar) : t(locale, 'Workflow control', 'تحكم في سير العمل')} · {t(locale, 'Draft', 'مسودة')}</span>
                 <span className="auto-node-port is-out" aria-hidden="true" />
               </button>
             );
           })}
+        </div>
         </div>
         {minimap ? (
           <div className="auto-minimap" aria-hidden="true">

@@ -15,15 +15,23 @@ export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleSt
   let lastPhase: EntryPhase = 'INIT';
   let width = 0, height = 0, centerX = 0, centerY = 0, orbRadius = 235;
   let settled = false;
-  const constrained = (navigator.hardwareConcurrency || 4) <= 4;
+  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  const constrained = (navigator.hardwareConcurrency || 4) <= 4 || (memory !== undefined && memory <= 4);
   const count = constrained ? 100 : 230;
+  const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+  canvas.dataset.renderer = 'canvas-perspective';
+  canvas.dataset.depthLayers = '3';
+  const move = (event: PointerEvent) => {
+    pointer.targetX = (event.clientX / Math.max(1, width) - .5) * 18;
+    pointer.targetY = (event.clientY / Math.max(1, height) - .5) * 12;
+  };
   const resize = () => {
     width = window.innerWidth; height = window.innerHeight;
     const medallion = boundary?.querySelector('.entry-medallion')?.getBoundingClientRect();
     centerX = medallion ? medallion.left + medallion.width / 2 : width / 2;
     centerY = medallion ? medallion.top + medallion.height / 2 : height * .43;
     orbRadius = medallion ? medallion.width / 2 : Math.min(width * .18, height * .28, 235);
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const dpr = Math.min(window.devicePixelRatio || 1, constrained ? 1.25 : 1.5);
     canvas.width = width * dpr; canvas.height = height * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
@@ -50,9 +58,18 @@ export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleSt
     const angle = i * 2.39996 + elapsed * (ambient ? .000025 : .00018) * (i % 2 ? 1 : -1) + release * 3.8;
     const scattered = radius + (1 - forming) * Math.max(width, height) * depth;
     const orbit = scattered * (.85 + depth * .65) + release * Math.max(width, height) * depth;
-    const x = ambient ? ((i * 173.7 + Math.sin(elapsed * .00012 + i) * 32) % width) : centerX + Math.cos(angle) * orbit;
-    const y = ambient ? height * (.22 + (i % 7) * .1) + Math.sin(angle) * 18 : centerY + Math.sin(angle) * orbit * .42 + Math.sin(i * 2.1) * radius * .2;
-    return { x, y, depth, angle, orbit };
+    // Three tilted orbital layers in world space, projected through one camera.
+    // Depth changes apparent size, brightness and speed rather than random jitter.
+    const layer = i % 3;
+    const theta = angle * (.65 + layer * .2);
+    const worldX = Math.cos(theta) * orbit;
+    const worldY = Math.sin(theta) * orbit;
+    const tilt = .38 + layer * .19;
+    const z = Math.max(-480, Math.min(480, worldY * Math.sin(tilt) + (layer - 1) * 150));
+    const scale = 850 / (850 + z);
+    const x = ambient ? ((i * 173.7 + Math.sin(elapsed * .00012 + i) * 32) % width) : centerX + (worldX + pointer.x * (layer + 1)) * scale;
+    const y = ambient ? height * (.22 + (i % 7) * .1) + Math.sin(theta) * 18 : centerY + (worldY * Math.cos(tilt) * .5 + pointer.y * (layer + 1)) * scale;
+    return { x, y, depth: Math.min(1, depth * scale), angle: theta, orbit, scale };
   };
   const particleAlpha = (g: FrameGeometry, depth: number, assembling: boolean) => {
     if (g.ambient) return .12 + depth * .16;
@@ -65,21 +82,29 @@ export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleSt
   };
   const drawParticle = (i: number, state: ParticleState, g: FrameGeometry) => {
     const { ambient, release } = g;
-    const { x, y, depth, angle, orbit } = orbitPosition(i, g);
+    const { x, y, depth, angle, scale } = orbitPosition(i, g);
     const assembling = !ambient && i % 3 === 0;
     let position = { x, y };
     if (assembling) position = assemble(i, x, y, g);
     const alpha = particleAlpha(g, depth, assembling);
     const color = particleColor(state.light, i % 4 === 0);
+    const size = (ambient ? 1 : .65 + depth * 1.5) * scale;
+    if (!ambient && i % 7 === 0) {
+      ctx.fillStyle = `rgba(${color},${alpha * .06})`;
+      ctx.beginPath(); ctx.arc(position.x, position.y, size * 4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = `rgba(${color},${alpha * .12})`;
+      ctx.beginPath(); ctx.arc(position.x, position.y, size * 2, 0, Math.PI * 2); ctx.fill();
+    }
     ctx.fillStyle = `rgba(${color},${alpha})`;
-    ctx.beginPath(); ctx.arc(position.x, position.y, (ambient ? 1 : .7 + depth * 1.7), 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(position.x, position.y, size, 0, Math.PI * 2); ctx.fill();
     if (!ambient && !assembling && i % 4 === 0) {
       ctx.strokeStyle = `rgba(190,150,255,${alpha * .3})`;
       ctx.lineWidth = depth;
-      ctx.beginPath(); ctx.ellipse(centerX, centerY, orbit, orbit * .42, 0, angle - .08 - release * .24, angle); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(position.x, position.y); ctx.lineTo(position.x + Math.sin(angle) * (3 + release * 20) * scale, position.y - Math.cos(angle) * 2 * scale); ctx.stroke();
     }
   };
   const drawScene = (state: ParticleState, age: number) => {
+    if (!state.reduced) { pointer.x += (pointer.targetX - pointer.x) * .035; pointer.y += (pointer.targetY - pointer.y) * .035; }
     const g = geometry(state, age);
     ctx.clearRect(0, 0, width, height);
     const total = g.ambient ? 28 : count;
@@ -115,6 +140,7 @@ export function startParticles(canvas: HTMLCanvasElement, read: () => ParticleSt
   });
   observer.observe(boundary!, { attributes: true, attributeFilter: ['data-phase', 'data-reduced', 'data-home', 'data-light'] });
   window.addEventListener('resize', reset);
+  window.addEventListener('pointermove', move, { passive: true });
   document.addEventListener('visibilitychange', wake);
-  return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener('resize', reset); document.removeEventListener('visibilitychange', wake); ctx.clearRect(0, 0, width, height); };
+  return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener('resize', reset); window.removeEventListener('pointermove', move); document.removeEventListener('visibilitychange', wake); ctx.clearRect(0, 0, width, height); };
 }

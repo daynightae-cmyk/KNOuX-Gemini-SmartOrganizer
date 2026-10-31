@@ -9,6 +9,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { AiProviderIcon } from '../app/AppIcon';
 import { clearAiSession, getAiSession, setAiSession } from '../../lib/ai-session';
 import {
   Sparkles,
@@ -305,7 +306,7 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                           : 'border-slate-800 bg-slate-900/60 text-slate-400'
                       }`}
                     >
-                      OpenRouter
+                      <AiProviderIcon provider="openrouter" /> OpenRouter
                     </button>
                     <button
                       type="button"
@@ -316,7 +317,7 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                           : 'border-slate-800 bg-slate-900/60 text-slate-400'
                       }`}
                     >
-                      OpenAI Console v2
+                      <AiProviderIcon provider="openai" /> OpenAI
                     </button>
                   </div>
                 </div>

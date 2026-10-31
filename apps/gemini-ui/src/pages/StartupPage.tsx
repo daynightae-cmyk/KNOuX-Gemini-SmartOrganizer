@@ -26,7 +26,7 @@ import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellCompo
 import { StartupBootline, StartupHero, StartupMetrics } from '../startup/StartupHero';
 import { AutorunRegister } from '../startup/AutorunRegister';
 import { AutorunInspector } from '../startup/AutorunInspector';
-import { ServiceRail } from '../startup/ServiceRail';
+import { ServiceRail, serviceIcon } from '../startup/ServiceRail';
 import { ServiceWorkspace } from '../startup/ServiceWorkspace';
 import { PlanGate } from '../startup/PlanGate';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
@@ -441,6 +441,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
           <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="startup-workbench-side-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={serviceIcon(activeService)}
               title={startupServiceLabel(activeService)}
               subtitle={t(locale, 'Measured boot context · read-only', 'سياق الإقلاع المقيس · للقراءة فقط')}
               locale={locale}
@@ -461,6 +462,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
           <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="startup-workbench-expanded-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={serviceIcon(activeService)}
               title={startupServiceLabel(activeService)}
               subtitle={t(locale, 'Measured boot context · read-only', 'سياق الإقلاع المقيس · للقراءة فقط')}
               locale={locale}

@@ -24,7 +24,7 @@ import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { SmartScanHero, SmartScanSourceBar } from './SmartScanHero';
 import { ScanMetrics } from './ScanMetrics';
-import { ScanServices } from './ScanServices';
+import { ScanServices, scanServiceIcon } from './ScanServices';
 import { ScanResults } from './ScanResults';
 import { FindingsBreakdown } from './FindingsBreakdown';
 import { RecentScans } from './RecentScans';
@@ -412,6 +412,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
           <div className="fixed end-3 top-14 bottom-28 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="scan-workbench-side-shell">
             <ServiceWorkbenchHost
               serviceId={activeService.id}
+              icon={scanServiceIcon(activeService.iconName)}
               title={isArabic ? activeService.titleAr : activeService.titleEn}
               subtitle={isArabic ? 'خدمة فحص مقيسة · للقراءة فقط' : 'Measured scan service · read-only'}
               locale={isArabic ? 'ar' : 'en'}
@@ -432,6 +433,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
           <div className="fixed inset-x-3 top-14 bottom-28 z-50" data-testid="scan-workbench-expanded-shell">
             <ServiceWorkbenchHost
               serviceId={activeService.id}
+              icon={scanServiceIcon(activeService.iconName)}
               title={isArabic ? activeService.titleAr : activeService.titleEn}
               subtitle={isArabic ? 'خدمة فحص مقيسة · للقراءة فقط' : 'Measured scan service · read-only'}
               locale={isArabic ? 'ar' : 'en'}

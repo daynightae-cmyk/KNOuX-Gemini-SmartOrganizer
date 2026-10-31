@@ -1822,6 +1822,7 @@ export interface StartupShellApi {
   status: (sessionId: string) => Promise<NativeEnvelope<StartupSession>>;
   cancel: (sessionId: string) => Promise<NativeEnvelope<{ cancelled: boolean; status: string; sessionId: string }>>;
   inventory: () => Promise<NativeEnvelope<StartupInventory>>;
+  icon: (entryId: string) => Promise<NativeEnvelope<{ dataUrl: string | null; status: 'available' | 'unavailable' }>>;
   services: () => Promise<NativeEnvelope<StartupServiceEntry[]>>;
   tasks: () => Promise<NativeEnvelope<StartupTaskEntry[]>>;
   impact: () => Promise<NativeEnvelope<StartupImpact>>;
@@ -3485,6 +3486,7 @@ export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;
   inventory: () => Promise<NativeEnvelope<AppsInventory>>;
+  icon: (appId: string) => Promise<NativeEnvelope<{ appId: string; dataUrl: string | null; status: 'available' | 'unavailable' }>>;
   signature: (appId: string) => Promise<NativeEnvelope<AppSignatureResult>>;
   associations: () => Promise<NativeEnvelope<AppAssociations>>;
   sizes: (request: { appIds: string[]; operationId: string }) => Promise<NativeEnvelope<AppSizesResult>>;

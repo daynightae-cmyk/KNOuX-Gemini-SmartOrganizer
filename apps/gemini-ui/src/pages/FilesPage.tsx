@@ -1052,6 +1052,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 <div className="h-[480px] shrink-0" data-testid="files-workbench-side-shell">
                   <ServiceWorkbenchHost
                     serviceId={activeService}
+                    icon={renderServiceIcon(activeServiceMeta?.iconName || 'FileText')}
                     title={activeServiceMeta ? (locale === 'en' ? activeServiceMeta.labelEn : activeServiceMeta.labelAr) : activeService}
                     subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'fixture context' : 'سياق تجريبي')}`}
                     locale={locale}
@@ -1347,6 +1348,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             <div className="absolute inset-x-0 top-0 bottom-12 z-40 bg-[#040b18]/95 p-3" data-testid="files-workbench-expanded-shell">
               <ServiceWorkbenchHost
                 serviceId={activeService}
+                icon={renderServiceIcon(activeServiceMeta?.iconName || 'FileText')}
                 title={activeServiceMeta ? (locale === 'en' ? activeServiceMeta.labelEn : activeServiceMeta.labelAr) : activeService}
                 subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'fixture context' : 'سياق تجريبي')}`}
                 locale={locale}

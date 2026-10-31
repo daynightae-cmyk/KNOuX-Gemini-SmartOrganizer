@@ -615,6 +615,15 @@ function registerIpc() {
       return appBridge.inventory();
     })
   );
+  ipcMain.handle(contract.channels.appsIcon, (event, ...args) =>
+    appsGuard(event, 'apps.icon', 'read-only', () => {
+      const request = appsRequest(args);
+      if (typeof request.appId !== 'string' || !APP_ID.test(request.appId) || Object.keys(request).some((key) => key !== 'appId')) {
+        throw Object.assign(new Error('A measured application identifier is required.'), { code: 'APP_ID_INVALID' });
+      }
+      return appBridge.icon(request.appId);
+    })
+  );
   ipcMain.handle(contract.channels.appsSignature, (event, ...args) =>
     appsGuard(event, 'apps.signature', 'read-only', () => {
       const request = appsRequest(args);
@@ -954,6 +963,17 @@ function registerIpc() {
     startupGuard(event, 'startup.inventory', 'read-only', () => {
       assertNoArguments(args, contract.channels.startupInventory);
       return startupBridge.inventory();
+    })
+  );
+  ipcMain.handle(contract.channels.startupIcon, (event, ...args) =>
+    startupGuard(event, 'startup.icon', 'read-only', () => {
+      const request = startupRequest(args);
+      if (typeof request.entryId !== 'string' || request.entryId.length > 100 || Object.keys(request).some((key) => key !== 'entryId')) {
+        throw Object.assign(new Error('A measured startup identifier is required.'), { code: 'STARTUP_INPUT_INVALID' });
+      }
+      const entry = startupBridge.inventory().entries.find((item) => item.id === request.entryId);
+      if (!entry || !appBridge) throw Object.assign(new Error('Startup record is unavailable.'), { code: 'STARTUP_ENTRY_NOT_FOUND' });
+      return appBridge.readIcon('startup:' + entry.id, { displayIcon: entry.executable, installLocation: null });
     })
   );
   ipcMain.handle(contract.channels.startupServices, (event, ...args) =>
@@ -6457,6 +6477,7 @@ app.whenReady().then(async () => {
     try {
       appBridge = new AppBridge({
         loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
+        loadIcon: async (filePath) => (await app.getFileIcon(filePath, { size: 'normal' })).toDataURL(),
       });
       trace('applications bridge initialized');
     } catch (error) {

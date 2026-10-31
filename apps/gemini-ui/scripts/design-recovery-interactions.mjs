@@ -12,7 +12,7 @@ const profile = await mkdtemp(path.join(os.tmpdir(),'knoux-design-interactions-'
 const env = { ...process.env };
 delete env.ELECTRON_RUN_AS_NODE;
 const app = await electron.launch({executablePath:require('electron'), args:[path.resolve('electron/main.cjs'),'--disable-gpu','--knoux-user-data='+profile], env, timeout:60000});
-const proof={checks:[], errors:[]};
+const proof={checks:[], errors:[], viewports:[]};
 try {
  const sourceServer=await createServer({server:{middlewareMode:true},appType:'custom'});
  let state;
@@ -32,7 +32,18 @@ try {
  await page.reload();
  await page.getByTestId('home-workspace').waitFor();
  const win=await app.browserWindow(page);
- await win.evaluate(w=>{if(w.isMaximized())w.unmaximize();w.setContentSize(1366,768,false);});
+ async function setViewport(width,height) {
+  for(let attempt=0;attempt<3;attempt++) {
+   await win.evaluate((w,[width,height])=>{if(w.isMaximized())w.unmaximize();if(w.isFullScreen())w.setFullScreen(false);w.setContentSize(width,height,false);},[width,height]);
+   for(let tick=0;tick<25;tick++) {
+    const actual=await page.evaluate(()=>({width:innerWidth,height:innerHeight}));
+    if(actual.width===width&&actual.height===height)return;
+    await page.waitForTimeout(120);
+   }
+  }
+  throw Error(`Viewport did not settle at ${width}x${height}`);
+ }
+ await setViewport(1366,768);
  await page.waitForTimeout(1000);
  const layout = await page.evaluate(() => {
   const rect = selector => {const r=document.querySelector(selector).getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
@@ -80,16 +91,63 @@ try {
  await page.evaluate(()=>{location.hash='automation';});
  await page.getByTestId('automation-workspace').waitFor();
  await page.waitForTimeout(3500);
+ await page.locator('.auto-library-template').first().waitFor({state:'visible',timeout:90000});
+ await page.locator('.auto-library-template').first().click();
+ await expect(page.locator('.auto-node').first()).toBeVisible();
+ const secondNode=page.locator('.auto-node').nth(1);
+ await secondNode.focus(); await page.keyboard.press('Enter');
+ await expect(secondNode).toHaveAttribute('aria-pressed','true');
+ await page.locator('.auto-workflow-details summary').click();
+ await expect(page.locator('.auto-editor-lower')).toBeVisible();
+ await page.locator('.auto-workflow-details summary').click();
+ proof.checks.push('Real Automation template opens; keyboard node selection updates the inspector; schedule controls expand');
  const graph=page.locator('.auto-editor-grid');
  await page.screenshot({path:path.join(out,'automation-editor-1366.png'),animations:'disabled'});
- console.log(await page.evaluate(()=>[...document.querySelectorAll('.knx-command-canvas,.knx-command-hero,.knx-command-metrics,.knx-command-body,.auto-editor-grid')].map(e=>({name:e.className,h:e.getBoundingClientRect().height,y:e.getBoundingClientRect().y,rows:getComputedStyle(e).gridTemplateRows}))));
  await expect(graph).toBeVisible();
  const bounds=await graph.boundingBox();
  await page.screenshot({path:path.join(out,'automation-editor-1366.png'),animations:'disabled'});
- console.log('Flow editor bounds',bounds);
  if(!bounds || bounds.height<180) throw new Error('Flow editor is compressed below 180px');
  proof.checks.push(`Flow editor has ${Math.round(bounds.height)}px of operating height at 1366x768`);
  await page.screenshot({path:path.join(out,'automation-editor-1366.png'),animations:'disabled'});
+ const wave=await page.locator('.knx-pipe-track').first().evaluate(el=>[...el.querySelectorAll('.knx-pipe-dot')].map(n=>Math.round(n.getBoundingClientRect().y)));
+ if(new Set(wave).size<2)throw Error('Header phases do not rise and fall');
+ proof.checks.push('Header tube follows alternating phase heights');
+ for(const [width,height,theme,locale] of [[1672,941,'dark','en'],[1366,768,'light','ar'],[1920,1080,'dark','en']]) {
+  await page.evaluate(({theme,locale})=>{localStorage.setItem('knoux_theme',theme);localStorage.setItem('knoux_locale',locale);},{theme,locale});
+  await page.reload();
+  await page.getByTestId('automation-workspace').waitFor();
+  await page.locator('.auto-library-template').first().waitFor({timeout:90000});
+  await page.locator('.auto-library-template').first().click();
+  await setViewport(width,height);
+  await page.waitForTimeout(650);
+  await page.getByRole('button',{name:locale==='ar'?'ملاءمة':'Fit',exact:true}).click();
+  const bounds=await page.getByTestId('automation-canvas').boundingBox();
+  if(!bounds||bounds.height<120)throw Error('Workflow canvas is clipped at '+width+': '+JSON.stringify(bounds));
+  const png=await page.screenshot({animations:'disabled'});
+  if(png.readUInt32BE(16)!==width||png.readUInt32BE(20)!==height)throw Error('Screenshot dimensions differ from requested viewport');
+  await writeFile(path.join(out,`automation-${locale}-${theme}-${width}.png`),png);
+  proof.viewports.push({width,height,theme,locale,canvas:bounds});
+ }
+ proof.checks.push('Automation graph captured at all three owner viewports including Arabic RTL and DAY/NIGHT');
+ await page.evaluate(()=>{localStorage.setItem('knoux_locale','en');localStorage.setItem('knoux_theme','dark');location.hash='applications';});
+ await page.reload();await page.getByTestId('apps-workspace').waitFor();
+ const icons=await page.evaluate(async()=>{
+  const inventory=await window.knouxAppsV1.inventory();
+  if(!inventory.data?.apps?.length)throw Error('Native app inventory unavailable');
+  let available=0;
+  for(const app of inventory.data.apps.slice(0,35)) {const icon=await window.knouxAppsV1.icon(app.id);if(icon.data?.dataUrl?.startsWith('data:image/png;base64,')){available++;break;}}
+  const refused=await window.knouxAppsV1.icon('invalid-path');
+  return {available,invalidRefused:!!refused.error};
+ });
+ if(!icons.available||!icons.invalidRefused)throw Error('Native Windows icon lookup or identifier guard failed: '+JSON.stringify(icons));
+ proof.checks.push('Actual Windows icon extraction returns PNG; invalid renderer identifier is refused');
+ await page.getByTestId('apps-service-app-inventory').click();
+ await page.getByTestId('workbench-mode-toggle').click();
+ await expect(page.getByTestId('apps-workbench-expanded')).toBeVisible();
+ await page.screenshot({path:path.join(out,'applications-service-expanded-1920.png'),animations:'disabled'});
+ await page.keyboard.press('Escape');
+ await expect(page.getByTestId('apps-workbench-expanded')).toHaveCount(0);
+ proof.checks.push('Application workbench expands and closes by keyboard with native register preserved');
  proof.ok=proof.errors.length===0;
 } catch(error) { proof.errors.push(String(error)); proof.ok=false; }
 finally { await app.close(); }

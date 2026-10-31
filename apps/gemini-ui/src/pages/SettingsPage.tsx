@@ -7,6 +7,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+import { AiProviderIcon } from '../components/app/AppIcon';
 import { CinematicEntrySettings } from '../features/cinematic-entry/CinematicEntry';
 import { getAiSession, setAiSession } from '../lib/ai-session';
 import {
@@ -378,7 +379,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                               : 'bg-[#091a38] text-slate-300 border-[#143058]'
                           }`}
                         >
-                          {prov.label}
+                          <AiProviderIcon provider={prov.id as 'openrouter' | 'openai' | 'anthropic'} /> {prov.label}
                         </button>
                       ))}
                     </div>

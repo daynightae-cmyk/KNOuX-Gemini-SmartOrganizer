@@ -1,3 +1,4 @@
+import { NativeAppIcon } from '../components/app/AppIcon';
 /**
  * Application dossier: the measured evidence for one selected application.
  * Actions here verify/measure or build a review plan; none mutate the device.
@@ -93,7 +94,6 @@ export const AppDossier: React.FC<AppDossierProps> = ({
 
   const status = signature?.status || app.signature.status;
   const tone = signatureTone(status);
-  const initial = (app.name || '?').trim().charAt(0).toUpperCase();
   const measured = size?.measuredBytes ?? app.size.measuredBytes;
   const reported = size?.reportedBytes ?? app.size.reportedBytes ?? app.estimatedSizeBytes;
   const files = size?.files ?? app.size.filesMeasured;
@@ -123,7 +123,7 @@ export const AppDossier: React.FC<AppDossierProps> = ({
 
       <div className="apps-dossier-scroll">
         <div className="apps-dossier-hero">
-          <div className="apps-app-avatar" aria-hidden="true">{initial}</div>
+          <div className="apps-app-avatar"><NativeAppIcon appId={app.id} /></div>
           <div className="min-w-0 flex-1">
             <h3 className="apps-dossier-name" title={app.name}>{app.name}</h3>
             <p className="apps-dossier-publisher" title={app.publisher || ''}>

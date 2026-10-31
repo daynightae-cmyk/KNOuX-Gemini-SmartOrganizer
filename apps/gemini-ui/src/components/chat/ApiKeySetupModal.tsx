@@ -7,6 +7,7 @@
  */
 
 import React, { useState } from 'react';
+import { AiProviderIcon } from '../app/AppIcon';
 import { Key, Shield, Sparkles, CheckCircle2, X, Lock, ExternalLink, Zap, AlertTriangle, Info } from 'lucide-react';
 
 interface ApiKeySetupModalProps {
@@ -161,7 +162,7 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
                     : 'border-slate-800 bg-[#061124] text-slate-400'
                 }`}
               >
-                OpenRouter
+                <AiProviderIcon provider="openrouter" /> OpenRouter
               </button>
               <button
                 type="button"
@@ -172,7 +173,7 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
                     : 'border-slate-800 bg-[#061124] text-slate-400'
                 }`}
               >
-                OpenAI v2
+                <AiProviderIcon provider="openai" /> OpenAI
               </button>
               <button
                 type="button"
@@ -183,7 +184,7 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
                     : 'border-slate-800 bg-[#061124] text-slate-400'
                 }`}
               >
-                Anthropic
+                <AiProviderIcon provider="anthropic" /> Anthropic
               </button>
             </div>
           </div>

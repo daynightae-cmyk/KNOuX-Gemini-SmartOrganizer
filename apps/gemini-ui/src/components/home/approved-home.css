@@ -7,10 +7,11 @@
   font:13px/1.35 Arial,system-ui,sans-serif;
 }
 .approved-home[data-theme-mode=night] {
-  --ink:#f4f3ff;--muted:#b0b1d9;--line:#343774;--panel:linear-gradient(135deg,#0f183be8,#11163ce8);
-  --card:linear-gradient(145deg,#1b2255e8,#101735e8);--canvas:#070e2b;--track:#29315c;
-  --accent:#b18aff;--soft:#291b62;--shadow:inset 0 0 22px #5f32d30d,0 2px 12px #0002;
-  background:radial-gradient(ellipse at 42% 25%,#19124888,transparent 60%),#060e29;
+  --ink:var(--knx-night-ink);--muted:var(--knx-night-muted);--line:var(--knx-night-line);
+  --panel:linear-gradient(135deg,var(--knx-night-surface),var(--knx-night-inset));
+  --card:linear-gradient(145deg,var(--knx-night-raised),var(--knx-night-surface));--canvas:var(--knx-night-canvas);--track:var(--knx-night-line-soft);
+  --accent:var(--knx-night-accent);--soft:var(--knx-night-raised);--shadow:var(--knx-night-shadow);
+  background:radial-gradient(ellipse at 42% 25%,#7853ce1a,transparent 60%),var(--knx-night-canvas);
 }
 .approved-home *{box-sizing:border-box}
 .approved-home button,.approved-home input,.approved-home select{font:inherit;color:inherit}

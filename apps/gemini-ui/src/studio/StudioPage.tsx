@@ -23,7 +23,7 @@ export function StudioPage({onNavigate:_onNavigate}:{onNavigate?:(section:string
   current?.showModal();return()=>{current?.close();previous?.isConnected&&previous.focus();};
  },[searchOpen]);
  const choose=(stageId:number)=>{setSearchOpen(false);setQuery('');window.dispatchEvent(new CustomEvent('knoux:live-organization',{detail:{stageId}}));};
- return <div dir={ar?'rtl':'ltr'} data-testid="studio-workspace" className="approved-home studio-integration-shell" data-theme-mode={navigation.theme}>
+ return <div dir={ar?'rtl':'ltr'} data-testid="studio-workspace" className="approved-home studio-integration-shell" data-theme-mode={navigation.theme === 'light' ? 'day' : 'night'}>
   <ReferenceHeader preciseThemeLabels searchLabel={ar?'ابحث عن مرحلة في استوديو التنظيم…':'Find a stage in Organization Studio…'} onSearch={()=>setSearchOpen(true)} onNotifications={()=>setNotice(v=>!v)}/>
   <div className="studio-integration-body"><ReferenceSidebar active="studio" connected={!!window.knouxOperationsV1}/><main className="os-studio-frame">
    <div id="knoux-studio-operation-stage" className="os-studio-mount" data-testid="studio-live-mount"/>

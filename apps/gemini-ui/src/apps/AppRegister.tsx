@@ -1,3 +1,4 @@
+import { NativeAppIcon } from '../components/app/AppIcon';
 /**
  * Dense measured application register. Every row is a native record; filters
  * only narrow the measured inventory and never synthesize rows.
@@ -216,7 +217,7 @@ export const AppRegister: React.FC<AppRegisterProps> = ({
                       }}
                       title={app.name}
                     >
-                      <span className="apps-row-name">{app.name}</span>
+                      <NativeAppIcon appId={app.id} /><span className="apps-row-name">{app.name}</span>
                       <span className="apps-row-publisher">
                         {app.publisher || t(locale, 'Unknown publisher', 'ناشر غير معروف')}
                       </span>

@@ -165,8 +165,10 @@ async function main() {
     throw new Error(`unexpected runner call ${binary} ${args.join(' ')}`);
   };
 
+  const iconReads = [];
   const bridge = new AppBridge({
     loadProvider: () => provider,
+    loadIcon: async (target) => { iconReads.push(target); return 'data:image/png;base64,aWNvbi1maXh0dXJl'; },
     platform: 'win32',
     env: { LOCALAPPDATA: localAppData, APPDATA: path.join(root, 'Roaming'), ProgramData: path.join(root, 'ProgramData') },
     homeDir: root,
@@ -248,6 +250,22 @@ async function main() {
   assert(protectedRecord?.protected === true && protectedRecord?.isSystemComponent === true, 'system components are marked protected');
   assert(inventory.apps.every((app) => app.uninstallCommandExposed === false), 'raw uninstall commands are never exposed');
   assert(appOneRecord?.estimatedSizeBytes === 2048 * 1024, 'reported size is preserved separately');
+
+  const icon = await bridge.icon(appOneRecord.id);
+  assert(icon.status === 'available' && icon.dataUrl.startsWith('data:image/png;base64,'), 'icon comes from the injected native extractor');
+  assert(iconReads.length === 1 && iconReads[0].toLowerCase() === (await fsp.realpath(path.join(appOne, 'app.exe'))).toLowerCase(), 'icon extractor only sees the measured local binary');
+  await bridge.icon(appOneRecord.id);
+  assert(iconReads.length === 1, 'icon results are cached');
+  const startupIcon = await bridge.readIcon('startup:fixture', { displayIcon: path.join(appOne, 'app.exe'), installLocation: null });
+  assert(startupIcon.status === 'available' && iconReads.length === 2, 'startup icon uses the same local extraction guard with a distinct cache key');
+  assert((await bridge.icon(missingRecord.id)).status === 'unavailable', 'missing binary is unavailable, not a fabricated logo');
+  let unknownIcon = false;
+  try { await bridge.icon('f'.repeat(20)); } catch (error) { unknownIcon = error.code === 'APP_NOT_FOUND'; }
+  assert(unknownIcon, 'unknown inventory ID cannot request an icon');
+  const unsafeRecord = { ...appOneRecord, id: 'e'.repeat(20), displayIcon: '\\\\host\\share\\unsafe.exe', installLocation: null };
+  bridge.inventoryCache.apps.push(unsafeRecord);
+  assert((await bridge.icon(unsafeRecord.id)).status === 'unavailable' && iconReads.length === 2, 'network icon paths never reach the extractor');
+  bridge.inventoryCache.apps.pop();
 
   const signature = await bridge.signature(appOneRecord.id);
   assert(signature.status === 'valid', 'Authenticode status maps to valid');

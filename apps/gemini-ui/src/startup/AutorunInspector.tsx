@@ -1,3 +1,4 @@
+import { NativeAppIcon } from '../components/app/AppIcon';
 /**
  * Autorun dossier — measured signature, protection, task trigger and command
  * evidence for the selected entry, plus a read-only staging dock.
@@ -131,9 +132,7 @@ export function AutorunInspector({
           <>
             <div className="stp-inspect-identity">
               <div className="stp-inspect-icon" style={{ borderColor: SOURCE_META[entry.sourceKind].accent }}>
-                {entry.sourceKind === 'scheduled-task'
-                  ? <CalendarClock className="w-5 h-5" style={{ color: SOURCE_META[entry.sourceKind].accent }} />
-                  : <FileCode2 className="w-5 h-5" style={{ color: SOURCE_META[entry.sourceKind].accent }} />}
+                <NativeAppIcon appId={entry.id} source="startup" />
               </div>
               <div className="min-w-0">
                 <div className="stp-inspect-name" title={entry.name}>{entry.name}</div>

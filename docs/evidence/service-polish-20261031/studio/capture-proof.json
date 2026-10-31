@@ -1,0 +1,751 @@
+{
+  "runtime": {
+    "isPackaged": false,
+    "version": "43.4.1"
+  },
+  "sourceCommit": "4e07b52e082f6edaf4514a7390853e5625aa3507",
+  "sourceFiles": {
+    "src/operations/OrganizationLiveWorkbench.tsx": "e8877e4867b50ee7034e6c4c89d7b440da3779455c6d626e5af8040cc01d416f",
+    "src/operations/OrganizationStudioOverview.tsx": "e4ebb28b17edd5020635835e06b9f6988b905c6769df5775ddb425ccaf447ad9",
+    "src/operations/OrganizationStudioFocus.tsx": "53234b0c210fcea5fa846f05b48253e39743bbfc03d2e7408b24bbc538d84fc0",
+    "src/operations/OrganizationStudioViews.tsx": "d00d5efab0509fcd115b1b7050206eba3db8419d8980d75bd24d7840350bca4d",
+    "src/operations/organization-live.css": "7e4addcac35b80851049f2d27530357950f770b67a3e410144b45754c0ac59c9",
+    "src/operations/organization-studio-model.ts": "3639765697448dca28da1830beec95340199fa50e5d8473177014de73a2748b3",
+    "src/studio/StudioPage.tsx": "c9dc872318484025ef53ae0e94f5410d4e098e3e010dc792e7903a8c09668949",
+    "src/visual/KnouxOrbit.tsx": "0b189cd92b30fc2c1255416023579257bf0b0a557fad50e8435a5c0ac2bd2342",
+    "src/visual/design-recovery.css": "598c25199f36e59cc279cedddb164a6b4c8614a2f5107215c754e27014b65a33",
+    "src/visual/visual-sprint.css": "9d16010552f09af731de9fbe14620211ca0293a0f828453931b265c259454ab3",
+    "electron/native/studio-bridge.cjs": "68bb22f858d21be801deb4a14b1578089c0d3ec96b01b5efc50b8190961d8018",
+    "shared/operation-contract.ts": "61d7ec450671202c7a3650ba4f2aafd29723251b719e5bf51c42af8c4732944f"
+  },
+  "captures": [
+    {
+      "file": "overview-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "overview-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "overview-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "sources-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "sources",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-01"
+      }
+    },
+    {
+      "file": "sources-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "sources",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-01"
+      }
+    },
+    {
+      "file": "sources-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "sources",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-01"
+      }
+    },
+    {
+      "file": "visual-library-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "visual-library-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "visual-library-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "collections-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "collections",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-03"
+      }
+    },
+    {
+      "file": "collections-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "collections",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-03"
+      }
+    },
+    {
+      "file": "collections-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "collections",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-03"
+      }
+    },
+    {
+      "file": "builder-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "builder",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-04"
+      }
+    },
+    {
+      "file": "builder-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "builder",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-04"
+      }
+    },
+    {
+      "file": "builder-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "builder",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-04"
+      }
+    },
+    {
+      "file": "destinations-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "destinations",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-05"
+      }
+    },
+    {
+      "file": "destinations-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "destinations",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-05"
+      }
+    },
+    {
+      "file": "destinations-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "destinations",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-05"
+      }
+    },
+    {
+      "file": "plan-review-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "plan-review",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-06"
+      }
+    },
+    {
+      "file": "plan-review-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "plan-review",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-06"
+      }
+    },
+    {
+      "file": "plan-review-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "plan-review",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-06"
+      }
+    },
+    {
+      "file": "execution-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "execution",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-07"
+      }
+    },
+    {
+      "file": "execution-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "execution",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-07"
+      }
+    },
+    {
+      "file": "execution-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "execution",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-07"
+      }
+    },
+    {
+      "file": "history-undo-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "history-undo",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-08"
+      }
+    },
+    {
+      "file": "history-undo-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "history-undo",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-08"
+      }
+    },
+    {
+      "file": "history-undo-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "history-undo",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-08"
+      }
+    },
+    {
+      "file": "suggestions-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "light",
+      "service": "suggestions",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "suggestions-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "theme": "dark",
+      "service": "suggestions",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "dark",
+        "dir": "ltr",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "suggestions-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "theme": "light",
+      "service": "suggestions",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 918,
+        "orbits": 6,
+        "width": 1672,
+        "height": 941,
+        "theme": "light",
+        "dir": "rtl",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "overview-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 749,
+        "orbits": 6,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "overview-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 1057,
+        "orbits": 6,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "overview-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 749,
+        "orbits": 6,
+        "width": 1366,
+        "height": 768,
+        "theme": "dark",
+        "dir": "rtl",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "overview-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "overview",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 1057,
+        "orbits": 6,
+        "width": 1920,
+        "height": 1080,
+        "theme": "dark",
+        "dir": "rtl",
+        "serviceId": "mission-03-09"
+      }
+    },
+    {
+      "file": "visual-library-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "theme": "light",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 749,
+        "orbits": 6,
+        "width": 1366,
+        "height": 768,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "visual-library-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "theme": "light",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 1057,
+        "orbits": 6,
+        "width": 1920,
+        "height": 1080,
+        "theme": "light",
+        "dir": "ltr",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "visual-library-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 749,
+        "orbits": 6,
+        "width": 1366,
+        "height": 768,
+        "theme": "dark",
+        "dir": "rtl",
+        "serviceId": "mission-03-02"
+      }
+    },
+    {
+      "file": "visual-library-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "theme": "dark",
+      "service": "visual-library",
+      "geo": {
+        "overflow": 0,
+        "dockVisible": true,
+        "dockBottom": 1057,
+        "orbits": 6,
+        "width": 1920,
+        "height": 1080,
+        "theme": "dark",
+        "dir": "rtl",
+        "serviceId": "mission-03-02"
+      }
+    }
+  ],
+  "checks": [
+    "Native inventory measured 40/40 on the controlled fixture",
+    "Captured 38 overview/service frames across DAY/NIGHT, EN/AR and 1366/1672/1920"
+  ],
+  "errors": [],
+  "ok": true
+}

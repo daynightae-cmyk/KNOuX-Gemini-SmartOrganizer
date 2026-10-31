@@ -26,7 +26,7 @@ import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellCompo
 import { CleanupHero, CleanupMetrics } from '../cleanup/CleanupHero';
 import { CandidateRegister } from '../cleanup/CandidateRegister';
 import { CandidateInspector } from '../cleanup/CandidateInspector';
-import { ServiceRail } from '../cleanup/ServiceRail';
+import { ServiceRail, serviceIcon } from '../cleanup/ServiceRail';
 import { ServiceWorkspace } from '../cleanup/ServiceWorkspace';
 import { PlanGate } from '../cleanup/PlanGate';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
@@ -424,6 +424,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
           <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="cleanup-workbench-side-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={serviceIcon(activeService)}
               title={cleanupServiceLabel(activeService)}
               subtitle={t(locale, 'Measured cleanup context · review only', 'سياق التنظيف المقيس · للمراجعة فقط')}
               locale={locale}
@@ -444,6 +445,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
           <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="cleanup-workbench-expanded-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={serviceIcon(activeService)}
               title={cleanupServiceLabel(activeService)}
               subtitle={t(locale, 'Measured cleanup context · review only', 'سياق التنظيف المقيس · للمراجعة فقط')}
               locale={locale}

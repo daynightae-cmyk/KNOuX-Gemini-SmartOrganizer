@@ -212,6 +212,7 @@ class AppBridge {
   constructor({
     loadProvider,
     verifySignature,
+    loadIcon,
     readAssociations,
     measureFolderSize,
     runner,
@@ -224,6 +225,8 @@ class AppBridge {
   } = {}) {
     this.loadProvider = loadProvider;
     this.verifySignature = verifySignature;
+    this.loadIcon = loadIcon;
+    this.iconCache = new Map();
     this.readAssociations = readAssociations;
     this.measureFolderSize = measureFolderSize;
     this.runner = runner || execFileRunner || execFileAsync;
@@ -643,6 +646,44 @@ class AppBridge {
       }
     }
     return null;
+  }
+
+  async icon(appId) {
+    // Renderer supplies an inventory identifier, never a path or command.
+    const record = await this.findApp(appId);
+    return this.readIcon(appId, record);
+  }
+
+  async readIcon(appId, record) {
+    if (this.iconCache.has(appId)) return this.iconCache.get(appId);
+    let dataUrl = null;
+    const localPath = (value) => {
+      const expanded = String(value || '').replace(/^%USERPROFILE%/i, this.homeDir);
+      return /^[a-z]:[\\/]/i.test(expanded) && !expanded.slice(3).includes(':') ? expanded : null;
+    };
+    try {
+      if (this.platform === 'win32' && this.loadIcon) {
+        const display = String(record.displayIcon || '').replace(/,\s*-?\d+$/, '').replace(/^"|"$/g, '');
+        let target = localPath(display);
+        if (!target || !/\.(exe|ico)$/i.test(target)) {
+          const folder = localPath(record.installLocation);
+          target = folder ? await this.resolveExecutable({ ...record, displayIcon: null, installLocation: folder }) : null;
+        }
+        if (target) {
+          const resolved = await fsp.realpath(target);
+          if (localPath(resolved) && (await fsp.stat(resolved)).isFile()) {
+            const candidate = await this.loadIcon(resolved);
+            if (typeof candidate === 'string' && candidate.startsWith('data:image/png;base64,') && candidate.length <= 350000) dataUrl = candidate;
+          }
+        }
+      }
+    } catch {
+      // An inaccessible or removed binary has no icon; inventory stays usable.
+    }
+    const result = { appId, dataUrl, status: dataUrl ? 'available' : 'unavailable' };
+    if (this.iconCache.size >= 256) this.iconCache.delete(this.iconCache.keys().next().value);
+    this.iconCache.set(appId, result);
+    return result;
   }
 
   async signature(appId) {

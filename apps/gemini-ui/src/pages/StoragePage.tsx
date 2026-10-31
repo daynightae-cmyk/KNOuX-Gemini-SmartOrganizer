@@ -883,6 +883,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="storage-workbench-side-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={renderServiceCatalogIcon(activeService)}
               title={storageServiceLabel(activeService, isArabic).title}
               subtitle={isArabic ? 'سياق التخزين المقيس · للقراءة فقط' : 'Measured storage context · read-only'}
               locale={isArabic ? 'ar' : 'en'}
@@ -915,6 +916,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="storage-workbench-expanded-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={renderServiceCatalogIcon(activeService)}
               title={storageServiceLabel(activeService, isArabic).title}
               subtitle={isArabic ? 'سياق التخزين المقيس · للقراءة فقط' : 'Measured storage context · read-only'}
               locale={isArabic ? 'ar' : 'en'}

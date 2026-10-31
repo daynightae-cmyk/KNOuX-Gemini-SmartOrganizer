@@ -1,3 +1,4 @@
+import { GoogleProductIcons } from './GoogleProductIcon';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -104,7 +105,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'sheets',
     labelEn: 'Google Sheets',
     labelAr: 'جداول البيانات',
-    icon: FileSpreadsheet,
+    icon: GoogleProductIcons.sheets,
     color: 'text-emerald-400',
     scope: 'spreadsheets.readonly',
     syncEn: 'Fixture set — 3 spreadsheets, loaded with the app bundle',
@@ -118,7 +119,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'gmail',
     labelEn: 'Gmail',
     labelAr: 'البريد الإلكتروني',
-    icon: Mail,
+    icon: GoogleProductIcons.gmail,
     color: 'text-rose-400',
     scope: 'gmail.readonly',
     syncEn: 'Fixture set — 4 messages, no mailbox attached',
@@ -132,7 +133,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'tasks',
     labelEn: 'Google Tasks',
     labelAr: 'المهام',
-    icon: CheckSquare,
+    icon: GoogleProductIcons.tasks,
     color: 'text-blue-400',
     scope: 'tasks.readonly',
     syncEn: 'Fixture set — 4 tasks, 1 already closed',
@@ -146,7 +147,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'forms',
     labelEn: 'Google Forms',
     labelAr: 'النماذج',
-    icon: FileQuestion,
+    icon: GoogleProductIcons.forms,
     color: 'text-purple-400',
     scope: 'forms.readonly',
     syncEn: 'Fixture set — 3 forms, synthetic response counts',
@@ -160,7 +161,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'contacts',
     labelEn: 'Contacts',
     labelAr: 'جهات الاتصال',
-    icon: Users,
+    icon: GoogleProductIcons.contacts,
     color: 'text-cyan-400',
     scope: 'contacts.readonly',
     syncEn: 'Fixture set — 4 directory entries',
@@ -174,7 +175,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'calendar',
     labelEn: 'Google Calendar',
     labelAr: 'التقويم',
-    icon: Calendar,
+    icon: GoogleProductIcons.calendar,
     color: 'text-amber-400',
     scope: 'calendar.readonly',
     syncEn: 'Fixture set — 4 agenda entries across 2 days',
@@ -188,7 +189,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'picker',
     labelEn: 'Google Picker',
     labelAr: 'محدد الملفات',
-    icon: FolderOpen,
+    icon: GoogleProductIcons.drive,
     color: 'text-indigo-400',
     scope: 'picker.googleapis.com (JS API)',
     syncEn: 'No Drive attached — selection list is a local mock',
@@ -202,7 +203,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'slides',
     labelEn: 'Google Slides',
     labelAr: 'العروض التقديمية',
-    icon: Presentation,
+    icon: GoogleProductIcons.slides,
     color: 'text-orange-400',
     scope: 'presentations.readonly',
     syncEn: 'Fixture set — 2 decks with slide outlines',
@@ -216,7 +217,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'chat',
     labelEn: 'Google Chat',
     labelAr: 'المحادثات',
-    icon: MessageSquare,
+    icon: GoogleProductIcons.chat,
     color: 'text-teal-400',
     scope: 'chat.messages.readonly',
     syncEn: 'Fixture set — 3 spaces with sample messages',
@@ -230,7 +231,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     id: 'classroom',
     labelEn: 'Google Classroom',
     labelAr: 'الفصول الدراسية',
-    icon: GraduationCap,
+    icon: GoogleProductIcons.classroom,
     color: 'text-sky-400',
     scope: 'classroom.courses.readonly',
     syncEn: 'Fixture set — 2 courses with assignment outlines',
@@ -1137,8 +1138,8 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
           </div>
         </div>
 
-        <div className="knx-domain-orbit-compact" data-testid="workspace-orbit"><KnouxOrbit title="Workspace" subtitle={activeService==='sheets'&&googleConnected?(isAr?'قراءة متصلة':'Read-only connection'):(isAr?'معاينة · بلا API حي':'Preview · no live API')} state={!google.bridgeAvailable?'unavailable':activeService==='sheets'&&googleConnected?'ready':'partial'} onActivate={()=>setIsOAuthModalOpen(true)} tools={([
-          {id:'sheets',label:isAr?'الجداول':'Sheets',icon:FileSpreadsheet},{id:'gmail',label:'Gmail',icon:Mail},{id:'tasks',label:isAr?'المهام':'Tasks',icon:CheckSquare},{id:'forms',label:isAr?'النماذج':'Forms',icon:FileQuestion},{id:'contacts',label:isAr?'جهات الاتصال':'Contacts',icon:Users},{id:'calendar',label:isAr?'التقويم':'Calendar',icon:Calendar},
+        <div className="knx-domain-orbit-compact" data-testid="workspace-orbit"><KnouxOrbit coreMark={<GoogleProductIcons.google className="knx-provider-mark" />} title="Workspace" subtitle={activeService==='sheets'&&googleConnected?(isAr?'قراءة متصلة':'Read-only connection'):(isAr?'معاينة · بلا API حي':'Preview · no live API')} state={!google.bridgeAvailable?'unavailable':activeService==='sheets'&&googleConnected?'ready':'partial'} onActivate={()=>setIsOAuthModalOpen(true)} tools={([
+          {id:'sheets',label:isAr?'الجداول':'Sheets',icon:GoogleProductIcons.sheets},{id:'gmail',label:'Gmail',icon:GoogleProductIcons.gmail},{id:'tasks',label:isAr?'المهام':'Tasks',icon:GoogleProductIcons.tasks},{id:'forms',label:isAr?'النماذج':'Forms',icon:GoogleProductIcons.forms},{id:'contacts',label:isAr?'جهات الاتصال':'Contacts',icon:GoogleProductIcons.contacts},{id:'calendar',label:isAr?'التقويم':'Calendar',icon:GoogleProductIcons.calendar},
         ] as const).map((tool,i)=>({...tool,active:activeService===tool.id,hint:tool.id==='sheets'?'Open the Sheets consent/workbench; never connect automatically':'Local design preview only; no Google API execution',onClick:()=>selectOrbitService(tool.id),position:[{x:25,y:17},{x:75,y:17},{x:12,y:51},{x:88,y:51},{x:25,y:83},{x:75,y:83}][i]}))}/></div>
         <div className="flex items-center gap-2.5 shrink-0">
           <div className="flex items-center gap-2" data-testid="workspace-connection-state">

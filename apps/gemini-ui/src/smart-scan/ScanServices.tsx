@@ -49,6 +49,11 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Lightbulb,
 };
 
+export function scanServiceIcon(name: string) {
+  const Icon = ICONS[name] || Lightbulb;
+  return <Icon className="w-6 h-6" />;
+}
+
 export const ScanServices: React.FC<ScanServicesProps> = ({
   services,
   results = [],

@@ -15,7 +15,10 @@ async function ready(page: Page) { await expect(page.locator(root)).toHaveAttrib
 async function active(page: Page) { await expect(page.locator(root)).toHaveAttribute('data-phase', 'ACTIVE'); }
 
 test('real shell paints once; immediate response, overlapping reveal and focus', async ({ page }) => {
+  test.setTimeout(60000);
   const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  await page.clock.install();
+  await page.clock.pauseAt(new Date(Date.now() + 10000));
   await boot(page);
   await expect(page.getByRole('button', { name: 'Enter Workspace', exact: true })).toBeDisabled();
   await expect(page.locator('.cinematic-workspace')).toHaveAttribute('inert', '');
@@ -25,11 +28,20 @@ test('real shell paints once; immediate response, overlapping reveal and focus',
     w.observer = new MutationObserver(records => { for (const record of records) for (const node of record.removedNodes) if (node === w.originalMain || (node instanceof Element && node.contains(w.originalMain))) w.mainRemovals++; });
     w.observer.observe(document.querySelector('.cinematic-workspace'), { childList: true, subtree: true });
   });
+  await page.clock.runFor(3600);
   await ready(page);
+  await page.clock.resume();
   await page.getByRole('button', { name: 'Enter Workspace', exact: true }).click();
   await expect(page.locator(root)).toHaveAttribute('data-phase', 'ENTERING');
-  await page.waitForTimeout(700);
-  const overlap = await page.locator('.entry-overlay').evaluate(el => Number(getComputedStyle(el).opacity));
+  // Sample the actual CSS animation at its midpoint. A wall-clock sleep can
+  // overshoot the whole transition when native provider work loads the runner.
+  const overlap = await page.locator('.entry-overlay').evaluate(el => {
+    const animation = el.getAnimations()[0];
+    if (!animation) throw Error('Entry dissolve animation is missing');
+    animation.pause(); animation.currentTime = 700;
+    const opacity = Number(getComputedStyle(el).opacity);
+    animation.play(); return opacity;
+  });
   expect(overlap).toBeGreaterThan(0); expect(overlap).toBeLessThan(.95);
   await expect(page.locator('.cinematic-workspace')).toHaveCSS('opacity', '1');
   await active(page);
@@ -196,8 +208,10 @@ test('Settings choice cards remain keyboard-operable and survive entry replay', 
   await boot(page, { seen: true }); await active(page);
   await page.goto('/#settings');
   const turbo = page.getByRole('button', { name: /Maximum Turbo Engine/ });
+  // This selects a local preference, not an implemented native engine.
   await turbo.focus(); await page.keyboard.press('Space');
   await expect(turbo).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByTestId('settings-engine-notice')).toBeVisible();
   await page.getByTestId('settings-tab-appearance').click();
   const accent = page.getByRole('button', { name: 'Cyberpunk Purple', exact: true });
   await accent.focus(); await page.keyboard.press('Enter');

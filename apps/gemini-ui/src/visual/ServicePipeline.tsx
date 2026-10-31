@@ -122,13 +122,13 @@ export function ServicePipeline({
 }: ServicePipelineProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const glassId = `pipe-${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
-  const [geometry, setGeometry] = useState({ width: 1000, outletX: 1000, outletY: 22, nodeY: 22 });
+  const [geometry, setGeometry] = useState({ width: 1000, outletX: 1000, outletY: 22, nodeY: 22, nodes: [] as {x:number;y:number}[] });
   // Measure only on layout changes. The tube shares the real orbital outlet;
   // no animation loop, provider timer, or navigation-derived progress exists here.
   useLayoutEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    const hero = track.closest('.approved-hero, .osa-hero, .knx-studio-hero, .knx-command-hero, .knx-workspace-hero, header');
+    const hero = track.closest('.approved-hero, .osa-hero, .os-focus-header, .knx-studio-hero, .knx-command-hero, .knx-workspace-hero, header');
     const orbit = hero?.querySelector<HTMLElement>('.knx-orbit-core, .knoux-orbit__core');
     const measure = () => {
       const box = track.getBoundingClientRect();
@@ -136,9 +136,11 @@ export function ServicePipeline({
       const hub = orbit?.getBoundingClientRect();
       const nodeY = dot ? dot.top + dot.height / 2 - box.top : 22;
       const connected = hub && hub.left > box.left + box.width / 2;
-      const next = { width: box.width, outletX: connected ? hub.left - box.left + 5 : box.width,
-        outletY: connected ? hub.top + hub.height / 2 - box.top : nodeY, nodeY };
-      setGeometry(previous => Object.keys(next).every(key => Math.abs(next[key as keyof typeof next] - previous[key as keyof typeof next]) < .5) ? previous : next);
+      const round = (n:number) => Math.round(n * 2) / 2;
+      const nodes = [...track.querySelectorAll('.knx-pipe-dot')].map(el => {const r=el.getBoundingClientRect();return {x:round(r.left+r.width/2-box.left),y:round(r.top+r.height/2-box.top)};}).sort((a,b)=>b.x-a.x);
+      const next = { width: round(box.width), outletX: round(connected ? hub.left - box.left + 5 : box.width),
+        outletY: round(connected ? hub.top + hub.height / 2 - box.top : nodeY), nodeY:round(nodeY), nodes };
+      setGeometry(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
     };
     const observer = new ResizeObserver(measure);
     observer.observe(track);
@@ -156,8 +158,11 @@ export function ServicePipeline({
   const completed = stages.filter((stage) => stage.state === 'complete').length;
   const anyActive = stages.some((stage) => stage.state === 'active');
   const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  const { width, outletX, outletY, nodeY } = geometry;
-  const curve = `M${outletX} ${outletY} C${outletX - 65} ${outletY} ${width + 35} ${nodeY} ${width} ${nodeY} C${width * .78} ${nodeY - 14} ${width * .7} ${nodeY + 14} ${width * .5} ${nodeY} S${width * .2} ${nodeY - 12} 0 ${nodeY}`;
+  const { width, outletX, outletY, nodeY, nodes } = geometry;
+  // One continuous route passes through the actual staggered phase centres.
+  // Smooth horizontal tangents create a workflow rising/falling between steps.
+  const points=[{x:outletX,y:outletY},...nodes,{x:0,y:nodes.at(-1)?.y??nodeY}];
+  const curve=points.reduce((path,p,i)=>{if(!i)return `M${p.x} ${p.y}`;const previous=points[i-1],bend=Math.max(12,Math.abs(previous.x-p.x)*.5);return `${path} C${previous.x-bend} ${previous.y} ${p.x+bend} ${p.y} ${p.x} ${p.y}`;},'');
 
   return (
     <section

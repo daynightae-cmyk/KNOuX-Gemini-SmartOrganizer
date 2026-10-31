@@ -377,12 +377,15 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                 <div className="auto-library-section">
                   <h4>{t(locale, 'Templates', 'القوالب')}</h4>
                   <div className="auto-library-templates">
-                    {visibleTemplates.map((template) => (
+                    {visibleTemplates.map((template) => {
+                      const Icon = TOOL_BY_ID[template.workflow.nodes.find((node) => node.toolId !== 'platform')?.toolId as keyof typeof TOOL_BY_ID]?.icon || GitBranch;
+                      return (
                       <button key={template.id} type="button" className="auto-library-template" data-testid={`automation-template-${template.id}`} onClick={() => instantiate(template.id)}>
+                        <Icon aria-hidden="true" />
                         <strong>{locale === 'ar' ? template.labelAr : template.labelEn}</strong>
                         <em>{template.workflow.nodes.length} {t(locale, 'nodes', 'عقدة')} · {template.category}</em>
                       </button>
-                    ))}
+                    ); })}
                   </div>
                 </div>
               </Panel>
@@ -402,6 +405,8 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   <WorkflowCanvas locale={locale} workflow={draft} selectedNodeId={selectedNodeId} onSelect={setSelectedNodeId} />
                 ) : <div className="auto-empty"><GitBranch aria-hidden="true" /><strong>{t(locale, 'No workflow loaded', 'لا سير عمل محمّل')}</strong><p>{t(locale, 'Choose a saved workflow or template from the library.', 'اختر سير عمل محفوظًا أو قالبًا من المكتبة.')}</p></div>}
                 {draft ? (
+                  <details className="auto-workflow-details">
+                    <summary><CalendarDays aria-hidden="true" />{t(locale, 'Schedule & dry-run details', 'الجدولة وتفاصيل المعاينة')}</summary>
                   <div className="auto-editor-lower">
                     <Panel title={t(locale, 'Trigger & schedule', 'المحفز والجدولة')} icon={CalendarDays}>
                       <TriggerEditor locale={locale} workflow={draft} onChange={setDraft} />
@@ -411,6 +416,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                       <DryRunTimeline locale={locale} result={dryRun} />
                     </Panel>
                   </div>
+                  </details>
                 ) : null}
               </div>
 

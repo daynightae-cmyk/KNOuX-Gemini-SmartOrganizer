@@ -1,3 +1,4 @@
+import { GoogleProductIcons } from '../components/workspace/GoogleProductIcon';
 /**
  * Google Sheets read-only workbench.
  *
@@ -117,7 +118,7 @@ export function GoogleSheetsWorkbench({ google, isAr, onNotice }: GoogleSheetsWo
     <section className="flex-1 min-h-0 bg-[#061226]/80 border border-[#142e56] rounded-xl shadow-inner flex flex-col overflow-hidden" data-testid="workspace-sheets-workbench">
       <header className="px-5 py-3 border-b border-[#122b52] flex flex-wrap items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-2.5 min-w-0">
-          <FileSpreadsheet className="w-5 h-5 text-emerald-400 shrink-0" />
+          <GoogleProductIcons.sheets className="w-7 h-7 shrink-0" />
           <div className="min-w-0">
             <h2 className="text-sm font-bold text-white truncate">{isAr ? 'جداول Google — قراءة فقط' : 'Google Sheets — read only'}</h2>
             <p className="text-[10px] text-slate-400 truncate">

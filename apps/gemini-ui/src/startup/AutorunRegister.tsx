@@ -1,3 +1,4 @@
+import { NativeAppIcon } from '../components/app/AppIcon';
 /**
  * Autorun register — every row is measured evidence from the read-only scan.
  * No boot delay is inferred from a name or a fixture.
@@ -239,6 +240,7 @@ export function AutorunRegister({
                   </td>
                   <td>
                     <div className="stp-row-main">
+                      <NativeAppIcon appId={entry.id} source="startup" />
                       <div className="min-w-0">
                         <div className="stp-row-name" title={entry.name}>{entry.name}</div>
                         <div className="stp-row-sub" title={entry.publisher || undefined}>

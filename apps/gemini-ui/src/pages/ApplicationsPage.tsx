@@ -23,7 +23,7 @@ import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellCompo
 import { ApplicationsHero, ApplicationsMetrics } from '../apps/ApplicationsHero';
 import { AppRegister } from '../apps/AppRegister';
 import { AppDossier } from '../apps/AppDossier';
-import { ApplicationServices } from '../apps/ApplicationServices';
+import { ApplicationServices, serviceIcon } from '../apps/ApplicationServices';
 import { AppServiceWorkspace } from '../apps/AppServiceWorkspace';
 import { DEFAULT_FILTERS, filterApps, formatBytes, formatCount, formatTimestamp, serviceTitle, t } from '../apps/model';
 import type { AppsFilters, AppsLocale } from '../apps/model';
@@ -341,6 +341,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
           <div className="fixed end-3 top-14 bottom-5 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="apps-workbench-side-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={serviceIcon(activeService)}
               title={serviceTitle(activeService, locale)}
               subtitle={t(locale, 'Measured applications context · read-only', 'سياق التطبيقات المقيس · للقراءة فقط')}
               locale={locale}
@@ -361,6 +362,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
           <div className="fixed inset-x-3 top-14 bottom-5 z-50" data-testid="apps-workbench-expanded-shell">
             <ServiceWorkbenchHost
               serviceId={activeService}
+              icon={serviceIcon(activeService)}
               title={serviceTitle(activeService, locale)}
               subtitle={t(locale, 'Measured applications context · read-only', 'سياق التطبيقات المقيس · للقراءة فقط')}
               locale={locale}

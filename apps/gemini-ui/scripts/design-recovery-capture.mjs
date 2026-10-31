@@ -17,6 +17,7 @@ import path from 'node:path';
 const require = createRequire(import.meta.url);
 const OUT = path.resolve(process.env.KNOUX_VISUAL_OUT || '../../docs/evidence/design-recovery-20261030/before');
 await mkdir(OUT, { recursive: true });
+const proofName = path.basename(process.env.KNOUX_VISUAL_PROOF || 'visual-pass-proof.json');
 const ROUTES = [
   { section: 'home', root: 'home-workspace', theme: 'light' },
   { section: 'studio', root: 'studio-workspace', theme: 'light' },
@@ -28,6 +29,10 @@ const ROUTES = [
   { section: 'repair', root: 'repair-workspace', theme: 'dark' },
   { section: 'system', root: 'system-workspace', theme: 'dark' },
   { section: 'automation', root: 'automation-workspace', theme: 'dark' },
+  { section: 'files', root: 'files-workspace', theme: 'light' },
+  { section: 'storage', root: 'storage-workspace', theme: 'light' },
+  { section: 'cleanup', root: 'cleanup-workspace', theme: 'light' },
+  { section: 'settings', root: 'settings-root', theme: 'dark' },
 ];
 
 const profile = await mkdtemp(path.join(os.tmpdir(), 'knoux-visual-pass-'));
@@ -41,7 +46,7 @@ const app = await electron.launch({
   timeout: 60000,
 });
 
-const sourcePaths=['src/visual/ServicePipeline.tsx','src/visual/design-recovery.css','src/operations/OrganizationStudioOverview.tsx','electron/native/scan-bridge.cjs'];
+const sourcePaths=['src/studio/StudioPage.tsx','src/components/home/approved-home.css','src/visual/ServicePipeline.tsx','src/visual/visual-sprint.css','src/visual/design-recovery.css','src/visual/KnouxOrbit.tsx','src/operations/OrganizationStudioFocus.tsx','src/operations/OrganizationStudioOverview.tsx','src/automation/ui.tsx','src/pages/AutomationPage.tsx','src/components/workbench/ServiceWorkbenchHost.tsx','src/components/app/AppIcon.tsx','src/components/workspace/GoogleProductIcon.tsx','electron/native/app-bridge.cjs','electron/native/scan-bridge.cjs'];
 const sourceHashes=Object.fromEntries(await Promise.all(sourcePaths.map(async file=>[file,createHash('sha256').update(await readFile(file)).digest('hex')])));
 const proof = { sourceHashes, head: (await import('node:child_process')).execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(), workingTree: 'uncommitted', capturedAt: new Date().toISOString(), frames: [], errors: [] };
 
@@ -70,6 +75,7 @@ async function setViewport(width, height) {
   throw new Error('viewport did not settle');
 }
 
+try {
 for (const { section, root, theme: referenceTheme } of ROUTES.filter(r => !process.env.KNOUX_VISUAL_ROUTES || process.env.KNOUX_VISUAL_ROUTES.split(',').includes(r.section))) {
   const theme = process.env.KNOUX_VISUAL_THEME === 'opposite' ? (referenceTheme === 'light' ? 'dark' : 'light') : process.env.KNOUX_VISUAL_THEME || referenceTheme;
   const locale = process.env.KNOUX_VISUAL_LOCALE || 'en';
@@ -98,10 +104,16 @@ for (const { section, root, theme: referenceTheme } of ROUTES.filter(r => !proce
   await setViewport(width, height);
   await page.waitForTimeout(700);
   const file = path.join(OUT, `${section}-${locale}-${theme}-${width}.png`);
-  await page.screenshot({ path: file, animations: 'disabled' });
+  const png = await page.screenshot({ animations: 'allow', timeout: 60000 });
+  if (png.readUInt32BE(16)!==width || png.readUInt32BE(20)!==height) throw Error('Screenshot dimensions differ from requested viewport');
+  for(let attempt=0;attempt<3;attempt++) {
+    try { await writeFile(file,png); break; }
+    catch(error) { if(attempt===2 || !['EBUSY','UNKNOWN'].includes(error.code))throw error; await page.waitForTimeout(250); }
+  }
   const applied = await page.evaluate(() => ({
     theme: document.documentElement.dataset.theme === 'light' ? 'light' : 'dark',
     dir: document.documentElement.getAttribute('dir'),
+    studioChrome: document.querySelector('.studio-integration-shell') ? {mode:document.querySelector('.studio-integration-shell').getAttribute('data-theme-mode'),searchBackground:getComputedStyle(document.querySelector('.approved-search')).backgroundImage,engineBackground:getComputedStyle(document.querySelector('.approved-engine')).backgroundImage}:null,
     scrollHeight: document.scrollingElement?.scrollHeight ?? 0,
     innerHeight: window.innerHeight,
     innerWidth: window.innerWidth,
@@ -117,13 +129,15 @@ for (const { section, root, theme: referenceTheme } of ROUTES.filter(r => !proce
     orbitalConnections:[...document.querySelectorAll('.knx-pipe-glass')].map(el=>({outletX:el.dataset.outletX,outletY:el.dataset.outletY,trackWidth:el.parentElement.getBoundingClientRect().width})),
   }));
   if(applied.theme!==theme || applied.dir!==(locale==='ar'?'rtl':'ltr') || applied.innerWidth!==width || applied.innerHeight!==height || applied.scrollHeight>height || applied.scrollWidth>width) proof.errors.push(`${section}: geometry/theme/locale mismatch`);
+  if(applied.studioChrome && applied.studioChrome.mode!==(theme==='light'?'day':'night')) proof.errors.push('Studio chrome theme contract mismatch');
   if(applied.criticalClipping.length) proof.errors.push(`${section}: critical clipping: ${applied.criticalClipping.join(', ')}`);
   proof.frames.push({ section, theme, file: path.basename(file), applied });
   console.log(`${section}: ${path.basename(file)} · ${applied.theme}/${applied.dir} · ${applied.innerWidth}x${applied.innerHeight}`);
 }
 
 proof.ok = proof.errors.length === 0;
-await writeFile(path.join(OUT, 'visual-pass-proof.json'), JSON.stringify(proof, null, 2));
-await app.close();
+await writeFile(path.join(OUT, proofName), JSON.stringify(proof, null, 2));
+} catch (error) { proof.ok=false;proof.errors.push(String(error));await writeFile(path.join(OUT, proofName), JSON.stringify(proof,null,2)); }
+finally {await app.close();}
 console.log('done', proof.ok ? 'OK' : 'WITH ERRORS', JSON.stringify(proof.errors));
 if(!proof.ok) process.exitCode=1;

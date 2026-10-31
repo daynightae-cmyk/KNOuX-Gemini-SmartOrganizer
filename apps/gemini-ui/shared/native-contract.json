@@ -45,6 +45,7 @@
     "scanEvent": "knoux:scan:v1:event",
     "appsCapabilities": "knoux:apps:v1:capabilities",
     "appsInventory": "knoux:apps:v1:inventory",
+    "appsIcon": "knoux:apps:v1:icon",
     "appsSignature": "knoux:apps:v1:signature",
     "appsAssociations": "knoux:apps:v1:associations",
     "appsSizes": "knoux:apps:v1:sizes",
@@ -71,6 +72,7 @@
     "startupStatus": "knoux:startup:v1:status",
     "startupCancel": "knoux:startup:v1:cancel",
     "startupInventory": "knoux:startup:v1:inventory",
+    "startupIcon": "knoux:startup:v1:icon",
     "startupServices": "knoux:startup:v1:services",
     "startupTasks": "knoux:startup:v1:tasks",
     "startupImpact": "knoux:startup:v1:impact",
@@ -374,6 +376,12 @@
       "mode": "read-only",
       "channel": "knoux:apps:v1:inventory"
     },
+    "apps.icon": {
+      "id": "apps.icon",
+      "title": "Local Windows icon for a measured application",
+      "mode": "read-only",
+      "channel": "knoux:apps:v1:icon"
+    },
     "apps.signature": {
       "id": "apps.signature",
       "title": "Authenticode verification for one application",
@@ -529,6 +537,12 @@
       "title": "Read the last measured startup inventory",
       "mode": "read-only",
       "channel": "knoux:startup:v1:inventory"
+    },
+    "startup.icon": {
+      "id": "startup.icon",
+      "title": "Local Windows icon for a measured startup entry",
+      "mode": "read-only",
+      "channel": "knoux:startup:v1:icon"
     },
     "startup.services": {
       "id": "startup.services",

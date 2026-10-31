@@ -55,6 +55,8 @@ const WATCHED = [
   'src/operations/organization-studio-model.ts',
   'src/studio/StudioPage.tsx',
   'src/visual/KnouxOrbit.tsx',
+  'src/visual/design-recovery.css',
+  'src/visual/visual-sprint.css',
   'electron/native/studio-bridge.cjs',
   'shared/operation-contract.ts',
 ];
@@ -193,7 +195,7 @@ try {
     await capture(`${slug}-ar-dark-1920`, 1920, 1080, 'ar', 'dark', slug);
   }
 
-  proof.checks.push('Captured 30 overview/service frames across DAY/NIGHT, EN/AR and 1366/1672/1920');
+  proof.checks.push(`Captured ${proof.captures.length} overview/service frames across DAY/NIGHT, EN/AR and 1366/1672/1920`);
   proof.ok = proof.errors.length === 0;
   await writeFile(path.join(OUT, 'capture-proof.json'), JSON.stringify(proof, null, 2));
   console.log(JSON.stringify({ ok: proof.ok, sourceCommit: proof.sourceCommit, captures: proof.captures.length, errors: proof.errors, out: OUT }, null, 2));
