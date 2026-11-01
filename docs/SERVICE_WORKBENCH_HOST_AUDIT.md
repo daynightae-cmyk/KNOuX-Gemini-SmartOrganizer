@@ -144,10 +144,23 @@ exists.
 screenshots `startup-workbench-dev.png` / `startup-workbench-expanded-dev.png`
 and packaged equivalents.
 
+## 3h. Services integration (12/12 measured services)
+
+Service Commander's twelve services now open in the shared
+`ServiceWorkbenchHost` as a pinned resizable side dock (360–900 px, persisted in
+`knoux.services.workbench.mode|width`) while the measured SCM register, dossier
+and dependency graph remain visible. `ServicesServiceWorkspace` was converted
+from an obscuring modal sheet into the host with an in-header tool selector to
+switch among the 12 tools, real read/preview/plan-staging controls, measured
+error/busy/cancel states and the originating page still visible in side mode.
+Mode and width persist across toggles; Escape closes and focus returns to the
+opener. Start/stop/restart/policy writes remain gated — no SCM control channel
+exists — and no owner service is touched.
+
 ## 4. Honest limits / next
 
-- System, Repair, Services, Automation, Workspace, Settings and Home still use
-  their existing specialized panels/modal sheets and must be migrated next.
+- System, Repair, Automation, Workspace, Settings and Home still use their
+  existing specialized panels/modal sheets and must be migrated next.
 - No file apply/undo or application uninstall/update executor was added; those
   remain blocked.
 - No real user file, account, service, registry, startup, Windows setting or
