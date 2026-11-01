@@ -21,6 +21,13 @@ import type {
 import { FILES_DOMAIN_SERVICES, type FileResultItem, type FilesServiceKey } from '../lib/file-inventory';
 import { formatBytes, type FilesQueryFilters } from './useFilesNative';
 
+export interface FilesToolDraft {
+  emptyQuery: string;
+  typeMeasure: 'count' | 'bytes';
+  overviewSelection: FilesItem | null;
+  overviewQuery: string;
+}
+
 interface FilesServiceFocusProps {
   service: FilesServiceKey;
   locale: 'en' | 'ar';
@@ -47,6 +54,8 @@ interface FilesServiceFocusProps {
   onQueryChange: (patch: FilesQueryFilters) => void;
   onSelectFile: (file: FileResultItem) => void;
   onOpenService: (service: FilesServiceKey) => void;
+  draft: FilesToolDraft;
+  onDraftChange: (patch: Partial<FilesToolDraft>) => void;
   embedded?: boolean;
 }
 
@@ -84,20 +93,20 @@ export function FilesServiceFocus({
   onLoadEmpty,
   onHash,
   onSort,
-  query, results, queryError, onQueryChange, onSelectFile, onOpenService,
+  query, results, queryError, onQueryChange, onSelectFile, onOpenService, draft, onDraftChange,
   embedded = false,
 }: FilesServiceFocusProps) {
   const meta = FILES_DOMAIN_SERVICES.find((entry) => entry.key === service);
   const title = meta ? (locale === 'en' ? meta.labelEn : meta.labelAr) : service;
   const description = meta ? (locale === 'en' ? meta.descEn : meta.descAr) : '';
 
-  const [emptyQuery, setEmptyQuery] = useState('');
-  const [typeMeasure, setTypeMeasure] = useState<'count' | 'bytes'>('count');
-  const [overviewSelection, setOverviewSelection] = useState<FilesItem | null>(null);
-  const [overviewQuery, setOverviewQuery] = useState('');
+  const {emptyQuery, typeMeasure, overviewSelection, overviewQuery} = draft;
+  const setEmptyQuery = (emptyQuery: string) => onDraftChange({emptyQuery});
+  const setTypeMeasure = (typeMeasure: FilesToolDraft['typeMeasure']) => onDraftChange({typeMeasure});
+  const setOverviewSelection = (overviewSelection: FilesItem) => onDraftChange({overviewSelection});
+  const setOverviewQuery = (overviewQuery: string) => onDraftChange({overviewQuery});
   const [copyStatus, setCopyStatus] = useState('');
   useEffect(() => setCopyStatus(''), [selectedFile.id, hash?.digest, service]);
-  useEffect(() => { setOverviewSelection(null); setOverviewQuery(''); }, [overview?.source.id, overview?.scannedAt, service]);
   const copyText = async (text: string, success: string) => {
     try { await navigator.clipboard.writeText(text); setCopyStatus(success); }
     catch { setCopyStatus(locale === 'en' ? 'Clipboard unavailable' : 'الحافظة غير متاحة'); }

@@ -70,6 +70,7 @@ interface AppServiceWorkspaceProps {
   onSelectApp: (appId: string) => void;
   onClose: () => void;
   onOpenPlan: () => void;
+  onOpenService?: (service: DomainServiceKey) => void;
   embedded?: boolean;
 }
 
@@ -119,6 +120,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
   onSelectApp,
   onClose,
   onOpenPlan,
+  onOpenService,
   embedded = false,
 }) => {
   const meta = DOMAIN_SERVICES_META.find((entry) => entry.key === service);
@@ -130,7 +132,8 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
   const [identityQuery, setIdentityQuery] = useState('');
   const [identityAppId, setIdentityAppId] = useState<string | null>(selectedApp?.id || null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchScope, setSearchScope] = useState('all');
+  const [searchScope, setSearchScope] = useState<'all' | AppRecord['scope']>('all');
+  const [publisherQuery, setPublisherQuery] = useState('');
   const [searchTrust, setSearchTrust] = useState('all');
   const [recentRange, setRecentRange] = useState<30 | 90 | 'all'>(90);
   const [sizeIds, setSizeIds] = useState<string[]>(selectedIds.length ? selectedIds : selectedApp ? [selectedApp.id] : []);
@@ -347,7 +350,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                       onSelectApp(app.id);
                     }}
                   >
-                    <span title={app.name}>{app.name}</span>
+                    <span className="apps-search-result" title={app.name}><NativeAppIcon appId={app.id}/><span>{app.name}</span></span>
                     <span className="apps-muted" title={app.publisher || ''}>{app.publisher || '—'}</span>
                   </button>
                 ))}
@@ -357,6 +360,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 {identityApp ? (
                   <>
                     <div className="apps-identity-head">
+                      <NativeAppIcon appId={identityApp.id} className="knx-native-app-icon-large"/>
                       <div className="min-w-0">
                         <h4 title={identityApp.name}>{identityApp.name}</h4>
                         <p>{identityApp.publisher || t(locale, 'Unknown publisher', 'ناشر غير معروف')} · {identityApp.version || '—'}</p>
@@ -437,7 +441,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
               />
               <span>{formatCount(searchMatches.length)} / {formatCount(apps.length)}</span>
             </div>
-            <label>{t(locale, 'Installation scope', 'نطاق التثبيت')}<select value={searchScope} onChange={e => setSearchScope(e.target.value)} aria-label={t(locale, 'Installation scope', 'نطاق التثبيت')}><option value="all">{t(locale, 'All scopes', 'كل النطاقات')}</option><option value="machine">{t(locale, 'Machine', 'الجهاز')}</option><option value="user">{t(locale, 'User', 'المستخدم')}</option><option value="unknown">{t(locale, 'Unknown', 'غير معروف')}</option></select></label>
+            <label>{t(locale, 'Installation scope', 'نطاق التثبيت')}<select value={searchScope} onChange={e => setSearchScope(e.target.value as 'all' | AppRecord['scope'])} aria-label={t(locale, 'Installation scope', 'نطاق التثبيت')}><option value="all">{t(locale, 'All scopes', 'كل النطاقات')}</option><option value="per-machine">{t(locale, 'Machine', 'الجهاز')}</option><option value="per-user">{t(locale, 'User', 'المستخدم')}</option><option value="packaged">{t(locale, 'Packaged', 'حزم')}</option></select></label>
             <label>{t(locale, 'Signature', 'التوقيع')}<select value={searchTrust} onChange={e => setSearchTrust(e.target.value)} aria-label={t(locale, 'Signature filter', 'تصفية التوقيع')}><option value="all">{t(locale, 'All records', 'كل السجلات')}</option><option value="verified">{t(locale, 'Verified signature', 'توقيع متحقق')}</option><option value="unverified">{t(locale, 'Not verified', 'غير متحقق')}</option></select></label></div>
             <p className="apps-note" role="status">{t(locale, 'Showing up to 120 matching measured records. Select an application to inspect its identity below.', 'عرض حتى 120 سجلًا مقيسًا مطابقًا. اختر تطبيقًا لفحص هويته أدناه.')}</p>
             <div className="apps-table-wrap apps-table-wrap-service">
@@ -483,8 +487,11 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
       }
 
       case 'app-publisher': {
+        const matchingPublishers = publisherGroups.filter(group => group.publisher.toLocaleLowerCase().includes(publisherQuery.toLocaleLowerCase()));
         return (
           <div className="apps-service-body">
+            <label className="knx-file-filter-label">{t(locale,'Find measured publisher','البحث عن ناشر مقيس')}<input type="search" value={publisherQuery} onChange={e => setPublisherQuery(e.target.value)}/></label>
+            <p role="status">{t(locale,`Showing up to 200 of ${matchingPublishers.length} matching publisher groups.`,`عرض حتى 200 من ${matchingPublishers.length} مجموعة ناشر مطابقة.`)}</p>
             <p className="apps-note">
               <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
               {t(
@@ -514,7 +521,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {publisherGroups.slice(0, 200).map((group) => (
+                  {matchingPublishers.slice(0, 200).map((group) => (
                     <tr key={group.publisher}>
                       <td><span className="apps-row-name" title={group.publisher}>{group.publisher}</span></td>
                       <td className="apps-col-num apps-mono">{formatCount(group.count)}</td>
@@ -589,9 +596,9 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 </thead>
                 <tbody>
                   {recent.map((app) => (
-                    <tr key={app.id} onClick={() => onSelectApp(app.id)}>
+                    <tr key={app.id} className={selectedApp?.id === app.id ? 'apps-row-selected' : undefined}>
                       <td className="apps-mono apps-cell-clip">{formatDate(app.installDate, locale)}</td>
-                      <td><span className="apps-row-name" title={app.name}>{app.name}</span></td>
+                      <td><button type="button" className="apps-search-result" onClick={() => {onSelectApp(app.id);setIdentityAppId(app.id);onOpenService?.('app-identity');}} aria-pressed={selectedApp?.id === app.id}><NativeAppIcon appId={app.id}/><span>{app.name}</span></button></td>
                       <td className="apps-muted apps-cell-clip" title={app.publisher || undefined}>{app.publisher || '—'}</td>
                       <td className="apps-mono apps-cell-clip" title={app.version || undefined}>{app.version || '—'}</td>
                       <td className="apps-muted apps-cell-clip">{app.source === 'appx-msix' ? 'Appx/MSIX' : t(locale, 'Registry', 'السجل')}</td>
@@ -647,7 +654,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 {queueApps.map((app) => (
                   <div key={app.id} className="apps-queue-row">
                     <div className="min-w-0">
-                      <div className="apps-row-name" title={app.name}>{app.name}</div>
+                      <div className="apps-search-result" title={app.name}><NativeAppIcon appId={app.id}/><span>{app.name}</span></div>
                       <div className="apps-row-publisher">{app.publisher || '—'} · {app.version || '—'}</div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -980,7 +987,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                         checked={sizeIds.includes(app.id)}
                         onChange={() => toggleSizeId(app.id)}
                       />
-                      <span className="min-w-0 flex-1" title={app.name}>{app.name}</span>
+                      <NativeAppIcon appId={app.id}/><span className="min-w-0 flex-1" title={app.name}>{app.name}</span>
                       <span className="apps-mono text-[9px] text-slate-500">{formatBytes(sizeOf(app))}</span>
                     </label>
                   ))}
@@ -1343,10 +1350,14 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
           <span className="apps-chip">{t(locale, 'provider', 'المزوّد')}: {capability?.provider || 'ApplicationsBridge'}</span>
         </div>
         <p className="apps-note">{serviceDescription(service, locale)}</p>
+        {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
+        {controller.loading || controller.refreshing ? <div role="status" className="knx-tool-context"><progress aria-label={t(locale,'Reading application inventory','قراءة جرد التطبيقات')}/><span>{t(locale,'Reading native application inventory…','جارٍ قراءة جرد التطبيقات الأصلي…')}</span></div> : null}
         {renderPanel()}
         <div className="flex flex-wrap items-center gap-1.5 border-t border-[#173866] pt-2">
           <span className="apps-chip apps-chip-good"><ShieldCheck className="w-3 h-3" />{t(locale, 'READ-ONLY', 'للقراءة فقط')}</span>
           <span className="apps-chip">{t(locale, 'mutation', 'التغيير')}: {t(locale, 'none', 'لا يوجد')}</span>
+          <button type="button" className="apps-btn" disabled={!controller.nativeAvailable || controller.loading || controller.refreshing} onClick={() => void controller.refreshInventory()}><RefreshCw aria-hidden="true" className="w-3.5 h-3.5"/>{t(locale,'Refresh register','تحديث السجل')}</button>
+          <button type="button" className="apps-btn" disabled={!controller.inventory} onClick={controller.exportInventory}>{t(locale,'Export measured evidence','تصدير الأدلة المقيسة')}</button>
           <button type="button" className="apps-btn ms-auto" onClick={onClose}>
             <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             {t(locale, 'Back to register', 'العودة للسجل')}

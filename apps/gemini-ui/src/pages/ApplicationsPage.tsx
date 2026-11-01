@@ -166,6 +166,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
       selectedApp={selectedApp}
       selectedIds={[...checkedIds]}
       onSelectApp={setSelectedAppId}
+      onOpenService={setActiveService}
       onClose={closeWorkbench}
       onOpenPlan={() => setPlanOpen(true)}
       embedded

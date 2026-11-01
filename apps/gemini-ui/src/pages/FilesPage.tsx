@@ -61,7 +61,7 @@ import {
 import { FileIcon } from '../components/files/FileIcon';
 import { useFilesNative, formatBytes } from '../files/useFilesNative';
 import { FilesNativeBanner } from '../files/FilesNativeBanner';
-import { FilesServiceFocus } from '../files/FilesServiceFocus';
+import { FilesServiceFocus, type FilesToolDraft } from '../files/FilesServiceFocus';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
@@ -109,6 +109,10 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const measured = filesNative.mode === 'measured';
   const sourceFiles = measured ? filesNative.files : files;
   const measuredOverview = filesNative.overview;
+  // Side/expanded hosts live at different positions. Keep tool drafts here so
+  // changing layout or reopening a service cannot discard a filter/selection.
+  const [fileToolDraft, setFileToolDraft] = useState<FilesToolDraft>({emptyQuery:'',typeMeasure:'count',overviewSelection:null,overviewQuery:''});
+  useEffect(() => setFileToolDraft(current => ({...current,overviewSelection:null})), [filesNative.source?.id, measuredOverview?.scannedAt]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -444,6 +448,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         queryError={filesNative.error}
         onSelectFile={setSelectedFile}
         onOpenService={setActiveService}
+        draft={fileToolDraft}
+        onDraftChange={patch => setFileToolDraft(current => ({...current,...patch}))}
         onQueryChange={patch => {
           if (patch.search !== undefined) setSearchQuery(patch.search);
           if (patch.extension !== undefined) setSelectedExtension(patch.extension);

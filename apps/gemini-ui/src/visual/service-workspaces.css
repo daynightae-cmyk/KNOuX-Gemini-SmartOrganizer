@@ -153,3 +153,5 @@ html:not([data-theme=light]) .visual-sprint[data-visual-section=automation] {--k
 
 .scan-scope-controls {flex-shrink:0;max-block-size:155px;overflow:auto;padding:9px 12px;}
 .scan-scope-controls button {padding:6px 10px;border:1px solid var(--wb-line);border-radius:8px;background:var(--wb-raised);color:var(--wb-ink);}
+
+.knx-native-app-icon.knx-native-app-icon-large {inline-size:48px;block-size:48px;flex-shrink:0;}
