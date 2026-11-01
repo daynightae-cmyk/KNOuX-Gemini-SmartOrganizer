@@ -7,7 +7,7 @@ import { GoogleProductIcons } from '../components/workspace/GoogleProductIcon';
  * spreadsheets, and reads values only after an explicit button press. No token
  * or client-secret material is rendered.
  */
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -64,6 +64,10 @@ export function GoogleSheetsWorkbench({ google, isAr, onNotice }: GoogleSheetsWo
   const [selectedSheetId, setSelectedSheetId] = useState<string | null>(null);
   const [range, setRange] = useState('A1:Z50');
   const [confirmDisconnect, setConfirmDisconnect] = useState(false);
+  const [gridQuery,setGridQuery] = useState('');
+  const [gridPage,setGridPage] = useState(0);
+  const [cell,setCell] = useState<{source:string;row:number;column:number}|null>(null);
+  const [copyStatus,setCopyStatus] = useState('');
 
   const status = google.status;
   const connection = status?.connection || (google.bridgeAvailable ? 'disconnected' : 'error');
@@ -73,6 +77,23 @@ export function GoogleSheetsWorkbench({ google, isAr, onNotice }: GoogleSheetsWo
     () => google.sheets.find((sheet) => sheet.id === selectedSheetId) || google.sheets[0] || null,
     [google.sheets, selectedSheetId]
   );
+
+  // Results always carry their own source/range. Selecting another document
+  // must not relabel the previous document's values as the current sheet.
+  const loadedValues = google.values?.spreadsheetId === selectedSheet?.id ? google.values : null;
+  const resultKey = loadedValues ? `${loadedValues.spreadsheetId}:${loadedValues.observedAt}` : '';
+  const matchingRows = useMemo(() => (loadedValues?.values || []).map((row,index) => ({row,index})).filter(({row}) => !gridQuery.trim() || row.some(value => value.toLocaleLowerCase().includes(gridQuery.trim().toLocaleLowerCase()))),[loadedValues,gridQuery]);
+  const pageCount = Math.max(1,Math.ceil(matchingRows.length / 50));
+  const currentPage = Math.min(gridPage,pageCount - 1);
+  const visibleRows = matchingRows.slice(currentPage * 50,currentPage * 50 + 50);
+  const selectedCell = cell?.source === resultKey ? cell : null;
+  const selectedValue = selectedCell ? loadedValues?.values[selectedCell.row]?.[selectedCell.column] ?? '' : '';
+  useEffect(() => {setGridQuery('');setGridPage(0);setCell(null);setCopyStatus('');},[selectedSheet?.id,google.values?.observedAt]);
+  const copyCell = async () => {
+    if (!selectedCell) return;
+    try {await navigator.clipboard.writeText(selectedValue);setCopyStatus(isAr ? 'تم نسخ قيمة الخلية' : 'Cell value copied');}
+    catch {setCopyStatus(isAr ? 'الحافظة غير متاحة' : 'Clipboard unavailable');}
+  };
 
   const handleConnect = async () => {
     const ok = await google.connect();
@@ -399,23 +420,19 @@ export function GoogleSheetsWorkbench({ google, isAr, onNotice }: GoogleSheetsWo
                 ) : (
                   <p className="text-[10.5px] text-slate-500">{isAr ? 'اختر جدولًا أولًا.' : 'Select a spreadsheet first.'}</p>
                 )}
-                {google.values ? (
-                  <div className="mt-3 overflow-x-auto knx-custom-scrollbar max-h-56">
-                    <table className="w-full text-[10px] border-collapse" data-testid="workspace-sheet-values">
-                      <tbody>
-                        {google.values.values.map((row, rowIndex) => (
-                          <tr key={rowIndex} className="hover:bg-[#0b1f3d]">
-                            {row.map((cell, cellIndex) => (
-                              <td key={cellIndex} className="px-2 py-1 border-b border-[#122b52] text-slate-300 whitespace-nowrap">
-                                {cell}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : null}
+                {loadedValues ? (
+                  <section className="knx-sheet-result" data-testid="workspace-sheet-result">
+                    <div className="knx-tool-context"><div><strong dir="ltr">{loadedValues.range}</strong><small>{loadedValues.observedAt} · {loadedValues.rowCount} × {loadedValues.columnCount} · {loadedValues.majorDimension}</small></div><span>{isAr ? 'لقطة للقراءة فقط' : 'Read-only snapshot'}</span></div>
+                    <label className="knx-file-filter-label">{isAr ? 'تصفية الصفوف المحملة' : 'Filter loaded rows'}<input type="search" value={gridQuery} onChange={event => {setGridQuery(event.target.value);setGridPage(0);}}/></label>
+                    <p role="status">{matchingRows.length} / {loadedValues.values.length} {isAr ? 'صفًا محملًا يطابق التصفية؛ أرقام الصفوف نسبية للنتيجة المعادة.' : 'loaded rows match; row numbers are relative to the returned result.'}</p>
+                    <div className="knx-sheet-grid" tabIndex={0} role="region" aria-label={isAr ? 'قيم الجدول المقيسة' : 'Measured sheet values'}>
+                      <table data-testid="workspace-sheet-values"><tbody>{visibleRows.map(({row,index}) => <tr key={index}><th scope="row">{index + 1}</th>{row.map((value,column) => <td key={column}><button type="button" aria-pressed={selectedCell?.row === index && selectedCell.column === column} aria-label={`${isAr ? 'صف النتيجة' : 'Result row'} ${index+1}, ${isAr ? 'عمود' : 'column'} ${column+1}: ${value || (isAr ? 'خلية فارغة' : 'Empty cell')}`} onClick={() => {setCell({source:resultKey,row:index,column});setCopyStatus('');}}>{value || '\u00a0'}</button></td>)}</tr>)}</tbody></table>
+                    </div>
+                    {!matchingRows.length ? <p>{isAr ? 'لا توجد صفوف محملة مطابقة.' : 'No loaded rows match.'}</p> : null}
+                    <div className="knx-sheet-pagination"><button type="button" disabled={currentPage === 0} onClick={() => setGridPage(currentPage-1)}>{isAr ? 'السابق' : 'Previous'}</button><span>{currentPage+1} / {pageCount} · {isAr ? '50 صفًا في الصفحة' : '50 rows per page'}</span><button type="button" disabled={currentPage+1 >= pageCount} onClick={() => setGridPage(currentPage+1)}>{isAr ? 'التالي' : 'Next'}</button></div>
+                    {selectedCell ? <section className="knx-tool-evidence"><h3>{isAr ? 'فاحص قيمة الخلية' : 'Cell value inspector'} · {selectedCell.row+1}:{selectedCell.column+1}</h3><pre className="knx-sheet-cell-value">{selectedValue || (isAr ? 'خلية فارغة' : 'Empty cell')}</pre><button type="button" onClick={() => void copyCell()}>{isAr ? 'نسخ القيمة' : 'Copy value'}</button><output role="status">{copyStatus}</output></section> : null}
+                  </section>
+                ) : google.values ? <p role="status">{isAr ? 'النتيجة السابقة تخص جدولًا آخر. اضغط قراءة لقياس اختيارك الحالي.' : 'The previous result belongs to another spreadsheet. Press Read to measure the current selection.'}</p> : null}
               </div>
             </div>
           </>
