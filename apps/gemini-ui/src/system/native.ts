@@ -66,10 +66,10 @@ export async function readSystemStatus(sessionId: string): Promise<NativeEnvelop
   return assertEnvelope(await api.status(sessionId), 'system.status');
 }
 
-export async function cancelSystemScan(sessionId: string): Promise<void> {
+export async function cancelSystemScan(sessionId: string): Promise<NativeEnvelope<{cancelled:boolean;status:string;sessionId:string}> | null> {
   const api = getSystemShell();
-  if (!api) return;
-  await assertEnvelope(await api.cancel(sessionId), 'system.cancel');
+  if (!api) return null;
+  return assertEnvelope(await api.cancel(sessionId), 'system.cancel');
 }
 
 export async function loadSystemSnapshot(): Promise<NativeEnvelope<SystemSnapshot> | null> {

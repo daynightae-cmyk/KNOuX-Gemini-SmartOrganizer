@@ -178,7 +178,14 @@ export function useServices() {
     if (!sessionId || !scanning) return;
     setCancelling(true);
     try {
-      await cancelServicesScan(sessionId);
+      const acknowledgement = await cancelServicesScan(sessionId);
+      if (!acknowledgement?.data) throw Object.assign(new Error('The native provider did not acknowledge cancellation.'),{code:'SERVICES_CANCEL_UNAVAILABLE'});
+      if (!acknowledgement.data.cancelled) {
+        const current = await readServicesStatus(sessionId);
+        if (current?.data && mounted.current) setSession(current.data);
+        showNotice('The discovery session already ended; no cancellation was applied.');
+        return;
+      }
       sessionRef.current = null;
       if (mounted.current) {
         setSession((current) => (current && current.id === sessionId ? { ...current, status: 'cancelled' } : current));

@@ -54,10 +54,10 @@ export async function readServicesStatus(sessionId: string): Promise<NativeEnvel
   return assertEnvelope(await api.status(sessionId), 'services.status');
 }
 
-export async function cancelServicesScan(sessionId: string): Promise<void> {
+export async function cancelServicesScan(sessionId: string): Promise<NativeEnvelope<{cancelled:boolean;status:string;sessionId:string}> | null> {
   const api = getServicesShell();
-  if (!api) return;
-  await assertEnvelope(await api.cancel(sessionId), 'services.cancel');
+  if (!api) return null;
+  return assertEnvelope(await api.cancel(sessionId), 'services.cancel');
 }
 
 export async function loadServicesSnapshot(): Promise<NativeEnvelope<ServicesSnapshot> | null> {

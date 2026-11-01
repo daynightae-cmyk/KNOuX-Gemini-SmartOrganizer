@@ -57,10 +57,10 @@ export async function readAutomationStatus(sessionId: string): Promise<NativeEnv
   return assertEnvelope(await api.status(sessionId), 'automation.status');
 }
 
-export async function cancelAutomationScan(sessionId: string): Promise<void> {
+export async function cancelAutomationScan(sessionId: string): Promise<NativeEnvelope<{cancelled:boolean;status:string;sessionId:string}> | null> {
   const api = getAutomationShell();
-  if (!api) return;
-  await assertEnvelope(await api.cancel(sessionId), 'automation.cancel');
+  if (!api) return null;
+  return assertEnvelope(await api.cancel(sessionId), 'automation.cancel');
 }
 
 export async function loadAutomationSnapshot(): Promise<NativeEnvelope<AutomationSnapshot> | null> {

@@ -199,7 +199,14 @@ export function useRepair() {
     if (!sessionId || !scanning) return;
     setCancelling(true);
     try {
-      await cancelRepairScan(sessionId);
+      const acknowledgement = await cancelRepairScan(sessionId);
+      if (!acknowledgement?.data) throw Object.assign(new Error('The native provider did not acknowledge cancellation.'),{code:'REPAIR_CANCEL_UNAVAILABLE'});
+      if (!acknowledgement.data.cancelled) {
+        const current = await readRepairStatus(sessionId);
+        if (current?.data && mounted.current) setSession(current.data);
+        showNotice('The discovery session already ended; no cancellation was applied.');
+        return;
+      }
       sessionRef.current = null;
       if (mounted.current) {
         setSession((current) => (current && current.id === sessionId ? { ...current, status: 'cancelled' } : current));

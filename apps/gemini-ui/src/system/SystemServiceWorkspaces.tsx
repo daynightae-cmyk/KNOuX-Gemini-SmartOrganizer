@@ -138,7 +138,12 @@ export function SystemServiceWorkspace({
 
   if (!snapshot || !Component) return null;
 
+  const liveInstrument = ['system-health-check','system-perf','system-timeline','network-throughput','hardware-cpu','hardware-memory'].includes(serviceId);
   const body = (
+    <div className="knx-system-tool">
+    {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}<button type="button" className="sys-btn sys-btn-quiet" onClick={controller.clearError}>{locale === 'ar' ? 'إخفاء الرسالة' : 'Dismiss message'}</button></p> : null}
+    <div className="knx-tool-context"><div><strong>{locale === 'ar' ? 'أدلة النظام الأصلية' : 'Native system evidence'}</strong>{liveInstrument ? <small>{locale === 'ar' ? 'آخر عينة' : 'Last sample'}: {controller.lastSampleAt || '—'}</small> : null}</div><button type="button" className="sys-btn sys-btn-quiet" disabled={!controller.nativeAvailable || controller.refreshing || controller.scanning} onClick={() => void controller.refreshSnapshot()}>{locale === 'ar' ? 'تحديث اللقطة' : 'Refresh snapshot'}</button>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{locale === 'ar' ? 'إلغاء الفحص' : 'Cancel scan'}</button> : null}</div>
+    {liveInstrument ? <div className="knx-tool-actions"><button type="button" disabled={!controller.nativeAvailable || controller.sampling} onClick={() => void controller.sampleNow()}>{locale === 'ar' ? 'أخذ عينة الآن' : 'Sample now'}</button><button type="button" aria-pressed={controller.samplingPaused} onClick={() => controller.setSamplingPaused(!controller.samplingPaused)}>{controller.samplingPaused ? (locale === 'ar' ? 'استئناف العينات' : 'Resume sampling') : (locale === 'ar' ? 'إيقاف العينات مؤقتًا' : 'Pause sampling')}</button><label>{locale === 'ar' ? 'فاصل العينات' : 'Sample interval'}<select value={controller.sampleIntervalMs} onChange={e => controller.setSampleInterval(Number(e.target.value))}><option value={1000}>1 s</option><option value={3000}>3 s</option><option value={5000}>5 s</option>{![1000,3000,5000].includes(controller.sampleIntervalMs) ? <option value={controller.sampleIntervalMs}>{controller.sampleIntervalMs} ms</option> : null}</select></label></div> : null}
     <Component
       locale={locale}
       snapshot={snapshot}
@@ -148,6 +153,7 @@ export function SystemServiceWorkspace({
         if (SERVICE_BY_ID[id] && hasSystemWorkbench(id)) onOpenService(id);
       }}
     />
+    </div>
   );
   const footer = (
     <span className="text-amber-300">
@@ -166,7 +172,7 @@ export function SystemServiceWorkspace({
       >
         <ServiceWorkbenchHost
           serviceId={serviceId}
-          icon={ServiceIcon ? <ServiceIcon aria-hidden="true" /> : undefined}
+        icon={ServiceIcon ? <ServiceIcon aria-hidden="true" /> : undefined}
           title={serviceLabel(serviceId, locale)}
           subtitle={locale === 'ar' ? 'سياق مقيس · للقراءة فقط' : 'Measured context · read-only'}
           locale={locale}
@@ -190,7 +196,7 @@ export function SystemServiceWorkspace({
     <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="system-workbench-expanded-shell">
       <ServiceWorkbenchHost
         serviceId={serviceId}
-          icon={ServiceIcon ? <ServiceIcon aria-hidden="true" /> : undefined}
+        icon={ServiceIcon ? <ServiceIcon aria-hidden="true" /> : undefined}
         title={serviceLabel(serviceId, locale)}
         subtitle={locale === 'ar' ? 'سياق مقيس · للقراءة فقط' : 'Measured context · read-only'}
         locale={locale}

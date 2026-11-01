@@ -56,10 +56,10 @@ export async function readRepairStatus(sessionId: string): Promise<NativeEnvelop
   return assertEnvelope(await api.status(sessionId), 'repair.status');
 }
 
-export async function cancelRepairScan(sessionId: string): Promise<void> {
+export async function cancelRepairScan(sessionId: string): Promise<NativeEnvelope<{cancelled:boolean;status:string;sessionId:string}> | null> {
   const api = getRepairShell();
-  if (!api) return;
-  await assertEnvelope(await api.cancel(sessionId), 'repair.cancel');
+  if (!api) return null;
+  return assertEnvelope(await api.cancel(sessionId), 'repair.cancel');
 }
 
 export async function loadRepairSnapshot(): Promise<NativeEnvelope<RepairSnapshot> | null> {
