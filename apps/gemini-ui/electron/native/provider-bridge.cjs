@@ -94,6 +94,7 @@ function fixtureServicesSummary() {
 function toVolume(disk) {
   return {
     deviceId: disk?.deviceId ?? null,
+    driveType: disk?.driveType ?? null,
     label: disk?.volumeName ?? null,
     fileSystem: disk?.fileSystem ?? null,
     sizeBytes: disk?.sizeBytes ?? null,

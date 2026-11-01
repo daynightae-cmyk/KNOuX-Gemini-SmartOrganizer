@@ -11,6 +11,7 @@ const crypto = require('node:crypto');
 const { StudioBridge } = require('../electron/native/studio-bridge.cjs');
 const { FilesBridge } = require('../electron/native/files-bridge.cjs');
 const { StorageBridge } = require('../electron/native/storage-bridge.cjs');
+const { normalizeLogicalDisk } = require('../../../electron/windows-providers.cjs');
 
 const failures = [];
 const assert = (condition, label) => {
@@ -27,7 +28,7 @@ function volumeProvider(overrides = {}) {
     provenance: { provider: 'test', mode: 'measured', observedAt: new Date().toISOString(), coverage: 'full', permissions: ['read-only'], warnings: [] },
     data: {
       volumes: [
-        { deviceId: 'C:', label: 'System', fileSystem: 'NTFS', sizeBytes: 100 * 1024 ** 3, freeBytes: 40 * 1024 ** 3 },
+        { deviceId: 'C:', driveType: 3, label: 'System', fileSystem: 'NTFS', sizeBytes: 100 * 1024 ** 3, freeBytes: 40 * 1024 ** 3 },
         { deviceId: 'D:', label: 'Data', fileSystem: 'NTFS', sizeBytes: 200 * 1024 ** 3, freeBytes: 5 * 1024 ** 3 },
         ...(overrides.volumes || []),
       ],
@@ -77,10 +78,11 @@ async function statMap(root) {
     studio,
     shell: { openPath: async () => '', showItemInFolder: () => {} },
   });
+  let currentVolumes = volumeProvider();
   const storage = new StorageBridge({
     studio,
     files,
-    readSystemSummary: async () => volumeProvider(),
+    readSystemSummary: async () => currentVolumes,
     userDataPath: userData,
   });
 
@@ -91,6 +93,8 @@ async function statMap(root) {
 
   const volumesResult = await storage.volumes();
   assert(volumesResult.volumes.length === 2, 'volumes are mapped from the measured provider');
+  assert(volumesResult.volumes[0].driveType === 3, 'measured fixed drive type is preserved');
+  assert(volumesResult.volumes[1].driveType === null, 'missing drive type is never inferred');
   assert(volumesResult.volumes[0].letter === 'C:' && volumesResult.volumes[0].totalBytes === 100 * 1024 ** 3, 'volume bytes are not invented');
   assert(volumesResult.volumes[1].isLowSpace === true, 'low-space volume is derived from actual free ratio');
   assert(volumesResult.volumes.every((volume) => volume.physicalDeviceAvailable === false && volume.smartAvailable === false), 'unavailable physical/SMART identity is explicit');
@@ -121,6 +125,17 @@ async function statMap(root) {
 
   const volumesAgain = await storage.volumes();
   assert(volumesAgain.history.length === 2, 'subsequent volume reads append history');
+  const [measuredRemovable] = normalizeLogicalDisk({ DeviceID: 'E:', DriveType: 2, VolumeName: 'Test media', FileSystem: 'exFAT', Size: 64000, FreeSpace: 24000 });
+  currentVolumes = volumeProvider({ volumes: [{ ...measuredRemovable, label: measuredRemovable.volumeName }, { deviceId: 'F:', driveType: '2' }] });
+  const connected = await storage.volumes();
+  assert(connected.volumes.find(v => v.letter === 'E:')?.driveType === 2, 'native logical-disk normalization reaches Storage as removable');
+  assert(connected.volumes.find(v => v.letter === 'E:')?.usedBytes === 40000, 'removable capacity is measured independently');
+  assert(connected.volumes.find(v => v.letter === 'F:')?.driveType === null, 'invalid string drive type is not treated as removable');
+  assert(connected.volumes.find(v => v.letter === 'F:')?.capacityAvailable === false, 'missing capacity is explicitly unavailable instead of measured zero');
+  currentVolumes = volumeProvider();
+  const disconnected = await storage.volumes();
+  assert(!disconnected.volumes.some(v => v.letter === 'E:'), 'refresh removes disconnected media from current results');
+  assert(disconnected.history.at(-2).volumes.some(v => v.deviceId === 'E:'), 'historical snapshots retain the earlier connected observation');
   const restartedStorage = new StorageBridge({
     studio,
     files,
@@ -129,7 +144,7 @@ async function statMap(root) {
   });
   await restartedStorage.init();
   const restartedHistory = await restartedStorage.history();
-  assert(restartedHistory.points.length === 2, 'capacity history survives restart');
+  assert(restartedHistory.points.length === 4, 'capacity history including media changes survives restart');
 
   let failedProviderRejected = false;
   const failedStorage = new StorageBridge({

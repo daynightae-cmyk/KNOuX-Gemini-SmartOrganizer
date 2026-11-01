@@ -65,7 +65,7 @@ const LABELS: Record<string, { en: string; ar: string; descEn: string; descAr: s
   'storage-smart': { en: 'S.M.A.R.T. Health', ar: 'صحة S.M.A.R.T.', descEn: 'Support probe over the measured provider — health scores are never invented.', descAr: 'فحص دعم فوق المزود المقيس — لا تُختلق درجات صحة.' },
   'storage-reclaim': { en: 'Reclaim Planner', ar: 'مخطط الاستعادة', descEn: 'Measured candidates only; plans are reviewed in Cleanup or Studio.', descAr: 'مرشحات مقيسة فقط؛ تُراجع الخطط في التنظيف أو الاستوديو.' },
   'storage-history': { en: 'Capacity Trend', ar: 'اتجاه السعة', descEn: 'Snapshots captured while this app measured volumes.', descAr: 'لقطات مسجلة أثناء قياس التطبيق للأحجام.' },
-  'storage-removable': { en: 'Removable Dock', ar: 'قاعدة الوسائط', descEn: 'Measured volume list; drive type is not exposed by this provider.', descAr: 'قائمة أحجام مقيسة؛ المزود الحالي لا يعرض نوع محرك الأقراص.' },
+  'storage-removable': { en: 'Removable Dock', ar: 'قاعدة الوسائط', descEn: 'Windows drive-type inventory and measured capacity. Refresh after connecting media.', descAr: 'نوع وحدات التخزين وسعتها المقيسة من Windows. حدّث بعد توصيل الوسائط.' },
 };
 
 function metricRow(label: string, value: string) {
@@ -120,6 +120,7 @@ export function StorageServiceFocus({
   const [query, setQuery] = useState('');
   const [typeMeasure, setTypeMeasure] = useState<'count' | 'bytes'>('bytes');
   const [selectedNode, setSelectedNode] = useState<StorageTreeNode | null>(null);
+  const [dockType, setDockType] = useState('2');
   useEffect(() => {setQuery('');setSelectedNode(null);}, [serviceKey, analysis?.sourceId, analysis?.coverage.lastScanned]);
   const smartCount = volumes.filter((volume) => volume.smartAvailable).length;
   const identityCount = volumes.filter((volume) => volume.physicalDeviceAvailable).length;
@@ -133,7 +134,7 @@ export function StorageServiceFocus({
   };
 
   const measuredVolumesText = () => volumes
-    .map((volume) => `${volume.letter} ${volume.label} | ${volume.fileSystem} | ${formatStorageBytes(volume.usedBytes)} used / ${formatStorageBytes(volume.totalBytes)} | free ${formatStorageBytes(volume.freeBytes)}`)
+    .map((volume) => `${volume.letter} ${volume.label} | DriveType=${volume.driveType ?? 'unknown'} | ${volume.fileSystem} | ${formatStorageBytes(volume.usedBytes)} used / ${formatStorageBytes(volume.totalBytes)} | free ${formatStorageBytes(volume.freeBytes)}`)
     .join('\n');
 
   const renderBody = () => {
@@ -396,25 +397,38 @@ export function StorageServiceFocus({
           </div>
         );
       }
-      case 'storage-removable':
+      case 'storage-removable': {
+        const dockVolumes = volumes.filter(volume => dockType === 'all' || (dockType === 'unknown' ? ![2, 3].includes(volume.driveType ?? -1) : volume.driveType === Number(dockType)))
+          .filter(volume => `${volume.letter} ${volume.label} ${volume.fileSystem}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+        const typeLabel = (volume: StorageVolume) => volume.driveType === 2 ? label('Removable', 'قابل للإزالة') : volume.driveType === 3 ? label('Fixed', 'ثابت') : label('Unknown / other', 'غير معروف / آخر');
         return (
           <div className="space-y-1.5 text-[10px] text-slate-300">
-            <div className="text-amber-300">{label('Drive type is not exposed by the current provider, so removable media cannot be distinguished from fixed disks. Every row below is a measured volume.', 'نوع محرك الأقراص غير متاح من المزود الحالي، لذا لا يمكن تمييز الوسائط القابلة للإزالة عن الأقراص الثابتة. كل صف أدناه حجم مقيس.')}</div>
-            {volumes.slice(0, 6).map((volume) => (
-              <div key={volume.id} className="flex justify-between font-mono"><span>{volume.letter} {volume.fileSystem}</span><span>{formatStorageBytes(volume.usedBytes)} / {formatStorageBytes(volume.totalBytes)}</span></div>
+            <p>{label('Windows classifies the logical drive. Some external USB disks are classified as fixed; USB transport and physical identity are not inferred. No eject operation is exposed.', 'Windows يصنّف الوحدة المنطقية. بعض أقراص USB الخارجية تُصنّف ثابتة؛ لا نستنتج ناقل USB أو الهوية الفيزيائية. لا تتوفر عملية إخراج.')}</p>
+            <div className="knx-tool-controls">
+              <label>{label('Drive type', 'نوع الوحدة')}<select data-testid="storage-dock-type" value={dockType} onChange={e => setDockType(e.target.value)}><option value="2">{label('Removable', 'قابل للإزالة')} ({volumes.filter(v => v.driveType === 2).length})</option><option value="3">{label('Fixed', 'ثابت')} ({volumes.filter(v => v.driveType === 3).length})</option><option value="unknown">{label('Unknown / other', 'غير معروف / آخر')}</option><option value="all">{label('All measured volumes', 'كل الوحدات المقيسة')}</option></select></label>
+              <label>{label('Find volume', 'البحث عن وحدة')}<input data-testid="storage-dock-search" type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
+            </div>
+            {dockVolumes.map((volume) => (
+              <section key={volume.id} className="knx-tool-evidence" data-testid="storage-dock-volume">
+                <h3>{volume.letter} {volume.label} · {typeLabel(volume)}</h3>
+                <dl className="knx-file-metadata-grid"><div><dt>{label('File system', 'نظام الملفات')}</dt><dd>{volume.fileSystem}</dd></div><div><dt>{label('Capacity', 'السعة')}</dt><dd>{volume.capacityAvailable === false ? '—' : formatStorageBytes(volume.totalBytes)}</dd></div><div><dt>{label('Used', 'مستخدم')}</dt><dd>{volume.capacityAvailable === false ? '—' : formatStorageBytes(volume.usedBytes)}</dd></div><div><dt>{label('Free', 'متاح')}</dt><dd>{volume.capacityAvailable === false ? '—' : formatStorageBytes(volume.freeBytes)}</dd></div></dl>
+                {volume.capacityAvailable === false ? <p>{label('Capacity unavailable. Check that readable media is inserted and refresh.', 'السعة غير متاحة. تأكد من إدخال وسائط قابلة للقراءة وحدّث.')}</p> : <meter min={0} max={100} value={volume.usedPercent} aria-label={label(`${volume.letter} space used`, `المساحة المستخدمة في ${volume.letter}`)}/>}
+                {volume.isLowSpace && <p className="knx-tool-error">{label('Low space', 'مساحة منخفضة')}</p>}
+              </section>
             ))}
-            {!volumes.length && <div className="text-amber-300">{label('No volumes measured.', 'لا توجد أحجام مقيسة.')}</div>}
+            {!dockVolumes.length && <p role="status">{volumes.length ? label('No measured volume matches these filters. Connect media and refresh, or inspect fixed / unknown drives.', 'لا توجد وحدة مقيسة تطابق الفلاتر. صِل الوسائط وحدّث، أو راجع الوحدات الثابتة / غير المعروفة.') : label('No volumes measured.', 'لا توجد أحجام مقيسة.')}</p>}
             <div className="flex gap-1.5">
               <button data-testid="storage-removable-refresh" onClick={() => void onRefreshVolumes()} className={actionButton}><HardDrive className="w-3 h-3 inline me-1" />{label('Refresh dock', 'تحديث القاعدة')}</button>
               <button
                 data-testid="storage-removable-copy"
-                disabled={!volumes.length}
-                onClick={() => onCopy('Volume dock', measuredVolumesText())}
+                disabled={!dockVolumes.length}
+                onClick={() => onCopy('Volume dock', dockVolumes.map(v => `${v.letter}\t${v.label}\tDriveType=${v.driveType ?? 'unknown'}\t${v.fileSystem}\t${v.capacityAvailable === false ? 'capacity unavailable' : `${v.totalBytes} total bytes\t${v.freeBytes} free bytes`}`).join('\n'))}
                 className={quietButton}
               >{label('Copy list', 'نسخ القائمة')}</button>
             </div>
           </div>
         );
+      }
       default:
         return <div className="text-[10px] text-amber-300">{label('Unknown service.', 'خدمة غير معروفة.')}</div>;
     }

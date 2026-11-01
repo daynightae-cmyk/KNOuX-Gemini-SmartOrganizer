@@ -90,6 +90,8 @@ class StorageBridge {
       throw storageError(envelope?.error?.code || 'STORAGE_VOLUME_FAILED', envelope?.error?.message || 'The Windows volume provider did not return a measurement.');
     }
     const volumes = data.volumes.map((volume) => {
+      const capacityAvailable = typeof volume.sizeBytes === 'number' && Number.isFinite(volume.sizeBytes) && volume.sizeBytes > 0
+        && typeof volume.freeBytes === 'number' && Number.isFinite(volume.freeBytes) && volume.freeBytes >= 0 && volume.freeBytes <= volume.sizeBytes;
       const totalBytes = Number(volume.sizeBytes) || 0;
       const freeBytes = Number(volume.freeBytes) || 0;
       const usedBytes = Math.max(0, totalBytes - freeBytes);
@@ -99,12 +101,14 @@ class StorageBridge {
         letter: volumeLetter(volume.deviceId),
         label: volume.label || 'Mounted volume',
         fileSystem: volume.fileSystem || 'Unknown',
+        driveType: Number.isInteger(volume.driveType) && volume.driveType >= 0 && volume.driveType <= 6 ? volume.driveType : null,
         totalBytes,
+        capacityAvailable,
         freeBytes,
         usedBytes,
         usedPercent: totalBytes ? Math.round((usedBytes / totalBytes) * 1000) / 10 : 0,
         freePercent: totalBytes ? Math.round((freeBytes / totalBytes) * 1000) / 10 : 0,
-        isLowSpace: totalBytes > 0 && freeBytes / totalBytes < 0.1,
+        isLowSpace: capacityAvailable && freeBytes / totalBytes < 0.1,
         physicalDevice: null,
         physicalDeviceAvailable: false,
         smartAvailable: false,

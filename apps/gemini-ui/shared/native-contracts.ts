@@ -130,6 +130,7 @@ export interface BridgeStatusData {
 
 export interface SystemVolume {
   deviceId: string | null;
+  driveType?: number | null;
   label: string | null;
   fileSystem: string | null;
   sizeBytes: number | null;
@@ -460,6 +461,9 @@ export interface FilesShellApi {
 
 export interface StorageVolume {
   id: string;
+  capacityAvailable?: boolean;
+  /** Win32_LogicalDisk.DriveType; absent measurements remain unknown. */
+  driveType?: number | null;
   deviceId: string | null;
   letter: string;
   label: string;

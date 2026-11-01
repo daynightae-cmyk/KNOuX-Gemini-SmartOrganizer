@@ -235,7 +235,7 @@ async function collectSources(sources, { runner = powershellJson } = {}) {
 // Volume / physical disk  (Wave 1 storage, Wave 6 hardware)
 // ---------------------------------------------------------------------------
 
-const LOGICAL_DISK_SCRIPT = "Get-CimInstance Win32_LogicalDisk -Filter 'DriveType=3' | Select-Object DeviceID,VolumeName,FileSystem,Size,FreeSpace,VolumeSerialNumber | ConvertTo-Json -Depth 3";
+const LOGICAL_DISK_SCRIPT = "Get-CimInstance Win32_LogicalDisk -Filter 'DriveType=3' | Select-Object DeviceID,VolumeName,FileSystem,Size,FreeSpace,VolumeSerialNumber,DriveType | ConvertTo-Json -Depth 3";
 
 const PHYSICAL_DISK_SCRIPT = "Get-PhysicalDisk -ErrorAction SilentlyContinue | Select-Object DeviceId,FriendlyName,MediaType,BusType,Size,HealthStatus,OperationalStatus,UniqueId | ConvertTo-Json -Depth 4";
 
@@ -245,6 +245,7 @@ function normalizeLogicalDisk(raw) {
     const free = numberOrNull(disk.FreeSpace);
     return {
       deviceId: text(disk.DeviceID),
+      driveType: numberOrNull(disk.DriveType),
       volumeName: text(disk.VolumeName),
       fileSystem: text(disk.FileSystem),
       volumeSerialNumber: text(disk.VolumeSerialNumber),
@@ -770,7 +771,7 @@ const SYSTEM_EXTENDED_SCRIPT = [
   // Win32_Processor.LoadPercentage is frequently unavailable or saturated; the
   // documented performance counter is preferred and both values are reported.
   "$perf=try{Get-CimInstance Win32_PerfFormattedData_PerfOS_Processor -Filter \"Name='_Total'\" -ErrorAction Stop | Select-Object PercentProcessorTime}catch{$null}",
-  "$disk=try{@(Get-CimInstance Win32_LogicalDisk -Filter 'DriveType=3' -ErrorAction Stop | Select-Object DeviceID,VolumeName,FileSystem,Size,FreeSpace)}catch{@()}",
+  "$disk=try{@(Get-CimInstance Win32_LogicalDisk -Filter 'DriveType=2 OR DriveType=3' -ErrorAction Stop | Select-Object DeviceID,VolumeName,FileSystem,Size,FreeSpace,DriveType)}catch{@()}",
   "[pscustomobject]@{perf=$perf;disks=$disk} | ConvertTo-Json -Depth 5"
 ].join('; ');
 
