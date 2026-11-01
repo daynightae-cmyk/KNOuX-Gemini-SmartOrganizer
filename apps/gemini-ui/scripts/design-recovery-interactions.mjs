@@ -109,6 +109,7 @@ try {
  if(!bounds || bounds.height<180) throw new Error('Flow editor is compressed below 180px');
  proof.checks.push(`Flow editor has ${Math.round(bounds.height)}px of operating height at 1366x768`);
  await page.screenshot({path:path.join(out,'automation-editor-1366.png'),animations:'disabled'});
+ if(await page.getByTestId('automation-show-overview').isVisible()) await page.getByTestId('automation-show-overview').click();
  const wave=await page.locator('.knx-pipe-track').first().evaluate(el=>[...el.querySelectorAll('.knx-pipe-dot')].map(n=>Math.round(n.getBoundingClientRect().y)));
  if(new Set(wave).size<2)throw Error('Header phases do not rise and fall');
  proof.checks.push('Header tube follows alternating phase heights');
@@ -122,7 +123,7 @@ try {
   await page.waitForTimeout(650);
   await page.getByRole('button',{name:locale==='ar'?'ملاءمة':'Fit',exact:true}).click();
   const bounds=await page.getByTestId('automation-canvas').boundingBox();
-  if(!bounds||bounds.height<120)throw Error('Workflow canvas is clipped at '+width+': '+JSON.stringify(bounds));
+  if(!bounds||bounds.height<(height===768?280:180))throw Error('Workflow canvas is clipped at '+width+': '+JSON.stringify(bounds));
   const png=await page.screenshot({animations:'disabled'});
   if(png.readUInt32BE(16)!==width||png.readUInt32BE(20)!==height)throw Error('Screenshot dimensions differ from requested viewport');
   await writeFile(path.join(out,`automation-${locale}-${theme}-${width}.png`),png);
@@ -141,7 +142,18 @@ try {
  });
  if(!icons.available||!icons.invalidRefused)throw Error('Native Windows icon lookup or identifier guard failed: '+JSON.stringify(icons));
  proof.checks.push('Actual Windows icon extraction returns PNG; invalid renderer identifier is refused');
- await page.getByTestId('apps-service-app-inventory').click();
+ await page.getByTestId('apps-service-app-search').click();
+ const searchWorkbench=page.getByTestId('apps-workbench');
+ const searchInput=searchWorkbench.getByRole('textbox',{name:'Search applications',exact:true});
+ await searchInput.click();await searchInput.pressSequentially('Micro',{delay:30});
+ await expect(searchInput).toBeFocused();await expect(searchInput).toHaveValue('Micro');
+ proof.checks.push('Service input retains keyboard focus while controlled query updates rerender the host');
+ const grip=searchWorkbench.getByRole('separator');const gripBounds=await grip.boundingBox();
+ const beforeResize=(await searchWorkbench.boundingBox()).width;
+ await page.mouse.move(gripBounds.x+3,gripBounds.y+60);await page.mouse.down();await page.mouse.move(gripBounds.x-53,gripBounds.y+60,{steps:8});await page.mouse.up();
+ const afterResize=(await searchWorkbench.boundingBox()).width;
+ if(afterResize<beforeResize+30)throw Error('Actual pointer capture did not resize the side workbench');
+ proof.checks.push('Actual pointer drag resizes the side workbench and releases capture');
  await page.getByTestId('workbench-mode-toggle').click();
  await expect(page.getByTestId('apps-workbench-expanded')).toBeVisible();
  await page.screenshot({path:path.join(out,'applications-service-expanded-1920.png'),animations:'disabled'});

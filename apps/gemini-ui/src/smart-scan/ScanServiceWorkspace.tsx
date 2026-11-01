@@ -97,8 +97,8 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
 
   if (embedded) {
     return (
-      <div data-testid="scan-service-focus" className="flex h-full min-h-0 flex-col gap-3">
-        <p className="shrink-0 text-[10px] text-slate-400">{isArabic ? service.noteAr : service.noteEn}</p>
+      <div data-testid="scan-service-focus" data-tool-body="smart_scan" data-tool={service.id} className="flex h-full min-h-0 flex-col gap-3">
+        <section className="knx-tool-context"><ShieldCheck aria-hidden="true"/><div><strong>{isArabic ? service.titleAr : service.titleEn}</strong><small>{isArabic ? service.noteAr : service.noteEn}</small></div><span>{result ? result.status : (isArabic ? 'بانتظار القياس' : 'Awaiting measurement')}</span></section>
         {/* Only the measured body scrolls, so the action row stays reachable
             instead of being pushed under the host footer. */}
         <div
@@ -107,7 +107,8 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
         >
           {body}
         </div>
-        <div className="flex shrink-0 flex-wrap items-center gap-2 border-t border-[#122e54] pt-2" data-testid="scan-service-actions">
+        {result ? <details className="knx-tool-evidence" data-testid="scan-service-evidence"><summary>{isArabic ? 'المصدر والتغطية والتحذيرات' : 'Source, coverage & warnings'}</summary><code>{result.source}</code><p>{result.startedAt} → {result.finishedAt || (isArabic ? 'قيد القياس' : 'In progress')}</p><ul>{[...result.warnings,...result.limitations].map((note,index)=><li key={index}>{note}</li>)}</ul><small>{result.permission} · {result.mutation}</small></details> : null}
+        <div className="knx-tool-actions" data-testid="scan-service-actions">
           <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
             <ShieldCheck className="w-3 h-3 text-emerald-400" />
             {isArabic ? 'قراءة فقط · بلا قناة تغيير' : 'read-only · no mutation channel'}

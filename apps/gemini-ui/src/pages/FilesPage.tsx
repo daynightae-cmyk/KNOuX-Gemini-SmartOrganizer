@@ -368,15 +368,17 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
       setActiveService('file-hash');
       return;
     }
+    filesNative.clearError();
     await filesNative.computeHash(selectedNativeId);
-    showToast('SHA-256 request completed.');
+    // Native evidence or its provider error is authoritative; no success toast.
+
   };
 
   const handleOpenRowMenu = (file: FileResultItem) => {
     setSelectedFile(file);
     if (measured && typeof file.nativeFileId === 'number') {
       void filesNative.loadMetadata(file.nativeFileId);
-      showToast(`Measured metadata loaded for ${file.name}.`);
+      showToast(locale === 'en' ? `Reading metadata for ${file.name}…` : `جارٍ قراءة بيانات ${file.name}…`);
       return;
     }
     showToast('Fixture row — no native metadata exists.');
@@ -427,15 +429,27 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         selectedFile={selectedFile}
         metadata={selectedMetadata}
         hash={selectedHash}
+        hashLoading={filesNative.hashLoading}
         emptyFolders={filesNative.emptyFolders}
         emptyFoldersLoading={filesNative.emptyFoldersLoading}
+        query={{search:searchQuery,category:activeCategory,extension:selectedExtension,sizeFilter:selectedSizeFilter,dateFilter,sort:sortBy}}
+        results={filteredFiles}
+        queryError={filesNative.error}
+        onSelectFile={setSelectedFile}
+        onQueryChange={patch => {
+          if (patch.search !== undefined) setSearchQuery(patch.search);
+          if (patch.extension !== undefined) setSelectedExtension(patch.extension);
+          if (patch.sizeFilter !== undefined) setSelectedSizeFilter(patch.sizeFilter);
+          if (patch.dateFilter !== undefined) setDateFilter(patch.dateFilter);
+          if (patch.sort !== undefined) setSortBy(patch.sort);
+        }}
         scopeCount={selectedCount}
         scopeBytes={selectedSizeFormatted}
         onClose={() => setActiveService(null)}
         onAdd={() => void filesNative.addSource()}
         onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
         onOpenStudio={handleOpenStudio}
-        onLoadEmpty={() => void filesNative.loadEmptyFolders()}
+        onLoadEmpty={() => { filesNative.clearError(); void filesNative.loadEmptyFolders(); }}
         onHash={() => void handleHashFile()}
         onSort={(value) => setSortBy(value)}
         embedded

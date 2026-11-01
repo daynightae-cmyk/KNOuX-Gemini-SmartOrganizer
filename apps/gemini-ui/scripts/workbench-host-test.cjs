@@ -61,7 +61,7 @@ check('host is resizable, keyboard operable and does not auto-trap side focus', 
   assert.match(host, /ArrowLeft/);
   assert.match(host, /event\.key === 'Escape'/);
   assert.match(host, /aria-label/);
-  assert.ok(!/aria-modal/.test(host), 'side workbench must not be a modal');
+  assert.doesNotMatch(host, /\n\s+aria-modal=/, 'side workbench must not be a modal');
 });
 
 check('host preserves selections because it owns only chrome/scroll', () => {

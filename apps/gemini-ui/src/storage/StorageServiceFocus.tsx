@@ -468,7 +468,7 @@ export function StorageServiceFocus({
 
   if (embedded) {
     return (
-      <div data-testid="storage-service-focus" className="space-y-2">
+      <div data-testid="storage-service-focus" data-tool-body="storage" data-tool={serviceKey} className="space-y-2">
         <p className="text-[10px] text-slate-400">{isArabic ? meta.descAr : meta.descEn}</p>
         <div data-testid={`storage-${serviceKey}-workbench`}>{renderBody()}</div>
       </div>
@@ -476,7 +476,7 @@ export function StorageServiceFocus({
   }
 
   return (
-    <div data-testid="storage-service-focus" className="bg-[#07152b] rounded-xl p-3 border border-[#2476ff]/40 space-y-2 shadow-[0_0_12px_rgba(36,118,255,0.15)]">
+    <div data-testid="storage-service-focus" data-tool-body="storage" data-tool={serviceKey} className="bg-[#07152b] rounded-xl p-3 border border-[#2476ff]/40 space-y-2 shadow-[0_0_12px_rgba(36,118,255,0.15)]">
       <div className="flex items-center justify-between pb-1.5 border-b border-[#0f2545]">
         <div className="flex items-center gap-1.5 text-xs font-bold text-white min-w-0">
           <Copy className="w-3.5 h-3.5 text-cyan-400 shrink-0" />

@@ -6,6 +6,7 @@
  * Settings handoffs; there is no mutation channel behind any button.
  */
 import React, { useEffect, useMemo, useState } from 'react';
+import { NativeAppIcon } from '../components/app/AppIcon';
 import {
   AlertTriangle,
   ArrowRight,
@@ -129,6 +130,8 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
   const [identityQuery, setIdentityQuery] = useState('');
   const [identityAppId, setIdentityAppId] = useState<string | null>(selectedApp?.id || null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchScope, setSearchScope] = useState('all');
+  const [searchTrust, setSearchTrust] = useState('all');
   const [recentRange, setRecentRange] = useState<30 | 90 | 'all'>(90);
   const [sizeIds, setSizeIds] = useState<string[]>(selectedIds.length ? selectedIds : selectedApp ? [selectedApp.id] : []);
   const [packagesTab, setPackagesTab] = useState<'installed' | 'discover'>('installed');
@@ -167,8 +170,9 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
           .toLowerCase()
           .includes(query)
       )
-      .slice(0, 120);
-  }, [apps, searchQuery]);
+      .filter(app => searchScope === 'all' || app.scope === searchScope)
+      .filter(app => searchTrust === 'all' || (searchTrust === 'verified') === ((controller.signatures[app.id]?.status || app.signature.status) === 'valid'));
+  }, [apps, searchQuery, searchScope, searchTrust, controller.signatures]);
 
   const publisherGroups = useMemo(
     () => groupPublishers(apps, controller.signatures),
@@ -422,7 +426,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
       case 'app-search': {
         return (
           <div className="apps-service-body">
-            <div className="apps-inline-search">
+            <div className="apps-search-controls"><div className="apps-inline-search">
               <Search className="w-3.5 h-3.5" />
               <input
                 autoFocus
@@ -433,6 +437,9 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
               />
               <span>{formatCount(searchMatches.length)} / {formatCount(apps.length)}</span>
             </div>
+            <label>{t(locale, 'Installation scope', 'نطاق التثبيت')}<select value={searchScope} onChange={e => setSearchScope(e.target.value)} aria-label={t(locale, 'Installation scope', 'نطاق التثبيت')}><option value="all">{t(locale, 'All scopes', 'كل النطاقات')}</option><option value="machine">{t(locale, 'Machine', 'الجهاز')}</option><option value="user">{t(locale, 'User', 'المستخدم')}</option><option value="unknown">{t(locale, 'Unknown', 'غير معروف')}</option></select></label>
+            <label>{t(locale, 'Signature', 'التوقيع')}<select value={searchTrust} onChange={e => setSearchTrust(e.target.value)} aria-label={t(locale, 'Signature filter', 'تصفية التوقيع')}><option value="all">{t(locale, 'All records', 'كل السجلات')}</option><option value="verified">{t(locale, 'Verified signature', 'توقيع متحقق')}</option><option value="unverified">{t(locale, 'Not verified', 'غير متحقق')}</option></select></label></div>
+            <p className="apps-note" role="status">{t(locale, 'Showing up to 120 matching measured records. Select an application to inspect its identity below.', 'عرض حتى 120 سجلًا مقيسًا مطابقًا. اختر تطبيقًا لفحص هويته أدناه.')}</p>
             <div className="apps-table-wrap apps-table-wrap-service">
               <table className="apps-table">
                 <colgroup>
@@ -452,9 +459,9 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {searchMatches.map((app) => (
-                    <tr key={app.id} onClick={() => onSelectApp(app.id)} className={selectedApp?.id === app.id ? 'apps-row-selected' : undefined}>
-                      <td><span className="apps-row-name" title={app.name}>{app.name}</span></td>
+                  {searchMatches.slice(0,120).map((app) => (
+                    <tr key={app.id} className={selectedApp?.id === app.id ? 'apps-row-selected' : undefined}>
+                      <td><button type="button" className="apps-search-result" onClick={() => onSelectApp(app.id)} aria-pressed={selectedApp?.id === app.id}><NativeAppIcon appId={app.id} /><span>{app.name}</span></button></td>
                       <td className="apps-muted apps-cell-clip" title={app.publisher || undefined}>{app.publisher || '—'}</td>
                       <td className="apps-mono apps-cell-clip" title={app.version || undefined}>{app.version || '—'}</td>
                       <td><span className="apps-tag apps-tag-muted">{scopeLabel(app.scope, locale)}</span></td>
@@ -470,6 +477,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                 </div>
               ) : null}
             </div>
+            {selectedApp ? <section className="knx-tool-evidence" data-testid="apps-search-selection"><div className="knx-tool-context"><NativeAppIcon appId={selectedApp.id}/><div><strong>{selectedApp.name}</strong><small>{selectedApp.publisher || '—'} · {selectedApp.version || '—'}</small></div></div><dl className="apps-service-dl"><div><dt>{t(locale, 'Product identifier', 'معرّف المنتج')}</dt><dd>{selectedApp.productCode || '—'}</dd></div><div><dt>{t(locale, 'Install location', 'مسار التثبيت')}</dt><dd className="knx-tool-path">{selectedApp.installLocation || '—'}</dd></div><div><dt>{t(locale, 'Signature', 'التوقيع')}</dt><dd>{signatureLabel(controller.signatures[selectedApp.id]?.status || selectedApp.signature.status, locale)}</dd></div></dl></section> : null}
           </div>
         );
       }
@@ -1329,7 +1337,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
 
   if (embedded) {
     return (
-      <div data-testid="app-service-focus" className="flex flex-col gap-3">
+      <div data-testid="app-service-focus" data-tool-body="applications" data-tool={service} className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className={`apps-state apps-state-${capability?.state || 'partial'}`}>{serviceStateLabel(capability?.state || 'partial', locale)}</span>
           <span className="apps-chip">{t(locale, 'provider', 'المزوّد')}: {capability?.provider || 'ApplicationsBridge'}</span>

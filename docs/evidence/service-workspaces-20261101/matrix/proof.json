@@ -1,0 +1,150 @@
+{
+  "head": "fe146df0a56bd15be952920f9f4b2b0423aca022",
+  "workingTree": "uncommitted",
+  "frames": [
+    {
+      "route": "home",
+      "file": "home-en-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "dir": "ltr",
+      "theme": "dark",
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-ar-dark-1366.png",
+      "width": 1366,
+      "height": 768,
+      "dir": "rtl",
+      "theme": "dark",
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-en-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "dir": "ltr",
+      "theme": "light",
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-ar-light-1366.png",
+      "width": 1366,
+      "height": 768,
+      "dir": "rtl",
+      "theme": "light",
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-en-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "dir": "ltr",
+      "theme": "dark",
+      "scrollWidth": 1672,
+      "scrollHeight": 941,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-ar-dark-1672.png",
+      "width": 1672,
+      "height": 941,
+      "dir": "rtl",
+      "theme": "dark",
+      "scrollWidth": 1672,
+      "scrollHeight": 941,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-en-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "dir": "ltr",
+      "theme": "light",
+      "scrollWidth": 1672,
+      "scrollHeight": 941,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-ar-light-1672.png",
+      "width": 1672,
+      "height": 941,
+      "dir": "rtl",
+      "theme": "light",
+      "scrollWidth": 1672,
+      "scrollHeight": 941,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-en-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "dir": "ltr",
+      "theme": "dark",
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-ar-dark-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "dir": "rtl",
+      "theme": "dark",
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-en-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "dir": "ltr",
+      "theme": "light",
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "canvas": null
+    },
+    {
+      "route": "home",
+      "file": "home-ar-light-1920.png",
+      "width": 1920,
+      "height": 1080,
+      "dir": "rtl",
+      "theme": "light",
+      "scrollWidth": 1920,
+      "scrollHeight": 1080,
+      "canvas": null
+    }
+  ],
+  "checks": [
+    {
+      "nativeFixtureSource": "D:\\Temp\\knoux-live-owned-JNPx48\\source",
+      "fixtureCount": 40,
+      "note": "Native Files index; picker constrained to disposable fixture"
+    }
+  ],
+  "errors": [
+    "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('files-service-file-hash')\u001b[22m\n\u001b[2m    - locator resolved to <button title=\"File Hash\" data-service-key=\"file-hash\" data-testid=\"files-service-file-hash\" class=\"p-1.5 rounded-lg bg-[#091a33] hover:bg-[#122e57] text-cyan-300 hover:text-white border border-[#142e56] hover:border-[#2476ff]/60 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    30 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+  ],
+  "sourceHashes": {},
+  "ok": false
+}

@@ -1982,7 +1982,7 @@ export function ServiceWorkspace({
 
   if (embedded) {
     return (
-      <div data-testid="cleanup-service-focus" className="flex flex-col gap-2">
+      <div data-testid="cleanup-service-focus" data-tool-body="cleanup" data-tool={service} className="flex flex-col gap-2">
         <p className="text-[10px] text-slate-400">{note}</p>
         <div data-testid={`cleanup-${service}-workbench`}>{renderWorkspaceBody()}</div>
         <div className="cln-service-foot-gate">

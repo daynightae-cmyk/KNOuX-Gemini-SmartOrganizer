@@ -23,6 +23,8 @@ import {
   LayoutTemplate,
   Loader2,
   Lock,
+  Maximize2,
+  Minimize2,
   Play,
   Plus,
   Save,
@@ -79,6 +81,15 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
   const [activeTool, setActiveTool] = useState<keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES'] | null>(null);
   const [libraryQuery, setLibraryQuery] = useState('');
   const [addOpen, setAddOpen] = useState(false);
+  const [shortViewport, setShortViewport] = useState(() => matchMedia('(max-height: 820px)').matches);
+  const [focusOverride, setFocusOverride] = useState<boolean | null>(null);
+  const editorFocused = focusOverride ?? shortViewport;
+  useEffect(() => {
+    const media = matchMedia('(max-height: 820px)');
+    const changed = () => setShortViewport(media.matches);
+    media.addEventListener('change', changed);
+    return () => media.removeEventListener('change', changed);
+  }, []);
   const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -245,7 +256,8 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
       <div className="sys-shell">
         <KNOuXSidebar activeSection="automation" onNavigate={navigate} isArabic={locale === 'ar'} />
         <div className="sys-shell-main">
-          <main className="sys-main knx-custom-scrollbar auto-main" data-testid="automation-workspace">
+          <main className="sys-main knx-custom-scrollbar auto-main" data-testid="automation-workspace" data-editor-focus={editorFocused}>
+          {editorFocused ? <div className="auto-focus-ribbon" data-testid="automation-focus-ribbon"><strong><GitBranch aria-hidden="true" />Flow Studio</strong><span>{t(locale, 'Local draft · execution requires a separate provider', 'مسودة محلية · التنفيذ يحتاج مزودًا مستقلاً')}</span><button type="button" className="sys-btn sys-btn-quiet" disabled={!controller.nativeAvailable || controller.scanning} onClick={() => void controller.startScan()}>{t(locale, 'Discover workflows', 'اكتشاف سير العمل')}</button><button type="button" className="sys-btn" onClick={() => setFocusOverride(false)} data-testid="automation-show-overview"><Minimize2 aria-hidden="true" />{t(locale, 'Show overview', 'عرض النظرة العامة')}</button></div> : null}
           <CommandCanvas locale={locale}>
             <section className="sys-hero auto-hero" data-testid="automation-hero">
               <div className="sys-hero-arc" aria-hidden="true">
@@ -392,6 +404,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
 
               <div className="auto-editor-center">
                 <div className="auto-editor-toolbar">
+                  <button type="button" className="sys-btn sys-btn-quiet" aria-pressed={editorFocused} data-testid="automation-focus-toggle" onClick={() => setFocusOverride(!editorFocused)}><Maximize2 aria-hidden="true" />{t(locale, 'Focus editor', 'تركيز المحرر')}</button>
                   <label className="auto-name-field"><span>{t(locale, 'Workflow name', 'اسم سير العمل')}</span><input className="sys-input" value={draft?.name || ''} onChange={(event) => draft && setDraft({ ...draft, name: event.target.value })} maxLength={80} aria-label={t(locale, 'Workflow name', 'اسم سير العمل')} data-testid="automation-name-input" /></label>
                   <Chip tone={draft?.version ? 'good' : 'warn'}>{draft?.version ? `v${draft.version}` : t(locale, 'unsaved', 'غير محفوظ')}</Chip>
                   <span className="sys-toolbar-spacer" />

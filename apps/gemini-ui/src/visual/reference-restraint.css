@@ -72,7 +72,7 @@ html[data-theme='light'] .visual-sprint[data-visual-section='studio']:has(.knx-s
 }
 
 .visual-sprint[data-reference-shell='true'] {
-  background: radial-gradient(ellipse 55% 40% at 80% 0%, rgba(124, 92, 255, 0.12), transparent 60%), #070b18 !important;
+  background: radial-gradient(ellipse 55% 40% at 80% 0%, rgba(97, 36, 255, 0.22), transparent 60%), var(--v-bg) !important;
 }
 
 /* ==========================================================================

@@ -7,7 +7,7 @@
  * side mode sits in the page's trailing rail and expanded mode fills the main
  * content area without covering the global titlebar or footer.
  */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { Maximize2, Minimize2, X } from 'lucide-react';
 
 export type WorkbenchMode = 'side' | 'expanded';
@@ -48,40 +48,53 @@ export function ServiceWorkbenchHost({
   testId,
 }: ServiceWorkbenchHostProps) {
   const isAr = locale === 'ar';
+  const titleId = useId();
+  const callbacks = useRef({ onClose, onResize });
+  callbacks.current = { onClose, onResize };
+  const [actualWidth, setActualWidth] = useState(minWidth);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const dragRef = useRef<{ x: number; width: number } | null>(null);
 
   useEffect(() => {
-    closeRef.current?.focus();
+    const opener = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus({ preventScroll: true });
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape' && !event.defaultPrevented && !document.querySelector('dialog[open], [aria-modal="true"]')) callbacks.current.onClose();
     };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
+    const element = rootRef.current;
+    const observer = new ResizeObserver(() => element && setActualWidth(Math.round(element.getBoundingClientRect().width)));
+    if (element) observer.observe(element);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('keydown', onKeyDown);
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+    };
+  }, []);
 
+  const resizeBounds = () => {
+    const maximum = Math.max(160, Math.min(maxWidth, window.innerWidth - 24));
+    return { minimum: Math.min(minWidth, maximum), maximum };
+  };
+  const resize = (width: number) => {
+    const { minimum, maximum } = resizeBounds();
+    callbacks.current.onResize?.(Math.max(minimum, Math.min(maximum, Math.round(width))));
+  };
   const beginResize = (event: React.PointerEvent<HTMLDivElement>) => {
     if (mode !== 'side' || !onResize || !rootRef.current) return;
     event.preventDefault();
-    const rect = rootRef.current.getBoundingClientRect();
-    dragRef.current = { x: event.clientX, width: rect.width };
-    rootRef.current.setPointerCapture?.(event.pointerId);
+    dragRef.current = { x: event.clientX, width: rootRef.current.getBoundingClientRect().width };
+    event.currentTarget.setPointerCapture(event.pointerId);
   };
-
   const moveResize = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragRef.current || !onResize) return;
-    const direction = rootRef.current ? getComputedStyle(rootRef.current).direction : 'ltr';
-    const delta = direction === 'rtl' ? event.clientX - dragRef.current.x : dragRef.current.x - event.clientX;
-    const next = Math.max(minWidth, Math.min(maxWidth, Math.round(dragRef.current.width + delta)));
-    onResize(next);
+    if (!dragRef.current) return;
+    const delta = isAr ? event.clientX - dragRef.current.x : dragRef.current.x - event.clientX;
+    resize(dragRef.current.width + delta);
   };
-
   const endResize = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragRef.current) {
-      dragRef.current = null;
-      rootRef.current?.releasePointerCapture?.(event.pointerId);
-    }
+    dragRef.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   };
 
   return (
@@ -90,13 +103,11 @@ export function ServiceWorkbenchHost({
       data-testid={testId || `workbench-${serviceId}`}
       data-workbench-mode={mode}
       data-service-workbench="true"
+      data-service-id={serviceId}
       dir={isAr ? 'rtl' : 'ltr'}
-      className={
-        mode === 'expanded'
-          ? 'absolute inset-0 z-50 flex min-h-0 flex-col overflow-hidden rounded-xl border border-[#2476ff]/60 bg-[#040d1c] shadow-2xl'
-          : 'relative flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-[#2476ff]/50 bg-[#07152b] shadow-[0_0_18px_rgba(36,118,255,0.18)]'
-      }
-      aria-label={title}
+      className={`knx-service-workspace ${mode === 'expanded' ? 'is-expanded absolute inset-0 z-50' : 'is-side relative h-full'} flex min-h-0 flex-col overflow-hidden`}
+      role="region"
+      aria-labelledby={titleId}
     >
       {mode === 'side' && onResize ? (
         <div
@@ -104,23 +115,26 @@ export function ServiceWorkbenchHost({
           aria-label={isAr ? 'تغيير عرض مساحة العمل' : 'Resize workbench'}
           aria-orientation="vertical"
           tabIndex={0}
-          className="absolute inset-y-0 start-0 z-10 w-1.5 cursor-col-resize bg-transparent hover:bg-cyan-400/60"
+          className="knx-workbench-resizer absolute inset-y-0 start-0 z-10 w-1.5 cursor-col-resize"
+          aria-valuenow={actualWidth}
+          aria-valuemin={Math.min(minWidth, actualWidth)}
+          aria-valuemax={Math.max(maxWidth, actualWidth)}
           onPointerDown={beginResize}
           onPointerMove={moveResize}
           onPointerUp={endResize}
           onPointerCancel={endResize}
           onKeyDown={(event) => {
             if (!onResize || !rootRef.current) return;
-            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
               event.preventDefault();
-              const rect = rootRef.current.getBoundingClientRect();
-              const delta = event.key === 'ArrowRight' ? 24 : -24;
-              onResize(Math.max(minWidth, Math.min(maxWidth, Math.round(rect.width + (isAr ? -delta : delta)))));
+              const { minimum, maximum } = resizeBounds();
+              const delta = (event.key === 'ArrowLeft' ? 24 : -24) * (isAr ? -1 : 1);
+              resize(event.key === 'Home' ? minimum : event.key === 'End' ? maximum : rootRef.current.getBoundingClientRect().width + delta);
             }
           }}
         />
       ) : null}
-      <header className="knx-workbench-heading flex shrink-0 items-start justify-between gap-2 border-b border-[#0f2545] px-3 py-2.5">
+      <header className="knx-workbench-heading">
         {icon ? <span className="knx-workbench-icon" aria-hidden="true">{icon}</span> : null}
         {/* flex-1: the label block owns the remaining width, so a service title
             is only truncated when the header is genuinely too narrow for it.
@@ -128,18 +142,18 @@ export function ServiceWorkbenchHost({
             were cut while empty space sat beside them. */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <span className="text-[9px] font-mono uppercase tracking-wide text-cyan-300">{serviceId}</span>
-            <span className="text-[8px] font-mono px-1 py-0.5 rounded border border-[#1b3f70] text-slate-400">{mode === 'side' ? (isAr ? 'جانبية' : 'SIDE') : (isAr ? 'موسعة' : 'EXPANDED')}</span>
+            <span className="knx-workbench-id">{serviceId}</span>
+            <span className="knx-workbench-mode">{mode === 'side' ? (isAr ? 'جانبية' : 'SIDE') : (isAr ? 'موسعة' : 'EXPANDED')}</span>
           </div>
-          <h2 className="truncate text-xs font-bold text-white" title={title}>{title}</h2>
-          {subtitle ? <p className="truncate text-[10px] text-slate-400" title={subtitle}>{subtitle}</p> : null}
+          <h2 id={titleId} title={title}>{title}</h2>
+          {subtitle ? <p title={subtitle}>{subtitle}</p> : null}
         </div>
-        <div className="flex shrink-0 items-center gap-1">
+        <div className="knx-workbench-actions">
           {toolSelector}
           <button
             type="button"
             onClick={() => onModeChange(mode === 'side' ? 'expanded' : 'side')}
-            className="rounded p-1 text-slate-400 hover:bg-[#102952] hover:text-white"
+            className="knx-workbench-action"
             title={mode === 'side' ? (isAr ? 'توسيع مساحة العمل' : 'Expand workbench') : (isAr ? 'تثبيت جانبي' : 'Pin to side')}
             aria-label={mode === 'side' ? (isAr ? 'توسيع مساحة العمل' : 'Expand workbench') : (isAr ? 'تثبيت جانبي' : 'Pin to side')}
             data-testid="workbench-mode-toggle"
@@ -150,7 +164,7 @@ export function ServiceWorkbenchHost({
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-slate-400 hover:bg-[#102952] hover:text-white"
+            className="knx-workbench-action"
             title={isAr ? 'إغلاق مساحة العمل' : 'Close workbench'}
             aria-label={isAr ? 'إغلاق مساحة العمل' : 'Close workbench'}
             data-testid="workbench-close"
@@ -160,7 +174,7 @@ export function ServiceWorkbenchHost({
         </div>
       </header>
       <div className="knx-workbench-content min-h-0 flex-1 overflow-y-auto files-scrollbar p-3">{children}</div>
-      {footer ? <footer className="shrink-0 border-t border-[#0f2545] px-3 py-2 text-[10px] text-slate-400">{footer}</footer> : null}
+      {footer ? <footer className="knx-workbench-footer">{footer}</footer> : null}
     </div>
   );
 }

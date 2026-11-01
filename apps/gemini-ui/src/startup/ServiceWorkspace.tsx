@@ -1455,7 +1455,7 @@ export function ServiceWorkspace({
 
   if (embedded) {
     return (
-      <div data-testid="startup-service-focus" className="flex flex-col gap-2">
+      <div data-testid="startup-service-focus" data-tool-body="startup" data-tool={service} className="flex flex-col gap-2">
         <p className="text-[10px] text-slate-400">{description}</p>
         {renderService()}
         <div className="stp-gate-note">

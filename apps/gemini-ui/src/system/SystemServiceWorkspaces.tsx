@@ -134,6 +134,7 @@ export function SystemServiceWorkspace({
 }: SystemServiceWorkspaceProps) {
   const snapshot = controller.snapshot;
   const Component = SYSTEM_WORKBENCHES[serviceId];
+  const ServiceIcon = SERVICE_BY_ID[serviceId]?.icon;
 
   if (!snapshot || !Component) return null;
 
@@ -165,6 +166,7 @@ export function SystemServiceWorkspace({
       >
         <ServiceWorkbenchHost
           serviceId={serviceId}
+          icon={ServiceIcon ? <ServiceIcon aria-hidden="true" /> : undefined}
           title={serviceLabel(serviceId, locale)}
           subtitle={locale === 'ar' ? 'سياق مقيس · للقراءة فقط' : 'Measured context · read-only'}
           locale={locale}
@@ -188,6 +190,7 @@ export function SystemServiceWorkspace({
     <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="system-workbench-expanded-shell">
       <ServiceWorkbenchHost
         serviceId={serviceId}
+          icon={ServiceIcon ? <ServiceIcon aria-hidden="true" /> : undefined}
         title={serviceLabel(serviceId, locale)}
         subtitle={locale === 'ar' ? 'سياق مقيس · للقراءة فقط' : 'Measured context · read-only'}
         locale={locale}

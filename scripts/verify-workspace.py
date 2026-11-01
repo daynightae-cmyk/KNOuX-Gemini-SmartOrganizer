@@ -6,6 +6,9 @@ ROOT=Path(__file__).resolve().parent.parent
 EXPECTED=Path(r"D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer")
 REMOTE="https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git"
 BRANCH="main"
+# Owner override 2026-11-01: preserve WIP on this exact local review branch;
+# no main integration or publication until the owner's later review.
+SERVICE_REVIEW_BRANCH="codex/service-workspaces-20261101"
 # Explicit, fail-closed design-only exception: real Git worktree of the same D: repo.
 VISUAL_WORKTREE=(EXPECTED/".worktrees"/"visual-owner-rebuild")
 VISUAL_BRANCH="feat/knoux-visual-studio-rebuild-20261027"
@@ -32,7 +35,10 @@ try:
  assert Path(git("rev-parse","--show-toplevel")).resolve()==ROOT.resolve(),"WRONG GIT TOP LEVEL"
  assert Path(git("rev-parse","--path-format=absolute","--git-common-dir")).resolve()==(EXPECTED/".git").resolve(),"WRONG GIT COMMON DIR"
  assert git("remote","get-url","origin").rstrip("/")==REMOTE,"WRONG REMOTE"
- expected_branch=ANIMA_BRANCH if is_anima else UNIFIED_BRANCH if is_unified else BRANCH if is_canonical else LIVE_BRANCH if is_live else VISUAL_BRANCH
+ actual_branch=git("branch","--show-current")
+ if is_canonical:
+  assert actual_branch in (BRANCH,SERVICE_REVIEW_BRANCH),"WRONG CANONICAL BRANCH"
+ expected_branch=ANIMA_BRANCH if is_anima else UNIFIED_BRANCH if is_unified else actual_branch if is_canonical else LIVE_BRANCH if is_live else VISUAL_BRANCH
  assert git("branch","--show-current")==expected_branch,"WRONG BRANCH"
  assert (ROOT/"missions"/"STANDALONE_AUTONOMOUS_ENTRY.md").is_file(),"MISSING MISSION ENTRY"
  assert (ROOT/"apps"/"gemini-ui"/"electron"/"main.cjs").is_file(),"MISSING GEMINI MAIN"

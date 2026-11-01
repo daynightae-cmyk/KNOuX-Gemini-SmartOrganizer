@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AlertTriangle,
   ArrowRight,
   CheckCircle2,
   Clock,
   FileSearch,
+  FolderOpen,
   FolderMinus,
   Hash,
   ShieldAlert,
@@ -17,7 +18,7 @@ import type {
   FilesOverview,
 } from '../../shared/native-contracts';
 import { FILES_DOMAIN_SERVICES, type FileResultItem, type FilesServiceKey } from '../lib/file-inventory';
-import { formatBytes } from './useFilesNative';
+import { formatBytes, type FilesQueryFilters } from './useFilesNative';
 
 interface FilesServiceFocusProps {
   service: FilesServiceKey;
@@ -27,6 +28,7 @@ interface FilesServiceFocusProps {
   selectedFile: FileResultItem;
   metadata: FilesMetadata | null;
   hash: FilesHashResult | null;
+  hashLoading?: boolean;
   emptyFolders: FilesEmptyFoldersResult | null;
   emptyFoldersLoading: boolean;
   scopeCount: number;
@@ -38,18 +40,24 @@ interface FilesServiceFocusProps {
   onLoadEmpty: () => void;
   onHash: () => void;
   onSort: (sort: 'date_desc' | 'size_desc' | 'name_asc') => void;
+  query: FilesQueryFilters;
+  results: FileResultItem[];
+  queryError: string | null;
+  onQueryChange: (patch: FilesQueryFilters) => void;
+  onSelectFile: (file: FileResultItem) => void;
   embedded?: boolean;
 }
 
-function EmptyNative({ locale }: { locale: 'en' | 'ar' }) {
+function EmptyNative({ locale, onAdd }: { locale: 'en' | 'ar'; onAdd?: () => void }) {
   return (
     <div className="text-[10px] text-amber-300/90 flex items-start gap-1.5">
       <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
       <span>
         {locale === 'en'
-          ? 'This service is design-fixture only until an Electron source is authorized.'
-          : 'هذه الخدمة معاينة تصميم فقط حتى يتم التصريح بمصدر في Electron.'}
+          ? 'Choose a local folder to authorize this read-only tool. No native source is active.'
+          : 'اختر مجلدًا محليًا للتصريح باستخدام هذه الأداة للقراءة فقط. لا يوجد مصدر أصلي نشط.'}
       </span>
+      {onAdd ? <button type="button" className="knx-workbench-action" onClick={onAdd} aria-label={locale === 'en' ? 'Choose authorized folder' : 'اختيار مجلد مصرح'}><FolderOpen aria-hidden="true"/></button> : null}
     </div>
   );
 }
@@ -62,6 +70,7 @@ export function FilesServiceFocus({
   selectedFile,
   metadata,
   hash,
+  hashLoading = false,
   emptyFolders,
   emptyFoldersLoading,
   scopeCount,
@@ -73,14 +82,24 @@ export function FilesServiceFocus({
   onLoadEmpty,
   onHash,
   onSort,
+  query, results, queryError, onQueryChange, onSelectFile,
   embedded = false,
 }: FilesServiceFocusProps) {
   const meta = FILES_DOMAIN_SERVICES.find((entry) => entry.key === service);
   const title = meta ? (locale === 'en' ? meta.labelEn : meta.labelAr) : service;
   const description = meta ? (locale === 'en' ? meta.descEn : meta.descAr) : '';
 
+  const [emptyQuery, setEmptyQuery] = useState('');
+  const [copyStatus, setCopyStatus] = useState('');
+  useEffect(() => setCopyStatus(''), [selectedFile.id, hash?.digest]);
+  const copyDigest = async () => {
+    if (!hash) return;
+    try { await navigator.clipboard.writeText(hash.digest); setCopyStatus(locale === 'en' ? 'Digest copied' : 'تم نسخ البصمة'); }
+    catch { setCopyStatus(locale === 'en' ? 'Clipboard unavailable' : 'الحافظة غير متاحة'); }
+  };
+
   const renderBody = () => {
-    if (!measured) return <EmptyNative locale={locale} />;
+    if (!measured) return <EmptyNative locale={locale} onAdd={onAdd} />;
 
     switch (service) {
       case 'file-downloads-inventory':
@@ -235,9 +254,11 @@ export function FilesServiceFocus({
                   {emptyFolders.summary.emptyFolders.toLocaleString()} {locale === 'en' ? 'empty folders' : 'مجلد فارغ'} ·{' '}
                   {emptyFolders.summary.foldersScanned.toLocaleString()} scanned
                 </div>
-                {emptyFolders.items.slice(0, 6).map((item) => (
-                  <div key={item.relative} className="font-mono text-[9px] text-slate-400 truncate" title={item.fullPath}>{item.relative}</div>
-                ))}
+                <label className="knx-file-filter-label">{locale === 'en' ? 'Filter returned folders' : 'تصفية المجلدات المكتشفة'}<input type="search" value={emptyQuery} onChange={e => setEmptyQuery(e.target.value)} /></label>
+                <div className="knx-file-result-list">{emptyFolders.items.filter(item => item.relative.toLocaleLowerCase().includes(emptyQuery.toLocaleLowerCase())).map(item => <p key={item.relative} className="knx-tool-path" title={item.fullPath}>{item.relative || '.'}</p>)}</div>
+                <dl className="knx-file-metadata-grid"><div><dt>{locale === 'en' ? 'Skipped links' : 'روابط متخطاة'}</dt><dd>{emptyFolders.summary.skippedLinks}</dd></div><div><dt>{locale === 'en' ? 'Read errors' : 'أخطاء القراءة'}</dt><dd>{emptyFolders.summary.errors}</dd></div><div><dt>{locale === 'en' ? 'Provider limit' : 'حد المزود'}</dt><dd>{emptyFolders.summary.limit}</dd></div></dl>
+                {emptyFolders.warnings.map((warning,index) => <p role="status" key={index}>{warning}</p>)}
+                <p>{locale === 'en' ? 'Inspection only. This tool does not delete directories.' : 'فحص فقط. هذه الأداة لا تحذف المجلدات.'}</p>
                 {emptyFolders.partial && (
                   <div className="text-[9px] text-amber-300">{locale === 'en' ? 'Partial bounded result.' : 'نتيجة جزئية محدودة.'}</div>
                 )}
@@ -247,25 +268,37 @@ export function FilesServiceFocus({
         );
       case 'file-hash':
         return (
-          <div className="space-y-2" data-testid="files-hash-workbench">
-            <div className="text-[10px] text-slate-400 font-mono truncate" title={selectedFile.name}>{selectedFile.name}</div>
-            <button onClick={onHash} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
-              {locale === 'en' ? 'Compute SHA-256' : 'حساب SHA-256'}
-            </button>
-            {hash && (
-              <div className="text-[9px] font-mono text-emerald-300 break-all">{hash.digest}</div>
-            )}
+          <div className="knx-hash-tool" data-testid="files-hash-workbench" aria-busy={hashLoading}>
+            <section className="knx-tool-context"><Hash aria-hidden="true" /><div><strong>{selectedFile.name}</strong><small>{locale === 'en' ? 'Byte identity · SHA-256 · read-only' : 'هوية المحتوى · SHA-256 · قراءة فقط'}</small></div></section>
+            <p>{locale === 'en' ? 'Read this file through the authorized source. Reliability is reported by the native provider after the read.' : 'قراءة الملف من المصدر المصرح. يحدد المزود موثوقية البصمة بعد اكتمال القراءة.'}</p>
+            {hashLoading ? <div role="status" className="knx-tool-evidence"><progress aria-label={locale === 'en' ? 'Reading file bytes' : 'قراءة محتوى الملف'} />{locale === 'en' ? 'Reading file bytes…' : 'جارٍ قراءة محتوى الملف…'}</div> : null}
+            {hash ? <section className="knx-tool-evidence" data-testid="files-hash-evidence">
+              <strong>{hash.digestReliable ? (locale === 'en' ? 'Reliable digest' : 'بصمة موثوقة') : (locale === 'en' ? 'Reliability warning' : 'تحذير موثوقية')}</strong>
+              <code className="knx-tool-path" data-testid="files-hash-digest">{hash.digest}</code>
+              <dl><div><dt>{locale === 'en' ? 'Bytes read' : 'البايتات المقروءة'}</dt><dd>{hash.bytesRead.toLocaleString()} / {hash.sizeAtRead.toLocaleString()}</dd></div><div><dt>{locale === 'en' ? 'Changed during read' : 'تغير أثناء القراءة'}</dt><dd>{hash.changedDuringRead ? (locale === 'en' ? 'Yes' : 'نعم') : (locale === 'en' ? 'No' : 'لا')}</dd></div></dl>
+              {hash.warnings.map((warning,index) => <p key={index} role="status">{warning}</p>)}
+              <details><summary>{locale === 'en' ? 'Native identity evidence' : 'دليل الهوية الأصلي'}</summary><code className="knx-tool-path">{hash.fileIdentity || (locale === 'en' ? 'Identity unavailable' : 'الهوية غير متاحة')}</code><small>{hash.algorithm.toUpperCase()} · {hash.permission}</small></details>
+            </section> : !hashLoading ? <p className="knx-tool-evidence">{locale === 'en' ? 'No digest measured for this file yet.' : 'لم تُقس بصمة هذا الملف بعد.'}</p> : null}
+            <div className="knx-tool-actions"><button type="button" onClick={onHash} disabled={hashLoading} data-testid="files-hash-compute">{locale === 'en' ? (hashLoading ? 'Reading…' : 'Compute SHA-256') : (hashLoading ? 'جارٍ القراءة…' : 'حساب SHA-256')}</button><button type="button" onClick={() => void copyDigest()} disabled={!hash || hashLoading}>{locale === 'en' ? 'Copy digest' : 'نسخ البصمة'}</button><output role="status">{copyStatus}</output></div>
           </div>
         );
       case 'file-search':
         return (
-          <div className="text-[11px] text-slate-300 space-y-1" data-testid="files-search-workbench">
-            <div className="flex items-center gap-1.5 text-cyan-300"><FileSearch className="w-3.5 h-3.5" />{locale === 'en' ? 'Read-only native query' : 'استعلام أصلي للقراءة فقط'}</div>
-            <div>{locale === 'en' ? 'Search, category, extension, size and date filters call the measured index. The ledger shows the first 200 matches.' : 'البحث والفئة والامتداد والحجم والتاريخ تستدعي الفهرس المقيس. يعرض السجل أول 200 نتيجة.'}</div>
-            <button onClick={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
-              {locale === 'en' ? 'Focus the search field' : 'الانتقال إلى حقل البحث'}
-            </button>
-          </div>
+          <section className="knx-file-search" data-testid="files-search-workbench">
+            <div className="knx-tool-context"><FileSearch aria-hidden="true"/><div><strong>{locale === 'en' ? 'Search the authorized index' : 'البحث في الفهرس المصرح'}</strong><small>{overview?.source.label} · {locale === 'en' ? 'Metadata search, not file contents' : 'بحث في البيانات الوصفية، وليس محتوى الملفات'}</small></div></div>
+            <div className="knx-file-filters">
+              <label>{locale === 'en' ? 'Name or folder' : 'الاسم أو المجلد'}<input type="search" value={query.search || ''} onChange={e => onQueryChange({search:e.target.value})} data-testid="files-tool-search"/></label>
+              <label>{locale === 'en' ? 'Extension group' : 'مجموعة الامتدادات'}<select value={query.extension || 'All'} onChange={e => onQueryChange({extension:e.target.value})}><option value="All">{locale === 'en' ? 'All extensions' : 'كل الامتدادات'}</option><option value="jpg">JPG / PNG / WEBP / GIF</option><option value="docx">DOCX / PDF / TXT / MD</option><option value="zip">ZIP / RAR / 7Z / TAR</option></select></label>
+              <label>{locale === 'en' ? 'File size' : 'حجم الملف'}<select value={query.sizeFilter === 'Any' ? 'any' : query.sizeFilter || 'any'} onChange={e => onQueryChange({sizeFilter:e.target.value})}><option value="any">{locale === 'en' ? 'Any size' : 'أي حجم'}</option><option value="small">&lt; 10 MB</option><option value="medium">10–100 MB</option><option value="large">≥ 100 MB</option></select></label>
+              <label>{locale === 'en' ? 'Modified' : 'التعديل'}<select value={query.dateFilter || 'any'} onChange={e => onQueryChange({dateFilter:e.target.value as FilesQueryFilters['dateFilter']})}><option value="any">{locale === 'en' ? 'Any time' : 'أي وقت'}</option><option value="today">{locale === 'en' ? 'Last 24 hours' : 'آخر 24 ساعة'}</option><option value="week">{locale === 'en' ? 'Last 7 days' : 'آخر 7 أيام'}</option><option value="month">{locale === 'en' ? 'Last 30 days' : 'آخر 30 يومًا'}</option></select></label>
+              <label>{locale === 'en' ? 'Sort' : 'الترتيب'}<select value={query.sort || 'date_desc'} onChange={e => onQueryChange({sort:e.target.value as FilesQueryFilters['sort']})}><option value="date_desc">{locale === 'en' ? 'Newest first' : 'الأحدث أولًا'}</option><option value="size_desc">{locale === 'en' ? 'Largest first' : 'الأكبر أولًا'}</option><option value="name_asc">{locale === 'en' ? 'Name A–Z' : 'الاسم أ–ي'}</option></select></label>
+            </div>
+            <p role="status">{locale === 'en' ? `${results.length} loaded rows · bounded to 200 · uses the current category and location filters.` : `${results.length} صف محمل · بحد أقصى 200 · تطبق تصفية الفئة والموقع الحالية.`}</p>
+            {queryError ? <p role="alert">{queryError}</p> : null}
+            <div className="knx-file-result-list">{results.map(file => <button type="button" key={file.id} onClick={() => onSelectFile(file)} aria-pressed={selectedFile.id === file.id}><span><strong>{file.name}</strong><small className="knx-tool-path">{file.parentFolder}</small></span><code dir="ltr">{file.sizeFormatted}</code></button>)}</div>
+            {!results.length && !queryError ? <p className="knx-tool-evidence">{locale === 'en' ? 'No loaded rows match. Change filters or rescan the authorized folder.' : 'لا توجد صفوف مطابقة. غيّر التصفية أو أعد فحص المجلد المصرح.'}</p> : null}
+            <div className="knx-tool-actions"><button type="button" onClick={() => onQueryChange({search:'',extension:'All',sizeFilter:'any',dateFilter:'any'})}>{locale === 'en' ? 'Clear search filters' : 'مسح تصفية البحث'}</button><button type="button" onClick={onRescan}>{locale === 'en' ? 'Rescan source' : 'إعادة فحص المصدر'}</button></div>
+          </section>
         );
       case 'file-type-map':
         return (
@@ -273,9 +306,9 @@ export function FilesServiceFocus({
             <button onClick={() => onSort('size_desc')} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
               {locale === 'en' ? 'Rank the ledger by size' : 'ترتيب السجل حسب الحجم'}
             </button>
-            {(overview?.extensions || []).slice(0, 6).map((item) => {
+            {(overview?.extensions || []).map((item) => {
               const total = overview?.totals.files || 1;
-              const percent = Math.max(2, Math.round((item.count / total) * 100));
+              const percent = Math.min(100, Math.max(0, (item.count / total) * 100));
               return (
                 <div key={item.ext}>
                   <div className="flex justify-between text-[9px] font-mono text-slate-300">
@@ -311,18 +344,26 @@ export function FilesServiceFocus({
       }
       case 'file-metadata':
         return metadata ? (
-          <div className="space-y-1 text-[10px] font-mono text-slate-300" data-testid="files-metadata-workbench">
-            <div className="text-white truncate">{metadata.name}</div>
-            <div>{metadata.size.toLocaleString()} bytes</div>
-            <div className="break-all text-slate-500">{metadata.fullPath}</div>
-            <div className="text-cyan-300">{metadata.zone.zoneAvailable ? `Zone ${metadata.zone.zoneId}` : 'No Zone.Identifier'}</div>
-            <button onClick={onHash} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
-              {locale === 'en' ? 'Compute SHA-256' : 'حساب SHA-256'}
-            </button>
-          </div>
-        ) : (
-          <div className="text-[10px] text-slate-500" data-testid="files-metadata-workbench">{locale === 'en' ? 'Select a file to read its metadata.' : 'اختر ملفًا لقراءة بياناته.'}</div>
-        );
+          <section className="knx-file-metadata" data-testid="files-metadata-workbench">
+            <div className="knx-tool-context"><FileSearch aria-hidden="true"/><div><strong>{metadata.name}</strong><small>{locale === 'en' ? 'Filesystem metadata · read-only' : 'بيانات نظام الملفات · قراءة فقط'}</small></div></div>
+            <p className="knx-tool-path">{metadata.fullPath}</p>
+            <dl className="knx-file-metadata-grid">{[
+              [locale === 'en' ? 'Size' : 'الحجم', `${metadata.size.toLocaleString()} bytes`],
+              [locale === 'en' ? 'Created' : 'الإنشاء', metadata.createdAt || '—'],
+              [locale === 'en' ? 'Modified' : 'التعديل', metadata.modifiedAt],
+              [locale === 'en' ? 'Native file identity' : 'هوية الملف الأصلية', metadata.fileIdentity || '—'],
+              [locale === 'en' ? 'Volume serial' : 'معرّف وحدة التخزين', metadata.volumeSerial || '—'],
+              [locale === 'en' ? 'Link count' : 'عدد الروابط', metadata.linkCount == null ? '—' : String(metadata.linkCount)],
+              [locale === 'en' ? 'Attributes' : 'الخصائص', metadata.attributesAvailable ? String(metadata.attributes) : '—'],
+              [locale === 'en' ? 'Internet zone' : 'منطقة الإنترنت', metadata.zone.zoneAvailable ? String(metadata.zone.zoneId ?? '—') : '—'],
+            ].map(([label,value]) => <div key={label}><dt>{label}</dt><dd dir="ltr">{value}</dd></div>)}</dl>
+            <details className="knx-tool-evidence"><summary>{locale === 'en' ? 'Origin information' : 'معلومات المصدر'}</summary><p className="knx-tool-path">{metadata.zone.host || '—'}</p><p className="knx-tool-path">{metadata.zone.referrer || '—'}</p></details>
+            <p>{locale === 'en' ? 'EXIF, audio tags and PDF document properties are not provided by this filesystem contract.' : 'عقد نظام الملفات لا يوفر EXIF أو الوسوم الصوتية أو خصائص مستند PDF.'}</p>
+            {metadata.warnings.map((warning,index) => <p role="status" key={index}>{warning}</p>)}
+            <div className="knx-tool-actions"><button type="button" onClick={onHash} disabled={hashLoading}>{locale === 'en' ? 'Compute SHA-256' : 'حساب SHA-256'}</button></div>
+            {hash ? <code className="knx-tool-path">{hash.digest}</code> : null}
+          </section>
+        ) : <p role="status" data-testid="files-metadata-workbench">{locale === 'en' ? 'Select a file to read its metadata.' : 'اختر ملفًا لقراءة بياناته.'}</p>;
       case 'file-provenance':
         return (
           <div className="space-y-1 text-[10px] text-slate-300" data-testid="files-provenance-workbench">
@@ -342,8 +383,9 @@ export function FilesServiceFocus({
 
   if (embedded) {
     return (
-      <div data-testid="files-service-focus" className="space-y-2">
+      <div data-testid="files-service-focus" data-tool-body="files" data-tool={service} className="knx-file-tool space-y-3">
         <p className="text-[10px] text-slate-400">{description}</p>
+        {queryError && service !== 'file-search' ? <p role="alert" className="knx-tool-error">{queryError}</p> : null}
         {renderBody()}
       </div>
     );
@@ -364,6 +406,7 @@ export function FilesServiceFocus({
         </button>
       </div>
       <p className="text-[10px] text-slate-400">{description}</p>
+        {queryError && service !== 'file-search' ? <p role="alert" className="knx-tool-error">{queryError}</p> : null}
       {renderBody()}
     </div>
   );

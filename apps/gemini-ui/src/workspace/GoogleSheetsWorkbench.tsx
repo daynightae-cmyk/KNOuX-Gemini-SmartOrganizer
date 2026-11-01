@@ -179,7 +179,7 @@ export function GoogleSheetsWorkbench({ google, isAr, onNotice }: GoogleSheetsWo
         </div>
       </header>
 
-      <div className="flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar p-4 space-y-3">
+      <div className="knx-google-tool-body flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar p-4 space-y-3">
         {google.error ? (
           <div role="alert" className="rounded-xl border border-rose-500/40 bg-rose-950/30 px-3.5 py-2.5 text-rose-200 text-[11px] flex items-start gap-2" data-testid="workspace-google-error">
             <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
