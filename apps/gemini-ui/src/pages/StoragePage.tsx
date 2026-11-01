@@ -911,7 +911,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                   ))}
                 </select>
               }
-              footer={<span className="text-amber-300">{isArabic ? 'معاينة فقط · لا حذف أو تحسين' : 'Preview only · no delete or optimize'}</span>}
+              footer={<span className="text-amber-300">{isArabic ? 'معاينة فقط · الحجر المعتمد في الخزنة الحية' : 'Preview only · approved quarantine in the live vault'}</span>}
             >
               {renderStorageServiceBody()}
             </ServiceWorkbenchHost>
@@ -941,7 +941,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                   ))}
                 </select>
               }
-              footer={<span className="text-amber-300">{isArabic ? 'معاينة فقط · لا حذف أو تحسين' : 'Preview only · no delete or optimize'}</span>}
+              footer={<span className="text-amber-300">{isArabic ? 'معاينة فقط · الحجر المعتمد في الخزنة الحية' : 'Preview only · approved quarantine in the live vault'}</span>}
             >
               {renderStorageServiceBody()}
             </ServiceWorkbenchHost>

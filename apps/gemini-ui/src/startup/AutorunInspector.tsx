@@ -293,8 +293,8 @@ export function AutorunInspector({
           <Lock className="w-3 h-3" />
           {t(
             locale,
-            'No registry, task or service write channel exists. A staged plan is immutable and execution stays gated.',
-            'لا توجد قناة كتابة للتسجيل أو المهام أو الخدمات. الخطة المُهيَّأة ثابتة والتنفيذ يبقى محجوبًا.'
+            'Only an approved current-user Run disable/restore can execute. Task, service, startup-folder, delay, batch and elevation writes stay gated.',
+            'فقط تعطيل/استعادة قيمة Run الحالية للمستخدم بعد الموافقة يمكن تنفيذه. كتابة المهام والخدمات ومجلد بدء التشغيل والتأخير والدفعات ورفع الصلاحيات تبقى محجوبة.'
           )}
         </div>
         <div className="stp-inspector-actions">

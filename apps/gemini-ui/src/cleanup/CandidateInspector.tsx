@@ -228,8 +228,8 @@ export function CandidateInspector({
           <Lock className="w-3 h-3" />
           {t(
             locale,
-            'Execute is disabled: no delete, move, recycle-empty or DISM channel exists in Mission 08.',
-            'التنفيذ معطّل: لا توجد قناة حذف أو نقل أو إفراغ سلة أو DISM في المهمة 08.'
+            'Permanent delete, recycle-empty and DISM remain gated. Approved quarantine and verified restore run in the live safety vault.',
+            'الحذف الدائم وإفراغ السلة وDISM تبقى محجوبة. الحجر المعتمد والاستعادة المتحقق منها تعمل في خزنة الأمان الحية.'
           )}
         </p>
       </footer>

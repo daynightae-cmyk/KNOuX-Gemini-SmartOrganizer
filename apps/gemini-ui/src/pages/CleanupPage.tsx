@@ -361,7 +361,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               </span>
               <span>
                 <Lock className="w-3 h-3" />
-                {t(locale, 'No delete, move, recycle-empty, DISM, task or restore mutation exists in Mission 08.', 'لا توجد كتابة حذف أو نقل أو إفراغ سلة أو DISM أو مهمة أو استعادة في المهمة 08.')}
+                {t(locale, 'Permanent delete, recycle-empty, DISM and task mutation stay gated; approved quarantine and verified restore run in the live safety vault.', 'الحذف الدائم وإفراغ السلة وDISM وتغيير المهام تبقى محجوبة؛ الحجر المعتمد والاستعادة المتحقق منها تعمل في خزنة الأمان الحية.')}
               </span>
               {inventory?.coverage ? (
                 <span>
@@ -436,7 +436,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               maxWidth={720}
               testId="cleanup-workbench"
               toolSelector={cleanupWorkbenchToolSelector}
-              footer={<span className="text-amber-300">{t(locale, 'Review only · no delete, move or quarantine', 'مراجعة فقط · لا حذف أو نقل أو حجر')}</span>}
+              footer={<span className="text-amber-300">{t(locale, 'Review only · permanent delete gated · live vault handles approved quarantine', 'مراجعة فقط · الحذف الدائم محجوب · الخزنة الحية تتولى الحجر المعتمد')}</span>}
             >
               {renderCleanupServiceBody()}
             </ServiceWorkbenchHost>
@@ -454,7 +454,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               onClose={closeWorkbench}
               testId="cleanup-workbench-expanded"
               toolSelector={cleanupWorkbenchToolSelector}
-              footer={<span className="text-amber-300">{t(locale, 'Review only · no delete, move or quarantine', 'مراجعة فقط · لا حذف أو نقل أو حجر')}</span>}
+              footer={<span className="text-amber-300">{t(locale, 'Review only · permanent delete gated · live vault handles approved quarantine', 'مراجعة فقط · الحذف الدائم محجوب · الخزنة الحية تتولى الحجر المعتمد')}</span>}
             >
               {renderCleanupServiceBody()}
             </ServiceWorkbenchHost>

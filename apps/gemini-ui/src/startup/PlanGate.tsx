@@ -51,8 +51,8 @@ export function PlanGate({ locale, plan, onClose, onNotice }: PlanGateProps) {
             <p>
               {t(
                 locale,
-                'This plan is a read-only review artifact. Mission 09 has no registry write, task change, service policy change, journal append or elevation channel.',
-                'هذه الخطة أثر مراجعة للقراءة فقط. لا توجد في المهمة 09 قناة كتابة تسجيل أو تغيير مهمة أو سياسة خدمة أو إضافة سجل أو رفع صلاحيات.'
+                'This plan is a read-only review artifact. Only the separate disable/restore workbench can write an approved HKCU Run value; task, service policy, journal and elevation channels stay gated.',
+                'هذه الخطة أثر مراجعة للقراءة فقط. فقط ورشة التعطيل/الاستعادة المنفصلة يمكنها كتابة قيمة Run معتمدة في HKCU؛ قنوات المهام وسياسة الخدمة والسجل ورفع الصلاحيات تبقى محجوبة.'
               )}
             </p>
           </div>

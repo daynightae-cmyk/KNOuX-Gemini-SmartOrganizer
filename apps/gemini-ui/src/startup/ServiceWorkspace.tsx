@@ -662,7 +662,7 @@ export function ServiceWorkspace({
           <div className="stp-dock">
             <div className="stp-dock-copy">
               <strong>{t(locale, 'Acknowledge the review warning', 'أقرّ بتحذير المراجعة')}</strong>
-              <p>{t(locale, 'The system does not verify a postcondition because no mutation channel exists in Mission 09.', 'لا يتحقق النظام من نتيجة لاحقة لأنه لا توجد قناة تغيير في المهمة 09.')}</p>
+              <p>{t(locale, 'This staged review does not verify a postcondition; the separate approved disable/restore executor does.', 'هذه المراجعة المُهيَّأة لا تتحقق من نتيجة لاحقة؛ منفذ التعطيل/الاستعادة المعتمد المنفصل هو الذي يتحقق.')}</p>
             </div>
             <label className="stp-checkbox">
               <input type="checkbox" checked={stageAcknowledged} onChange={(event) => setStageAcknowledged(event.target.checked)} />
@@ -882,7 +882,7 @@ export function ServiceWorkspace({
               <div><span>{t(locale, 'Before → after', 'قبل → بعد')}</span><code>— → —</code></div>
               <div><span>{t(locale, 'Eligibility rating', 'تقييم الأهلية')}</span><code>{t(locale, 'Not eligible', 'غير مؤهل')}</code></div>
             </div>
-            <GateNote locale={locale}>{t(locale, 'Only an approved executor may append a journal entry. No write channel exists.', 'فقط منفذ معتمد يمكنه إضافة مدخل للسجل. لا توجد قناة كتابة.')}</GateNote>
+            <GateNote locale={locale}>{t(locale, 'Only the approved disable/restore executor writes protected receipts; this preview cannot append a journal entry.', 'فقط منفذ التعطيل/الاستعادة المعتمد يكتب إيصالات محمية؛ هذه المعاينة لا تضيف مدخلًا للسجل.')}</GateNote>
           </SubPanel>
         </div>
       </div>
@@ -1500,7 +1500,7 @@ export function ServiceWorkspace({
       <footer className="stp-service-foot">
         <span className="stp-gate-note">
           <Lock className="w-3 h-3" />
-          {t(locale, 'Read-only workbench · no mutation channel', 'ورشة للقراءة فقط · لا قناة تغيير')}
+          {t(locale, 'Measured workbench · writes only via approved HKCU Run disable/restore', 'ورشة مقيسة · الكتابة فقط عبر تعطيل/استعادة Run المعتمدة في HKCU')}
         </span>
         <span className="stp-service-foot-actions">
           <button type="button" className="stp-btn stp-btn-ghost" onClick={() => void controller.refresh(true)} disabled={controller.refreshing}>

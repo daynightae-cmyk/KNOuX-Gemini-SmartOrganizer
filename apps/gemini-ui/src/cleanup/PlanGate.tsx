@@ -72,8 +72,8 @@ export function PlanGate({ locale, plan, onClose, onNotice }: PlanGateProps) {
             <p>
               {t(
                 locale,
-                'The plan is immutable and read-only. Mission 08 has no delete, move, recycle-empty or DISM channel.',
-                'الخطة ثابتة وللقراءة فقط. لا توجد في المهمة 08 قناة حذف أو نقل أو إفراغ سلة أو DISM.'
+                'The plan is immutable and read-only. Permanent delete, recycle-empty and DISM stay gated; approved quarantine and verified restore run in the live safety vault.',
+                'الخطة ثابتة وللقراءة فقط. الحذف الدائم وإفراغ السلة وDISM تبقى محجوبة؛ الحجر المعتمد والاستعادة المتحقق منها تعمل في خزنة الأمان الحية.'
               )}
             </p>
           </div>

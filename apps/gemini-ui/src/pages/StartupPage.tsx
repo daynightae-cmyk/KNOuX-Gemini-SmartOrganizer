@@ -4,8 +4,10 @@ import { CommandCanvas } from '../visual/CommandCanvas';
  *
  * Browser previews render an explicit native-required state. In Electron every
  * autorun row, service, task, boot event and plan value comes from the
- * read-only StartupBridge. No design fixtures are imported here and no registry,
- * task, service, startup-folder or journal write is available.
+ * read-only StartupBridge. The separate StartupActions executor can disable or
+ * restore one approved current-user HKCU Run value behind an exact plan,
+ * protected receipt and native consent; task, service, startup-folder, delay,
+ * batch, journal and elevation writes remain gated.
  */
 import React, { useEffect, useMemo, useState } from 'react';
 import {

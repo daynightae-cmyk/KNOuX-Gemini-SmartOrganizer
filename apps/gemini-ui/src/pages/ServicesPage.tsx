@@ -252,8 +252,8 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                   live={controller.scanning}
                   caption={
                     snapshot
-                      ? `${formatCount(snapshot.summary.total)} ${t(locale, 'measured services', 'خدمة مقيسة')} · ${t(locale, 'receipt', 'إيصال')} ${snapshot.receipt.slice(0, 8)} · ${t(locale, '0 SCM writes', '0 كتابة SCM')}`
-                      : t(locale, 'Review the measured SCM register — no mutation', 'راجع سجل SCM المقيس — دون أي تغيير')
+                      ? `${formatCount(snapshot.summary.total)} ${t(locale, 'measured services', 'خدمة مقيسة')} · ${t(locale, 'receipt', 'إيصال')} ${snapshot.receipt.slice(0, 8)} · ${t(locale, 'SCM state via exact consent', 'حالة SCM بموافقة محددة')}`
+                      : t(locale, 'Review the measured SCM register — start/stop stays behind exact consent', 'راجع سجل SCM المقيس — البدء/الإيقاف خلف موافقة محددة')
                   }
                   stages={[
                     {
@@ -390,7 +390,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 <Panel
                   className="svc-mini-journal"
                   title={t(locale, 'Recent service activity', 'أحدث نشاط للخدمات')}
-                  sub={t(locale, 'Previews only · 0 executed.', 'معاينات فقط · 0 منفذ.')}
+                  sub={t(locale, 'Previews plus exact-plan SCM state changes.', 'معاينات إضافة إلى تغييرات حالة SCM بخطة محددة.')}
                   icon={History}
                   actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('services-undo')} disabled={!snapshot}>{t(locale, 'Journal', 'السجل')}<ChevronRight aria-hidden="true" /></button>}
                 >

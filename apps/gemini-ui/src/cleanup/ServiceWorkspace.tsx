@@ -840,7 +840,7 @@ function VaultWorkspace({ locale, controller, onOpenVault }: BranchProps) {
           <GateNote
             locale={locale}
             gate={quarantine?.execution.gate || 'Mission 08 destructive-action approval'}
-            reason={t(locale, 'Purge and restore are not exposed. Permanent purge is never reversible.', 'الإزالة والاستعادة غير متاحتين. الإزالة الدائمة لا تُستعاد أبدًا.')}
+            reason={t(locale, 'Permanent purge is not exposed. Approved quarantine and verified restore run in the live safety vault.', 'الإزالة الدائمة غير متاحة. الحجر المعتمد والاستعادة المتحقق منها تعمل في خزنة الأمان الحية.')}
           />
         </Section>
       </div>
@@ -1107,7 +1107,7 @@ function RecycleWorkspace({ locale, controller, candidates, onStagePlan }: Branc
             <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
             <div>
               <strong>{t(locale, 'Empty Bin confirmation stage', 'مرحلة تأكيد إفراغ السلة')}</strong>
-              <p>{t(locale, 'Purge is permanent. A review plan cannot be executed and no confirmation channel exists.', 'الإزالة دائمة. لا يمكن تنفيذ خطة المراجعة ولا توجد قناة تأكيد.')}</p>
+              <p>{t(locale, 'Purge is permanent and has no channel. Approved quarantine and verified restore run in the live safety vault.', 'الإزالة دائمة ولا توجد لها قناة. الحجر المعتمد والاستعادة المتحقق منها تعمل في خزنة الأمان الحية.')}</p>
             </div>
           </div>
           <label className="cln-ack">
@@ -1899,7 +1899,7 @@ function gateFor(service: CleanupServiceId, controller: CleanupController): { ga
   if (service === 'cleanup-temp-quarantine' || service === 'cleanup-temp-undo' || service === 'cleanup-quarantine-list') {
     return controller.quarantine?.execution || {
       gate: 'Mission 08 destructive-action approval',
-      reason: 'No quarantine write, restore or purge channel exists in this read-only delivery.',
+      reason: 'Permanent purge has no channel. Approved quarantine and verified restore run in the live safety vault.',
     };
   }
   if (service === 'cleanup-update-cache') {
