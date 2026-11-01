@@ -136,12 +136,18 @@ export function StorageSpaceMap({ tree, isArabic, searchQuery, selectedId, onSel
               <div
                 key={child.id}
                 role="button"
+                aria-pressed={selected}
+                aria-label={`${child.name} · ${formatStorageBytes(child.sizeBytes)} · ${child.files} ${isArabic ? 'ملف' : 'files'}`}
                 tabIndex={0}
                 data-testid="storage-tree-node"
                 onClick={() => onSelect(child)}
                 onDoubleClick={() => child.children.length && navigate(child.id)}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
+                  if ((event.key === 'Enter' && event.shiftKey) || event.key === (isArabic ? 'ArrowLeft' : 'ArrowRight')) {
+                    if (child.children.length) {event.preventDefault(); navigate(child.id);}
+                  } else if (event.key === 'Backspace' && parent) {
+                    event.preventDefault(); navigate(parent.id);
+                  } else if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     onSelect(child);
                   }

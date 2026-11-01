@@ -17,3 +17,5 @@ Final production build, complete screenshot matrix, Files native effect regressi
 Lightweight service status: docs/SERVICE_WORKSPACE_IMPLEMENTATION.csv (181 original IDs, no blanket functionality claim).
 
 Second batch: native Files ranking filters/inspector, count/byte distribution, source clipboard error handling, and exact selected-row Studio scope handoff. TypeScript exit 0; final runtime/effect acceptance NOT_RUN per owner override. Existing mutation engine unchanged.
+
+Third batch: embedded existing native Storage map and ranking renderers inside service tools; local filters; count/byte distributions; full duplicate groups/member paths and native error/warning evidence; provider-busy state and actual scan cancellation. Native map keyboard drilldown/selection semantics improved. TypeScript exit 0. Final runtime, visual, native mutation regressions NOT_RUN.

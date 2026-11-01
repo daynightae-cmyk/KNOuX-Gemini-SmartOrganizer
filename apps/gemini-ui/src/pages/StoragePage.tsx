@@ -268,6 +268,10 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
       duplicates={storageNative.duplicates}
       history={storageNative.history}
       verifying={storageNative.verifying}
+      error={storageNative.error || storageNative.volumesError}
+      working={storageNative.scanning || storageNative.analysisLoading || storageNative.volumesLoading || storageNative.verifying}
+      cancelable={storageNative.scanning}
+      onCancel={() => void storageNative.cancelScan()}
       onClose={() => setActiveService(null)}
       onChoose={() => void storageNative.chooseSource()}
       onRescan={() => void storageNative.rescan()}

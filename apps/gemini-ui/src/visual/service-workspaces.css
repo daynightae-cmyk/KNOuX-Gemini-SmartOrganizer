@@ -141,3 +141,12 @@ html:not([data-theme=light]) .visual-sprint[data-visual-section=automation] {--k
 .knx-file-result-list>p {padding:8px 12px;margin:0;border-block-end:1px solid var(--wb-line);}
 
 .knx-file-ranked {display:flex;flex-direction:column;gap:14px;}
+
+.knx-storage-tool {display:flex;flex-direction:column;gap:14px;}
+.knx-workbench-content :is([class~='bg-[#050f22]'],[class~='bg-[#030a16]'],[class~='bg-[#08162b]']) {background:var(--wb-inset)!important;border-color:var(--wb-line)!important;}
+.knx-workbench-content .storage-treemap {border-radius:14px;padding:12px;}
+.knx-storage-tool .storage-treemap [data-testid=storage-tree-node] {min-block-size:88px;}
+.knx-workbench-content [role=group] button[aria-pressed=true] {border-color:var(--wb-accent);box-shadow:inset 0 0 0 1px var(--wb-accent);}
+
+.knx-tool-fieldset {border:0;padding:0;margin:0;min-inline-size:0;}
+.knx-tool-context progress {inline-size:90px;accent-color:var(--wb-accent);}

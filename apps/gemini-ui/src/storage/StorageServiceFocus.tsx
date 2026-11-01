@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Activity,
   ArrowRight,
@@ -16,9 +16,11 @@ import type {
   StorageCapacityPoint,
   StorageDuplicateResult,
   StorageVolume,
+  StorageTreeNode,
 } from '../../shared/native-contracts';
 import { formatStorageBytes } from './useStorageNative';
-import type { StorageTabKey } from './StorageTabContent';
+import { StorageTabContent, type StorageTabKey } from './StorageTabContent';
+import { StorageSpaceMap } from './StorageSpaceMap';
 
 interface StorageServiceFocusProps {
   serviceKey: string;
@@ -28,6 +30,10 @@ interface StorageServiceFocusProps {
   duplicates: StorageDuplicateResult | null;
   history: StorageCapacityPoint[];
   verifying: boolean;
+  error: string | null;
+  working: boolean;
+  cancelable: boolean;
+  onCancel: () => void;
   onClose: () => void;
   onChoose: () => void;
   onRescan: () => void;
@@ -92,6 +98,8 @@ export function StorageServiceFocus({
   duplicates,
   history,
   verifying,
+  error,
+  working, cancelable, onCancel,
   onClose,
   onChoose,
   onRescan,
@@ -109,6 +117,10 @@ export function StorageServiceFocus({
   const measured = Boolean(analysis) || volumes.length > 0;
   const warnings = analysis?.coverage?.warnings ?? [];
   const [probe, setProbe] = useState<{ at: string } | null>(null);
+  const [query, setQuery] = useState('');
+  const [typeMeasure, setTypeMeasure] = useState<'count' | 'bytes'>('bytes');
+  const [selectedNode, setSelectedNode] = useState<StorageTreeNode | null>(null);
+  useEffect(() => {setQuery('');setSelectedNode(null);}, [serviceKey, analysis?.sourceId, analysis?.coverage.lastScanned]);
   const smartCount = volumes.filter((volume) => volume.smartAvailable).length;
   const identityCount = volumes.filter((volume) => volume.physicalDeviceAvailable).length;
 
@@ -152,32 +164,12 @@ export function StorageServiceFocus({
           </div>
         );
       case 'storage-large-files': {
-        const largest = (analysis?.largest || []).slice(0, 5);
-        return (
-          <div className="space-y-1.5">
-            {largest.map((item) => (
-              <div key={item.id} className="flex items-center justify-between gap-2 text-[10px]">
-                <span className="text-slate-300 truncate" title={item.relative}>{item.name}</span>
-                <span className="font-mono text-cyan-300 shrink-0">{formatStorageBytes(item.size)}</span>
-              </div>
-            ))}
-            {!analysis && <div className="text-[10px] text-amber-300">{label('Index a scope to list large files.', 'افهرس نطاقًا لعرض الملفات الكبيرة.')}</div>}
-            {analysis && (
-              <div className="text-[9px] text-slate-500">
-                {label(`Largest ${largest.length} of ${analysis.totals.files} indexed files ·`, `أكبر ${largest.length} من ${analysis.totals.files} ملفًا مفهرسًا ·`)} {formatStorageBytes(analysis.totals.bytes)}
-              </div>
-            )}
-            <div className="flex gap-1.5">
-              <button data-testid="storage-large-open-ledger" onClick={() => onTab('large')} className={actionButton}>{label('Open ledger', 'فتح السجل')}<ArrowRight className="w-3 h-3 inline ms-1" /></button>
-              <button
-                data-testid="storage-large-copy"
-                disabled={!largest.length}
-                onClick={() => onCopy('Largest files', largest.map((item) => `${formatStorageBytes(item.size)}\t${item.relative}`).join('\n'))}
-                className={quietButton}
-              >{label('Copy list', 'نسخ القائمة')}</button>
-            </div>
-          </div>
-        );
+        const largest = (analysis?.largest || []).filter(item => `${item.name} ${item.relative}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+        return <section className="knx-storage-tool">
+          <label className="knx-file-filter-label">{label('Find in ranked files','البحث في الملفات المرتبة')}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
+          {analysis ? <><p>{label(`${largest.length} returned files · ${analysis.totals.files} files indexed in the authorized scope.`,`${largest.length} ملفًا معادًا · ${analysis.totals.files} ملفًا مفهرسًا في النطاق المصرح.`)}</p><StorageTabContent tab="large" analysis={analysis} isArabic={isArabic} searchQuery={query}/></> : <p>{label('Authorize and index a folder to measure its largest files.','صرح بمجلد وافهرسه لقياس أكبر ملفاته.')}</p>}
+          <div className="knx-tool-actions"><button type="button" data-testid="storage-large-open-ledger" onClick={() => onTab('large')}>{label('Open ledger','فتح السجل')}</button><button type="button" data-testid="storage-large-copy" disabled={!largest.length} onClick={() => onCopy('Largest files',largest.map(item => `${item.size} B\t${item.relative}`).join('\n'))}>{label('Copy filtered list','نسخ القائمة المصفاة')}</button><button type="button" onClick={analysis ? onRescan : onChoose}>{analysis ? label('Rescan','إعادة فحص') : label('Choose folder','اختيار مجلد')}</button></div>
+        </section>;
       }
       case 'storage-duplicates':
         return (
@@ -195,13 +187,15 @@ export function StorageServiceFocus({
                     {metricRow(label('Files hashed', 'ملفات تم تجزئتها'), `${duplicates.summary.filesHashed} · ${formatStorageBytes(duplicates.summary.bytesHashed)}`)}
                     {metricRow(label('Verified groups', 'مجموعات مؤكدة'), duplicates.summary.verifiedGroups.toString())}
                     {metricRow(label('Verified reclaimable', 'قابل للاستعادة مؤكدًا'), formatStorageBytes(duplicates.summary.reclaimableVerifiedBytes))}
-                    {duplicates.groups.slice(0, 2).map((group) => (
+                    {duplicates.groups.map((group) => (
                       <div key={group.digest} className="rounded border border-[#132c52] bg-[#08162b] p-1.5 text-[9px] font-mono space-y-0.5">
-                        <div className="text-cyan-300">{group.digest.slice(0, 16)}…</div>
+                        <div className="text-cyan-300 knx-tool-path">{group.digest}</div>
                         <div className="text-slate-400">{group.count} × {formatStorageBytes(group.size)} · {formatStorageBytes(group.wastedBytes)} {label('wasted', 'مهدور')}</div>
-                        <div className="text-slate-500 truncate">{group.files.map((file) => file.name).join(' · ')}</div>
+                        <details><summary>{label('Inspect matching paths','فحص المسارات المتطابقة')} ({group.files.length})</summary>{group.files.map(file => <p key={file.id} className="knx-tool-path">{file.relative} · {file.size.toLocaleString()} B</p>)}</details>
                       </div>
                     ))}
+                    {duplicates.warnings.map((warning,index) => <p role="status" key={index}>{warning}</p>)}
+                    {duplicates.errors.length ? <details className="knx-tool-evidence"><summary>{label('Native verification errors','أخطاء التحقق الأصلي')} ({duplicates.errors.length})</summary>{duplicates.errors.map((failure,index) => <p key={index}>{failure.name} · <code>{failure.code}</code> · {failure.message}</p>)}</details> : null}
                     {duplicates.summary.budgetReached && <div className="text-amber-300 text-[9px]">{label('Partial due to the bounded hashing budget.', 'النتيجة جزئية بسبب حد التجزئة.')}</div>}
                     {duplicates.errors.length > 0 && <div className="text-amber-300 text-[9px]">{label(`${duplicates.errors.length} file(s) were excluded because they changed or failed to hash.`, `استُبعد ${duplicates.errors.length} ملفًا لتغيّره أو فشل تجزئته.`)}</div>}
                     <button data-testid="storage-duplicates-open-vault" onClick={onOpenVault} className={quietButton}>{label('Review keepers in the Safety Vault', 'مراجعة النسخ المحتفظ بها في خزنة الأمان')}</button>
@@ -211,65 +205,25 @@ export function StorageServiceFocus({
             ) : <div className="text-[10px] text-amber-300">{label('Index a scope for duplicate analysis.', 'افهرس نطاقًا لتحليل التكرار.')}</div>}
           </div>
         );
-      case 'storage-treemap': {
-        const children = analysis?.tree.children || [];
-        const biggest = children[0];
-        return (
-          <div className="space-y-2 text-[10px] text-slate-300">
-            {analysis ? (
-              <>
-                {metricRow(label('Folders modeled', 'العقد'), analysis.folders.length.toString())}
-                {metricRow(label('Indexed bytes', 'الحجم المفهرس'), formatStorageBytes(analysis.totals.bytes))}
-                {biggest && metricRow(label('Largest node', 'أكبر عقدة'), `${biggest.name} · ${formatStorageBytes(biggest.sizeBytes)}`)}
-                {metricRow(label('Nodes returned', 'العقد المعادة'), children.length.toString())}
-                <div className="text-slate-500 font-mono truncate">{analysis.coverage?.scope || '—'}</div>
-                {analysis.coverage?.partial && <div className="text-amber-300 text-[9px]">{label('Partial coverage or node limit reached.', 'تغطية جزئية أو بلوغ حد العقد.')}</div>}
-                <button data-testid="storage-treemap-open" onClick={() => onTab('treemap')} className={actionButton}>{label('Open map', 'فتح الخريطة')}<ArrowRight className="w-3 h-3 inline ms-1" /></button>
-              </>
-            ) : <div className="text-amber-300">{label('Index a scope to build the map.', 'افهرس نطاقًا لبناء الخريطة.')}</div>}
-          </div>
-        );
-      }
-      case 'storage-top-folders': {
-        const folders = (analysis?.folders || []).slice(0, 6);
-        const total = analysis?.totals.analyzedBytes || 0;
-        return (
-          <div className="space-y-1.5">
-            {folders.map((folder) => (
-              <div key={folder.id} className="space-y-0.5">
-                <div className="flex items-center justify-between gap-2 text-[10px]">
-                  <span className="text-slate-300 truncate">{folder.name}</span>
-                  <span className="font-mono text-cyan-300">{formatStorageBytes(folder.sizeBytes)} · {share(folder.sizeBytes, total)}%</span>
-                </div>
-                <div className="h-0.5 rounded bg-[#0a1c38] overflow-hidden">
-                  <div className="h-full bg-purple-500" style={{ width: `${share(folder.sizeBytes, total)}%` }} />
-                </div>
-              </div>
-            ))}
-            {!analysis && <div className="text-[10px] text-amber-300">{label('No measured folders.', 'لا توجد مجلدات مقيسة.')}</div>}
-            <button data-testid="storage-folders-open" onClick={() => onTab('folders')} className={actionButton}>{label('Open ranking', 'فتح الترتيب')}<ArrowRight className="w-3 h-3 inline ms-1" /></button>
-          </div>
-        );
-      }
+      case 'storage-treemap':
+        return <section className="knx-storage-tool">
+          <label className="knx-file-filter-label">{label('Find a measured folder','البحث عن مجلد مقيس')}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
+          {analysis ? <><StorageSpaceMap tree={analysis.tree} isArabic={isArabic} searchQuery={query} selectedId={selectedNode?.id || null} onSelect={setSelectedNode}/>
+            {selectedNode ? <section className="knx-tool-evidence"><h3>{selectedNode.name}</h3><p className="knx-tool-path">{selectedNode.relative || analysis.coverage.scope}</p><dl className="knx-file-metadata-grid"><div><dt>{label('Measured size','الحجم المقيس')}</dt><dd dir="ltr">{formatStorageBytes(selectedNode.sizeBytes)}</dd></div><div><dt>{label('Files','الملفات')}</dt><dd>{selectedNode.files.toLocaleString()}</dd></div></dl></section> : null}
+            <p>{label('Select a tile to inspect. Double-click or use Zoom in to navigate returned children. Folder scope only; no whole-volume claim.','اختر بلاطة للفحص. انقر مرتين أو استخدم التكبير للتنقل في العقد المكتشفة. النطاق مجلد فقط، وليس القرص بالكامل.')}</p>
+            {analysis.coverage.partial ? <p role="status">{label('Partial coverage: some paths or nodes were not returned.','تغطية جزئية: لم تُعد بعض المسارات أو العقد.')}</p> : null}
+          </> : <button type="button" onClick={onChoose} className={actionButton}>{label('Authorize folder for map','التصريح بمجلد للخريطة')}</button>}
+          <button type="button" data-testid="storage-treemap-open" onClick={() => onTab('treemap')} className={quietButton}>{label('Open section map','فتح خريطة القسم')}</button>
+        </section>;
+      case 'storage-top-folders':
       case 'storage-filetypes': {
-        const extensions = (analysis?.extensions || []).slice(0, 6);
-        const total = analysis?.totals.bytes || 0;
-        return (
-          <div className="space-y-1.5">
-            {extensions.map((item) => (
-              <div key={item.ext} className="space-y-0.5">
-                <div className="flex items-center justify-between gap-2 text-[10px]">
-                  <span className="text-slate-300 font-mono">.{item.ext}</span>
-                  <span className="font-mono text-slate-400">{item.count.toLocaleString()} · {formatStorageBytes(item.bytes)}</span>
-                </div>
-                <div className="h-0.5 rounded bg-[#0a1c38] overflow-hidden">
-                  <div className="h-full bg-emerald-500" style={{ width: `${share(item.bytes, total)}%` }} />
-                </div>
-              </div>
-            ))}
-            <button data-testid="storage-types-open" onClick={() => onTab('types')} className={actionButton}>{label('Open types', 'فتح الأنواع')}<ArrowRight className="w-3 h-3 inline ms-1" /></button>
-          </div>
-        );
+        const tab = serviceKey === 'storage-top-folders' ? 'folders' : 'types';
+        return <section className="knx-storage-tool">
+          <label className="knx-file-filter-label">{label('Filter measured rows','تصفية الصفوف المقيسة')}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
+          {tab === 'types' ? <div role="group" aria-label={label('Distribution measure','مقياس التوزيع')} className="knx-tool-actions">{(['count','bytes'] as const).map(measure => <button type="button" key={measure} aria-pressed={typeMeasure === measure} onClick={() => setTypeMeasure(measure)}>{measure === 'count' ? label('File count','عدد الملفات') : label('Bytes','الحجم')}</button>)}</div> : null}
+          {analysis ? <StorageTabContent tab={tab} analysis={analysis} isArabic={isArabic} searchQuery={query} distributionMeasure={typeMeasure}/> : <p>{label('No folder analysis yet. Choose an authorized scope.','لا يوجد تحليل مجلد بعد. اختر نطاقًا مصرحًا.')}</p>}
+          <div className="knx-tool-actions"><button type="button" data-testid={tab === 'folders' ? 'storage-folders-open' : 'storage-types-open'} onClick={() => onTab(tab)}>{label('Open section view','فتح عرض القسم')}</button><button type="button" onClick={analysis ? onRescan : onChoose}>{analysis ? label('Rescan','إعادة فحص') : label('Choose folder','اختيار مجلد')}</button></div>
+        </section>;
       }
       case 'storage-scan-overview':
         return analysis ? (
@@ -319,7 +273,7 @@ export function StorageServiceFocus({
                   <span className="text-amber-300">{label('media type unavailable', 'نوع الوسائط غير متاح')}</span>
                 </div>
               )) : <div className="text-amber-300 text-[9px]">{label('No measured volumes to probe.', 'لا توجد أحجام مقيسة للفحص.')}</div>}
-              {probe && <div className="text-[9px] text-cyan-300">{label('Probed', 'تم الفحص')} {probe.at}</div>}
+              {probe && <div className="text-[9px] text-cyan-300">{label('Last probe attempt', 'آخر محاولة فحص')} {probe.at}</div>}
             </div>
             <div className="flex flex-wrap gap-1.5">
               <button data-testid="storage-frag-probe" onClick={() => void probeNow()} className={actionButton}><RefreshCw className="w-3 h-3 inline me-1" />{label('Probe support', 'فحص الدعم')}</button>
@@ -470,7 +424,9 @@ export function StorageServiceFocus({
     return (
       <div data-testid="storage-service-focus" data-tool-body="storage" data-tool={serviceKey} className="space-y-2">
         <p className="text-[10px] text-slate-400">{isArabic ? meta.descAr : meta.descEn}</p>
-        <div data-testid={`storage-${serviceKey}-workbench`}>{renderBody()}</div>
+        {error ? <p role="alert" className="knx-tool-error">{error}</p> : null}
+        {working ? <div className="knx-tool-context" role="status"><progress aria-label={label('Native provider reading','المزود الأصلي يقرأ')}/><span>{label('Waiting for native provider…','بانتظار المزود الأصلي…')}</span>{cancelable ? <button type="button" onClick={onCancel}>{label('Cancel scan','إلغاء الفحص')}</button> : null}</div> : null}
+        <fieldset disabled={working} className="knx-tool-fieldset" data-testid={`storage-${serviceKey}-workbench`}>{renderBody()}</fieldset>
       </div>
     );
   }
