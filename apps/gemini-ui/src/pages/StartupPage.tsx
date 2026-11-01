@@ -354,7 +354,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
               </span>
               <span>
                 <Lock className="w-3 h-3" />
-                {t(locale, 'No registry, task, service, startup-folder or journal write exists in Mission 09.', 'لا توجد كتابة تسجيل أو مهمة أو خدمة أو مجلد بدء أو سجل في المهمة 09.')}
+                {t(locale, 'Discovery is read-only. Supported HKCU Run changes require a separate exact plan and native confirmation.', 'الاكتشاف للقراءة فقط. تغييرات HKCU Run المدعومة تتطلب خطة دقيقة وتأكيد Native منفصل.')}
               </span>
               {inventory?.coverage ? (
                 <span>
@@ -453,7 +453,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
               maxWidth={720}
               testId="startup-workbench"
               toolSelector={startupWorkbenchToolSelector}
-              footer={<span className="text-amber-300">{t(locale, 'Read-only · no startup, task, service or registry write', 'للقراءة فقط · لا كتابة إقلاع أو مهمة أو خدمة أو سجل')}</span>}
+              footer={<span className="text-amber-300">{t(locale, 'Read-only discovery · supported HKCU changes require native approval', 'اكتشاف للقراءة فقط · تغييرات HKCU المدعومة تتطلب موافقة Native')}</span>}
             >
               {renderStartupServiceBody()}
             </ServiceWorkbenchHost>
@@ -471,7 +471,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
               onClose={closeWorkbench}
               testId="startup-workbench-expanded"
               toolSelector={startupWorkbenchToolSelector}
-              footer={<span className="text-amber-300">{t(locale, 'Read-only · no startup, task, service or registry write', 'للقراءة فقط · لا كتابة إقلاع أو مهمة أو خدمة أو سجل')}</span>}
+              footer={<span className="text-amber-300">{t(locale, 'Read-only discovery · supported HKCU changes require native approval', 'اكتشاف للقراءة فقط · تغييرات HKCU المدعومة تتطلب موافقة Native')}</span>}
             >
               {renderStartupServiceBody()}
             </ServiceWorkbenchHost>

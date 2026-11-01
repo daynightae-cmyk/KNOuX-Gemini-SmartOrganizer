@@ -5,6 +5,8 @@ export type OperationEvent={opId:string;serviceId:string;sourceMode:string;seque
 export type OrganizationPlan={planId:string;planHash:string;operation:'move'|'copy';structure:string;collisionPolicy:string;destinationSummary:string;executable:boolean;expiresAt:string;totals:{files:number;bytes:number;collisions:number;skipped:number};files:{index:number;fileId:number;name:string;sourceRoot:string;sourceRelative:string;targetPath:string;targetRelative:string;status:string;category:string;size:number}[];collisions:unknown[];skipped:unknown[];warnings:string[]};
 export type OperationReceipt={operationId:string;planHash:string;status:string;mode:string;createdAt?:string;updatedAt?:string;completedFiles:number;failedFiles:number;undoAvailable:boolean;undoCompletedFiles:number;entries:{index:number;name:string;state:string;sourceRoot?:string;targetRoot?:string;sourceRelative:string;targetRelative:string;verification?:unknown;hash?:string;error?:string;undo?:{state:string}}[]};
 export type UndoPreview={journalId:string;previewId:string;previewHash:string;eligible:number;requiredRoots:{root:string;kind:string}[];entries:{name:string;eligible:boolean;state?:string;undoState?:string|null;reason?:string;conflict?:boolean;restoreName?:string}[]};
+export type StartupActionPlan={id:string;planHash:string;mode:'disable'|'restore';name:string;key:string;expiresAt:string;originalHash:string;receiptId:string|null};
+export type StartupActionReceipt={id:string;name:string;key:string;status:string;createdAt?:string;updatedAt?:string;originalHash?:string;error:string|null;recoveryAvailable:boolean};
 export type OperationApi=StorageVaultApi & {
  contractVersion:1;
  chooseSource():Promise<NativeEnvelope<{id:string;path:string}|null>>;
@@ -17,6 +19,10 @@ export type OperationApi=StorageVaultApi & {
  history():Promise<NativeEnvelope<OperationReceipt[]>>;
  undoPreview(request:{journalId:string}):Promise<NativeEnvelope<UndoPreview>>;
  undo(request:{journalId:string;previewId:string;previewHash:string;approved:boolean;resolution:'skip'|'rename'}):Promise<NativeEnvelope<{receipt:OperationReceipt}>>;
+ startupDisablePlan(request:{entryId:string}):Promise<NativeEnvelope<StartupActionPlan>>;
+ startupRestorePlan(request:{receiptId:string}):Promise<NativeEnvelope<StartupActionPlan>>;
+ startupApply(request:{planId:string;planHash:string;approved:boolean}):Promise<NativeEnvelope<StartupActionReceipt>>;
+ startupReceipts():Promise<NativeEnvelope<StartupActionReceipt[]>>;
  onEvent(callback:(event:OperationEvent)=>void):()=>void;
 };
 declare global {interface Window {knouxOperationsV1?:OperationApi;}}

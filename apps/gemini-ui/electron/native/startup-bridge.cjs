@@ -572,6 +572,7 @@ class StartupBridge {
     // Raw executable is used only for local signature/process measurement and
     // is non-enumerable so it never crosses the IPC boundary.
     Object.defineProperty(row, 'rawExecutable', { value: executable, enumerable: false, configurable: true });
+    Object.defineProperty(row, 'actionTarget', {value:{hive:String(raw.hive||''),key:String(raw.key||''),view:String(raw.view||''),name:String(raw.name||raw.Name||''),command},enumerable:false});
     return row;
   }
 

@@ -7,6 +7,7 @@
  */
 import React, { useEffect, useMemo, useState } from 'react';
 import { NativeAppIcon } from '../components/app/AppIcon';
+import { StartupActionWorkbench } from './StartupActionWorkbench';
 import {
   Activity,
   AlertTriangle,
@@ -129,8 +130,8 @@ function GateNote({ locale, children }: { locale: StartupLocale; children?: Reac
       <span>
         {children || t(
           locale,
-          'No write channel exists in Mission 09. This action produces an immutable review plan with execution.available:false.',
-          'لا توجد قناة كتابة في المهمة 09. هذا الإجراء ينتج خطة مراجعة ثابتة مع execution.available:false.'
+          'This legacy staging path is preview-only. Supported current-user Run changes use the separate native approval workbench. Other sources remain gated.',
+          'مسار التهيئة هذا للمعاينة فقط. تغييرات Run المدعومة للمستخدم الحالي تستخدم ورشة الموافقة الأصلية المنفصلة. المصادر الأخرى تظل محجوبة.'
         )}
       </span>
     </div>
@@ -1439,10 +1440,10 @@ export function ServiceWorkspace({
   const renderService = () => {
     switch (service) {
       case 'startup-overview': return renderOverview();
-      case 'startup-disable': return renderDisable();
-      case 'startup-restore': return renderRestore();
+      case 'startup-disable': return <><StartupActionWorkbench entry={selectedEntry} arabic={locale==='ar'} onChanged={()=>void controller.startScan(discoveryOptions)}/>{renderDisable()}</>;
+      case 'startup-restore': return <StartupActionWorkbench entry={null} arabic={locale==='ar'} onChanged={()=>void controller.startScan(discoveryOptions)}/>;
       case 'startup-sources': return renderSources();
-      case 'startup-journal': return renderJournal();
+      case 'startup-journal': return <StartupActionWorkbench entry={null} arabic={locale==='ar'} onChanged={()=>void controller.startScan(discoveryOptions)}/>;
       case 'startup-filter': return renderFilter();
       case 'startup-impact': return renderImpact();
       case 'startup-services': return renderServices();
@@ -1464,7 +1465,7 @@ export function ServiceWorkspace({
         {renderService()}
         <div className="stp-gate-note">
           <Lock className="w-3 h-3" />
-          {t(locale, 'Read-only workbench · no startup, task or registry write', 'ورشة للقراءة فقط · لا كتابة إقلاع أو مهمة أو سجل')}
+          {t(locale, 'Discovery is read-only. Supported HKCU Run changes require an exact plan and native consent.', 'الاكتشاف للقراءة فقط. تغييرات HKCU Run المدعومة تتطلب خطة دقيقة وموافقة Native.')}
         </div>
       </div>
     );

@@ -448,5 +448,9 @@ contextBridge.exposeInMainWorld('knouxOperationsV1', Object.freeze({
   vaultRestorePreview: request => ipcRenderer.invoke('knoux:operations:v1:vaultRestorePreview', ...(request === undefined ? [] : [request])),
   vaultRestore: request => ipcRenderer.invoke('knoux:operations:v1:vaultRestore', ...(request === undefined ? [] : [request])),
   vaultReport: request => ipcRenderer.invoke('knoux:operations:v1:vaultReport', ...(request === undefined ? [] : [request])),
+  startupDisablePlan: request => ipcRenderer.invoke('knoux:operations:v1:startupDisablePlan', request),
+  startupRestorePlan: request => ipcRenderer.invoke('knoux:operations:v1:startupRestorePlan', request),
+  startupApply: request => ipcRenderer.invoke('knoux:operations:v1:startupApply', request),
+  startupReceipts: () => ipcRenderer.invoke('knoux:operations:v1:startupReceipts'),
   onEvent: callback => { const listener=(_event,payload)=>callback(payload); ipcRenderer.on('knoux:operations:v1:event',listener); return ()=>ipcRenderer.removeListener('knoux:operations:v1:event',listener); },
 }));

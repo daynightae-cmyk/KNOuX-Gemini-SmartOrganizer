@@ -25,6 +25,7 @@ const {
 } = require('./native/provider-bridge.cjs');
 const { StorageVault } = require('./native/storage-vault.cjs');
 const { OperationEngine } = require('./native/operation-engine.cjs');
+const { StartupActions } = require('./native/startup-actions.cjs');
 const { CHANNELS: operationChannels, registerOperationIpc } = require('./native/operation-ipc.cjs');
 const { StudioBridge } = require('./native/studio-bridge.cjs');
 const { FilesBridge } = require('./native/files-bridge.cjs');
@@ -6437,6 +6438,9 @@ app.whenReady().then(async () => {
     operationBridge = new OperationEngine({studio:studioBridge,
       emit:payload=>{if(mainWindow&&!mainWindow.isDestroyed())mainWindow.webContents.send(operationChannels.event,payload);},
       confirm:async action=>{
+        if(action.kind==='startup-disable'||action.kind==='startup-restore'){
+          const answer=await dialog.showMessageBox(mainWindow,{type:'warning',title:'KNOuX · Startup approval',message:action.kind==='startup-disable'?'Disable this current-user Run entry?':'Restore this original Run entry?',detail:`${action.plan.name}\nHKCU\\${action.plan.key}\nOriginal evidence: ${action.plan.originalHash}\nNo running process will be terminated. No elevation is performed.`,buttons:['Cancel','Approve exact startup change'],defaultId:0,cancelId:0,noLink:true});return answer.response===1;
+        }
         const detail=action.kind==='execute'
           ? `${action.plan.approvalContext?.kind==='cleanup-quarantine-v1'?'QUARANTINE — preserves bytes, no permanent deletion':action.plan.operation.toUpperCase()} ${action.plan.totals.files} files (${action.plan.totals.bytes} bytes)\nDestination: ${action.plan.destinationSummary}\nPlan SHA-256: ${action.plan.planHash}\nNo existing file will be overwritten. Review every path in the live workbench first.`
           : `Restore ${action.preview.eligible} verified moved files (${action.preview.bytes} bytes) from receipt ${action.journalId}\nUndo SHA-256: ${action.previewHash}\nConflicts: ${action.resolution}. Changed destinations will be refused.`;
@@ -6500,6 +6504,7 @@ app.whenReady().then(async () => {
       startupBridge = new StartupBridge({
         loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
       });
+      operationBridge.startupActions=new StartupActions({operations:operationBridge,getInventory:()=>startupBridge?.inventory(),userDataPath:app.getPath('userData'),safeStorage});
       trace('startup bridge initialized');
     } catch (error) {
       trace(`startup bridge init failed: ${error?.message || error}`);
