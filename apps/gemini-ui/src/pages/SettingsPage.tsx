@@ -82,6 +82,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
   const [profileSavedAt, setProfileSavedAt] = useState(initialProfile.updatedAt);
   const [importPreview, setImportPreview] = useState<SettingsImportPreview | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
+  const [undoProfile,setUndoProfile] = useState<SettingsProfile | null>(null);
   const pageRef = useRef<HTMLDivElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -131,6 +132,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     }
     setProfileSavedAt(result.profile.updatedAt);
     applyLocalProfile(result.profile);
+    setUndoProfile(null);
     showToastMsg(isArabic
       ? 'حُفظت التفضيلات غير السرية محليًا. لا يوجد محرك أداء أو حارس تلقائي موصول، ولم يتغير أي إعداد ويندوز.'
       : 'Non-secret preferences saved locally. No engine/guard provider is connected and no Windows setting was changed.');
@@ -144,9 +146,11 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
       const anchor = document.createElement('a');
       anchor.href = url;
       anchor.download = 'knoux-settings-profile.json';
+      document.body.appendChild(anchor);
       anchor.click();
-      URL.revokeObjectURL(url);
-      showToastMsg(isArabic ? 'صُدّر ملف التفضيلات غير السري (بدون مفاتيح أو رموز).' : 'Credential-free settings profile exported (no keys or tokens).');
+      anchor.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url),1000);
+      showToastMsg(isArabic ? 'بدأ تنزيل ملف التفضيلات غير السري (بدون مفاتيح أو رموز).' : 'Credential-free preferences download started (no keys or tokens).');
     } catch {
       showToastMsg(isArabic ? 'تعذر بدء تصدير ملف التفضيلات.' : 'The settings profile export could not start.');
     }
@@ -170,6 +174,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
   const applyImportedProfile = () => {
     if (!importPreview?.valid || !importPreview.profile) return;
+    const before = currentProfile();
     const result = saveSettingsProfile(importPreview.profile);
     if (!result.saved) {
       showToastMsg(isArabic ? 'تعذر حفظ التفضيلات المستوردة.' : 'Imported preferences could not be saved.');
@@ -177,18 +182,37 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     }
     setProfileSavedAt(result.profile.updatedAt);
     applyLocalProfile(result.profile);
+    setUndoProfile(before);
     setImportPreview(null);
     showToastMsg(isArabic ? 'طُبقت التفضيلات المستوردة. لم تُستورد أي مفاتيح أو رموز.' : 'Imported preferences applied. No keys or tokens were imported.');
   };
 
   const handleResetProfile = () => {
+    const before = currentProfile();
     const result = resetSettingsProfile();
+    if (!result.saved) {
+      showToastMsg(isArabic ? 'تعذر حفظ إعادة الضبط؛ احتُفظ بالتفضيلات الحالية.' : 'Reset could not be saved; current preferences were retained.');
+      return;
+    }
     setProfileSavedAt(result.profile.updatedAt);
     applyLocalProfile(result.profile);
+    setUndoProfile(before);
     setImportPreview(null);
-    showToastMsg(result.saved
-      ? (isArabic ? 'أُعيدت التفضيلات غير السرية إلى الافتراضي.' : 'Non-secret preferences reset to defaults.')
-      : (isArabic ? 'تعذر حفظ إعادة الضبط.' : 'The reset could not be saved.'));
+    showToastMsg(isArabic ? 'أُعيدت التفضيلات غير السرية للافتراضي. التراجع متاح في هذه الجلسة.' : 'Non-secret preferences reset. Undo is available in this session.');
+  };
+
+  const handleUndoProfile = () => {
+    if (!undoProfile) return;
+    const result = saveSettingsProfile(undoProfile);
+    if (!result.saved) {
+      showToastMsg(isArabic ? 'تعذر حفظ التراجع؛ لم تتغير التفضيلات الحالية.' : 'Undo could not be saved; current preferences were retained.');
+      return;
+    }
+    applyLocalProfile(result.profile);
+    setProfileSavedAt(result.profile.updatedAt);
+    setUndoProfile(null);
+    setImportPreview(null);
+    showToastMsg(isArabic ? 'استُعيدت التفضيلات السابقة. لم يُستعد النظام أو أي بيانات حساب.' : 'Previous preferences restored. No system or account data was restored.');
   };
 
   const handleSaveApiKey = () => {
@@ -632,6 +656,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     if (!importPreview) return null;
     const validityLabels = isArabic ? ['مرفوض', 'صالح'] : ['INVALID', 'VALID'];
     const validityLabel = validityLabels[Number(importPreview.valid)];
+    const currentDiff = importPreview.valid && importPreview.profile
+      ? previewSettingsImport(JSON.stringify(exportSettingsProfile(importPreview.profile)),currentProfile()).diff
+      : [];
     return (
                   <div className="rounded-xl border border-[#1b3f70] bg-[#07162e] p-3 space-y-2" data-testid="settings-import-preview">
                     <div className="flex items-center justify-between gap-2">
@@ -640,9 +667,9 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     </div>
                     {importPreview.errors.map((error) => <p key={error} className="text-[10.5px] text-rose-300">{error}</p>)}
                     {importPreview.valid ? (
-                      importPreview.diff.length ? (
+                      currentDiff.length ? (
                         <div className="space-y-1">
-                          {importPreview.diff.map((entry) => (
+                          {currentDiff.map((entry) => (
                             <div key={entry.key} className="flex items-center justify-between gap-2 text-[10.5px]">
                               <span className="font-mono text-slate-400">{entry.key}</span>
                               <span className="font-mono text-slate-500">{entry.from}</span>
@@ -701,6 +728,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     <RotateCcw className="w-4 h-4" />
                     <span>{isArabic ? 'إعادة التفضيلات للافتراضي' : 'Reset Preferences'}</span>
                   </button>
+                  {undoProfile ? <button type="button" onClick={handleUndoProfile} data-testid="settings-undo-profile" className="px-4 py-2.5 rounded-xl border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-2"><RotateCcw className="w-4 h-4"/>{isArabic ? 'التراجع عن آخر استيراد / إعادة ضبط' : 'Undo last import / reset'}</button> : null}
                   <input
                     ref={fileInputRef}
                     type="file"
