@@ -266,6 +266,18 @@ export function NodeInspector({
   }
   const meta = NODE_TYPE_META[node.type];
   const configEntries = Object.entries(node.config);
+  const preceding = new Set<string>();
+  const pending = [node.id];
+  while (pending.length) {
+    const current = pending.pop()!;
+    for (const edge of workflow.edges) {
+      if (edge.to === current && !preceding.has(edge.from) && edge.from !== node.id) {
+        preceding.add(edge.from);
+        pending.push(edge.from);
+      }
+    }
+  }
+  const conditionSources = workflow.nodes.filter((entry) => entry.type === 'action' && entry.toolId === 'auto-smart-scan' && preceding.has(entry.id) && Array.isArray(entry.config.modules) && entry.config.modules.includes(node.config.predicate === 'volume-free-below' ? 'capacity' : 'inventory'));
   const setLabel = (label: string) => onChange({ ...workflow, nodes: workflow.nodes.map((entry) => (entry.id === node.id ? { ...entry, label } : entry)) });
   const setConfig = (key: string, value: string | number | boolean | string[] | null) => {
     onChange({ ...workflow, nodes: workflow.nodes.map((entry) => (entry.id === node.id ? { ...entry, config: { ...entry.config, [key]: value } } : entry)) });
@@ -282,7 +294,19 @@ export function NodeInspector({
         <input className="sys-input" value={node.label} maxLength={80} onChange={(event) => setLabel(event.target.value)} />
       </label>
       <div className="auto-config">
-        {configEntries.map(([key, value]) => (
+        {node.type === 'condition' ? <>
+          <label className="auto-field"><span>{t(locale, 'Measured predicate', 'الشرط المقيس')}</span><select className="sys-input" value={['inventory-bytes-at-least', 'volume-free-below'].includes(String(node.config.predicate)) ? String(node.config.predicate) : ''} onChange={event => onChange({...workflow, nodes: workflow.nodes.map(entry => entry.id === node.id ? {...entry, config: event.target.value === 'inventory-bytes-at-least' ? {predicate: event.target.value, inputNodeId: '', thresholdBytes: 1073741824} : {predicate: event.target.value, inputNodeId: '', deviceId: '', thresholdPercent: 10}} : entry)})}>
+            <option value="" disabled>{t(locale, 'Choose an executable condition', 'اختر شرطًا قابلًا للتنفيذ')}</option><option value="inventory-bytes-at-least">{t(locale, 'Indexed folder bytes ≥ threshold', 'حجم المجلد المفهرس ≥ الحد')}</option><option value="volume-free-below">{t(locale, 'Volume free space < threshold', 'المساحة المتاحة بالقرص < الحد')}</option>
+          </select></label>
+          {['inventory-bytes-at-least', 'volume-free-below'].includes(String(node.config.predicate)) ? <>
+            <label className="auto-field"><span>{t(locale, 'Evidence from preceding scan node', 'الدليل من عقدة فحص سابقة')}</span><select className="sys-input" value={String(node.config.inputNodeId || '')} onChange={e => setConfig('inputNodeId', e.target.value)}><option value="">{t(locale, 'Select a connected predecessor', 'اختر عقدة سابقة متصلة')}</option>{conditionSources.map(n => <option key={n.id} value={n.id}>{n.label} · {n.id}</option>)}</select></label>
+            {node.config.predicate === 'inventory-bytes-at-least' ? <label className="auto-field"><span>{t(locale, 'Threshold in bytes (inclusive)', 'الحد بالبايت (شامل)')}</span><input className="sys-input" type="number" min={0} max={Number.MAX_SAFE_INTEGER} step={1} value={Number(node.config.thresholdBytes ?? 0)} onChange={e => setConfig('thresholdBytes', e.target.valueAsNumber)} /></label> : <>
+              <label className="auto-field"><span>{t(locale, 'Measured drive letter, e.g. D:', 'حرف القرص المقيس، مثل D:')}</span><input className="sys-input" dir="ltr" maxLength={2} placeholder="D:" value={String(node.config.deviceId || '')} onChange={e => setConfig('deviceId', e.target.value.toUpperCase())} /></label>
+              <label className="auto-field"><span>{t(locale, 'Free-space threshold % (exclusive)', 'حد المساحة المتاحة % (غير شامل)')}</span><input className="sys-input" type="number" min={0} max={100} step="any" value={Number(node.config.thresholdPercent ?? 10)} onChange={e => setConfig('thresholdPercent', e.target.valueAsNumber)} /></label>
+            </>}
+          </> : <p className="auto-op-hint">{t(locale, 'Legacy conditions remain preview-only until explicitly configured. Their meaning is not inferred.', 'الشروط القديمة تظل معاينة حتى تُهيّأ صراحةً. لا نفترض معناها.')}</p>}
+          <p className="auto-op-hint">{t(locale, 'All incoming dependencies must pass. False or unavailable evidence skips the entire dependent path. Independent branches may continue; the protected receipt remains available.', 'كل التبعيات الواردة لازم تمر. الشرط غير المتحقق أو الدليل الناقص يمنع المسار التابع بالكامل. الفروع المستقلة ممكن تكمل، والإيصال المحمي يظل متاحًا.')}</p>
+        </> : configEntries.map(([key, value]) => (
           <label className="auto-field" key={key}>
             <span>{key}</span>
             {typeof value === 'boolean' ? (
@@ -296,7 +320,7 @@ export function NodeInspector({
             )}
           </label>
         ))}
-        {!configEntries.length ? <p className="auto-op-hint">{t(locale, 'This node has no editable configuration.', 'لا تهيئة قابلة للتعديل لهذه العقدة.')}</p> : null}
+        {!configEntries.length && node.type !== 'condition' ? <p className="auto-op-hint">{t(locale, 'This node has no editable configuration.', 'لا تهيئة قابلة للتعديل لهذه العقدة.')}</p> : null}
       </div>
       <p className="auto-op-hint">{t(locale, 'Changes are local draft edits. Save creates a version; nothing is executed.', 'التغييرات تعديلات مسودة محلية. الحفظ ينشئ نسخة؛ لا يُنفذ شيء.')}</p>
     </div>

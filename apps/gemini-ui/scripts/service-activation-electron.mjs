@@ -56,11 +56,12 @@ app.whenReady().then(async()=>{
 `.replace('__ROOT__',JSON.stringify(appRoot)).replace('__OUT__',JSON.stringify(root));
 const mainFile=path.join(root,'fixture-main.cjs');await fs.writeFile(mainFile,main);
 const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
-let electron;
+let electron;const nativeLog=[];
 try{
  console.log('Launching isolated Electron fixture with production preload and IPC.');
  electron=await _electron.launch({executablePath:require('electron'),args:[mainFile],env,timeout:30000});
- const page=await electron.firstWindow();const errors=[];page.on('pageerror',error=>errors.push(error.message));
+ electron.process().stderr?.on('data',chunk=>nativeLog.push(String(chunk).slice(0,4000)));
+ const page=await electron.firstWindow({timeout:60000});const errors=[];page.on('pageerror',error=>errors.push(error.message));
  await page.waitForFunction(()=>typeof window.startFixture==='function');const bootstrap=await electron.evaluate(({app})=>app.fixture.bootstrap);await page.evaluate(data=>window.startFixture(data),bootstrap);
  await page.getByTestId('startup-live-preview').click();await page.getByTestId('startup-live-plan').waitFor();assert.equal(await page.getByTestId('startup-live-apply').isDisabled(),true);
  await page.getByTestId('startup-live-approval').focus();await page.keyboard.press('Space');await page.getByTestId('startup-live-apply').click();await page.getByRole('button',{name:'Inspect & preview recovery',exact:true}).waitFor();await page.waitForFunction(()=>!document.querySelector('[data-testid="startup-live-actions"] fieldset')?.disabled);
@@ -74,4 +75,4 @@ try{
  await page.getByText('Enable this saved workflow for foreground scheduling; arming requires separate approval.',{exact:true}).click();await page.getByTestId('automation-native-preview').click();await page.getByTestId('automation-schedule-arm').waitFor();assert.equal(await page.getByTestId('automation-schedule-arm').isDisabled(),true);await page.getByText('Approve arming this exact foreground schedule.',{exact:true}).click();await page.getByTestId('automation-schedule-arm').click();await page.waitForFunction(()=>!document.querySelector('[data-testid="automation-native-run"] fieldset')?.disabled);state=await electron.evaluate(({app})=>app.fixture.state());assert.equal(state.schedules[0].status,'armed');await page.getByRole('button',{name:'Pause future runs',exact:true}).click();await page.waitForFunction(()=>!document.querySelector('[data-testid="automation-native-run"] fieldset')?.disabled);state=await electron.evaluate(({app})=>app.fixture.state());assert.equal(state.schedules[0].status,'paused');assert.deepEqual(errors,[]);
  const proof={ok:true,scope:'isolated Electron; production preload/trusted IPC; mock Registry/SCM/native consent; actual DPAPI and native owned-file observations',keyboardApproval:true,foregroundScheduleArmPause:true,startupDisableRestore:true,serviceStateRecovery:true,workflowNativeFileCount:8,truthfulPartialResult:true,rendererErrors:errors,fullAppShellAndOwnerOsEffects:'NOT_RUN',profile:state.profile};
  await fs.writeFile(path.join(root,'proof.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({...proof,evidence:path.join(root,'proof.json')}));
-}catch(error){if(electron){const page=await electron.firstWindow();console.error('Isolated fixture UI failure:',(await page.locator('body').innerText()).slice(0,6000));await fs.writeFile(path.join(root,'failure.txt'),String(error)+'\n'+await page.locator('body').innerText());}throw error;}finally{await electron?.close();}
+}catch(error){const page=electron?.windows()[0];const body=page?await page.locator('body').innerText().catch(()=>'(renderer unavailable)'):'(no Electron window)';console.error('Isolated fixture failure:',body.slice(0,6000),nativeLog.join('').slice(-6000));await fs.writeFile(path.join(root,'failure.txt'),String(error)+'\n'+body+'\n'+nativeLog.join(''));throw error;}finally{await electron?.close();}
