@@ -1,24 +1,19 @@
 'use strict';
-const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto');
+const crypto=require('node:crypto');
+const {ProtectedActionStore}=require('./protected-action-store.cjs');
 const {RUN_KEY,createRegistry,validateSnapshot}=require('./startup-registry.cjs');
 const err=(code,message)=>Object.assign(Error(message),{code});
 const hash=value=>crypto.createHash('sha256').update(JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.entries(item).sort(([a],[b])=>a.localeCompare(b))):item)).digest('hex');
 const ID=/^[a-f0-9-]{36}$/i;
 class StartupActions {
  constructor({operations,getInventory,userDataPath,safeStorage,registry=createRegistry(),now=Date.now}){
-  this.operations=operations;this.getInventory=getInventory;this.root=path.join(userDataPath,'startup-action-receipts');this.safeStorage=safeStorage;this.registry=registry;this.now=now;this.plans=new Map();
+  this.operations=operations;this.getInventory=getInventory;this.store=new ProtectedActionStore({userDataPath,namespace:'startup-action-receipts',safeStorage});this.root=this.store.root;this.safeStorage=safeStorage;this.registry=registry;this.now=now;this.plans=new Map();
  }
  available(){if(!this.safeStorage?.isEncryptionAvailable())throw err('STARTUP_SECURE_STORAGE_REQUIRED','Windows-protected receipt storage is required before changing startup.');}
- async save(receipt){
-  this.available();await fs.mkdir(this.root,{recursive:true});
-  const target=path.join(this.root,receipt.id+'.bin'),temp=target+'.'+crypto.randomUUID()+'.tmp';
-  const buffer=this.safeStorage.encryptString(JSON.stringify(receipt));
-  const handle=await fs.open(temp,'wx',0o600);try{await handle.writeFile(buffer);await handle.sync();}finally{await handle.close();}
-  await fs.rename(temp,target);
- }
- async load(id){if(!ID.test(id))throw err('STARTUP_RECEIPT_INVALID','Invalid receipt identifier.');this.available();const stat=await fs.lstat(path.join(this.root,id+'.bin'));if(!stat.isFile()||stat.isSymbolicLink()||stat.size>512000)throw err('STARTUP_RECEIPT_INVALID','Receipt is not a bounded regular file.');const r=JSON.parse(this.safeStorage.decryptString(await fs.readFile(path.join(this.root,id+'.bin'))));if(r.id!==id||r.key!==RUN_KEY||typeof r.name!=='string'||r.originalHash!==hash(validateSnapshot(r.original)))throw err('STARTUP_RECEIPT_INVALID','Receipt evidence does not match.');return r;}
+ async save(receipt){this.available();await this.store.save(receipt);}
+ async load(id){if(!ID.test(id))throw err('STARTUP_RECEIPT_INVALID','Invalid receipt identifier.');const r=await this.store.load(id);if(r.key!==RUN_KEY||typeof r.name!=='string'||r.originalHash!==hash(validateSnapshot(r.original)))throw err('STARTUP_RECEIPT_INVALID','Receipt evidence does not match.');return r;}
  publicReceipt(r){return {id:r.id,name:r.name,key:r.key,status:r.status,createdAt:r.createdAt,updatedAt:r.updatedAt,originalHash:r.originalHash,error:r.error||null,recoveryAvailable:['prepared','disabled','uncertain'].includes(r.status)};}
- async receipts(){this.available();let names;try{names=await fs.readdir(this.root);}catch(e){if(e.code==='ENOENT')return [];throw e;}const results=[];for(const name of names.filter(n=>/^[a-f0-9-]{36}\.bin$/i.test(n)).slice(-200)){try{results.push(this.publicReceipt(await this.load(name.slice(0,-4))));}catch{results.push({id:name.slice(0,-4),name:'Unreadable protected receipt',key:RUN_KEY,status:'unreadable',recoveryAvailable:false,error:'Receipt cannot be authenticated/decrypted.'});}}return results.sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));}
+ async receipts(){this.available();const results=[];for(const id of await this.store.ids()){try{results.push(this.publicReceipt(await this.load(id)));}catch{results.push({id,name:'Unreadable protected receipt',key:RUN_KEY,status:'unreadable',recoveryAvailable:false,error:'Receipt cannot be authenticated/decrypted.'});}}return results.sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));}
  remember(plan){if(this.plans.size>=32)this.plans.delete(this.plans.keys().next().value);plan.id=crypto.randomUUID();plan.expiresAt=this.now()+300000;plan.planHash=hash(plan);this.plans.set(plan.id,plan);return {id:plan.id,planHash:plan.planHash,mode:plan.mode,name:plan.name,key:RUN_KEY,expiresAt:new Date(plan.expiresAt).toISOString(),originalHash:hash(plan.original),receiptId:plan.receiptId||null};}
  async disablePlan({entryId}){
   this.available();const entry=this.getInventory()?.entries.find(e=>e.id===entryId),target=entry?.actionTarget;

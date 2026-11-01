@@ -1,0 +1,27 @@
+import {useEffect,useLayoutEffect,useRef,useState} from 'react';
+import type {NativeEnvelope} from '../../shared/native-contracts';
+import type {ServiceStatePlan,ServiceStateReceipt} from '../../shared/operation-contract';
+const unwrap=<T,>(r:NativeEnvelope<T>):T=>{if(r.error||!('data'in r))throw Error(r.error?.message||'No native SCM evidence.');return r.data as T;};
+export function ServiceStateWorkbench({serviceName,arabic,onChanged}:{serviceName:string|null;arabic:boolean;onChanged:()=>void}){
+ const api=window.knouxOperationsV1,t=(en:string,ar:string)=>arabic?ar:en;
+ const [action,setAction]=useState<'start'|'stop'>('stop'),[plan,setPlan]=useState<ServiceStatePlan|null>(null),[approved,setApproved]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[receipts,setReceipts]=useState<ServiceStateReceipt[]>([]);
+ const running=useRef(false),selection=useRef(serviceName);
+ useLayoutEffect(()=>{selection.current=serviceName;setPlan(null);setApproved(false);},[serviceName,action]);
+ const refresh=async()=>{if(api)setReceipts(unwrap(await api.serviceReceipts()));};
+ useEffect(()=>{if(api)void refresh().catch(e=>setError(String(e)));},[api]);
+ async function run(work:()=>Promise<void>){if(running.current)return;running.current=true;setBusy(true);setError('');try{await work();}catch(e){setError(e instanceof Error?e.message:String(e));}finally{running.current=false;setBusy(false);}}
+ return <section className="knx-tool-evidence" data-testid="service-live-state">
+  <h3>{t('SCM state control · exact native approval','التحكم بحالة SCM · موافقة Native محددة')}</h3>
+  <p>{t('Signed non-Microsoft third-party services outside Windows only. No force, cascade, restart or startup-policy write. Windows may deny the current account; this tool never elevates automatically.','خدمات طرف ثالث موقعة خارج Windows وغير تابعة لـMicrosoft فقط. بلا إجبار أو تغييرات متسلسلة أو إعادة تشغيل أو كتابة سياسة البدء. قد يرفض Windows صلاحية الحساب الحالي؛ لا يحدث رفع صلاحيات تلقائي.')}</p>
+  {!api?<p role="alert">{t('Native provider unavailable. Open the updated Electron application.','المزوّد الأصلي غير متاح. افتح تطبيق Electron المحدّث.')}</p>:null}
+  {error?<p role="alert" className="knx-tool-error">{error}</p>:null}
+  {busy?<div role="status"><progress aria-label={t('Native SCM operation','عملية SCM أصلية')}/>{t('Native inspection, confirmation or bounded state transition. The single control operation cannot be interrupted halfway.','فحص أو تأكيد أو انتقال حالة أصلي محدود المدة. لا يمكن مقاطعة عملية التحكم الواحدة في منتصفها.')}</div>:null}
+  <fieldset disabled={busy} className="knx-tool-fieldset">
+   <div className="knx-tool-actions"><strong>{serviceName||t('Select a service above','اختر خدمة أعلاه')}</strong><label>{t('Requested state','الحالة المطلوبة')}<select value={action} onChange={e=>setAction(e.target.value as 'start'|'stop')}><option value="stop">{t('Stop','إيقاف')}</option><option value="start">{t('Start','تشغيل')}</option></select></label><button type="button" data-testid="service-live-preview" disabled={!api||!serviceName} onClick={()=>void run(async()=>{const requested=serviceName!;setPlan(null);setApproved(false);const exact=unwrap(await api!.serviceStatePlan({serviceName:requested,action}));if(selection.current===requested)setPlan(exact);})}>{t('Inspect & preview exact change','فحص ومعاينة التغيير المحدد')}</button></div>
+   {plan?<section className="knx-tool-evidence" data-testid="service-live-plan"><h4>{plan.name}: {plan.before} → {plan.after}</h4><p>{t('Expires','تنتهي')}: {plan.expiresAt}</p><code className="knx-tool-path">{plan.identityHash}</code><code className="knx-tool-path">{plan.planHash}</code><p>{t('Recovery restores SCM running/stopped state only; application activity and side effects are not reversible through this receipt.','الاستعادة تعيد حالة التشغيل/الإيقاف في SCM فقط؛ لا تعكس نشاط التطبيق أو آثاره الجانبية.')}</p><label><input type="checkbox" checked={approved} data-testid="service-live-approval" onChange={e=>setApproved(e.target.checked)}/>{t('Approve this exact service-state change. Native confirmation follows.','أوافق على تغيير حالة الخدمة المحدد. يتبعه تأكيد Native.')}</label><button type="button" data-testid="service-live-apply" disabled={!api||!approved} onClick={()=>void run(async()=>{setApproved(false);const result=unwrap(await api!.serviceStateApply({planId:plan.id,planHash:plan.planHash,approved:true}));setPlan(null);setReceipts(old=>[result,...old.filter(r=>r.id!==result.id)]);onChanged();})}>{t('Confirm exact state change','تأكيد تغيير الحالة المحدد')}</button></section>:null}
+   <div className="knx-tool-actions"><h4>{t('Protected receipts & state recovery','الإيصالات المحمية واستعادة الحالة')}</h4><button type="button" disabled={!api} onClick={()=>void run(refresh)}>{t('Refresh receipts','تحديث الإيصالات')}</button></div>
+   {!receipts.length?<p>{t('No native state-change receipts in this profile.','لا توجد إيصالات تغيير حالة أصلية في هذا الملف الشخصي.')}</p>:null}
+   {receipts.map(r=><article key={r.id} className="knx-tool-evidence"><strong>{r.name}</strong><p>{r.status} · {r.before} → {r.after} · {r.updatedAt||r.createdAt}</p><code className="knx-tool-path">{r.id}</code>{r.error?<p role="alert">{r.error}</p>:null}<button type="button" disabled={!api||!r.recoveryAvailable} onClick={()=>void run(async()=>{setPlan(null);setApproved(false);setPlan(unwrap(await api!.serviceRestorePlan({receiptId:r.id})));})}>{t('Inspect state recovery','فحص استعادة الحالة')}</button></article>)}
+  </fieldset>
+ </section>;
+}

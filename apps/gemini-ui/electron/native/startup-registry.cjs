@@ -44,7 +44,9 @@ function createRegistry({runner=promisify(execFile),platform=process.platform}={
   const payload=Buffer.from(JSON.stringify({action,name,expected,original})).toString('base64');
   const encoded=Buffer.from(SCRIPT.replace('__PAYLOAD__',payload),'utf16le').toString('base64');
   if(encoded.length>28000)throw Object.assign(Error('Registry evidence exceeds the bounded command budget.'),{code:'STARTUP_EVIDENCE_LIMIT'});
-  const result=await runner(path.join(process.env.SystemRoot||'C:\\Windows','System32','WindowsPowerShell','v1.0','powershell.exe'),['-NoLogo','-NoProfile','-NonInteractive','-EncodedCommand',encoded],{windowsHide:true,timeout:15000,maxBuffer:256*1024,encoding:'utf8'});
+  let result;
+  try{result=await runner(path.join(process.env.SystemRoot||'C:\\Windows','System32','WindowsPowerShell','v1.0','powershell.exe'),['-NoLogo','-NoProfile','-NonInteractive','-EncodedCommand',encoded],{windowsHide:true,timeout:15000,maxBuffer:256*1024,encoding:'utf8'});}
+  catch(e){const denied=/UnauthorizedAccess|Access is denied|PermissionDenied/i.test(String(e.stderr||''));throw Object.assign(Error(denied?'Windows denied access to the current-user Run key. No permissions were changed.':'The bounded registry request did not complete. Inspect the protected receipt before retrying; no success is inferred.'),{code:denied?'STARTUP_OWNER_ACTION_REQUIRED':e.killed||e.code==='ETIMEDOUT'?'STARTUP_PROVIDER_TIMEOUT':'STARTUP_PROVIDER_FAILED'});}
   return validateSnapshot(JSON.parse(String(result.stdout).replace(/^\uFEFF/, '').trim()));
  };
 }

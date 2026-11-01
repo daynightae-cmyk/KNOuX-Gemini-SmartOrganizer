@@ -1,8 +1,9 @@
 /**
  * Service Commander - register, control, undo, search and config (tools 01-05, 11).
- * Every operation is a preview; no SCM write channel exists.
+ * Policy/restart paths remain previews; approved third-party state control is separate.
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ServiceStateWorkbench } from './ServiceStateWorkbench';
 import {
   AlertTriangle,
   ChevronRight,
@@ -74,7 +75,7 @@ export function ControlWorkbench({ locale, snapshot, controller }: ServicesWorkb
     <ServicesToolFrame
       toolId="services-control"
       locale={locale}
-      foot={<><span><PlayCircle aria-hidden="true" />{t(locale, 'Preview start/stop/restart', 'معاينة البدء/الإيقاف/إعادة التشغيل')}</span><span><Lock aria-hidden="true" />{t(locale, 'No SCM operation executed', 'لم تُنفذ أي عملية SCM')}</span></>}
+      foot={<><span><PlayCircle aria-hidden="true" />{t(locale, 'Approved start/stop · other modes preview only', 'تشغيل/إيقاف بموافقة · الأوضاع الأخرى للمعاينة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Native confirmation required', 'يتطلب تأكيد Native')}</span></>}
     >
       <div className="svc-split-register">
         <Panel title={t(locale, 'Choose a service', 'اختر خدمة')} icon={SlidersHorizontal} bodyClassName="sys-panel-body-flush">
@@ -87,6 +88,7 @@ export function ControlWorkbench({ locale, snapshot, controller }: ServicesWorkb
         </div>
       </div>
       <OperationDock locale={locale} snapshot={snapshot} controller={controller} service={selected} mode="state" />
+      <ServiceStateWorkbench serviceName={selected?.name||null} arabic={locale==='ar'} onChanged={()=>void controller.startScan()}/>
       <div className="svc-safety-row">
         <span><ShieldAlert aria-hidden="true" />{t(locale, 'Protected security/network/RPC/servicing/kernel services are denied by measured policy.', 'الخدمات الأمنية/الشبكية/RPC/الخدمة/النواة المحمية مرفوضة بالسياسة المقيسة.')}</span>
         <span><Lock aria-hidden="true" />{t(locale, 'High-risk operations never auto-elevate.', 'العمليات عالية الخطورة لا ترفع الصلاحيات تلقائيًا.')}</span>
@@ -113,9 +115,10 @@ export function UndoWorkbench({ locale, snapshot, controller }: ServicesWorkbenc
     <ServicesToolFrame
       toolId="services-undo"
       locale={locale}
-      provider="Local preview journal"
-      foot={<><span><History aria-hidden="true" />{formatCount(entries.length)} {t(locale, 'preview entries', 'مدخل معاينة')}</span><span><Lock aria-hidden="true" />{t(locale, 'No executed change to restore', 'لا تغيير منفذ للاستعادة')}</span></>}
+      provider="Protected state receipts + local policy previews"
+      foot={<><span><History aria-hidden="true" />{formatCount(entries.length)} {t(locale, 'policy preview entries', 'مدخل معاينة سياسة')}</span><span><Lock aria-hidden="true" />{t(locale, 'State recovery requires exact native approval', 'استعادة الحالة تتطلب موافقة Native محددة')}</span></>}
     >
+      <ServiceStateWorkbench serviceName={null} arabic={locale==='ar'} onChanged={()=>void controller.startScan()}/>
       <div className="sys-split-ledger">
         <Panel className="sys-ledger-panel" title={t(locale, 'Startup policy journal', 'سجل سياسة البدء')} sub={t(locale, 'Immutable previews only.', 'معاينات ثابتة فقط.')} icon={Undo2} bodyClassName="sys-panel-body-flush">
           {entries.length ? (

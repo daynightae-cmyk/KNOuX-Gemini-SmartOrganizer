@@ -4,7 +4,7 @@ import { CommandCanvas } from '../visual/CommandCanvas';
  *
  * Browser previews render an explicit native-required state. In Electron every
  * service, edge, event, host and operation preview comes from the read-only
- * ServicesBridge. No SCM start/stop/restart/startup-type write exists.
+ * ServicesBridge. Approved third-party start/stop uses a separate typed executor; restart and policy writes remain gated.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {

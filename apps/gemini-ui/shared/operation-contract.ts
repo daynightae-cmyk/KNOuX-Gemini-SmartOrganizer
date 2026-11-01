@@ -7,6 +7,8 @@ export type OperationReceipt={operationId:string;planHash:string;status:string;m
 export type UndoPreview={journalId:string;previewId:string;previewHash:string;eligible:number;requiredRoots:{root:string;kind:string}[];entries:{name:string;eligible:boolean;state?:string;undoState?:string|null;reason?:string;conflict?:boolean;restoreName?:string}[]};
 export type StartupActionPlan={id:string;planHash:string;mode:'disable'|'restore';name:string;key:string;expiresAt:string;originalHash:string;receiptId:string|null};
 export type StartupActionReceipt={id:string;name:string;key:string;status:string;createdAt?:string;updatedAt?:string;originalHash?:string;error:string|null;recoveryAvailable:boolean};
+export type ServiceStatePlan={id:string;planHash:string;name:string;action:'start'|'stop';before:string;after:string;identityHash:string;receiptId:string|null;expiresAt:string};
+export type ServiceStateReceipt={id:string;name:string;action?:string;status:string;before?:string;after?:string;createdAt?:string;updatedAt?:string;error:string|null;recoveryAvailable:boolean};
 export type OperationApi=StorageVaultApi & {
  contractVersion:1;
  chooseSource():Promise<NativeEnvelope<{id:string;path:string}|null>>;
@@ -23,6 +25,10 @@ export type OperationApi=StorageVaultApi & {
  startupRestorePlan(request:{receiptId:string}):Promise<NativeEnvelope<StartupActionPlan>>;
  startupApply(request:{planId:string;planHash:string;approved:boolean}):Promise<NativeEnvelope<StartupActionReceipt>>;
  startupReceipts():Promise<NativeEnvelope<StartupActionReceipt[]>>;
+ serviceStatePlan(request:{serviceName:string;action:'start'|'stop'}):Promise<NativeEnvelope<ServiceStatePlan>>;
+ serviceRestorePlan(request:{receiptId:string}):Promise<NativeEnvelope<ServiceStatePlan>>;
+ serviceStateApply(request:{planId:string;planHash:string;approved:boolean}):Promise<NativeEnvelope<ServiceStateReceipt>>;
+ serviceReceipts():Promise<NativeEnvelope<ServiceStateReceipt[]>>;
  onEvent(callback:(event:OperationEvent)=>void):()=>void;
 };
 declare global {interface Window {knouxOperationsV1?:OperationApi;}}
