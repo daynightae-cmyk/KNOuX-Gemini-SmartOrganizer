@@ -24,3 +24,15 @@ export function overviewGroups(files:OperationFile[]){
  const specs:[string,string[]][]=[['document',['document','pdf']],['image',['image']],['video',['video']],['archive',['archive']],['code',['code']],['other',['audio','other']]];
  return specs.map(([id,facets])=>{const members=files.filter(f=>facets.includes(facetOf(f)));return {id,members,count:members.length,bytes:members.reduce((n,f)=>n+f.size,0),ids:members.map(f=>f.id)};});
 }
+
+export interface OrganizationSelectionRule {text:string;extensions:string;minimumBytes:string;maximumBytes:string;}
+/** Select real inventory IDs; the native immutable plan still validates every item. */
+export function selectOrganizationFiles(files:OperationFile[],rule:OrganizationSelectionRule):{files:OperationFile[];error:string|null} {
+ const parse=(value:string)=>value.trim()===''?null:Number(value);
+ const minimum=parse(rule.minimumBytes),maximum=parse(rule.maximumBytes);
+ if([minimum,maximum].some(value=>value!==null&&(!Number.isSafeInteger(value)||value<0)) || (minimum!==null&&maximum!==null&&minimum>maximum))return {files:[],error:'INVALID_SIZE_RANGE'};
+ const extensions=rule.extensions.toLowerCase().split(/[,،\s]+/).filter(Boolean).map(value=>value.replace(/^\./,''));
+ if(extensions.some(value=>!/^[-a-z0-9_+][-.a-z0-9_+]{0,24}$/.test(value)))return {files:[],error:'INVALID_EXTENSION'};
+ const text=rule.text.trim().toLowerCase();
+ return {files:files.filter(file=>(!text||`${file.name} ${file.relative}`.toLowerCase().includes(text))&&(!extensions.length||extensions.some(extension=>file.name.toLowerCase().endsWith('.'+extension)))&&(minimum===null||file.size>=minimum)&&(maximum===null||file.size<=maximum)),error:null};
+}

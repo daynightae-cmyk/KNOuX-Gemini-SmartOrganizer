@@ -83,10 +83,12 @@ class OperationEngine {
     const targetFileNames={};
     if(request.fileNames!==undefined) {
       if(!request.fileNames || typeof request.fileNames!=='object' || Array.isArray(request.fileNames) || Object.keys(request.fileNames).length>record.files.length) throw error('OPERATION_INVALID_NAMES','File names must reference the measured index.');
+      const indexedFiles=new Map(record.files.map(file=>[String(file.id),file]));
+      const selectedIds=Array.isArray(request.fileIds)?new Set(request.fileIds):null;
       for(const [id,name] of Object.entries(request.fileNames)) {
-        const file=record.files.find(file=>String(file.id)===id);
+        const file=indexedFiles.get(id);
         const check=safety.validateNameForNewPath(name);
-        if(!file || (Array.isArray(request.fileIds)&&!request.fileIds.includes(file.id)) || !check.ok) throw error('OPERATION_INVALID_NAMES','Each output name must be a valid Windows filename for a selected native file ID.');
+        if(!file || (selectedIds&&!selectedIds.has(file.id)) || !check.ok) throw error('OPERATION_INVALID_NAMES','Each output name must be a valid Windows filename for a selected native file ID.');
         targetFileNames[safety.keyOf(path.resolve(record.root,...file.relative.split('/')))]=check.name;
       }
     }
