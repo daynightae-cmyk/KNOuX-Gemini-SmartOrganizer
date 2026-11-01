@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import { Lock, Play, RotateCw, ShieldCheck, X } from 'lucide-react';
-import type { ScanServiceResult, ScanSession } from '../../shared/native-contracts';
+import type { ScanServiceResult, ScanSession, StudioSource } from '../../shared/native-contracts';
 import type { ScanServiceMeta } from './smartScan.types';
 import { QuickScanRenderer } from './service-renderers/QuickScanRenderer';
 import { DeepScanRenderer } from './service-renderers/DeepScanRenderer';
@@ -18,7 +18,7 @@ import { StartupImpactRenderer } from './service-renderers/StartupImpactRenderer
 import { AppHealthRenderer } from './service-renderers/AppHealthRenderer';
 import { SystemHealthPulseRenderer } from './service-renderers/SystemHealthPulseRenderer';
 import { SmartRecommendationsRenderer } from './service-renderers/SmartRecommendationsRenderer';
-import { EmptyResult } from './service-renderers/shared';
+import { EmptyResult, CopyEvidence } from './service-renderers/shared';
 
 export interface ScanServiceWorkspaceProps {
   service: ScanServiceMeta;
@@ -31,6 +31,11 @@ export interface ScanServiceWorkspaceProps {
   runBlockedReason?: string | null;
   onClose: () => void;
   onRunService: (serviceId: string) => void;
+  onCancelScan?: () => void;
+  source?: StudioSource | null;
+  onAuthorizeSource?: () => void;
+  onIndexSource?: () => void;
+  actionError?: string | null;
   onNavigateToWorkspace?: (workspace: string) => void;
   onOpenService?: (serviceId: string) => void;
   onOpenCleanupGate?: () => void;
@@ -48,6 +53,8 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   runBlockedReason = null,
   onClose,
   onRunService,
+  onCancelScan,
+  source, onAuthorizeSource, onIndexSource, actionError,
   onNavigateToWorkspace,
   onOpenService,
   onOpenCleanupGate,
@@ -83,7 +90,7 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   const disabled = busy || scanActive || !canRun;
   // A session only holds the services it measured, so a service that was not
   // part of it must offer its own measurement instead of a dead end.
-  const body = result ? (
+  const body = result && !['failed','unsupported'].includes(result.status) ? (
     renderRenderer()
   ) : (
     <EmptyResult
@@ -98,7 +105,11 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   if (embedded) {
     return (
       <div data-testid="scan-service-focus" data-tool-body="smart_scan" data-tool={service.id} className="flex h-full min-h-0 flex-col gap-3">
+        {busy || scanActive ? <div className="knx-tool-context" role="status"><progress aria-label={isArabic ? 'جلسة فحص نشطة' : 'Scan session active'} /><span>{isArabic ? 'جلسة الفحص الأصلية نشطة؛ لم يكتمل القياس بعد.' : 'Native scan session active; measurement is not complete yet.'}</span>{scanActive && onCancelScan ? <button type="button" onClick={onCancelScan} data-testid="scan-workbench-cancel">{isArabic ? 'إلغاء الفحص' : 'Cancel scan'}</button> : null}</div> : null}
+        {result && ['failed','unsupported'].includes(result.status) ? <p role="alert" className="knx-tool-error">{isArabic ? 'لم يرجع المزود نتيجة مكتملة لهذه الخدمة. راجع التحذيرات والتغطية أدناه.' : 'The provider did not return a completed result for this service. Review its warnings and coverage below.'}</p> : null}
         <section className="knx-tool-context"><ShieldCheck aria-hidden="true"/><div><strong>{isArabic ? service.titleAr : service.titleEn}</strong><small>{isArabic ? service.noteAr : service.noteEn}</small></div><span>{result ? result.status : (isArabic ? 'بانتظار القياس' : 'Awaiting measurement')}</span></section>
+        {onAuthorizeSource ? <details className="knx-tool-evidence scan-scope-controls"><summary>{isArabic ? 'نطاق القياس التالي' : 'Next measurement scope'}: {source?.label || (isArabic ? 'لم يُحدد مجلد' : 'No folder selected')}</summary><p className="knx-tool-path">{source?.path || (isArabic ? 'بعض الخدمات تستخدم مزودي النظام فقط؛ خدمات الملفات تتطلب مجلدًا مصرحًا.' : 'Some tools use system providers only; file tools require an authorized folder.')}</p><div className="flex gap-2 flex-wrap"><button type="button" onClick={onAuthorizeSource} disabled={busy || scanActive}>{isArabic ? 'اختيار مجلد' : 'Choose folder'}</button>{source && onIndexSource ? <button type="button" onClick={onIndexSource} disabled={busy || scanActive}>{isArabic ? 'فهرسة المجلد' : 'Index folder'}</button> : null}<small>{source?.status}</small></div></details> : null}
+        {actionError ? <p role="alert" className="knx-tool-error">{actionError}</p> : null}
         {/* Only the measured body scrolls, so the action row stays reachable
             instead of being pushed under the host footer. */}
         <div
@@ -116,6 +127,7 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
           {!canRun && runBlockedReason ? (
             <span className="text-[9px] text-amber-300 font-mono">{runBlockedReason}</span>
           ) : null}
+          {result ? <CopyEvidence key={`${result.serviceId}:${result.startedAt}`} testId="scan-service-copy-evidence" payload={result} isArabic={isArabic}/> : null}
           {service.id === 'junk_cleaner' && onOpenCleanupGate ? (
             <button
               type="button"

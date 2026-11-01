@@ -3,15 +3,16 @@
  * Measures empty folders only. Temp/browser cache discovery and all deletion
  * remain gated to Mission 08; no cleanup is simulated here.
  */
-import React from 'react';
+import React, {useState} from 'react';
 import { FolderX, Trash2, Lock } from 'lucide-react';
 import { EmptyResult, GatedNote, Metric, WorkspaceLink, type ServiceRendererProps } from './shared';
 
 export const JunkCleanerRenderer: React.FC<ServiceRendererProps> = ({ service, isArabic, onNavigateToWorkspace }) => {
+  const [query,setQuery] = useState('');
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const empty = data.emptyFolders;
-  const items = empty?.items || [];
+  const items = (empty?.items || []).filter(item => item.relative.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
 
   return (
     <div className="space-y-3 text-slate-100 font-sans">
@@ -29,11 +30,13 @@ export const JunkCleanerRenderer: React.FC<ServiceRendererProps> = ({ service, i
       </div>
 
       <div className="scan-metric-trio gap-2">
-        <Metric label={isArabic ? 'مجلدات فارغة' : 'Empty folders'} value={String(empty?.summary?.emptyFolders ?? 0)} sub={isArabic ? 'مقيسة' : 'measured'} tone="amber" />
-        <Metric label={isArabic ? 'مجلدات مفحوصة' : 'Folders walked'} value={String(empty?.summary?.foldersScanned ?? 0)} sub={isArabic ? 'ضمن الحد' : 'bounded walk'} />
+        <Metric label={isArabic ? 'مجلدات فارغة' : 'Empty folders'} value={empty ? String(empty.summary.emptyFolders) : '—'} sub={isArabic ? 'مقيسة' : 'measured'} tone="amber" />
+        <Metric label={isArabic ? 'مجلدات مفحوصة' : 'Folders walked'} value={empty ? String(empty.summary.foldersScanned) : '—'} sub={isArabic ? 'ضمن الحد' : 'bounded walk'} />
         <Metric label={isArabic ? 'التنظيف' : 'Cleanup'} value={isArabic ? 'محجوز' : 'Gated'} sub={isArabic ? 'المهمة 08' : 'Mission 08'} tone="rose" />
       </div>
 
+      <label className="knx-file-filter-label">{isArabic ? 'تصفية المجلدات الفارغة المعادة' : 'Filter returned empty folders'}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
+      {empty ? <p>{isArabic ? `تخطى المزود ${empty.summary.skippedLinks} رابطًا؛ أخطاء القراءة: ${empty.summary.errors}.` : `${empty.summary.skippedLinks} links skipped; ${empty.summary.errors} read errors.`}</p> : null}
       <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
         <div className="flex items-center gap-1.5 text-[10px] font-bold text-purple-300 mb-2">
           <FolderX className="w-3.5 h-3.5" />
@@ -43,7 +46,7 @@ export const JunkCleanerRenderer: React.FC<ServiceRendererProps> = ({ service, i
           {items.map((item) => (
             <div key={item.relative} className="flex items-center gap-2 rounded-lg border border-[#11284a] bg-[#071731] px-2 py-1 text-[10px]">
               <FolderX className="w-3 h-3 text-purple-400 shrink-0" />
-              <span className="font-mono text-slate-300 truncate">{item.relative}</span>
+              <span className="knx-tool-path text-slate-300">{item.relative}</span>
             </div>
           ))}
           {!items.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لا توجد مجلدات فارغة مقيسة.' : 'No empty folder was measured.'}</p> : null}

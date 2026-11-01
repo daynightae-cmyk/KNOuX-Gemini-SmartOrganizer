@@ -150,3 +150,6 @@ html:not([data-theme=light]) .visual-sprint[data-visual-section=automation] {--k
 
 .knx-tool-fieldset {border:0;padding:0;margin:0;min-inline-size:0;}
 .knx-tool-context progress {inline-size:90px;accent-color:var(--wb-accent);}
+
+.scan-scope-controls {flex-shrink:0;max-block-size:155px;overflow:auto;padding:9px 12px;}
+.scan-scope-controls button {padding:6px 10px;border:1px solid var(--wb-line);border-radius:8px;background:var(--wb-raised);color:var(--wb-ink);}

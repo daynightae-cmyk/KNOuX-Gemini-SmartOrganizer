@@ -2,15 +2,18 @@
  * SCAN-04 — Large Files Review measured workspace.
  * Ranked strictly from measured file sizes inside the authorized folder.
  */
-import React from 'react';
+import React, {useState} from 'react';
 import { FileWarning, HardDrive, ListOrdered } from 'lucide-react';
 import { EmptyResult, Metric, WorkspaceLink, byteLabel, type ServiceRendererProps } from './shared';
 
 export const LargeFilesRenderer: React.FC<ServiceRendererProps> = ({ service, isArabic, onNavigateToWorkspace }) => {
+  const [query,setQuery] = useState('');
+  const [minimumMb,setMinimumMb] = useState(0);
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const files = data.files || [];
-  const threshold = data.thresholdBytes || 0;
+  const threshold = data.thresholdBytes;
+  const filtered = files.filter(file => `${file.name} ${file.relative}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()) && file.size >= minimumMb * 1024 * 1024);
 
   return (
     <div className="space-y-3 text-slate-100 font-sans">
@@ -33,20 +36,22 @@ export const LargeFilesRenderer: React.FC<ServiceRendererProps> = ({ service, is
         <Metric label={isArabic ? 'عتبة التنبيه' : 'Finding threshold'} value={byteLabel(threshold, isArabic)} sub={isArabic ? 'ملفات أكبر تظهر كنتيجة' : 'larger files become findings'} tone="amber" />
       </div>
 
+      <div className="knx-file-filters"><label>{isArabic ? 'الاسم أو المسار' : 'Name or path'}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label><label>{isArabic ? 'أقل حجم بالميجابايت' : 'Minimum size (MB)'}<input type="number" min={0} step={1} value={minimumMb} onChange={e => setMinimumMb(Number.isFinite(e.target.valueAsNumber) ? Math.max(0,e.target.valueAsNumber) : 0)}/></label></div>
+      <p role="status">{filtered.length} / {files.length} {isArabic ? 'ملفًا معادًا يطابق التصفية' : 'returned files match the filter'}</p>
       <div className="rounded-xl border border-[#133059] bg-[#091a38] overflow-hidden">
         <div className="flex items-center justify-between px-3 py-2 border-b border-[#123055] text-[10px] font-bold text-cyan-300">
           <span className="flex items-center gap-1.5"><ListOrdered className="w-3.5 h-3.5" />{isArabic ? 'الترتيب حسب الحجم' : 'Size ranking'}</span>
           <span>{files.length}</span>
         </div>
         <div className="max-h-64 overflow-y-auto knx-custom-scrollbar">
-          {files.map((file, index) => (
+          {filtered.map((file, index) => (
             <div key={`${file.id}:${index}`} className="flex items-center gap-2 px-3 py-1.5 border-b border-[#0d2442] last:border-0 text-[10px]">
               <span className="w-5 text-slate-600 font-mono shrink-0">{index + 1}</span>
-              <span className="flex-1 truncate font-mono text-slate-300">{file.relative}</span>
+              <span className="flex-1 knx-tool-path text-slate-300">{file.relative}</span>
               <span className="font-mono font-bold text-sky-300 shrink-0">{byteLabel(file.size, isArabic)}</span>
             </div>
           ))}
-          {!files.length ? (
+          {!filtered.length ? (
             <div className="p-4 text-center text-[10px] text-slate-500">
               <FileWarning className="w-4 h-4 mx-auto mb-1 text-slate-600" />
               {isArabic ? 'لا توجد ملفات مقيسة بعد.' : 'No measured files yet.'}

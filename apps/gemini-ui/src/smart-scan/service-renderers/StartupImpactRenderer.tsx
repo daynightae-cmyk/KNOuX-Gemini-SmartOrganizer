@@ -4,16 +4,19 @@
  * Reads Win32_StartupCommand entries. Boot-time seconds are not measured and
  * are never invented. Enable/disable remains gated to Mission 09.
  */
-import React from 'react';
+import React, {useState} from 'react';
 import { Info, Lock, Rocket, ShieldCheck } from 'lucide-react';
 import { EmptyResult, GatedNote, Metric, StageStrip, WorkspaceLink, countLabel, type ServiceRendererProps } from './shared';
 
 export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service, isArabic, onNavigateToWorkspace }) => {
+  const [query,setQuery] = useState('');
+  const [sourceFilter,setSourceFilter] = useState('');
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const items = data.items || [];
   const bySource = data.bySource || {};
   const sourceEntries = Object.entries(bySource).sort((a, b) => b[1] - a[1]);
+  const filteredItems = items.filter(item => (!sourceFilter || item.source === sourceFilter) && `${item.name} ${item.location} ${item.provider}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const writable = data.writableCount ?? items.filter((item) => item.writable).length;
 
   return (
@@ -40,6 +43,8 @@ export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service,
         <Metric label={isArabic ? 'زمن الإقلاع' : 'Boot time'} value={isArabic ? 'غير مقيس' : 'Not measured'} sub={isArabic ? 'لا تُعرض ثوانٍ مزعومة' : 'no fabricated seconds'} tone="rose" />
       </div>
 
+      <div className="knx-file-filters"><label>{isArabic ? 'الاسم أو الموقع' : 'Name or location'}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label><label>{isArabic ? 'مصدر الإقلاع' : 'Startup source'}<select value={sourceFilter} onChange={e => setSourceFilter(e.target.value)}><option value="">{isArabic ? 'كل المصادر' : 'All sources'}</option>{sourceEntries.map(([source]) => <option key={source} value={source}>{source}</option>)}</select></label></div>
+      <p role="status">{filteredItems.length} / {items.length} {isArabic ? 'عنصرًا معادًا يطابق التصفية' : 'returned entries match the filter'}</p>
       <div className="scan-split scan-split-2-3 gap-2">
         <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="text-[10px] font-bold text-rose-300 mb-2">{isArabic ? 'التوزيع حسب المصدر' : 'Measured source distribution'}</div>
@@ -53,7 +58,7 @@ export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service,
                     <span className="font-mono text-slate-400 shrink-0">{count}</span>
                   </div>
                   <div className="mt-0.5 h-1 rounded-full bg-slate-800 overflow-hidden">
-                    <div className="h-full bg-rose-400" style={{ width: `${Math.max(3, percent)}%` }} />
+                    <div className="h-full bg-rose-400" style={{ width: `${Math.min(100, Math.max(0, percent))}%` }} />
                   </div>
                 </div>
               );
@@ -65,7 +70,7 @@ export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service,
         <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="text-[10px] font-bold text-rose-300 mb-2">{isArabic ? 'العناصر المقيسة' : 'Measured entries'}</div>
           <div className="space-y-1 max-h-40 overflow-y-auto knx-custom-scrollbar">
-            {items.map((item) => (
+            {filteredItems.map((item) => (
               <div key={`${item.source}:${item.name}`} className="rounded-lg border border-[#11284a] bg-[#071731] px-2 py-1 text-[10px]">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-bold text-slate-200 truncate">{item.name}</span>
@@ -79,7 +84,7 @@ export const StartupImpactRenderer: React.FC<ServiceRendererProps> = ({ service,
                 </div>
               </div>
             ))}
-            {!items.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لا توجد عناصر إقلاع مقيسة.' : 'No startup entry was measured.'}</p> : null}
+            {!filteredItems.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لا توجد عناصر إقلاع مقيسة.' : 'No startup entry was measured.'}</p> : null}
           </div>
         </div>
       </div>

@@ -4,17 +4,20 @@
  * Reads the installed-software registry inventory only. "Unused" verdicts and
  * uninstall actions are not measured and remain gated to Mission 05.
  */
-import React from 'react';
+import React, {useState} from 'react';
 import { Building2, Grid, Info, Lock, Package } from 'lucide-react';
 import { EmptyResult, GatedNote, Metric, StageStrip, WorkspaceLink, countLabel, type ServiceRendererProps } from './shared';
 
 export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isArabic, onNavigateToWorkspace }) => {
+  const [query,setQuery] = useState('');
+  const [publisher,setPublisher] = useState('');
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const publishers = data.publishers || [];
   const apps = data.apps || [];
   const total = data.total;
   const listed = apps.length;
+  const filteredApps = apps.filter(app => (!publisher || app.publisher === publisher) && `${app.name} ${app.publisher || ''} ${app.version || ''}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
 
   return (
     <div className="space-y-3 text-slate-100 font-sans">
@@ -40,6 +43,8 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
         <Metric label={isArabic ? 'إلغاء التثبيت' : 'Uninstall'} value={isArabic ? 'محجوز' : 'Gated'} sub={isArabic ? 'المهمة 05' : 'Mission 05'} tone="rose" />
       </div>
 
+      <div className="knx-file-filters"><label>{isArabic ? 'البحث في عينة البرامج المعادة' : 'Search returned app sample'}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label><label>{isArabic ? 'الناشر' : 'Publisher'}<select value={publisher} onChange={e => setPublisher(e.target.value)}><option value="">{isArabic ? 'كل الناشرين' : 'All publishers'}</option>{publishers.map(entry => <option key={entry.publisher} value={entry.publisher}>{entry.publisher}</option>)}</select></label></div>
+      <p role="status">{filteredApps.length} / {apps.length} {isArabic ? 'برنامجًا في العينة المعادة يطابق التصفية' : 'apps in the returned sample match the filter'}</p>
       <div className="scan-split scan-split-2-3 gap-2">
         <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-violet-300 mb-2">
@@ -47,7 +52,7 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
             {isArabic ? 'الناشرون المقيسون' : 'Measured publishers'}
           </div>
           <div className="space-y-1.5 max-h-44 overflow-y-auto knx-custom-scrollbar">
-            {publishers.slice(0, 10).map((entry) => {
+            {publishers.map((entry) => {
               const percent = total ? Math.round((entry.count / total) * 100) : 0;
               return (
                 <div key={entry.publisher} className="text-[10px]">
@@ -56,7 +61,7 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
                     <span className="font-mono text-slate-400 shrink-0">{entry.count}</span>
                   </div>
                   <div className="mt-0.5 h-1 rounded-full bg-slate-800 overflow-hidden">
-                    <div className="h-full bg-violet-400" style={{ width: `${Math.max(3, percent)}%` }} />
+                    <div className="h-full bg-violet-400" style={{ width: `${Math.min(100, Math.max(0, percent))}%` }} />
                   </div>
                 </div>
               );
@@ -71,7 +76,7 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
             {isArabic ? 'أحدث البرامج المقيسة' : 'Measured installed software'}
           </div>
           <div className="space-y-1 max-h-44 overflow-y-auto knx-custom-scrollbar">
-            {apps.map((app, index) => (
+            {filteredApps.map((app, index) => (
               <div key={`${app.name}:${index}`} className="flex items-center justify-between gap-2 rounded-lg border border-[#11284a] bg-[#071731] px-2 py-1 text-[10px]">
                 <div className="min-w-0">
                   <div className="font-bold text-slate-200 truncate">{app.name}</div>
@@ -80,7 +85,7 @@ export const AppHealthRenderer: React.FC<ServiceRendererProps> = ({ service, isA
                 <span className="font-mono text-[9px] text-slate-400 shrink-0">{app.version || '—'}</span>
               </div>
             ))}
-            {!apps.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لم يُقرأ أي برنامج.' : 'No installed application was measured.'}</p> : null}
+            {!filteredApps.length ? <p className="text-[10px] text-slate-500">{isArabic ? 'لا توجد برامج مطابقة في العينة المعادة.' : 'No matching application in the returned sample.'}</p> : null}
           </div>
         </div>
       </div>

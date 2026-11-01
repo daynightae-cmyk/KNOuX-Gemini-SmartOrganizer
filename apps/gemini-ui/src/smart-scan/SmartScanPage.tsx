@@ -231,6 +231,11 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
       runBlockedReason={serviceRunState(activeService).reason}
       onClose={closeWorkbench}
       onRunService={handleRunService}
+      onCancelScan={() => void scan.cancelActive()}
+      source={scan.selectedSource}
+      actionError={scan.actionError ? `${scan.actionError.code}: ${scan.actionError.message}` : null}
+      onAuthorizeSource={scan.nativeAvailable ? () => void scan.authorizeSource() : undefined}
+      onIndexSource={() => { if (scan.selectedSource) void scan.indexSource(scan.selectedSource.id); }}
       onNavigateToWorkspace={(workspace) => {
         setActiveServiceId(null);
         handleNavigate(workspace);

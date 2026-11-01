@@ -51,7 +51,7 @@ export const DeepScanRenderer: React.FC<ServiceRendererProps> = ({ service, sess
 
       <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'ملفات مفهرسة' : 'Indexed files'} value={countLabel(data.totals?.files, isArabic)} sub={byteLabel(data.totals?.bytes, isArabic)} />
-        <Metric label={isArabic ? 'مجموعات مكررة متحقق منها' : 'Verified duplicate groups'} value={String(data.duplicateSummary?.verifiedGroups ?? 0)} sub={byteLabel(data.duplicateSummary?.reclaimableVerifiedBytes, isArabic)} tone="emerald" />
+        <Metric label={isArabic ? 'مجموعات مكررة متحقق منها' : 'Verified duplicate groups'} value={countLabel(data.duplicateSummary?.verifiedGroups, isArabic)} sub={byteLabel(data.duplicateSummary?.reclaimableVerifiedBytes, isArabic)} tone="emerald" />
         <Metric label={isArabic ? 'عناصر الإقلاع' : 'Startup entries'} value={countLabel(data.startupCount, isArabic)} sub={isArabic ? 'بدون زمن إقلاع مزعوم' : 'no invented boot seconds'} tone="amber" />
         <Metric label={isArabic ? 'برامج مثبتة' : 'Installed apps'} value={countLabel(data.appCount, isArabic)} sub={isArabic ? 'من سجل إلغاء التثبيت' : 'from uninstall registry'} />
       </div>

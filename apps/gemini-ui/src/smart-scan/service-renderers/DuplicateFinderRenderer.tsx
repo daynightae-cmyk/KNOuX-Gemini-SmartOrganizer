@@ -2,16 +2,17 @@
  * SCAN-03 — Duplicate Finder measured workspace.
  * Size candidates are metadata only; content groups are SHA-256 verified.
  */
-import React from 'react';
+import React, {useState} from 'react';
 import { Copy, Fingerprint, Info, Layers } from 'lucide-react';
 import { EmptyResult, Metric, WorkspaceLink, byteLabel, type ServiceRendererProps } from './shared';
 
 export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ service, isArabic, onNavigateToWorkspace }) => {
+  const [query,setQuery] = useState('');
   if (!service) return <EmptyResult service={service} isArabic={isArabic} />;
   const data = service.data;
   const candidates = data.candidates || [];
   const verified = data.verified;
-  const groups = verified?.groups || [];
+  const groups = (verified?.groups || []).filter(group => `${group.digest} ${group.files.map(file => file.relative).join(' ')}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
 
   return (
     <div className="space-y-3 text-slate-100 font-sans">
@@ -29,12 +30,13 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
       </div>
 
       <div className="scan-metric-grid gap-2">
-        <Metric label={isArabic ? 'مجموعات مؤكدة' : 'Verified groups'} value={String(verified?.summary?.verifiedGroups ?? 0)} sub={byteLabel(verified?.summary?.reclaimableVerifiedBytes, isArabic)} tone="emerald" />
-        <Metric label={isArabic ? 'ملفات مجزأة' : 'Files hashed'} value={String(verified?.summary?.filesHashed ?? 0)} sub={byteLabel(verified?.summary?.bytesHashed, isArabic)} />
+        <Metric label={isArabic ? 'مجموعات مؤكدة' : 'Verified groups'} value={verified ? String(verified.summary.verifiedGroups) : '—'} sub={byteLabel(verified?.summary?.reclaimableVerifiedBytes, isArabic)} tone="emerald" />
+        <Metric label={isArabic ? 'ملفات مجزأة' : 'Files hashed'} value={verified ? String(verified.summary.filesHashed) : '—'} sub={byteLabel(verified?.summary?.bytesHashed, isArabic)} />
         <Metric label={isArabic ? 'مرشحات بالحجم' : 'Size candidates'} value={String(candidates.length)} sub={isArabic ? 'بيانات وصفية فقط' : 'metadata only'} tone="amber" />
-        <Metric label={isArabic ? 'حد التجزئة' : 'Hash budget'} value={verified?.summary?.budgetReached ? (isArabic ? 'جزئي' : 'Partial') : (isArabic ? 'مكتمل' : 'Complete')} sub={`${verified?.summary?.maxFiles ?? '—'} ${isArabic ? 'ملف كحد أقصى' : 'max files'}`} tone={verified?.summary?.budgetReached ? 'amber' : 'cyan'} />
+        <Metric label={isArabic ? 'حد التجزئة' : 'Hash budget'} value={!verified ? (isArabic ? 'لم يُقس' : 'Not measured') : verified.summary.budgetReached ? (isArabic ? 'جزئي' : 'Partial') : (isArabic ? 'مكتمل' : 'Complete')} sub={`${verified?.summary?.maxFiles ?? '—'} ${isArabic ? 'ملف كحد أقصى' : 'max files'}`} tone={verified?.summary?.budgetReached ? 'amber' : 'cyan'} />
       </div>
 
+      <label className="knx-file-filter-label">{isArabic ? 'تصفية البصمات والمسارات المتحققة' : 'Filter verified digests and paths'}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
       <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
         <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 mb-2">
           <Fingerprint className="w-3.5 h-3.5" />
@@ -44,19 +46,19 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
           {groups.map((group) => (
             <div key={`${group.digest}:${group.size}`} className="rounded-lg border border-[#16355c] bg-[#071731] p-2">
               <div className="flex items-center justify-between gap-2 text-[10px]">
-                <span className="font-mono text-cyan-300 truncate">SHA-256 {group.digest.slice(0, 16)}…</span>
+                <span className="font-mono text-cyan-300 knx-tool-path">SHA-256 {group.digest}</span>
                 <span className="font-bold text-emerald-300 shrink-0">{byteLabel(group.wastedBytes, isArabic)} {isArabic ? 'مكرر' : 'wasted'}</span>
               </div>
-              {group.files.slice(0, 5).map((file) => (
+              {group.files.map((file) => (
                 <div key={file.id} className="mt-1 flex justify-between gap-2 text-[9px] text-slate-400">
-                  <span className="truncate font-mono">{file.relative}</span>
+                  <span className="knx-tool-path">{file.relative}</span>
                   <span className="shrink-0">{byteLabel(file.size, isArabic)}</span>
                 </div>
               ))}
             </div>
           ))}
           {!groups.length ? (
-            <p className="text-[10px] text-slate-500">{isArabic ? 'لا توجد مجموعات متطابقة بايتياً في هذا النطاق.' : 'No byte-identical group exists in this scope.'}</p>
+            <p className="text-[10px] text-slate-500">{!verified ? (isArabic ? 'لم يُجر تحقق المحتوى في هذه النتيجة.' : 'Content verification was not measured in this result.') : (isArabic ? 'لا توجد مجموعات متحققة مطابقة للتصفية في النتائج المعادة.' : 'No returned verified groups match this filter.')}</p>
           ) : null}
         </div>
       </div>
@@ -73,6 +75,7 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
         </p>
       </div>
 
+      {verified?.errors?.length ? <details className="knx-tool-evidence"><summary>{isArabic ? 'تفاصيل أخطاء التجزئة' : 'Hashing error details'} ({verified.errors.length})</summary>{verified.errors.map((error,index) => <p key={index}>{error.name} · <code>{error.code}</code> · {error.message}</p>)}</details> : null}
       {verified?.errors?.length ? (
         <p className="text-[9px] text-rose-300 flex items-start gap-1">
           <Info className="w-3 h-3 shrink-0 mt-0.5" />
