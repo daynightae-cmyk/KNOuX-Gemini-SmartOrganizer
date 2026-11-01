@@ -15,7 +15,7 @@ class OperationEngine {
     this.grants=new Map();this.plans=new Map();this.undos=new Map();this.sequence=0;this.active=null;this.lastOp=null;
   }
   event(opId, phase, data={}) {
-    const payload={...data,opId,serviceId:data.serviceId||this.active?.serviceId||'mission-03-07',sourceMode:this.sourceMode,sequence:++this.sequence,phase,timestamp:new Date().toISOString(),provenance:this.active?.kind==='startup-action'?'Windows Registry compare/write/verify / Windows-protected receipt':this.active?.kind==='service-action'?'Windows SCM compare/control/verify / Windows-protected receipt':'native directory inventory / verified operation journal'};
+    const payload={...data,opId,serviceId:data.serviceId||this.active?.serviceId||'mission-03-07',sourceMode:this.sourceMode,sequence:++this.sequence,phase,timestamp:new Date().toISOString(),provenance:this.active?.kind==='startup-action'?'Windows Registry compare/write/verify / Windows-protected receipt':this.active?.kind==='service-action'?'Windows SCM compare/control/verify / Windows-protected receipt':this.active?.kind==='automation-run'?'Native read-only scan workflow / protected measured run receipt':'native directory inventory / verified operation journal'};
     this.emit(payload);return payload;
   }
   async grant(root,kind) {
@@ -164,7 +164,7 @@ class OperationEngine {
   }
   revoke() {
     if(this.active) throw error('OPERATION_BUSY','Cancel and finish the active operation before revoking.');
-    this.grants.clear();this.plans.clear();this.undos.clear();this.startupActions?.revoke();this.serviceActions?.revoke();this.studio.engine.revokeOwner(this.owner);return {revoked:true};
+    this.grants.clear();this.plans.clear();this.undos.clear();this.startupActions?.revoke();this.serviceActions?.revoke();this.automationRunner?.revoke();this.studio.engine.revokeOwner(this.owner);return {revoked:true};
   }
 }
 module.exports={OperationEngine,nativeStudioDir:studioDir};

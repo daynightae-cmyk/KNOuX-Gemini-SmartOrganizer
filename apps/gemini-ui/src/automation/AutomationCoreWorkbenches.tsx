@@ -53,6 +53,7 @@ import {
 } from './model';
 import type { AutomationCategory } from './model';
 import { Chip, CodeBlock, DataRows, ExportButton, Panel, SearchBox, Seg, downloadJson } from '../system/ui';
+import { AutomationRunWorkbench } from './AutomationRunWorkbench';
 
 function useDraft(snapshot: AutomationWorkbenchProps['snapshot'], templateId?: string) {
   const [draft, setDraft] = useState<AutomationWorkflow | null>(() => initialWorkflow(snapshot, templateId));
@@ -86,6 +87,7 @@ export function SmartScanWorkbench({ locale, snapshot, controller }: AutomationW
     >
       {draft ? (
         <>
+          <AutomationRunWorkbench workflow={draft} arabic={locale==='ar'} onSave={controller.saveWorkflow} onSaved={saved=>setDraft(cloneWorkflow(saved))}/>
           <div className="sys-toolbar-row">
             <Chip tone="info">{t(locale, 'Read-only scan chain', 'سلسلة فحص للقراءة فقط')}</Chip>
             <Chip tone="muted">{triggerLabel(draft, locale)}</Chip>
@@ -113,7 +115,7 @@ export function SmartScanWorkbench({ locale, snapshot, controller }: AutomationW
               <DataRows rows={[
                 { label: t(locale, 'Approval gate', 'بوابة الموافقة'), value: draft.policy.requireApproval ? t(locale, 'Required per future run', 'مطلوبة لكل تشغيل مستقبلي') : t(locale, 'Draft approval disabled', 'موافقة المسودة معطلة'), tone: draft.policy.requireApproval ? 'violet' : 'warn' },
                 { label: t(locale, 'Permission scope', 'نطاق الإذن'), value: t(locale, 'Read-only inventory metadata', 'بيانات جرد للقراءة فقط') },
-                { label: t(locale, 'Execution', 'التنفيذ'), value: t(locale, 'Dry-run only', 'معاينة جافة فقط'), tone: 'bad' },
+                { label: t(locale, 'Execution', 'التنفيذ'), value: t(locale, 'Manual observations require exact native approval', 'القياسات اليدوية تتطلب موافقة Native محددة'), tone: 'info' },
               ]} />
             </Panel>
             <Panel title={t(locale, 'Node inspector', 'فاحص العقد')} icon={FileText}>
@@ -252,7 +254,7 @@ export function RunHistoryWorkbench({ locale, snapshot, controller }: Automation
       toolId="auto-run-history"
       locale={locale}
       provider="Local dry-run journal"
-      foot={<><span><History aria-hidden="true" />{entries.length} {t(locale, 'dry-runs', 'معاينة جافة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Executed workflows', 'سير العمل المنفذ')}: 0</span></>}
+      foot={<><span><History aria-hidden="true" />{entries.length} {t(locale, 'dry-runs', 'معاينة جافة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Dry-run ledger only; native run receipts are separate', 'سجل معاينات فقط؛ إيصالات التشغيل الأصلي منفصلة')}</span></>}
     >
       <div className="sys-toolbar-row">
         <Seg<'all' | '24h' | '7d' | '30d'>

@@ -5,10 +5,12 @@ const STARTUP_FIELDS={startupDisablePlan:['entryId'],startupRestorePlan:['receip
 const STARTUP_METHODS={startupDisablePlan:'disablePlan',startupRestorePlan:'restorePlan',startupApply:'apply',startupReceipts:'receipts'};
 const SERVICE_FIELDS={serviceStatePlan:['serviceName','action'],serviceRestorePlan:['receiptId'],serviceStateApply:['planId','planHash','approved'],serviceReceipts:[]};
 const SERVICE_METHODS={serviceStatePlan:'plan',serviceRestorePlan:'restorePlan',serviceStateApply:'apply',serviceReceipts:'receipts'};
-const CHANNELS=Object.freeze(Object.fromEntries(['chooseSource','chooseDestination','scan','plan','execute','cancel','history','undoPreview','undo','revoke',...Object.keys(VAULT_FIELDS),...Object.keys(STARTUP_FIELDS),...Object.keys(SERVICE_FIELDS),'event'].map(key=>[key,`knoux:operations:v1:${key}`])));
+const AUTO_FIELDS={automationRunPlan:['workflowId','sourceId'],automationRun:['planId','planHash','approved'],automationRunReceipts:[],automationRunCancel:[]};
+const AUTO_METHODS={automationRunPlan:'plan',automationRun:'run',automationRunReceipts:'receipts',automationRunCancel:'cancel'};
+const CHANNELS=Object.freeze(Object.fromEntries(['chooseSource','chooseDestination','scan','plan','execute','cancel','history','undoPreview','undo','revoke',...Object.keys(VAULT_FIELDS),...Object.keys(STARTUP_FIELDS),...Object.keys(SERVICE_FIELDS),...Object.keys(AUTO_FIELDS),'event'].map(key=>[key,`knoux:operations:v1:${key}`])));
 const fields={chooseSource:[],chooseDestination:[],scan:['sourceId'],plan:['sourceId','destinationId','fileIds','operation','structure','collisionPolicy','categoryFolderNames','categoryDestinations','fileNames'],execute:['planId','planHash','approved'],cancel:[],history:[],undoPreview:['journalId'],undo:['journalId','previewId','previewHash','approved','resolution'],revoke:[]};
 function registerOperationIpc({ipcMain,getBridge,assertSender}) {
-  for(const [method,allowed] of Object.entries({...fields,...VAULT_FIELDS,...STARTUP_FIELDS,...SERVICE_FIELDS})) ipcMain.handle(CHANNELS[method],async(event,...args)=>{
+  for(const [method,allowed] of Object.entries({...fields,...VAULT_FIELDS,...STARTUP_FIELDS,...SERVICE_FIELDS,...AUTO_FIELDS})) ipcMain.handle(CHANNELS[method],async(event,...args)=>{
     const capability=`operations.${method}`;
     try {
       assertSender(event);
@@ -16,9 +18,9 @@ function registerOperationIpc({ipcMain,getBridge,assertSender}) {
       const request=args[0]||{};
       if(Object.keys(request).some(k=>!allowed.includes(k)) || JSON.stringify(request).length>250000) throw Object.assign(new Error('Unknown operation field or oversized request.'),{code:'OPERATION_INVALID_INPUT'});
       const bridge=getBridge();if(!bridge) throw Object.assign(new Error('Native operation engine unavailable.'),{code:'OPERATION_UNAVAILABLE'});
-      const target=method in SERVICE_FIELDS?bridge.serviceActions:method in STARTUP_FIELDS?bridge.startupActions:method in VAULT_FIELDS?bridge.storageVault:bridge;
+      const target=method in AUTO_FIELDS?bridge.automationRunner:method in SERVICE_FIELDS?bridge.serviceActions:method in STARTUP_FIELDS?bridge.startupActions:method in VAULT_FIELDS?bridge.storageVault:bridge;
       if(!target)throw Object.assign(new Error('Requested native action provider unavailable.'),{code:'OPERATION_UNAVAILABLE'});
-      const data=await target[SERVICE_METHODS[method]||STARTUP_METHODS[method]||method](request);
+      const data=await target[AUTO_METHODS[method]||SERVICE_METHODS[method]||STARTUP_METHODS[method]||method](request);
       return ok({capability,source:'KNOuX native operation engine',permission:'per-operation-consent',data});
     } catch(e) {return fail({capability,status:e.code==='UNTRUSTED_SENDER'?'permission_denied':'failed',source:'KNOuX native operation engine',error:{code:e.code,message:e.message}});}
   });

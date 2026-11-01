@@ -27,6 +27,7 @@ const { StorageVault } = require('./native/storage-vault.cjs');
 const { OperationEngine } = require('./native/operation-engine.cjs');
 const { StartupActions } = require('./native/startup-actions.cjs');
 const { ServiceActions } = require('./native/service-actions.cjs');
+const { AutomationRunner } = require('./native/automation-runner.cjs');
 const { CHANNELS: operationChannels, registerOperationIpc } = require('./native/operation-ipc.cjs');
 const { StudioBridge } = require('./native/studio-bridge.cjs');
 const { FilesBridge } = require('./native/files-bridge.cjs');
@@ -6439,6 +6440,9 @@ app.whenReady().then(async () => {
     operationBridge = new OperationEngine({studio:studioBridge,
       emit:payload=>{if(mainWindow&&!mainWindow.isDestroyed())mainWindow.webContents.send(operationChannels.event,payload);},
       confirm:async action=>{
+        if(action.kind==='automation-read-only'){
+          const answer=await dialog.showMessageBox(mainWindow,{type:'question',title:'KNOuX · Manual workflow approval',message:`Run read-only workflow ${action.plan.name} now?`,detail:`${action.plan.nodes} reviewed nodes\nSource: ${action.plan.source||'system providers only'}\nPlan: ${action.plan.planHash}\nNative observations and protected local receipt only. No file cleanup/copy, OS mutation, external notification or background schedule is activated.`,buttons:['Cancel','Approve exact manual observations'],defaultId:0,cancelId:0,noLink:true});return answer.response===1;
+        }
         if(action.kind==='service-state'){
           const answer=await dialog.showMessageBox(mainWindow,{type:'warning',title:'KNOuX · SCM approval',message:`${action.plan.action.toUpperCase()} service ${action.plan.name}?`,detail:`Current state: ${action.plan.before}\nExecutable/configuration identity: ${action.plan.identityHash}\nNo force, cascade, startup-policy change or automatic elevation. Service-state recovery cannot reverse application side effects.`,buttons:['Cancel','Approve exact service state change'],defaultId:0,cancelId:0,noLink:true});return answer.response===1;
         }
@@ -6553,6 +6557,7 @@ app.whenReady().then(async () => {
         loadProvider: () => loadProvider({ isPackaged: app.isPackaged }),
         loadStudioSources: () => studioBridge?.listSources?.() || [],
       });
+      if(scanBridge)operationBridge.automationRunner=new AutomationRunner({operations:operationBridge,automation:automationBridge,scan:scanBridge,studio:studioBridge,userDataPath:app.getPath('userData'),safeStorage});
       trace('automation bridge initialized');
     } catch (error) {
       trace(`automation bridge init failed: ${error?.message || error}`);

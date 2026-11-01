@@ -3,7 +3,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('n
 const ID=/^[a-f0-9-]{36}$/i;
 class ProtectedActionStore {
  constructor({userDataPath,namespace,safeStorage}){
-  if(!['startup-action-receipts','service-action-receipts'].includes(namespace))throw Error('Receipt namespace refused.');
+  if(!['startup-action-receipts','service-action-receipts','automation-run-receipts'].includes(namespace))throw Error('Receipt namespace refused.');
   this.root=path.join(userDataPath,namespace);this.safeStorage=safeStorage;
  }
  available(){if(!this.safeStorage?.isEncryptionAvailable())throw Object.assign(Error('Windows-protected receipt storage is required before native changes.'),{code:'SECURE_ACTION_STORAGE_REQUIRED'});}

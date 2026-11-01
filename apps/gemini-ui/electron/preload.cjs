@@ -456,5 +456,9 @@ contextBridge.exposeInMainWorld('knouxOperationsV1', Object.freeze({
   serviceRestorePlan: request => ipcRenderer.invoke('knoux:operations:v1:serviceRestorePlan', request),
   serviceStateApply: request => ipcRenderer.invoke('knoux:operations:v1:serviceStateApply', request),
   serviceReceipts: () => ipcRenderer.invoke('knoux:operations:v1:serviceReceipts'),
+  automationRunPlan: request => ipcRenderer.invoke('knoux:operations:v1:automationRunPlan', request),
+  automationRun: request => ipcRenderer.invoke('knoux:operations:v1:automationRun', request),
+  automationRunReceipts: () => ipcRenderer.invoke('knoux:operations:v1:automationRunReceipts'),
+  automationRunCancel: () => ipcRenderer.invoke('knoux:operations:v1:automationRunCancel'),
   onEvent: callback => { const listener=(_event,payload)=>callback(payload); ipcRenderer.on('knoux:operations:v1:event',listener); return ()=>ipcRenderer.removeListener('knoux:operations:v1:event',listener); },
 }));
