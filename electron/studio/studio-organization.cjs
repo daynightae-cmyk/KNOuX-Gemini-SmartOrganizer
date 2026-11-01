@@ -519,7 +519,9 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
       }
       const base = categoryBases.get(file.category) || null;
       let folderPath = null;
-      let targetName = file.name;
+      let targetName = request.targetFileNames?.[safety.keyOf(sourceAbsolute)] ?? file.name;
+      const targetNameCheck = safety.validateNameForNewPath(targetName);
+      if (operation !== 'virtual' && !targetNameCheck.ok) throw studioError('STUDIO_INVALID_FILE_NAME', 'The requested output filename is invalid.');
       let targetAbsolute = null;
       let targetRelative = null;
       let status = 'ready';
@@ -557,7 +559,7 @@ function createOrganizationEngine({ storagePath, now = () => Date.now(), maxPlan
             skipped.push({ name: file.name, sourceRelative: file.relative, category: file.category, size: file.size, reason: 'COLLISION' });
             status = 'skipped';
           } else if (collisionPolicy === 'rename') {
-            targetName = await uniquePlannedName(folderPath, file.name, plannedTargets);
+            targetName = await uniquePlannedName(folderPath, targetName, plannedTargets);
             targetAbsolute = path.join(folderPath, targetName);
             validationFullPath(targetAbsolute);
             targetRelative = relativeForDisplay(base.root, targetAbsolute);

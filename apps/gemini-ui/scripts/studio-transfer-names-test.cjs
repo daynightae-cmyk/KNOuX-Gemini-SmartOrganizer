@@ -1,0 +1,24 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
+const {fixture,bridgeFor,sha}=require('./live-organization-fixtures.cjs');
+(async()=>{
+ const f=await fixture(4),{engine,source,destination,request}=await bridgeFor(f);
+ let scan=await engine.scan({sourceId:source.id});let file=scan.files[0];
+ const targetName='sorted_'+file.name,existing=path.join(destination.path,targetName);await fs.writeFile(existing,'existing file must survive');
+ const input={...request,structure:'flat',fileIds:[file.id],fileNames:{[file.id]:targetName}};
+ for(const name of ['../escape.txt','CON.txt','bad/name.txt','trailing.'])await assert.rejects(engine.plan({...input,fileNames:{[file.id]:name}}),e=>e.code==='OPERATION_INVALID_NAMES');
+ await assert.rejects(engine.plan({...input,fileNames:{999999:'valid.txt'}}),e=>e.code==='OPERATION_INVALID_NAMES');
+ const plan=await engine.plan(input),output=plan.files[0].targetPath;
+ assert.notEqual(output,existing);assert(path.basename(output).startsWith('sorted_'));
+ await assert.rejects(engine.execute({planId:plan.planId,planHash:'tampered',approved:true}),e=>e.code==='OPERATION_PLAN_MISMATCH');
+ const moved=await engine.execute({planId:plan.planId,planHash:plan.planHash,approved:true});assert.equal(moved.receipt.completedFiles,1);
+ assert.equal(sha(await fs.readFile(output)),f.originals[file.name]);assert.equal(await fs.readFile(existing,'utf8'),'existing file must survive');
+ const inverse=await engine.undoPreview({journalId:moved.receipt.operationId});
+ const restored=await engine.undo({journalId:moved.receipt.operationId,previewId:inverse.previewId,previewHash:inverse.previewHash,approved:true,resolution:'skip'});
+ assert.equal(restored.receipt.undoCompletedFiles,1);assert.equal(sha(await fs.readFile(path.join(f.source,file.name))),f.originals[file.name]);
+ scan=await engine.scan({sourceId:source.id});file=scan.files.find(row=>row.name===file.name);
+ const copyPlan=await engine.plan({...request,operation:'copy',structure:'flat',fileIds:[file.id],fileNames:{[file.id]:'copy_'+file.name}});
+ const copied=await engine.execute({planId:copyPlan.planId,planHash:copyPlan.planHash,approved:true});assert.equal(copied.receipt.completedFiles,1);
+ assert.equal(sha(await fs.readFile(copyPlan.files[0].targetPath)),f.originals[file.name]);assert.equal(sha(await fs.readFile(path.join(f.source,file.name))),f.originals[file.name]);
+ console.log(JSON.stringify({ok:true,scope:'disposable native fixtures',renamedMove:1,restoredOriginalName:1,renamedCopy:1,negatives:6,existingCollisionPreserved:true}));
+})().catch(e=>{console.error(e);process.exitCode=1;});

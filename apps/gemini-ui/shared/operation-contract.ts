@@ -10,7 +10,7 @@ export type OperationApi=StorageVaultApi & {
  chooseSource():Promise<NativeEnvelope<{id:string;path:string}|null>>;
  chooseDestination():Promise<NativeEnvelope<{id:string;path:string}|null>>;
  scan(request:{sourceId:string}):Promise<NativeEnvelope<{files:OperationFile[];summary:{partial:boolean;warnings:string[]}}>>;
- plan(request:{sourceId:string;destinationId:string;fileIds?:number[];operation:'move'|'copy';structure:'categorized'|'flat';collisionPolicy:'review'|'rename'|'skip';categoryFolderNames:Record<string,string>;categoryDestinations?:Record<string,{destinationId:string}>}):Promise<NativeEnvelope<OrganizationPlan>>;
+ plan(request:{sourceId:string;destinationId:string;fileIds?:number[];operation:'move'|'copy';structure:'categorized'|'flat';collisionPolicy:'review'|'rename'|'skip';categoryFolderNames:Record<string,string>;categoryDestinations?:Record<string,{destinationId:string}>;fileNames?:Record<string,string>}):Promise<NativeEnvelope<OrganizationPlan>>;
  execute(request:{planId:string;planHash:string;approved:boolean}):Promise<NativeEnvelope<{receipt:OperationReceipt}>>;
  cancel():Promise<NativeEnvelope<unknown>>;
  revoke():Promise<NativeEnvelope<unknown>>;

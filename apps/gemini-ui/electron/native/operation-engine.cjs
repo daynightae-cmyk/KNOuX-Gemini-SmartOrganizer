@@ -80,6 +80,16 @@ class OperationEngine {
     if(!['move','copy'].includes(request.operation) || !['rename','skip','review'].includes(request.collisionPolicy) || !['categorized','flat'].includes(request.structure)) throw error('OPERATION_INVALID_OPTIONS','Invalid organization options.');
     const selection=Array.isArray(request.fileIds)?{fileIds:request.fileIds}:{all:true};
     if(request.categoryFolderNames && (typeof request.categoryFolderNames!=='object' || Array.isArray(request.categoryFolderNames))) throw error('OPERATION_INVALID_RULES','Folder rules must be an object.');
+    const targetFileNames={};
+    if(request.fileNames!==undefined) {
+      if(!request.fileNames || typeof request.fileNames!=='object' || Array.isArray(request.fileNames) || Object.keys(request.fileNames).length>record.files.length) throw error('OPERATION_INVALID_NAMES','File names must reference the measured index.');
+      for(const [id,name] of Object.entries(request.fileNames)) {
+        const file=record.files.find(file=>String(file.id)===id);
+        const check=safety.validateNameForNewPath(name);
+        if(!file || (Array.isArray(request.fileIds)&&!request.fileIds.includes(file.id)) || !check.ok) throw error('OPERATION_INVALID_NAMES','Each output name must be a valid Windows filename for a selected native file ID.');
+        targetFileNames[safety.keyOf(path.resolve(record.root,...file.relative.split('/')))]=check.name;
+      }
+    }
     const categoryDestinations={};
     if(request.categoryDestinations!==undefined) {
       const overrides=request.categoryDestinations;
@@ -92,7 +102,7 @@ class OperationEngine {
         categoryDestinations[category]={destinationId:target.destinationId,relativePath:''};
       }
     }
-    const plan=await this.studio.engine.buildPlan({owner:this.owner,request:{bindContent:true,selections:[{inventoryId:request.sourceId,...selection}],operation:request.operation,structure:request.structure,collisionPolicy:request.collisionPolicy,destination:{destinationId:destination.id,relativePath:''},categoryFolderNames:request.categoryFolderNames||{},categoryDestinations},getInventory:id=>id===request.sourceId && this.studio.getSource(id) && this.studio.getInventory(id)===record && this.authorized(source.path,'source')?record:null,resolveDestination:id=>this.studio.destinations.get(id)});
+    const plan=await this.studio.engine.buildPlan({owner:this.owner,request:{bindContent:true,selections:[{inventoryId:request.sourceId,...selection}],operation:request.operation,structure:request.structure,collisionPolicy:request.collisionPolicy,destination:{destinationId:destination.id,relativePath:''},categoryFolderNames:request.categoryFolderNames||{},categoryDestinations,targetFileNames},getInventory:id=>id===request.sourceId && this.studio.getSource(id) && this.studio.getInventory(id)===record && this.authorized(source.path,'source')?record:null,resolveDestination:id=>this.studio.destinations.get(id)});
     this.plans.set(plan.planId,plan);
     while(this.plans.size>10) this.plans.delete(this.plans.keys().next().value);
     this.event(plan.planId,'consent',{completed:0,total:plan.totals.files,planHash:plan.planHash});
