@@ -10,7 +10,8 @@ export type StartupActionReceipt={id:string;name:string;key:string;status:string
 export type ServiceStatePlan={id:string;planHash:string;name:string;action:'start'|'stop';before:string;after:string;identityHash:string;receiptId:string|null;expiresAt:string};
 export type ServiceStateReceipt={id:string;name:string;action?:string;status:string;before?:string;after?:string;createdAt?:string;updatedAt?:string;error:string|null;recoveryAvailable:boolean};
 export type AutomationRunPlan={id:string;planHash:string;workflowId:string;name:string;version:number;sourceLabel:string|null;sourcePath:string|null;services:string[];mode:'manual-observation';expiresAt:string;nodes:{id:string;type:string;label:string}[]};
-export type AutomationRunReceipt={id:string;name:string;status:string;createdAt?:string;finishedAt?:string;error?:string;steps?:{id:string;label:string;type:string;status:string;evidence?:unknown}[];planHash?:string};
+export type AutomationRunReceipt={id:string;name:string;status:string;mode?:string;scheduleId?:string|null;createdAt?:string;finishedAt?:string;error?:string;steps?:{id:string;label:string;type:string;status:string;evidence?:unknown}[];planHash?:string};
+export type AutomationSchedule={id:string;name:string;workflowId?:string;status:string;nextAt?:string;lastStatus?:string|null;lastRunAt?:string;lastReceiptId?:string;error?:string;rule?:string};
 export type OperationApi=StorageVaultApi & {
  contractVersion:1;
  chooseSource():Promise<NativeEnvelope<{id:string;path:string}|null>>;
@@ -35,6 +36,9 @@ export type OperationApi=StorageVaultApi & {
  automationRun(request:{planId:string;planHash:string;approved:boolean}):Promise<NativeEnvelope<AutomationRunReceipt>>;
  automationRunReceipts():Promise<NativeEnvelope<AutomationRunReceipt[]>>;
  automationRunCancel():Promise<NativeEnvelope<boolean>>;
+ automationScheduleArm(request:{planId:string;planHash:string;approved:boolean}):Promise<NativeEnvelope<AutomationSchedule>>;
+ automationSchedulePause(request:{scheduleId:string}):Promise<NativeEnvelope<AutomationSchedule>>;
+ automationSchedules():Promise<NativeEnvelope<AutomationSchedule[]>>;
  onEvent(callback:(event:OperationEvent)=>void):()=>void;
 };
 declare global {interface Window {knouxOperationsV1?:OperationApi;}}

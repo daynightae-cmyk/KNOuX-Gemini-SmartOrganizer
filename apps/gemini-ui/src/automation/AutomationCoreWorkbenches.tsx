@@ -83,7 +83,7 @@ export function SmartScanWorkbench({ locale, snapshot, controller }: AutomationW
     <AutomationToolFrame
       toolId="auto-smart-scan"
       locale={locale}
-      foot={<><span><Sparkles aria-hidden="true" />{draft?.nodes.length || 0} {t(locale, 'nodes', 'عقدة')}</span><span><Lock aria-hidden="true" />{t(locale, 'No scheduled execution', 'لا تنفيذ مجدول')}</span></>}
+      foot={<><span><Sparkles aria-hidden="true" />{draft?.nodes.length || 0} {t(locale, 'nodes', 'عقدة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Foreground schedule requires separate approval', 'الجدولة داخل التطبيق تتطلب موافقة مستقلة')}</span></>}
     >
       {draft ? (
         <>

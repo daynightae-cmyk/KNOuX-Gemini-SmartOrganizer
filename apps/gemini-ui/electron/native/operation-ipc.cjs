@@ -5,8 +5,8 @@ const STARTUP_FIELDS={startupDisablePlan:['entryId'],startupRestorePlan:['receip
 const STARTUP_METHODS={startupDisablePlan:'disablePlan',startupRestorePlan:'restorePlan',startupApply:'apply',startupReceipts:'receipts'};
 const SERVICE_FIELDS={serviceStatePlan:['serviceName','action'],serviceRestorePlan:['receiptId'],serviceStateApply:['planId','planHash','approved'],serviceReceipts:[]};
 const SERVICE_METHODS={serviceStatePlan:'plan',serviceRestorePlan:'restorePlan',serviceStateApply:'apply',serviceReceipts:'receipts'};
-const AUTO_FIELDS={automationRunPlan:['workflowId','sourceId'],automationRun:['planId','planHash','approved'],automationRunReceipts:[],automationRunCancel:[]};
-const AUTO_METHODS={automationRunPlan:'plan',automationRun:'run',automationRunReceipts:'receipts',automationRunCancel:'cancel'};
+const AUTO_FIELDS={automationRunPlan:['workflowId','sourceId'],automationRun:['planId','planHash','approved'],automationRunReceipts:[],automationRunCancel:[],automationScheduleArm:['planId','planHash','approved'],automationSchedulePause:['scheduleId'],automationSchedules:[]};
+const AUTO_METHODS={automationRunPlan:'plan',automationRun:'run',automationRunReceipts:'receipts',automationRunCancel:'cancel',automationScheduleArm:'armSchedule',automationSchedulePause:'pauseSchedule',automationSchedules:'schedules'};
 const CHANNELS=Object.freeze(Object.fromEntries(['chooseSource','chooseDestination','scan','plan','execute','cancel','history','undoPreview','undo','revoke',...Object.keys(VAULT_FIELDS),...Object.keys(STARTUP_FIELDS),...Object.keys(SERVICE_FIELDS),...Object.keys(AUTO_FIELDS),'event'].map(key=>[key,`knoux:operations:v1:${key}`])));
 const fields={chooseSource:[],chooseDestination:[],scan:['sourceId'],plan:['sourceId','destinationId','fileIds','operation','structure','collisionPolicy','categoryFolderNames','categoryDestinations','fileNames'],execute:['planId','planHash','approved'],cancel:[],history:[],undoPreview:['journalId'],undo:['journalId','previewId','previewHash','approved','resolution'],revoke:[]};
 function registerOperationIpc({ipcMain,getBridge,assertSender}) {
