@@ -65,10 +65,10 @@ export async function readStartupStatus(sessionId: string): Promise<NativeEnvelo
   return assertEnvelope(await api.status(sessionId), 'startup.status');
 }
 
-export async function cancelStartupScan(sessionId: string): Promise<void> {
+export async function cancelStartupScan(sessionId: string): Promise<NativeEnvelope<{cancelled:boolean;status:string;sessionId:string}> | null> {
   const api = getStartupShell();
-  if (!api) return;
-  await assertEnvelope(await api.cancel(sessionId), 'startup.cancel');
+  if (!api) return null;
+  return assertEnvelope(await api.cancel(sessionId), 'startup.cancel');
 }
 
 export async function loadStartupInventory(): Promise<NativeEnvelope<StartupInventory> | null> {

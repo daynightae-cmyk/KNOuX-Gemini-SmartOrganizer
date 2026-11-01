@@ -6,6 +6,7 @@
  * service, startup-folder or journal write is available here.
  */
 import React, { useEffect, useMemo, useState } from 'react';
+import { NativeAppIcon } from '../components/app/AppIcon';
 import {
   Activity,
   AlertTriangle,
@@ -193,7 +194,7 @@ function EntryRow({
   return (
     <button type="button" className={`stp-entry-row ${active ? 'is-active' : ''}`} onClick={onClick}>
       <span className="stp-entry-icon" style={{ color: SOURCE_META[entry.sourceKind].accent }}>
-        <FileCode2 className="w-3.5 h-3.5" />
+        <NativeAppIcon appId={entry.id} source="startup"/>
       </span>
       <span className="stp-entry-copy">
         <span className="stp-entry-name" title={entry.name}>{entry.name}</span>
@@ -212,9 +213,7 @@ function EntryIdentity({ entry, locale }: { entry: StartupEntry; locale: Startup
   return (
     <div className="stp-entry-identity">
       <div className="stp-entry-identity-icon" style={{ borderColor: SOURCE_META[entry.sourceKind].accent }}>
-        {entry.sourceKind === 'scheduled-task'
-          ? <CalendarClock className="w-5 h-5" style={{ color: SOURCE_META[entry.sourceKind].accent }} />
-          : <FileCode2 className="w-5 h-5" style={{ color: SOURCE_META[entry.sourceKind].accent }} />}
+        <NativeAppIcon appId={entry.id} source="startup" className="knx-native-app-icon-large"/>
       </div>
       <div className="min-w-0">
         <div className="stp-entry-identity-name" title={entry.name}>{entry.name}</div>
@@ -282,7 +281,7 @@ function EntryPicker({
             >
               <span className={`stp-picker-check ${checked ? 'is-on' : ''}`}>{checked ? <CheckCircle2 className="w-3 h-3" /> : null}</span>
               <span className="min-w-0">
-                <span className="stp-picker-name" title={entry.name}>{entry.name}</span>
+                <span className="stp-picker-name flex items-center gap-2" title={entry.name}><NativeAppIcon appId={entry.id} source="startup"/>{entry.name}</span>
                 <span className="stp-picker-sub">{sourceLabel(entry.sourceKind, locale)} · {stateLabel(entry.state, locale)}</span>
               </span>
               {entry.protection === 'protected' ? <Lock className="w-3 h-3 stp-icon-amber" /> : null}
@@ -363,6 +362,8 @@ export function ServiceWorkspace({
   const services = inventory?.services || [];
   const tasks = inventory?.tasks || [];
 
+  const [discoveryOptions,setDiscoveryOptions] = useState({includeTasks:true,includeServices:true,includeBoot:true});
+  const discoveryBusy = controller.loading || controller.refreshing || controller.scanning || Boolean(controller.busy);
   const [selectedId, setSelectedId] = useState<string | null>(selectedEntry?.id || entries[0]?.id || null);
   const [stageAcknowledged, setStageAcknowledged] = useState(false);
   const [sourceLane, setSourceLane] = useState<'all' | StartupEntry['sourceKind']>('all');
@@ -948,7 +949,7 @@ export function ServiceWorkspace({
               >
                 <span className={`stp-picker-check ${entry.id === selected?.id ? 'is-on' : ''}`}>{entry.id === selected?.id ? <CheckCircle2 className="w-3 h-3" /> : null}</span>
                 <span className="min-w-0">
-                  <span className="stp-picker-name" title={entry.name}>{entry.name}</span>
+                  <span className="stp-picker-name flex items-center gap-2" title={entry.name}><NativeAppIcon appId={entry.id} source="startup"/>{entry.name}</span>
                   <span className="stp-picker-sub" title={`${sourceLabel(entry.sourceKind, locale)} · ${signatureLabel(entry.signature, locale)}`}>{sourceLabel(entry.sourceKind, locale)} · {signatureLabel(entry.signature, locale)}</span>
                 </span>
                 <span className="stp-picker-path" title={entry.executable || entry.location}>{entry.executable || entry.location}</span>
@@ -1457,6 +1458,9 @@ export function ServiceWorkspace({
     return (
       <div data-testid="startup-service-focus" data-tool-body="startup" data-tool={service} className="flex flex-col gap-2">
         <p className="text-[10px] text-slate-400">{description}</p>
+        {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
+        {discoveryBusy ? <div role="status" className="knx-tool-context"><progress aria-label={t(locale,'Native Startup discovery','اكتشاف الإقلاع الأصلي')}/><span>{t(locale,'Reading actual Startup evidence…','جارٍ قراءة أدلة الإقلاع الفعلية…')}</span>{controller.scanning ? <button type="button" className="stp-btn" onClick={() => void controller.cancelScan()} disabled={controller.cancelling}>{t(locale,'Cancel discovery','إلغاء الاكتشاف')}</button> : null}</div> : null}
+        <details className="knx-tool-evidence"><summary>{t(locale,'Discovery sources','مصادر الاكتشاف')}</summary><fieldset disabled={discoveryBusy} className="knx-tool-fieldset"><div className="flex flex-wrap gap-3 mt-2">{([['includeTasks','Scheduled Tasks','المهام المجدولة'],['includeServices','Services','الخدمات'],['includeBoot','Boot Events','أحداث الإقلاع']] as const).map(([key,en,ar]) => <label className="flex items-center gap-2" key={key}><input type="checkbox" checked={discoveryOptions[key]} onChange={event => setDiscoveryOptions(current => ({...current,[key]:event.target.checked}))}/>{t(locale,en,ar)}</label>)}</div><div className="knx-tool-actions"><button type="button" disabled={!controller.nativeAvailable} onClick={() => void controller.startScan(discoveryOptions)}>{t(locale,'Discover native entries','اكتشاف المداخل الأصلية')}</button><button type="button" disabled={!controller.nativeAvailable} onClick={() => void controller.refresh()}>{t(locale,'Refresh evidence','تحديث الأدلة')}</button></div></fieldset><p>{t(locale,'Read-only discovery; no startup entry, service or registry value is changed.','اكتشاف للقراءة فقط؛ لا يتغير مدخل إقلاع أو خدمة أو قيمة سجل.')}</p></details>
         {renderService()}
         <div className="stp-gate-note">
           <Lock className="w-3 h-3" />
