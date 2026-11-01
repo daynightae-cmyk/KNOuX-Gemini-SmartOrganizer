@@ -139,3 +139,5 @@ html:not([data-theme=light]) .visual-sprint[data-visual-section=automation] {--k
 .knx-tool-error {padding:12px;border:1px solid color-mix(in srgb,var(--knx-night-error,#d42e65) 60%,transparent);border-radius:10px;color:var(--wb-ink);background:color-mix(in srgb,#d42e65 10%,var(--wb-inset));}
 .knx-file-filter-label {display:grid;gap:6px;}
 .knx-file-result-list>p {padding:8px 12px;margin:0;border-block-end:1px solid var(--wb-line);}
+
+.knx-file-ranked {display:flex;flex-direction:column;gap:14px;}

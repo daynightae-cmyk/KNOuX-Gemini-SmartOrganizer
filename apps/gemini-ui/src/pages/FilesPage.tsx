@@ -321,7 +321,14 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   // Aggregate selected files info
   const selectedCount = checkedFileIds.size;
-  const openLiveOrganization = (stageId = 1) => window.dispatchEvent(new CustomEvent('knoux:live-organization', {detail: {...(measured && filesNative.source ? {path:filesNative.source.path,relativeFiles:sourceFiles.filter(f=>checkedFileIds.has(f.id)&&f.nativeRelative).map(f=>f.nativeRelative)} : {}),stageId}}));
+  const openLiveOrganization = (stageId = 1, selectedOnly = false) => {
+    const checked = sourceFiles.filter(file => checkedFileIds.has(file.id));
+    const scope = checked.length ? checked : selectedOnly ? [selectedFile] : [];
+    const relativeFiles = scope.flatMap(file => file.nativeRelative ? [file.nativeRelative] : []);
+    window.dispatchEvent(new CustomEvent('knoux:live-organization', {detail: {
+      ...(measured && filesNative.source ? {path:filesNative.source.path,relativeFiles} : {}), stageId,
+    }}));
+  };
   const selectedSizeFormatted =
     selectedCount === 1
       ? sourceFiles.find((f) => checkedFileIds.has(f.id))?.sizeFormatted || '0 B'
@@ -393,7 +400,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   };
 
   const handleOpenStudio = (stageId = 6) => {
-    openLiveOrganization(typeof stageId === 'number' ? stageId : 6);
+    openLiveOrganization(typeof stageId === 'number' ? stageId : 6, true);
     if (onNavigateSection) onNavigateSection('studio');
     else navigateTo('studio');
     showToast('Studio opened — plan execution still needs explicit approval.');
@@ -436,6 +443,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         results={filteredFiles}
         queryError={filesNative.error}
         onSelectFile={setSelectedFile}
+        onOpenService={setActiveService}
         onQueryChange={patch => {
           if (patch.search !== undefined) setSearchQuery(patch.search);
           if (patch.extension !== undefined) setSelectedExtension(patch.extension);
@@ -443,8 +451,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
           if (patch.dateFilter !== undefined) setDateFilter(patch.dateFilter);
           if (patch.sort !== undefined) setSortBy(patch.sort);
         }}
-        scopeCount={selectedCount}
-        scopeBytes={selectedSizeFormatted}
+        scopeCount={selectedCount || (measured && selectedFile.nativeRelative ? 1 : 0)}
+        scopeBytes={selectedCount ? selectedSizeFormatted : measured && selectedFile.nativeRelative ? selectedFile.sizeFormatted : '0 B'}
         onClose={() => setActiveService(null)}
         onAdd={() => void filesNative.addSource()}
         onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}

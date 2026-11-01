@@ -15,3 +15,5 @@ Capture failures: native disposable source authorization intermittently returned
 Final production build, complete screenshot matrix, Files native effect regression, packaged runtime, Windows 125/150 percent scaling, full 181-service acceptance and owner visual signoff: NOT_RUN / OPEN. No owner files, apps, services or accounts mutated; no push or main merge.
 
 Lightweight service status: docs/SERVICE_WORKSPACE_IMPLEMENTATION.csv (181 original IDs, no blanket functionality claim).
+
+Second batch: native Files ranking filters/inspector, count/byte distribution, source clipboard error handling, and exact selected-row Studio scope handoff. TypeScript exit 0; final runtime/effect acceptance NOT_RUN per owner override. Existing mutation engine unchanged.

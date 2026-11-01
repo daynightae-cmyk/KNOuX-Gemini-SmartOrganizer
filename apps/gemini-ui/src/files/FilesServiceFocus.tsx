@@ -14,6 +14,7 @@ import {
 import type {
   FilesEmptyFoldersResult,
   FilesHashResult,
+  FilesItem,
   FilesMetadata,
   FilesOverview,
 } from '../../shared/native-contracts';
@@ -45,6 +46,7 @@ interface FilesServiceFocusProps {
   queryError: string | null;
   onQueryChange: (patch: FilesQueryFilters) => void;
   onSelectFile: (file: FileResultItem) => void;
+  onOpenService: (service: FilesServiceKey) => void;
   embedded?: boolean;
 }
 
@@ -82,7 +84,7 @@ export function FilesServiceFocus({
   onLoadEmpty,
   onHash,
   onSort,
-  query, results, queryError, onQueryChange, onSelectFile,
+  query, results, queryError, onQueryChange, onSelectFile, onOpenService,
   embedded = false,
 }: FilesServiceFocusProps) {
   const meta = FILES_DOMAIN_SERVICES.find((entry) => entry.key === service);
@@ -90,12 +92,19 @@ export function FilesServiceFocus({
   const description = meta ? (locale === 'en' ? meta.descEn : meta.descAr) : '';
 
   const [emptyQuery, setEmptyQuery] = useState('');
+  const [typeMeasure, setTypeMeasure] = useState<'count' | 'bytes'>('count');
+  const [overviewSelection, setOverviewSelection] = useState<FilesItem | null>(null);
+  const [overviewQuery, setOverviewQuery] = useState('');
   const [copyStatus, setCopyStatus] = useState('');
-  useEffect(() => setCopyStatus(''), [selectedFile.id, hash?.digest]);
+  useEffect(() => setCopyStatus(''), [selectedFile.id, hash?.digest, service]);
+  useEffect(() => { setOverviewSelection(null); setOverviewQuery(''); }, [overview?.source.id, overview?.scannedAt, service]);
+  const copyText = async (text: string, success: string) => {
+    try { await navigator.clipboard.writeText(text); setCopyStatus(success); }
+    catch { setCopyStatus(locale === 'en' ? 'Clipboard unavailable' : 'الحافظة غير متاحة'); }
+  };
   const copyDigest = async () => {
     if (!hash) return;
-    try { await navigator.clipboard.writeText(hash.digest); setCopyStatus(locale === 'en' ? 'Digest copied' : 'تم نسخ البصمة'); }
-    catch { setCopyStatus(locale === 'en' ? 'Clipboard unavailable' : 'الحافظة غير متاحة'); }
+    await copyText(hash.digest, locale === 'en' ? 'Digest copied' : 'تم نسخ البصمة');
   };
 
   const renderBody = () => {
@@ -135,13 +144,13 @@ export function FilesServiceFocus({
               <div>
                 <div className="text-[10px] font-semibold text-slate-300 mb-1">{locale === 'en' ? 'Category distribution' : 'توزيع الفئات'}</div>
                 <div className="space-y-1">
-                  {overview.categories.slice(0, 5).map((category) => {
+                  {overview.categories.map((category) => {
                     const total = overview.totals.files || 1;
-                    const width = Math.max(2, Math.round((category.count / total) * 100));
+                    const width = Math.min(100, Math.max(0, (category.count / total) * 100));
                     return (
                       <div key={category.key}>
                         <div className="flex justify-between text-[9px] font-mono text-slate-400"><span>{category.key}</span><span>{category.count.toLocaleString()}</span></div>
-                        <div className="h-1.5 rounded bg-[#0a1c38] overflow-hidden"><div className="h-full bg-gradient-to-r from-[#2476ff] to-[#26c6ff]" style={{ width: `${width}%` }} /></div>
+                        <div role="meter" aria-label={category.key} aria-valuemin={0} aria-valuemax={100} aria-valuenow={width} className="h-1.5 rounded bg-[#0a1c38] overflow-hidden"><div className="h-full bg-gradient-to-r from-[#2476ff] to-[#26c6ff]" style={{ width: `${width}%` }} /></div>
                       </div>
                     );
                   })}
@@ -302,19 +311,21 @@ export function FilesServiceFocus({
         );
       case 'file-type-map':
         return (
-          <div className="space-y-1.5" data-testid="files-type-map-workbench">
+          <div className="space-y-3" data-testid="files-type-map-workbench">
+            <div role="group" aria-label={locale === 'en' ? 'Distribution measure' : 'مقياس التوزيع'} className="knx-tool-actions">{(['count','bytes'] as const).map(measure => <button type="button" key={measure} aria-pressed={typeMeasure === measure} onClick={() => setTypeMeasure(measure)}>{measure === 'count' ? (locale === 'en' ? 'File count' : 'عدد الملفات') : (locale === 'en' ? 'Bytes' : 'الحجم')}</button>)}</div>
             <button onClick={() => onSort('size_desc')} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
               {locale === 'en' ? 'Rank the ledger by size' : 'ترتيب السجل حسب الحجم'}
             </button>
             {(overview?.extensions || []).map((item) => {
-              const total = overview?.totals.files || 1;
-              const percent = Math.min(100, Math.max(0, (item.count / total) * 100));
+              const total = typeMeasure === 'bytes' ? overview?.totals.bytes || 0 : overview?.totals.files || 0;
+              const amount = typeMeasure === 'bytes' ? item.bytes : item.count;
+              const percent = total > 0 ? Math.min(100, Math.max(0, (amount / total) * 100)) : 0;
               return (
                 <div key={item.ext}>
                   <div className="flex justify-between text-[9px] font-mono text-slate-300">
-                    <span>.{item.ext}</span><span>{item.count.toLocaleString()}</span>
+                    <span>{item.ext ? `.${item.ext}` : (locale === 'en' ? 'No extension' : 'بدون امتداد')}</span><span>{typeMeasure === 'bytes' ? formatBytes(item.bytes) : item.count.toLocaleString()} · {percent.toFixed(1)}%</span>
                   </div>
-                  <div className="h-1.5 rounded bg-[#0a1c38] overflow-hidden">
+                  <div role="meter" aria-label={item.ext || (locale === 'en' ? 'No extension' : 'بدون امتداد')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent} className="h-1.5 rounded bg-[#0a1c38] overflow-hidden">
                     <div className="h-full bg-gradient-to-r from-[#2476ff] to-[#26c6ff]" style={{ width: `${percent}%` }} />
                   </div>
                 </div>
@@ -325,21 +336,17 @@ export function FilesServiceFocus({
       case 'file-recents':
       case 'file-largest': {
         const rows = service === 'file-recents' ? overview?.recent || [] : overview?.largest || [];
+        const visible = rows.filter(item => `${item.name} ${item.relative}`.toLocaleLowerCase().includes(overviewQuery.toLocaleLowerCase()));
         return (
-          <div className="space-y-1" data-testid={`files-${service === 'file-recents' ? 'recents' : 'largest'}-workbench`}>
-            <button onClick={() => onSort(service === 'file-recents' ? 'date_desc' : 'size_desc')} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
-              {service === 'file-recents'
-                ? (locale === 'en' ? 'Sort the ledger by newest' : 'ترتيب السجل بالأحدث')
-                : (locale === 'en' ? 'Sort the ledger by largest' : 'ترتيب السجل بالأكبر')}
-            </button>
-            {rows.slice(0, 5).map((item) => (
-              <div key={`${service}-${item.id}`} className="flex items-center justify-between gap-2 text-[10px]">
-                <span className="text-slate-300 truncate">{item.name}</span>
-                <span className="font-mono text-slate-500 shrink-0">{formatBytes(item.size)}</span>
-              </div>
-            ))}
-            {!rows.length && <div className="text-[10px] text-slate-500">{locale === 'en' ? 'No rows in the measured index.' : 'لا توجد صفوف في الفهرس المقيس.'}</div>}
-          </div>
+          <section className="knx-file-ranked" data-testid={`files-${service === 'file-recents' ? 'recents' : 'largest'}-workbench`}>
+            <div className="knx-tool-context"><Clock aria-hidden="true"/><div><strong>{locale === 'en' ? (service === 'file-recents' ? 'Recent modifications' : 'Largest indexed files') : (service === 'file-recents' ? 'أحدث التعديلات' : 'أكبر الملفات المفهرسة')}</strong><small>{overview?.source.label} · {overview?.scannedAt || '—'}</small></div></div>
+            <label className="knx-file-filter-label">{locale === 'en' ? 'Filter returned files' : 'تصفية الملفات المكتشفة'}<input type="search" value={overviewQuery} onChange={e => setOverviewQuery(e.target.value)}/></label>
+            <p>{locale === 'en' ? `${visible.length} of ${rows.length} provider-ranked rows. This is a bounded summary of the authorized index.` : `${visible.length} من ${rows.length} صف رتبها المزود. هذا ملخص محدود للفهرس المصرح.`}</p>
+            <div className="knx-file-result-list">{visible.map(item => <button type="button" key={item.id} onClick={() => setOverviewSelection(item)} aria-pressed={overviewSelection?.id === item.id}><span><strong>{item.name}</strong><small className="knx-tool-path">{item.relative}</small></span><code dir="ltr">{formatBytes(item.size)}</code></button>)}</div>
+            {overviewSelection ? <section className="knx-tool-evidence"><h3>{overviewSelection.name}</h3><dl className="knx-file-metadata-grid"><div><dt>{locale === 'en' ? 'Size' : 'الحجم'}</dt><dd dir="ltr">{overviewSelection.size.toLocaleString()} bytes</dd></div><div><dt>{locale === 'en' ? 'Modified' : 'التعديل'}</dt><dd dir="ltr">{overviewSelection.modifiedAt}</dd></div></dl><p className="knx-tool-path">{overviewSelection.relative}</p><button type="button" className="knx-workbench-action" onClick={() => {onQueryChange({search:overviewSelection.name});onOpenService('file-search');}} aria-label={locale === 'en' ? 'Find in indexed results' : 'البحث في النتائج المفهرسة'}><FileSearch aria-hidden="true"/></button></section> : null}
+            {!visible.length ? <p>{locale === 'en' ? 'No returned files match this filter.' : 'لا توجد ملفات مطابقة لهذه التصفية.'}</p> : null}
+            <div className="knx-tool-actions"><button type="button" onClick={() => onSort(service === 'file-recents' ? 'date_desc' : 'size_desc')}>{locale === 'en' ? 'Apply this ranking to the file ledger' : 'تطبيق هذا الترتيب على سجل الملفات'}</button><button type="button" onClick={onRescan}>{locale === 'en' ? 'Rescan authorized source' : 'إعادة فحص المصدر المصرح'}</button></div>
+          </section>
         );
       }
       case 'file-metadata':
@@ -371,9 +378,11 @@ export function FilesServiceFocus({
             <div className="font-mono break-all text-slate-500">{overview?.source.path}</div>
             <div className="flex items-center gap-1.5"><Clock className="w-3 h-3" />{overview?.source.lastScanned || '—'}</div>
             <div>{locale === 'en' ? 'Metadata-only scan. No file contents were read to build this index.' : 'فحص للبيانات الوصفية فقط. لم يُقرأ محتوى الملفات لبناء الفهرس.'}</div>
-            <button disabled={!overview?.source.path} onClick={() => { if (overview?.source.path) void navigator.clipboard.writeText(overview.source.path); }} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer disabled:opacity-50">
+            <button disabled={!overview?.source.path} onClick={() => { if (overview?.source.path) void copyText(overview.source.path, locale === 'en' ? 'Source path copied' : 'تم نسخ مسار المصدر'); }} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer disabled:opacity-50">
               {locale === 'en' ? 'Copy source path' : 'نسخ مسار المصدر'}
             </button>
+            <output role="status">{copyStatus}</output>
+            {metadata?.zone.zoneAvailable ? <details className="knx-tool-evidence"><summary>Zone.Identifier</summary><p>Zone {metadata.zone.zoneId ?? '—'}</p><p className="knx-tool-path">{metadata.zone.host || '—'}</p><p className="knx-tool-path">{metadata.zone.referrer || '—'}</p></details> : null}
           </div>
         );
       default:
