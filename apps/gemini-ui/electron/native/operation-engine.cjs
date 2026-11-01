@@ -80,7 +80,19 @@ class OperationEngine {
     if(!['move','copy'].includes(request.operation) || !['rename','skip','review'].includes(request.collisionPolicy) || !['categorized','flat'].includes(request.structure)) throw error('OPERATION_INVALID_OPTIONS','Invalid organization options.');
     const selection=Array.isArray(request.fileIds)?{fileIds:request.fileIds}:{all:true};
     if(request.categoryFolderNames && (typeof request.categoryFolderNames!=='object' || Array.isArray(request.categoryFolderNames))) throw error('OPERATION_INVALID_RULES','Folder rules must be an object.');
-    const plan=await this.studio.engine.buildPlan({owner:this.owner,request:{bindContent:true,selections:[{inventoryId:request.sourceId,...selection}],operation:request.operation,structure:request.structure,collisionPolicy:request.collisionPolicy,destination:{destinationId:destination.id,relativePath:''},categoryFolderNames:request.categoryFolderNames||{}},getInventory:id=>id===request.sourceId && this.studio.getSource(id) && this.studio.getInventory(id)===record && this.authorized(source.path,'source')?record:null,resolveDestination:id=>this.studio.destinations.get(id)});
+    const categoryDestinations={};
+    if(request.categoryDestinations!==undefined) {
+      const overrides=request.categoryDestinations;
+      if(!overrides || typeof overrides!=='object' || Array.isArray(overrides) || Object.keys(overrides).length>100) throw error('OPERATION_INVALID_RULES','Category destinations must be a bounded object.');
+      const categories=new Set(record.files.map(file=>file.category));
+      for(const [category,target] of Object.entries(overrides)) {
+        if(!categories.has(category) || !target || typeof target!=='object' || Array.isArray(target) || Object.keys(target).some(key=>key!=='destinationId') || typeof target.destinationId!=='string') throw error('OPERATION_INVALID_RULES','Each category destination must reference a known category and picker destination ID.');
+        const granted=this.studio.destinations.get(target.destinationId);
+        if(!granted || !this.authorized(granted.root,'destination')) throw error('OPERATION_DESTINATION_REQUIRED','Authorize every category destination with the native picker.');
+        categoryDestinations[category]={destinationId:target.destinationId,relativePath:''};
+      }
+    }
+    const plan=await this.studio.engine.buildPlan({owner:this.owner,request:{bindContent:true,selections:[{inventoryId:request.sourceId,...selection}],operation:request.operation,structure:request.structure,collisionPolicy:request.collisionPolicy,destination:{destinationId:destination.id,relativePath:''},categoryFolderNames:request.categoryFolderNames||{},categoryDestinations},getInventory:id=>id===request.sourceId && this.studio.getSource(id) && this.studio.getInventory(id)===record && this.authorized(source.path,'source')?record:null,resolveDestination:id=>this.studio.destinations.get(id)});
     this.plans.set(plan.planId,plan);
     while(this.plans.size>10) this.plans.delete(this.plans.keys().next().value);
     this.event(plan.planId,'consent',{completed:0,total:plan.totals.files,planHash:plan.planHash});

@@ -1,0 +1,31 @@
+'use strict';
+// Only disposable native fixtures. No owner file, registry or account effects.
+const assert=require('node:assert/strict');
+const fs=require('node:fs/promises');
+const path=require('node:path');
+const {fixture,bridgeFor,sha,hashSources}=require('./live-organization-fixtures.cjs');
+(async()=>{
+ const f=await fixture(8),ctx=await bridgeFor(f);
+ const inventory=await ctx.engine.scan({sourceId:ctx.source.id});
+ const first=inventory.files[0],second=inventory.files.find(file=>file.category!==first.category);
+ assert(second,'Fixture must contain distinct native categories');
+ const alternate=path.join(f.root,'alternate');await fs.mkdir(alternate);
+ f.destination=alternate;const target=await ctx.engine.chooseDestination();
+ const request={...ctx.request,fileIds:[first.id,second.id],categoryDestinations:{[second.category]:{destinationId:target.id}}};
+ await assert.rejects(ctx.engine.plan({...request,categoryDestinations:{[second.category]:{destinationId:'ungranted'}}}),e=>e.code==='OPERATION_DESTINATION_REQUIRED');
+ await assert.rejects(ctx.engine.plan({...request,categoryDestinations:{[second.category]:{destinationId:target.id,relativePath:'..'}}}),e=>e.code==='OPERATION_INVALID_RULES');
+ await assert.rejects(ctx.engine.plan({...request,categoryDestinations:{not_a_category:{destinationId:target.id}}}),e=>e.code==='OPERATION_INVALID_RULES');
+ const plan=await ctx.engine.plan(request);assert.equal(plan.totals.files,2);
+ const firstTarget=plan.files.find(file=>file.fileId===first.id),secondTarget=plan.files.find(file=>file.fileId===second.id);
+ assert.equal(path.resolve(firstTarget.targetPath).startsWith(path.resolve(ctx.destination.path)+path.sep),true);
+ assert.equal(path.resolve(secondTarget.targetPath).startsWith(path.resolve(alternate)+path.sep),true);
+ await assert.rejects(ctx.engine.execute({planId:plan.planId,planHash:plan.planHash,approved:false}),e=>e.code==='OPERATION_CONSENT_REQUIRED');
+ const {receipt}=await ctx.engine.execute({planId:plan.planId,planHash:plan.planHash,approved:true});
+ assert.equal(receipt.completedFiles,2);
+ for(const file of plan.files)assert.equal(sha(await fs.readFile(file.targetPath)),f.originals[file.name]);
+ const inverse=await ctx.engine.undoPreview({journalId:receipt.operationId});assert.equal(inverse.eligible,2);
+ const restored=await ctx.engine.undo({journalId:receipt.operationId,previewId:inverse.previewId,previewHash:inverse.previewHash,approved:true,resolution:'skip'});
+ assert.equal(restored.receipt.undoCompletedFiles,2);
+ assert.deepEqual(await hashSources(f),f.originals);
+ console.log(JSON.stringify({ok:true,scope:'disposable native fixture only',moved:receipt.completedFiles,restored:restored.receipt.undoCompletedFiles,rejections:['ungranted destination','unknown category','path injection','missing approval']}));
+})().catch(error=>{console.error(error);process.exitCode=1;});

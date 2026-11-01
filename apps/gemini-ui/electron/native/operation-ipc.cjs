@@ -2,7 +2,7 @@
 const {ok,fail}=require('./security.cjs');
 const VAULT_FIELDS={storageScan:['sourceId','ageDays'],vaultPlan:['sourceId','destinationId','selections','tempIds'],vaultExecute:['planId','planHash','approved'],vaultList:[],vaultRestorePreview:['journalId'],vaultRestore:['journalId','previewId','previewHash','approved'],vaultReport:[]};
 const CHANNELS=Object.freeze(Object.fromEntries(['chooseSource','chooseDestination','scan','plan','execute','cancel','history','undoPreview','undo','revoke',...Object.keys(VAULT_FIELDS),'event'].map(key=>[key,`knoux:operations:v1:${key}`])));
-const fields={chooseSource:[],chooseDestination:[],scan:['sourceId'],plan:['sourceId','destinationId','fileIds','operation','structure','collisionPolicy','categoryFolderNames'],execute:['planId','planHash','approved'],cancel:[],history:[],undoPreview:['journalId'],undo:['journalId','previewId','previewHash','approved','resolution'],revoke:[]};
+const fields={chooseSource:[],chooseDestination:[],scan:['sourceId'],plan:['sourceId','destinationId','fileIds','operation','structure','collisionPolicy','categoryFolderNames','categoryDestinations'],execute:['planId','planHash','approved'],cancel:[],history:[],undoPreview:['journalId'],undo:['journalId','previewId','previewHash','approved','resolution'],revoke:[]};
 function registerOperationIpc({ipcMain,getBridge,assertSender}) {
   for(const [method,allowed] of Object.entries({...fields,...VAULT_FIELDS})) ipcMain.handle(CHANNELS[method],async(event,...args)=>{
     const capability=`operations.${method}`;
