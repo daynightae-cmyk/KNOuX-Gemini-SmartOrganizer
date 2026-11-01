@@ -207,7 +207,7 @@ export function ScheduleManagerWorkbench({ locale, snapshot, controller }: Autom
                 </div>
               ))}
             </div>
-            <p className="auto-op-hint">{t(locale, 'The calendar is generated from persisted metadata. No job will run at these times.', 'التقويم مُشتق من بيانات محفوظة. لن تعمل أي مهمة في هذه الأوقات.')}</p>
+            <p className="auto-op-hint">{t(locale, 'The calendar is generated from persisted metadata. Arm a foreground schedule below; each occurrence still asks for native confirmation.', 'التقويم مُشتق من بيانات محفوظة. فعّل جدولة أمامية أدناه؛ ما زال كل موعد يطلب تأكيدًا أصليًا.')}</p>
           </Panel>
           <Panel title={t(locale, 'Selected schedule', 'الجدولة المحددة')} icon={Clock3}>
             {selected ? (
@@ -216,7 +216,7 @@ export function ScheduleManagerWorkbench({ locale, snapshot, controller }: Autom
                 <TriggerEditor locale={locale} workflow={selected} onChange={(next) => { setDraft(next); }} />
                 <DataRows rows={[
                   { label: t(locale, 'Associated template', 'القالب المرتبط'), value: t(locale, 'Not recorded for local drafts', 'غير مسجل للمسودات المحلية') },
-                  { label: t(locale, 'Draft status', 'حالة المسودة'), value: selected.enabled ? t(locale, 'Enabled metadata · not executed', 'بيانات مفعلة · غير منفذ') : t(locale, 'Disabled metadata', 'بيانات معطلة'), tone: selected.enabled ? 'warn' : 'muted' },
+                  { label: t(locale, 'Draft status', 'حالة المسودة'), value: selected.enabled ? t(locale, 'Enabled metadata · foreground schedule only', 'بيانات مفعلة · جدولة أمامية فقط') : t(locale, 'Disabled metadata', 'بيانات معطلة'), tone: selected.enabled ? 'warn' : 'muted' },
                   { label: t(locale, 'Approval required', 'الموافقة مطلوبة'), value: selected.policy.requireApproval ? t(locale, 'Yes · per future run', 'نعم · لكل تشغيل مستقبلي') : t(locale, 'No (draft only)', 'لا (مسودة فقط)'), tone: selected.policy.requireApproval ? 'violet' : 'warn' },
                   { label: t(locale, 'Retention', 'الاحتفاظ'), value: `${selected.policy.retentionDays} ${t(locale, 'days', 'يوم')}` },
                 ]} />
@@ -228,6 +228,14 @@ export function ScheduleManagerWorkbench({ locale, snapshot, controller }: Autom
           </Panel>
         </div>
       </div>
+      {selected ? (
+        <AutomationRunWorkbench
+          workflow={selected}
+          arabic={locale === 'ar'}
+          onSave={controller.saveWorkflow}
+          onSaved={(saved) => setDraft(cloneWorkflow(saved))}
+        />
+      ) : null}
     </AutomationToolFrame>
   );
 }

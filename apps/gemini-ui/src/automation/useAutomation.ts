@@ -1,6 +1,6 @@
 /**
- * Flow Studio controller - local drafts, dry-runs and schedule previews only.
- * No workflow executor or background scheduler exists.
+ * Flow Studio controller - local drafts, dry-runs, schedule previews and the
+ * operations-backed read-only runner/foreground scheduler bridge.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type {

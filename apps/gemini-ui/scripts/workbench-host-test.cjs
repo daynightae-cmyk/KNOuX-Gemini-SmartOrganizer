@@ -37,6 +37,8 @@ const servicesPage = read('src/pages/ServicesPage.tsx');
 const servicesBody = read('src/services/ServicesServiceWorkspaces.tsx');
 const repairPage = read('src/pages/RepairPage.tsx');
 const repairBody = read('src/repair/RepairServiceWorkspaces.tsx');
+const automationPage = read('src/pages/AutomationPage.tsx');
+const automationBody = read('src/automation/AutomationServiceWorkspaces.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -229,6 +231,23 @@ check('Repair integrates the shared host with pinned/expanded modes', () => {
   assert.equal(mapped.length, 12, `expected 12 repair workbench entries, found ${mapped.length}`);
 });
 
+check('Automation integrates the shared host and foreground scheduler', () => {
+  assert.match(automationBody, /ServiceWorkbenchHost/);
+  assert.match(automationBody, /data-testid="automation-workbench-side-shell"/);
+  assert.match(automationBody, /data-testid="automation-workbench-expanded-shell"/);
+  assert.match(automationBody, /mode === 'side'/);
+  assert.match(automationPage, /automation-workbench-tool-select/);
+  assert.match(automationPage, /knoux\.automation\.workbench\.mode/);
+  assert.match(automationPage, /knoux\.automation\.workbench\.width/);
+  assert.match(automationPage, /data-testid="automation-workspace"/);
+  assert.match(automationPage, /data-testid="automation-actionbar"/);
+  assert.doesNotMatch(automationBody, /sys-service-overlay|auto-service-overlay|aria-modal="true"/, 'Automation must not render as a modal sheet');
+  const mapped = automationBody.match(/^\s{2}'auto-[a-z0-9-]+':\s*[A-Za-z]/gm) || [];
+  assert.equal(mapped.length, 12, `expected 12 automation workbench entries, found ${mapped.length}`);
+  const scheduleBody = read('src/automation/AutomationCoreWorkbenches.tsx');
+  assert.match(scheduleBody, /AutomationRunWorkbench[\s\S]*onSave=\{controller\.saveWorkflow\}/, 'Schedule Manager must expose the real foreground scheduler');
+});
+
 check('no old generic ServiceWorkspaceHost is imported by any migrated domain', () => {
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
@@ -243,9 +262,11 @@ check('no old generic ServiceWorkspaceHost is imported by any migrated domain', 
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(servicesBody), 'old generic host must not be used by Services bodies');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(repairPage), 'old generic host must not be used by Repair');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(repairBody), 'old generic host must not be used by Repair bodies');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(automationPage), 'old generic host must not be used by Automation');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(automationBody), 'old generic host must not be used by Automation bodies');
 });
 
-const result = { ok: failures.length === 0, checks: 15, failures };
+const result = { ok: failures.length === 0, checks: 16, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');

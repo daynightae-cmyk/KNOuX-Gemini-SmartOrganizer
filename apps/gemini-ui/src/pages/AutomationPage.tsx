@@ -6,7 +6,9 @@ import { ServicePipeline } from '../visual/ServicePipeline';
  *
  * Browser previews render an explicit native-required state. In Electron every
  * workflow, template, schedule occurrence, power reading and dry-run record is
- * measured or locally persisted. No workflow executor or scheduler timer exists.
+ * measured or locally persisted. Read-only Smart Scan nodes and foreground
+ * schedules execute only through the operations runner behind exact-plan
+ * native consent; no background Windows task or external mutation exists.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -52,7 +54,8 @@ import {
   workflowStatusLabel,
 } from '../automation/model';
 import { useAutomation } from '../automation/useAutomation';
-import { AutomationServiceWorkspace } from '../automation/AutomationServiceWorkspaces';
+import { AutomationServiceWorkspace, hasAutomationWorkbench } from '../automation/AutomationServiceWorkspaces';
+import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import {
   DryRunTimeline,
   NodeInspector,
@@ -79,6 +82,18 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
   const [draft, setDraft] = useState<AutomationWorkflow | null>(null);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [activeTool, setActiveTool] = useState<keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES'] | null>(null);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.automation.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.automation.workbench.width')); return Number.isFinite(value) && value >= 380 ? Math.min(900, value) : 560; } catch { return 560; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.automation.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.automation.workbench.width', String(workbenchWidth));
+    } catch { /* private mode */ }
+  }, [workbenchMode, workbenchWidth]);
   const [libraryQuery, setLibraryQuery] = useState('');
   const [addOpen, setAddOpen] = useState(false);
   const [shortViewport, setShortViewport] = useState(() => matchMedia('(max-height: 820px)').matches);
@@ -208,6 +223,23 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   };
 
+  const automationToolSelector = activeTool ? (
+    <select
+      data-testid="automation-workbench-tool-select"
+      aria-label={t(locale, 'Switch flow tool', 'تبديل أداة التدفق')}
+      title={toolLabel(activeTool, locale)}
+      value={activeTool}
+      onChange={(event) => {
+        if (hasAutomationWorkbench(event.target.value)) setActiveTool(event.target.value);
+      }}
+      className="max-w-[170px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {AUTOMATION_TOOLS.map((entry) => (
+        <option key={entry.id} value={entry.id}>{locale === 'ar' ? entry.ar : entry.en}</option>
+      ))}
+    </select>
+  ) : null;
+
   const navigate = (section: string) => {
     if (onNavigateSection) onNavigateSection(section);
     else navigateTo(section);
@@ -268,7 +300,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                 </svg>
               </div>
               <div className="sys-hero-copy">
-                <span className="sys-hero-eyebrow">{t(locale, 'FLOW STUDIO · LOCAL DRAFTS · NO EXECUTION', 'استوديو التدفق · مسودات محلية · بلا تنفيذ')}</span>
+                <span className="sys-hero-eyebrow">{t(locale, 'FLOW STUDIO · LOCAL DRAFTS · CONSENT-GATED RUNS', 'استوديو التدفق · مسودات محلية · تشغيل بالموافقة')}</span>
                 <h1>{t(locale, 'Flow', 'استوديو')} <span>{t(locale, 'Studio', 'التدفق')}</span></h1>
                 <p>{t(locale, 'Design typed workflow drafts, validate the DAG and inspect every blocked action before any future approval.', 'صمم مسودات سير عمل مهيكلة، وتحقق من DAG، وافحص كل إجراء محجوب قبل أي موافقة مستقبلية.')}</p>
                 <ServicePipeline
@@ -278,7 +310,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   onSelect={id => openTool(id==='trigger'?'auto-schedule-plan':id==='dry-run'||id==='verify'?'auto-run-history':'auto-smart-scan')}
                   dense
                   live={controller.scanning || Boolean(controller.busy)}
-                  caption={t(locale, 'Draft only · no executor shipped · nothing is scheduled', 'مسودة فقط · لا منفذ متوفر · لا شيء مجدول')}
+                  caption={t(locale, 'Draft only · read-only native runs require exact approval · foreground schedules only', 'مسودة فقط · التشغيل الأصلي للقراءة يتطلب موافقة محددة · جدولة أمامية فقط')}
                   stages={[
                     {
                       id: 'trigger',
@@ -318,7 +350,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   <Chip tone={snapshot ? 'good' : controller.scanning ? 'info' : 'muted'} icon={Sparkles}>{scanStatus}</Chip>
                   <Chip tone="info" icon={LayoutTemplate}>{formatCount(snapshot?.templates.length || 0)} {t(locale, 'templates', 'قالب')}</Chip>
                   <Chip tone="violet" icon={Save}>{formatCount(snapshot?.workflows.length || 0)} {t(locale, 'saved drafts', 'مسودة محفوظة')}</Chip>
-                  <Chip tone="bad" icon={Lock}>{t(locale, '0 workflows executed', '0 سير عمل منفذ')}</Chip>
+                  <Chip tone="warn" icon={ShieldCheck}>{t(locale, 'Consent-gated runs', 'تشغيل بموافقة')}</Chip>
                   {snapshot ? <Chip tone="muted" icon={Database}>{t(locale, 'receipt', 'إيصال')} {snapshot.receipt.slice(0, 12)}</Chip> : null}
                 </div>
                 <div className="sys-hero-actions">
@@ -343,7 +375,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
               <aside className="sys-source-card auto-source-card" data-testid="automation-source-card">
                 <span className={cx('sys-source-ring', snapshot ? 'is-live' : controller.scanning ? 'is-scanning' : 'is-idle')} aria-hidden="true"><span /></span>
                 <div className="sys-source-copy"><span>{t(locale, 'Evidence source', 'مصدر الأدلة')}</span><strong>KNOuX AutomationBridge v1</strong><em>{scanStatus}</em><em>{snapshot ? formatTimestamp(snapshot.generatedAt, locale) : controller.nativeAvailable ? t(locale, 'Bounded local discovery', 'اكتشاف محلي محدود') : t(locale, 'Browser preview', 'معاينة متصفح')}</em></div>
-                <div className="sys-source-badges"><span className="sys-source-badge">{t(locale, 'Draft only', 'مسودة فقط')}</span><span className="sys-source-badge">{t(locale, 'No timer', 'لا مؤقت')}</span></div>
+                <div className="sys-source-badges"><span className="sys-source-badge">{t(locale, 'Draft + native run', 'مسودة + تشغيل أصلي')}</span><span className="sys-source-badge">{t(locale, 'Foreground only', 'أمامي فقط')}</span></div>
               </aside>
             </section>
 
@@ -364,7 +396,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                 { key: 'dryruns', label: t(locale, 'Dry-runs', 'معاينات جافة'), value: formatCount(journal.length), note: t(locale, 'Deterministic only', 'حتمية فقط'), icon: History },
                 { key: 'nodes', label: t(locale, 'Draft nodes', 'عقد المسودة'), value: draft ? formatCount(draft.nodes.length) : '—', note: draft ? workflowStatusLabel(draft, locale) : t(locale, 'No draft', 'لا مسودة'), icon: GitBranch },
                 { key: 'battery', label: t(locale, 'Power evidence', 'أدلة الطاقة'), value: snapshot ? (snapshot.runtime.batteryAvailable ? `${snapshot.runtime.batteryChargePercent ?? '—'}%` : '—') : '—', note: snapshot?.runtime.batteryAvailable ? t(locale, 'Measured battery', 'بطارية مقيسة') : t(locale, 'Battery unavailable', 'البطارية غير متاحة'), icon: BatteryCharging },
-                { key: 'executed', label: t(locale, 'Executed', 'المنفذ'), value: '0', note: t(locale, 'No executor shipped', 'لا منفذ متوفر'), icon: Lock },
+                { key: 'executed', label: t(locale, 'Run mode', 'وضع التشغيل'), value: 'Consent', note: t(locale, 'Foreground only', 'أمامي فقط'), icon: ShieldCheck },
               ].map((kpi) => {
                 const Icon = kpi.icon;
                 return <div key={kpi.key} className="sys-instrument auto-kpi" data-testid={`automation-kpi-${kpi.key}`}><span className="auto-kpi-head"><span className="auto-kpi-icon"><Icon aria-hidden="true" /></span><span>{kpi.label}</span></span><strong dir="ltr" data-testid={`automation-kpi-${kpi.key}-value`}>{kpi.value}</strong><em>{kpi.note}</em></div>;
@@ -451,12 +483,12 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
             </div>
 
             <section className="auto-tools-panel" aria-labelledby="auto-tools-title">
-              <div className="auto-panel-head"><div><h2 id="auto-tools-title"><Sparkles aria-hidden="true" />{t(locale, 'Flow tools', 'أدوات التدفق')} ({formatCount(AUTOMATION_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised draft/policy workbench. No action is executed.', 'تفتح كل أداة مساحة عمل مسودة/سياسة متخصصة. لا يُنفذ إجراء.')}</p></div></div>
+              <div className="auto-panel-head"><div><h2 id="auto-tools-title"><Sparkles aria-hidden="true" />{t(locale, 'Flow tools', 'أدوات التدفق')} ({formatCount(AUTOMATION_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised workbench. Read-only Smart Scan runs and foreground schedules require an exact plan and native consent.', 'تفتح كل أداة مساحة عمل متخصصة. تشغيل الفحص الذكي للقراءة فقط والجدولة الأمامية يتطلبان خطة محددة وموافقة أصلية.')}</p></div></div>
               <div className="auto-tool-grid" data-testid="automation-tool-grid">{AUTOMATION_TOOLS.map(renderToolCard)}</div>
             </section>
 
             <div className="auto-lower-grid">
-              <Panel title={t(locale, 'Dry-run journal', 'سجل المعاينات الجافة')} sub={t(locale, 'Deterministic records only. Executed workflows: 0.', 'سجلات حتمية فقط. سير العمل المنفذ: 0.')} icon={History} actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Open history', 'فتح السجل')}</button>}>
+              <Panel title={t(locale, 'Dry-run journal', 'سجل المعاينات الجافة')} sub={t(locale, 'Deterministic dry-runs only. Native run receipts live in the Smart Scan and Schedule Manager tools.', 'معاينات جافة حتمية فقط. إيصالات التشغيل الأصلي في أداتي الفحص الذكي ومدير الجدولة.')} icon={History} actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Open history', 'فتح السجل')}</button>}>
                 {journal.length ? (
                   <div className="auto-history">
                     {journal.slice(0, 5).map((entry) => (
@@ -473,7 +505,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   <button type="button" className="auto-action-card" onClick={() => void saveDraft()} disabled={!draft || controller.busy === 'save'}><Save aria-hidden="true" /><span><strong>{t(locale, 'Save new version', 'حفظ نسخة جديدة')}</strong><em>{t(locale, 'Local draft only', 'مسودة محلية فقط')}</em></span></button>
                   <button type="button" className="auto-action-card" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}><Download aria-hidden="true" /><span><strong>{t(locale, 'Export evidence report', 'تصدير تقرير الأدلة')}</strong><em>{t(locale, 'Read-only, redacted', 'للقراءة فقط، منقح')}</em></span></button>
                 </div>
-                <div className="auto-chip-row"><Chip tone="bad" icon={Lock}>{t(locale, 'No executor', 'لا منفذ')}</Chip><Chip tone="warn" icon={Clock3}>{t(locale, 'No background timer', 'لا مؤقت خلفي')}</Chip></div>
+                <div className="auto-chip-row"><Chip tone="warn" icon={ShieldCheck}>{t(locale, 'Consent-gated run', 'تشغيل بموافقة')}</Chip><Chip tone="warn" icon={Clock3}>{t(locale, 'No background timer', 'لا مؤقت خلفي')}</Chip></div>
               </Panel>
             </div>
 
@@ -487,13 +519,25 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
           </main>
 
           <footer className="sys-actionbar auto-actionbar" data-testid="automation-actionbar">
-            <div className="sys-actionbar-summary"><strong>{scanStatus}</strong><span className="sys-mono">{draft ? `${draft.name} · v${draft.version || 0} · ${draft.nodes.length} ${t(locale, 'nodes', 'عقدة')}` : t(locale, 'No workflow draft yet.', 'لا مسودة سير عمل بعد.')}</span><span className="sys-chip sys-chip-bad">{t(locale, '0 executed', '0 منفذ')}</span>{snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}</div>
+            <div className="sys-actionbar-summary"><strong>{scanStatus}</strong><span className="sys-mono">{draft ? `${draft.name} · v${draft.version || 0} · ${draft.nodes.length} ${t(locale, 'nodes', 'عقدة')}` : t(locale, 'No workflow draft yet.', 'لا مسودة سير عمل بعد.')}</span><span className="sys-chip sys-chip-warn">{t(locale, 'consent-gated runs', 'تشغيل بموافقة')}</span>{snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}</div>
             <div className="sys-actionbar-actions"><button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'History', 'السجل')}</button><button type="button" className="sys-btn sys-btn-ghost" onClick={() => void runDryRun()} disabled={!draft || controller.busy === 'dry-run'}><Play aria-hidden="true" />{t(locale, 'Dry-run', 'معاينة جافة')}</button><button type="button" className="sys-btn sys-btn-primary" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshIcon />{t(locale, 'Refresh store', 'تحديث المخزن')}</button></div>
           </footer>
         </div>
       </div>
 
-      {activeTool && snapshot ? <AutomationServiceWorkspace toolId={activeTool} locale={locale} controller={controller} onClose={closeTool} /> : null}
+      {activeTool && snapshot ? (
+        <AutomationServiceWorkspace
+          toolId={activeTool}
+          locale={locale}
+          controller={controller}
+          onClose={closeTool}
+          mode={workbenchMode}
+          width={workbenchWidth}
+          onModeChange={setWorkbenchMode}
+          onResize={setWorkbenchWidth}
+          toolSelector={automationToolSelector}
+        />
+      ) : null}
     </div>
   );
 }

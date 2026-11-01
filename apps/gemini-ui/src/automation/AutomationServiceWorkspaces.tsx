@@ -1,8 +1,8 @@
 /**
- * Flow Studio - canonical 12-tool workbench map and focus-trapped sheet.
+ * Flow Studio - canonical 12-tool workbench map hosted in the shared
+ * ServiceWorkbenchHost with pinned resizable side and expanded modes.
  */
 import React, { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
 import type { AutomationSnapshot } from '../../shared/native-contracts';
 import type { AutomationLocale } from './catalog';
 import { TOOL_BY_ID, toolLabel } from './catalog';
@@ -23,6 +23,7 @@ import {
   QuietHoursWorkbench,
   RetentionWorkbench,
 } from './AutomationPolicyWorkbenches';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 
 export interface AutomationWorkbenchComponentProps {
   locale: AutomationLocale;
@@ -57,9 +58,14 @@ export interface AutomationServiceWorkspaceProps {
   locale: AutomationLocale;
   controller: AutomationController;
   onClose: () => void;
+  mode: WorkbenchMode;
+  width: number;
+  onModeChange: (mode: WorkbenchMode) => void;
+  onResize: (width: number) => void;
+  toolSelector?: React.ReactNode;
 }
 
-export function AutomationServiceWorkspace({ toolId, locale, controller, onClose }: AutomationServiceWorkspaceProps) {
+export function AutomationServiceWorkspace({ toolId, locale, controller, onClose, mode, width, onModeChange, onResize, toolSelector }: AutomationServiceWorkspaceProps) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const closeCallback = useRef(onClose);
   closeCallback.current = onClose;
@@ -87,17 +93,70 @@ export function AutomationServiceWorkspace({ toolId, locale, controller, onClose
     };
   }, []);
   if (!snapshot || !Component) return null;
-  return (
-    <div className="sys-service-overlay auto-service-overlay" role="dialog" aria-modal="true" aria-label={toolLabel(toolId, locale)}>
-      <div className="sys-service-scrim" aria-hidden="true" onClick={onClose} />
-      <div className="sys-service-sheet" data-testid={`automation-service-shell-${toolId}`} ref={sheetRef}>
-        <button ref={closeRef} type="button" className="sys-service-close" aria-label={locale === 'ar' ? 'إغلاق الخدمة' : 'Close service'} onClick={onClose}><X aria-hidden="true" /><span>{locale === 'ar' ? 'إغلاق' : 'Close'}</span></button>
-        <div className="sys-service-sheet-scroll auto-service-sheet-scroll">
-          {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
-          {controller.scanning || controller.refreshing || controller.busy ? <div className="knx-tool-context" role="status"><progress aria-label={locale === 'ar' ? 'المزود الأصلي نشط' : 'Native provider active'}/><span>{locale === 'ar' ? 'بانتظار نتيجة المزود الأصلي…' : 'Waiting for native provider result…'}</span>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{locale === 'ar' ? 'إلغاء الاكتشاف' : 'Cancel discovery'}</button> : null}</div> : null}
-          <Component locale={locale} snapshot={snapshot} controller={controller} toolId={toolId} />
-        </div>
+
+  const isAr = locale === 'ar';
+  const title = toolLabel(toolId, locale);
+  const ToolIcon = TOOL_BY_ID[toolId]?.icon;
+  const subtitle = isAr ? 'سياق مقيس · تنفيذ بالموافقة' : 'Measured context · consent-gated execution';
+  const body = (
+    <>
+      {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
+      {controller.scanning || controller.refreshing || controller.busy ? <div className="knx-tool-context" role="status"><progress aria-label={isAr ? 'المزود الأصلي نشط' : 'Native provider active'}/><span>{isAr ? 'بانتظار نتيجة المزود الأصلي…' : 'Waiting for native provider result…'}</span>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{isAr ? 'إلغاء الاكتشاف' : 'Cancel discovery'}</button> : null}</div> : null}
+      <Component locale={locale} snapshot={snapshot} controller={controller} toolId={toolId} />
+    </>
+  );
+  const footer = (
+    <span className={isAr ? 'text-slate-300' : 'text-slate-400'}>
+      {isAr ? 'مراقبة مقيسة بموافقة · الطفرات الخارجية مقيدة' : 'Consent-gated measured observation · external mutations gated'}
+    </span>
+  );
+
+  if (mode === 'side') {
+    return (
+      <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width }} data-testid="automation-workbench-side-shell">
+        <ServiceWorkbenchHost
+          serviceId={toolId}
+          icon={ToolIcon ? <ToolIcon aria-hidden="true" /> : undefined}
+          title={title}
+          subtitle={subtitle}
+          locale={locale}
+          mode="side"
+          onModeChange={onModeChange}
+          onClose={onClose}
+          onResize={onResize}
+          minWidth={380}
+          maxWidth={900}
+          testId={`automation-service-shell-${toolId}`}
+          toolSelector={toolSelector}
+          footer={footer}
+        >
+          <div ref={sheetRef} className="auto-service-sheet-scroll">
+            {body}
+          </div>
+        </ServiceWorkbenchHost>
       </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="automation-workbench-expanded-shell">
+      <ServiceWorkbenchHost
+        serviceId={toolId}
+        icon={ToolIcon ? <ToolIcon aria-hidden="true" /> : undefined}
+        title={title}
+        subtitle={subtitle}
+        locale={locale}
+        mode="expanded"
+        onModeChange={onModeChange}
+        onClose={onClose}
+        testId={`automation-service-shell-${toolId}`}
+        toolSelector={toolSelector}
+        footer={footer}
+      >
+        <div ref={sheetRef} className="auto-service-sheet-scroll">
+          {body}
+        </div>
+      </ServiceWorkbenchHost>
     </div>
   );
 }
