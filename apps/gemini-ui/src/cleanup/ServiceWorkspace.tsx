@@ -1940,6 +1940,9 @@ export function ServiceWorkspace({
     : (locale === 'ar' ? fallback.descAr : fallback.descEn);
   const state = capability?.state || null;
   const gate = gateFor(service, controller);
+  const [discoveryAgeDays,setDiscoveryAgeDays] = useState(1);
+  const [discoveryCategories,setDiscoveryCategories] = useState<CleanupCategory[]>(['temp']);
+  const discoveryBusy = controller.loading || controller.refreshing || controller.scanning || Boolean(controller.busy);
   const branchProps: BranchProps = {
     locale,
     controller,
@@ -1984,6 +1987,9 @@ export function ServiceWorkspace({
     return (
       <div data-testid="cleanup-service-focus" data-tool-body="cleanup" data-tool={service} className="flex flex-col gap-2">
         <p className="text-[10px] text-slate-400">{note}</p>
+        {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
+        {discoveryBusy ? <div className="knx-tool-context" role="status"><progress aria-label={t(locale,'Native discovery active','الاكتشاف الأصلي نشط')}/><span>{t(locale,'Native provider active; no cleanup has been executed here.','المزود الأصلي نشط؛ لم يُنفذ تنظيف من هذه الأداة.')}</span>{controller.scanning ? <button type="button" className="cln-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{t(locale,'Cancel discovery','إلغاء الاستكشاف')}</button> : null}</div> : null}
+        <details className="knx-tool-evidence"><summary>{t(locale,'Discovery scope and age','نطاق الاستكشاف والعمر')}</summary><fieldset disabled={discoveryBusy} className="knx-tool-fieldset"><div className="knx-file-filters"><label>{t(locale,'Minimum age (days)','أقل عمر (أيام)')}<input type="number" min={0} max={3650} value={discoveryAgeDays} onChange={e => setDiscoveryAgeDays(Number.isFinite(e.target.valueAsNumber) ? Math.min(3650,Math.max(0,Math.floor(e.target.valueAsNumber))) : 1)}/></label></div><div className="flex flex-wrap gap-2 mt-2">{SCAN_CATEGORIES.map(category => <label key={category} className="flex gap-1 items-center"><input type="checkbox" checked={discoveryCategories.includes(category)} onChange={e => setDiscoveryCategories(current => e.target.checked ? [...current,category] : current.filter(value => value !== category))}/>{categoryLabel(category,locale)}</label>)}</div><button type="button" className="cln-btn cln-btn-primary mt-2" disabled={!controller.nativeAvailable || !discoveryCategories.length} onClick={() => void controller.startScan(discoveryCategories,discoveryAgeDays)}>{t(locale,'Discover candidates · read-only','اكتشاف المرشحات · قراءة فقط')}</button></fieldset><p>{t(locale,'Discovery does not approve quarantine, delete files or create a scheduled task.','الاكتشاف لا يعتمد الحجر ولا يحذف ملفات ولا ينشئ مهمة مجدولة.')}</p></details>
         <div data-testid={`cleanup-${service}-workbench`}>{renderWorkspaceBody()}</div>
         <div className="cln-service-foot-gate">
           <Lock className="w-3.5 h-3.5 shrink-0" />

@@ -64,10 +64,10 @@ export async function readCleanupStatus(sessionId: string): Promise<NativeEnvelo
   return assertEnvelope(await api.status(sessionId), 'cleanup.status');
 }
 
-export async function cancelCleanupScan(sessionId: string): Promise<void> {
+export async function cancelCleanupScan(sessionId: string): Promise<NativeEnvelope<{cancelled:boolean;status:string;sessionId:string}> | null> {
   const api = getCleanupShell();
-  if (!api) return;
-  await assertEnvelope(await api.cancel(sessionId), 'cleanup.cancel');
+  if (!api) return null;
+  return assertEnvelope(await api.cancel(sessionId), 'cleanup.cancel');
 }
 
 export async function loadCleanupInventory(): Promise<NativeEnvelope<CleanupInventory> | null> {

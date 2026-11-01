@@ -155,7 +155,7 @@ export function useCleanup() {
     setPlan(null);
     try {
       const started = await startCleanupScan(categories, ageDays);
-      if (!started?.data) return null;
+      if (!started?.data) throw Object.assign(new Error('The native cleanup provider did not return a discovery session.'),{code:'CLEANUP_START_UNAVAILABLE'});
       const sessionId = started.data.id;
       sessionRef.current = sessionId;
       setSession(started.data);
@@ -203,7 +203,14 @@ export function useCleanup() {
     if (!sessionId || !scanning) return;
     setCancelling(true);
     try {
-      await cancelCleanupScan(sessionId);
+      const acknowledgement = await cancelCleanupScan(sessionId);
+      if (!acknowledgement?.data) throw Object.assign(new Error('The native provider did not acknowledge cancellation.'),{code:'CLEANUP_CANCEL_UNAVAILABLE'});
+      if (!acknowledgement.data.cancelled) {
+        const current = await readCleanupStatus(sessionId);
+        if (current?.data && mounted.current) setSession(current.data);
+        showNotice('The discovery session already ended; no cancellation was applied.');
+        return;
+      }
       sessionRef.current = null;
       if (mounted.current) {
         setSession((current) => (current && current.id === sessionId ? { ...current, status: 'cancelled' } : current));
