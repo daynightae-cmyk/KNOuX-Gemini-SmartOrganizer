@@ -15,6 +15,8 @@ export interface ServiceRendererProps {
   onNavigateToWorkspace?: (workspace: string) => void;
   /** Opens another Smart Scan service in the same workbench shell. */
   onOpenService?: (serviceId: string) => void;
+  onReviewFiles?: (fileIds: number[]) => void;
+  reviewUnavailableReason?: string;
 }
 
 export function EmptyResult({

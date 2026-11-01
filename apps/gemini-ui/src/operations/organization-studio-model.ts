@@ -1,4 +1,5 @@
 import type {OperationFile} from '../../shared/operation-contract';
+export function sameOrganizationSource(left:string,right:string){const normalize=(value:string)=>value.replace(/\\/g,'/').replace(/\/+$/,'').toLowerCase();return !!left&&!!right&&normalize(left)===normalize(right);}
 export const STUDIO_STAGES = [
  ['Sources','المصادر'],['Visual Library','مكتبة الملفات'],['Collections','المجموعات'],
  ['Organization Builder','قواعد التنظيم'],['Destinations','الوجهات'],['Plan Review','مراجعة الخطة'],

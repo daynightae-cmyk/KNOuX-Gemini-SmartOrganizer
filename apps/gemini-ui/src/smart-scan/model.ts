@@ -11,6 +11,8 @@ import type {
   ScanFinding,
   ScanKpi,
   ScanSession,
+  ScanServiceResult,
+  StudioSource,
   ScanStage,
   ScanSummary,
 } from '../../shared/native-contracts';
@@ -23,6 +25,17 @@ import type {
   ScanServiceMeta,
   ScanStageView,
 } from './smartScan.types';
+
+/** A review request only: Studio must reauthorize and re-index before planning. */
+export function scanOrganizationReview(session: ScanSession | null | undefined, source: StudioSource | null | undefined, service: ScanServiceResult | undefined, fileIds: number[]) {
+  if (!session || !source || !service || session.sourceId !== source.id || session.scope !== 'authorized-folder' || !['complete', 'partial'].includes(session.status)
+    || !['complete', 'partial'].includes(service.status) || !session.services.some(item => item.serviceId === service.serviceId && item.startedAt === service.startedAt)
+    || !fileIds.length || fileIds.length > 10000) return null;
+  const requested = new Set(fileIds);
+  const files = (service.data.files || []).filter(file => requested.has(file.id));
+  if (files.length !== requested.size || files.some(file => !file.relative || /^(?:[\\/]|[A-Za-z]:)/.test(file.relative) || file.relative.split(/[\\/]/).some(part => !part || part === '..' || part === '.'))) return null;
+  return { path: source.path, relativeFiles: files.map(file => file.relative), stageId: 1 };
+}
 
 const CATEGORY_META: Record<ScanCategory, { en: string; ar: string; colorHex: string }> = {
   junk: { en: 'Junk', ar: 'مخلفات', colorHex: '#a855f7' },

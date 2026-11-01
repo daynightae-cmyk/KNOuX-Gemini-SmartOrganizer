@@ -4,7 +4,7 @@
  * Hosts one of the ten service renderers and can run that service through the
  * native coordinator. The footer never claims a simulated result.
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { Lock, Play, RotateCw, ShieldCheck, X } from 'lucide-react';
 import type { ScanServiceResult, ScanSession, StudioSource } from '../../shared/native-contracts';
 import type { ScanServiceMeta } from './smartScan.types';
@@ -19,6 +19,7 @@ import { AppHealthRenderer } from './service-renderers/AppHealthRenderer';
 import { SystemHealthPulseRenderer } from './service-renderers/SystemHealthPulseRenderer';
 import { SmartRecommendationsRenderer } from './service-renderers/SmartRecommendationsRenderer';
 import { EmptyResult, CopyEvidence } from './service-renderers/shared';
+import { scanOrganizationReview } from './model';
 
 export interface ScanServiceWorkspaceProps {
   service: ScanServiceMeta;
@@ -60,8 +61,19 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
   onOpenCleanupGate,
   embedded = false,
 }) => {
+  const [reviewError, setReviewError] = useState('');
+  const canReviewFiles = !busy && !scanActive && !!source && source.id === session?.sourceId && session.scope === 'authorized-folder';
+  const reviewFiles = (fileIds: number[]) => {
+    const detail = scanOrganizationReview(session, source, result, fileIds);
+    if (!detail || !canReviewFiles) {
+      setReviewError(isArabic ? 'الاختيار أو مصدر الجلسة تغير. اختر المصدر الأصلي وأعد القياس.' : 'The selection or session source changed. Select the original source and measure again.');
+      return;
+    }
+    setReviewError('');
+    window.dispatchEvent(new CustomEvent('knoux:live-organization', { detail }));
+  };
   const renderRenderer = () => {
-    const props = { service: result, session, isArabic, onNavigateToWorkspace, onOpenService };
+    const props = { service: result, session, isArabic, onNavigateToWorkspace, onOpenService, onReviewFiles: canReviewFiles ? reviewFiles : undefined, reviewUnavailableReason: isArabic ? 'اختر المصدر الأصلي لهذه الجلسة وانتظر انتهاء الفحص قبل مراجعة النقل.' : 'Select this session’s original source and finish the scan before reviewing a transfer.' };
     switch (service.id) {
       case 'quick_scan':
         return <QuickScanRenderer {...props} />;
@@ -116,6 +128,7 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
           data-testid={`scan-${service.id}-workbench`}
           className="scan-service-body min-h-0 flex-1 overflow-y-auto knx-custom-scrollbar py-1"
         >
+          {reviewError ? <p role="alert" className="knx-tool-error">{reviewError}</p> : null}
           {body}
         </div>
         {result ? <details className="knx-tool-evidence" data-testid="scan-service-evidence"><summary>{isArabic ? 'المصدر والتغطية والتحذيرات' : 'Source, coverage & warnings'}</summary><code>{result.source}</code><p>{result.startedAt} → {result.finishedAt || (isArabic ? 'قيد القياس' : 'In progress')}</p><ul>{[...result.warnings,...result.limitations].map((note,index)=><li key={index}>{note}</li>)}</ul><small>{result.permission} · {result.mutation}</small></details> : null}
@@ -183,7 +196,7 @@ export const ScanServiceWorkspace: React.FC<ScanServiceWorkspaceProps> = ({
           </button>
         </div>
 
-        <div className="scan-service-body py-1 overflow-y-auto knx-custom-scrollbar min-h-0">{body}</div>
+        <div className="scan-service-body py-1 overflow-y-auto knx-custom-scrollbar min-h-0">{reviewError ? <p role="alert" className="knx-tool-error">{reviewError}</p> : null}{body}</div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-t border-[#122e54] pt-3">
           <span className="flex items-center gap-1 text-[9px] text-slate-400 font-mono">
