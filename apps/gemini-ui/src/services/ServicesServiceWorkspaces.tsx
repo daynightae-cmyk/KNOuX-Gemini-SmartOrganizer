@@ -3,7 +3,6 @@
  * ServiceWorkbenchHost with pinned resizable side and expanded modes.
  */
 import React, { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
 import type { ServicesSnapshot, ServicesToolId } from '../../shared/native-contracts';
 import type { ServicesLocale } from './catalog';
 import { TOOL_BY_ID, toolLabel } from './catalog';
@@ -106,6 +105,7 @@ export function ServicesServiceWorkspace({ toolId, locale, controller, onClose, 
 
   const isAr = locale === 'ar';
   const title = toolLabel(toolId, locale);
+  const ToolIcon = TOOL_BY_ID[toolId]?.icon;
   const subtitle = snapshot.readOnly ? (isAr ? 'مقيس · للقراءة فقط' : 'Measured · read-only') : (isAr ? 'تنفيذ مقيد بالموافقة' : 'Execution gated by consent');
   const body = (
     <>
@@ -117,31 +117,57 @@ export function ServicesServiceWorkspace({ toolId, locale, controller, onClose, 
 
   const footer = (
     <span className={isAr ? 'text-slate-300' : 'text-slate-400'}>
-      {snapshot ? `${formatCount(controller.journal.length)} ${t(locale, 'journal entries', 'مدخلات السجل')} · ${t(locale, '0 SCM writes', '0 كتابة SCM')}` : t(locale, 'Awaiting measured discovery', 'بانتظار الاكتشاف المقيس')}
+      {snapshot ? `${formatCount(controller.journal.length)} ${t(locale, 'journal entries', 'مدخلات السجل')} · ${t(locale, 'signed third-party start/stop only', 'بدء/إيقاف موقّع لطرف ثالث فقط')}` : t(locale, 'Awaiting measured discovery', 'بانتظار الاكتشاف المقيس')}
     </span>
   );
 
-  return (
-    <ServiceWorkbenchHost
-      serviceId={toolId}
-      icon={<X aria-hidden="true" />}
-      title={title}
-      subtitle={subtitle}
-      locale={locale}
-      mode={mode}
-      onModeChange={onModeChange}
-      onClose={onClose}
-      onResize={onResize}
-      minWidth={360}
-      maxWidth={900}
-      testId={`services-service-shell-${toolId}`}
-      toolSelector={toolSelector}
-      footer={footer}
-    >
-      <div ref={sheetRef} className="svc-service-sheet-scroll">
-        {body}
+  if (mode === 'side') {
+    return (
+      <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width }} data-testid="services-workbench-side-shell">
+        <ServiceWorkbenchHost
+          serviceId={toolId}
+          icon={ToolIcon ? <ToolIcon aria-hidden="true" /> : undefined}
+          title={title}
+          subtitle={subtitle}
+          locale={locale}
+          mode="side"
+          onModeChange={onModeChange}
+          onClose={onClose}
+          onResize={onResize}
+          minWidth={360}
+          maxWidth={900}
+          testId={`services-service-shell-${toolId}`}
+          toolSelector={toolSelector}
+          footer={footer}
+        >
+          <div ref={sheetRef} className="svc-service-sheet-scroll">
+            {body}
+          </div>
+        </ServiceWorkbenchHost>
       </div>
-    </ServiceWorkbenchHost>
+    );
+  }
+
+  return (
+    <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="services-workbench-expanded-shell">
+      <ServiceWorkbenchHost
+        serviceId={toolId}
+        icon={ToolIcon ? <ToolIcon aria-hidden="true" /> : undefined}
+        title={title}
+        subtitle={subtitle}
+        locale={locale}
+        mode="expanded"
+        onModeChange={onModeChange}
+        onClose={onClose}
+        testId={`services-service-shell-${toolId}`}
+        toolSelector={toolSelector}
+        footer={footer}
+      >
+        <div ref={sheetRef} className="svc-service-sheet-scroll">
+          {body}
+        </div>
+      </ServiceWorkbenchHost>
+    </div>
   );
 }
 

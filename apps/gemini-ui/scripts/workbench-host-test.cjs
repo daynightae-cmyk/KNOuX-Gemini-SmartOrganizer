@@ -33,6 +33,10 @@ const startupBody = read('src/startup/ServiceWorkspace.tsx');
 const systemPage = read('src/pages/SystemPage.tsx');
 const systemBody = read('src/system/SystemServiceWorkspaces.tsx');
 const systemCss = read('src/system.css');
+const servicesPage = read('src/pages/ServicesPage.tsx');
+const servicesBody = read('src/services/ServicesServiceWorkspaces.tsx');
+const repairPage = read('src/pages/RepairPage.tsx');
+const repairBody = read('src/repair/RepairServiceWorkspaces.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -196,6 +200,35 @@ check('System/Network/Hardware integrates a pinned/expanded workbench with 36 me
   assert.match(systemCss, /\.sys-timeline-row \{[\s\S]*?grid-template-columns: 34px 88px minmax\(0, 1fr\) auto;/);
 });
 
+check('Services integrates the shared host with pinned/expanded modes', () => {
+  assert.match(servicesBody, /ServiceWorkbenchHost/);
+  assert.match(servicesBody, /data-testid="services-workbench-side-shell"/);
+  assert.match(servicesBody, /data-testid="services-workbench-expanded-shell"/);
+  assert.match(servicesBody, /mode === 'side'/);
+  assert.match(servicesPage, /services-workbench-tool-select/);
+  assert.match(servicesPage, /knoux\.services\.workbench\.mode/);
+  assert.match(servicesPage, /knoux\.services\.workbench\.width/);
+  assert.match(servicesPage, /data-testid="services-workspace"/);
+  assert.match(servicesPage, /data-testid="services-actionbar"/);
+  assert.doesNotMatch(servicesBody, /sys-service-overlay|aria-modal="true"/, 'Services must not render as a modal sheet');
+  assert.match(servicesBody, /ServiceStateWorkbench|signed third-party start\/stop only/);
+});
+
+check('Repair integrates the shared host with pinned/expanded modes', () => {
+  assert.match(repairBody, /ServiceWorkbenchHost/);
+  assert.match(repairBody, /data-testid="repair-workbench-side-shell"/);
+  assert.match(repairBody, /data-testid="repair-workbench-expanded-shell"/);
+  assert.match(repairBody, /mode === 'side'/);
+  assert.match(repairPage, /repair-workbench-tool-select/);
+  assert.match(repairPage, /knoux\.repair\.workbench\.mode/);
+  assert.match(repairPage, /knoux\.repair\.workbench\.width/);
+  assert.match(repairPage, /data-testid="repair-workspace"/);
+  assert.match(repairPage, /data-testid="repair-actionbar"/);
+  assert.doesNotMatch(repairBody, /sys-service-overlay|rep-service-overlay|aria-modal="true"/, 'Repair must not render as a modal sheet');
+  const mapped = repairBody.match(/^\s{2}'repair-[a-z0-9-]+':\s*[A-Za-z]/gm) || [];
+  assert.equal(mapped.length, 12, `expected 12 repair workbench entries, found ${mapped.length}`);
+});
+
 check('no old generic ServiceWorkspaceHost is imported by any migrated domain', () => {
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(filesPage), 'old generic host must not be used by Files');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(studioPage), 'old generic host must not be used by Studio');
@@ -206,9 +239,13 @@ check('no old generic ServiceWorkspaceHost is imported by any migrated domain', 
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(startupPage), 'old generic host must not be used by Startup');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(systemPage), 'old generic host must not be used by System');
   assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(systemBody), 'old generic host must not be used by System bodies');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(servicesPage), 'old generic host must not be used by Services');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(servicesBody), 'old generic host must not be used by Services bodies');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(repairPage), 'old generic host must not be used by Repair');
+  assert.ok(!/components\/common\/ServiceWorkspaceHost/.test(repairBody), 'old generic host must not be used by Repair bodies');
 });
 
-const result = { ok: failures.length === 0, checks: 13, failures };
+const result = { ok: failures.length === 0, checks: 15, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');

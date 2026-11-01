@@ -1,8 +1,8 @@
 /**
- * Recovery Lab - canonical 12-tool workbench map and focus-trapped sheet.
+ * Recovery Lab - canonical 12-tool workbench map hosted in the shared
+ * ServiceWorkbenchHost with pinned resizable side and expanded modes.
  */
 import React, { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
 import type { RepairSnapshot, RepairToolId } from '../../shared/native-contracts';
 import type { RepairLocale } from './catalog';
 import { TOOL_BY_ID, toolLabel } from './catalog';
@@ -25,6 +25,7 @@ import {
   TroubleshootersWorkbench,
   UpdateResetWorkbench,
 } from './RepairSystemWorkbenches';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 
 export interface RepairWorkbenchComponentProps {
   locale: RepairLocale;
@@ -59,9 +60,14 @@ export interface RepairServiceWorkspaceProps {
   locale: RepairLocale;
   controller: RepairController;
   onClose: () => void;
+  mode: WorkbenchMode;
+  width: number;
+  onModeChange: (mode: WorkbenchMode) => void;
+  onResize: (width: number) => void;
+  toolSelector?: React.ReactNode;
 }
 
-export function RepairServiceWorkspace({ toolId, locale, controller, onClose }: RepairServiceWorkspaceProps) {
+export function RepairServiceWorkspace({ toolId, locale, controller, onClose, mode, width, onModeChange, onResize, toolSelector }: RepairServiceWorkspaceProps) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const closeCallback = useRef(onClose);
   closeCallback.current = onClose;
@@ -102,26 +108,69 @@ export function RepairServiceWorkspace({ toolId, locale, controller, onClose }: 
 
   if (!snapshot || !Component) return null;
 
-  return (
-    <div className="sys-service-overlay rep-service-overlay" role="dialog" aria-modal="true" aria-label={toolLabel(toolId, locale)}>
-      <div className="sys-service-scrim" aria-hidden="true" onClick={onClose} />
-      <div className="sys-service-sheet" data-testid={`repair-service-shell-${toolId}`} ref={sheetRef}>
-        <button
-          ref={closeRef}
-          type="button"
-          className="sys-service-close"
-          aria-label={locale === 'ar' ? 'إغلاق الخدمة' : 'Close service'}
-          onClick={onClose}
+  const isAr = locale === 'ar';
+  const title = toolLabel(toolId, locale);
+  const ToolIcon = TOOL_BY_ID[toolId]?.icon;
+  const subtitle = isAr ? 'أدلة مقيسة · معاينة فقط' : 'Measured evidence · preview only';
+  const body = (
+    <>
+      {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
+      {controller.scanning || controller.refreshing || controller.busy ? <div className="knx-tool-context" role="status"><progress aria-label={isAr ? 'المزود الأصلي نشط' : 'Native provider active'}/><span>{isAr ? 'بانتظار نتيجة المزود الأصلي…' : 'Waiting for native provider result…'}</span>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{isAr ? 'إلغاء الاكتشاف' : 'Cancel discovery'}</button> : null}</div> : null}
+      <Component locale={locale} snapshot={snapshot} controller={controller} toolId={toolId} />
+    </>
+  );
+  const footer = (
+    <span className={isAr ? 'text-slate-300' : 'text-slate-400'}>
+      {isAr ? 'مقيس فقط · لا تنفيذ لأمر إصلاح' : 'Measured only · no repair command execution'}
+    </span>
+  );
+
+  if (mode === 'side') {
+    return (
+      <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width }} data-testid="repair-workbench-side-shell">
+        <ServiceWorkbenchHost
+          serviceId={toolId}
+          icon={ToolIcon ? <ToolIcon aria-hidden="true" /> : undefined}
+          title={title}
+          subtitle={subtitle}
+          locale={locale}
+          mode="side"
+          onModeChange={onModeChange}
+          onClose={onClose}
+          onResize={onResize}
+          minWidth={380}
+          maxWidth={900}
+          testId={`repair-service-shell-${toolId}`}
+          toolSelector={toolSelector}
+          footer={footer}
         >
-          <X aria-hidden="true" />
-          <span>{locale === 'ar' ? 'إغلاق' : 'Close'}</span>
-        </button>
-        <div className="sys-service-sheet-scroll rep-service-sheet-scroll">
-          {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
-          {controller.scanning || controller.refreshing || controller.busy ? <div className="knx-tool-context" role="status"><progress aria-label={locale === 'ar' ? 'المزود الأصلي نشط' : 'Native provider active'}/><span>{locale === 'ar' ? 'بانتظار نتيجة المزود الأصلي…' : 'Waiting for native provider result…'}</span>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{locale === 'ar' ? 'إلغاء الاكتشاف' : 'Cancel discovery'}</button> : null}</div> : null}
-          <Component locale={locale} snapshot={snapshot} controller={controller} toolId={toolId} />
-        </div>
+          <div ref={sheetRef} className="rep-service-sheet-scroll">
+            {body}
+          </div>
+        </ServiceWorkbenchHost>
       </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-x-3 top-14 bottom-20 z-50" data-testid="repair-workbench-expanded-shell">
+      <ServiceWorkbenchHost
+        serviceId={toolId}
+        icon={ToolIcon ? <ToolIcon aria-hidden="true" /> : undefined}
+        title={title}
+        subtitle={subtitle}
+        locale={locale}
+        mode="expanded"
+        onModeChange={onModeChange}
+        onClose={onClose}
+        testId={`repair-service-shell-${toolId}`}
+        toolSelector={toolSelector}
+        footer={footer}
+      >
+        <div ref={sheetRef} className="rep-service-sheet-scroll">
+          {body}
+        </div>
+      </ServiceWorkbenchHost>
     </div>
   );
 }

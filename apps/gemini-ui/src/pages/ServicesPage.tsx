@@ -420,7 +420,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
 
             <section className="svc-tools-panel" aria-labelledby="svc-tools-title">
               <div className="svc-panel-head">
-                <div><h2 id="svc-tools-title"><Wrench aria-hidden="true" />{t(locale, 'Service tools', 'أدوات الخدمات')} ({formatCount(SERVICES_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised measured workbench. No operation is executed.', 'تفتح كل أداة مساحة عمل مقيسة متخصصة. لا تُنفذ أي عملية.')}</p></div>
+                <div><h2 id="svc-tools-title"><Wrench aria-hidden="true" />{t(locale, 'Service tools', 'أدوات الخدمات')} ({formatCount(SERVICES_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised measured workbench. Signed third-party start/stop executes only after an exact plan and native consent.', 'تفتح كل أداة مساحة عمل مقيسة متخصصة. بدء/إيقاف طرف ثالث موقّع ينفّذ فقط بعد خطة محددة وموافقة أصلية.')}</p></div>
               </div>
               <div className="svc-tool-grid" data-testid="services-tool-grid">
                 {SERVICES_TOOLS.map(renderToolCard)}
@@ -458,7 +458,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                   </button>
                 </div>
                 <div className="svc-chip-row">
-                  <Chip tone="bad" icon={Lock}>{t(locale, 'Start/stop/restart not executable', 'البدء/الإيقاف/إعادة التشغيل غير قابل للتنفيذ')}</Chip>
+                  <Chip tone="warn" icon={ShieldAlert}>{t(locale, 'Signed third-party start/stop gated by exact consent', 'بدء/إيقاف طرف ثالث موقّع بموافقة محددة')}</Chip>
                   <Chip tone="warn" icon={ShieldAlert}>{t(locale, 'Protected deny by policy', 'منع الحماية بالسياسة')}</Chip>
                 </div>
               </Panel>
@@ -466,7 +466,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
 
             <div className="sys-foot-strip">
               <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: Win32_Service · Win32_Process · System event log · local preview journal</span>
-              <span><Lock aria-hidden="true" />{t(locale, 'No StartService/StopService/ChangeServiceConfig or sc.exe channel exists in Mission 12.', 'لا توجد قناة StartService/StopService/ChangeServiceConfig أو sc.exe في المهمة 12.')}</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'Signed third-party start/stop uses an exact plan, protected receipt and native consent. Restart, force, cascade, startup-policy and sc.exe remain gated.', 'بدء/إيقاف طرف ثالث موقّع يستخدم خطة محددة وإيصالًا محميًا وموافقة أصلية. إعادة التشغيل والفرض والتتالي وسياسة البدء وsc.exe تبقى مقيدة.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
 
@@ -477,7 +477,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
             <div className="sys-actionbar-summary">
               <strong>{scanStatus}</strong>
               <span className="sys-mono">{snapshot ? `${formatCount(snapshot.summary.total)} ${t(locale, 'services', 'خدمة')} · ${formatCount(snapshot.summary.protected)} ${t(locale, 'protected', 'محمية')} · ${formatCount(snapshot.events.length)} ${t(locale, 'events', 'حدث')}` : t(locale, 'No measured service register yet.', 'لا سجل خدمات مقيس بعد.')}</span>
-              <span className="sys-chip sys-chip-bad">{t(locale, '0 executed', '0 منفذ')}</span>
+              <span className="sys-chip sys-chip-warn">{t(locale, 'consent-gated SCM', 'SCM بموافقة')}</span>
               {snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}
             </div>
             <div className="sys-actionbar-actions">

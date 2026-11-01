@@ -48,7 +48,8 @@ import {
   t,
 } from '../repair/model';
 import { useRepair } from '../repair/useRepair';
-import { RepairServiceWorkspace } from '../repair/RepairServiceWorkspaces';
+import { RepairServiceWorkspace, hasRepairWorkbench } from '../repair/RepairServiceWorkspaces';
+import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { Chip, CopyButton, SearchBox, downloadJson, cx } from '../system/ui';
 import { GuidedSequence } from '../repair/ui';
 import '../repair.css';
@@ -69,6 +70,18 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
   const [selectedToolId, setSelectedToolId] = useState<RepairToolId>('repair-component-scan');
   const [query, setQuery] = useState('');
   const [activeWorkbench, setActiveWorkbench] = useState<RepairToolId | null>(null);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.repair.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try { const value = Number(localStorage.getItem('knoux.repair.workbench.width')); return Number.isFinite(value) && value >= 380 ? Math.min(900, value) : 520; } catch { return 520; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.repair.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.repair.workbench.width', String(workbenchWidth));
+    } catch { /* private mode */ }
+  }, [workbenchMode, workbenchWidth]);
   const triggerRef = useRef<HTMLElement | null>(null);
 
   const selectedTool = TOOL_BY_ID[selectedToolId];
@@ -107,6 +120,23 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
     setActiveWorkbench(null);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   }, []);
+
+  const repairToolSelector = activeWorkbench ? (
+    <select
+      data-testid="repair-workbench-tool-select"
+      aria-label={t(locale, 'Switch repair tool', 'تبديل أداة الإصلاح')}
+      title={toolLabel(activeWorkbench, locale)}
+      value={activeWorkbench}
+      onChange={(event) => {
+        if (hasRepairWorkbench(event.target.value)) setActiveWorkbench(event.target.value as RepairToolId);
+      }}
+      className="max-w-[170px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {REPAIR_TOOLS.map((entry) => (
+        <option key={entry.id} value={entry.id}>{locale === 'ar' ? entry.ar : entry.en}</option>
+      ))}
+    </select>
+  ) : null;
 
   const stageSelected = useCallback(async () => {
     if (!snapshot) {
@@ -602,6 +632,11 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
           locale={locale}
           controller={controller}
           onClose={closeWorkbench}
+          mode={workbenchMode}
+          width={workbenchWidth}
+          onModeChange={setWorkbenchMode}
+          onResize={setWorkbenchWidth}
+          toolSelector={repairToolSelector}
         />
       ) : null}
     </div>
