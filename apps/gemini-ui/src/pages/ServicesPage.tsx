@@ -36,7 +36,7 @@ import {
 import type { ServicesJournalEntry, ServicesToolId } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { RISK_META, SERVICES_TOOLS, STATE_META, TOOL_BY_ID, type ServicesLocale } from '../services/catalog';
+import { RISK_META, SERVICES_TOOLS, STATE_META, TOOL_BY_ID, toolLabel, type ServicesLocale } from '../services/catalog';
 import {
   actionLabel,
   dependencyImpact,
@@ -46,7 +46,7 @@ import {
   t,
 } from '../services/model';
 import { useServices } from '../services/useServices';
-import { ServicesServiceWorkspace } from '../services/ServicesServiceWorkspaces';
+import { ServicesServiceWorkspace, hasServicesWorkbench } from '../services/ServicesServiceWorkspaces';
 import {
   DependencyGraph,
   OperationDock,
@@ -57,6 +57,7 @@ import {
 import { Chip, DataRows, Panel, downloadJson, cx } from '../system/ui';
 import { OrbitalControl } from '../visual/OrbitalControl';
 import { ServicePipeline } from '../visual/ServicePipeline';
+import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import '../services.css';
 
 export interface ServicesPageProps {
@@ -75,6 +76,21 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
   const [selectedName, setSelectedName] = useState<string | null>(null);
   const [activeTool, setActiveTool] = useState<ServicesToolId | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
+    try { return localStorage.getItem('knoux.services.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
+  });
+  const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
+    try {
+      const value = Number(localStorage.getItem('knoux.services.workbench.width'));
+      return Number.isFinite(value) && value >= 360 ? Math.min(900, value) : 520;
+    } catch { return 520; }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem('knoux.services.workbench.mode', workbenchMode);
+      localStorage.setItem('knoux.services.workbench.width', String(workbenchWidth));
+    } catch { /* storage can be unavailable in private contexts */ }
+  }, [workbenchMode, workbenchWidth]);
 
   useEffect(() => {
     if (!snapshot) {
@@ -108,6 +124,23 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
     setActiveTool(null);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   }, []);
+
+  const servicesToolSelector = activeTool ? (
+    <select
+      data-testid="services-workbench-tool-select"
+      aria-label={t(locale, 'Switch service tool', 'تبديل أداة الخدمة')}
+      title={toolLabel(activeTool, locale)}
+      value={activeTool}
+      onChange={(event) => {
+        if (hasServicesWorkbench(event.target.value)) setActiveTool(event.target.value as ServicesToolId);
+      }}
+      className="max-w-[170px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
+    >
+      {SERVICES_TOOLS.map((entry) => (
+        <option key={entry.id} value={entry.id}>{locale === 'ar' ? entry.ar : entry.en}</option>
+      ))}
+    </select>
+  ) : null;
 
   const exportReport = useCallback(async () => {
     if (!snapshot) {
@@ -456,7 +489,19 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
         </div>
       </div>
 
-      {activeTool && snapshot ? <ServicesServiceWorkspace toolId={activeTool} locale={locale} controller={controller} onClose={closeTool} /> : null}
+      {activeTool && snapshot ? (
+        <ServicesServiceWorkspace
+          toolId={activeTool}
+          locale={locale}
+          controller={controller}
+          onClose={closeTool}
+          mode={workbenchMode}
+          width={workbenchWidth}
+          onModeChange={setWorkbenchMode}
+          onResize={setWorkbenchWidth}
+          toolSelector={servicesToolSelector}
+        />
+      ) : null}
     </div>
   );
 }

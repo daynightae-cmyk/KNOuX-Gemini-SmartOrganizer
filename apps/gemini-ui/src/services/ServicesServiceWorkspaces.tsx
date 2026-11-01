@@ -1,11 +1,13 @@
 /**
- * Service Commander - canonical 12-tool workbench map and focus-trapped sheet.
+ * Service Commander - canonical 12-tool workbench map hosted in the shared
+ * ServiceWorkbenchHost with pinned resizable side and expanded modes.
  */
 import React, { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import type { ServicesSnapshot, ServicesToolId } from '../../shared/native-contracts';
 import type { ServicesLocale } from './catalog';
 import { TOOL_BY_ID, toolLabel } from './catalog';
+import { t } from './model';
 import type { ServicesController } from './useServices';
 import {
   ConfigWorkbench,
@@ -25,6 +27,7 @@ import {
   StartupReportWorkbench,
   StateHistoryWorkbench,
 } from './ServicesAnalyticsWorkbenches';
+import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 
 export interface ServicesWorkbenchComponentProps {
   locale: ServicesLocale;
@@ -59,9 +62,14 @@ export interface ServicesServiceWorkspaceProps {
   locale: ServicesLocale;
   controller: ServicesController;
   onClose: () => void;
+  mode: WorkbenchMode;
+  width: number;
+  onModeChange: (mode: WorkbenchMode) => void;
+  onResize: (width: number) => void;
+  toolSelector?: React.ReactNode;
 }
 
-export function ServicesServiceWorkspace({ toolId, locale, controller, onClose }: ServicesServiceWorkspaceProps) {
+export function ServicesServiceWorkspace({ toolId, locale, controller, onClose, mode, width, onModeChange, onResize, toolSelector }: ServicesServiceWorkspaceProps) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const closeCallback = useRef(onClose);
   closeCallback.current = onClose;
@@ -71,7 +79,6 @@ export function ServicesServiceWorkspace({ toolId, locale, controller, onClose }
 
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
-    closeRef.current?.focus({preventScroll:true});
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented || document.querySelector('dialog[open]')) return;
       if (event.key === 'Escape') {
@@ -97,20 +104,45 @@ export function ServicesServiceWorkspace({ toolId, locale, controller, onClose }
 
   if (!snapshot || !Component) return null;
 
+  const isAr = locale === 'ar';
+  const title = toolLabel(toolId, locale);
+  const subtitle = snapshot.readOnly ? (isAr ? 'مقيس · للقراءة فقط' : 'Measured · read-only') : (isAr ? 'تنفيذ مقيد بالموافقة' : 'Execution gated by consent');
+  const body = (
+    <>
+      {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
+      {controller.scanning || controller.refreshing || controller.busy ? <div className="knx-tool-context" role="status"><progress aria-label={locale === 'ar' ? 'المزود الأصلي نشط' : 'Native provider active'}/><span>{locale === 'ar' ? 'بانتظار نتيجة المزود الأصلي…' : 'Waiting for native provider result…'}</span>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{locale === 'ar' ? 'إلغاء الاكتشاف' : 'Cancel discovery'}</button> : null}</div> : null}
+      <Component locale={locale} snapshot={snapshot} controller={controller} toolId={toolId} />
+    </>
+  );
+
+  const footer = (
+    <span className={isAr ? 'text-slate-300' : 'text-slate-400'}>
+      {snapshot ? `${formatCount(controller.journal.length)} ${t(locale, 'journal entries', 'مدخلات السجل')} · ${t(locale, '0 SCM writes', '0 كتابة SCM')}` : t(locale, 'Awaiting measured discovery', 'بانتظار الاكتشاف المقيس')}
+    </span>
+  );
+
   return (
-    <div className="sys-service-overlay svc-service-overlay" role="dialog" aria-modal="true" aria-label={toolLabel(toolId, locale)}>
-      <div className="sys-service-scrim" aria-hidden="true" onClick={onClose} />
-      <div className="sys-service-sheet" data-testid={`services-service-shell-${toolId}`} ref={sheetRef}>
-        <button ref={closeRef} type="button" className="sys-service-close" aria-label={locale === 'ar' ? 'إغلاق الخدمة' : 'Close service'} onClick={onClose}>
-          <X aria-hidden="true" />
-          <span>{locale === 'ar' ? 'إغلاق' : 'Close'}</span>
-        </button>
-        <div className="sys-service-sheet-scroll svc-service-sheet-scroll">
-          {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}</p> : null}
-          {controller.scanning || controller.refreshing || controller.busy ? <div className="knx-tool-context" role="status"><progress aria-label={locale === 'ar' ? 'المزود الأصلي نشط' : 'Native provider active'}/><span>{locale === 'ar' ? 'بانتظار نتيجة المزود الأصلي…' : 'Waiting for native provider result…'}</span>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{locale === 'ar' ? 'إلغاء الاكتشاف' : 'Cancel discovery'}</button> : null}</div> : null}
-          <Component locale={locale} snapshot={snapshot} controller={controller} toolId={toolId} />
-        </div>
+    <ServiceWorkbenchHost
+      serviceId={toolId}
+      icon={<X aria-hidden="true" />}
+      title={title}
+      subtitle={subtitle}
+      locale={locale}
+      mode={mode}
+      onModeChange={onModeChange}
+      onClose={onClose}
+      onResize={onResize}
+      minWidth={360}
+      maxWidth={900}
+      testId={`services-service-shell-${toolId}`}
+      toolSelector={toolSelector}
+      footer={footer}
+    >
+      <div ref={sheetRef} className="svc-service-sheet-scroll">
+        {body}
       </div>
-    </div>
+    </ServiceWorkbenchHost>
   );
 }
+
+function formatCount(n: number) { return String(n); }
