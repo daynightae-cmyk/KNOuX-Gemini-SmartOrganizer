@@ -3,6 +3,7 @@
  * Size candidates are metadata only; content groups are SHA-256 verified.
  */
 import React, {useState} from 'react';
+import {FileIcon} from '../../components/files/FileIcon';
 import { Copy, Fingerprint, Info, Layers } from 'lucide-react';
 import { EmptyResult, Metric, WorkspaceLink, byteLabel, type ServiceRendererProps } from './shared';
 
@@ -29,6 +30,7 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
         <WorkspaceLink workspace="storage" labelEn="Storage Atlas" labelAr="أطلس التخزين" isArabic={isArabic} onNavigateToWorkspace={onNavigateToWorkspace} />
       </div>
 
+      <details className="scan-result-summary"><summary>{isArabic?'ملخص القياسات':'Measurement summary'}</summary>
       <div className="scan-metric-grid gap-2">
         <Metric label={isArabic ? 'مجموعات مؤكدة' : 'Verified groups'} value={verified ? String(verified.summary.verifiedGroups) : '—'} sub={byteLabel(verified?.summary?.reclaimableVerifiedBytes, isArabic)} tone="emerald" />
         <Metric label={isArabic ? 'ملفات مجزأة' : 'Files hashed'} value={verified ? String(verified.summary.filesHashed) : '—'} sub={byteLabel(verified?.summary?.bytesHashed, isArabic)} />
@@ -36,6 +38,7 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
         <Metric label={isArabic ? 'حد التجزئة' : 'Hash budget'} value={!verified ? (isArabic ? 'لم يُقس' : 'Not measured') : verified.summary.budgetReached ? (isArabic ? 'جزئي' : 'Partial') : (isArabic ? 'مكتمل' : 'Complete')} sub={`${verified?.summary?.maxFiles ?? '—'} ${isArabic ? 'ملف كحد أقصى' : 'max files'}`} tone={verified?.summary?.budgetReached ? 'amber' : 'cyan'} />
       </div>
 
+      </details>
       <label className="knx-file-filter-label">{isArabic ? 'تصفية البصمات والمسارات المتحققة' : 'Filter verified digests and paths'}<input type="search" value={query} onChange={e => setQuery(e.target.value)}/></label>
       <div className="rounded-xl border border-[#133059] bg-[#091a38] p-3">
         <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 mb-2">
@@ -44,14 +47,14 @@ export const DuplicateFinderRenderer: React.FC<ServiceRendererProps> = ({ servic
         </div>
         <div className="space-y-2 max-h-52 overflow-y-auto knx-custom-scrollbar pr-1">
           {groups.map((group) => (
-            <div key={`${group.digest}:${group.size}`} className="rounded-lg border border-[#16355c] bg-[#071731] p-2">
+            <div key={`${group.digest}:${group.size}`} className="scan-duplicate-group rounded-lg border border-[#16355c] bg-[#071731] p-2">
               <div className="flex items-center justify-between gap-2 text-[10px]">
                 <span className="font-mono text-cyan-300 knx-tool-path">SHA-256 {group.digest}</span>
                 <span className="font-bold text-emerald-300 shrink-0">{byteLabel(group.wastedBytes, isArabic)} {isArabic ? 'مكرر' : 'wasted'}</span>
               </div>
               {group.files.map((file) => (
-                <div key={file.id} className="mt-1 flex justify-between gap-2 text-[9px] text-slate-400">
-                  <span className="knx-tool-path">{file.relative}</span>
+                <div key={file.id} className="scan-duplicate-member mt-1 flex justify-between gap-2 text-[9px] text-slate-400">
+                  <FileIcon name={file.relative} type="file" className="scan-file-type-icon"/><span className="knx-tool-path">{file.relative}</span>
                   <span className="shrink-0">{byteLabel(file.size, isArabic)}</span>
                 </div>
               ))}

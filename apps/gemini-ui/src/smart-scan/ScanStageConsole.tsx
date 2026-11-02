@@ -45,7 +45,7 @@ export const ScanStageConsole: React.FC<ScanStageConsoleProps> = ({ active, summ
         <div className="flex-1 min-w-[140px] h-1.5 rounded-full bg-slate-800 overflow-hidden border border-cyan-500/20">
           <div
             className={`h-full transition-all duration-300 ${executing ? 'bg-gradient-to-r from-blue-500 to-cyan-400' : 'bg-emerald-500'}`}
-            style={{ width: `${Math.max(2, Math.min(100, progress))}%` }}
+            style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}
           />
         </div>
         <span className={`text-[9px] font-mono shrink-0 ${executing ? 'text-cyan-300' : 'text-emerald-300'}`}>{progress}%</span>

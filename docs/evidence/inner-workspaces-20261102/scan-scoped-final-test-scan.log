@@ -1,0 +1,53 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:scan
+> node scripts/scan-native-test.cjs && node --import tsx --test tests/scan/model.test.ts
+
+{
+  "ok": true,
+  "services": 10,
+  "stages": 10,
+  "quickFiles": 6,
+  "quickFindings": 4,
+  "deepFindings": 8,
+  "verifiedGroups": 1,
+  "startupItems": 2,
+  "installedApps": 3,
+  "privacySampled": 6,
+  "privacyWithZone": 1,
+  "healthScore": 72,
+  "deepStages": [
+    "inventory:complete",
+    "capacity:complete",
+    "system:complete",
+    "services:complete",
+    "startup:complete",
+    "apps:complete",
+    "emptyFolders:complete",
+    "privacy:complete",
+    "duplicates:complete",
+    "analyze:complete"
+  ],
+  "emptyFolders": {
+    "root": "D:\\Temp\\knoux-scan-native-test-1H4fjT\\source",
+    "foldersScanned": 5,
+    "emptyFolders": 1,
+    "skippedLinks": 0,
+    "errors": 0,
+    "limit": 200,
+    "elapsedMs": 1
+  },
+  "history": 20,
+  "persistedSessions": 10,
+  "failures": []
+}
+[scan-native-test] PASS
+✔ native low-space and system-pressure groups retain distinct identities and measurements (5.3795ms)
+✔ every retained native session remains reachable, including older and cancelled records (51.0547ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 455.6774

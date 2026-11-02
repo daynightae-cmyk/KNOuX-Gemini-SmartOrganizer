@@ -1,4 +1,4 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
+import {ScanLiveStage} from './ScanLiveStage';
 /**
  * KNOuX SmartOrganizer — Smart Scan master workspace (measured only).
  *
@@ -47,6 +47,7 @@ import {
 } from './model';
 import type { ScanServiceMeta } from './smartScan.types';
 import './smartScan.css';
+import './scan-inner-workspace.css';
 
 export interface SmartScanPageProps {
   onNavigateSection?: (section: string) => void;
@@ -60,7 +61,9 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
 
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedResultId, setSelectedResultId] = useState<string | null>(null);
-  const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
+  const [activeServiceId, setActiveServiceId] = useState<string | null>('quick_scan');
+  const [detached,setDetached]=useState(false);
+  const [inspectorOpen,setInspectorOpen]=useState(false);
   const [customOpen, setCustomOpen] = useState(false);
   const [customServiceIds, setCustomServiceIds] = useState<string[]>([]);
   const [cleanupOpen, setCleanupOpen] = useState(false);
@@ -216,11 +219,28 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
   const customSelectedNeedsSource = customServiceIds.some((id) => scan.capabilities?.services.find((entry) => entry.id === id)?.requiresSource);
 
   const closeWorkbench = () => {
-    if (!customOpen && !cleanupOpen) setActiveServiceId(null);
+    if (!customOpen && !cleanupOpen) {setDetached(false);}
   };
+
+  const renderScanActions = () => (
+            <ScanCommandBar
+              session={scan.session}
+              active={scan.active}
+              isArabic={isArabic}
+              busy={scan.busy}
+              sourceReady={Boolean(scan.selectedSource && scan.selectedSource.status === 'ready' && scan.selectedSource.fileCount > 0)}
+              onCancelScan={() => void scan.cancelActive()}
+              onExport={handleExport}
+              onOpenCustomScan={openCustomScan}
+              onOpenCleanupGate={() => setCleanupOpen(true)}
+            />
+  );
 
   const renderScanServiceBody = () => activeService ? (
     <ScanServiceWorkspace
+      key={activeService.id}
+      extraActions={!detached?renderScanActions():undefined}
+      previousMeasurement={!!scan.active&&scan.session?.id!==scan.active.sessionId}
       service={activeService}
       result={activeServiceResult}
       session={scan.session}
@@ -245,6 +265,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
       }}
       onOpenCleanupGate={() => setCleanupOpen(true)}
       embedded
+      integrated={!detached}
     />
   ) : null;
 
@@ -277,7 +298,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
       />
 
       {scan.notice ? (
-        <div className="absolute top-12 right-6 z-[60] px-4 py-2 rounded-xl bg-emerald-950/95 border border-emerald-400 text-emerald-200 text-xs shadow-2xl flex items-center gap-2 animate-fade-in backdrop-blur-md max-w-md">
+        <div className="scan-inline-message" role="status">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{scan.notice}</span>
           <button type="button" onClick={scan.clearNotice} className="text-emerald-300/70 hover:text-white ml-1" aria-label={isArabic ? 'إغلاق' : 'Dismiss'}>
@@ -287,7 +308,7 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
       ) : null}
 
       {scan.actionError ? (
-        <div className="absolute top-12 right-6 z-[60] px-4 py-2 rounded-xl bg-rose-950/95 border border-rose-500/70 text-rose-100 text-xs shadow-2xl flex items-start gap-2 animate-fade-in backdrop-blur-md max-w-md">
+        <div className="scan-inline-message is-error" role="alert">
           <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
           <div className="min-w-0">
             <div className="font-bold">{scan.actionError.code}</div>
@@ -302,10 +323,9 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
       <div className="flex flex-1 overflow-hidden relative">
         <KNOuXSidebar activeSection="smart_scan" onNavigate={handleNavigate} isArabic={isArabic} />
 
-        <div className="flex-1 flex flex-col min-h-0">
-          <main data-testid="scan-workspace" className="scan-main flex-1 flex flex-col overflow-y-auto 2xl:overflow-hidden bg-gradient-to-b from-[#040b18] via-[#06142a] to-[#040b18] p-3 gap-3 knx-custom-scrollbar min-h-0">
-          <CommandCanvas locale={isArabic ? 'ar' : 'en'} heroTypes={[SmartScanHero]} metricTypes={[ScanMetrics]} primaryTypes={[ScanServices]}>
-            <SmartScanHero
+        <div className="flex-1 flex flex-col min-h-0 min-w-0">
+          <main data-testid="scan-workspace" className="scan-inner-main" dir={isArabic?'rtl':'ltr'}>
+            <div hidden className="scan-header-bridge">            <SmartScanHero
               isArabic={isArabic}
               nativeAvailable={scan.nativeAvailable}
               sources={scan.sources}
@@ -324,95 +344,35 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               onCancel={() => void scan.cancelActive()}
               onOpenService={scan.capabilities ? (serviceId) => setActiveServiceId(serviceId) : undefined}
             />
-            <aside className="knx-scan-status">
-              <h2>{isArabic ? 'حالة الفحص المباشرة' : 'Live Scan Status'}</h2>
-              <p>{scan.active ? (isArabic ? 'الفحص جارٍ على النطاق المصرح.' : 'Measuring the authorized scope.') : (isArabic ? 'بانتظار فحص يبدأ باختيارك.' : 'Ready when you choose to scan.')}</p>
-              <SmartScanSourceBar
-                isArabic={isArabic}
-                nativeAvailable={scan.nativeAvailable}
-                sources={scan.sources}
-                selectedSource={scan.selectedSource}
-                active={scan.active}
-                session={scan.session}
-                busy={scan.busy}
-                onSelectSource={scan.setSelectedSourceId}
-                onAuthorizeSource={() => void scan.authorizeSource()}
-                onIndexSource={() => {
-                  if (scan.selectedSource) void scan.indexSource(scan.selectedSource.id);
-                }}
-                onRefreshSources={() => void scan.refreshSources()}
-                onRunQuick={handleRunQuick}
-                onRunDeep={handleRunDeep}
-                onCancel={() => void scan.cancelActive()}
-              />
-              <ScanStageConsole active={scan.active} summary={scan.session?.summary || null} stages={stages} isArabic={isArabic} />
-              {!scan.active && !scan.session && <div className="knx-ref-empty"><ShieldCheck/><strong>{isArabic ? 'لم يبدأ الفحص' : 'No scan has started'}</strong><small>{isArabic ? 'لا تُعرض نتائج أو نسبة نجاح قبل القياس.' : 'Results and progress appear only after measurement.'}</small></div>}
-              <FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)} />
-              <RecentScans records={recent} isArabic={isArabic} selectedId={scan.session?.id || null} onSelect={sessionId => void handleSelectHistory(sessionId)} loading={scan.busy} />
-            </aside>
-
-            {!scan.nativeAvailable ? (
-              <div className="flex items-start gap-2 rounded-xl border border-amber-500/35 bg-amber-950/20 px-3 py-2 text-[10px] text-amber-200 shrink-0">
-                <FolderLock className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>
-                  {isArabic
-                    ? 'جسر الفحص الأصلي غير متاح. افتح Electron لتصريح مجلد وقياس هذا الجهاز.'
-                    : 'Native scan bridge unavailable. Authorize a folder in Electron to measure this device.'}
-                </span>
+</div>
+            <ScanServices services={services} results={serviceResults} activeServiceId={activeServiceId} onSelectService={service=>{setActiveServiceId(service.id);setDetached(false);}} onOpenCustomScan={openCustomScan} isArabic={isArabic} nativeAvailable={scan.nativeAvailable}/>
+            <section id="active-service-workspace" className="scan-integrated-stage" role="tabpanel" aria-labelledby={activeService?`service-tab-${activeService.id}`:undefined} data-testid="scan-integrated-workspace">
+              <div className="scan-workspace-tools"><button type="button" onClick={()=>{setActiveServiceId(null);setDetached(false);}}>{isArabic?'كل الخدمات':'All services'}</button>
+                <details className="scan-scope-disclosure"><summary>{isArabic?'نطاق القياس':'Measurement scope'} · {scan.selectedSource?.label||(isArabic?'اختيار مجلد':'Choose folder')}</summary>
+                  <SmartScanSourceBar isArabic={isArabic} nativeAvailable={scan.nativeAvailable} sources={scan.sources} selectedSource={scan.selectedSource} active={scan.active} session={scan.session} busy={scan.busy} onSelectSource={scan.setSelectedSourceId} onAuthorizeSource={()=>void scan.authorizeSource()} onIndexSource={()=>{if(scan.selectedSource)void scan.indexSource(scan.selectedSource.id)}} onRefreshSources={()=>void scan.refreshSources()} onRunQuick={handleRunQuick} onRunDeep={handleRunDeep} onCancel={()=>void scan.cancelActive()}/>
+                </details>
+                <button type="button" disabled={!scan.nativeAvailable||scan.busy||scanActive} onClick={()=>void scan.authorizeSource()}>{isArabic?'اختيار مجلد':'Choose folder'}</button>
+                <button type="button" aria-pressed={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>{isArabic?'النتائج والسجل':'Findings & history'}</button>
+                {activeService?<button type="button" onClick={()=>setDetached(true)}>{isArabic?'عرض جانبي':'Side view'}</button>:null}
               </div>
-            ) : null}
-
-            <ScanMetrics metrics={metrics} isArabic={isArabic} hasSession={Boolean(scan.session)} />
-
-            <ScanServices
-              services={services}
-              results={serviceResults}
-              activeServiceId={activeServiceId}
-              onSelectService={(service) => setActiveServiceId(service.id)}
-              onOpenCustomScan={openCustomScan}
-              isArabic={isArabic}
-              nativeAvailable={scan.nativeAvailable}
-            />
-
-            <div className="scan-results-grid grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-12 2xl:grid-rows-[minmax(0,1fr)] gap-3 2xl:flex-1 2xl:min-h-[240px]">
-              <div className="scan-results-column lg:col-span-2 2xl:col-span-6 h-[280px] sm:h-[300px] lg:h-[180px] 2xl:h-full min-h-0">
-                <ScanResults
-                  results={filteredResults}
-                  selectedId={selectedResultId}
-                  activeFilter={activeFilter}
-                  onFilterChange={setActiveFilter}
-                  onSelectRow={setSelectedResultId}
-                  isArabic={isArabic}
-                  hasSession={Boolean(scan.session)}
-                />
+              <ScanLiveStage service={activeService} active={scan.active} session={scan.session} source={scan.selectedSource} stages={stages} nativeAvailable={scan.nativeAvailable} busy={scan.busy} error={scan.actionError?.message||null} isArabic={isArabic}/>
+              <div className={`scan-operational-layout ${inspectorOpen?'has-inspector':''}`}>
+                <div className="scan-primary-operation knx-service-workspace">
+                  {activeService?(!detached?renderScanServiceBody():<div className="scan-detached-notice"><h2>{isArabic?activeService.titleAr:activeService.titleEn}</h2><p>{isArabic?'الخدمة مفتوحة في العرض الجانبي.':'The service is open in the optional side view.'}</p><button type="button" onClick={()=>setDetached(false)}>{isArabic?'إرجاع لمساحة الصفحة':'Return to integrated workspace'}</button></div>):<div className="scan-service-gallery" data-testid="scan-service-gallery"><h2>{isArabic?'اختار مساحة الفحص المناسبة':'Choose your scan workspace'}</h2><p>{isArabic?'كل خدمة تعرض نطاقها وأدواتها ونتائجها الفعلية.':'Each tool has its own scope, controls and measured results.'}</p><div>{services.map(service=><button type="button" key={service.id} onClick={()=>setActiveServiceId(service.id)}>{scanServiceIcon(service.iconName)}<strong>{isArabic?service.titleAr:service.titleEn}</strong><span>{isArabic?service.noteAr:service.noteEn}</span><small>{service.state}</small></button>)}</div>{!scan.nativeAvailable?<p role="status">{isArabic?'افتح تطبيق Electron للوصول إلى قدرات الفحص الأصلية.':'Open Electron to access the native scan capabilities.'}</p>:null}</div>}
+                </div>
+                {inspectorOpen?<aside className="scan-evidence-rail" data-testid="scan-evidence-rail">
+                  <ScanResults results={filteredResults} selectedId={selectedResultId} activeFilter={activeFilter} onFilterChange={setActiveFilter} onSelectRow={setSelectedResultId} isArabic={isArabic} hasSession={Boolean(scan.session)}/>
+                  <ScanReviewInspector selectedItem={selectedItem} isArabic={isArabic} hasSession={Boolean(scan.session)}/>
+                  <details><summary>{isArabic?'توزيع النتائج والجلسات السابقة':'Findings breakdown & recent sessions'}</summary><FindingsBreakdown categories={breakdown} isArabic={isArabic} hasSession={Boolean(scan.session)}/><RecentScans records={recent} isArabic={isArabic} selectedId={scan.session?.id||null} onSelect={id=>void handleSelectHistory(id)} loading={scan.busy}/></details>
+                </aside>:null}
               </div>
-
-
-              <div className="scan-inspector-column lg:col-span-1 2xl:col-span-3 h-[360px] 2xl:h-full min-h-0">
-                <ScanReviewInspector selectedItem={selectedItem} isArabic={isArabic} hasSession={Boolean(scan.session)} />
-              </div>
-            </div>
-
-          </CommandCanvas>
+            </section>
           </main>
-
-          <div className="shrink-0 flex flex-col gap-2 px-3 sm:px-4 pb-3 pt-2 bg-[#050e1f]/90 border-t border-[#11294a] backdrop-blur-md z-30">
-            <ScanCommandBar
-              session={scan.session}
-              active={scan.active}
-              isArabic={isArabic}
-              busy={scan.busy}
-              sourceReady={Boolean(scan.selectedSource && scan.selectedSource.status === 'ready' && scan.selectedSource.fileCount > 0)}
-              onCancelScan={() => void scan.cancelActive()}
-              onExport={handleExport}
-              onOpenCustomScan={openCustomScan}
-              onOpenCleanupGate={() => setCleanupOpen(true)}
-            />
-          </div>
+          <div className="scan-persistent-actions">{(!activeService||detached)?renderScanActions():null}</div>
         </div>
       </div>
 
-      {activeService ? (
+      {activeService && detached ? (
         workbenchMode === 'side' ? (
           <div className="fixed end-3 top-14 bottom-28 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="scan-workbench-side-shell">
             <ServiceWorkbenchHost

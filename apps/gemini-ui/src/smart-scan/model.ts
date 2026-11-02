@@ -342,7 +342,8 @@ export function toBreakdown(session: ScanSession | null): BreakdownCategory[] {
 }
 
 export function toRecentScans(history: ScanSummary[]): RecentScanRecord[] {
-  return history.slice(0, 6).map((entry) => ({
+  // The native history store is bounded; keep every returned session reachable.
+  return history.map((entry) => ({
     id: entry.id,
     mode: entry.mode,
     sourceLabel: entry.sourceLabel,

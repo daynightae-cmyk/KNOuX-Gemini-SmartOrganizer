@@ -1,0 +1,35 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 build
+> vite build
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 1888 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                       1.75 kB │ gzip:   0.77 kB
+dist/assets/knoux-official-logo-BvEPOS0-.png        229.17 kB
+dist/assets/automation-scene-DeqcnWQP.png         1,073.74 kB
+dist/assets/studio-scene-Bt-OiCFE.png             1,156.05 kB
+dist/assets/home-scene-DbQ1A2wq.png               1,205.23 kB
+dist/assets/startup-scene-CdNYbEIO.png            1,221.54 kB
+dist/assets/system-scene-xKukmpRV.png             1,287.48 kB
+dist/assets/knoux-circular-logo-day-CoiS9pFV.png  1,310.61 kB
+dist/assets/smart_scan-scene-KcFTx_pA.png         1,376.44 kB
+dist/assets/repair-scene-CeacSQb7.png             1,379.12 kB
+dist/assets/applications-scene-CxqFdS4i.png       1,414.15 kB
+dist/assets/workspace-scene-C6_nlupX.png          1,447.68 kB
+dist/assets/storage-scene-Dw1epVTn.png            1,485.29 kB
+dist/assets/cleanup-scene-CmP600nm.png            1,666.58 kB
+dist/assets/files-scene-RSvw4p7W.png              1,679.11 kB
+dist/assets/services-scene-CBsNW64E.png           1,728.24 kB
+dist/assets/settings-scene-VcjHbM-2.png           1,787.36 kB
+dist/assets/index-BHPddMiX.css                      998.12 kB │ gzip: 157.04 kB
+dist/assets/index-D5dOqgO5.js                     2,203.11 kB │ gzip: 569.87 kB
+
+✓ built in 3.03s
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

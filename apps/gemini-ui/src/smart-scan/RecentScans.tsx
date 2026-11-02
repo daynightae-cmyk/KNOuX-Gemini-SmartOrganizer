@@ -43,6 +43,7 @@ export const RecentScans: React.FC<RecentScansProps> = ({ records, isArabic = fa
             <button
               type="button"
               key={record.id}
+              data-testid={`recent-scan-${record.id}`}
               onClick={() => onSelect?.(record.id)}
               disabled={!onSelect || loading}
               className={`w-full text-start flex items-center justify-between gap-2 text-[11px] p-2 rounded-xl border transition cursor-pointer disabled:cursor-not-allowed ${

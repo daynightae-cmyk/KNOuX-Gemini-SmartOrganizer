@@ -265,10 +265,14 @@ export function useSmartScan() {
     const timer = window.setInterval(async () => {
       const envelope = await loadScanSession(sessionId);
       if (!envelope || envelope.status !== 'complete' || !envelope.data) return;
+      if (activeRef.current?.sessionId !== sessionId) return;
       const data = envelope.data;
       if (TERMINAL_STATUSES.includes(data.status)) {
         void settleSession(sessionId);
       } else {
+        // Present the provider's actual partial findings while the existing
+        // polling fallback updates its stage state; never synthesize results.
+        setSession(data);
         setActive((current) => current?.sessionId === sessionId ? activeFromSession(data) : current);
       }
     }, 1500);
