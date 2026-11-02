@@ -1014,7 +1014,7 @@ export const AppServiceWorkspace: React.FC<AppServiceWorkspaceProps> = ({
                           <span
                             style={{
                               width: `${Math.max(
-                                2,
+                                0,
                                 Math.min(
                                   100,
                                   ((result?.measuredBytes ?? app.size.measuredBytes ?? 0) /

@@ -1,4 +1,3 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Applications Software Register (Mission 05).
  *
@@ -6,7 +5,7 @@ import { CommandCanvas } from '../visual/CommandCanvas';
  * row, signature, size, candidate and package comes from the read-only native
  * Applications coordinator. No design fixtures are imported here.
  */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -33,6 +32,8 @@ import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbenc
 import { useApplications } from '../apps/useApplications';
 import {readSearchIntent,consumeSearchIntent} from '../home/search';
 import '../applications.css';
+import {ApplicationsLiveStage} from '../apps/ApplicationsLiveStage';
+import '../apps/apps-inner-workspace.css';
 
 export interface ApplicationsPageProps {
   onNavigateSection?: (section: string) => void;
@@ -57,6 +58,9 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<DomainServiceKey | null>(null);
   const [planOpen, setPlanOpen] = useState(false);
+  const integratedRef=useRef<HTMLElement>(null);
+  useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
+  const [detached,setDetached]=useState(false),[inspectorOpen,setInspectorOpen]=useState(false);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.apps.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -207,6 +211,14 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
         onOpenSettings={() => handleNavigate('settings')}
       />
 
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+        <KNOuXSidebar activeSection="applications" onNavigate={handleNavigate} isArabic={locale === 'ar'} />
+
+        <div className="flex-1 flex flex-col min-h-0">
+          <main
+            data-testid="apps-workspace"
+            className="apps-main apps-inner-workspace flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
+          >
       {controller.notice ? (
         <div className="apps-toast apps-toast-good" role="status">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -230,15 +242,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
         </div>
       ) : null}
 
-      <div className="flex flex-1 min-h-0 overflow-hidden">
-        <KNOuXSidebar activeSection="applications" onNavigate={handleNavigate} isArabic={locale === 'ar'} />
-
-        <div className="flex-1 flex flex-col min-h-0">
-          <main
-            data-testid="apps-workspace"
-            className="apps-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
-          >
-          <CommandCanvas locale={locale} heroTypes={[ApplicationsHero]} metricTypes={[ApplicationsMetrics]} toolTypes={[ApplicationServices]} toolPlacement="rail">
+          <div hidden className="apps-header-bridge">
             <ApplicationsHero
               locale={locale}
               controller={controller}
@@ -247,7 +251,10 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
               onOpenService={setActiveService}
             />
 
-            <ApplicationsMetrics locale={locale} controller={controller} />
+          </div>
+          <ApplicationServices locale={locale} controller={controller} selectedCount={checkedIds.size} selectedService={activeService} onOpenService={setActiveService}/>
+          <div className="apps-inner-process"><ApplicationsLiveStage controller={controller} locale={locale} service={activeService} title={activeService?serviceTitle(activeService,locale):t(locale,'Application register','سجل التطبيقات')} selected={checkedIds.size} selectedAppId={selectedAppId}/><div className="apps-inner-tools"><button onClick={()=>{setActiveService(null);setDetached(false);}}>{t(locale,'Register','السجل')}</button><button aria-pressed={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>{t(locale,'Dossier','ملف التطبيق')}</button>{activeService?<button onClick={()=>setDetached(true)}>{t(locale,'Side view','عرض جانبي')}</button>:null}<details><summary>{t(locale,'Coverage & metrics','التغطية والمؤشرات')}</summary><ApplicationsMetrics locale={locale} controller={controller}/>
+
 
             {!controller.nativeAvailable ? (
               <div className="apps-native-banner apps-native-required" data-testid="apps-native-required">
@@ -274,7 +281,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
                       : t(locale, 'Reading the registry and Appx/MSIX providers…', 'جارٍ قراءة السجل ومزوّدي Appx/MSIX…')}
                   </p>
                 </div>
-                <span className="apps-chip apps-chip-good ml-auto shrink-0">{t(locale, 'MEASURED', 'مقيس')}</span>
+                <span className="apps-chip apps-chip-good ml-auto shrink-0">{inventory?t(locale, 'MEASURED', 'مقيس'):t(locale,'READING','جارٍ القراءة')}</span>
                 {warm ? (
                   <span className="apps-chip apps-chip-warn shrink-0">
                     {formatCount(inventory?.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}
@@ -282,43 +289,6 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
                 ) : null}
               </div>
             )}
-
-            <div className="apps-work-grid">
-              <AppRegister
-                locale={locale}
-                apps={filteredApps}
-                totalCount={apps.length}
-                filters={filters}
-                onChangeFilters={patchFilters}
-                onResetFilters={() => setFilters(DEFAULT_FILTERS)}
-                selectedAppId={selectedAppId}
-                onSelectApp={setSelectedAppId}
-                checkedIds={checkedIds}
-                onToggleCheck={toggleCheck}
-                onToggleAll={toggleAllVisible}
-                signatures={controller.signatures}
-                loading={controller.loading}
-              />
-              <AppDossier
-                locale={locale}
-                app={selectedApp}
-                signature={selectedApp ? controller.signatures[selectedApp.id] || null : null}
-                size={selectedApp ? controller.sizes[selectedApp.id] || null : null}
-                signatureBusy={Boolean(selectedApp && controller.signatureBusyId === selectedApp.id)}
-                sizeBusy={controller.sizesBusy && Boolean(selectedApp && controller.sizesStatus?.operationId)}
-                onVerifySignature={(appId) => void controller.verifySignature(appId)}
-                onMeasureSize={(appId) => void controller.measureSizes([appId])}
-                onReviewPlan={(appId) => void openPlan([appId])}
-                onOpenService={(service) => setActiveService(service as DomainServiceKey)}
-              />
-            </div>
-
-            <ApplicationServices
-              locale={locale}
-              controller={controller}
-              selectedCount={checkedIds.size}
-              onOpenService={setActiveService}
-            />
 
             <div className="apps-foot-strip">
               <span>
@@ -337,12 +307,47 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
               ) : null}
             </div>
 
-          </CommandCanvas>
+            </details></div></div>
+            <div className="apps-work-grid">
+              {(!activeService||detached)?<>
+
+              <AppRegister
+                locale={locale}
+                apps={filteredApps}
+                totalCount={apps.length}
+                filters={filters}
+                onChangeFilters={patchFilters}
+                onResetFilters={() => setFilters(DEFAULT_FILTERS)}
+                selectedAppId={selectedAppId}
+                onSelectApp={setSelectedAppId}
+                checkedIds={checkedIds}
+                onToggleCheck={toggleCheck}
+                onToggleAll={toggleAllVisible}
+                signatures={controller.signatures}
+                loading={controller.loading}
+              />
+              </>:<section ref={integratedRef} id="active-service-workspace" role="tabpanel" aria-labelledby={`service-tab-${activeService}`} className="apps-integrated-service knx-service-workspace" data-testid="apps-integrated-service">{renderAppServiceBody()}</section>}
+              {inspectorOpen?<AppDossier
+                locale={locale}
+                app={selectedApp}
+                signature={selectedApp ? controller.signatures[selectedApp.id] || null : null}
+                size={selectedApp ? controller.sizes[selectedApp.id] || null : null}
+                signatureBusy={Boolean(selectedApp && controller.signatureBusyId === selectedApp.id)}
+                sizeBusy={controller.sizesBusy && Boolean(selectedApp && controller.sizesStatus?.operationId)}
+                onVerifySignature={(appId) => void controller.verifySignature(appId)}
+                onMeasureSize={(appId) => void controller.measureSizes([appId])}
+                onReviewPlan={(appId) => void openPlan([appId])}
+                onOpenService={(service) => setActiveService(service as DomainServiceKey)}
+              />:null}
+            </div>
+
+          <footer className="apps-inner-actions" data-testid="apps-inner-actions"><span>{checkedIds.size} {t(locale,'selected','محدد')} · {t(locale,'Read-only native evidence','أدلة أصلية للقراءة فقط')}</span><button className="apps-btn" data-testid="apps-refresh-inventory" disabled={!controller.nativeAvailable||controller.loading||controller.refreshing} onClick={()=>void controller.refreshInventory(true)}>{t(locale,'Refresh register','تحديث السجل')}</button><button className="apps-btn" disabled={!inventory} onClick={controller.exportInventory}>{t(locale,'Export evidence','تصدير الأدلة')}</button>{controller.sizesBusy?<button className="apps-btn" onClick={()=>void controller.cancelSizes()}>{t(locale,'Cancel measurement','إلغاء القياس')}</button>:null}<button className="apps-btn" data-testid="apps-build-review" disabled={!selectedApp||controller.planBusy} onClick={buildPlanFromSelection}>{t(locale,'Review selected apps','مراجعة التطبيقات المحددة')}</button></footer>
+
           </main>
         </div>
       </div>
 
-      {activeService ? (
+      {activeService && detached ? (
         workbenchMode === 'side' ? (
           <div className="fixed end-3 top-14 bottom-5 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="apps-workbench-side-shell">
             <ServiceWorkbenchHost
@@ -353,7 +358,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
               locale={locale}
               mode="side"
               onModeChange={setWorkbenchMode}
-              onClose={closeWorkbench}
+              onClose={()=>setDetached(false)}
               onResize={(width) => setWorkbenchWidth(width)}
               minWidth={360}
               maxWidth={760}
@@ -374,7 +379,7 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
               locale={locale}
               mode="expanded"
               onModeChange={setWorkbenchMode}
-              onClose={closeWorkbench}
+              onClose={()=>setDetached(false)}
               testId="apps-workbench-expanded"
               toolSelector={appsWorkbenchToolSelector}
               footer={<span className="text-amber-300">{t(locale, 'Review only · no uninstall, update or association write', 'مراجعة فقط · لا إزالة أو تحديث أو كتابة ارتباط')}</span>}

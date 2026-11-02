@@ -1,0 +1,14 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:i18n
+> node --test tests/home/i18n-slots.test.mjs
+
+✔ no bilingual helper is called with the Arabic string in the English slot (1.9993ms)
+✔ the guard actually sees the Home call sites (0.7743ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 318.162

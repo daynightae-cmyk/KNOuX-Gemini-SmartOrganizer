@@ -3,6 +3,7 @@
  * no card claims a capability the native bridge did not report.
  */
 import React from 'react';
+import {CompactServiceDock} from '../components/workbench/CompactServiceDock';
 import {
   Building2,
   Clock,
@@ -24,7 +25,7 @@ import {
   serviceTitle,
   t,
 } from './model';
-import { DOMAIN_SERVICES_META, SERVICE_ACCENTS } from './catalog';
+import { DOMAIN_SERVICES_META } from './catalog';
 import type { DomainServiceKey } from './catalog';
 import type { ApplicationsController } from './useApplications';
 
@@ -33,6 +34,7 @@ interface ApplicationServicesProps {
   controller: ApplicationsController;
   selectedCount: number;
   onOpenService: (service: DomainServiceKey) => void;
+  selectedService?:DomainServiceKey|null;
 }
 
 export function serviceIcon(key: DomainServiceKey, className = 'w-3.5 h-3.5') {
@@ -105,75 +107,12 @@ function serviceSummary(
   }
 }
 
-function fallbackState(key: DomainServiceKey): 'available' | 'partial' | 'gated' {
-  if (key === 'app-inventory' || key === 'app-identity' || key === 'app-search') return 'available';
-  if (key === 'app-uninstall-queue') return 'gated';
-  return 'partial';
-}
-
 export const ApplicationServices: React.FC<ApplicationServicesProps> = ({
   locale,
   controller,
   selectedCount,
   onOpenService,
+  selectedService=null,
 }) => {
-  const capabilityMap = new Map((controller.capabilities?.services || []).map((service) => [service.id, service]));
-  const measuredCount = Object.keys(controller.sizes).length;
-
-  return (
-    <section className="apps-panel apps-services" data-testid="apps-services" aria-labelledby="apps-services-title">
-      <header className="apps-panel-head">
-        <div>
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <h2 id="apps-services-title" className="apps-panel-title">
-              {t(locale, 'Application service workspaces', 'مساحات خدمات التطبيقات')}
-            </h2>
-          </div>
-          <p className="apps-panel-sub">
-            {t(
-              locale,
-              'Twelve measured specialisations over the same inventory. Partial and gated states are explicit.',
-              'اثنتا عشرة تخصصًا مقيسًا على الجرد نفسه. الحالات الجزئية والمقيّدة معلنة.'
-            )}
-          </p>
-        </div>
-        <span className="apps-chip">
-          {t(locale, 'footprints measured', 'بصمات مقيسة')}: {formatCount(measuredCount)}
-        </span>
-      </header>
-
-      <div className="apps-service-grid">
-        {DOMAIN_SERVICES_META.map((service) => {
-          const capability = capabilityMap.get(service.key);
-          const state = capability?.state || fallbackState(service.key);
-          const accent = SERVICE_ACCENTS[service.key];
-          return (
-            <button
-              key={service.key}
-              type="button"
-              data-testid={`apps-service-${service.key}`}
-              className="apps-service-card"
-              onClick={() => onOpenService(service.key)}
-              title={capability ? `${capability.provider} — ${locale === 'ar' ? capability.noteAr : capability.noteEn}` : serviceTitle(service.key, locale)}
-            >
-              <span
-                className="apps-service-icon"
-                style={{ color: accent, borderColor: `${accent}55`, background: `${accent}18` }}
-              >
-                {serviceIcon(service.key)}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="apps-service-title">{serviceTitle(service.key, locale)}</span>
-                <span className="apps-service-sub" title={serviceSummary(service.key, controller, selectedCount, locale)}>
-                  {serviceSummary(service.key, controller, selectedCount, locale)}
-                </span>
-              </span>
-              <span className={`apps-state apps-state-${state}`}>{serviceStateLabel(state, locale)}</span>
-            </button>
-          );
-        })}
-      </div>
-    </section>
-  );
+  return <div className="apps-compact-dock" data-testid="apps-services"><CompactServiceDock testIdPrefix="apps" label={t(locale,'Application services','خدمات التطبيقات')} isArabic={locale==='ar'} selectedId={selectedService} onSelect={id=>onOpenService(id as DomainServiceKey)} items={DOMAIN_SERVICES_META.map(service=>{const capability=controller.capabilities?.services.find(entry=>entry.id===service.key);return{id:service.key,label:serviceTitle(service.key,locale),icon:serviceIcon(service.key),capability:!controller.nativeAvailable?t(locale,'Native unavailable','Native غير متاح'):capability?serviceStateLabel(capability.state,locale):t(locale,'Checking capabilities','جارٍ قراءة القدرات'),result:serviceSummary(service.key,controller,selectedCount,locale),hint:capability?`${capability.provider} · ${locale==='ar'?capability.noteAr:capability.noteEn}`:serviceTitle(service.key,locale)}})}/></div>;
 };
