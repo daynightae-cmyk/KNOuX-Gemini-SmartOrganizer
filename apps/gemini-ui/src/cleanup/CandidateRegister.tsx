@@ -94,62 +94,6 @@ export function CandidateRegister({
             <Filter className="w-3.5 h-3.5" />
           </button>
         </div>
-      </header>
-
-      <div className="cln-tabs" role="tablist" aria-label={t(locale, 'Candidate categories', 'فئات المرشحين')}>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={filters.category === 'all'}
-          className={`cln-tab ${filters.category === 'all' ? 'is-active' : ''}`}
-          onClick={() => onChangeFilters({ category: 'all' })}
-        >
-          {categoryLabel('all', locale)}
-          <span className="cln-tab-count">{formatCount(counts.all)}</span>
-        </button>
-        {SCAN_CATEGORIES.map((key) => (
-          <button
-            key={key}
-            type="button"
-            role="tab"
-            aria-selected={filters.category === key}
-            className={`cln-tab ${filters.category === key ? 'is-active' : ''}`}
-            style={{ '--cln-cat': CATEGORY_META[key].color } as React.CSSProperties}
-            onClick={() => onChangeFilters({ category: key })}
-          >
-            <span className="cln-cat-dot" />
-            {categoryLabel(key, locale)}
-            <span className="cln-tab-count">{formatCount(counts[key])}</span>
-          </button>
-        ))}
-      </div>
-
-      <div className="cln-distribution">
-        <div className="cln-distribution-bar" aria-hidden="true">
-          {distribution.length ? distribution.map((entry) => (
-            <div
-              key={entry.key}
-              className="cln-distribution-seg"
-              style={{ width: `${totalBytes ? (entry.bytes / totalBytes) * 100 : 0}%`, background: entry.color }}
-              title={`${categoryLabel(entry.key, locale)}: ${formatBytes(entry.bytes)}`}
-            />
-          )) : <div className="cln-distribution-empty" />}
-        </div>
-        <div className="cln-legend">
-          {distribution.length ? distribution.map((entry) => (
-            <span key={entry.key} className="cln-legend-item">
-              <i style={{ background: entry.color }} />
-              {categoryLabel(entry.key, locale)}
-              <strong>{formatBytes(entry.bytes)}</strong>
-            </span>
-          )) : (
-            <span className="cln-legend-item cln-muted">
-              {t(locale, 'Run discovery to build the measured distribution.', 'شغّل الاستكشاف لبناء التوزيع المقيس.')}
-            </span>
-          )}
-        </div>
-      </div>
-
       <div className="cln-filter-row">
         <label className="cln-search">
           <Search className="w-3.5 h-3.5" />
@@ -189,6 +133,63 @@ export function CandidateRegister({
         </span>
       </div>
 
+      </header>
+
+      <div className="cln-tabs" role="tablist" aria-label={t(locale, 'Candidate categories', 'فئات المرشحين')}>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={filters.category === 'all'}
+          className={`cln-tab ${filters.category === 'all' ? 'is-active' : ''}`}
+          onClick={() => onChangeFilters({ category: 'all' })}
+        >
+          {categoryLabel('all', locale)}
+          <span className="cln-tab-count">{formatCount(counts.all)}</span>
+        </button>
+        {SCAN_CATEGORIES.map((key) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            aria-selected={filters.category === key}
+            className={`cln-tab ${filters.category === key ? 'is-active' : ''}`}
+            style={{ '--cln-cat': CATEGORY_META[key].color } as React.CSSProperties}
+            onClick={() => onChangeFilters({ category: key })}
+          >
+            <span className="cln-cat-dot" />
+            {categoryLabel(key, locale)}
+            <span className="cln-tab-count">{formatCount(counts[key])}</span>
+          </button>
+        ))}
+      </div>
+
+      <details className="cln-register-distribution"><summary>{t(locale,'Visible distribution','توزيع النتائج الظاهرة')}</summary>      <div className="cln-distribution">
+        <div className="cln-distribution-bar" aria-hidden="true">
+          {distribution.length ? distribution.map((entry) => (
+            <div
+              key={entry.key}
+              className="cln-distribution-seg"
+              style={{ width: `${totalBytes ? (entry.bytes / totalBytes) * 100 : 0}%`, background: entry.color }}
+              title={`${categoryLabel(entry.key, locale)}: ${formatBytes(entry.bytes)}`}
+            />
+          )) : <div className="cln-distribution-empty" />}
+        </div>
+        <div className="cln-legend">
+          {distribution.length ? distribution.map((entry) => (
+            <span key={entry.key} className="cln-legend-item">
+              <i style={{ background: entry.color }} />
+              {categoryLabel(entry.key, locale)}
+              <strong>{formatBytes(entry.bytes)}</strong>
+            </span>
+          )) : (
+            <span className="cln-legend-item cln-muted">
+              {t(locale, 'Run discovery to build the measured distribution.', 'شغّل الاستكشاف لبناء التوزيع المقيس.')}
+            </span>
+          )}
+        </div>
+      </div>
+
+</details>
       <div className="cln-table-wrap knx-custom-scrollbar" data-testid="cleanup-register-scroll">
         <table className="cln-table">
           <thead>

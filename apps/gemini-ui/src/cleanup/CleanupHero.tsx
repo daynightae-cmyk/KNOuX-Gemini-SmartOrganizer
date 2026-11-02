@@ -40,6 +40,7 @@ export interface CleanupHeroProps {
   controller: CleanupController;
   selectedCount: number;
   onReviewSelection: () => void;
+  scope?:{categories:CleanupCategory[];ageDays:number;onCategoriesChange:(categories:CleanupCategory[])=>void;onAgeDaysChange:(days:number)=>void};
 }
 
 function coveragePercent(controller: CleanupController): number | null {
@@ -54,9 +55,12 @@ function coveragePercent(controller: CleanupController): number | null {
   return null;
 }
 
-export function CleanupHero({ locale, controller, selectedCount, onReviewSelection }: CleanupHeroProps) {
-  const [categories, setCategories] = useState<CleanupCategory[]>([...SCAN_CATEGORIES]);
-  const [ageDays, setAgeDays] = useState(1);
+export function CleanupHero({ locale, controller, selectedCount, onReviewSelection,scope }: CleanupHeroProps) {
+  const [localCategories, setLocalCategories] = useState<CleanupCategory[]>([...SCAN_CATEGORIES]);
+  const [localAgeDays, setLocalAgeDays] = useState(1);
+  const categories=scope?.categories??localCategories,ageDays=scope?.ageDays??localAgeDays;
+  const setCategories=(update:React.SetStateAction<CleanupCategory[]>)=>{const next=typeof update==='function'?update(categories):update;if(scope)scope.onCategoriesChange(next);else setLocalCategories(next);};
+  const setAgeDays=scope?.onAgeDaysChange??setLocalAgeDays;
   const scanning = controller.scanning;
   const runningStage = controller.session?.categories.find((stage) => stage.status === 'running')?.key || null;
 

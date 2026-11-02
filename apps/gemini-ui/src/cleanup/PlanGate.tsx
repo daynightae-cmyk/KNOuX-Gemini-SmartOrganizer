@@ -62,7 +62,7 @@ export function PlanGate({ locale, plan, onClose, onNotice }: PlanGateProps) {
 
   return (
     <div className="cln-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="cln-plan-gate-title">
-      <div className="cln-plan-gate" data-testid="cleanup-plan-gate">
+      <div className="cln-plan-gate" data-testid="cleanup-plan-gate" data-plan-id={plan.planId} data-mutation={plan.mutation} data-immutable={plan.immutable} data-execution-available={plan.execution.available}>
         <div className="cln-plan-gate-head">
           <div className="cln-plan-gate-icon">
             <Lock className="w-5 h-5" />

@@ -3,6 +3,7 @@
  * evidence; no card claims a capability the native bridge did not report.
  */
 import React from 'react';
+import {CompactServiceDock} from '../components/workbench/CompactServiceDock';
 import {
   Archive,
   Calculator,
@@ -20,7 +21,6 @@ import {
 import type { CleanupCategory } from '../../shared/native-contracts';
 import type { CleanupController } from './useCleanup';
 import {
-  SERVICE_ACCENTS,
   SERVICE_FALLBACK_META,
   SERVICE_IDS,
   formatBytes,
@@ -35,6 +35,7 @@ export interface ServiceRailProps {
   controller: CleanupController;
   selectedCount: number;
   onOpenService: (service: CleanupServiceId) => void;
+  selectedService?:CleanupServiceId|null;
 }
 
 export function serviceIcon(key: CleanupServiceId, className = 'w-3.5 h-3.5') {
@@ -138,74 +139,6 @@ function measuredSummary(
   }
 }
 
-export function ServiceRail({ locale, controller, selectedCount, onOpenService }: ServiceRailProps) {
-  const capabilityMap = new Map((controller.capabilities?.services || []).map((service) => [service.id, service]));
-
-  return (
-    <section className="cln-panel cln-services" data-testid="cleanup-services" aria-labelledby="cln-services-title">
-      <header className="cln-panel-head">
-        <div>
-          <h2 id="cln-services-title" className="cln-panel-title">
-            {t(locale, 'Cleanup specialisations', 'تخصصات التنظيف')}
-          </h2>
-          <p className="cln-panel-sub">
-            {t(
-              locale,
-              'Twelve read-only workbenches over the same measured evidence. Gated actions stay declared.',
-              'اثنتا عشرة ورشة للقراءة فقط على الأدلة المقيسة نفسها. الإجراءات المحجوبة تبقى معلنة.'
-            )}
-          </p>
-        </div>
-        <span className="cln-chip cln-chip-muted">
-          {formatCount(controller.capabilities?.serviceCount || SERVICE_IDS.length)} {t(locale, 'services', 'خدمة')}
-        </span>
-      </header>
-
-      <div className="cln-service-grid">
-        {SERVICE_IDS.map((id) => {
-          const capability = capabilityMap.get(id);
-          const fallback = SERVICE_FALLBACK_META[id];
-          const accent = SERVICE_ACCENTS[id];
-          const state = capability?.state || null;
-          const title = capability
-            ? (locale === 'ar' ? capability.labelAr : capability.labelEn)
-            : (locale === 'ar' ? fallback.titleAr : fallback.titleEn);
-          const summary = measuredSummary(id, controller, selectedCount, locale);
-          const provider = capability?.provider || null;
-          const note = capability
-            ? (locale === 'ar' ? capability.noteAr : capability.noteEn)
-            : null;
-          return (
-            <button
-              key={id}
-              type="button"
-              data-testid={`cleanup-service-${id}`}
-              className="cln-service-card"
-              onClick={() => onOpenService(id)}
-              title={note || summary}
-              aria-label={`${title} — ${summary}`}
-            >
-              <span
-                className="cln-service-icon"
-                style={{ color: accent, borderColor: `${accent}55`, background: `${accent}18` }}
-              >
-                {serviceIcon(id)}
-              </span>
-              <span className="cln-service-copy">
-                <span className="cln-service-title">{title}</span>
-                <span className="cln-service-sub" title={provider ? `${summary} · ${provider}` : summary}>
-                  {summary}
-                </span>
-              </span>
-              {state ? (
-                <span className={`cln-state cln-state-${state}`}>{serviceStateLabel(state, locale)}</span>
-              ) : (
-                <span className="cln-state cln-state-native">{t(locale, 'Native', 'أصلي')}</span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </section>
-  );
+export function ServiceRail({ locale, controller, selectedCount, onOpenService,selectedService=null }: ServiceRailProps) {
+ return <div className="cleanup-compact-dock" data-testid="cleanup-services"><CompactServiceDock testIdPrefix="cleanup" isArabic={locale==='ar'} label={t(locale,'Cleanup services','خدمات التنظيف')} selectedId={selectedService} onSelect={id=>onOpenService(id as CleanupServiceId)} items={SERVICE_IDS.map(id=>{const capability=controller.capabilities?.services.find(entry=>entry.id===id),meta=SERVICE_FALLBACK_META[id];return{id,label:capability?(locale==='ar'?capability.labelAr:capability.labelEn):(locale==='ar'?meta.titleAr:meta.titleEn),icon:serviceIcon(id),capability:!controller.nativeAvailable?t(locale,'Native unavailable','Native غير متاح'):capability?serviceStateLabel(capability.state,locale):t(locale,'Reading capabilities','قراءة القدرات'),result:measuredSummary(id,controller,selectedCount,locale),hint:capability?(capability.provider+' · '+(locale==='ar'?capability.noteAr:capability.noteEn)):measuredSummary(id,controller,selectedCount,locale)}})}/></div>;
 }

@@ -1,0 +1,53 @@
+{
+  "contractVersion": 1,
+  "capability": "cleanup.status",
+  "requestId": "9cb9a353-5256-418a-b969-22647ea3d86b",
+  "status": "complete",
+  "source": "KNOuX Clean Room read-only coordinator",
+  "observedAt": "2026-11-02T23:50:05.018Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "id": "89b92b86-f43f-4c1c-a30a-b6759b3108eb",
+    "status": "cancelled",
+    "mode": "measured-read-only",
+    "requestedCategories": [
+      "temp"
+    ],
+    "ageDays": 0,
+    "startedAt": "2026-11-02T23:50:03.802Z",
+    "finishedAt": "2026-11-02T23:50:04.972Z",
+    "progressPercent": 100,
+    "cancelRequested": true,
+    "categories": [
+      {
+        "key": "temp",
+        "status": "complete",
+        "candidates": 141,
+        "warnings": [],
+        "startedAt": "2026-11-02T23:50:03.802Z",
+        "finishedAt": "2026-11-02T23:50:04.972Z"
+      }
+    ],
+    "warnings": [],
+    "coverage": {
+      "rootsScanned": 1,
+      "rootsUnavailable": 0,
+      "filesMeasured": 140,
+      "foldersMeasured": 0,
+      "bytesMeasured": 521752795,
+      "truncated": false,
+      "skippedLinks": 0,
+      "errors": 0
+    },
+    "candidateCount": 141,
+    "estimatedEligibleBytes": 0,
+    "estimatedReviewBytes": 521752795,
+    "estimatedBlockedBytes": 0,
+    "error": null
+  }
+}

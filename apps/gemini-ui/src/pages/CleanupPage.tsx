@@ -1,4 +1,3 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Clean Room (Mission 08).
  *
@@ -6,7 +5,7 @@ import { CommandCanvas } from '../visual/CommandCanvas';
  * KPI, candidate, vault entry, journal row, recycle item and report value comes
  * from the read-only CleanupBridge. No design fixtures are imported here.
  */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -20,7 +19,7 @@ import {
   Trash2,
   X,
 } from 'lucide-react';
-import type { CleanupCandidate } from '../../shared/native-contracts';
+import type { CleanupCandidate, CleanupCategory } from '../../shared/native-contracts';
 import { useNavigation } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { CleanupHero, CleanupMetrics } from '../cleanup/CleanupHero';
@@ -33,6 +32,8 @@ import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbenc
 import { useCleanup } from '../cleanup/useCleanup';
 import {
   DEFAULT_FILTERS,
+  SCAN_CATEGORIES,
+  categoryLabel,
   SERVICE_FALLBACK_META,
   SERVICE_IDS,
   filterCandidates,
@@ -43,6 +44,8 @@ import {
 } from '../cleanup/model';
 import type { CleanupFilters, CleanupLocale, CleanupServiceId } from '../cleanup/model';
 import '../cleanup.css';
+import {CleanupLiveStage} from '../cleanup/CleanupLiveStage';
+import '../cleanup/cleanup-inner-workspace.css';
 
 export interface CleanupPageProps {
   onNavigateSection?: (section: string) => void;
@@ -71,6 +74,11 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
     }));
   };
   const [planOpen, setPlanOpen] = useState(false);
+  const [discoveryCategories,setDiscoveryCategories]=useState<CleanupCategory[]>([...SCAN_CATEGORIES]);
+  const [discoveryAgeDays,setDiscoveryAgeDays]=useState(1);
+  const [detached,setDetached]=useState(false),[inspectorOpen,setInspectorOpen]=useState(false);
+  const integratedRef=useRef<HTMLElement>(null);
+  useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.cleanup.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -159,8 +167,9 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   };
 
   const adjustScope = () => {
+    setActiveService(null);setDetached(false);
     setFilters(DEFAULT_FILTERS);
-    controller.showNotice(t(locale, 'Scope filters reset. Choose categories in the hero or filter the ledger directly.', 'أُعيد ضبط مرشحات النطاق. اختر الفئات في الترويسة أو رشّح السجل مباشرة.'));
+    controller.showNotice(t(locale, 'Filters reset. Choose candidate categories or adjust the discovery scope.', 'أُعيد ضبط مرشحات النطاق. اختر الفئات في الترويسة أو رشّح السجل مباشرة.'));
     window.setTimeout(() => {
       const input = document.querySelector<HTMLInputElement>('[data-testid="cleanup-register"] input[type="search"]');
       input?.focus();
@@ -245,6 +254,14 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
         onOpenSettings={() => handleNavigate('settings')}
       />
 
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+        <KNOuXSidebar activeSection="cleanup" onNavigate={handleNavigate} isArabic={locale === 'ar'} />
+
+        <div className="flex-1 flex flex-col min-h-0">
+          <main
+            data-testid="cleanup-workspace"
+            className="cln-main cleanup-inner-workspace flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
+          >
       {controller.notice ? (
         <div className="cln-toast cln-toast-good" role="status">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -268,23 +285,19 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
         </div>
       ) : null}
 
-      <div className="flex flex-1 min-h-0 overflow-hidden">
-        <KNOuXSidebar activeSection="cleanup" onNavigate={handleNavigate} isArabic={locale === 'ar'} />
-
-        <div className="flex-1 flex flex-col min-h-0">
-          <main
-            data-testid="cleanup-workspace"
-            className="cln-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
-          >
-          <CommandCanvas locale={locale} heroTypes={[CleanupHero]} metricTypes={[CleanupMetrics]} toolTypes={[ServiceRail]} toolPlacement="rail">
+          <div hidden className="cleanup-header-bridge">
             <CleanupHero
               locale={locale}
               controller={controller}
               selectedCount={checkedIds.size}
               onReviewSelection={reviewSelection}
+              scope={{categories:discoveryCategories,ageDays:discoveryAgeDays,onCategoriesChange:setDiscoveryCategories,onAgeDaysChange:setDiscoveryAgeDays}}
             />
 
-            <CleanupMetrics locale={locale} controller={controller} />
+          </div>
+          <ServiceRail locale={locale} controller={controller} selectedCount={checkedIds.size} selectedService={activeService} onOpenService={setActiveService}/>
+          <div className="cleanup-process-row"><CleanupLiveStage controller={controller} locale={locale} service={activeService} title={activeService?cleanupServiceLabel(activeService):t(locale,'Cleanup candidates','مرشحات التنظيف')} selected={checkedIds.size}/><div className="cleanup-process-tools"><button onClick={()=>{setActiveService(null);setDetached(false);}}>{t(locale,'Candidates','المرشحات')}</button><button aria-pressed={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>{t(locale,'Inspector','المفتش')}</button>{activeService?<button onClick={()=>setDetached(true)}>{t(locale,'Side view','عرض جانبي')}</button>:null}<details className="cleanup-page-scope"><summary>{t(locale,'Discovery scope','نطاق الاكتشاف')}</summary><div><fieldset disabled={controller.scanning}><label>{t(locale,'Minimum age (days)','أقل عمر (أيام)')}<input data-testid="cleanup-discovery-age" type="number" min={0} max={3650} value={discoveryAgeDays} onChange={e=>setDiscoveryAgeDays(Number.isFinite(e.target.valueAsNumber)?Math.min(3650,Math.max(0,Math.floor(e.target.valueAsNumber))):1)}/></label>{SCAN_CATEGORIES.map(category=><label key={category}><input type="checkbox" data-testid={'cleanup-discovery-category-'+category} checked={discoveryCategories.includes(category)} onChange={e=>setDiscoveryCategories(current=>e.target.checked?[...current,category]:current.filter(value=>value!==category))}/>{categoryLabel(category,locale)}</label>)}</fieldset></div></details><details><summary>{t(locale,'Coverage & metrics','التغطية والمؤشرات')}</summary><div><CleanupMetrics locale={locale} controller={controller}/>
+
 
             {!controller.nativeAvailable ? (
               <div className="cln-native-banner cln-native-required" data-testid="cleanup-native-required">
@@ -311,7 +324,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
                       : t(locale, 'Reading the read-only coordinator…', 'جارٍ قراءة المنسق للقراءة فقط…')}
                   </p>
                 </div>
-                <span className="cln-chip cln-chip-good ml-auto shrink-0">{t(locale, 'MEASURED', 'مقيس')}</span>
+                <span className="cln-chip cln-chip-good ml-auto shrink-0">{inventory?.status==='complete'?t(locale, 'MEASURED', 'مقيس'):t(locale,'UNSCANNED','غير مفحوص')}</span>
                 {warm ? (
                   <span className="cln-chip cln-chip-warn shrink-0">
                     {formatCount(inventory?.warnings.length || 0)} {t(locale, 'warnings', 'تحذيرات')}
@@ -319,40 +332,6 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
                 ) : null}
               </div>
             )}
-
-            <div className="cln-work-grid">
-              <CandidateRegister
-                locale={locale}
-                candidates={filteredCandidates}
-                filters={filters}
-                onChangeFilters={patchFilters}
-                onResetFilters={() => setFilters(DEFAULT_FILTERS)}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-                checkedIds={checkedIds}
-                onToggleCheck={toggleCheck}
-                onToggleAll={toggleAllVisible}
-                onSelectSafeDefaults={selectSafeDefaults}
-                loading={controller.loading}
-                scanning={controller.scanning}
-              />
-              <CandidateInspector
-                locale={locale}
-                candidate={selectedCandidate}
-                checkedCandidates={checkedCandidates}
-                busy={controller.busy === 'plan'}
-                planStaged={Boolean(controller.plan)}
-                onStagePlan={(ids) => void stagePlan(ids, 'quarantine')}
-                onOpenService={openService}
-              />
-            </div>
-
-            <ServiceRail
-              locale={locale}
-              controller={controller}
-              selectedCount={checkedIds.size}
-              onOpenService={setActiveService}
-            />
 
             <div className="cln-foot-strip">
               <span>
@@ -371,7 +350,38 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               ) : null}
             </div>
 
-          </CommandCanvas>
+          </div></details></div></div>
+            <div className="cln-work-grid">
+              {(!activeService||detached)?<>
+
+              <CandidateRegister
+                locale={locale}
+                candidates={filteredCandidates}
+                filters={filters}
+                onChangeFilters={patchFilters}
+                onResetFilters={() => setFilters(DEFAULT_FILTERS)}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+                checkedIds={checkedIds}
+                onToggleCheck={toggleCheck}
+                onToggleAll={toggleAllVisible}
+                onSelectSafeDefaults={selectSafeDefaults}
+                loading={controller.loading}
+                scanning={controller.scanning}
+              />
+              </>:<section ref={integratedRef} id="active-service-workspace" role="tabpanel" aria-labelledby={`service-tab-${activeService}`} className="cln-integrated-service knx-service-workspace" data-testid="cleanup-integrated-service">{renderCleanupServiceBody()}</section>}
+              {inspectorOpen?<CandidateInspector
+                locale={locale}
+                candidate={selectedCandidate}
+                checkedCandidates={checkedCandidates}
+                busy={controller.busy === 'plan'}
+                planStaged={Boolean(controller.plan)}
+                onStagePlan={(ids) => void stagePlan(ids, 'quarantine')}
+                onOpenService={openService}
+              />:null}
+            </div>
+
+
           </main>
 
           <footer className="cln-actionbar" data-testid="cleanup-actionbar">
@@ -386,7 +396,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
                 </span>
               ) : null}
             </div>
-            <div className="cln-actionbar-actions">
+            <div className="cln-actionbar-actions"><button type="button" data-testid="cleanup-discovery" className="cln-btn" disabled={!controller.nativeAvailable||controller.cancelling||(!controller.scanning&&!discoveryCategories.length)} onClick={()=>controller.scanning?void controller.cancelScan():void controller.startScan(discoveryCategories,discoveryAgeDays)}>{controller.scanning?t(locale,'Cancel discovery','إلغاء الاكتشاف'):t(locale,'Discover evidence','اكتشاف الأدلة')}</button>
               <button data-testid="cleanup-live-vault" className="cln-btn cln-btn-primary" onClick={()=>openSafetyVault('candidates')}>{locale==='ar'?'خزنة حية آمنة':'Live Safety Vault'}</button>
               <button
                 type="button"
@@ -419,7 +429,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
         </div>
       </div>
 
-      {activeService ? (
+      {activeService && detached ? (
         workbenchMode === 'side' ? (
           <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="cleanup-workbench-side-shell">
             <ServiceWorkbenchHost
@@ -430,7 +440,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               locale={locale}
               mode="side"
               onModeChange={setWorkbenchMode}
-              onClose={closeWorkbench}
+              onClose={()=>setDetached(false)}
               onResize={(width) => setWorkbenchWidth(width)}
               minWidth={340}
               maxWidth={720}
@@ -451,7 +461,7 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
               locale={locale}
               mode="expanded"
               onModeChange={setWorkbenchMode}
-              onClose={closeWorkbench}
+              onClose={()=>setDetached(false)}
               testId="cleanup-workbench-expanded"
               toolSelector={cleanupWorkbenchToolSelector}
               footer={<span className="text-amber-300">{t(locale, 'Review only · permanent delete gated · live vault handles approved quarantine', 'مراجعة فقط · الحذف الدائم محجوب · الخزنة الحية تتولى الحجر المعتمد')}</span>}
