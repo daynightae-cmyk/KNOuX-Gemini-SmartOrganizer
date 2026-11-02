@@ -29,28 +29,33 @@ while ($null -ne ($line=[Console]::ReadLine())) {
 }
 `;
 
-function createAttributeReader({windowsDirectory=process.env.WINDIR||'C:\\Windows',spawnProcess=spawn,timeoutMs=8000,idleMs=2500,maxPending=64}={}){
- let worker=null,sequence=0,buffer='',idle=null;const pending=new Map();const stats={processes:0,queries:0,failures:0};
- function stop(){if(idle)clearTimeout(idle);idle=null;const child=worker;worker=null;buffer='';if(child)child.kill();}
- function fail(){stats.failures++;for(const item of pending.values()){clearTimeout(item.timer);item.resolve({ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'});}pending.clear();stop();}
+function createAttributeReader({windowsDirectory=process.env.WINDIR||'C:\\Windows',spawnProcess=spawn,timeoutMs=8000,startupTimeoutMs=30000,idleMs=2500,maxPending=64}={}){
+ let worker=null,sequence=0,buffer='',idle=null,responded=false;const pending=new Map();const stats={processes:0,queries:0,failures:0,lastFailure:null};
+ function stop(){if(idle)clearTimeout(idle);idle=null;const child=worker;worker=null;buffer='';responded=false;if(child)child.kill();}
+ function fail(reason='disposed'){if(reason!=='disposed'){stats.failures++;stats.lastFailure=reason;}for(const item of pending.values()){clearTimeout(item.timer);item.resolve({ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'});}pending.clear();stop();}
  function start(){
   const child=spawnProcess(path.join(windowsDirectory,'System32','WindowsPowerShell','v1.0','powershell.exe'),['-NoLogo','-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(SCRIPT,'utf16le').toString('base64')],{windowsHide:true,stdio:['pipe','pipe','pipe']});
   worker=child;stats.processes++;child.unref();child.stdin.unref?.();child.stdout.unref?.();child.stderr.unref?.();
   child.stdout.setEncoding('utf8');child.stdout.on('data',chunk=>{
-   if(worker!==child)return;buffer+=chunk;if(buffer.length>512*1024){fail();return;}
+   if(worker!==child)return;buffer+=chunk;if(buffer.length>512*1024){fail('output-limit');return;}
    let index;while((index=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,index).trim();buffer=buffer.slice(index+1);if(!line)continue;
-    let answer;try{answer=JSON.parse(line);}catch{fail();return;}if(!answer||typeof answer!=='object'){fail();return;}const item=pending.get(answer.id);if(!item){fail();return;}
+    let answer;try{answer=JSON.parse(line);}catch{fail('invalid-json');return;}if(!answer||typeof answer!=='object'){fail('invalid-response');return;}const item=pending.get(answer.id);if(!item){fail('unexpected-id');return;}
+    responded=true;
     pending.delete(answer.id);clearTimeout(item.timer);const valid=answer.ok===true&&Number.isInteger(answer.attributes)&&answer.attributes>=0&&answer.attributes<0xffffffff;
     item.resolve(valid?{ok:true,attributes:answer.attributes}:{ok:false,error:'METADATA_QUERY_FAILED'});
     if(!pending.size){idle=setTimeout(stop,idleMs);idle.unref();}
    }
   });
-  child.stderr.on('data',()=>{});child.on('error',()=>{if(worker===child)fail();});child.on('exit',()=>{if(worker===child)fail();});child.stdin.on('error',()=>{if(worker===child)fail();});
+  child.stderr.on('data',()=>{});child.on('error',()=>{if(worker===child)fail('process-error');});child.on('exit',()=>{if(worker===child)fail('process-exit');});child.stdin.on('error',()=>{if(worker===child)fail('stdin-error');});
  }
  function read(target){
   if(typeof target!=='string'||!path.isAbsolute(target)||target.includes('\0')||target.length>32767||pending.size>=maxPending)return Promise.resolve({ok:false,error:'METADATA_INVALID_REQUEST'});
-  if(idle)clearTimeout(idle);idle=null;if(!worker){try{start();}catch{fail();return Promise.resolve({ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'});}}const id=++sequence;stats.queries++;
-  return new Promise(resolve=>{const timer=setTimeout(fail,timeoutMs);pending.set(id,{resolve,timer});try{worker.stdin.write(JSON.stringify({id,path:path.toNamespacedPath(target)})+'\n');}catch{fail();}});
+  if(idle)clearTimeout(idle);idle=null;if(!worker){try{start();}catch{fail('spawn-error');return Promise.resolve({ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'});}}const id=++sequence;stats.queries++;
+  // The first response includes PowerShell launch and Add-Type compilation.
+  // Keep that finite cold-start budget separate from normal metadata latency.
+  // A timeout still fails closed; no lstat-only fallback or retry is allowed.
+  const cold=!responded;
+  return new Promise(resolve=>{const timer=setTimeout(()=>fail(cold?'startup-timeout':'query-timeout'),cold?startupTimeoutMs:timeoutMs);pending.set(id,{resolve,timer});try{worker.stdin.write(JSON.stringify({id,path:path.toNamespacedPath(target)})+'\n');}catch{fail('write-error');}});
  }
  return {read,stats:()=>({...stats,pending:pending.size}),dispose:fail};
 }

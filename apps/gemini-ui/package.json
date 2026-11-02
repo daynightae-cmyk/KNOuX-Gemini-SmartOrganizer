@@ -22,6 +22,7 @@
     "test:native": "node scripts/native-contract-test.cjs",
     "test:clipboard": "node scripts/clipboard-native-test.cjs",
     "test:studio": "node scripts/studio-native-test.cjs",
+    "test:studio-safety": "node scripts/studio-attribute-reader-test.cjs",
     "test:files": "node scripts/files-native-test.cjs",
     "test:storage": "node scripts/storage-native-test.cjs",
     "test:scan": "node scripts/scan-native-test.cjs",

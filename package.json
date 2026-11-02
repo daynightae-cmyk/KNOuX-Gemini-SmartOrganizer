@@ -9,6 +9,7 @@
     "test:native": "npm run test:native --prefix apps/gemini-ui",
     "test:clipboard": "npm run test:clipboard --prefix apps/gemini-ui",
     "test:studio": "npm run test:studio --prefix apps/gemini-ui",
+    "test:studio-safety": "npm run test:studio-safety --prefix apps/gemini-ui",
     "test:files": "npm run test:files --prefix apps/gemini-ui",
     "test:storage": "npm run test:storage --prefix apps/gemini-ui",
     "test:scan": "npm run test:scan --prefix apps/gemini-ui",

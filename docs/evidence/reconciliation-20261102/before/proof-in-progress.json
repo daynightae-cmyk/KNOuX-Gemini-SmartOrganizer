@@ -1,0 +1,1407 @@
+{
+  "checks": [
+    "CommandCanvas preserves distinct same-position inspector drafts and selection across parent observations and tab changes",
+    "real Vite HMR updates a test-owned stylesheet without restarting the server or losing component state",
+    "canonical sandboxed main/preload is available; personal clipboard capture remains off"
+  ],
+  "states": [
+    {
+      "route": "home",
+      "filename": "home-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 187,
+        "y": 72,
+        "width": 832,
+        "height": 245
+      },
+      "heading": "Welcome to KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 187,
+        "y": 72,
+        "width": 832,
+        "height": 245
+      },
+      "heading": "Welcome to KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 347,
+        "y": 72,
+        "width": 832,
+        "height": 245
+      },
+      "heading": "مرحبًا بك في KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 347,
+        "y": 72,
+        "width": 832,
+        "height": 245
+      },
+      "heading": "مرحبًا بك في KNOuX"
+    },
+    {
+      "route": "files",
+      "filename": "files-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 250,
+        "y": 68,
+        "width": 796,
+        "height": 503.984375
+      },
+      "heading": "Files"
+    },
+    {
+      "route": "files",
+      "filename": "files-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 250,
+        "y": 68,
+        "width": 796,
+        "height": 503.984375
+      },
+      "heading": "Files"
+    },
+    {
+      "route": "files",
+      "filename": "files-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 320,
+        "y": 68,
+        "width": 796,
+        "height": 504.984375
+      },
+      "heading": "الملفات"
+    },
+    {
+      "route": "files",
+      "filename": "files-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 320,
+        "y": 68,
+        "width": 796,
+        "height": 504.984375
+      },
+      "heading": "الملفات"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "Organization Studio"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "Organization Studio"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "استوديو التنظيم"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "استوديو التنظيم"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "KNOuX Engine & Services Control Center"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "KNOuX Engine & Services Control Center"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "مركز تخصيص وإعدادات KNOuX الفائقة"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "مركز تخصيص وإعدادات KNOuX الفائقة"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 254,
+        "y": 72,
+        "width": 744.5,
+        "height": 292.046875
+      },
+      "heading": "Smart Scan"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 254,
+        "y": 72,
+        "width": 744.5,
+        "height": 292.046875
+      },
+      "heading": "Smart Scan"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 367.5,
+        "y": 72,
+        "width": 744.5,
+        "height": 256.546875
+      },
+      "heading": "الفحص الذكي"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 367.5,
+        "y": 72,
+        "width": 744.5,
+        "height": 256.546875
+      },
+      "heading": "الفحص الذكي"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 748.5,
+        "height": 320.53125
+      },
+      "heading": "Recovery Lab"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 748.5,
+        "height": 320.53125
+      },
+      "heading": "Recovery Lab"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 365.5,
+        "y": 70,
+        "width": 748.5,
+        "height": 262.140625
+      },
+      "heading": "مختبر الاستعادة"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 365.5,
+        "y": 70,
+        "width": 748.5,
+        "height": 262.140625
+      },
+      "heading": "مختبر الاستعادة"
+    },
+    {
+      "route": "system",
+      "filename": "system-dark-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1102,
+        "height": 299.453125
+      },
+      "heading": "System Performance"
+    },
+    {
+      "route": "system",
+      "filename": "system-light-en-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1102,
+        "height": 299.453125
+      },
+      "heading": "System Performance"
+    },
+    {
+      "route": "system",
+      "filename": "system-dark-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 12,
+        "y": 70,
+        "width": 1102,
+        "height": 277.703125
+      },
+      "heading": "أداء النظام"
+    },
+    {
+      "route": "system",
+      "filename": "system-light-ar-1366x768.png",
+      "width": 1366,
+      "height": 768,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 12,
+        "y": 70,
+        "width": 1102,
+        "height": 277.703125
+      },
+      "heading": "أداء النظام"
+    },
+    {
+      "route": "home",
+      "filename": "home-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 209,
+        "y": 72,
+        "width": 1039,
+        "height": 282.296875
+      },
+      "heading": "Welcome to KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 209,
+        "y": 72,
+        "width": 1039,
+        "height": 282.296875
+      },
+      "heading": "Welcome to KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 424,
+        "y": 72,
+        "width": 1039,
+        "height": 282.296875
+      },
+      "heading": "مرحبًا بك في KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 424,
+        "y": 72,
+        "width": 1039,
+        "height": 282.296875
+      },
+      "heading": "مرحبًا بك في KNOuX"
+    },
+    {
+      "route": "files",
+      "filename": "files-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1046,
+        "height": 612.125
+      },
+      "heading": "Files"
+    },
+    {
+      "route": "files",
+      "filename": "files-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1046,
+        "height": 612.125
+      },
+      "heading": "Files"
+    },
+    {
+      "route": "files",
+      "filename": "files-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 374,
+        "y": 70,
+        "width": 1046,
+        "height": 613.125
+      },
+      "heading": "الملفات"
+    },
+    {
+      "route": "files",
+      "filename": "files-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 374,
+        "y": 70,
+        "width": 1046,
+        "height": 613.125
+      },
+      "heading": "الملفات"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "Organization Studio"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "Organization Studio"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "استوديو التنظيم"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "استوديو التنظيم"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "KNOuX Engine & Services Control Center"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "KNOuX Engine & Services Control Center"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "مركز تخصيص وإعدادات KNOuX الفائقة"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "مركز تخصيص وإعدادات KNOuX الفائقة"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 254,
+        "y": 72,
+        "width": 978,
+        "height": 281.09375
+      },
+      "heading": "Smart Scan"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 254,
+        "y": 72,
+        "width": 978,
+        "height": 281.09375
+      },
+      "heading": "Smart Scan"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 440,
+        "y": 72,
+        "width": 978,
+        "height": 281.09375
+      },
+      "heading": "الفحص الذكي"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 440,
+        "y": 72,
+        "width": 978,
+        "height": 281.09375
+      },
+      "heading": "الفحص الذكي"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 982,
+        "height": 372.796875
+      },
+      "heading": "Recovery Lab"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 982,
+        "height": 372.796875
+      },
+      "heading": "Recovery Lab"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 438,
+        "y": 70,
+        "width": 982,
+        "height": 343.796875
+      },
+      "heading": "مختبر الاستعادة"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 438,
+        "y": 70,
+        "width": 982,
+        "height": 343.796875
+      },
+      "heading": "مختبر الاستعادة"
+    },
+    {
+      "route": "system",
+      "filename": "system-dark-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1408,
+        "height": 349.796875
+      },
+      "heading": "System Performance"
+    },
+    {
+      "route": "system",
+      "filename": "system-light-en-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1408,
+        "height": 349.796875
+      },
+      "heading": "System Performance"
+    },
+    {
+      "route": "system",
+      "filename": "system-dark-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 12,
+        "y": 70,
+        "width": 1408,
+        "height": 328.046875
+      },
+      "heading": "أداء النظام"
+    },
+    {
+      "route": "system",
+      "filename": "system-light-ar-1672x941.png",
+      "width": 1672,
+      "height": 941,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 12,
+        "y": 70,
+        "width": 1408,
+        "height": 328.046875
+      },
+      "heading": "أداء النظام"
+    },
+    {
+      "route": "home",
+      "filename": "home-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 209,
+        "y": 72,
+        "width": 1287,
+        "height": 290
+      },
+      "heading": "Welcome to KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 209,
+        "y": 72,
+        "width": 1287,
+        "height": 290
+      },
+      "heading": "Welcome to KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 424,
+        "y": 72,
+        "width": 1287,
+        "height": 290
+      },
+      "heading": "مرحبًا بك في KNOuX"
+    },
+    {
+      "route": "home",
+      "filename": "home-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 424,
+        "y": 72,
+        "width": 1287,
+        "height": 290
+      },
+      "heading": "مرحبًا بك في KNOuX"
+    },
+    {
+      "route": "files",
+      "filename": "files-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1294,
+        "height": 627.78125
+      },
+      "heading": "Files"
+    },
+    {
+      "route": "files",
+      "filename": "files-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1294,
+        "height": 627.78125
+      },
+      "heading": "Files"
+    },
+    {
+      "route": "files",
+      "filename": "files-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 374,
+        "y": 70,
+        "width": 1294,
+        "height": 628.78125
+      },
+      "heading": "الملفات"
+    },
+    {
+      "route": "files",
+      "filename": "files-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 374,
+        "y": 70,
+        "width": 1294,
+        "height": 628.78125
+      },
+      "heading": "الملفات"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "Organization Studio"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "Organization Studio"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "استوديو التنظيم"
+    },
+    {
+      "route": "studio",
+      "filename": "studio-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "استوديو التنظيم"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "KNOuX Engine & Services Control Center"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "KNOuX Engine & Services Control Center"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "مركز تخصيص وإعدادات KNOuX الفائقة"
+    },
+    {
+      "route": "settings",
+      "filename": "settings-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": null,
+      "heading": "مركز تخصيص وإعدادات KNOuX الفائقة"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 254,
+        "y": 72,
+        "width": 1226,
+        "height": 281.09375
+      },
+      "heading": "Smart Scan"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 254,
+        "y": 72,
+        "width": 1226,
+        "height": 281.09375
+      },
+      "heading": "Smart Scan"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 440,
+        "y": 72,
+        "width": 1226,
+        "height": 281.09375
+      },
+      "heading": "الفحص الذكي"
+    },
+    {
+      "route": "smart_scan",
+      "filename": "smart_scan-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 440,
+        "y": 72,
+        "width": 1226,
+        "height": 281.09375
+      },
+      "heading": "الفحص الذكي"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1230,
+        "height": 372.796875
+      },
+      "heading": "Recovery Lab"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1230,
+        "height": 372.796875
+      },
+      "heading": "Recovery Lab"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 438,
+        "y": 70,
+        "width": 1230,
+        "height": 351.046875
+      },
+      "heading": "مختبر الاستعادة"
+    },
+    {
+      "route": "repair",
+      "filename": "repair-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 438,
+        "y": 70,
+        "width": 1230,
+        "height": 351.046875
+      },
+      "heading": "مختبر الاستعادة"
+    },
+    {
+      "route": "system",
+      "filename": "system-dark-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1656,
+        "height": 349.796875
+      },
+      "heading": "System Performance"
+    },
+    {
+      "route": "system",
+      "filename": "system-light-en-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 252,
+        "y": 70,
+        "width": 1656,
+        "height": 349.796875
+      },
+      "heading": "System Performance"
+    },
+    {
+      "route": "system",
+      "filename": "system-dark-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 12,
+        "y": 70,
+        "width": 1656,
+        "height": 328.046875
+      },
+      "heading": "أداء النظام"
+    },
+    {
+      "route": "system",
+      "filename": "system-light-ar-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "locale": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "pageOverflow": 0,
+      "horizontalOverflow": 0,
+      "hero": {
+        "x": 12,
+        "y": 70,
+        "width": 1656,
+        "height": 328.046875
+      },
+      "heading": "أداء النظام"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "%cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security\n  Policy set or a policy with \"unsafe-eval\" enabled. This exposes users of\n  this app to unnecessary security risks.\n\nFor more information and help, consult\nhttps://electronjs.org/docs/tutorial/security.\nThis warning will not show up\nonce the app is packaged.",
+    "%cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security\n  Policy set or a policy with \"unsafe-eval\" enabled. This exposes users of\n  this app to unnecessary security risks.\n\nFor more information and help, consult\nhttps://electronjs.org/docs/tutorial/security.\nThis warning will not show up\nonce the app is packaged.",
+    "%cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security\n  Policy set or a policy with \"unsafe-eval\" enabled. This exposes users of\n  this app to unnecessary security risks.\n\nFor more information and help, consult\nhttps://electronjs.org/docs/tutorial/security.\nThis warning will not show up\nonce the app is packaged."
+  ]
+}
