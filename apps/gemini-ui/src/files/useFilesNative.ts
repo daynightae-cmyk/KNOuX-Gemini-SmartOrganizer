@@ -128,7 +128,7 @@ function sortRequest(sort?: FilesQueryFilters['sort']): Pick<FilesQueryRequest, 
   return { sort: 'modified', desc: true };
 }
 
-export function useFilesNative() {
+export function useFilesNative(preferredSourceId?: string) {
   const [available, setAvailable] = useState(false);
   const [mode, setMode] = useState<FilesDataMode>('fixture');
   const [sources, setSources] = useState<StudioSource[]>([]);
@@ -348,11 +348,12 @@ export function useFilesNative() {
       if (!active) return;
       if (listed?.status === 'complete' && Array.isArray(listed.data)) {
         setSources(listed.data);
-        const ready = listed.data.find((entry) => entry.status === 'ready' || entry.status === 'partial');
+        const ready = listed.data.find((entry) => (!preferredSourceId || entry.id === preferredSourceId) && (entry.status === 'ready' || entry.status === 'partial'));
         if (ready) {
           await applyReadySource(ready);
         } else {
           setActiveSource(null);
+          if (preferredSourceId) setError('The search source is no longer available. Authorize and index it explicitly in Files.');
         }
       } else {
         setActiveSource(null);
@@ -366,7 +367,7 @@ export function useFilesNative() {
       window.removeEventListener('knoux:organization-updated', refreshLiveInventory);
       if (queryTimer.current !== null) window.clearTimeout(queryTimer.current);
     };
-  }, [applyReadySource, setActiveSource]);
+  }, [applyReadySource, setActiveSource, preferredSourceId]);
 
   const scheduleReload = useCallback((filters: FilesQueryFilters) => {
     if (queryTimer.current !== null) window.clearTimeout(queryTimer.current);

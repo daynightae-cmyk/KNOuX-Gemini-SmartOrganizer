@@ -68,6 +68,7 @@ import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellCompo
 import '../files.css';
 import { OrbitalControl } from '../visual/OrbitalControl';
 import { ReferenceAtmosphere } from '../visual/ReferenceAtmosphere';
+import {readSearchIntent,consumeSearchIntent} from '../home/search';
 
 interface FilesPageProps {
   onNavigateSection?: (section: string) => void;
@@ -79,7 +80,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [selectedFile, setSelectedFile] = useState<FileResultItem>(FILES_INSTANT_FIND_FIXTURE[1]); // Aurora_Norway.jpg active
   const [checkedFileIds, setCheckedFileIds] = useState<Set<string>>(new Set(['file-2'])); // file-2 checked in screenshot
   const [activeCategory, setActiveCategory] = useState<FileCategoryFilter>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchIntent] = useState(() => {const hit=readSearchIntent('file');return hit?.kind==='file'?hit:null;});
+  const [searchQuery, setSearchQuery] = useState(searchIntent?.label || '');
   const [selectedExtension, setSelectedExtension] = useState('All');
   const [selectedSizeFilter, setSelectedSizeFilter] = useState('Any');
   const [dateFilter, setDateFilter] = useState<'any' | 'today' | 'week' | 'month'>('any');
@@ -105,7 +107,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [previewExpanded, setPreviewExpanded] = useState(false);
   const [inspectorTab, setInspectorTab] = useState<'details' | 'tools' | 'insights'>('details');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const filesNative = useFilesNative();
+  const filesNative = useFilesNative(searchIntent?.sourceId);
   const measured = filesNative.mode === 'measured';
   const sourceFiles = measured ? filesNative.files : files;
   const measuredOverview = filesNative.overview;
@@ -210,6 +212,13 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
       setCheckedFileIds(new Set());
     }
   }, [measured, filteredFiles, selectedFile.id]);
+
+  useEffect(() => {
+    if (!searchIntent || !readSearchIntent('file') || filesNative.source?.id !== searchIntent.sourceId) return;
+    const found = filteredFiles.find(file => file.nativeFileId === searchIntent.fileId);
+    if (!found) return;
+    setSelectedFile(found);setCheckedFileIds(new Set());consumeSearchIntent(searchIntent.key);
+  }, [searchIntent, filesNative.source?.id, filteredFiles]);
 
   useEffect(() => {
     if (!measured) return;
@@ -1317,7 +1326,9 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
                 <div className="flex items-start gap-2.5">
                   <div className="w-12 h-10 rounded overflow-hidden bg-black shrink-0 border border-slate-700">
-                    <img src={selectedFile.thumbnailUrl || ''} alt="" className="w-full h-full object-cover" />
+                    {selectedFile.thumbnailUrl
+                      ? <img src={selectedFile.thumbnailUrl} alt="" className="w-full h-full object-cover" />
+                      : <FileText aria-hidden="true" className="w-full h-full p-2 text-slate-500" />}
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs font-bold text-white truncate">{selectedFile.name}</div>

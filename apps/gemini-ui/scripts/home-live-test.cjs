@@ -102,8 +102,10 @@ check('Home insight is measured or explicitly unmeasured', () => {
   assert.ok(!/Safety check passed|Zero risk/.test(dashboard), 'fake safety guarantee must be gone');
 });
 
-check('the command palette is labelled as workspace navigation, not file search', () => {
-  assert.match(homePage, /Jump to a workspace, service, or tool/);
+check('the command palette distinguishes measured inventory search from command execution', () => {
+  assert.match(homePage, /Search workspaces, measured apps or indexed files/);
+  assert.match(homePage, /searchHomeInventory/);
+  assert.match(homePage, /No files opened or apps launched/);
   assert.match(homePage, /setQuery\(e.target.value\)/);
   assert.ok(!/Search for files, applications, settings, or run a command/.test(homePage + commandCenter), 'misleading global file search must be gone');
 });

@@ -1,0 +1,27 @@
+{
+  "status": "verified",
+  "scope": "Two disposable indexed folders, actual read-only installed-app inventory, canonical development Electron. No owner folder grants, file opening, process launch or Windows writes.",
+  "checks": [
+    "Home searches both actual native indexes; selecting the second source rechecks its authorization and selects the actual matching Files row",
+    "Unindexed fixture folder is not searched or granted",
+    "Measured installed-app result opens the existing Applications dossier; no executable is launched",
+    "Search/navigation grants no new source, does not reindex, and leaves fixture file bytes unchanged"
+  ],
+  "states": [],
+  "errors": [],
+  "warnings": [
+    "%cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security\n  Policy set or a policy with \"unsafe-eval\" enabled. This exposes users of\n  this app to unnecessary security risks.\n\nFor more information and help, consult\nhttps://electronjs.org/docs/tutorial/security.\nThis warning will not show up\nonce the app is packaged."
+  ],
+  "completedAt": "2026-11-02T07:02:05.026Z",
+  "fixtures": {
+    "sourceIDs": [
+      "766ae2ff-7ad6-45a5-a653-294d8a8c81be",
+      "4c3d3d65-94b3-49a6-8055-27dcd74219f9"
+    ],
+    "unchangedFiles": 2
+  },
+  "visualRoutes": [
+    "home"
+  ],
+  "captureCount": 0
+}

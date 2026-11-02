@@ -31,6 +31,7 @@ import { DOMAIN_SERVICES_META } from '../apps/catalog';
 import type { DomainServiceKey } from '../apps/catalog';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { useApplications } from '../apps/useApplications';
+import {readSearchIntent,consumeSearchIntent} from '../home/search';
 import '../applications.css';
 
 export interface ApplicationsPageProps {
@@ -50,7 +51,8 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
   const { inventory } = controller;
   const apps = useMemo<AppRecord[]>(() => inventory?.apps || [], [inventory]);
 
-  const [filters, setFilters] = useState<AppsFilters>(DEFAULT_FILTERS);
+  const [searchIntent] = useState(() => {const hit=readSearchIntent('app');return hit?.kind==='app'?hit:null;});
+  const [filters, setFilters] = useState<AppsFilters>(()=>({...DEFAULT_FILTERS,query:searchIntent?.label || ''}));
   const [selectedAppId, setSelectedAppId] = useState<string | null>(null);
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<DomainServiceKey | null>(null);
@@ -79,7 +81,10 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
       return;
     }
     setSelectedAppId((current) => (current && apps.some((app) => app.id === current) ? current : apps[0].id));
-  }, [apps]);
+    if (searchIntent && readSearchIntent('app') && apps.some(app=>app.id===searchIntent.appId)) {
+      setSelectedAppId(searchIntent.appId);consumeSearchIntent(searchIntent.key);
+    }
+  }, [apps, searchIntent]);
 
   useEffect(() => {
     setCheckedIds((current) => {

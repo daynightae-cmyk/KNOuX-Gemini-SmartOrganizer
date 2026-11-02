@@ -199,7 +199,7 @@
 }
 
 .home-workspace-palette{color:var(--ink,#15143b);background:#f7f5ff;border:1px solid #9b7bd177;border-radius:16px;width:min(600px,90vw);padding:18px;box-shadow:0 25px 80px #0007}
-[data-theme=dark] .home-workspace-palette{background:#111735;color:#f7f3ff}
+html:not([data-theme=light]) .home-workspace-palette{background:#111735;color:#f7f3ff}
 .home-workspace-palette::backdrop{background:#080b2477;backdrop-filter:blur(5px)}
 .home-workspace-palette header{display:flex;align-items:center;gap:10px;border-bottom:1px solid #8e75bf55;padding-bottom:12px}
 .home-workspace-palette svg{width:18px;height:18px;flex-shrink:0}
@@ -208,6 +208,9 @@
 .home-workspace-palette button{background:transparent;color:inherit;border:0;cursor:pointer;padding:10px;display:flex;align-items:center;justify-content:space-between;text-align:start}
 .home-workspace-palette button:hover{background:#9162df26}.home-workspace-palette button:focus-visible{outline:2px solid #9a5cf5;outline-offset:-2px}
 .home-workspace-palette footer{font-size:12px;color:#918bb0}
+dialog.home-workspace-palette[open]{display:flex;flex-direction:column;max-height:85dvh;overflow:hidden}
+.home-workspace-palette header,.home-workspace-palette footer{flex-shrink:0}
+.home-workspace-palette nav{min-height:0}
 
 .approved-home.home-corrective .approved-inspector{display:grid;grid-template-rows:minmax(0,.9fr) minmax(0,1.2fr) minmax(0,.72fr) minmax(0,.45fr);overflow:hidden}
 .approved-home.home-corrective .approved-inspector>.approved-side-card{min-height:0;overflow:auto;scrollbar-width:thin}
