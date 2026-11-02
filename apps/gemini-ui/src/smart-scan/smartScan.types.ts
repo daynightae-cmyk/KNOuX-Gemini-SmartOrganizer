@@ -69,7 +69,7 @@ export interface ScanResultItem {
 }
 
 export interface BreakdownCategory {
-  id: ScanCategory;
+  id: string;
   labelEn: string;
   labelAr: string;
   count: number;

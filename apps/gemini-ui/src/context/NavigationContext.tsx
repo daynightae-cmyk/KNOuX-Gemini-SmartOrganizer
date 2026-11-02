@@ -10,6 +10,21 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, ReactNode } from 'react';
 
 export type AppTheme = 'dark' | 'light';
+export type ThemePreference = AppTheme | 'system';
+
+function readThemePreference(): ThemePreference {
+  try {
+    const saved = localStorage.getItem('knoux_theme_preference');
+    if (saved === 'system' || saved === 'light' || saved === 'dark') return saved;
+    const legacy = localStorage.getItem('knoux_theme');
+    if (legacy === 'light' || legacy === 'dark') return legacy;
+  } catch { /* Appearance still works when browser storage is unavailable. */ }
+  return 'dark';
+}
+
+function systemTheme(): AppTheme {
+  return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 
 export type AppSection =
   | 'home'
@@ -159,6 +174,8 @@ export interface NavigationContextValue {
   setLocale: (locale: 'en' | 'ar') => void;
   toggleLocale: () => void;
   theme: AppTheme;
+  themePreference: ThemePreference;
+  setThemePreference: (preference: ThemePreference) => void;
   setTheme: (theme: AppTheme) => void;
   toggleTheme: () => void;
 }
@@ -211,25 +228,21 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
    * Global appearance. Persisted across routes so switching to light on Home
    * does not strand a flag on screens that had no theme control of their own.
    */
-  const [theme, setThemeState] = useState<AppTheme>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('knoux_theme');
-      if (saved === 'light' || saved === 'dark') return saved;
-    }
-    return 'dark';
-  });
+  const [themePreference, setThemePreference] = useState<ThemePreference>(readThemePreference);
+  const [osTheme, setOsTheme] = useState<AppTheme>(systemTheme);
+  const theme = themePreference === 'system' ? osTheme : themePreference;
+
+  useEffect(() => {
+    if (themePreference !== 'system') return;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const update = () => setOsTheme(media.matches ? 'dark' : 'light');
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, [themePreference]);
 
   const setTheme = useCallback((newTheme: AppTheme) => {
-    setThemeState(newTheme);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('knoux_theme', newTheme);
-      if (newTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
-      document.documentElement.style.colorScheme = newTheme;
-    }
+    setThemePreference(newTheme);
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -266,13 +279,18 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   // Keep the theme attribute synchronized on first mount as well as on change.
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem('knoux_theme_preference', themePreference);
+      // Keep legacy consumers compatible with the resolved Day/Night value.
+      localStorage.setItem('knoux_theme', theme);
+    } catch { /* A denied storage write must not block the visible theme. */ }
     if (theme === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
     } else {
       document.documentElement.removeAttribute('data-theme');
     }
     document.documentElement.style.colorScheme = theme;
-  }, [theme]);
+  }, [theme, themePreference]);
 
   // Listen to hash changes in browser. The listener is registered once and
   // reads the latest section from a ref; re-registering on every render with a
@@ -358,6 +376,8 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
       setLocale,
       toggleLocale,
       theme,
+      themePreference,
+      setThemePreference,
       setTheme,
       toggleTheme,
     }),
@@ -373,6 +393,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
       setLocale,
       toggleLocale,
       theme,
+      themePreference,
       setTheme,
       toggleTheme,
     ]

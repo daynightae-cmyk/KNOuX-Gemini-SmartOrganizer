@@ -71,16 +71,6 @@ const FINDING_CATEGORY: Record<string, ScanCategory> = {
   'empty-folder': 'junk',
 };
 
-const BREAKDOWN_CATEGORY: Record<string, ScanCategory> = {
-  large: 'large',
-  duplicates: 'duplicates',
-  storage: 'system',
-  startup: 'other',
-  privacy: 'privacy',
-  system: 'system',
-  folders: 'junk',
-};
-
 const MODE_LABEL_EN: Record<ScanSummary['mode'], string> = {
   quick: 'Quick Scan',
   deep: 'Deep Scan',
@@ -337,9 +327,10 @@ export function toResultItems(session: ScanSession | null): ScanResultItem[] {
 export function toBreakdown(session: ScanSession | null): BreakdownCategory[] {
   if (!session) return [];
   return session.breakdown.map((group) => {
-    const category = BREAKDOWN_CATEGORY[group.id] || 'other';
     return {
-      id: category,
+      // Native groups are distinct evidence: e.g. storage and system must
+      // not collapse to the same React identity or lose their own labels.
+      id: group.id,
       labelEn: group.labelEn,
       labelAr: group.labelAr,
       count: group.count,

@@ -1,0 +1,978 @@
+{
+  "scope": "Family-level content triage overlay. Does not convert archival hash presence into proof of product equivalence. Fine-grained Anima review remains open; no zero-missing claim.",
+  "counts": {
+    "TARGETED_WINDOWS_PATH_FIX_RECOVERED": 1,
+    "ANIMA_REFERENCE_FAMILY_PRESERVED_REQUIRES_FINE_GRAINED_REVIEW": 113,
+    "HISTORICAL_VISUAL_EVIDENCE_PRESERVED_NOT_IMPORTED": 54,
+    "NEWER_NATIVE_GUARDS_AND_LIFECYCLE_PRESERVED": 3,
+    "OLDER_ELECTRON_CAPTURE_HARNESS_PRESERVED_NO_RUNTIME_IMPORT": 1,
+    "OLDER_STUDIO_UI_SUPERSEDED_NATIVE_PORTAL_PRESERVED": 6,
+    "NEWER_MEASURED_PIPELINES_AND_NATIVE_WORKBENCHES_PRESERVED": 12
+  },
+  "groups": {
+    "TARGETED_WINDOWS_PATH_FIX_RECOVERED": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\electron\\native\\startup-bridge.cjs",
+        "target": "apps/gemini-ui/electron/native/startup-bridge.cjs",
+        "sha256": "4ef549f0f2ab2f57a467ae539bce4da3ef8187dfa70833d064923976ff74fbac"
+      }
+    ],
+    "ANIMA_REFERENCE_FAMILY_PRESERVED_REQUIRES_FINE_GRAINED_REVIEW": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\automation-reference-browser.mjs",
+        "target": "apps/gemini-ui/scripts/automation-reference-browser.mjs",
+        "sha256": "9e9d5834c504e8cf921697f9c4d30e8ec9ccb48bff3d6f5773199cc30421b78d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\cleanup-provider-browser.mjs",
+        "target": "apps/gemini-ui/scripts/cleanup-provider-browser.mjs",
+        "sha256": "428f436590f90c8c19b83853e60929799e87e46a04d4ff3db3833dd2eecf64bc"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\cleanup-reference-browser.mjs",
+        "target": "apps/gemini-ui/scripts/cleanup-reference-browser.mjs",
+        "sha256": "f87ca83a4404050066fb5869cf2a09034de323b07270a36bb34fbac454256a05"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\files-repair-browser.mjs",
+        "target": "apps/gemini-ui/scripts/files-repair-browser.mjs",
+        "sha256": "9995d8f78c236ab628ef3960acb18f856f936db62440e4d5838e1920b1cf5f86"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\files-repair-provider-browser.mjs",
+        "target": "apps/gemini-ui/scripts/files-repair-provider-browser.mjs",
+        "sha256": "68ee54a84b7514b71804d7ab879732a7f264cd72beb0257bdddeee302ad9d901"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\files-repair-recovery-test.cjs",
+        "target": "apps/gemini-ui/scripts/files-repair-recovery-test.cjs",
+        "sha256": "dbaaf77a4a727cd376b2e23cef1fdbb34039d6e62904c6c48597c878ae91684a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\files-repair-visual-browser.mjs",
+        "target": "apps/gemini-ui/scripts/files-repair-visual-browser.mjs",
+        "sha256": "bfa5b7e0a1844d5c8e63137faf0309591c63f00b543206d2b848c156edd499c6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\home-command-center-browser.mjs",
+        "target": "apps/gemini-ui/scripts/home-command-center-browser.mjs",
+        "sha256": "e66d5cc60e8336ab467d507ea8b8c8b5be8133a736e92c9135d4074a755c3200"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\home-corrective-browser.mjs",
+        "target": "apps/gemini-ui/scripts/home-corrective-browser.mjs",
+        "sha256": "4da35dff374c2a9af5bfdf9b9e9f25c9488b05a55a82b251eec2f6d43e22cab4"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\home-live-test.cjs",
+        "target": "apps/gemini-ui/scripts/home-live-test.cjs",
+        "sha256": "6f47e35b064beae5b00c75467fd5f7b0cb5e935725b0eeccb1fc680c34b203c6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\home-provider-browser.mjs",
+        "target": "apps/gemini-ui/scripts/home-provider-browser.mjs",
+        "sha256": "9d0da8fdbd57ab24aca1cb2bac89f1f7c0bc65cc33b5ae9eb00445f114e48c44"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\integration-completion-browser.mjs",
+        "target": "apps/gemini-ui/scripts/integration-completion-browser.mjs",
+        "sha256": "5c1df83d00653d4f02549251f922e5daa6de1e289a42ab0afc2637d67b2aab54"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\remaining-screens-browser.mjs",
+        "target": "apps/gemini-ui/scripts/remaining-screens-browser.mjs",
+        "sha256": "a4bcfd369135ea2b2b517ec7357e7966a050807bc136b453854c739b00c9094d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\scan-native-test.cjs",
+        "target": "apps/gemini-ui/scripts/scan-native-test.cjs",
+        "sha256": "b642b226860b3ef6c62569d01933e8031b11c04c0dd1d149a8f6e485047c7cf4"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\service-directory-browser.mjs",
+        "target": "apps/gemini-ui/scripts/service-directory-browser.mjs",
+        "sha256": "b64b477890aca16806b2178b738c9d77880ca1cbf282a2a4011334de3585e399"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\settings-completion-browser.mjs",
+        "target": "apps/gemini-ui/scripts/settings-completion-browser.mjs",
+        "sha256": "689706f3d4b2d4ca3a2b560b52678bb351865512f77a967851367ee587ad6953"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\startup-provider-browser.mjs",
+        "target": "apps/gemini-ui/scripts/startup-provider-browser.mjs",
+        "sha256": "af214b1c95d181631dd975a9937e31b527830b13400992f4bf8a829b8a8b9892"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\startup-reference-browser.mjs",
+        "target": "apps/gemini-ui/scripts/startup-reference-browser.mjs",
+        "sha256": "56370f62efee2e2774be919101aa61e124eccf99db78a57d037a1b9d9b1ab2ad"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\studio-atlas-browser.mjs",
+        "target": "apps/gemini-ui/scripts/studio-atlas-browser.mjs",
+        "sha256": "b913f06c2111fa3598cd092e316f715ef1cf25f7c7d2742ed3d04b87e55c7c35"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\studio-fixture-browser.mjs",
+        "target": "apps/gemini-ui/scripts/studio-fixture-browser.mjs",
+        "sha256": "b7ca6570cc8afc5e6e247706050a1a604afef1abcae77d033e260192adec16e9"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\studio-native-test.cjs",
+        "target": "apps/gemini-ui/scripts/studio-native-test.cjs",
+        "sha256": "5cf5931e9bf7f837180be9afb3ed44665c95f98135ae5a54c17987104f85333e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\test-portable.cjs",
+        "target": "apps/gemini-ui/scripts/test-portable.cjs",
+        "sha256": "0aadb991476d823e4172db5e3a2b3b00d0c2f182bc712172f8c35c17f042e5d4"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\scripts\\workspace-services-system-browser.mjs",
+        "target": "apps/gemini-ui/scripts/workspace-services-system-browser.mjs",
+        "sha256": "8b5adae2083f05db9ecdd3031c3cbb35179b5ffc426c0e8b25ca3f648c37939b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\App.tsx",
+        "target": "apps/gemini-ui/src/App.tsx",
+        "sha256": "57750277e076e69cd1ec6e74d84db99d671316dcfcb4329b70df0aa2174fc3d1"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\apps\\evidence.ts",
+        "target": "apps/gemini-ui/src/apps/evidence.ts",
+        "sha256": "65ea71cbf1eb274f3b140616248db8b471b9c30f633cfc88fd41a02e03619703"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\apps\\reference-model.ts",
+        "target": "apps/gemini-ui/src/apps/reference-model.ts",
+        "sha256": "41e96526e63226b3464623e85a77a0f5f0b3b7c52f1a085191934d6d353d6350"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\apps\\ReferenceApplicationsScreen.tsx",
+        "target": "apps/gemini-ui/src/apps/ReferenceApplicationsScreen.tsx",
+        "sha256": "2054e14d2938d8c492a495dd3ee95df9c6b1b6a592d705e2539d2c45e15ac041"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\automation\\graph-core.ts",
+        "target": "apps/gemini-ui/src/automation/graph-core.ts",
+        "sha256": "da5f48bb0eee22b3bfb3546b2c1bc48be1495f1bdbc0d0067b5e4d3c4115749e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\automation\\graph-provider.ts",
+        "target": "apps/gemini-ui/src/automation/graph-provider.ts",
+        "sha256": "4b0cdc64fc66647115929917732cb60ab3384175e409acaf1b2858538fcdcf4c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\automation\\GraphCanvas.tsx",
+        "target": "apps/gemini-ui/src/automation/GraphCanvas.tsx",
+        "sha256": "aff178fcad36677b310e14131e37c419a9f98745b5271279032b27de71a6d39a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\automation\\reference-automation.css",
+        "target": "apps/gemini-ui/src/automation/reference-automation.css",
+        "sha256": "e650462b974d75a8c25ef8340dde345345d6bdb216b65e3be48fa788f124024c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\automation\\ReferenceAutomationScreen.tsx",
+        "target": "apps/gemini-ui/src/automation/ReferenceAutomationScreen.tsx",
+        "sha256": "240f4e10bea36573677648fc3ddc68e8ac2889338e6cd97676dbaadc31ecd1b5"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\cleanup\\reference-cleanup.css",
+        "target": "apps/gemini-ui/src/cleanup/reference-cleanup.css",
+        "sha256": "9e03088ac0473b022c619814366258af9a6a531baa90b60eb12aed7216219b7b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\cleanup\\reference-model.ts",
+        "target": "apps/gemini-ui/src/cleanup/reference-model.ts",
+        "sha256": "7db935680ff940a25643c19ddeb607dd9ecfdacd73160cdcdaa0ea3cf149d59d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\cleanup\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/cleanup/reference-provider.ts",
+        "sha256": "82fd7920def2ede1a4038f431813f8a8db736d3a0e6c272b8f644bbefef2c7c6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\cleanup\\ReferenceCleanupScreen.tsx",
+        "target": "apps/gemini-ui/src/cleanup/ReferenceCleanupScreen.tsx",
+        "sha256": "a1f2345079aae363c8abce7281168bba2d4ec9e4c0e81373c125292cc4568d0a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\commands\\CommandPalette.tsx",
+        "target": "apps/gemini-ui/src/commands/CommandPalette.tsx",
+        "sha256": "ebc56de961d7b104030c2fbd212d59f8f7ef23755e31190b4d88a524c6885fc5"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\commands\\commands.css",
+        "target": "apps/gemini-ui/src/commands/commands.css",
+        "sha256": "f6130d116c3eccb3f57cbcec50adabbe65c6a9462a4f061831b5d39e342e2d02"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\commands\\provider.ts",
+        "target": "apps/gemini-ui/src/commands/provider.ts",
+        "sha256": "a2a948ea56f503ef288ef9a7f803bc193539a90860e2a6d39981b7f40db25d42"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\commands\\selection.ts",
+        "target": "apps/gemini-ui/src/commands/selection.ts",
+        "sha256": "39d8befebe6143f5209ac6c21bff1af8a0bb8493c7662bff81baeb8a84bf1d6a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\components\\home\\approved-home.css",
+        "target": "apps/gemini-ui/src/components/home/approved-home.css",
+        "sha256": "3f31e0d7bc62f84ba32e57814570d5dbf16bee9842862265f66a78eb04b07104"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\components\\home\\ApprovedHomeScreen.tsx",
+        "target": "apps/gemini-ui/src/components/home/ApprovedHomeScreen.tsx",
+        "sha256": "ac52ccbe0354d0d3a00c939d1ef9f9b9d478a7271b9722bd9be4c22ea4cbef31"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\components\\shell\\files-repair-chrome.css",
+        "target": "apps/gemini-ui/src/components/shell/files-repair-chrome.css",
+        "sha256": "05c39b28a2a53b5df3852fdf3732befe6a1b304c6954d6dbb81cab5f45ee35af"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\components\\shell\\ReferenceChrome.tsx",
+        "target": "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx",
+        "sha256": "05659ae10b944754a49ee2b5d2fc2b33d7ea9ed8e99469fbb4be5e9117ba8f4d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\components\\workspace\\GoogleWorkspaceHub.tsx",
+        "target": "apps/gemini-ui/src/components/workspace/GoogleWorkspaceHub.tsx",
+        "sha256": "f1a2e9088264cccf89dcf928137af90fcfae46a0a102e29324e699617f96ee33"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\context\\NavigationContext.tsx",
+        "target": "apps/gemini-ui/src/context/NavigationContext.tsx",
+        "sha256": "f715ebce6c18797127e48f64dce7ea54365712e9cae734189d9d921b8bf15f8d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\features\\cinematic-entry\\CinematicEntry.tsx",
+        "target": "apps/gemini-ui/src/features/cinematic-entry/CinematicEntry.tsx",
+        "sha256": "cb48c0e08f74ab98972e8c86f4ca003a71b12d047731dc8672e8e2d7fb8ae017"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\features\\cinematic-entry\\model.ts",
+        "target": "apps/gemini-ui/src/features/cinematic-entry/model.ts",
+        "sha256": "0e97aa60a89a18111b8e5225fd7b68c535d08805febec893ceedbbdedca9e07a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\features\\cinematic-entry\\portal-reference.css",
+        "target": "apps/gemini-ui/src/features/cinematic-entry/portal-reference.css",
+        "sha256": "fe5271d68e7ac70370d3ca405a1eaf313757bea75d2c387e11cfc612cda7e3b6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\duplicate-evidence.ts",
+        "target": "apps/gemini-ui/src/files/duplicate-evidence.ts",
+        "sha256": "7421d46de290bc72db86e92fbc829606d49f76f6133e654cd62f69206e8a04a0"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\DuplicateEvidencePane.tsx",
+        "target": "apps/gemini-ui/src/files/DuplicateEvidencePane.tsx",
+        "sha256": "593db5bdca6dcd5495c09cf9b01b12883fd64be02fc4d194825752e41b8186d7"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\reference-files.css",
+        "target": "apps/gemini-ui/src/files/reference-files.css",
+        "sha256": "d107c13ebb5784535404c80b81826e2d26ecde325653a942bc3cc42379e3aff5"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\reference-model.ts",
+        "target": "apps/gemini-ui/src/files/reference-model.ts",
+        "sha256": "79978295f6de746404c5648c4322d5db3fac808574f2f1d23f5b827da2ff9a81"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/files/reference-provider.ts",
+        "sha256": "159e590afba64912567bfc380e0db91251b51d6e14e8825d93f670eb1f8283aa"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\ReferenceFilesScreen.tsx",
+        "target": "apps/gemini-ui/src/files/ReferenceFilesScreen.tsx",
+        "sha256": "ddc1ed4eceef9023398be9094614c19001e1de8a8175cd68fbb3f8cda5c301a3"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\files\\useReferenceFiles.ts",
+        "target": "apps/gemini-ui/src/files/useReferenceFiles.ts",
+        "sha256": "e11b50418a2c1465bfbb5f93c7a584e8d57a62d5bb9754956dc79050a8901234"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\home\\live.ts",
+        "target": "apps/gemini-ui/src/home/live.ts",
+        "sha256": "75d1c21b426056869efec07f52f0d967d799adfa44ac4fa32b35f2f381c6856b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\home\\provider.ts",
+        "target": "apps/gemini-ui/src/home/provider.ts",
+        "sha256": "8195ed9ea5be2d9c1fec64e70a7e03d28f9152057405b85160a95575b1477c36"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\operations\\OrganizationLiveWorkbench.tsx",
+        "target": "apps/gemini-ui/src/operations/OrganizationLiveWorkbench.tsx",
+        "sha256": "214a8ddb93ea9ef1d73b0cb9ffec4bf7c0200a091b6ec38d3740bb8f95022075"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\operations\\OrganizationProvider.ts",
+        "target": "apps/gemini-ui/src/operations/OrganizationProvider.ts",
+        "sha256": "4e89925b17c5bf450620ca9d2ed9a36536f5d1a3f207000807c697b8b873eb34"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\operations\\OrganizationStudioOverview.tsx",
+        "target": "apps/gemini-ui/src/operations/OrganizationStudioOverview.tsx",
+        "sha256": "0fea0ac111d64b93c5e64044f784f866bd149f5ebd4944d7b8791f27fec2aaf7"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\operations\\studio-reference-execution.css",
+        "target": "apps/gemini-ui/src/operations/studio-reference-execution.css",
+        "sha256": "b091f9004b51183107f17331de0ef4969e89d411e72d8d39541c2e422f92ce77"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\ApplicationsPage.tsx",
+        "target": "apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+        "sha256": "7024fa3fbe98d083339d7c8ad4c7d9d309d49ce054c0e8f2e27bc1a226f829bf"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\AutomationPage.tsx",
+        "target": "apps/gemini-ui/src/pages/AutomationPage.tsx",
+        "sha256": "e2a77050629b7185354ce495eab58e7a8d942f6f214cb6a96899cedc906332a0"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\CleanupPage.tsx",
+        "target": "apps/gemini-ui/src/pages/CleanupPage.tsx",
+        "sha256": "dbf662e30a82eb74121bc4484fad438bbfc4db0514ccf1ddac4abae0b5b5c5b5"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\FilesPage.tsx",
+        "target": "apps/gemini-ui/src/pages/FilesPage.tsx",
+        "sha256": "4c460337b9257efb42c39b794e34a31a3717e6dabe78ba853b5613193de607b1"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\HomePage.tsx",
+        "target": "apps/gemini-ui/src/pages/HomePage.tsx",
+        "sha256": "38516c7fbecf0274f9f7fcf31c75676012e191c64aaff4587ae40c51913cff2a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\RepairPage.tsx",
+        "target": "apps/gemini-ui/src/pages/RepairPage.tsx",
+        "sha256": "eb325aeaa664a4c9668b96117e8247356d3dc1e8e586eb0eeda5d448e7041458"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\ServicesPage.tsx",
+        "target": "apps/gemini-ui/src/pages/ServicesPage.tsx",
+        "sha256": "e1163d32d1324450ccf66ecfa4d0e3f07323fb9100c89d40358b545d84e8413c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\SettingsPage.tsx",
+        "target": "apps/gemini-ui/src/pages/SettingsPage.tsx",
+        "sha256": "b1ad8d18c0a571c8a887d7f56087b4367fb70c8f74ee22c4eeefec81f740d17d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\SmartScanPage.tsx",
+        "target": "apps/gemini-ui/src/pages/SmartScanPage.tsx",
+        "sha256": "9086fd551be18050e120b39f07c98f471a0ff4c002edcc93265316736d8ea149"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\StartupPage.tsx",
+        "target": "apps/gemini-ui/src/pages/StartupPage.tsx",
+        "sha256": "2205a3d2d24c81f509a85cf715a040a08b4e914d3d56327575bcc2c5eceaa82b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\StoragePage.tsx",
+        "target": "apps/gemini-ui/src/pages/StoragePage.tsx",
+        "sha256": "8bc6243e4e3e9a73545cd2c7207825079041a616911d7a448a605e387629111f"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\pages\\SystemPage.tsx",
+        "target": "apps/gemini-ui/src/pages/SystemPage.tsx",
+        "sha256": "f3c3b07bd936ad31c7a2fad4cbfbb6e7cd7504a44c4a34b3452a75659115196e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\reference\\domain-frame.css",
+        "target": "apps/gemini-ui/src/reference/domain-frame.css",
+        "sha256": "2fd95f01d276941b5db4eac73c868e9a8b72aa5db6df502177e47a7cb82e3f90"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\reference\\DomainFrame.tsx",
+        "target": "apps/gemini-ui/src/reference/DomainFrame.tsx",
+        "sha256": "c92aa2800268d5c1abdda8a19ca3677ab315630a897ba844abf6591189d01c56"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\repair\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/repair/reference-provider.ts",
+        "sha256": "1c3f4694c7ebfe05e521282b5976bf23ed088d31627ba1a18dffce31ff2d1593"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\repair\\reference-repair.css",
+        "target": "apps/gemini-ui/src/repair/reference-repair.css",
+        "sha256": "da86cda031ddafe3eca46895ff653d8fd019d2141dde8ce7388f7d740df4cfaa"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\repair\\ReferenceRepairScreen.tsx",
+        "target": "apps/gemini-ui/src/repair/ReferenceRepairScreen.tsx",
+        "sha256": "3556fe5a552a2f658f3b53b147c87bd19a4297fa42d38427a0b52ad99ee9c897"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\scan\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/scan/reference-provider.ts",
+        "sha256": "cca6adba161623d175f528fe95ff2553465f06b5076d7c9a1779977f2974354c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\scan\\ReferenceScanScreen.tsx",
+        "target": "apps/gemini-ui/src/scan/ReferenceScanScreen.tsx",
+        "sha256": "4ce82ea6fd01718eba75e4fcd90a45491b40821fa6d7ea38bc1bac2f4cf253c6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\model.ts",
+        "target": "apps/gemini-ui/src/service-navigation/model.ts",
+        "sha256": "4ef46e96043cfe8758fa721d81cd0edf5f76f930d0850ef758334df0f7e92e11"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\requests.ts",
+        "target": "apps/gemini-ui/src/service-navigation/requests.ts",
+        "sha256": "5a7e0bb490489bdb7d89de131aca12cef7126d306b0eeb8ebe4a915da8b39e45"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\service-directory.css",
+        "target": "apps/gemini-ui/src/service-navigation/service-directory.css",
+        "sha256": "2499fc307954782784bd1d136d86d4cf6b1ebc3cfc4f6a35c7f28ba093956500"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\ServiceDirectory.tsx",
+        "target": "apps/gemini-ui/src/service-navigation/ServiceDirectory.tsx",
+        "sha256": "16002103b6e564faa18c3a492f596a45dea2ae9eb270a42ed76c8bd320d8a68f"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\services\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/services/reference-provider.ts",
+        "sha256": "69613d489b704f9fcc7979d4ff5d06dba67cd1ded5afd1e3d0a49356c649e5c9"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\services\\ReferenceServicesScreen.tsx",
+        "target": "apps/gemini-ui/src/services/ReferenceServicesScreen.tsx",
+        "sha256": "562a4897f5c692c606c661f75c5f90154aa89ce32e27b5c2d5f9c2cdefe13a84"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\settings\\SettingsReferenceDashboard.tsx",
+        "target": "apps/gemini-ui/src/settings/SettingsReferenceDashboard.tsx",
+        "sha256": "300ee62cac43a02484aea67dea3e7bd8843af5bccf46e119141f856918aa647e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\smart-scan\\SmartScanPage.tsx",
+        "target": "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+        "sha256": "398ca30345509b4c0ec78da92878469587295f7ea8ca8ee09c70cb4ba3921b32"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\startup\\reference-model.ts",
+        "target": "apps/gemini-ui/src/startup/reference-model.ts",
+        "sha256": "9bccaf17d901881bdd731967fb83ecea2d23468814e1651cc1fc5a68305519ed"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\startup\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/startup/reference-provider.ts",
+        "sha256": "7b6f766e2335019faeb4955e0b24a0c6dcbbff00fc2ac6e06317d58e13d59787"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\startup\\reference-startup.css",
+        "target": "apps/gemini-ui/src/startup/reference-startup.css",
+        "sha256": "b897e313459bb8dc1f8f7bd80012d1918503daaf10a399d2fd4a131f0d3c6e6b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\startup\\ReferenceStartupScreen.tsx",
+        "target": "apps/gemini-ui/src/startup/ReferenceStartupScreen.tsx",
+        "sha256": "b259f449d35b3b498cfc3878f45ba591e970a7a68b84b06aff7a0f287dcf773e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\storage\\atlas-model.ts",
+        "target": "apps/gemini-ui/src/storage/atlas-model.ts",
+        "sha256": "8fac9fee09c05db44b8eea7ea07214334b4f244b5a2abe93d94b48d92a6febf2"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\storage\\atlas-provider.ts",
+        "target": "apps/gemini-ui/src/storage/atlas-provider.ts",
+        "sha256": "fe5ded6ec5f997f0387c75e5fd042d9a037c630d114eae178255fe4976acb472"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\storage\\atlas-reference.css",
+        "target": "apps/gemini-ui/src/storage/atlas-reference.css",
+        "sha256": "50304b25e4a866ea332ac961efa84e826f8708e330eeea4e408f9c2d9e9adeb6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\storage\\AtlasTreemap.tsx",
+        "target": "apps/gemini-ui/src/storage/AtlasTreemap.tsx",
+        "sha256": "896818d365c925c461b51089575ab5eca1a4618e5a0fb5b4511d93ffbba20651"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\storage\\StorageAtlasScreen.tsx",
+        "target": "apps/gemini-ui/src/storage/StorageAtlasScreen.tsx",
+        "sha256": "7c5cf8f4b008ab6b6f8783b17ff8418cb4092971f9d3961dae5fc40462f85b91"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\storage\\useAtlas.ts",
+        "target": "apps/gemini-ui/src/storage/useAtlas.ts",
+        "sha256": "33ca2c61342c0a4d31dfaded37159d37913accc195d87cf7dde0d025bd0a9912"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\studio\\StudioPage.tsx",
+        "target": "apps/gemini-ui/src/studio/StudioPage.tsx",
+        "sha256": "e9c48ea6691d2b38117010cc1c4297e71f6857b15a2cf563ce32227ced0de4ab"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\system\\ReferenceSystemScreen.tsx",
+        "target": "apps/gemini-ui/src/system/ReferenceSystemScreen.tsx",
+        "sha256": "df08df0cf1a1b37eca3e6aa48f18d34874b8f641bd8b9f66672ba40d219ad0ee"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\system\\telemetry-reference.ts",
+        "target": "apps/gemini-ui/src/system/telemetry-reference.ts",
+        "sha256": "1ee63cf71d4b83d3fb300bb07a58ab07d1e253c0ed9a0be8a55546e8c9b50235"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\theme\\appearance.ts",
+        "target": "apps/gemini-ui/src/theme/appearance.ts",
+        "sha256": "8ed65247ab5f722854f84e73540d44926c197fa5c8ea2671586d07f8579b2ec3"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\files-reference-final.css",
+        "target": "apps/gemini-ui/src/visual/files-reference-final.css",
+        "sha256": "3c0d075b3d3043a05af34ea8f21c541a5811d95093bcc21265893ae15ae5cc10"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\files-reference.css",
+        "target": "apps/gemini-ui/src/visual/files-reference.css",
+        "sha256": "c38060735e6e0934f2e9c7f27cad45e4432ff677c04fd272633dd0ff4fb4a434"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\knoux-orbit.css",
+        "target": "apps/gemini-ui/src/visual/knoux-orbit.css",
+        "sha256": "ac55e1b8a6648071aacd42b3fd5b4031db0497b58e771c6314c91dbd66b8e5f5"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\KnouxOrbit.tsx",
+        "target": "apps/gemini-ui/src/visual/KnouxOrbit.tsx",
+        "sha256": "f2799d206a6dd00d9b375f62178de45bb2d871733b135f7101768e1866f77b2e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\organization-reference-final.css",
+        "target": "apps/gemini-ui/src/visual/organization-reference-final.css",
+        "sha256": "7620aada3679e7edcadd22657c3d37d26f923f1cf4c95cdc5c10ca09619b93e7"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\settings-reference-final.css",
+        "target": "apps/gemini-ui/src/visual/settings-reference-final.css",
+        "sha256": "368c1fa23d18d16d5a84c7719c863991740b6a346a1da1bf48e4303638be9b77"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\visual\\settings-reference-night.css",
+        "target": "apps/gemini-ui/src/visual/settings-reference-night.css",
+        "sha256": "a1f6080da44a534ae858837ea3e91cec633a5c6647ee2bfa71c272382048cd8e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\workspace\\GoogleBrand.tsx",
+        "target": "apps/gemini-ui/src/workspace/GoogleBrand.tsx",
+        "sha256": "d1066536ca6b01f5847e0eb3159ab2a1e996e54177d88904b17755ebc012075d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\workspace\\reference-provider.ts",
+        "target": "apps/gemini-ui/src/workspace/reference-provider.ts",
+        "sha256": "ba988ae964d50bea95c5b2e4f7a8c996b85f59a556ddbc5e9c057f0e850df2cd"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\workspace\\ReferenceWorkspaceScreen.tsx",
+        "target": "apps/gemini-ui/src/workspace/ReferenceWorkspaceScreen.tsx",
+        "sha256": "d872764a8dd1f0afa525c11bb379a6630cae7bcf1bd8637bf614484dc8a8cbcb"
+      }
+    ],
+    "HISTORICAL_VISUAL_EVIDENCE_PRESERVED_NOT_IMPORTED": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\moved-receipt.png",
+        "target": "electron/organization/moved-receipt.png",
+        "sha256": "3226b8831f175ead5d598d3f8d27ed2ddeda4f4ec4e18f6a4e216d63dbc86ce1"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-dark-1366.png",
+        "target": "electron/organization/preserved-files-dark-1366.png",
+        "sha256": "c04b9fb90c42337c658ced5fea26a35d544ffb6f93d7ab009bf1df0373e5221a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-dark-1672.png",
+        "target": "electron/organization/preserved-files-dark-1672.png",
+        "sha256": "cc1360bfd09fa8730efa5acdc1e588854907d705ef9d24c8700e85ea44a02497"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-light-1366.png",
+        "target": "electron/organization/preserved-files-light-1366.png",
+        "sha256": "b5aba36df32f9dc77ebb420bec25768c1431cc94b4616d30ed08ff61ee3b362d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-light-1672.png",
+        "target": "electron/organization/preserved-files-light-1672.png",
+        "sha256": "99ec9b6cf8f43ef7eae4828bf633aed2f5727117db41dd8073b999cecfa664f1"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-dark-1366.png",
+        "target": "electron/organization/preview-dark-1366.png",
+        "sha256": "e0907c61c5522f11a50cf6a6e5424921748ec98c54ca69108a3d2e7670b249b9"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-dark-1672.png",
+        "target": "electron/organization/preview-dark-1672.png",
+        "sha256": "63eb561996e51d486ba07315501bfb419130da3f41b579aef0103a1296816e00"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-light-1366.png",
+        "target": "electron/organization/preview-light-1366.png",
+        "sha256": "86644a85f7a6a117af051282c36e4db9b21e0a9e5c5a24a4329aa0c93afa8547"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-light-1672.png",
+        "target": "electron/organization/preview-light-1672.png",
+        "sha256": "c4064190fa6c3ba261c4489ed98e98d71370612beca7432c397509c7dff6eb9b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\restored-receipt.png",
+        "target": "electron/organization/restored-receipt.png",
+        "sha256": "bc3b4e146c49c2303a7e280cc8651b89be8bce8c2e74ad80729c09a0450b511f"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\plan-dark.png",
+        "target": "electron/vault/plan-dark.png",
+        "sha256": "69474e73de9a8b4e81a02515d6c9f540dba5ed2d2f3e533fa5a0b76db7527983"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\plan-light.png",
+        "target": "electron/vault/plan-light.png",
+        "sha256": "024c670423b0982e1b1bb272498d00f0ebd87a9d3d393385340b4e0af18cf85d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\preserved-storage-dark.png",
+        "target": "electron/vault/preserved-storage-dark.png",
+        "sha256": "043516f5a913adc15f6ae7268db8e7ff85737874b7b3b89eeb1e4d2ab070438e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\preserved-storage-light.png",
+        "target": "electron/vault/preserved-storage-light.png",
+        "sha256": "9315b147930ab37a466562eff7bb17fd8d017a27674fe235ec09bb6b66623fc0"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\quarantine-receipt.png",
+        "target": "electron/vault/quarantine-receipt.png",
+        "sha256": "aaee500913d8b84419f399b67b40f25f52945e10ff5fbeea5a77b532c45b73e3"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\restored-report.png",
+        "target": "electron/vault/restored-report.png",
+        "sha256": "5ff857169ef8d32b08110f6e63bd908b7c508aee7d18c6875b5cc400fe413534"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-dark-1366.png",
+        "target": "electron/vault/treemap-dark-1366.png",
+        "sha256": "1dfed93a320b1ab428bbfb600383e5161de8413c9b2b806c651ed0961a6074fa"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-dark-1672.png",
+        "target": "electron/vault/treemap-dark-1672.png",
+        "sha256": "1ca0b35d2b0c61143fa91357222ba1bb9a5b156b86429e1af6eb6a60e1deebd7"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-light-1366.png",
+        "target": "electron/vault/treemap-light-1366.png",
+        "sha256": "33ad541ed5f6763d3d8a05935ba0c9515c34eb05c88698682e556e95cc3d14da"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-light-1672.png",
+        "target": "electron/vault/treemap-light-1672.png",
+        "sha256": "5cfd285fcfa2bacee2277a317d9f94fb4879af8a1ccc2d1f578db2cf05d2e125"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\execution-verified.png",
+        "target": "electron/execution-verified.png",
+        "sha256": "0cd4e3d54cd2e1bf2eb3d841f0cf079e7af2e798b6f5f2dee67c64aa7cca3791"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-dark-1366.png",
+        "target": "electron/library-ar-dark-1366.png",
+        "sha256": "101a0deed62eb460cb03e0c17e898a68a84e3656cf2778893cc82692f219fa3a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-dark-1672.png",
+        "target": "electron/library-ar-dark-1672.png",
+        "sha256": "23f1d8643a9d3fc8bd7bbc9884e75b76f850bb4d8bdf96840be4b9ee1ef45c7b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-dark-1920.png",
+        "target": "electron/library-ar-dark-1920.png",
+        "sha256": "2aa2ec26548aab6738693e9c57e30284f39c79b5a67124712c79ba8606ed80a9"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-light-1366.png",
+        "target": "electron/library-ar-light-1366.png",
+        "sha256": "5fe52d7097ff9429fa81cdf89e7129b2a5175b53fde070179fcdaaf953599f4a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-light-1672.png",
+        "target": "electron/library-ar-light-1672.png",
+        "sha256": "c930a2bc6b68bf9d91ef75aa5e8cda142805fdfed7b9be376f69a51bdb856f71"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-light-1920.png",
+        "target": "electron/library-ar-light-1920.png",
+        "sha256": "2fa37a6d51a5dfcbfba7b33c9408471a1559d264e3c351e8347c0918726155c0"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-dark-1366.png",
+        "target": "electron/library-en-dark-1366.png",
+        "sha256": "6cdb316f63c438c761f2c4131ef61b96cf6c98deba486e37899a6aa5aec34f97"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-dark-1672.png",
+        "target": "electron/library-en-dark-1672.png",
+        "sha256": "9227cf2a1367314e488a79cf201722366425dd85a748dd165678d32aea48a499"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-dark-1920.png",
+        "target": "electron/library-en-dark-1920.png",
+        "sha256": "74e84084eabd873a8c80c96e093681c4c0458231da9492e19f160e916bb8cddd"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-light-1366.png",
+        "target": "electron/library-en-light-1366.png",
+        "sha256": "b2ae821fbdd8cbd0df12bb721d0e4681e82b7410ae89d3040da0a11420ec56c5"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-light-1672.png",
+        "target": "electron/library-en-light-1672.png",
+        "sha256": "86c521f4f8ee49ab5329db593325beecda76d680e01bd8b8bf5dcab03fe0238a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-light-1920.png",
+        "target": "electron/library-en-light-1920.png",
+        "sha256": "43490df2ba6831dca9202436c0b23ba368c8a00998ed951b7af5f7c171b76c97"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\overview-dark.png",
+        "target": "electron/overview-dark.png",
+        "sha256": "7841c79488186f9d5e54efc98231ec7da12fec3da36333c5b1217705a639e20e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\overview-light.png",
+        "target": "electron/overview-light.png",
+        "sha256": "fdf530397e16028a16f07ba9f6f6ad4b78bff32013a8a0dcedb428d8f24a7c5e"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\restore-verified.png",
+        "target": "electron/restore-verified.png",
+        "sha256": "10226511780397276126679b6e40b0e2bec94e054541b28a8a556657379ca2b7"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-1-dark.png",
+        "target": "electron/stage-1-dark.png",
+        "sha256": "e634de353f0618e3ed457c730372d3db9a60c8d073b7a8949a0a4f647d71e52d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-1-light.png",
+        "target": "electron/stage-1-light.png",
+        "sha256": "1d3d64b29a4edac26dd8f81fc4e469a7e60a5bb211d63479fb7c6d6ad5839eab"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-2-dark.png",
+        "target": "electron/stage-2-dark.png",
+        "sha256": "9f9ab6b7fecec578213ba03f7d5d38e3b28ed1781c720028fe003ff827fd4c92"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-2-light.png",
+        "target": "electron/stage-2-light.png",
+        "sha256": "d44caa842acb0283a063403e8173883b2227df4b710d4d8e442024b5493a599c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-3-dark.png",
+        "target": "electron/stage-3-dark.png",
+        "sha256": "0499317be9cc76ac98a7a2ec4dd7c52377253217630ee919f2db54bc594ef58c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-3-light.png",
+        "target": "electron/stage-3-light.png",
+        "sha256": "c8ff552a4424832be20b934e7f7b550219d66e66edebf26da861504d854dfd0b"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-4-dark.png",
+        "target": "electron/stage-4-dark.png",
+        "sha256": "d8aa1a9cbb6b62c914589a613c3e71b46ec9072af4212292d7f318bca359691c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-4-light.png",
+        "target": "electron/stage-4-light.png",
+        "sha256": "27ce24119dae66d3f560c5bf54554844f8117049b590f7db7f1d106e2cc30648"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-5-dark.png",
+        "target": "electron/stage-5-dark.png",
+        "sha256": "b54bda8100d817364ad04f93ea2304211ae356797418f9518249c077e0e36716"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-5-light.png",
+        "target": "electron/stage-5-light.png",
+        "sha256": "34050fe521f931ec47d39cd8a3742f35ab3a2e2ba3b3cc2e10449a4c22f4d155"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-6-dark.png",
+        "target": "electron/stage-6-dark.png",
+        "sha256": "36686edc2e5dcac334d6e6e068d88f123d3f12a21e1a47cc3729beff49c92410"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-6-light.png",
+        "target": "electron/stage-6-light.png",
+        "sha256": "82e66c1d275ccb62bd61c0740e833c94722070971be34c125890aebacc0925b1"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-7-dark.png",
+        "target": "electron/stage-7-dark.png",
+        "sha256": "75f02c66260555b8ce2c4c2347e384287458e92f9f2f8a4563b523051758e81a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-7-light.png",
+        "target": "electron/stage-7-light.png",
+        "sha256": "efb7e12fa6572f29c6bb63cb3cdc0a7af587dbafd7c858617e33fc8c3b1f6400"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-8-dark.png",
+        "target": "electron/stage-8-dark.png",
+        "sha256": "2a03f48cead77caf180c712e4781f80680f746656f0d870e2afe2380cdd1f662"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-8-light.png",
+        "target": "electron/stage-8-light.png",
+        "sha256": "546341897612558937c4d36fdd4b63615b255a1092bafc50e227dd6d14d2b36f"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-9-dark.png",
+        "target": "electron/stage-9-dark.png",
+        "sha256": "8eb34a6ce7d975604c3c2a1e4a9a5fa2bc2b7b38a1de13eea786f1990d7807e4"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-9-light.png",
+        "target": "electron/stage-9-light.png",
+        "sha256": "88d06c41d0dd21c73d5bfa864d31de1badd4e91c9afc4b9553e0f768f3fb4a6a"
+      }
+    ],
+    "NEWER_NATIVE_GUARDS_AND_LIFECYCLE_PRESERVED": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\apps\\gemini-ui\\electron\\main.cjs",
+        "target": "apps/gemini-ui/electron/main.cjs",
+        "sha256": "68e7d911cd26d88179ef637dfb3d0a75cf47a86eb541bf5ee9eb91f3cc403a74"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\apps\\gemini-ui\\electron\\native\\storage-vault.cjs",
+        "target": "apps/gemini-ui/electron/native/storage-vault.cjs",
+        "sha256": "6ac1f605a4e5eb95d33edba5d374d9e86f49c4f713fb8b4e9d23ed41a300fa8c"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\apps\\gemini-ui\\scripts\\storage-vault-test.cjs",
+        "target": "apps/gemini-ui/scripts/storage-vault-test.cjs",
+        "sha256": "b3a7b5f9c12d58aea6bf6018867c95fa1064e6e9ecb7bf2b77577442adc0936e"
+      }
+    ],
+    "OLDER_ELECTRON_CAPTURE_HARNESS_PRESERVED_NO_RUNTIME_IMPORT": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_ORBIT_STEERING_WIP_PRESERVE_20261028\\apps\\gemini-ui\\scripts\\home-anima-electron.mjs",
+        "target": "apps/gemini-ui/scripts/home-anima-electron.mjs",
+        "sha256": "5b5f822ad2063d3b73533265906fb77db2692032ba5ecc212a418db5a4000ba4"
+      }
+    ],
+    "OLDER_STUDIO_UI_SUPERSEDED_NATIVE_PORTAL_PRESERVED": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\scripts\\live-organization-electron.mjs",
+        "target": "apps/gemini-ui/scripts/live-organization-electron.mjs",
+        "sha256": "15ede9ed5d7c9bdc13614498a0897f366ab041735856a18615495e5abc6ce43f"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\scripts\\studio-large-inventory-electron.mjs",
+        "target": "apps/gemini-ui/scripts/studio-large-inventory-electron.mjs",
+        "sha256": "a183e537a1e79d2d281ae3d5aab06c47a6b2a22280af2ae24c89156cf904086a"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\src\\operations\\organization-live.css",
+        "target": "apps/gemini-ui/src/operations/organization-live.css",
+        "sha256": "b84b3008264f9182c0068d92ecc8faeee60da84d31f68e0b20c5d2451853d403"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\src\\operations\\OrganizationFileViewport.tsx",
+        "target": "apps/gemini-ui/src/operations/OrganizationFileViewport.tsx",
+        "sha256": "61a1af95912635601a6abfabfa1c627c716b8aa2e5991c3ced41aacb2ab12de6"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\src\\operations\\OrganizationLiveWorkbench.tsx",
+        "target": "apps/gemini-ui/src/operations/OrganizationLiveWorkbench.tsx",
+        "sha256": "3fdb7acdf843521694a574e63359db168f9910de9d88f5cf163b7d6a05352007"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\src\\studio\\StudioPage.tsx",
+        "target": "apps/gemini-ui/src/studio/StudioPage.tsx",
+        "sha256": "cbe58063ddfe6ff630f92f903ae280e59d9d27303870442466fa74d666e22e07"
+      }
+    ],
+    "NEWER_MEASURED_PIPELINES_AND_NATIVE_WORKBENCHES_PRESERVED": [
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\apps\\ApplicationsHero.tsx",
+        "target": "apps/gemini-ui/src/apps/ApplicationsHero.tsx",
+        "sha256": "4ad7e64a80cf28d86e217afd1c1f4cd8f7f7de41385b9ced6f8443d57990609d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\components\\home\\ApprovedHomeScreen.tsx",
+        "target": "apps/gemini-ui/src/components/home/ApprovedHomeScreen.tsx",
+        "sha256": "472b796a3e797acd4149398607438508ebdb80f70e186a80335bfc485b7bfd1d"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\components\\workspace\\GoogleWorkspaceHub.tsx",
+        "target": "apps/gemini-ui/src/components/workspace/GoogleWorkspaceHub.tsx",
+        "sha256": "5b71514df6c93a6a58366d32a915c0eef3a11491e10e0fbd1df1491ed3455bba"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\operations\\OrganizationStudioOverview.tsx",
+        "target": "apps/gemini-ui/src/operations/OrganizationStudioOverview.tsx",
+        "sha256": "d40d43b1f0fabfb197e4cb0ae294da7d35cf0133b93b5f6d92d22a7b784c4c34"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\pages\\AutomationPage.tsx",
+        "target": "apps/gemini-ui/src/pages/AutomationPage.tsx",
+        "sha256": "c6a28808b40f37d5a09a9d2cc61dcf9b027d7cd034a0f711f74d424affbe69ff"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\pages\\RepairPage.tsx",
+        "target": "apps/gemini-ui/src/pages/RepairPage.tsx",
+        "sha256": "268d198c65950f045e1ae8789d989d68902f63f3b1465b276355182b1cb63423"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\pages\\ServicesPage.tsx",
+        "target": "apps/gemini-ui/src/pages/ServicesPage.tsx",
+        "sha256": "09971f74db13ab5e96c843234f914da9a891d4bcec7efeaefadf888bb3226dc4"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\pages\\SystemPage.tsx",
+        "target": "apps/gemini-ui/src/pages/SystemPage.tsx",
+        "sha256": "62c53651ab35bef4fc67ef97f4d00bd376f4519cea7f3026afd4792b0df963f2"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\smart-scan\\SmartScanHero.tsx",
+        "target": "apps/gemini-ui/src/smart-scan/SmartScanHero.tsx",
+        "sha256": "eec6ca9b925d4080c7196a042e72af6ea16e8930dc132e292ef0f44fac64f226"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\startup\\StartupHero.tsx",
+        "target": "apps/gemini-ui/src/startup/StartupHero.tsx",
+        "sha256": "7f03d3975810d8c5598f5890dddd880ec96cd686b5ca4c7df82169f274fe45f3"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\visual\\ServicePipeline.tsx",
+        "target": "apps/gemini-ui/src/visual/ServicePipeline.tsx",
+        "sha256": "53f0c379b87d117efba6ffb9553f9679fe5c8b9ecde41e717b7fd48f718d1728"
+      },
+      {
+        "source": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713\\apps\\gemini-ui\\src\\visual\\StudioVisualHeader.tsx",
+        "target": "apps/gemini-ui/src/visual/StudioVisualHeader.tsx",
+        "sha256": "cb02f08ef0edacd3c3660f0775d9008750f5cf97b00e222196043d119fab1800"
+      }
+    ]
+  }
+}

@@ -781,7 +781,8 @@ class StartupBridge {
           entry.signature = 'unavailable';
           unresolved += 1;
         }
-        const stem = path.basename(executable).replace(/\.[^.]+$/, '').toLowerCase();
+        // Collector executable paths are Windows paths even in injected portable tests.
+        const stem = path.win32.basename(executable).replace(/\.[^.]+$/, '').toLowerCase();
         if (stem && processNames.has(stem)) {
           entry.active = true;
           entry.evidence.push('A running process with the same executable name was measured.');

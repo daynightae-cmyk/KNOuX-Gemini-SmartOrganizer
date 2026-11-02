@@ -60,7 +60,7 @@ const ACCENT_PREVIEW: Record<string, string> = {
 };
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection }) => {
-  const { navigateTo, isArabic, toggleLocale, setLocale } = useNavigation();
+  const { navigateTo, isArabic, toggleLocale, setLocale, themePreference, setThemePreference } = useNavigation();
   const [activeTab, setActiveTab] = useState<
     'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup' | 'clipboard'
   >('engine');
@@ -549,9 +549,23 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                 <div className="border-b border-[#0f274a] pb-3">
                   <h3 className="text-base font-extrabold text-white flex items-center gap-2">
                     <Palette className="w-5 h-5 text-cyan-400" />
-                    {isArabic ? 'تخصيص المظهر والسمات النيون الزجاجية' : 'KNOuX Dark Neon Glassmorphism Theme Settings'}
+                    {isArabic ? 'مظهر التطبيق وتفضيلات الألوان' : 'Application appearance & color preferences'}
                   </h3>
                 </div>
+
+                <fieldset className="rounded-xl border border-[#14325a] bg-[#07162e] p-3" data-testid="settings-theme">
+                  <legend className="px-1 text-xs font-bold text-slate-200">{isArabic ? 'سمة التطبيق' : 'Application theme'}</legend>
+                  <div className="grid grid-cols-3 gap-2">
+                    {(['light', 'dark', 'system'] as const).map((preference) => (
+                      <button key={preference} type="button" data-testid={`settings-theme-${preference}`}
+                        aria-pressed={themePreference === preference} onClick={() => setThemePreference(preference)}
+                        className={`px-2 py-2 rounded-lg text-xs font-bold border transition ${themePreference === preference ? 'bg-blue-600 text-white border-cyan-400' : 'bg-[#091a38] text-slate-300 border-[#143058]'}`}>
+                        {preference === 'light' ? (isArabic ? 'نهاري' : 'Day') : preference === 'dark' ? (isArabic ? 'ليلي' : 'Night') : (isArabic ? 'متابعة Windows' : 'Follow Windows')}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-2">{isArabic ? 'يُطبق الاختيار ويُحفظ فورًا. متابعة Windows تتغير تلقائيًا مع سمة النظام.' : 'Applied and saved immediately. Follow Windows updates automatically with the system theme.'}</p>
+                </fieldset>
 
                 <div>
                   <label className="text-xs font-bold text-slate-200 block mb-2">

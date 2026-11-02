@@ -13,12 +13,24 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+// Execute the same coordinator fixtures with portable host path semantics.
+// Windows collector paths must still identify OneDrive/chat/task processes.
+function loadBridge() {
+  const filename = path.resolve(__dirname, '../electron/native/startup-bridge.cjs');
+  if (!process.argv.includes('--portable-paths')) return require(filename);
+  const { createRequire } = require('node:module');
+  const nativeRequire = createRequire(filename);
+  const module = { exports: {} };
+  const factory = require('node:vm').runInThisContext(`(function(require,module,exports,__filename,__dirname){${fs.readFileSync(filename, 'utf8')}\n})`, { filename });
+  factory(name => name === 'node:path' || name === 'path' ? path.posix : nativeRequire(name), module, module.exports, filename, path.dirname(filename));
+  return module.exports;
+}
 const {
   StartupBridge,
   SERVICE_DEFINITIONS,
   GATED_OPERATIONS,
   STAGE_DEFINITIONS,
-} = require('../electron/native/startup-bridge.cjs');
+} = loadBridge();
 
 const failures = [];
 const assert = (condition, label) => {
