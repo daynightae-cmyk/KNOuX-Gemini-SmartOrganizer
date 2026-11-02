@@ -222,7 +222,20 @@ for (const size of SIZES) {
           await openSection(section, theme, locale, size);
           const state = await appliedState();
           const file = path.join(OUT, `${label}.png`);
-          await page.screenshot({ path: file, animations: 'disabled' });
+          // Screenshot capture is the one step that has timed out under load
+          // while the route itself was healthy. Retry it instead of letting a
+          // capture hiccup be reported as a route failure; the recorded DOM
+          // state above is what the frame is evidence of.
+          let captured = false;
+          for (let attempt = 0; attempt < 3 && !captured; attempt += 1) {
+            try {
+              await page.screenshot({ path: file, animations: 'disabled', timeout: 60_000 });
+              captured = true;
+            } catch (error) {
+              if (attempt === 2) throw error;
+              await page.waitForTimeout(1500);
+            }
+          }
           frames.push({ label, section, theme, locale, size, ok: true, state, file: path.basename(file) });
           console.log(
             `${label} -> ${JSON.stringify({

@@ -114,29 +114,49 @@
       "scope": "Rebuild the real React/Electron Home to the composition of references/day/00_home-command-center.png (sha256 a777e4847a8bf8b44a6153b7795f05d325e23b3904025951a5b0015c0166569d, 1672x941, manifest order 0, 'approved new daylight Home reference; FIRST priority'), rendered with the canonical NIGHT tokens because no NIGHT Home picture was ever installed. Preserve the verified unified search, source-specific Files/Applications handoff, permission checks, real provider statuses and native navigation.",
       "sourcePaths": [
         "apps/gemini-ui/src/components/home/ApprovedHomeScreen.tsx",
-        "apps/gemini-ui/src/components/home/approved-home.css",
+        "apps/gemini-ui/src/components/home/home-command.css",
         "apps/gemini-ui/src/pages/HomePage.tsx",
-        "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx"
+        "apps/gemini-ui/scripts/home-live-test.cjs",
+        "apps/gemini-ui/scripts/reference-side-by-side.mjs",
+        "apps/gemini-ui/tests/home/i18n-slots.test.mjs",
+        "docs/M02_HOME_REFERENCE_ACCEPTANCE_20261102.md"
       ],
       "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
       "dependencies": [
         "M01-VISUAL-SYSTEM"
       ],
-      "ui": "planned",
-      "nativeProvider": "planned",
-      "apiIpc": "planned",
-      "persistence": "planned",
-      "securityConsent": "planned",
-      "tests": [],
-      "electronEvidence": [],
-      "visualReference": null,
+      "ui": "Home rebuilt onto the approved reference bands: hero (title, lede, two actions at the reading start; live orbital instrument at the far side; compact real energy pipeline), six full-width KPI cards, then a split whose left side is Today's Command Deck with eight tool tiles in four across and two down over the System Overview / Quick Access pair, and whose right side is KNOuX Insight, Recent Activity and Pending Safe Actions. Home now renders the shared KNOuXTitleBar and KNOuXSidebar, so the app has one shell on 13 of 14 routes instead of two.",
+      "nativeProvider": "read-only: the eight existing Home bridges already wired by useHomeLive (system summary, services summary, files sources, recent files query, scan history, apps inventory, workflows, journal) plus organization receipts. No new native surface, no permission change, no effect executed.",
+      "apiIpc": "unchanged; Home consumes the existing typed envelopes and their observedAt/stale/partial metadata.",
+      "persistence": "theme and locale persistence unchanged (knoux_theme_preference / knoux_theme / knoux_locale).",
+      "securityConsent": "The Reference sample toggle and every fabricated branch (sampleFindings, sampleCategories, sampleInsights, hard-coded 65/72/476 GB values) were deleted, not hidden: Home now has no code path that holds an invented number. QA-only controls are off the product surface; authentic loading, unmeasured and stale states remain visible per card. Nothing files, scans, connects or executes from Home.",
+      "tests": [
+        "npm run lint -> exit 0",
+        "npm run build -> exit 0",
+        "npm run test:theme -> exit 0 (12/12)",
+        "npm run test:i18n -> exit 0 (2/2, new bilingual slot guard)",
+        "npm run test:home -> exit 0 (10 live checks + 6 unit tests; the composition check was re-specified to forbid the sample toggle and to assert 8 deck tiles and 6 KPI cards)",
+        "npm run test:navigation / test:workbench / test:settings -> exit 0",
+        "npm run test:entry -> 22/23 under parallel load, then the single failing 1920 AR light case re-run alone -> passed in 8.9s (contention, not a defect)",
+        "node scripts/reference-side-by-side.mjs -> measured comparison published"
+      ],
+      "electronEvidence": [
+        "docs/evidence/theme-matrix-20261102-m02-1672/matrix-proof.json",
+        "docs/evidence/theme-matrix-20261102-m02r-1366/matrix-proof.json",
+        "docs/evidence/theme-matrix-20261102-m02-1920/matrix-proof.json",
+        "docs/evidence/theme-matrix-20261102-m02-ar/matrix-proof.json",
+        "docs/evidence/m02-home-compare/home-day-reference-vs-actual.json",
+        "docs/evidence/m02-home-compare/home-day-after-geometry.json",
+        "docs/M02_HOME_REFERENCE_ACCEPTANCE_20261102.md"
+      ],
+      "visualReference": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/day/00_home-command-center.png (sha256 a777e4847a8bf8b44a6153b7795f05d325e23b3904025951a5b0015c0166569d, verified against REFERENCES_MANIFEST.json order 0)",
       "commitSha": null,
       "remoteSha": null,
       "ci": null,
-      "status": "PLANNED",
+      "status": "PARTIAL",
       "outstandingExternalRequirements": [],
       "runtimeScope": true,
-      "notes": "Known defects to close here: the home-qa-toolbar renders a raw LOADING/NOT_CONNECTED strip and a 'Reference sample' checkbox on the product screen; Home and Studio use a header-with-brand shell while the other sections use a sidebar-with-brand shell, so the shared shell is not yet one system."
+      "notes": "CHECKPOINT. Fidelity is claimed only as a measured comparison, never from a screenshot passing: both frames are 1672x941, mean 10x8 grid colour distance fell 9 -> 8, mean luminance 0.924 vs 0.941, horizontal band edges 23 against the reference's 28. Open: deck tiles are shorter than the reference's art-topped tiles; no KNOuX Pro card (there is no paid tier, so it is not fabricated); the reference's performance line chart is deliberately not drawn because Home takes one bounded read; Studio still uses the old ReferenceChrome shell; and there is no installed NIGHT Home reference, the manifest says the dark Home picture stayed in chat, so night Home is the approved geometry in canonical night light."
     },
     {
       "missionId": "M03-UNIVERSAL-ORBIT",
@@ -194,6 +214,610 @@
       "outstandingExternalRequirements": [],
       "runtimeScope": true,
       "notes": ""
+    },
+    {
+      "missionId": "M05-SMART-SCAN-CORE",
+      "title": "Smart Scan central intelligence",
+      "scope": "Complete vertical slice of the Smart Scan central intelligence domain: every service in catalog mission 01, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/smart-scan",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "01",
+        "count": 12,
+        "first": "mission-01-01",
+        "last": "mission-01-12"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M06-SCAN-MODES",
+      "title": "Scan modes and the scan pipeline",
+      "scope": "Complete vertical slice of the Scan modes and the scan pipeline domain: every service in catalog mission 02, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/scan",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "02",
+        "count": 10,
+        "first": "mission-02-01",
+        "last": "mission-02-10"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M07-STUDIO",
+      "title": "Smart Organization Studio",
+      "scope": "Complete vertical slice of the Smart Organization Studio domain: every service in catalog mission 03, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/studio",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "03",
+        "count": 9,
+        "first": "mission-03-01",
+        "last": "mission-03-09"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M08-WORKSPACE",
+      "title": "Google Workspace Hub",
+      "scope": "Complete vertical slice of the Google Workspace Hub domain: every service in catalog mission 04, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/workspace",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "04",
+        "count": 10,
+        "first": "mission-04-01",
+        "last": "mission-04-10"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M09-APPLICATIONS",
+      "title": "Applications register and dossier",
+      "scope": "Complete vertical slice of the Applications register and dossier domain: every service in catalog mission 05, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/apps",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "05",
+        "count": 12,
+        "first": "app-inventory",
+        "last": "app-startup-impact"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M10-FILES",
+      "title": "Files and Instant Find",
+      "scope": "Complete vertical slice of the Files and Instant Find domain: every service in catalog mission 06, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/files",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "06",
+        "count": 12,
+        "first": "file-downloads-inventory",
+        "last": "file-provenance"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M11-STORAGE",
+      "title": "Storage Atlas",
+      "scope": "Complete vertical slice of the Storage Atlas domain: every service in catalog mission 07, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/storage",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "07",
+        "count": 12,
+        "first": "storage-disks",
+        "last": "storage-removable"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M12-CLEANUP",
+      "title": "Junk Cleanup and Clean Room",
+      "scope": "Complete vertical slice of the Junk Cleanup and Clean Room domain: every service in catalog mission 08, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/cleanup",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "08",
+        "count": 12,
+        "first": "cleanup-temp-preview",
+        "last": "cleanup-reports"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M13-STARTUP",
+      "title": "Startup and Boot Control",
+      "scope": "Complete vertical slice of the Startup and Boot Control domain: every service in catalog mission 09, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/startup",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "09",
+        "count": 12,
+        "first": "startup-overview",
+        "last": "startup-undo-all"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M14-SYSTEM",
+      "title": "System Live Pulse",
+      "scope": "Complete vertical slice of the System Live Pulse domain: every service in catalog mission 10, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/system",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "10",
+        "count": 36,
+        "first": "system-health-check",
+        "last": "hardware-health-report"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M15-REPAIR",
+      "title": "Repair and Recovery Lab",
+      "scope": "Complete vertical slice of the Repair and Recovery Lab domain: every service in catalog mission 11, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/repair",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "11",
+        "count": 12,
+        "first": "repair-component-check",
+        "last": "repair-update-reset"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M16-SERVICES",
+      "title": "Windows Services Commander",
+      "scope": "Complete vertical slice of the Windows Services Commander domain: every service in catalog mission 12, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/services",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "12",
+        "count": 12,
+        "first": "services-inventory",
+        "last": "services-perf"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M17-AUTOMATION",
+      "title": "Automation Flow Studio",
+      "scope": "Complete vertical slice of the Automation Flow Studio domain: every service in catalog mission 13, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/automation",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "13",
+        "count": 12,
+        "first": "auto-smart-scan",
+        "last": "auto-backup-plan"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M18-SETTINGS",
+      "title": "Settings and Control",
+      "scope": "Complete vertical slice of the Settings and Control domain: every service in catalog mission 14, its real workbench controls, native provider, typed IPC, persistence and receipts, consent gates, error/empty/partial/retry states, DAY+NIGHT and AR/EN, the shared SectionHeader and orbital engine, and actual Electron regression proof.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/settings",
+        "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM",
+        "M04-SECTION-HEADERS"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": {
+        "catalog": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+        "catalogMission": "14",
+        "count": 8,
+        "first": "mission-14-01",
+        "last": "mission-14-08"
+      },
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M19-SMART-SCAN-REQUIREMENTS",
+      "title": "Thirty additional Smart Scan capabilities",
+      "scope": "The 30 individually executable Smart Scan requirements that sit outside the 181-ID catalog. Each needs its own implementation, tests and runtime proof; none may be reported done without evidence.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/smart-scan",
+        "apps/gemini-ui/src/scan"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M05-SMART-SCAN-CORE",
+        "M06-SCAN-MODES"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": null,
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M20-DIAGNOSTIC-PATHWAYS",
+      "title": "Thirty-two troubleshooting pathways",
+      "scope": "Native diagnosis plus supported repair obligations across the 32 pathways. Observational pathways stay honest measurements with safe next actions; repair steps stay gated behind explicit consent.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/repair",
+        "apps/gemini-ui/src/system",
+        "apps/gemini-ui/src/services"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M14-SYSTEM",
+        "M15-REPAIR",
+        "M16-SERVICES"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": null,
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
+    },
+    {
+      "missionId": "M21-RELEASE-GATES",
+      "title": "Packaged, installed and signed release verification",
+      "scope": "A gate separate from source acceptance: build the installer, install, launch the packaged app, verify native behaviour, signature and update path. No domain mission may claim it.",
+      "sourcePaths": [
+        "apps/gemini-ui/electron-builder.config.cjs",
+        "apps/gemini-ui/scripts/native-smoke.cjs"
+      ],
+      "baselineSha": "0c0a1da620d1299be26e84e71fca5009ce38afb4",
+      "dependencies": [
+        "M05-SMART-SCAN-CORE"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "serviceIds": null,
+      "notes": "Scoped from the existing authoritative 181-service catalog. No status is claimed; the catalog still records 157 of 181 IDs as NOT_REASSESSED_IN_THIS_SLICE."
     }
-  ]
+  ],
+  "catalogAccounting": {
+    "serviceIds": 181,
+    "smartScanAdditionalRequirements": 30,
+    "diagnosticPathways": 32,
+    "sourceOfTruth": "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+    "assessedInThisSlice": 24,
+    "notReassessed": 157,
+    "note": "Counts are read from the catalog, never asserted. Missions M05-M18 partition exactly these 181 IDs; M19-M21 cover the cross-cutting requirement sets and the release gate."
+  }
 }

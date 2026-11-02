@@ -40,7 +40,29 @@ check('Home retains local measured aggregation and mounts approved composition',
   assert.match(screen, /deriveActivities\(live\)/);
   assert.match(screen, /deriveVolumes\(live\)/);
   assert.match(screen, /data-testid="home-workspace"/);
-  assert.match(screen, /useState\(false\)/);
+  // This used to assert `useState(false)` — the "Reference sample" toggle that
+  // switched Home onto fabricated numbers. Owner directive 2026-11-02 correction
+  // 6 removes QA-only controls from the product surface, and correction 2 forbids
+  // fabricated metrics, so the contract is now the opposite: the sample switch
+  // must not exist, and neither must the code paths that held invented values.
+  assert.doesNotMatch(screen, /Reference sample|setSample\(|sampleFindings|sampleCategories|sampleInsights/);
+  assert.doesNotMatch(screen, /home-qa-toolbar/);
+  // The approved reference's bands, in the reference's order.
+  for (const band of ['home-hero', 'home-kpis', 'home-deck-grid', 'home-lower', 'home-rail']) {
+    assert.ok(screen.includes(band), `missing approved band ${band}`);
+  }
+  // Count inside the declared arrays only: the orbital instrument reuses the
+  // same destination ids as the deck, so a whole-file match over-counts.
+  const arrayOf = (name) => {
+    const start = screen.indexOf(`const ${name} = [`);
+    assert.notEqual(start, -1, `missing the ${name} array`);
+    const end = screen.indexOf('] as const;', start);
+    assert.notEqual(end, -1, `unterminated ${name} array`);
+    return screen.slice(start, end).split("id: '").length - 1;
+  };
+  assert.equal(arrayOf('deck'), 8, "the command deck must carry the reference's eight tiles");
+  const kpiBlock = screen.slice(screen.indexOf('const kpis = ['), screen.indexOf('];', screen.indexOf('const kpis = [')));
+  assert.equal(kpiBlock.split("id: '").length - 1, 6, "the KPI strip must carry the reference's six cards");
 });
 
 check('the live hook reads only existing measured bridges', () => {

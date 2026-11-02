@@ -1,0 +1,410 @@
+/**
+ * KNOuX — Home command-centre composition (MISSION-02).
+ *
+ * Geometry follows the one approved picture the owner installed for this route:
+ * missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/day/00_home-command-center.png
+ * (sha256 a777e4847a8bf8b44a6153b7795f05d325e23b3904025951a5b0015c0166569d,
+ * 1672x941, REFERENCES_MANIFEST order 0, "approved new daylight Home reference;
+ * FIRST priority"). No NIGHT Home picture was ever installed — the manifest says
+ * the dark Home screenshot stayed in chat — so the approved geometry is re-rendered
+ * with the canonical night tokens instead of inventing a second reference.
+ *
+ * Bands, measured from the reference at its own size:
+ *   row 1  hero        full content width, copy at the reading start, live
+ *                      orbital instrument at the far side
+ *   row 2  KPI strip   six equal cards, full content width
+ *   row 3  split       left column = command deck (8 tiles, 4x2) over the
+ *                      system/quick-access pair; right column = insight,
+ *                      activity, pending actions
+ *
+ * Materials come only from knox-theme.css roles. Nothing here paints a hex.
+ */
+
+.home-command {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--knx-ink);
+  background: var(--knx-atmosphere), var(--knx-canvas);
+  font-family: var(--knx-font-ui);
+}
+
+.home-command .home-command-body {
+  display: grid;
+  /* 224px is the shared rail's own w-56 width and it carries z-20; a
+     narrower track let it overflow onto the content and clip the hero. */
+  grid-template-columns: 224px minmax(0, 1fr);
+  gap: var(--knx-sp-3);
+  min-height: 0;
+  padding: var(--knx-sp-3) 12px 12px;
+}
+
+.home-command main.home-command-main {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: var(--knx-sp-3);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ---- row 1: hero ------------------------------------------------------- */
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: center;
+  gap: var(--knx-sp-4);
+  min-width: 0;
+  padding: 14px 20px;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-lg);
+  background-color: var(--knx-surface-2);
+  box-shadow: var(--knx-elev-3);
+  backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+}
+
+.home-hero-copy { grid-column: 1; grid-row: 1; min-width: 0; }
+.home-hero-copy h1 {
+  margin: 0;
+  font-family: var(--knx-font-display);
+  font-size: clamp(28px, 2.7vw, 44px);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--knx-ink);
+}
+.home-hero-copy h1 em { font-style: normal; color: var(--knx-accent); }
+.home-hero-lede {
+  margin: 8px 0 0;
+  max-width: 58ch;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--knx-muted);
+}
+.home-hero-actions { display: flex; flex-wrap: wrap; gap: var(--knx-sp-2); margin-top: 14px; }
+
+.home-hero-actions .home-primary,
+.home-hero-actions .home-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: var(--knx-r-md);
+  font-size: 13px;
+  font-weight: 650;
+}
+.home-command .home-primary {
+  border: 1px solid color-mix(in srgb, var(--knx-accent) 55%, transparent);
+  background-image: linear-gradient(112deg, var(--knx-accent), var(--knx-accent-deep));
+  color: var(--knx-on-accent);
+  box-shadow: var(--knx-glow-accent), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+.home-command .home-ghost {
+  border: 1px solid var(--knx-line);
+  background-color: var(--knx-surface);
+  color: var(--knx-ink-2);
+}
+.home-command .home-primary:hover,
+.home-command .home-ghost:hover { border-color: var(--knx-line-strong); }
+
+.home-hero-orbit { grid-column: 2; grid-row: 1 / span 2; min-width: 0; height: 100%; min-height: 176px; position: relative; isolation: isolate; }
+.home-hero-orbit .knoux-orbit { width: 100%; height: 100%; max-height: 196px; }
+.home-hero-pipeline { grid-column: 1; grid-row: 2; min-width: 0; margin-top: 10px; }
+
+/* ---- row 2: six KPI cards, full width ---------------------------------- */
+.home-kpis {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--knx-sp-2);
+  min-width: 0;
+}
+.home-kpi {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 10px 12px;
+  text-align: start;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-md);
+  background-color: var(--knx-surface);
+  box-shadow: var(--knx-elev-2);
+  backdrop-filter: blur(var(--knx-glass-blur-soft)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur-soft)) saturate(var(--knx-glass-saturate));
+}
+.home-kpi > svg { grid-row: span 2; width: 22px; height: 22px; color: var(--knx-accent); }
+.home-kpi-label {
+  grid-column: 2;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--knx-muted);
+}
+.home-kpi-value {
+  grid-column: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  font-family: var(--knx-font-mono);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--knx-ink);
+}
+.home-kpi-value small {
+  font-family: var(--knx-font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--knx-muted-2);
+}
+.home-kpi[data-state='unmeasured'] .home-kpi-value { color: var(--knx-muted-2); }
+.home-kpi[data-state='ready'] .home-kpi-value small { color: var(--knx-success); }
+
+/* ---- row 3: deck + lower pair, and the right rail --------------------- */
+.home-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 412px;
+  gap: var(--knx-sp-3);
+  min-height: 0;
+}
+
+.home-column {
+  display: grid;
+  grid-template-rows: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--knx-sp-3);
+  min-width: 0;
+  min-height: 0;
+}
+.home-rail {
+  display: grid;
+  /* Three cards that must all survive at 941px content height. An `auto` first
+     row let the insight card grow and squeeze activity and pending actions down
+     to their headers, which hid real content. */
+  grid-template-rows: minmax(0, 0.9fr) minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--knx-sp-3);
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.home-rail > .home-panel { overflow: hidden; }
+
+.home-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-lg);
+  background-color: var(--knx-surface);
+  box-shadow: var(--knx-elev-2);
+  backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+}
+.home-panel-head { display: flex; align-items: center; gap: var(--knx-sp-2); margin-bottom: 10px; }
+.home-panel-head h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--knx-ink);
+}
+.home-panel-head h2 svg { width: 17px; height: 17px; color: var(--knx-accent); }
+.home-panel-head p { margin: 2px 0 0; font-size: 11px; color: var(--knx-muted); }
+.home-panel-head > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 0 9px;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-sm);
+  background-color: var(--knx-surface-2);
+  color: var(--knx-ink-2);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.home-panel-head > button svg { width: 13px; height: 13px; }
+
+/* command deck: eight tiles, four across, two down */
+.home-deck-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: var(--knx-sp-2);
+  flex: 1;
+  min-height: 0;
+}
+.home-deck-tile {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  gap: 2px 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 10px 11px;
+  text-align: start;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-md);
+  background-color: var(--knx-surface-2);
+  box-shadow: var(--knx-elev-1);
+}
+.home-deck-tile:hover {
+  background-color: var(--knx-hover);
+  border-color: var(--knx-line-strong);
+  box-shadow: var(--knx-elev-2);
+}
+.home-deck-icon {
+  display: grid;
+  place-items: center;
+  grid-column: 1;
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-sm);
+  background-color: var(--knx-accent-soft);
+  color: var(--knx-accent);
+}
+.home-deck-icon svg { width: 18px; height: 18px; }
+/* Explicit placement: auto-flow put the description in the third column beside
+   the title and pushed the chevron onto a second row. */
+.home-deck-tile strong { grid-column: 2; grid-row: 1; font-size: 13px; font-weight: 650; color: var(--knx-ink); }
+.home-deck-sub {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font-size: 10.5px;
+  line-height: 1.3;
+  color: var(--knx-muted);
+}
+.home-deck-tile > svg { grid-column: 3; grid-row: span 2; align-self: center; width: 15px; height: 15px; color: var(--knx-accent); }
+
+.home-lower { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--knx-sp-3); min-height: 0; }
+.home-lower .home-panel { overflow: hidden; }
+.home-scroll { flex: 1; min-height: 0; overflow: auto; scrollbar-width: thin; }
+
+.home-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.home-tabs button {
+  min-height: 24px;
+  padding: 0 9px;
+  border: 1px solid var(--knx-line);
+  border-radius: var(--knx-r-pill);
+  background-color: transparent;
+  color: var(--knx-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.home-tabs button[aria-selected='true'] {
+  border-color: color-mix(in srgb, var(--knx-accent) 60%, transparent);
+  background-color: var(--knx-accent-soft);
+  color: var(--knx-ink);
+}
+
+.home-metric-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 7px 0;
+  text-align: start;
+  border-bottom: 1px solid var(--knx-line-soft);
+  font-size: 11px;
+  color: var(--knx-ink-2);
+}
+.home-metric-row svg { width: 15px; height: 15px; color: var(--knx-accent); }
+.home-metric-row strong { font-weight: 600; }
+.home-metric-row small { display: block; font-size: 10px; color: var(--knx-muted); }
+.home-metric-row em { font-style: normal; font-family: var(--knx-font-mono); font-size: 11px; color: var(--knx-ink); }
+
+.home-empty {
+  display: grid;
+  gap: 8px;
+  place-items: center;
+  padding: 18px 8px;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--knx-muted);
+}
+.home-empty svg { width: 22px; height: 22px; color: var(--knx-muted-2); }
+.home-empty button { color: var(--knx-accent); font-size: 11.5px; font-weight: 650; text-decoration: underline; }
+
+/* insight card */
+.home-insight { border-color: color-mix(in srgb, var(--knx-accent) 34%, var(--knx-line)); }
+.home-insight-body { display: grid; gap: 10px; }
+.home-insight-lead { font-size: 13px; font-weight: 650; line-height: 1.3; color: var(--knx-ink); }
+.home-insight-note { margin: 0; font-size: 11px; line-height: 1.45; color: var(--knx-muted); }
+.home-insight-actions { display: flex; gap: var(--knx-sp-2); }
+.home-insight-actions .home-primary,
+.home-insight-actions .home-ghost { min-height: 32px; font-size: 12px; }
+
+.home-provenance-line {
+  margin: 6px 0 0;
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: var(--knx-muted-2);
+  overflow-wrap: anywhere;
+}
+
+/* ---- responsive: the reference bands survive down to 1366x768 --------- */
+@media (max-width: 1500px) {
+  .home-command .home-command-body { grid-template-columns: 224px minmax(0, 1fr); }
+  .home-columns { grid-template-columns: minmax(0, 1fr) 360px; }
+  .home-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-hero { padding: 14px 16px; }
+  .home-hero-orbit { height: 196px; }
+  .home-hero-orbit .knoux-orbit { max-height: 196px; }
+  .home-deck-sub { -webkit-line-clamp: 1; line-clamp: 1; }
+}
+
+@media (max-height: 820px) {
+  .home-hero { padding: 12px 14px; }
+  .home-hero-orbit { height: 168px; }
+  .home-hero-orbit .knoux-orbit { max-height: 168px; }
+  .home-kpi { padding: 7px 9px; }
+  .home-kpi-value { font-size: 16px; }
+  .home-deck-grid { gap: 6px; }
+  .home-deck-tile { padding: 7px 9px; }
+  .home-deck-icon { width: 28px; height: 28px; }
+  .home-deck-tile strong { font-size: 12px; }
+  .home-deck-sub { -webkit-line-clamp: 1; line-clamp: 1; }
+  .home-panel { padding: 9px 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-command :is(.home-kpi, .home-deck-tile, .home-primary, .home-ghost, .home-panel-head > button) {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .home-command :is(.home-hero, .home-kpi, .home-panel, .home-deck-tile) {
+    background-color: Canvas !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+}
