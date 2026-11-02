@@ -100,9 +100,9 @@
         "docs/M01_VISUAL_SYSTEM_ACCEPTANCE_20261102.md"
       ],
       "visualReference": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/{day,night} (10 section pairs) + references/day/00_home-command-center.png",
-      "commitSha": null,
-      "remoteSha": null,
-      "ci": null,
+      "commitSha": "dc302104e9695d6fb5daa1e6355069bab2f672d2",
+      "remoteSha": "dc302104e9695d6fb5daa1e6355069bab2f672d2",
+      "ci": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41415421716 (success, exact SHA dc302104e9695d6fb5daa1e6355069bab2f672d2; includes the new test:theme and ledger:check gates)",
       "status": "PARTIAL",
       "outstandingExternalRequirements": [],
       "notes": "CHECKPOINT, not MISSION_COMPLETE. Open: (1) the shared shell is still two shells - Home and Studio put the brand in the header, the other twelve put it in the rail; (2) no measured side-by-side comparison against the 10 paired references yet; (3) Home's hero band keeps its own reference-tuned artwork gradients, deliberately left for MISSION-02; (4) frame pacing instrumented but not certified - rAF throttling in an unfocused window made the metric unreliable, while blurred-element count (max 6) and zero idle heap growth are solid; (5) Settings offers four 'Neon Color Accent Scheme' options persisted in src/settings/profile.ts with no consumer, and Home's home-qa-toolbar puts a raw LOADING status and a 'Reference sample' checkbox on the product screen; (6) RTL mirrors the window controls to the top-left, which is wrong for a Windows app. MISSION-02 closes 1-3 and is the next task, not an unrelated domain.",
