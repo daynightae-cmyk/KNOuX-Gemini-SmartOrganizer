@@ -1,0 +1,25 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:theme
+> node --test tests/theme/tokens.test.mjs && node scripts/generate-night-material-bridge.mjs --check
+
+✔ the canonical token layer declares both themes exactly once (1.6751ms)
+✔ night and day declare the same semantic roles (1.135ms)
+✔ every role the material layer depends on is declared (1.1319ms)
+✔ no stylesheet consumes a token the theme layer never defines (0.5873ms)
+✔ the material layer never hard-codes a colour on a real property (0.5921ms)
+✔ night and day body text clear WCAG AA over their own panels (1.4508ms)
+✔ accent hues stay legible as text on their own theme canvas (0.3834ms)
+✔ the generated navy bridge still matches the source it was built from (148.008ms)
+✔ the bridge only ever emits night-scoped, token-valued rules (0.5421ms)
+✔ the token layer is imported before every domain stylesheet (0.7022ms)
+✔ no stylesheet is imported twice (0.6824ms)
+✔ the shell rail rule never targets every aside (0.5559ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 316.1676
+night material bridge OK — 608 navy surface uses mapped
