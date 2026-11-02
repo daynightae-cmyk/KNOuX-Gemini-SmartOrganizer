@@ -199,3 +199,31 @@ test('the token layer is imported before every domain stylesheet', () => {
   assert.ok(tokens >= 0 && firstDomain > tokens, 'knox-theme.css must precede the domain stylesheets');
   assert.ok(glass === lastDomain, 'knox-glass.css must be the final stylesheet import');
 });
+
+test('no stylesheet is imported twice', () => {
+  // A duplicated token import is invisible in the browser — Vite dedupes it —
+  // but it means the layering contract is being edited by trial and error.
+  const offenders = [];
+  for (const file of ['src/App.tsx', 'src/main.tsx']) {
+    const seen = new Map();
+    for (const match of read(file).matchAll(/^import '(\.\/[^']+\.css)';$/gm)) {
+      seen.set(match[1], (seen.get(match[1]) ?? 0) + 1);
+    }
+    for (const [spec, count] of seen) if (count > 1) offenders.push(`${file}: ${spec} x${count}`);
+  }
+  assert.deepEqual(offenders, [], `duplicate stylesheet imports:\n${offenders.join('\n')}`);
+});
+
+test('the shell rail rule never targets every aside', () => {
+  // `.visual-sprint aside` also matched each section's right-hand inspector,
+  // painting chrome material onto content panels. A rule may still *descend*
+  // from the rail (aside nav button); what is forbidden is styling the bare
+  // aside element itself, because that element is used for content rails too.
+  const offenders = [];
+  for (const rule of blockOf(glassCss, () => true)) {
+    for (const selector of rule.selector.split(',')) {
+      if (/\.visual-sprint\s+aside\s*$/.test(selector.trim())) offenders.push(selector.trim());
+    }
+  }
+  assert.deepEqual(offenders, [], `bare aside selectors in the material layer: ${offenders.join(' | ')}`);
+});

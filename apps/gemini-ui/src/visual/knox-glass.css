@@ -123,9 +123,14 @@ html[data-theme='light'] .visual-sprint {
   -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
 }
 
-.visual-sprint aside,
-.visual-sprint[data-reference-shell='true'] aside[class*='w-56'],
-.visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) aside[class*='w-56'] {
+/* The navigation rail only — not every <aside>. An earlier draft matched
+   `.visual-sprint aside`, which also caught each section's right-hand inspector
+   (Home's .approved-inspector, Files' and Cleanup's inspector rails) and painted
+   a vertical shell gradient, an inset edge and a blur onto panels that are
+   content, not chrome. The rail is identified by the two class shapes the shell
+   actually renders: the shared w-56 sidebar and the reference sidebar. */
+.visual-sprint aside[class*='w-56'],
+.visual-sprint aside.approved-sidebar {
   background-image: linear-gradient(178deg, var(--knx-surface-2) 0%, var(--knx-surface) 42%, var(--knx-inset) 100%) !important;
   border-inline-end: 1px solid var(--knx-line-soft) !important;
   box-shadow: inset -1px 0 0 var(--knx-edge), var(--knx-elev-2) !important;
@@ -133,7 +138,8 @@ html[data-theme='light'] .visual-sprint {
   -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
 }
 
-html[dir='rtl'] .visual-sprint aside {
+html[dir='rtl'] .visual-sprint aside[class*='w-56'],
+html[dir='rtl'] .visual-sprint aside.approved-sidebar {
   box-shadow: inset 1px 0 0 var(--knx-edge), var(--knx-elev-2) !important;
 }
 

@@ -33,14 +33,12 @@ import { KNOuXAssistantChat } from './components/chat/KNOuXAssistantChat';
 import { ApiKeySetupModal } from './components/chat/ApiKeySetupModal';
 import { setAiSession } from './lib/ai-session';
 
-// Canonical KNOuX theme tokens: the only place a surface, edge, state or type
-// role is defined. Must precede every domain stylesheet so their own aliases
-// resolve against it rather than competing with it.
-import './visual/knox-theme.css';
 // Night material bridge: re-maps the renderer's hard-coded navy literals onto
 // the canonical obsidian tokens. Generated — see
 // scripts/generate-night-material-bridge.mjs. Loads with the domain layers,
-// before the material pass that consumes it.
+// before the material pass that consumes it. The canonical tokens themselves are
+// imported at the very top of this file, before any page component pulls in its
+// own stylesheet.
 import './visual/knox-night-bridge.css';
 import './studio/styles/studio.css';
 import './studio/styles/command-center.css';
