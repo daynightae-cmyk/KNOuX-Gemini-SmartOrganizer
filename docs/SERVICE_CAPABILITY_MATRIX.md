@@ -4,6 +4,8 @@ Source: each original service heading from the 14 domain mission files inside th
 This is a PRODUCT COMPLETION backlog, NOT a claim that these capabilities are implemented. Earlier CI and Qoder milestones remain historical scoped acceptance only.
 Read missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md and missions/15_REAL_SERVICE_ACTIVATION_MISSION.md.
 
+2026-11-02 auxiliary recovery: Settings hosts an opt-in Clipboard Vault (`clipboard.*`), tested with isolated native/Windows-encryption fixtures. No original service ID was replaced or renumbered; this does not complete `mission-14-04` guards. See `LEGACY_UNIQUE_CAPABILITY_RECONCILIATION.md` and `SMART_SCAN_RUNTIME_ACCEPTANCE.md` for exact scope and unverified owner/packaged gates.
+
 > Registry-ID evidence for 150 current surfaces (76 measured read-only, 57 partial, 10 consent-waiting, 4 unsupported, 1 implemented/tested, 2 blocked) is maintained in `docs/SERVICE_REGISTRY_EVIDENCE.md`. This mission-heading inventory is the authoritative product backlog; reconcile provisional mission-ID rows to registry IDs during Mission 15.
 
 Classes are PROVISIONAL (A observation / B reversible action / C privileged or irreversible / D external connected); verify and correct during code/provider inspection.

@@ -1,0 +1,41 @@
+{
+  "vitePid": 8540,
+  "electronPid": 1840,
+  "launcherPid": 19124,
+  "windowHandle": 3212606,
+  "observedAt": "2026-11-02T04:53:15.738Z",
+  "url": "http://127.0.0.1:3000/#home",
+  "bridge": "available",
+  "vault": {
+    "enabled": false,
+    "paused": false,
+    "privateMode": false,
+    "monitoring": false,
+    "storageMode": "encrypted",
+    "storageError": null,
+    "lockedReason": null,
+    "pendingPersistence": false,
+    "count": 0,
+    "pinned": 0,
+    "storageBytes": 0,
+    "skippedSensitive": 0,
+    "skippedOversize": 0,
+    "readFailures": 0,
+    "policy": {
+      "maxItems": 200,
+      "retentionDays": 14,
+      "captureImages": true,
+      "captureFiles": true
+    },
+    "limits": {
+      "textBytes": 1048576,
+      "imageBytes": 4194304,
+      "totalBytes": 33554432,
+      "files": 200,
+      "storeBytes": 50331648
+    },
+    "sensitiveProtection": "heuristic-always-on",
+    "consent": "session-only"
+  },
+  "hmr": true
+}

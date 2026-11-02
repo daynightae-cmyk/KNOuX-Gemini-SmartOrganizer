@@ -54,6 +54,13 @@ assert(
   'only fixed Studio, Scan and Operations event channels are subscribed'
 );
 const operationChannels=require('../electron/native/operation-ipc.cjs').CHANNELS;
+const clipboardChannels = require('../electron/native/clipboard-ipc.cjs').CHANNELS;
+for (const [name, channel] of Object.entries(clipboardChannels)) {
+  assert(contract.channels[name] === channel && preload.includes(channel), `Clipboard fixed channel ${name} mirrors the contract`);
+}
+assert(main.includes('registerClipboardIpc') && main.includes('clipboardVault.init()'), 'Clipboard Vault is initialized and registered in main');
+assert(preload.includes("exposeInMainWorld('knouxClipboardV1'"), 'Clipboard Vault exposes only its fixed typed API');
+assert(!/clipboard\.(readText|readImage|readBuffer)/.test(preload), 'preload never reads the system clipboard');
 for(const [method,channel] of Object.entries(operationChannels)) assert(preload.includes(channel),`fixed operation channel ${method} is mirrored in preload`);
 assert(read('electron/native/operation-ipc.cjs').includes('assertSender(event)'), 'operation endpoints validate sender before bridge access');
 assert(!preload.includes("ipcRenderer.invoke('knoux:operations:v1:event'"), 'operation events are receive-only');

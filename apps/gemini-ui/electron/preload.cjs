@@ -18,6 +18,14 @@ const CHANNELS = Object.freeze({
   servicesSummary: 'knoux:native:v1:services-summary',
   chooseFolder: 'knoux:native:v1:choose-folder',
   windowControl: 'knoux:window:v1:control',
+  clipboardStatus: 'knoux:clipboard:v1:status',
+  clipboardConfigure: 'knoux:clipboard:v1:configure',
+  clipboardList: 'knoux:clipboard:v1:list',
+  clipboardGet: 'knoux:clipboard:v1:get',
+  clipboardPin: 'knoux:clipboard:v1:pin',
+  clipboardRemove: 'knoux:clipboard:v1:remove',
+  clipboardClear: 'knoux:clipboard:v1:clear',
+  clipboardCopy: 'knoux:clipboard:v1:copy',
   studioSources: 'knoux:studio:v1:sources',
   studioSourceChoose: 'knoux:studio:v1:source-choose',
   studioSourceRemove: 'knoux:studio:v1:source-remove',
@@ -427,6 +435,20 @@ contextBridge.exposeInMainWorld(
     report: (options) => ipcRenderer.invoke(CHANNELS.automationReport, options || {}),
   })
 );
+
+/* The clipboard object itself is never exposed. Reading starts only after a
+   separate native opt-in dialog. All input and sender checks live in main. */
+contextBridge.exposeInMainWorld('knouxClipboardV1', Object.freeze({
+  contractVersion: 1,
+  status: () => ipcRenderer.invoke(CHANNELS.clipboardStatus),
+  configure: request => ipcRenderer.invoke(CHANNELS.clipboardConfigure, request),
+  list: request => ipcRenderer.invoke(CHANNELS.clipboardList, request || {}),
+  get: id => ipcRenderer.invoke(CHANNELS.clipboardGet, { id }),
+  pin: (id, pinned) => ipcRenderer.invoke(CHANNELS.clipboardPin, { id, pinned }),
+  remove: id => ipcRenderer.invoke(CHANNELS.clipboardRemove, { id }),
+  clear: () => ipcRenderer.invoke(CHANNELS.clipboardClear),
+  copy: id => ipcRenderer.invoke(CHANNELS.clipboardCopy, { id }),
+}));
 
 /* Fixed live-operation endpoints. Never exposes paths, shell, or generic IPC. */
 contextBridge.exposeInMainWorld('knouxOperationsV1', Object.freeze({

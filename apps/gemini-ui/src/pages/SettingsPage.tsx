@@ -46,6 +46,7 @@ import {
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation } from '../context/NavigationContext';
 import {KnouxOrbit} from '../visual/KnouxOrbit';
+import { ClipboardVault } from '../clipboard/ClipboardVault';
 
 export interface SettingsPageProps {
   onNavigateSection?: (section: string) => void;
@@ -61,7 +62,7 @@ const ACCENT_PREVIEW: Record<string, string> = {
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection }) => {
   const { navigateTo, isArabic, toggleLocale, setLocale } = useNavigation();
   const [activeTab, setActiveTab] = useState<
-    'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup'
+    'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup' | 'clipboard'
   >('engine');
 
   // API Key & Model State — session memory only, never localStorage.
@@ -846,6 +847,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
               { id: 'ai_keys', labelEn: 'AI Copilot & OpenRouter Keys', labelAr: 'مفاتيح الذكاء الاصطناعي', icon: Key },
               { id: 'workspace', labelEn: 'Google Workspace Hub (10 APIs)', labelAr: 'خدمات Google', icon: Globe },
               { id: 'guard', labelEn: 'Automated Protection & Guards', labelAr: 'الحماية التلقائية', icon: Shield },
+              { id: 'clipboard', labelEn: 'Clipboard Vault', labelAr: 'خزنة الحافظة', icon: Database },
               { id: 'appearance', labelEn: 'Neon Glass Customization', labelAr: 'المظهر والسمات', icon: Palette },
               { id: 'language', labelEn: 'Language & Locale', labelAr: 'اللغة والتوجيه', icon: Languages },
               { id: 'backup', labelEn: 'Profile Preferences Backup', labelAr: 'نسخ التفضيلات واستعادتها', icon: Database },
@@ -885,6 +887,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
             {/* TAB 4: Automated Guards */}
             {activeTab === 'guard' && renderGuardTab()}
+            {activeTab === 'clipboard' && <ClipboardVault isArabic={isArabic} />}
 
             {/* TAB 5: Appearance & Neon Glass */}
             {activeTab === 'appearance' && renderAppearanceTab()}
@@ -906,7 +909,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                 {isArabic ? 'ملف التفضيلات: محلي وغير سري فقط' : 'Preferences profile: local, non-secret only'}
               </span>
               <span className="font-mono text-amber-300">
-                {isArabic ? 'الأسرار: ذاكرة الجلسة فقط — الخزنة الأصلية غير موصولة' : 'Secrets: session memory only — native vault not connected'}
+                {isArabic ? 'مفاتيح AI: ذاكرة الجلسة فقط — خزنة مفاتيح AI غير موصولة' : 'AI credentials: session memory only — AI credential vault not connected'}
               </span>
               <span className="font-mono text-slate-400">
                 {isArabic ? 'الذكاء الاصطناعي المباشر: غير متصل' : 'Live AI: not connected'}

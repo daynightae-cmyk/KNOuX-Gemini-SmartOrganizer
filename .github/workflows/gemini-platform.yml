@@ -14,6 +14,7 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: npm run test:native
+      - run: npm run test:clipboard
       - run: npm run test:studio
       - run: npm run test:files
       - run: npm run test:storage

@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "observedAt": "2026-11-02T04:42:25.209Z",
+  "scope": "Real development Electron + native Windows encryption + injected test clipboard. No personal clipboard access. Packaged/installed clipboard effect remains unverified.",
+  "checks": [
+    "real renderer/preload/list/status display off without observing the personal or fixture clipboard",
+    "native consent cancellation returns through IPC to visible UI",
+    "capture → list → inspect → pin → copy-back reaches injected provider through actual sandboxed preload",
+    "real pause control prevents native reads",
+    "real Windows safeStorage encrypt/decrypt restores pinned fixture history with capture off"
+  ],
+  "screenshots": [
+    {
+      "filename": "clipboard-fixture-dark-en.png",
+      "lang": "en",
+      "dir": "ltr",
+      "theme": "dark",
+      "width": 1656,
+      "height": 876,
+      "horizontalOverflow": 0,
+      "panelWidth": 1346
+    },
+    {
+      "filename": "clipboard-fixture-light-en.png",
+      "lang": "en",
+      "dir": "ltr",
+      "theme": "light",
+      "width": 1656,
+      "height": 876,
+      "horizontalOverflow": 0,
+      "panelWidth": 1346
+    },
+    {
+      "filename": "clipboard-fixture-dark-ar.png",
+      "lang": "ar",
+      "dir": "rtl",
+      "theme": "dark",
+      "width": 1656,
+      "height": 876,
+      "horizontalOverflow": 0,
+      "panelWidth": 1346
+    },
+    {
+      "filename": "clipboard-fixture-light-ar.png",
+      "lang": "ar",
+      "dir": "rtl",
+      "theme": "light",
+      "width": 1656,
+      "height": 876,
+      "horizontalOverflow": 0,
+      "panelWidth": 1346
+    }
+  ],
+  "errors": []
+}

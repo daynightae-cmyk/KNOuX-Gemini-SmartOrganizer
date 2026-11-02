@@ -5,8 +5,16 @@ type Region = 'hero' | 'status' | 'metrics' | 'overview' | 'inspector' | 'tools'
 type ToolPlacement = 'dock' | 'rail';
 type Props = { children: ReactNode; locale: 'en' | 'ar'; heroTypes?: ElementType[]; statusTypes?: ElementType[]; metricTypes?: ElementType[]; primaryTypes?: ElementType[]; toolTypes?: ElementType[]; toolPlacement?: ToolPlacement };
 
-function flatten(children: ReactNode): ReactNode[] {
-  return Children.toArray(children).flatMap(child => isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment ? flatten(child.props.children) : [child]);
+function flatten(children: ReactNode, parentKey = ''): ReactNode[] {
+  return Children.toArray(children).flatMap((child, index) => {
+    if (!isValidElement<{ children?: ReactNode }>(child)) return [child];
+    // Panels from different wrappers share React's positional keys (e.g. .1).
+    // Retain the full ancestry when moving them into one canvas region.
+    const key = `${parentKey}/${child.key ?? index}`;
+    return child.type === Fragment
+      ? flatten(child.props.children, key)
+      : [cloneElement(child, { key })];
+  });
 }
 
 /** Keeps existing domain components mounted, with bounded operating panels.
@@ -28,16 +36,16 @@ export function CommandCanvas({ children, locale, heroTypes = [], statusTypes = 
       : primaryTypes.includes(type) || /apps-work-grid|cln-work-grid|stp-work-grid|scan-results-grid|knx-storage-analysis-grid|knx-storage-volumes|sys-main-grid|sys-overview-grid|sys-loading-grid|rep-workspace-grid|svc-main-grid|auto-editor-grid/.test(name) ? 'overview'
       : 'details';
     if (region === 'hero' && /sys-hero/.test(name) && currentSection !== 'automation') {
-      const items = flatten(child.props.children);
+      const items = flatten(child.props.children, String(child.key));
       const source = items.filter(item => isValidElement<{className?: string}>(item) && /sys-source-card/.test(item.props.className || ''));
       regions.inspector.push(...source);
       regions.hero.push(cloneElement(child, {}, items.filter(item => !source.includes(item))));
     } else if (region === 'overview' && /apps-work-grid|cln-work-grid|stp-work-grid|scan-results-grid|knx-storage-analysis-grid|rep-workspace-grid|svc-main-grid/.test(name)) {
-      const panels = flatten(child.props.children);
+      const panels = flatten(child.props.children, String(child.key));
       regions.overview.push(panels[0]);
       regions.inspector.push(...panels.slice(1));
     } else if (region === 'overview' && /sys-loading-grid/.test(name)) {
-      const panels = flatten(child.props.children);
+      const panels = flatten(child.props.children, String(child.key));
       regions.inspector.push(panels[0]);
       regions.overview.push(<div className="knx-system-awaiting" key="system-awaiting"><div className="knx-native-chart-placeholder"><span>{locale === 'ar' ? 'مخطط الأداء — بانتظار عينات أصلية مقيسة' : 'Performance timeline — awaiting measured native samples'}</span></div></div>);
       regions.tools.push(...panels.slice(1));

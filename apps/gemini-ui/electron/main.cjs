@@ -9,7 +9,7 @@
  * remain preview-only until their own missions land.
  */
 
-const { app, BrowserWindow, Menu, ipcMain, session, dialog, nativeImage, shell, safeStorage } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, session, dialog, nativeImage, shell, safeStorage, clipboard } = require('electron');
 const path = require('node:path');
 const fs = require('node:fs');
 const fsp = require('node:fs/promises');
@@ -24,6 +24,8 @@ const {
   loadProvider,
 } = require('./native/provider-bridge.cjs');
 const { StorageVault } = require('./native/storage-vault.cjs');
+const { createClipboardVault } = require('./native/clipboard-vault.cjs');
+const { registerClipboardIpc } = require('./native/clipboard-ipc.cjs');
 const { OperationEngine } = require('./native/operation-engine.cjs');
 const { StartupActions } = require('./native/startup-actions.cjs');
 const { ServiceActions } = require('./native/service-actions.cjs');
@@ -95,6 +97,8 @@ trace(`bootstrap isSmoke=${isSmoke} isDev=${isDev} packaged=${app.isPackaged} cw
 app.commandLine.appendSwitch('force-color-profile', 'srgb');
 
 let mainWindow = null;
+let clipboardVault = null;
+let clipboardQuitReady = false;
 let ipcRegistered = false;
 let studioBridge = null;
 let operationBridge = null;
@@ -195,6 +199,22 @@ function registerIpc() {
   if (ipcRegistered) return;
   ipcRegistered = true;
   registerOperationIpc({ipcMain,getBridge:()=>operationBridge,assertSender:event=>assertTrustedSender(event,{mainWindow,isDev,distRoot,devOrigin})});
+  registerClipboardIpc({
+    ipcMain, getVault: () => clipboardVault,
+    assertSender: event => assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin }),
+    confirm: async action => {
+      if (!mainWindow || mainWindow.isDestroyed() || isSmoke) return false;
+      const messages = {
+        capture: ['Enable clipboard capture for this app session?', 'Only enable this if you want KNOuX to read copied text, images and file references while it runs. Sensitive-text detection is imperfect. History is encrypted with Windows protection when available; otherwise it stays in memory. Capture is off again after restart.', 'Enable capture'],
+        copy: ['Replace the current clipboard with this saved item?', 'This changes the system clipboard so you can paste the selected item. File references are copied as path text; they do not move or copy the source files.', 'Copy selected item'],
+        remove: ['Remove this saved clipboard item?', 'Only the selected vault entry is removed. Original files and the current system clipboard are unchanged. Pending disk-write failures are reported in the vault.', 'Remove item'],
+        clear: ['Clear all Clipboard Vault history and stop capture?', 'This discards all saved entries, including an unreadable encrypted store if present. There is no vault Undo. Original files and the current system clipboard are unchanged.', 'Clear vault'],
+      };
+      const [message, detail, accept] = messages[action];
+      const result = await dialog.showMessageBox(mainWindow, { type: 'question', message, detail, buttons: ['Cancel', accept], defaultId: 0, cancelId: 0, noLink: true });
+      return result.response === 1;
+    },
+  });
 
   const guard = async (event, capability, args, work) => {
     try {
@@ -1827,6 +1847,10 @@ function createWindow() {
     // exact reason in the terminal; packaged users see Chromium's failure page.
     console.error(`[gemini-shell] renderer load failed (${errorCode}): ${errorDescription}`);
   });
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    console.error(`[gemini-shell] renderer exited: reason=${details.reason} code=${details.exitCode}`);
+  });
+  mainWindow.on('unresponsive', () => console.error('[gemini-shell] desktop window is unresponsive'));
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -6590,6 +6614,8 @@ app.whenReady().then(async () => {
     userDataPath: app.getPath('userData'),
     env: process.env,
   });
+  clipboardVault = createClipboardVault({ clipboard, nativeImage, safeStorage, storagePath: path.join(app.getPath('userData'), 'clipboard-vault-v1.bin') });
+  await clipboardVault.init();
   trace('registering ipc');
   registerIpc();
   trace('creating window');
@@ -6606,7 +6632,16 @@ app.whenReady().then(async () => {
   if (isSmoke) app.exit(1);
 });
 
-app.on('before-quit', () => {
+app.on('before-quit', event => {
+  if (clipboardVault && !clipboardQuitReady) {
+    event.preventDefault();
+    clipboardQuitReady = true;
+    // Finish queued encrypted writes before exiting, with a bounded shutdown.
+    // A forced interruption still leaves the previous atomic store intact.
+    const deadline = setTimeout(() => app.quit(), 5000);
+    void clipboardVault.dispose().finally(() => { clearTimeout(deadline); app.quit(); });
+    return;
+  }
   operationBridge?.storageVault?.dispose();
   operationBridge?.automationRunner?.dispose();
   void systemBridge?.close?.();
@@ -6624,3 +6659,7 @@ app.on('before-quit', () => {
 app.on('window-all-closed', () => {
   app.quit();
 });
+app.on('child-process-gone', (_event, details) => {
+  console.error(`[gemini-shell] child exited: type=${details.type} reason=${details.reason} code=${details.exitCode}`);
+});
+process.on('exit', code => console.info(`[gemini-shell] process exit code=${code}`));

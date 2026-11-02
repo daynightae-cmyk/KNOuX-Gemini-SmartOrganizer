@@ -1,0 +1,51 @@
+{
+  "observedAt": "2026-11-02T04:14:47.938Z",
+  "root": "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer",
+  "branch": "main",
+  "head": "5d27ec1410b94db2d3ce78ce22ac964e91b3891e",
+  "originMain": "5d27ec1410b94db2d3ce78ce22ac964e91b3891e",
+  "initialWorkingTree": "clean",
+  "worktrees": 1,
+  "stashes": 0,
+  "localBranch": "codex/service-workspaces-20261101 (no unique commits against main)",
+  "preview": {
+    "url": "http://127.0.0.1:3000/",
+    "vitePid": 8540,
+    "electronPid": 14356,
+    "rendererPid": 16732,
+    "debugPort": 9333,
+    "nativeBridgeKeys": [
+      "knouxGoogleV1",
+      "knouxShell",
+      "knouxStudioV1",
+      "knouxFilesV1",
+      "knouxStorageV1",
+      "knouxScanV1",
+      "knouxAppsV1",
+      "knouxCleanupV1",
+      "knouxStartupV1",
+      "knouxSystemV1",
+      "knouxRepairV1",
+      "knouxServicesV1",
+      "knouxAutomationV1",
+      "knouxOperationsV1"
+    ],
+    "hmr": true
+  },
+  "baselineIssues": {
+    "duplicateKey": ".1 in CommandCanvas inspector (aside and div)",
+    "devCspWarning": true,
+    "ci": {
+      "run": 41363396551,
+      "result": "failure",
+      "step": "test:studio",
+      "error": "DESTINATION_LINK_REFUSED",
+      "localReproduction": "attribute-reader test and test:studio passed"
+    }
+  },
+  "screenshots": [
+    "home-initial.png",
+    "smart-scan-initial.png"
+  ],
+  "note": "Windows screenshot helper failed; screenshots were captured from the actual Electron renderer through CDP, not a browser mock."
+}
