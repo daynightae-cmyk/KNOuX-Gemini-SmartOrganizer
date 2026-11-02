@@ -1,38 +1,25 @@
-/* Midnight navy and blue glass sampled from the approved Applications reference
-   at (240,900), (250,440), (400,480), (900,450), and (1400,600).
-   Semantic night materials. Existing domain aliases consume this palette in
-   design-recovery.css; daylight retains its independently authored tokens. */
-html:not([data-theme='light']) {
-  --knx-night-canvas:#020b20;
-  --knx-night-surface:#041735;
-  --knx-night-raised:#0b2250;
-  --knx-night-inset:#02112b;
-  --knx-night-line:#28509a;
-  --knx-night-line-soft:#173b72;
-  --knx-night-ink:#f2f4ff;
-  --knx-night-secondary:#c4dcff;
-  --knx-night-muted:#9bb9e8;
-  --knx-night-accent:#ad70ff;
-  --knx-night-cyan:#00dcff;
-  --knx-night-success:#00e4ad;
-  --knx-night-warning:#ffc233;
-  --knx-night-error:#ff59a4;
-  --knx-night-info:#39a2ff;
-  --knx-night-shadow:inset 0 1px 0 #dbe6ff0b,0 12px 32px #03061055;
-  color-scheme:dark;
-}
+/* Night and day materials are owned by visual/knox-theme.css, which loads
+   before this file. The old sampled-navy block lived here and silently
+   re-pinned every section to #020b20/#041735, so it is gone: this layer now
+   only maps the shell aliases onto the canonical roles. */
 .visual-sprint {
-  --v-bg: #0c0b20; --v-panel: rgba(31,27,67,.78); --v-panel-soft: rgba(40,35,79,.45);
-  --v-ink: #f5f2ff; --v-muted: #b9b3d8; --v-line: rgba(173,151,255,.24); --v-accent: #b7a0ff;
-  --v-shadow: 0 12px 35px #05031244, inset 0 1px 0 #ffffff12;
+  --v-bg: var(--knx-canvas);
+  --v-panel: var(--knx-surface);
+  --v-panel-soft: var(--knx-surface-2);
+  --v-line: var(--knx-line);
+  --v-ink: var(--knx-ink);
+  --v-muted: var(--knx-muted);
+  --v-accent: var(--knx-accent);
+  --v-shadow: var(--knx-elev-2);
   height: 100%; color: var(--v-ink); font-size: 14px; line-height: 1.5;
 }
 html[data-theme='light'] .visual-sprint {
-  --v-bg: #f0edfc; --v-panel: rgba(255,255,255,.78); --v-panel-soft: rgba(255,255,255,.5);
-  --v-ink: #221b48; --v-muted: #655e88; --v-line: rgba(123,97,218,.2); --v-accent: #6b3ce5;
-  --v-shadow: 0 12px 32px #6850a412, inset 0 1px 0 #ffffff;
-  --knx-day-bg: #f0edfc; --knx-day-surface: #fcfbff; --knx-day-line: #ded6f3;
-  --knx-day-muted: #655e88; --knx-day-cyan: #6440bd; --knx-day-blue: #6231d8;
+  --knx-day-bg: var(--knx-canvas);
+  --knx-day-surface: var(--knx-raised);
+  --knx-day-line: var(--knx-line);
+  --knx-day-muted: var(--knx-muted);
+  --knx-day-cyan: var(--knx-cyan);
+  --knx-day-blue: var(--knx-info);
 }
 .visual-sprint[data-visual-section='studio'] [data-testid='studio-workspace'],
 .visual-sprint[data-visual-section='studio'] main {

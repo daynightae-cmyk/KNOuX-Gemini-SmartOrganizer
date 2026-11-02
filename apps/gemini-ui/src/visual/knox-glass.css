@@ -1,0 +1,490 @@
+/**
+ * KNOuX — glass material layer.
+ *
+ * Loads last on purpose: it is the layer that decides what a surface *is*, and
+ * it must win the cascade without every domain stylesheet being rewritten.
+ *
+ * It only ever restates material (fill, edge, shadow, blur, focus, type). It
+ * never changes geometry, layout, copy, controls or data. Section-authored
+ * `background-image` glows are deliberately left alone so each screen keeps its
+ * own identity while sitting on the same glass.
+ *
+ * Blur is applied to chrome, heroes and cards — the surfaces a user reads as
+ * "the room". Dense rows, chips and meter fills are translucent but unblurred,
+ * because a hundred blurred rows is a stutter, not a design.
+ */
+
+/* ==========================================================================
+   1 — Type and root material
+   ========================================================================== */
+
+.visual-sprint {
+  font-family: var(--knx-font-ui);
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Arabic gets the loaded Arabic face first, so RTL never falls back to a Latin
+   default and loses its letterforms. */
+html[dir='rtl'] .visual-sprint {
+  font-family: 'Tajawal', var(--knx-font-ui);
+}
+
+.visual-sprint :is(code, kbd, samp, pre, .font-mono) {
+  font-family: var(--knx-font-mono);
+}
+
+/* The Home shell had pinned itself to Segoe UI/Arial, which is the single
+   biggest reason the night theme read as dated. */
+.approved-home.home-corrective {
+  font-family: var(--knx-font-ui) !important;
+}
+
+.visual-sprint h1,
+.visual-sprint h2,
+.visual-sprint .knx-hero-title {
+  font-family: var(--knx-font-display);
+  letter-spacing: -0.022em;
+}
+
+/* ==========================================================================
+   2 — Shared token surface for the app shell
+   ========================================================================== */
+
+.visual-sprint {
+  --v-bg: var(--knx-canvas);
+  --v-panel: var(--knx-surface);
+  --v-panel-soft: var(--knx-surface-2);
+  --v-line: var(--knx-line);
+  --v-ink: var(--knx-ink);
+  --v-muted: var(--knx-muted);
+  --v-accent: var(--knx-accent);
+  --v-shadow: var(--knx-elev-2);
+}
+
+/* The restraint layer previously pinned the reference shells to a fixed navy
+   canvas, which defeated every token below it. Restated here with the canonical
+   values so the shells follow the theme again. */
+.visual-sprint[data-reference-shell='true'] {
+  --v-bg: var(--knx-canvas);
+  --v-panel: var(--knx-surface);
+  --v-panel-soft: var(--knx-surface-2);
+  --v-line: var(--knx-line);
+}
+
+/* ==========================================================================
+   2b — Daylight token authority
+   ========================================================================== */
+
+/* theme-light.css was written as a bridge over the old navy literals and still
+   declares its own daylight hexes. It loads before this layer, so without this
+   block those values keep winning and day stays a second palette with its own
+   drift. Re-pointing the historical names at the canonical roles makes night and
+   day one system without deleting the bridge, which still does the per-literal
+   mapping work that only it can do. */
+html[data-theme='light'] {
+  --knx-day-bg: var(--knx-canvas);
+  --knx-day-surface: var(--knx-raised);
+  --knx-day-surface-2: var(--knx-surface-2);
+  --knx-day-surface-3: var(--knx-inset);
+  --knx-day-line: var(--knx-line);
+  --knx-day-line-strong: var(--knx-line-strong);
+  --knx-day-ink: var(--knx-ink);
+  --knx-day-ink-2: var(--knx-ink-2);
+  --knx-day-ink-3: var(--knx-muted);
+  --knx-day-muted: var(--knx-muted);
+  --knx-day-muted-2: var(--knx-muted-2);
+  --knx-day-cyan: var(--knx-cyan);
+  --knx-day-emerald: var(--knx-success);
+  --knx-day-amber: var(--knx-warning);
+  --knx-day-rose: var(--knx-error);
+  --knx-day-purple: var(--knx-accent);
+  --knx-day-blue: var(--knx-info);
+}
+
+/* The daylight bridge cleared background-image on every page canvas to kill the
+   old navy glows — and cleared the atmosphere with them, which is why day read
+   flat while night read lit. The shell gets the shared light pool back. */
+html[data-theme='light'] .visual-sprint {
+  background-image: var(--knx-atmosphere);
+  background-attachment: fixed;
+}
+
+/* ==========================================================================
+   3 — Shell chrome
+   ========================================================================== */
+
+.visual-sprint :is(.knoux-titlebar, header.knoux-titlebar) {
+  background-color: var(--knx-surface) !important;
+  border-bottom: 1px solid var(--knx-line-soft) !important;
+  box-shadow: var(--knx-elev-1);
+  backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+}
+
+.visual-sprint aside,
+.visual-sprint[data-reference-shell='true'] aside[class*='w-56'],
+.visual-sprint[data-visual-section='studio']:has(.knx-studio-reference) aside[class*='w-56'] {
+  background-image: linear-gradient(178deg, var(--knx-surface-2) 0%, var(--knx-surface) 42%, var(--knx-inset) 100%) !important;
+  border-inline-end: 1px solid var(--knx-line-soft) !important;
+  box-shadow: inset -1px 0 0 var(--knx-edge), var(--knx-elev-2) !important;
+  backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+}
+
+html[dir='rtl'] .visual-sprint aside {
+  box-shadow: inset 1px 0 0 var(--knx-edge), var(--knx-elev-2) !important;
+}
+
+/* Active rail item: one luminous violet pill everywhere, with an edge light on
+   its leading side so the current section is readable without colour alone. */
+.visual-sprint aside nav button[aria-current='page'],
+.visual-sprint aside nav [role='button'][aria-current='page'],
+.approved-sidebar nav button.active {
+  background-image: linear-gradient(115deg, var(--knx-accent-strong), var(--knx-accent-deep)) !important;
+  border-color: color-mix(in srgb, var(--knx-accent) 60%, transparent) !important;
+  color: var(--knx-on-accent) !important;
+  box-shadow: var(--knx-glow-accent), inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+}
+
+html[data-theme='light'] .visual-sprint aside nav button[aria-current='page'],
+html[data-theme='light'] .approved-sidebar nav button.active {
+  color: var(--knx-on-accent) !important;
+  box-shadow: 0 6px 18px rgba(90, 40, 190, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.visual-sprint aside nav button:not([aria-current='page']):hover,
+.approved-sidebar nav button:not(.active):hover {
+  background-color: var(--knx-hover) !important;
+  border-color: var(--knx-line) !important;
+}
+
+/* ==========================================================================
+   4 — Glass surfaces: heroes, panels, cards, inspectors
+   ========================================================================== */
+
+.visual-sprint :is(
+    .sys-panel,
+    .sys-hero,
+    .sys-stage,
+    .sys-monitor-card,
+    .sys-availability-card,
+    .sys-service-card,
+    .sys-workbench .sys-wb-head,
+    .apps-panel,
+    .apps-subpanel,
+    .apps-hero,
+    .apps-kpi-card,
+    .apps-dossier-hero,
+    .cln-panel,
+    .cln-hero,
+    .cln-inspector,
+    .cln-browser-card,
+    .cln-volume-card,
+    .cln-service-card,
+    .stp-panel,
+    .stp-subpanel,
+    .stp-hero,
+    .stp-stage,
+    .stp-inspector,
+    .stp-service-card,
+    .stp-dock,
+    .stp-batch-card,
+    .svc-panel,
+    .svc-hero,
+    .svc-action-card,
+    .svc-op-card,
+    .svc-tool-card,
+    .svc-risk-hero,
+    .svc-protection-hero,
+    .rep-panel,
+    .rep-hero,
+    .rep-history-panel,
+    .rep-action-card,
+    .rep-tool-card,
+    .rep-health-card,
+    .rep-category-card,
+    .rep-workbench,
+    .auto-panel,
+    .auto-hero,
+    .auto-inspector,
+    .auto-action-card,
+    .auto-tool-card,
+    .auto-template-card,
+    .scan-results-panel,
+    .scan-hero,
+    .scan-metric-card,
+    .scan-service-card,
+    .os-stage-panel,
+    .osa-card,
+    .knx-ref-card,
+    .knx-command-hero,
+    .knx-command-inspector,
+    .knx-command-tool-dock,
+    .knx-command-metrics,
+    .knx-command-status,
+    .knx-storage-hero,
+    .knx-storage-inspector,
+    .knx-files-inspector,
+    .knx-workspace-hero,
+    .atl-hero,
+    .treemap-tile,
+    .approved-hero,
+    .approved-access-card,
+    .approved-kpi,
+    .approved-inspector > *,
+    .approved-activity,
+    .knx-glass-card,
+    .knx-panel,
+    .knx-tile,
+    .knx-deck-tile,
+    .knx-deck-panel,
+    .knx-kpi-card,
+    .knx-storage-vol-card,
+    [data-service-workbench] > section,
+    .sys-workbench
+  ) {
+  background-color: var(--knx-surface);
+  border-color: var(--knx-line);
+  box-shadow: var(--knx-elev-2);
+  backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+}
+
+/* Heroes carry the depth: a slightly stronger fill, a visible top edge and a
+   wider falloff, so the first band of a screen reads above the working set. */
+.visual-sprint :is(.sys-hero, .apps-hero, .cln-hero, .stp-hero, .svc-hero, .rep-hero, .auto-hero, .scan-hero, .knx-command-hero, .knx-storage-hero, .knx-workspace-hero, .atl-hero, .approved-hero, .knx-hero) {
+  background-color: var(--knx-surface-2);
+  border-color: var(--knx-line);
+  box-shadow: var(--knx-elev-3);
+}
+
+/* Inset wells sit *into* the surface: no top edge light, deeper fill. */
+.visual-sprint :is(.apps-subpanel, .stp-subpanel, .knx-command-status, .sys-instrument, .auto-workflow-details, .knx-inset) {
+  background-color: var(--knx-inset);
+  border-color: var(--knx-line-soft);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-theme='light'] .visual-sprint :is(.apps-subpanel, .stp-subpanel, .knx-command-status, .sys-instrument, .auto-workflow-details) {
+  box-shadow: inset 0 1px 2px rgba(40, 26, 88, 0.07);
+}
+
+/* Selected / hovered cards lift instead of only changing border colour. */
+.visual-sprint :is(.approved-access-card, .knx-tile, .knx-deck-tile, .sys-service-card, .apps-kpi-card, .stp-service-card, .svc-action-card, .rep-action-card, .auto-tool-card, .scan-service-card, .knx-ref-card):hover {
+  background-color: var(--knx-hover);
+  border-color: var(--knx-line-strong);
+  box-shadow: var(--knx-elev-3);
+}
+
+/* ==========================================================================
+   5 — Controls
+   ========================================================================== */
+
+.visual-sprint :is(input:not([type='checkbox']):not([type='radio']):not([type='range']), select, textarea) {
+  background-color: var(--knx-inset);
+  border-color: var(--knx-line);
+  color: var(--knx-ink);
+  border-radius: var(--knx-r-sm);
+  transition: border-color var(--knx-motion-fast) var(--knx-ease-out),
+    box-shadow var(--knx-motion-fast) var(--knx-ease-out);
+}
+
+.visual-sprint :is(input, textarea)::placeholder {
+  color: var(--knx-muted-2);
+  opacity: 1;
+}
+
+.visual-sprint :is(input, select, textarea):focus-visible {
+  border-color: var(--knx-accent);
+  box-shadow: var(--knx-focus-ring);
+}
+
+/* Buttons: the neutral ones take the glass, the authored accent ones keep
+   their own gradient and only gain the shared focus and press behaviour. */
+.visual-sprint :is(button, .sys-btn, .stp-btn, .cln-btn, .svc-btn, .rep-btn, .auto-btn) {
+  transition: background-color var(--knx-motion-fast) var(--knx-ease-out),
+    border-color var(--knx-motion-fast) var(--knx-ease-out),
+    box-shadow var(--knx-motion-fast) var(--knx-ease-out),
+    transform var(--knx-motion-fast) var(--knx-ease-out);
+}
+
+.visual-sprint button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Focus is for controls. The previous blanket rule also ringed scroll
+   containers and the rail, which read as a rendering defect rather than a
+   keyboard affordance. */
+.visual-sprint :is(
+    a, button, input, select, textarea, summary,
+    [role='button'], [role='link'], [role='tab'], [role='option'], [role='menuitem'],
+    [role='checkbox'], [role='radio'], [role='switch'], [role='combobox'],
+    [role='slider'], [role='treeitem'], [role='gridcell'], [contenteditable='true']
+  ):focus-visible {
+  outline: 2px solid var(--knx-focus);
+  outline-offset: 3px;
+}
+
+/* Chromium makes a scrollable region keyboard-focusable, and the content column
+   is one. Left alone, a focused route paints the user-agent's own `outline: auto`
+   ring around the entire workspace in the inherited text colour, which reads as a
+   rendering defect in every screenshot and in real use. The region keeps a focus
+   affordance — deliberately quiet, inset, and on-theme — instead of the UA ring. */
+.visual-sprint :is(main, [role='main'], .knx-custom-scrollbar):focus-visible {
+  outline: 2px solid var(--knx-line-strong);
+  outline-offset: -2px;
+}
+
+.visual-sprint :is(main, [role='main'], .knx-custom-scrollbar):focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ==========================================================================
+   6 — Dense rows, headers and scrollbars
+   ========================================================================== */
+
+.visual-sprint :is(thead th, .apps-table-head, .stp-head, .cln-head, .svc-head) {
+  color: var(--knx-muted);
+  border-bottom: 1px solid var(--knx-line);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 650;
+}
+
+.visual-sprint :is(tbody tr, .apps-row, .stp-row, .cln-row, .svc-row):hover {
+  background-color: var(--knx-hover);
+}
+
+.visual-sprint :is(tbody tr, .apps-row, .stp-row, .cln-row, .svc-row)[aria-selected='true'],
+.visual-sprint :is(.is-selected, .selected):is(.apps-row, .stp-row, .cln-row, .svc-row) {
+  background-color: var(--knx-accent-soft);
+  box-shadow: inset 3px 0 0 var(--knx-accent);
+}
+
+.visual-sprint ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.visual-sprint ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.visual-sprint ::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--knx-accent) 32%, transparent);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--knx-r-pill);
+}
+
+.visual-sprint ::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--knx-accent) 55%, transparent);
+  background-clip: content-box;
+}
+
+/* ==========================================================================
+   7 — Text hierarchy over the new canvas
+   ========================================================================== */
+
+.visual-sprint :is(.sys-ink, .apps-row-name, .stp-title, .cln-title, .svc-title) {
+  color: var(--knx-ink);
+}
+
+.visual-sprint :is(.sys-muted, .apps-row-publisher, .apps-muted, .stp-muted, .cln-muted, .svc-muted, .auto-muted) {
+  color: var(--knx-muted);
+}
+
+/* Key hints are always a keycap: an inset well with ink text. They were
+   authored as dark chips, which turned into white-on-white ghosts in daylight. */
+.visual-sprint kbd {
+  background-color: var(--knx-inset);
+  border: 1px solid var(--knx-line);
+  color: var(--knx-ink-2);
+  border-radius: var(--knx-r-xs);
+  font-family: var(--knx-font-mono);
+  font-size: 11px;
+  line-height: 1;
+  padding: 3px 6px;
+}
+
+/* The persistent footer strip exists on every measured screen. In daylight its
+   authored white-on-transparent labels were unreadable. */
+.visual-sprint :is(.apps-foot-strip, .cln-foot, .stp-foot, .svc-foot, .rep-foot, .auto-foot, .sys-foot) {
+  color: var(--knx-muted);
+  border-top: 1px solid var(--knx-line-soft);
+}
+
+.visual-sprint :is(.apps-foot-strip, .cln-foot, .stp-foot, .svc-foot, .rep-foot, .auto-foot, .sys-foot) :is(strong, b) {
+  color: var(--knx-ink-2);
+}
+
+/* ==========================================================================
+   8 — Dialogs and overlays
+   ========================================================================== */
+
+.visual-sprint :is(dialog, .knx-modal-card, [role='dialog']),
+dialog.knx-modal,
+.home-workspace-palette {
+  background-color: var(--knx-raised);
+  border: 1px solid var(--knx-line);
+  color: var(--knx-ink);
+  box-shadow: var(--knx-elev-3);
+  backdrop-filter: blur(calc(var(--knx-glass-blur) * 1.6)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(calc(var(--knx-glass-blur) * 1.6)) saturate(var(--knx-glass-saturate));
+}
+
+.visual-sprint :is(dialog, [role='dialog'])::backdrop {
+  background: var(--knx-scrim);
+  backdrop-filter: blur(6px);
+}
+
+/* ==========================================================================
+   9 — Accessibility and performance guards
+   ========================================================================== */
+
+/* Users who ask for less transparency get real opaque materials, not a
+   half-blurred mess, and the blur cost disappears with them. */
+@media (prefers-reduced-transparency: reduce) {
+  html:not([data-theme='light']) {
+    --knx-surface: #16142b;
+    --knx-surface-2: #1c1936;
+    --knx-raised: #252143;
+    --knx-hover: #302a52;
+    --knx-inset: #0b0a18;
+  }
+  html[data-theme='light'] {
+    --knx-surface: #ffffff;
+    --knx-surface-2: #faf9ff;
+    --knx-raised: #ffffff;
+    --knx-hover: #f2eefe;
+    --knx-inset: #f0eef9;
+  }
+  .visual-sprint * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-sprint :is(button, a, input, select, textarea, .approved-access-card, .knx-tile) {
+    transition: none !important;
+  }
+  .visual-sprint button:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* Forced colours (Windows high contrast) must not be defeated by glass. */
+@media (forced-colors: active) {
+  .visual-sprint :is(.sys-panel, .apps-panel, .cln-panel, .stp-panel, .svc-panel, .rep-panel, .auto-panel, .knx-ref-card, dialog, [role='dialog']) {
+    background-color: Canvas !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid CanvasText !important;
+    box-shadow: none !important;
+  }
+}

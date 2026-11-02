@@ -29,6 +29,8 @@
     "test:home": "npm run test:home --prefix apps/gemini-ui",
     "test:workbench": "npm run test:workbench --prefix apps/gemini-ui",
     "test:google": "npm run test:google --prefix apps/gemini-ui",
-    "test:navigation": "npm run test:navigation --prefix apps/gemini-ui"
+    "test:navigation": "npm run test:navigation --prefix apps/gemini-ui",
+    "test:theme": "npm run test:theme --prefix apps/gemini-ui",
+    "ledger:check": "python scripts/verify-mission-ledger.py"
   }
 }

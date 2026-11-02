@@ -13,6 +13,14 @@ jobs:
       - run: npm ci --prefix apps/gemini-ui
       - run: npm run lint
       - run: npm run build
+      # Theme contract before the expensive suites: one canonical token layer,
+      # night/day role parity, WCAG AA floors and a generated navy bridge that
+      # still matches the source it was built from.
+      - run: npm run test:theme
+      # The mission ledger is the acceptance record, so a record that claims
+      # "accepted" without runtime evidence, a commit SHA, a remote SHA and a CI
+      # result fails the build instead of passing quietly.
+      - run: npm run ledger:check
       - run: npm run test:native
       - run: npm run test:clipboard
       - run: npm run test:studio

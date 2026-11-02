@@ -1,0 +1,75 @@
+{
+  "capturedAt": "2026-11-02T07:57:11.568495+00:00",
+  "canonicalRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+  "remote": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git",
+  "branch": "--abbrev-ref HEAD",
+  "headSha": "df655ab447a87b238165417fde5735e7980147b3",
+  "remoteMainSha": "df655ab447a87b238165417fde5735e7980147b3",
+  "localEqualsRemoteMain": true,
+  "trackedTreeClean": false,
+  "trackedModifications": [
+    " M apps/gemini-ui/src/App.tsx",
+    " M apps/gemini-ui/src/visual/design-recovery.css",
+    " M apps/gemini-ui/src/visual/reference-restraint.css",
+    " M apps/gemini-ui/src/visual/visual-sprint.css"
+  ],
+  "worktrees": [
+    "D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer df655ab [main]"
+  ],
+  "untracked": {
+    "count": 117,
+    "groups": {
+      "docs/evidence": 104,
+      "apps/gemini-ui": 6,
+      "docs/MISSION_LEDGER.json": 1,
+      "docs/PROJECT_EXECUTION_CONTROL_20261102.md": 1,
+      "docs/SECOND_GENERATION_PROJECT_EXECUTION_PROMPT.md": 1,
+      "scripts/capture-baseline-proof.py": 1,
+      "scripts/test-verify-execution-evidence.py": 1,
+      "scripts/verify-execution-evidence.py": 1,
+      "scripts/verify-mission-ledger.py": 1
+    },
+    "nonEvidence": [
+      "apps/gemini-ui/scripts/generate-night-material-bridge.mjs",
+      "apps/gemini-ui/scripts/theme-evidence-matrix.mjs",
+      "apps/gemini-ui/src/visual/knox-glass.css",
+      "apps/gemini-ui/src/visual/knox-night-bridge.css",
+      "apps/gemini-ui/src/visual/knox-theme.css",
+      "apps/gemini-ui/tests/theme/",
+      "docs/MISSION_LEDGER.json",
+      "docs/PROJECT_EXECUTION_CONTROL_20261102.md",
+      "docs/SECOND_GENERATION_PROJECT_EXECUTION_PROMPT.md",
+      "scripts/capture-baseline-proof.py",
+      "scripts/test-verify-execution-evidence.py",
+      "scripts/verify-execution-evidence.py",
+      "scripts/verify-mission-ledger.py"
+    ]
+  },
+  "workspaceVerifier": {
+    "workspace": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+    "origin": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git",
+    "branch": "main",
+    "sha": "df655ab447a87b238165417fde5735e7980147b3",
+    "status": "PASS",
+    "exitCode": 0
+  },
+  "loopbackPreview": {
+    "url": "http://127.0.0.1:3000/",
+    "status": 200,
+    "reachable": true
+  },
+  "exactShaCi": [
+    {
+      "conclusion": "success",
+      "databaseId": 41404203153,
+      "displayTitle": "feat(home): search authorized file indexes and measured apps",
+      "headSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "status": "completed",
+      "updatedAt": "2026-11-02T07:09:39Z",
+      "url": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41404203153",
+      "workflowName": "KNOuX Gemini Standalone"
+    }
+  ],
+  "inFlightWork": true,
+  "ok": true
+}

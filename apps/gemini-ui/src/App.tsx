@@ -1,9 +1,15 @@
-import { StorageCleanupLiveWorkbench } from './operations/StorageCleanupLiveWorkbench';
-import { OrganizationLiveWorkbench } from './operations/OrganizationLiveWorkbench';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+
+// Canonical KNOuX theme tokens. This is deliberately the very first import in
+// the module graph: every domain stylesheet — including the ones pulled in by
+// the page components below — resolves its surface, edge, state and type roles
+// against this file, so nothing can define a palette before it.
+import './visual/knox-theme.css';
+import { StorageCleanupLiveWorkbench } from './operations/StorageCleanupLiveWorkbench';
+import { OrganizationLiveWorkbench } from './operations/OrganizationLiveWorkbench';
 
 import React, { useState, useEffect } from 'react';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
@@ -27,6 +33,15 @@ import { KNOuXAssistantChat } from './components/chat/KNOuXAssistantChat';
 import { ApiKeySetupModal } from './components/chat/ApiKeySetupModal';
 import { setAiSession } from './lib/ai-session';
 
+// Canonical KNOuX theme tokens: the only place a surface, edge, state or type
+// role is defined. Must precede every domain stylesheet so their own aliases
+// resolve against it rather than competing with it.
+import './visual/knox-theme.css';
+// Night material bridge: re-maps the renderer's hard-coded navy literals onto
+// the canonical obsidian tokens. Generated — see
+// scripts/generate-night-material-bridge.mjs. Loads with the domain layers,
+// before the material pass that consumes it.
+import './visual/knox-night-bridge.css';
 import './studio/styles/studio.css';
 import './studio/styles/command-center.css';
 import './applications.css';
@@ -60,9 +75,9 @@ import './visual/repair-reference.css';
 // Home's day/night material layer: re-maps the literal dark utilities inside
 // .knx-home-root only, so it must come after the global light bridge.
 import './visual/home-reference.css';
-// Restraint pass over the reference shells: restores the navy night identity,
-// the rail and the System register. Materials only, no structural change, and
-// deliberately no .knx-orbit rules now that the engine owns that surface.
+// Restraint pass over the reference shells: readable service register columns
+// and an orbital dial that survives laptop widths. Materials now come from the
+// canonical token layer, so this file no longer repaints the shell.
 import './visual/reference-restraint.css';
 // Orbital Service Engine is the single source of truth for every .knx-orbit
 // surface, so it loads last and nothing re-styles the dial behind its back.
@@ -74,6 +89,11 @@ import './visual/knoux-motion.css';
 import './visual/design-recovery.css';
 import './visual/service-workspaces.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
+// Glass material pass loads after absolutely everything, including the
+// cinematic entry stylesheet, because it is the layer that decides what a
+// surface physically is: fill, edge, elevation, blur and focus. Material only —
+// it never changes geometry, controls or data.
+import './visual/knox-glass.css';
 
 export type { AppSection } from './context/NavigationContext';
 

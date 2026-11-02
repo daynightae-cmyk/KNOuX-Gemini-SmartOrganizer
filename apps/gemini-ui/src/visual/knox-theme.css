@@ -1,0 +1,234 @@
+/**
+ * KNOuX — canonical theme tokens (single source of truth).
+ *
+ * Loads before every domain stylesheet and is loaded again by nothing: every
+ * other layer consumes these names instead of inventing its own palette.
+ *
+ * Two resolved themes, authored as a pair rather than one inverted from the
+ * other:
+ *
+ *   NIGHT — obsidian violet. A near-black violet void with a lit atmosphere,
+ *           translucent glass panels that take the atmosphere through them,
+ *           a luminous top edge on every raised surface, and violet/cyan light
+ *           used for hierarchy rather than decoration.
+ *   DAY   — porcelain violet. The same geometry and the same accent logic on a
+ *           cool white base, with real shadows instead of glow, so the two
+ *           themes read as one product.
+ *
+ * Rules for contributors:
+ *   - never write a raw surface hex in a new screen; take a token;
+ *   - status hues (success/warning/error/info) are shared vocabulary and must
+ *     not be re-derived per section;
+ *   - `--knx-night-*` keeps its historical name because the existing domain
+ *     bridge consumes it; it is the NIGHT value of the matching `--knx-*` role.
+ */
+
+:root {
+  /* ---- geometry ------------------------------------------------------- */
+  --knx-r-xs: 6px;
+  --knx-r-sm: 9px;
+  --knx-r-md: 13px;
+  --knx-r-lg: 18px;
+  --knx-r-xl: 24px;
+  --knx-r-pill: 999px;
+
+  --knx-sp-1: 4px;
+  --knx-sp-2: 8px;
+  --knx-sp-3: 12px;
+  --knx-sp-4: 16px;
+  --knx-sp-5: 22px;
+  --knx-sp-6: 30px;
+
+  /* ---- typography ----------------------------------------------------- */
+  /* Plus Jakarta Sans and Tajawal are preconnected in index.html; the local
+     faces are the fallback so the app still looks authored offline. */
+  --knx-font-ui: 'Plus Jakarta Sans', 'Tajawal', 'Segoe UI Variable Text', 'Segoe UI',
+    system-ui, -apple-system, sans-serif;
+  --knx-font-display: 'Plus Jakarta Sans', 'Tajawal', 'Segoe UI Variable Display', 'Segoe UI',
+    system-ui, sans-serif;
+  --knx-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ---- motion --------------------------------------------------------- */
+  --knx-motion-fast: 130ms;
+  --knx-motion-base: 220ms;
+  --knx-motion-slow: 420ms;
+  --knx-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --knx-ease-in-out: cubic-bezier(0.65, 0.05, 0.36, 1);
+
+  /* ---- glass recipe --------------------------------------------------- */
+  /* One blur value for the whole product: per-section blur drift is what made
+     the night theme read as inconsistent. */
+  --knx-glass-blur: 20px;
+  --knx-glass-saturate: 155%;
+  --knx-glass-blur-soft: 12px;
+}
+
+/* ==========================================================================
+   NIGHT — obsidian violet
+   ========================================================================== */
+html:not([data-theme='light']) {
+  color-scheme: dark;
+
+  --knx-canvas: #07060f;
+  --knx-canvas-lit: #0c0a1a;
+  --knx-surface: rgba(25, 22, 48, 0.72);
+  --knx-surface-2: rgba(34, 30, 62, 0.74);
+  --knx-raised: rgba(46, 40, 80, 0.78);
+  --knx-hover: rgba(60, 52, 102, 0.82);
+  --knx-inset: rgba(12, 10, 26, 0.78);
+  --knx-scrim: rgba(4, 3, 10, 0.72);
+
+  --knx-line: rgba(174, 145, 255, 0.24);
+  --knx-line-soft: rgba(174, 145, 255, 0.13);
+  --knx-line-strong: rgba(190, 165, 255, 0.42);
+  --knx-edge: rgba(255, 255, 255, 0.1);
+  --knx-edge-strong: rgba(255, 255, 255, 0.18);
+
+  --knx-ink: #f7f5ff;
+  --knx-ink-2: #ddd6f6;
+  --knx-muted: #a89ed2;
+  --knx-muted-2: #8a80b4;
+
+  --knx-accent: #a978ff;
+  --knx-accent-strong: #8b5cf6;
+  --knx-accent-soft: rgba(169, 120, 255, 0.16);
+  --knx-accent-ink: #f0e6ff;
+  --knx-on-accent: #ffffff;
+  --knx-accent-deep: #4c1d95;
+  --knx-cyan: #46e0ff;
+  --knx-cyan-soft: rgba(70, 224, 255, 0.14);
+  --knx-success: #35e0a4;
+  --knx-warning: #ffc861;
+  --knx-error: #ff6b9a;
+  --knx-info: #6cb8ff;
+
+  --knx-glow-accent: 0 0 26px rgba(140, 92, 246, 0.3);
+  --knx-glow-cyan: 0 0 22px rgba(70, 224, 255, 0.22);
+  --knx-focus: #c4a6ff;
+  --knx-focus-ring: 0 0 0 2px rgba(196, 166, 255, 0.9), 0 0 18px rgba(140, 92, 246, 0.35);
+
+  --knx-elev-1: inset 0 1px 0 var(--knx-edge), 0 2px 8px rgba(2, 1, 8, 0.5);
+  --knx-elev-2: inset 0 1px 0 var(--knx-edge), 0 10px 28px rgba(2, 1, 8, 0.55),
+    0 0 0 1px rgba(174, 145, 255, 0.07);
+  --knx-elev-3: inset 0 1px 0 var(--knx-edge-strong), 0 22px 54px rgba(1, 0, 6, 0.66),
+    0 0 0 1px rgba(174, 145, 255, 0.12);
+
+  --knx-atmosphere:
+    radial-gradient(ellipse 62% 44% at 78% -6%, rgba(124, 58, 237, 0.3), transparent 62%),
+    radial-gradient(ellipse 48% 38% at 4% 104%, rgba(14, 116, 144, 0.24), transparent 66%),
+    radial-gradient(ellipse 30% 24% at 46% 42%, rgba(88, 28, 135, 0.16), transparent 70%);
+
+  /* Historical names kept for the existing domain bridge. */
+  --knx-night-canvas: var(--knx-canvas);
+  --knx-night-surface: var(--knx-surface);
+  --knx-night-surface-2: var(--knx-surface-2);
+  --knx-night-raised: var(--knx-raised);
+  --knx-night-hover: var(--knx-hover);
+  --knx-night-inset: var(--knx-inset);
+  --knx-night-line: var(--knx-line);
+  --knx-night-line-soft: var(--knx-line-soft);
+  --knx-night-ink: var(--knx-ink);
+  --knx-night-secondary: var(--knx-ink-2);
+  --knx-night-muted: var(--knx-muted);
+  --knx-night-accent: var(--knx-accent);
+  --knx-night-cyan: var(--knx-cyan);
+  --knx-night-success: var(--knx-success);
+  --knx-night-warning: var(--knx-warning);
+  --knx-night-error: var(--knx-error);
+  --knx-night-info: var(--knx-info);
+  --knx-night-shadow: var(--knx-elev-2);
+}
+
+/* ==========================================================================
+   DAY — porcelain violet
+   ========================================================================== */
+html[data-theme='light'] {
+  color-scheme: light;
+
+  --knx-canvas: #f1f0fa;
+  --knx-canvas-lit: #f8f7fd;
+  --knx-surface: rgba(255, 255, 255, 0.86);
+  --knx-surface-2: rgba(250, 249, 255, 0.9);
+  --knx-raised: rgba(255, 255, 255, 0.96);
+  --knx-hover: rgba(243, 239, 255, 0.96);
+  --knx-inset: rgba(238, 235, 250, 0.86);
+  --knx-scrim: rgba(28, 22, 52, 0.32);
+
+  --knx-line: rgba(103, 78, 168, 0.2);
+  --knx-line-soft: rgba(103, 78, 168, 0.12);
+  --knx-line-strong: rgba(103, 78, 168, 0.36);
+  --knx-edge: rgba(255, 255, 255, 0.9);
+  --knx-edge-strong: #ffffff;
+
+  --knx-ink: #15112e;
+  --knx-ink-2: #37305c;
+  --knx-muted: #655e8a;
+  --knx-muted-2: #7d769f;
+
+  --knx-accent: #6d28d9;
+  --knx-accent-strong: #5b21b6;
+  --knx-accent-soft: rgba(109, 40, 217, 0.1);
+  --knx-accent-ink: #4c1d95;
+  --knx-on-accent: #ffffff;
+  --knx-accent-deep: #3b0764;
+  --knx-cyan: #0e7490;
+  --knx-cyan-soft: rgba(14, 116, 144, 0.1);
+  --knx-success: #0f766e;
+  --knx-warning: #b45309;
+  --knx-error: #be123c;
+  --knx-info: #1d4ed8;
+
+  --knx-glow-accent: 0 6px 20px rgba(109, 40, 217, 0.16);
+  --knx-glow-cyan: 0 6px 18px rgba(14, 116, 144, 0.14);
+  --knx-focus: #6d28d9;
+  --knx-focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px rgba(109, 40, 217, 0.75);
+
+  --knx-elev-1: inset 0 1px 0 var(--knx-edge), 0 1px 3px rgba(40, 26, 88, 0.07);
+  --knx-elev-2: inset 0 1px 0 var(--knx-edge), 0 6px 18px rgba(40, 26, 88, 0.09),
+    0 0 0 1px rgba(103, 78, 168, 0.06);
+  --knx-elev-3: inset 0 1px 0 var(--knx-edge-strong), 0 18px 44px rgba(30, 18, 70, 0.14),
+    0 0 0 1px rgba(103, 78, 168, 0.08);
+
+  --knx-atmosphere:
+    radial-gradient(ellipse 58% 40% at 80% -8%, rgba(139, 92, 246, 0.16), transparent 62%),
+    radial-gradient(ellipse 46% 36% at 2% 104%, rgba(8, 145, 178, 0.12), transparent 66%),
+    radial-gradient(ellipse 32% 26% at 44% 44%, rgba(167, 139, 250, 0.1), transparent 70%);
+
+  /* Historical names kept for the existing domain bridge. */
+  --knx-night-canvas: var(--knx-canvas);
+  --knx-night-surface: var(--knx-surface);
+  --knx-night-surface-2: var(--knx-surface-2);
+  --knx-night-raised: var(--knx-raised);
+  --knx-night-hover: var(--knx-hover);
+  --knx-night-inset: var(--knx-inset);
+  --knx-night-line: var(--knx-line);
+  --knx-night-line-soft: var(--knx-line-soft);
+  --knx-night-ink: var(--knx-ink);
+  --knx-night-secondary: var(--knx-ink-2);
+  --knx-night-muted: var(--knx-muted);
+  --knx-night-accent: var(--knx-accent);
+  --knx-night-cyan: var(--knx-cyan);
+  --knx-night-success: var(--knx-success);
+  --knx-night-warning: var(--knx-warning);
+  --knx-night-error: var(--knx-error);
+  --knx-night-info: var(--knx-info);
+  --knx-night-shadow: var(--knx-elev-2);
+}
+
+/* Base document material: the atmosphere is painted once on the canvas, so the
+   panels above it can be genuinely translucent. */
+html:not([data-theme='light']) body {
+  background-color: var(--knx-canvas);
+  background-image: var(--knx-atmosphere);
+  background-attachment: fixed;
+  color: var(--knx-ink);
+  font-family: var(--knx-font-ui);
+}
+
+html[data-theme='light'] body {
+  background-color: var(--knx-canvas);
+  background-image: var(--knx-atmosphere);
+  background-attachment: fixed;
+  color: var(--knx-ink);
+  font-family: var(--knx-font-ui);
+}

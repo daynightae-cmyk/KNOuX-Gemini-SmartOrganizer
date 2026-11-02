@@ -1,0 +1,199 @@
+{
+  "project": "KNOuX Gemini SmartOrganizer",
+  "canonicalRoot": "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer",
+  "remote": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git",
+  "updatedAt": "2026-11-02",
+  "statusVocabulary": {
+    "COMPLETE_VERIFIED": "every applicable layer of the scope is implemented and proven by the evidence named in this record",
+    "PARTIAL": "real work landed, but at least one required layer of the scope is still open; never an acceptance claim",
+    "BLOCKED_EXTERNAL": "every locally executable layer is done and honestly gated; the remaining proof needs an owner-supplied credential, account or consent",
+    "UNVERIFIED": "claimed or implemented, but no evidence in this record supports it",
+    "PLANNED": "scoped, not started"
+  },
+  "missions": [
+    {
+      "missionId": "M00-BASELINE",
+      "title": "Canonical state and protection revalidation",
+      "scope": "Re-derive the real repository, branch, remote, worktree, WIP and runtime state before any write, and record it instead of trusting dated status.",
+      "sourcePaths": [
+        "scripts/verify-workspace.py",
+        "scripts/capture-baseline-proof.py",
+        "scripts/verify-mission-ledger.py",
+        "AGENTS.md"
+      ],
+      "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "dependencies": [],
+      "ui": "not-applicable",
+      "nativeProvider": "not-applicable",
+      "apiIpc": "not-applicable",
+      "persistence": "not-applicable",
+      "securityConsent": "Read-only inspection. No reset, clean, force-push, branch deletion, process kill or owner-data modification.",
+      "tests": [
+        "python scripts/verify-workspace.py -> PASS (exit 0)",
+        "python scripts/capture-baseline-proof.py -> ok true (exit 0)",
+        "git status --porcelain --untracked-files=no at intake -> empty (tracked tree clean on df655ab)",
+        "git ls-remote origin main -> df655ab447a87b238165417fde5735e7980147b3 == local HEAD",
+        "gh run view 41404203153 -> conclusion success, headSha df655ab, workflow 'KNOuX Gemini Standalone'",
+        "python scripts/verify-mission-ledger.py -> ok true"
+      ],
+      "electronEvidence": [
+        "docs/evidence/baseline-20261102-m01/baseline-proof.json"
+      ],
+      "visualReference": null,
+      "commitSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "remoteSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "ci": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41404203153 (success, exact SHA)",
+      "status": "COMPLETE_VERIFIED",
+      "outstandingExternalRequirements": [],
+      "notes": "Baseline re-certified from live commands, not from dated status text. The tracked tree was clean at intake; it is now dirty with MISSION-01 work, which the baseline artefact records as inFlightWork. 102 pre-existing untracked items (visual evidence, two execution-control documents and another agent's verify-execution-evidence scripts) were preserved untouched and unclaimed.",
+      "runtimeScope": false
+    },
+    {
+      "missionId": "M01-VISUAL-SYSTEM",
+      "title": "Premium glass NIGHT/DAY visual system",
+      "scope": "One canonical token layer for both themes, a generated night material bridge over the renderer's hard-coded navy literals, and a single glass material pass applied across all 14 application sections; type, focus, elevation, state, RTL, reduced-motion, reduced-transparency and forced-colours behaviour included.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/visual/knox-theme.css",
+        "apps/gemini-ui/src/visual/knox-night-bridge.css",
+        "apps/gemini-ui/src/visual/knox-glass.css",
+        "apps/gemini-ui/src/visual/visual-sprint.css",
+        "apps/gemini-ui/src/visual/reference-restraint.css",
+        "apps/gemini-ui/src/visual/design-recovery.css",
+        "apps/gemini-ui/src/App.tsx",
+        "apps/gemini-ui/scripts/generate-night-material-bridge.mjs",
+        "apps/gemini-ui/scripts/theme-evidence-matrix.mjs",
+        "apps/gemini-ui/tests/theme/tokens.test.mjs",
+        "apps/gemini-ui/src/components/home/approved-home.css",
+        "apps/gemini-ui/scripts/renderer-performance-probe.mjs",
+        ".github/workflows/gemini-platform.yml",
+        "package.json",
+        "docs/MISSION_LEDGER.json",
+        "docs/M01_VISUAL_SYSTEM_ACCEPTANCE_20261102.md",
+        "scripts/capture-baseline-proof.py",
+        "scripts/verify-mission-ledger.py"
+      ],
+      "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "dependencies": [
+        "M00-BASELINE"
+      ],
+      "ui": "Obsidian-violet night and porcelain-violet day authored as one token pair; 624 hard-coded navy surface literals re-mapped to canonical roles by a generated, checked bridge; one glass recipe (translucent layered fill + 20px blur + saturate + luminous top edge + three elevation tiers) applied to shell, heroes, panels, cards, inspectors, workbenches and dialogs; Plus Jakarta Sans / Tajawal / JetBrains Mono replace the pinned Arial and Segoe UI; focus, kbd, table heads, rows, scrollbars and footer strip unified; reduced-transparency, reduced-motion and forced-colors guards added.",
+      "nativeProvider": "not-applicable (material layer only; no provider or measurement changed)",
+      "apiIpc": "not-applicable",
+      "persistence": "Existing knoux_theme_preference / knoux_theme persistence in NavigationContext is unchanged and still drives the resolved theme.",
+      "securityConsent": "No new capability, permission, file access, registry or account contact. Screenshots and performance samples use an isolated Electron profile against disposable fixtures; owner files, clipboard and OS state untouched. Two security-adjacent findings were recorded rather than silently patched: an inert Settings accent control and a frame-ancestors CSP declared in a meta tag where Chromium ignores it, with a workflow comment claiming a response header that does not exist.",
+      "tests": [
+        "npm run lint -> exit 0",
+        "npm run build -> exit 0 (CSS 968,957 B -> 992,280 B)",
+        "npm run test:theme -> exit 0 (10/10 token contract tests + generated bridge --check)",
+        "npm run ledger:check -> exit 0",
+        "test:native/test:navigation/test:workbench/test:settings/test:home/test:entry -> each exit 0",
+        "node scripts/theme-evidence-matrix.mjs x4 -> each exit 0, 112 frames, 0 route failures, 0 page errors, 0 page overflow",
+        "node scripts/renderer-performance-probe.mjs -> exit 1: two routes held 30fps in both runs with zero blurred elements; frame-pacing instrument judged not trustworthy (see receipt)"
+      ],
+      "electronEvidence": [
+        "docs/evidence/theme-matrix-20261102-accept-1672/matrix-proof.json",
+        "docs/evidence/theme-matrix-20261102-accept-1366/matrix-proof.json",
+        "docs/evidence/theme-matrix-20261102-accept-1920/matrix-proof.json",
+        "docs/evidence/theme-matrix-20261102-accept-ar/matrix-proof.json",
+        "docs/evidence/performance-20261102-m01/performance-proof.json",
+        "docs/evidence/baseline-20261102-m01/baseline-proof.json",
+        "docs/M01_VISUAL_SYSTEM_ACCEPTANCE_20261102.md"
+      ],
+      "visualReference": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/{day,night} (10 section pairs) + references/day/00_home-command-center.png",
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PARTIAL",
+      "outstandingExternalRequirements": [],
+      "notes": "CHECKPOINT, not MISSION_COMPLETE. Open: (1) the shared shell is still two shells - Home and Studio put the brand in the header, the other twelve put it in the rail; (2) no measured side-by-side comparison against the 10 paired references yet; (3) Home's hero band keeps its own reference-tuned artwork gradients, deliberately left for MISSION-02; (4) frame pacing instrumented but not certified - rAF throttling in an unfocused window made the metric unreliable, while blurred-element count (max 6) and zero idle heap growth are solid; (5) Settings offers four 'Neon Color Accent Scheme' options persisted in src/settings/profile.ts with no consumer, and Home's home-qa-toolbar puts a raw LOADING status and a 'Reference sample' checkbox on the product screen; (6) RTL mirrors the window controls to the top-left, which is wrong for a Windows app. MISSION-02 closes 1-3 and is the next task, not an unrelated domain.",
+      "runtimeScope": true
+    },
+    {
+      "missionId": "M02-HOME-REFERENCE",
+      "title": "Home pixel-fidelity to the final approved reference",
+      "scope": "Rebuild the real React/Electron Home to the composition of references/day/00_home-command-center.png (sha256 a777e4847a8bf8b44a6153b7795f05d325e23b3904025951a5b0015c0166569d, 1672x941, manifest order 0, 'approved new daylight Home reference; FIRST priority'), rendered with the canonical NIGHT tokens because no NIGHT Home picture was ever installed. Preserve the verified unified search, source-specific Files/Applications handoff, permission checks, real provider statuses and native navigation.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/components/home/ApprovedHomeScreen.tsx",
+        "apps/gemini-ui/src/components/home/approved-home.css",
+        "apps/gemini-ui/src/pages/HomePage.tsx",
+        "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx"
+      ],
+      "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "notes": "Known defects to close here: the home-qa-toolbar renders a raw LOADING/NOT_CONNECTED strip and a 'Reference sample' checkbox on the product screen; Home and Studio use a header-with-brand shell while the other sections use a sidebar-with-brand shell, so the shared shell is not yet one system."
+    },
+    {
+      "missionId": "M03-UNIVERSAL-ORBIT",
+      "title": "One shared live orbital wheel plus energy tubes across all 14 sections",
+      "scope": "Single canonical orbit+tube system bound to measured state through the existing typed architecture, present on every route.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/visual/KnouxOrbit.tsx",
+        "apps/gemini-ui/src/visual/ServicePipeline.tsx",
+        "apps/gemini-ui/src/visual/orbital-engine.css",
+        "apps/gemini-ui/src/visual/service-pipeline.css"
+      ],
+      "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "notes": "Measured inventory from the final 1672x941 night/day matrix: all 14 routes render the dial; Files, Storage, Cleanup and Settings render no energy tubes. 10/14 complete, 4/14 open. This is evidence, not an estimate."
+    },
+    {
+      "missionId": "M04-SECTION-HEADERS",
+      "title": "Per-section SectionHeader contract and simplified service UX",
+      "scope": "One reusable header contract with a distinct title, icon, purpose line, live status and primary action per section, plus guided first-use UX.",
+      "sourcePaths": [
+        "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx"
+      ],
+      "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
+      "dependencies": [
+        "M01-VISUAL-SYSTEM"
+      ],
+      "ui": "planned",
+      "nativeProvider": "planned",
+      "apiIpc": "planned",
+      "persistence": "planned",
+      "securityConsent": "planned",
+      "tests": [],
+      "electronEvidence": [],
+      "visualReference": null,
+      "commitSha": null,
+      "remoteSha": null,
+      "ci": null,
+      "status": "PLANNED",
+      "outstandingExternalRequirements": [],
+      "runtimeScope": true,
+      "notes": ""
+    }
+  ]
+}
