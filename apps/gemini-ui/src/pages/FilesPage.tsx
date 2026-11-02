@@ -528,7 +528,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             <div className="absolute inset-0 files-hero-nebula pointer-events-none" />
 
             {/* Breadcrumb & Title */}
-            <div className="knx-files-heading relative z-10 mb-2">
+            <div data-knx-hero className="knx-files-heading relative z-10 mb-2">
               <ReferenceAtmosphere />
               <div className="knx-files-intro">
               <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-0.5">
@@ -554,7 +554,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               </div>
               </div>
               <div className="knx-files-orbit">
-                <OrbitalControl coreIcon={FolderOpen} title={locale === 'en' ? 'Explore Files' : 'استكشف الملفات'} subtitle={locale === 'en' ? 'Find, organize and manage' : 'ابحث ونظّم وأدر ملفاتك'}
+                <OrbitalControl hero coreIcon={FolderOpen} title={locale === 'en' ? 'Explore Files' : 'استكشف الملفات'} subtitle={locale === 'en' ? 'Find, organize and manage' : 'ابحث ونظّم وأدر ملفاتك'}
                   onActivate={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()}
                   tools={[
                     { id: 'recent', label: locale === 'en' ? 'Recent' : 'الأحدث', icon: Clock, onClick: () => setSortBy('date_desc'), active: sortBy === 'date_desc' },

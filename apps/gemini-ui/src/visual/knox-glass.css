@@ -4,8 +4,9 @@
  * Loads last on purpose: it is the layer that decides what a surface *is*, and
  * it must win the cascade without every domain stylesheet being rewritten.
  *
- * It only ever restates material (fill, edge, shadow, blur, focus, type). It
- * never changes geometry, layout, copy, controls or data. Section-authored
+ * It restates material (fill, edge, shadow, blur, focus, type), with the
+ * provisional non-clipping hero geometry in section 5b. It changes no copy,
+ * controls or data. Section-authored
  * `background-image` glows are deliberately left alone so each screen keeps its
  * own identity while sitting on the same glass.
  *
@@ -349,6 +350,75 @@ html[data-theme='light'] .visual-sprint :is(.apps-subpanel, .stp-subpanel, .knx-
   outline: none;
 }
 
+
+/* ==========================================================================
+   5b — Shared hero minimum and material, both themes
+   ========================================================================== */
+
+/* Keep the common material and minimum rhythm without clipping real controls.
+   These existing containers have different contents: a fixed height/max-height
+   hid actions or let them overlap the following panel. Exact equal bounds remain
+   a composition task, not something an overflow rule can establish. Files' outer
+   tool container and Studio's compact service header are not visual hero bands. */
+.visual-sprint :is(
+    [data-knx-hero]:not(.knx-section-hero), .home-hero, .approved-hero, .knx-command-hero, .sys-hero, .apps-hero,
+    .cln-hero, .stp-hero, .svc-hero, .rep-hero, .auto-hero, .scan-hero, .knx-storage-hero,
+    .atl-hero, .knx-workspace-hero, .osa-hero
+  ) {
+  height: auto !important;
+  min-height: var(--knx-hero-h) !important;
+  max-height: none !important;
+  padding: var(--knx-hero-pad-y) var(--knx-hero-pad-x) !important;
+  border-radius: var(--knx-r-lg) !important;
+  align-items: center;
+  overflow: hidden;
+  /* One material, one light, both themes. Section-authored gradients are
+     overridden on purpose: Settings' header carried fixed navy gradient stops,
+     which the night bridge cannot reach because it maps background, border and
+     color utilities rather than the from / via / to gradient stops. That is why
+     it read navy in daylight. */
+  background-color: var(--knx-surface-2) !important;
+  background-image: var(--knx-hero-glow) !important;
+  border: 1px solid var(--knx-line) !important;
+  box-shadow: var(--knx-elev-3), inset 0 1px 0 var(--knx-edge) !important;
+  backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+  -webkit-backdrop-filter: blur(var(--knx-glass-blur)) saturate(var(--knx-glass-saturate));
+}
+
+/* Satellites are interactive controls. Let their authored layout contribute to
+   the intrinsic band height instead of capping it below the instrument itself. */
+.visual-sprint :is(.home-hero-orbit, .approved-orbit, .sys-hero-orbit, .apps-hero-orbit,
+  .cln-hero-orbit, .stp-hero-orbit, .svc-hero-orbit, .rep-hero-orbit, .auto-hero-orbit,
+  .scan-hero-orbit, .knx-storage-orbit, .atl-hero-orbit, .knx-workspace-orbit,
+  .osa-hero-orbit, .knx-domain-orbit-compact) {
+  max-height: none;
+  min-height: 0;
+}
+.visual-sprint .approved-orbit .knoux-orbit {
+  max-height: none !important;
+}
+/* Home already owns a responsive instrument wrapper (168/196px on short
+   viewports). Fit its live controls to that wrapper instead of letting the
+   shared orbit aspect ratio push the lower satellites past the hero. */
+.visual-sprint .home-hero-orbit .knoux-orbit {
+  height: 100% !important;
+  min-height: 0;
+  max-height: 100% !important;
+}
+
+/* A taller Files tools area must not reduce the result ledger to zero rows.
+   Small windows scroll this workspace, not the document; every filter and the
+   existing table remain reachable, and the plan action stays at the lower edge. */
+.visual-sprint[data-visual-section='files'] [data-testid='files-workspace'] {
+  grid-template-rows: auto minmax(180px, 1fr) 48px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.visual-sprint[data-visual-section='files'] [data-testid='files-footer'] {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+}
 /* ==========================================================================
    6 — Dense rows, headers and scrollbars
    ========================================================================== */

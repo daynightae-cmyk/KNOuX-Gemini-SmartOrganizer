@@ -358,7 +358,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
                 </div>
               </div>
 
-              <OrbitalControl title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
+              <OrbitalControl hero title={t(locale, 'Diagnose', 'تشخيص')} subtitle={t(locale, 'Evidence before action', 'الدليل قبل الإجراء')}
                 eyebrow={t(locale, 'Repair scopes', 'نطاقات الإصلاح')}
                 onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
                 tools={[

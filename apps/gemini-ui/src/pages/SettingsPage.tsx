@@ -809,7 +809,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
           )}
 
           {/* Ultra-Sleek HUD Header Banner */}
-          <div className="shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div data-knx-tools className="knx-settings-tools shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
             <div className="z-10 flex items-start gap-4">
@@ -859,7 +859,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
               ]}
             />
 
-            <div className="knx-domain-orbit-compact" data-testid="settings-orbit"><KnouxOrbit title={isArabic?'الإعدادات':'Settings'} subtitle={isArabic?'تفضيلات محلية فقط':'Local preferences only'} state="partial" onActivate={()=>setActiveTab('guard')} tools={([
+            <div className="knx-domain-orbit-compact" data-testid="settings-orbit"><KnouxOrbit hero title={isArabic?'الإعدادات':'Settings'} subtitle={isArabic?'تفضيلات محلية فقط':'Local preferences only'} state="partial" onActivate={()=>setActiveTab('guard')} tools={([
               {id:'engine',label:isArabic?'الأداء':'Engine',icon:Cpu},{id:'ai_keys',label:isArabic?'جلسة AI':'AI Session',icon:Key},{id:'guard',label:isArabic?'الخصوصية':'Privacy',icon:Shield},{id:'appearance',label:isArabic?'المظهر':'Appearance',icon:Palette},{id:'language',label:isArabic?'اللغة':'Language',icon:Languages},{id:'backup',label:isArabic?'الملف':'Profile',icon:Database},
             ] as const).map((tool,i)=>({...tool,active:activeTab===tool.id,onClick:()=>setActiveTab(tool.id),position:[{x:25,y:17},{x:75,y:17},{x:12,y:51},{x:88,y:51},{x:25,y:83},{x:75,y:83}][i]}))}/></div>
             <div className="z-10 flex items-center gap-2">

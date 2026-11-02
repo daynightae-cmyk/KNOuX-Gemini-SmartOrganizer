@@ -1,6 +1,8 @@
-import {useId,type CSSProperties,type ComponentType,type ReactNode} from 'react';
+import {useContext,useId,type CSSProperties,type ComponentType,type ReactNode} from 'react';
 import {Play,type LucideIcon} from 'lucide-react';
 import {KnouxMark} from './ReferenceAtmosphere';
+import {LivingLayoutContext,LivingOrbitMount} from './LivingLayoutContext';
+import {SECTION_VISUALS} from './section-visual-configuration';
 import './knoux-orbit.css';
 
 export type OrbitTone='violet'|'blue'|'teal'|'amber'|'emerald'|'rose'|'indigo'|'sky'|'red';
@@ -15,16 +17,18 @@ export interface KnouxOrbitProps{
  title:string;subtitle:string;tools:OrbitTool[];onActivate:()=>void;disabled?:boolean;running?:boolean;
  /** Caller-owned provider state. This component starts no timers or operations. */
  state?:KnouxOrbitState;eyebrow?:string;coreMark?:ReactNode;coreIcon?:LucideIcon;className?:string;testId?:string;
- optics?:'home';decorativeMotion?:boolean;
+ optics?:'home';decorativeMotion?:boolean;hero?:boolean;
 }
 const tones:OrbitTone[]=['violet','blue','teal','amber','emerald','rose','indigo','sky','red'];
 const stateLabel:Record<OrbitToolState,string>={available:'available',active:'current',loading:'loading',failed:'failed',disabled:'disabled',unavailable:'unavailable'};
 /** Shared vector instrument. Static controls sit above an independent decorative
  * SVG layer. A sweep is ambient light, never a percentage or simulated progress. */
-export function KnouxOrbit({title,subtitle,tools,onActivate,disabled=false,running=false,state,eyebrow,coreMark,coreIcon:CoreIcon,className='',testId,optics,decorativeMotion=true}:KnouxOrbitProps){
+export function KnouxOrbit({title,subtitle,tools,onActivate,disabled=false,running=false,state,eyebrow,coreMark,coreIcon:CoreIcon,className='',testId,optics,decorativeMotion=true,hero=false}:KnouxOrbitProps){
  const home=optics==='home';
+ const living=useContext(LivingLayoutContext);
+ const HeroIcon=hero&&living&&!['home','smart_scan','cleanup','workspace'].includes(living.section)?SECTION_VISUALS[living.section].icon:null;
  const id='knoux-orbit-'+useId().replace(/[^a-zA-Z0-9_-]/g,''),status=state??(running?'loading':disabled?'unavailable':'ready');
- return <div className={`knx-orbit knx-vector-orbit is-${status}${running?' is-running':''}${decorativeMotion?' has-decorative-motion':''} ${home?'knoux-orbit':''} ${className}`} role="group" aria-label={eyebrow||title} data-orbit-state={status} data-testid={testId}>
+ const instrument = <div className={`knx-orbit knx-vector-orbit is-${status}${running?' is-running':''}${decorativeMotion?' has-decorative-motion':''} ${home?'knoux-orbit':''} ${className}`} role="group" aria-label={eyebrow||title} data-live-hero-orbit={hero||undefined} data-orbit-state={status} data-testid={testId}>
   <svg className={`knx-orbit-vector ${home?'knoux-orbit__svg':''}`} viewBox={home?'0 0 540 344':'0 0 500 320'} preserveAspectRatio="none" aria-hidden="true" focusable="false">
    {home?<>{/* v0 procedural optics; controls retain the local typed contract. */}        <defs>
           <radialGradient id={`${id}-halo`}><stop stopColor="#ead6ff" stopOpacity=".8"/><stop offset=".4" stopColor="#a44fff" stopOpacity=".38"/><stop offset="1" stopColor="#5422b8" stopOpacity="0"/></radialGradient>
@@ -81,10 +85,11 @@ export function KnouxOrbit({title,subtitle,tools,onActivate,disabled=false,runni
    <g className="knx-vector-particles">{Array.from({length:12},(_,i)=>{const angle=(i*30+13)*Math.PI/180;return <circle key={i} cx={250+(i%2?202:160)*Math.cos(angle)} cy={160+(i%2?132:105)*Math.sin(angle)} r={i%3?1.8:3} style={{'--particle-phase':i*-.43+'s'} as CSSProperties}/>;})}</g></>}
   </svg>
   <button type="button" className={home?'knoux-orbit__core':'knx-orbit-core'} onClick={onActivate} disabled={disabled||status==='loading'||status==='unavailable'} aria-busy={status==='loading'||undefined}>
-   <span className={home?'knoux-orbit__mark':'knx-orbit-core-mark'}>{coreMark||<KnouxMark/>}{CoreIcon&&<span className="knx-orbit-hub-service"><CoreIcon size={14} aria-hidden="true"/></span>}</span><strong>{title}</strong><span className="knx-orbit-core-sub">{subtitle}</span>{!home&&<span className="knx-orbit-play" aria-hidden="true"><Play size={15} fill="currentColor" strokeWidth={0}/></span>}
+   <span className={home?'knoux-orbit__mark':'knx-orbit-core-mark'}>{coreMark||(HeroIcon?<HeroIcon size={35} aria-hidden="true"/>:<KnouxMark/>)}{CoreIcon&&<span className="knx-orbit-hub-service"><CoreIcon size={14} aria-hidden="true"/></span>}</span><strong>{title}</strong><span className="knx-orbit-core-sub">{subtitle}</span>{!home&&<span className="knx-orbit-play" aria-hidden="true"><Play size={15} fill="currentColor" strokeWidth={0}/></span>}
   </button>
-  <nav className={home?'knoux-orbit__tools':'knx-orbit-tools'} aria-label={eyebrow||title}>{tools.map((tool,i)=>{const nodeState=tool.state??(tool.disabled?'disabled':tool.active?'active':'available');return <button key={tool.id} type="button" className={`${home?'knoux-orbit__tool':'knx-orbit-tool'} is-${nodeState} tone-${tool.tone??tones[i%tones.length]}`} style={{transform:'translate(-50%,-50%)',...{'--orbit-angle':(i*360/Math.max(1,tools.length)-90)+'deg'},...(home?{'--orbit-x':(tool.position?.x??[50,82,86,62,30,18][i])+'%','--orbit-y':(tool.position?.y??[8,28,58,84,84,48][i])+'%'}:tool.position?{left:tool.position.x+'%',top:tool.position.y+'%'}:{})} as CSSProperties} onClick={tool.onClick} disabled={tool.disabled||['disabled','unavailable','loading'].includes(nodeState)} aria-pressed={tool.active} aria-current={nodeState==='active'&&tool.active===undefined?'step':undefined} aria-busy={nodeState==='loading'||undefined} title={tool.hint??tool.label} data-testid={tool.testId}>
+  <nav className={home?'knoux-orbit__tools':'knx-orbit-tools'} aria-label={eyebrow||title}>{tools.map((tool,i)=>{const nodeState=tool.state??(tool.disabled?'disabled':tool.active?'active':'available');return <button key={tool.id} type="button" className={`${home?'knoux-orbit__tool':'knx-orbit-tool'} is-${nodeState} tone-${tool.tone??tones[i%tones.length]}`} style={{transform:'translate(-50%,-50%)',...{'--orbit-angle':(i*360/Math.max(1,tools.length)-90)+'deg'},...(home?{'--orbit-x':(tool.position?.x??[50,82,86,62,30,18][i])+'%','--orbit-y':(tool.position?.y??[8,28,58,84,84,48][i])+'%'}:tool.position?{left:tool.position.x+'%',top:tool.position.y+'%'}:{}),...(hero?{'--knx-hero-node-x':(50+37*Math.cos((i*360/Math.max(1,tools.length)-90)*Math.PI/180))+'%','--knx-hero-node-y':(50+37*Math.sin((i*360/Math.max(1,tools.length)-90)*Math.PI/180))+'%'}:{})} as CSSProperties} onClick={tool.onClick} disabled={tool.disabled||['disabled','unavailable','loading'].includes(nodeState)} aria-pressed={tool.active} aria-current={nodeState==='active'&&tool.active===undefined?'step':undefined} aria-busy={nodeState==='loading'||undefined} title={tool.hint??tool.label} data-testid={tool.testId}>
    {home?<span className="knoux-orbit__capsule"><tool.icon size={24} aria-hidden="true"/><span>{tool.label}</span></span>:<>   <span className="knx-orbit-chip"><tool.icon size={24} strokeWidth={2.1} aria-hidden="true"/><span className="knx-orbit-chip-dot" aria-hidden="true"/></span><span className="knx-orbit-label">{tool.label}{!['available','active'].includes(nodeState)&&<span className="knx-sr-only"> ({stateLabel[nodeState]})</span>}</span></>}
   </button>;})}</nav>
  </div>;
+ return <LivingOrbitMount enabled={hero}>{instrument}</LivingOrbitMount>;
 }

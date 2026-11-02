@@ -362,7 +362,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                   <button type="button" className="sys-btn sys-btn-quiet" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}><Download aria-hidden="true" />{t(locale, 'Export report', 'تصدير التقرير')}</button>
                 </div>
               </div>
-              <OrbitalControl title={t(locale, 'Flow Studio', 'استوديو التدفق')} subtitle={t(locale, 'Compose · Preview · Review', 'أنشئ · عاين · راجع')}
+              <OrbitalControl hero title={t(locale, 'Flow Studio', 'استوديو التدفق')} subtitle={t(locale, 'Compose · Preview · Review', 'أنشئ · عاين · راجع')}
                 onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || controller.scanning} running={controller.scanning}
                 tools={[
                   {id:'templates', label:t(locale,'Templates','القوالب'), icon:LayoutTemplate, onClick:() => openTool('auto-templates'), disabled:!snapshot},

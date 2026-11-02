@@ -127,7 +127,7 @@ export function StartupHero({ locale, controller, onOpenService }: StartupHeroPr
             ]}
           />
         </div>
-        <OrbitalControl title={t(locale, 'Analyze Startup', 'تحليل بدء التشغيل')} subtitle={t(locale, 'Measure · Inspect · Review', 'قِس · افحص · راجع')}
+        <OrbitalControl hero title={t(locale, 'Analyze Startup', 'تحليل بدء التشغيل')} subtitle={t(locale, 'Measure · Inspect · Review', 'قِس · افحص · راجع')}
           eyebrow={t(locale, 'Startup scopes', 'نطاقات البدء')}
           onActivate={() => void controller.startScan()} disabled={!controller.nativeAvailable || scanning} running={scanning}
           tools={[

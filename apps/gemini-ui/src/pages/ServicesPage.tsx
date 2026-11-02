@@ -306,7 +306,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 </div>
               </div>
               <div className="svc-hero-orbit">
-                <OrbitalControl
+                <OrbitalControl hero
                   title={t(locale, 'Service Commander', 'قائد الخدمات')}
                   subtitle={t(locale, 'Review the measured SCM register', 'راجع سجل SCM المقيس')}
                   eyebrow={t(locale, 'Service Commander scopes', 'نطاقات قائد الخدمات')}

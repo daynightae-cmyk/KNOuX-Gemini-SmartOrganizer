@@ -70,7 +70,7 @@ export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,on
  ];
  return <header className="osa-hero" data-testid="studio-overview-hero">
   <div className="osa-hero-orbit">
-   <OrbitalControl title={busy?t('Native active','Native نشط'):t('Run Organization','تشغيل التنظيم')} subtitle={t('Analyze and preview your files','حلّل ملفاتك وعاينها')} running={busy} tools={tools} onActivate={()=>onStage(scanned?6:1)} eyebrow={t('Organization categories','فئات التنظيم')} testId="studio-overview-orbit"/>
+   <OrbitalControl hero title={busy?t('Native active','Native نشط'):t('Run Organization','تشغيل التنظيم')} subtitle={t('Analyze and preview your files','حلّل ملفاتك وعاينها')} running={busy} tools={tools} onActivate={()=>onStage(scanned?6:1)} eyebrow={t('Organization categories','فئات التنظيم')} testId="studio-overview-orbit"/>
    {!scanned&&<p className="osa-orbit-note">{t('Authorize a source to measure these categories.','صرّح بمصدر لقياس هذه الفئات.')}</p>}
   </div>
   <div className="osa-hero-copy">

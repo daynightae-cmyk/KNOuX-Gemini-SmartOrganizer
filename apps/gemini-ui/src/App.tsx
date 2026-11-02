@@ -91,6 +91,8 @@ import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
 // cinematic entry stylesheet, because it is the layer that decides what a
 // surface physically is: fill, edge, elevation, blur and focus. Material only —
 // it never changes geometry, controls or data.
+import {UnifiedSectionLayout} from './visual/UnifiedSectionLayout';
+import './visual/living-glass-layout.css';
 import './visual/knox-glass.css';
 
 export type { AppSection } from './context/NavigationContext';
@@ -162,9 +164,11 @@ function AppContent() {
 
   return (
     <>
-      <div className="visual-sprint" data-visual-section={currentSection} data-reference-shell={['home', 'automation', 'studio', 'files', 'smart_scan', 'applications', 'storage', 'cleanup', 'startup', 'system', 'repair', 'services'].includes(currentSection)}>{renderActiveWorkspace()}</div>
-      <OrganizationLiveWorkbench />
-      <StorageCleanupLiveWorkbench />
+      <UnifiedSectionLayout>
+        {renderActiveWorkspace()}
+        <OrganizationLiveWorkbench />
+        <StorageCleanupLiveWorkbench />
+      </UnifiedSectionLayout>
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}

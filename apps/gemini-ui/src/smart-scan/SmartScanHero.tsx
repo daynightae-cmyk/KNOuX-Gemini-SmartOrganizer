@@ -160,7 +160,7 @@ export const SmartScanHero: React.FC<SmartScanHeroProps> = ({
         </div>
       </div>
 
-      <OrbitalControl title={isArabic ? 'بدء الفحص الذكي' : 'Start Smart Scan'} subtitle={isArabic ? 'تحليل آمن للقراءة فقط' : 'Safe, read-only analysis'}
+      <OrbitalControl hero title={isArabic ? 'بدء الفحص الذكي' : 'Start Smart Scan'} subtitle={isArabic ? 'تحليل آمن للقراءة فقط' : 'Safe, read-only analysis'}
         onActivate={sourceReady ? onRunQuick : onAuthorizeSource} disabled={!nativeAvailable || isScanning} running={isScanning}
         tools={[
             { id: 'quick', label: isArabic ? 'فحص سريع' : 'Quick Scan', icon: Zap, onClick: onRunQuick, disabled: !nativeAvailable || !sourceReady || isScanning, hint: isArabic ? 'يكتب خطة قياس للقراءة فقط' : 'Measured read-only plan' },

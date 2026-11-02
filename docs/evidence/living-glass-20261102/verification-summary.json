@@ -1,0 +1,206 @@
+{
+  "screenshots": 56,
+  "scenarios": [
+    {
+      "directory": "artwork-day1672",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1672x941/day/en": {
+          "x": 12,
+          "y": 12,
+          "w": 1408,
+          "h": 340
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+      ]
+    },
+    {
+      "directory": "artwork-day1920",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1920x1080/day/en": {
+          "x": 12,
+          "y": 12,
+          "w": 1656,
+          "h": 360
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+      ]
+    },
+    {
+      "directory": "artwork-day-ar",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1366x768/day/ar": {
+          "x": 12,
+          "y": 12,
+          "w": 1102,
+          "h": 280
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+      ]
+    },
+    {
+      "directory": "artwork-night",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1672x941/night/en": {
+          "x": 12,
+          "y": 12,
+          "w": 1408,
+          "h": 340
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "check": "lint",
+      "exitCode": 0
+    },
+    {
+      "check": "test:theme",
+      "exitCode": 0
+    },
+    {
+      "check": "test:i18n",
+      "exitCode": 0
+    },
+    {
+      "check": "test:home",
+      "exitCode": 0
+    },
+    {
+      "check": "test:navigation",
+      "exitCode": 0
+    },
+    {
+      "check": "test:workbench",
+      "exitCode": 0
+    },
+    {
+      "check": "test:files",
+      "exitCode": 0
+    },
+    {
+      "check": "test:storage",
+      "exitCode": 0
+    },
+    {
+      "check": "test:cleanup",
+      "exitCode": 0
+    },
+    {
+      "check": "test:scan",
+      "exitCode": 0
+    },
+    {
+      "check": "test:startup",
+      "exitCode": 0
+    },
+    {
+      "check": "test:system",
+      "exitCode": 0
+    },
+    {
+      "check": "test:repair",
+      "exitCode": 0
+    },
+    {
+      "check": "test:services",
+      "exitCode": 0
+    },
+    {
+      "check": "test:automation",
+      "exitCode": 0
+    },
+    {
+      "check": "test:settings",
+      "exitCode": 0
+    },
+    {
+      "check": "test:google",
+      "exitCode": 0
+    },
+    {
+      "check": "build",
+      "exitCode": 0
+    }
+  ],
+  "motion": {
+    "ok": true,
+    "routes": 14,
+    "maximumTargetDeviation": 0,
+    "maximumRadiusError": 0.000010442443823421854,
+    "reducedMotion": true,
+    "transparentAssets": 14,
+    "interactions": [
+      {
+        "name": "files-portaled-search-en",
+        "ok": true,
+        "evidence": {
+          "lastRowReachable": true,
+          "footerTop": 707,
+          "footerBottom": 755,
+          "documentOverflow": 0,
+          "scope": "explicit built-in fixture; owner file not opened or authorized"
+        }
+      },
+      {
+        "name": "files-portaled-search-ar",
+        "ok": true,
+        "evidence": {
+          "lastRowReachable": true,
+          "footerTop": 707,
+          "footerBottom": 755,
+          "documentOverflow": 0,
+          "scope": "explicit built-in fixture; owner file not opened or authorized"
+        }
+      },
+      {
+        "name": "studio-state-and-native-portal",
+        "ok": true,
+        "evidence": {
+          "stageRoundTrip": "overview -> stage 2 -> overview",
+          "portalMounted": 1,
+          "ownerSourceAuthorized": false
+        }
+      },
+      {
+        "name": "shared-navigation-callback",
+        "ok": true,
+        "evidence": {
+          "route": "files",
+          "chromeHeaders": 1,
+          "navigationRails": 1
+        }
+      }
+    ]
+  },
+  "visualFidelityAccepted": false
+}

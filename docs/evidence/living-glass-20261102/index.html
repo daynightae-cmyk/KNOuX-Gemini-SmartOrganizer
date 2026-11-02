@@ -1,0 +1,210 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>KNOuX Living Glass — actual Electron evidence</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f4f0ff;color:#20123f;font:15px/1.5 system-ui}header,main{max-width:1800px;margin:auto;padding:24px}header{background:#fff9;border-bottom:1px solid #d8c4fa}h1{margin:0}p{max-width:1100px}.controls{display:flex;gap:18px;flex-wrap:wrap}label{display:grid;font-weight:650}select{padding:10px;min-width:210px;border:1px solid #b79ce2;border-radius:10px;background:white;color:inherit}.pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}figure{margin:12px 0}figcaption{font-weight:700;margin:8px 0}img{width:100%;height:auto;border:1px solid #d8c4fa;border-radius:10px;background:#fff}a{color:#6429b5}nav{display:flex;flex-wrap:wrap;gap:18px}pre{white-space:pre-wrap;background:white;padding:18px;border-radius:12px}.note{padding:12px;background:#fff3d5;border-radius:10px}button{padding:8px 14px;border:1px solid #b79ce2;border-radius:10px;background:white;color:#20123f;cursor:pointer}@media(max-width:900px){.pair{grid-template-columns:1fr}}</style>
+<header><h1>KNOuX · Living Glass evidence</h1><p>14 reconstructed section scenes, one shared geometry, real page-owned controls. These are actual isolated Electron screenshots from the production build, not UI mockups.</p><p class="note"><b>PARTIALLY VERIFIED — visual acceptance remains open.</b> Shared geometry, artwork loading, motion and listed interactions passed. Artwork is a reference-guided reconstruction: exact lighting, silhouettes and composition still differ. No installed-app, exhaustive service execution or production certification is implied.</p><div class="controls"><label>section<select id="section"><option value="studio">studio</option><option value="home">home</option><option value="workspace">workspace</option><option value="startup">startup</option><option value="smart_scan">smart scan</option><option value="applications">applications</option><option value="services">services</option><option value="system">system</option><option value="repair">repair</option><option value="automation">automation</option><option value="files">files</option><option value="storage">storage</option><option value="cleanup">cleanup</option><option value="settings">settings</option></select></label><label>scenario<select id="scenario"><option value="artwork-day1672">DAY EN · 1672x941</option><option value="artwork-day1920">DAY EN · 1920x1080</option><option value="artwork-day-ar">DAY AR · 1366x768</option><option value="artwork-night">NIGHT EN · 1672x941</option></select></label></div></header>
+<main><nav><a href="README.md">Engineering report</a><a href="verification-summary.json">Measured results</a><a href="artwork-manifest.json">Artwork hashes</a><a href="artwork-prompts.json">Reference-guided prompts</a><a href="preservation.json">Preservation</a></nav><div class="pair"><figure><figcaption>Approved owner reference · complete 2172×724 composition</figcaption><a id="ref-link"><img id="reference"></a></figure><figure><figcaption>Actual Electron · unified hero crop</figcaption><a id="hero-link"><img id="hero"></a></figure></div><figure><figcaption>Actual Electron · full viewport / hero-to-body continuity</figcaption><a id="full-link"><img id="full"></a></figure><details><summary>End of internal page scroll (actual runtime)</summary><img id="end"></details><details><summary>Motion frames (400ms apart; interaction targets remain stationary)</summary><div class="pair"><img id="motion0"><img id="motion1"></div></details><p id="measurement"></p><details><summary>Verification and limits</summary><pre>{
+  "screenshots": 56,
+  "scenarios": [
+    {
+      "directory": "artwork-day1672",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1672x941/day/en": {
+          "x": 12,
+          "y": 12,
+          "w": 1408,
+          "h": 340
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a &lt;meta> element."
+      ]
+    },
+    {
+      "directory": "artwork-day1920",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1920x1080/day/en": {
+          "x": 12,
+          "y": 12,
+          "w": 1656,
+          "h": 360
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a &lt;meta> element."
+      ]
+    },
+    {
+      "directory": "artwork-day-ar",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1366x768/day/ar": {
+          "x": 12,
+          "y": 12,
+          "w": 1102,
+          "h": 280
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a &lt;meta> element."
+      ]
+    },
+    {
+      "directory": "artwork-night",
+      "frames": 14,
+      "runtimeOk": true,
+      "geometryOk": true,
+      "geometry": {
+        "1672x941/night/en": {
+          "x": 12,
+          "y": 12,
+          "w": 1408,
+          "h": 340
+        }
+      },
+      "failedRequests": [],
+      "errors": [],
+      "consoleMessages": [
+        "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a &lt;meta> element."
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "check": "lint",
+      "exitCode": 0
+    },
+    {
+      "check": "test:theme",
+      "exitCode": 0
+    },
+    {
+      "check": "test:i18n",
+      "exitCode": 0
+    },
+    {
+      "check": "test:home",
+      "exitCode": 0
+    },
+    {
+      "check": "test:navigation",
+      "exitCode": 0
+    },
+    {
+      "check": "test:workbench",
+      "exitCode": 0
+    },
+    {
+      "check": "test:files",
+      "exitCode": 0
+    },
+    {
+      "check": "test:storage",
+      "exitCode": 0
+    },
+    {
+      "check": "test:cleanup",
+      "exitCode": 0
+    },
+    {
+      "check": "test:scan",
+      "exitCode": 0
+    },
+    {
+      "check": "test:startup",
+      "exitCode": 0
+    },
+    {
+      "check": "test:system",
+      "exitCode": 0
+    },
+    {
+      "check": "test:repair",
+      "exitCode": 0
+    },
+    {
+      "check": "test:services",
+      "exitCode": 0
+    },
+    {
+      "check": "test:automation",
+      "exitCode": 0
+    },
+    {
+      "check": "test:settings",
+      "exitCode": 0
+    },
+    {
+      "check": "test:google",
+      "exitCode": 0
+    },
+    {
+      "check": "build",
+      "exitCode": 0
+    }
+  ],
+  "motion": {
+    "ok": true,
+    "routes": 14,
+    "maximumTargetDeviation": 0,
+    "maximumRadiusError": 0.000010442443823421854,
+    "reducedMotion": true,
+    "transparentAssets": 14,
+    "interactions": [
+      {
+        "name": "files-portaled-search-en",
+        "ok": true,
+        "evidence": {
+          "lastRowReachable": true,
+          "footerTop": 707,
+          "footerBottom": 755,
+          "documentOverflow": 0,
+          "scope": "explicit built-in fixture; owner file not opened or authorized"
+        }
+      },
+      {
+        "name": "files-portaled-search-ar",
+        "ok": true,
+        "evidence": {
+          "lastRowReachable": true,
+          "footerTop": 707,
+          "footerBottom": 755,
+          "documentOverflow": 0,
+          "scope": "explicit built-in fixture; owner file not opened or authorized"
+        }
+      },
+      {
+        "name": "studio-state-and-native-portal",
+        "ok": true,
+        "evidence": {
+          "stageRoundTrip": "overview -> stage 2 -> overview",
+          "portalMounted": 1,
+          "ownerSourceAuthorized": false
+        }
+      },
+      {
+        "name": "shared-navigation-callback",
+        "ok": true,
+        "evidence": {
+          "route": "files",
+          "chromeHeaders": 1,
+          "navigationRails": 1
+        }
+      }
+    ]
+  },
+  "visualFidelityAccepted": false
+}</pre></details></main>
+<script>const scenarios=[["artwork-day1672","day","en","1672x941"],["artwork-day1920","day","en","1920x1080"],["artwork-day-ar","day","ar","1366x768"],["artwork-night","night","en","1672x941"]],data=[{"dir":"artwork-day1672","frames":[{"section":"studio","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"studio","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"home","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"home","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"workspace","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"workspace","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":false},{"section":"startup","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"startup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"smart_scan","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"smart_scan","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"applications","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"applications","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"services","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"services","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"system","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"system","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"repair","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"repair","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"automation","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"automation","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"files","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"files","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"storage","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"storage","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"cleanup","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"cleanup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"settings","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"settings","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true}]},{"dir":"artwork-day1920","frames":[{"section":"studio","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"studio","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"home","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"home","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"workspace","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"workspace","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"startup","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"startup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"smart_scan","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"smart_scan","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"applications","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"applications","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"services","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"services","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"system","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"system","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"repair","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"repair","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"automation","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"automation","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"files","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"files","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"storage","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"storage","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"cleanup","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"cleanup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"settings","hero":{"x":252,"y":70,"w":1656,"h":360},"unified":{"content":{"x":240,"y":58,"w":1680,"h":1022},"scene":"settings","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true}]},{"dir":"artwork-day-ar","frames":[{"section":"studio","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"studio","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"home","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"home","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"workspace","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"workspace","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":false},{"section":"startup","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"startup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"smart_scan","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"smart_scan","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"applications","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"applications","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"services","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"services","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"system","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"system","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"repair","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"repair","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"automation","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"automation","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"files","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"files","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"storage","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"storage","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"cleanup","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"cleanup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"settings","hero":{"x":12,"y":70,"w":1102,"h":280},"unified":{"content":{"x":0,"y":58,"w":1126,"h":710},"scene":"settings","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true}]},{"dir":"artwork-night","frames":[{"section":"studio","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"studio","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"home","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"home","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"workspace","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"workspace","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":false},{"section":"startup","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"startup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"smart_scan","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"smart_scan","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"applications","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"applications","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"services","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"services","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"system","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"system","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"repair","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"repair","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"automation","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"automation","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"files","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"files","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"storage","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"storage","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"cleanup","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"cleanup","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true},{"section":"settings","hero":{"x":252,"y":70,"w":1408,"h":340},"unified":{"content":{"x":240,"y":58,"w":1432,"h":883},"scene":"settings","sceneKind":"bitmap","sceneReady":true,"sceneCount":1,"liveOrbits":1,"chromeHeaders":1,"navigationRails":1,"particleSystems":1},"horizontalOverflow":0,"bodyEndAvailable":true}]}],s=document.querySelector('#section'),v=document.querySelector('#scenario');function show(){const [dir,t,l,size]=scenarios.find(x=>x[0]===v.value),name=s.value+'-'+t+'-'+l+'-'+size,frame=data.find(x=>x.dir===dir).frames.find(x=>x.section===s.value),ref='../visual-fidelity-handoff-20261102/references/'+s.value+'.png';for(const [id,src] of [['reference',ref],['hero',dir+'/'+name+'-hero.png'],['full',dir+'/'+name+'.png'],['end',dir+'/'+name+(frame.bodyEndAvailable?'-body-end':'')+'.png'],['motion0','artwork-motion/'+s.value+'-motion-0.png'],['motion1','artwork-motion/'+s.value+'-motion-1.png']])document.getElementById(id).src=src;for(const [id,img]of [['ref-link','reference'],['hero-link','hero'],['full-link','full']])document.getElementById(id).href=document.getElementById(img).src;const f=data.find(x=>x.dir===dir).frames.find(x=>x.section===s.value);document.querySelector('#measurement').textContent='Measured hero: '+JSON.stringify(f.hero)+' · horizontal overflow '+f.horizontalOverflow+'px · '+f.unified.sceneKind+' scene ready '+f.unified.sceneReady+(frame.bodyEndAvailable?' · internal scroll-end captured':' · no scrollable canvas: original viewport reused in end view');history.replaceState(null,'','#'+s.value)}s.onchange=v.onchange=show;if([...s.options].some(x=>x.value===location.hash.slice(1)))s.value=location.hash.slice(1);show();</script></html>

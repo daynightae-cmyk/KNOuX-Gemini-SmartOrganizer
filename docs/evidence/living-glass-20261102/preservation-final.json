@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-11-02T16:36:45.195702+00:00",
+  "head": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "remote": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac\trefs/heads/main",
+  "checkpoints": [
+    {
+      "path": "D:\\KNOUX-Workspace\\KNOuX_VISUAL_HANDOFF_CHECKPOINT_20261102-151606",
+      "records": 769,
+      "manifestSha256": "ef1a48855f7c397130a78e0c2bf6fa3de65410c119da836d8acd43df59a4238c",
+      "corruptOrMissing": []
+    },
+    {
+      "path": "D:\\KNOUX-Workspace\\KNOuX_LIVING_GLASS_CHECKPOINT_20261102-171418",
+      "records": 1079,
+      "manifestSha256": "7fcb0ca8b5b4a16ce318d070fe1fd361bb4e67b0e5c9992416165681723afc9e",
+      "corruptOrMissing": []
+    }
+  ],
+  "startingPathsMissing": [],
+  "startingPathsChanged": [
+    "apps/gemini-ui/scripts/visual-fidelity-capture.mjs",
+    "apps/gemini-ui/src/pages/FilesPage.tsx",
+    "apps/gemini-ui/src/pages/SettingsPage.tsx",
+    "apps/gemini-ui/src/visual/knox-glass.css",
+    "apps/gemini-ui/src/visual/knox-theme.css"
+  ],
+  "sourceFingerprintRecords": 443,
+  "sourceDrift": [],
+  "worktrees": "worktree D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer\nHEAD 8871103c7fd2a274a70fe2a069bb435f2ccb12ac\nbranch refs/heads/main",
+  "branches": "codex/service-workspaces-20261101 6d4c0c39ef010ffd1298afb6563c3359d371265b\nmain 8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "stash": ""
+}

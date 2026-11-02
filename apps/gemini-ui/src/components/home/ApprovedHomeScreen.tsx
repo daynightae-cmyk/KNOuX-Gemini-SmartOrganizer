@@ -245,7 +245,7 @@ export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live, query, o
             </div>
 
             <div className="home-hero-orbit">
-              <KnouxOrbit
+              <KnouxOrbit hero
                 optics="home"
                 state={live.status === 'loading' ? 'loading' : live.status === 'native-required' ? 'unavailable' : live.status === 'partial' ? 'partial' : 'ready'}
                 title="KNOuX"

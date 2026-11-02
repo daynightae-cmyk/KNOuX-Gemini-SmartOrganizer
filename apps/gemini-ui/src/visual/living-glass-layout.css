@@ -1,0 +1,132 @@
+/* Structural ownership: one shell and one hero rectangle. Materials continue
+   to come from knox-theme; page providers and workbenches remain page-owned. */
+.visual-sprint.knx-living-shell{display:flex;flex-direction:column;width:100%;height:100dvh;min-height:0;overflow:hidden;background:var(--knx-canvas);color:var(--knx-ink);--knx-section-accent:var(--knx-accent);--knx-section-light:var(--knx-cyan)}
+.knx-living-shell[data-section-tone=rose]{--knx-section-light:var(--knx-error)}
+.knx-living-shell[data-section-tone=cyan]{--knx-section-accent:var(--knx-info)}
+.knx-living-shell[data-section-tone=teal]{--knx-section-accent:var(--knx-success)}
+.knx-living-shell .knx-living-chrome{flex:0 0 var(--knx-chrome-h);height:var(--knx-chrome-h);width:100%;min-width:0;z-index:40;position:relative}
+.knx-living-shell .knx-living-chrome>header{height:100%!important;min-height:0!important;width:100%!important;max-width:none!important;margin:0!important;position:relative!important;inset:auto!important;border-radius:0!important;direction:ltr}
+.knx-living-shell[dir=rtl] .knx-living-chrome input{direction:rtl;text-align:right}
+.knx-living-shell .knx-living-frame{display:grid;grid-template-columns:var(--knx-shell-rail) minmax(0,1fr);min-height:0;flex:1;overflow:hidden}
+.knx-living-shell .knx-living-navigation{width:var(--knx-shell-rail);min-height:0;padding:8px 0 8px 8px;overflow:hidden}
+.knx-living-shell[dir=rtl] .knx-living-navigation{padding:8px 8px 8px 0}
+.knx-living-shell .knx-living-navigation>aside{width:100%!important;height:100%!important;min-height:0!important;margin:0!important;position:relative!important;inset:auto!important;flex-shrink:1!important}
+.knx-living-shell .knx-living-content{display:grid;grid-template-rows:var(--knx-section-hero-h) minmax(0,1fr);gap:var(--knx-section-gap);padding:var(--knx-section-gap);min-width:0;min-height:0;overflow:hidden;background-image:radial-gradient(ellipse at 48% 0%,color-mix(in srgb,var(--knx-section-accent) 10%,transparent),transparent 60%)}
+.knx-living-shell .knx-section-hero{position:relative;isolation:isolate;direction:ltr;height:var(--knx-section-hero-h);min-height:0;width:100%;min-width:0;margin:0;padding:22px 26px;border:1px solid var(--knx-line);border-radius:var(--knx-r-xl);overflow:hidden;background:radial-gradient(ellipse at 67% 57%,color-mix(in srgb,var(--knx-section-accent) 17%,transparent),transparent 61%),radial-gradient(ellipse at 10% 98%,color-mix(in srgb,var(--knx-section-light) 10%,transparent),transparent 62%),var(--knx-surface-2);box-shadow:var(--knx-elev-2),inset 0 1px 0 var(--knx-edge-strong)}
+.knx-section-hero:after{content:'';position:absolute;z-index:-1;width:130%;height:90px;left:-15%;bottom:-57px;border-radius:50%;border-top:1px solid var(--knx-edge-strong);background:var(--knx-surface);transform:rotate(-3deg);pointer-events:none}
+.knx-section-identity{position:relative;display:flex;align-items:flex-start;gap:16px;width:53%;max-width:665px;z-index:2;pointer-events:none}
+.knx-section-emblem{flex:0 0 68px;display:grid;place-items:center;width:68px;height:68px;border-radius:22px;border:1px solid var(--knx-edge-strong);background:var(--knx-surface);box-shadow:var(--knx-elev-2);color:var(--knx-accent-strong)}
+.knx-section-emblem svg{width:43px;height:43px;stroke-width:1.7}
+.knx-section-copy{min-width:0}
+.knx-section-kicker{display:block;color:var(--knx-accent);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:7px}
+.knx-section-copy h1{font:800 clamp(25px,2.25vw,41px)/1.1 var(--knx-font-display)!important;letter-spacing:-.035em;color:var(--knx-ink);margin:0 0 6px!important}
+.knx-section-copy h2{font:700 clamp(21px,1.8vw,30px)/1.2 'Tajawal',var(--knx-font-ui);color:var(--knx-accent-strong);text-align:left;margin:0 0 12px}
+.knx-section-copy p{font-size:12px;line-height:1.5;margin:4px 0;color:var(--knx-ink-2);max-width:330px;text-align:left}
+.knx-section-copy p[lang=ar]{font-family:'Tajawal',var(--knx-font-ui);font-size:14px}
+.knx-section-scene{position:absolute;z-index:1;left:26%;top:0;width:49%;height:83%;overflow:visible;pointer-events:none;opacity:.92}
+.knx-living-shell .knx-section-hero .knx-section-scene[data-art-kind=bitmap]{object-fit:contain;opacity:1;filter:none}
+.knx-section-hero[data-hero-section=studio] .knx-section-scene{left:22%;width:52%}
+.knx-section-hero[data-hero-section=files] .knx-section-scene{left:24%;width:52%;top:-5px}
+.knx-section-hero[data-hero-section=files] .knx-section-scene[data-art-kind=bitmap]{left:29.5%;width:46.5%}
+.knx-section-hero[data-hero-section=workspace] .knx-section-scene{left:36%;width:37%;top:8px;height:65%}
+.knx-section-hero[data-hero-section=home] .knx-section-scene{left:34%;width:39%;height:70%}
+.knx-section-hero[data-hero-section=system] .knx-section-scene{left:30%;top:4px;opacity:.7}
+.knx-section-hero[data-hero-section=services] .knx-section-scene{left:25%;opacity:.75}
+.knx-section-hero[data-hero-section=applications] .knx-section-scene{left:34%;width:41%;height:73%}
+.knx-section-hero[data-hero-section=repair] .knx-section-scene{left:32%;width:42%;opacity:.7}
+.knx-section-hero[data-hero-section=automation] .knx-section-scene{left:32%;width:40%;height:70%}
+.knx-section-hero[data-composition=identity] .knx-section-identity{width:45%}
+.knx-section-hero[data-composition=welcome] .knx-section-identity{width:54%}
+.knx-scene-light{filter:drop-shadow(0 0 4px var(--knx-cyan))}
+.knx-scene-float{animation:knx-glass-float 8s ease-in-out infinite}
+.knx-section-scene>g>g:nth-child(2n) .knx-scene-float{animation-delay:-3s}
+@keyframes knx-glass-float{50%{transform:translateY(-5px)}}
+
+/* Reference workflow is a non-interactive compositional map. Measured native
+   workflow controls remain available in the body, with their existing state. */
+.knx-reference-workflow{position:absolute;z-index:3;left:22px;right:32%;bottom:18px;margin:0;padding:0 6px;display:flex;align-items:flex-start;justify-content:space-between;gap:6px;list-style:none;direction:ltr}
+.knx-reference-workflow .knx-workflow-connections{position:absolute;left:3%;right:3%;top:0;height:50px;display:block;z-index:-1;pointer-events:none;filter:drop-shadow(0 0 5px var(--knx-light-trail))}
+.knx-workflow-connections svg{width:100%;height:100%;overflow:visible}
+.knx-reference-workflow li:not(.knx-workflow-connections){flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0;color:var(--knx-ink);font-weight:750;font-size:12px;line-height:1.25;gap:5px}
+.knx-workflow-glyph{display:grid;place-items:center;width:49px;height:49px;border-radius:50%;color:var(--knx-on-accent);border:2px solid var(--knx-edge-strong);background:linear-gradient(135deg,var(--knx-accent),var(--knx-accent-strong));box-shadow:0 0 0 5px color-mix(in srgb,var(--knx-accent) 9%,transparent),var(--knx-glow-accent),inset 0 1px 3px var(--knx-edge-strong)}
+.knx-reference-workflow li:nth-child(3n+2) .knx-workflow-glyph{background:linear-gradient(140deg,var(--knx-info),var(--knx-light-trail));box-shadow:0 0 0 5px var(--knx-cyan-soft),var(--knx-glow-cyan)}
+.knx-reference-workflow li:nth-child(3n) .knx-workflow-glyph{background:linear-gradient(140deg,var(--knx-section-accent),var(--knx-success))}
+.knx-workflow-glyph svg{width:25px;height:25px;stroke-width:1.8}
+.knx-reference-workflow small{font-family:'Tajawal',var(--knx-font-ui);font-size:13px;font-weight:700;max-width:100%;line-height:1.25}
+.knx-section-hero[data-hero-section=startup] .knx-reference-workflow li:not(.knx-workflow-connections),.knx-section-hero[data-hero-section=applications] .knx-reference-workflow li:not(.knx-workflow-connections),.knx-section-hero[data-hero-section=home] .knx-reference-workflow li:not(.knx-workflow-connections){flex-direction:row;flex-wrap:wrap;justify-content:center;gap:3px 7px;background:var(--knx-surface);border:1px solid var(--knx-line);border-radius:var(--knx-r-pill);padding:6px;box-shadow:var(--knx-elev-1)}
+.knx-section-hero[data-hero-section=home] .knx-reference-workflow small{font-size:12px}
+.knx-section-hero[data-hero-section=home] .knx-workflow-glyph{width:36px;height:36px}
+.knx-section-hero[data-hero-section=studio] .knx-reference-workflow{left:19%;right:32%}
+
+/* One stationary interactive instrument. No text or hit target rotates. */
+.knx-section-instrument{position:absolute;right:14px;top:50%;width:var(--knx-section-orbit-size);height:var(--knx-section-orbit-size);transform:translateY(-50%);isolation:isolate;z-index:4;direction:ltr}
+.knx-section-orbit-mount{position:absolute;inset:0;z-index:2}
+.knx-living-shell .knx-section-orbit-mount>.knx-orbit{width:100%!important;height:100%!important;aspect-ratio:1!important;min-height:0!important;max-height:none!important;max-width:none!important;overflow:visible!important;margin:0!important;padding:0!important;transform:none!important}
+.knx-section-orbit-mount .knx-orbit-vector{opacity:.2}
+.knx-living-orbital-light{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1;filter:drop-shadow(0 0 5px var(--knx-accent))}
+.knx-living-track{fill:none;stroke:var(--knx-accent);stroke-opacity:.24;stroke-width:1}
+.knx-living-revolution{transform-origin:200px 200px;animation:knx-orbital-revolution var(--orbit-period) linear infinite;animation-direction:var(--orbit-direction);will-change:transform}
+.knx-living-trail{fill:var(--knx-cyan);opacity:.13}
+.knx-living-star{fill:var(--knx-on-accent);filter:drop-shadow(0 0 4px var(--knx-cyan))}
+@keyframes knx-orbital-revolution{to{transform:rotate(360deg)}}
+.knx-living-shell .knx-section-orbit-mount :is(.knx-orbit-core,.knoux-orbit__core){position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:42%!important;min-width:0!important;height:42%!important;min-height:0!important;padding:10px 7px!important;border-radius:50%!important;background:radial-gradient(circle at 40% 18%,var(--knx-surface),color-mix(in srgb,var(--knx-accent) 32%,var(--knx-surface)))!important;border:2px solid var(--knx-edge-strong)!important;color:var(--knx-ink)!important;box-shadow:var(--knx-elev-2),var(--knx-glow-accent)!important;overflow:hidden!important}
+.knx-section-orbit-mount :is(.knx-orbit-core strong,.knoux-orbit__core strong){font-size:14px!important;line-height:1.2!important;letter-spacing:-.02em!important;color:var(--knx-ink)!important;text-align:center;max-width:100%}
+.knx-section-orbit-mount :is(.knx-orbit-core-mark,.knoux-orbit__mark){width:35px!important;height:35px!important;margin:0 auto 3px!important;display:grid;place-items:center}
+.knx-section-orbit-mount :is(.knx-orbit-core-mark,.knoux-orbit__mark)>:is(img,svg){width:34px!important;height:34px!important;object-fit:contain}
+.knx-section-orbit-mount .knx-orbit-core-sub{font-size:10px!important;line-height:1.2!important;max-width:100%;color:var(--knx-ink-2)!important}
+.knx-section-orbit-mount :is(.knx-orbit-play,.knx-orbit-hub-service){display:none!important}
+.knx-section-orbit-mount :is(.knx-orbit-tools,.knoux-orbit__tools){position:absolute;inset:0!important;z-index:5;pointer-events:none}
+.knx-living-shell .knx-section-orbit-mount :is(.knx-orbit-tool,.knoux-orbit__tool){position:absolute!important;width:73px!important;height:66px!important;transform:translate(-50%,-50%)!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;margin:0!important;padding:5px 3px!important;border:1px solid var(--knx-line)!important;border-radius:var(--knx-r-lg)!important;background:var(--knx-raised)!important;box-shadow:var(--knx-elev-1)!important;pointer-events:auto!important;color:var(--knx-accent)!important}
+.knx-section-orbit-mount :is(.knx-orbit-chip,.knoux-orbit__capsule){display:contents!important}
+.knx-section-orbit-mount :is(.knx-orbit-chip,.knoux-orbit__capsule)>svg{width:24px!important;height:24px!important;min-height:24px!important;color:var(--knx-accent-strong)!important;filter:none!important}
+.knx-section-orbit-mount :is(.knx-orbit-label,.knoux-orbit__capsule span){position:static!important;display:block!important;white-space:normal!important;font-size:10.5px!important;line-height:1.15!important;font-weight:650!important;color:var(--knx-ink)!important;text-shadow:none!important;max-width:100%}
+.knx-section-orbit-mount .knx-orbit-chip-dot{display:none}
+.knx-section-orbit-mount button:disabled{opacity:.6!important}
+.knx-section-orbit-mount button:hover:not(:disabled){border-color:var(--knx-accent)!important;box-shadow:var(--knx-glow-accent)!important}
+.knx-section-orbit-mount button:focus-visible{outline:2px solid var(--knx-focus)!important;outline-offset:3px!important}
+.knx-section-hero:is([data-hero-section=system],[data-hero-section=services],[data-hero-section=repair],[data-hero-section=startup],[data-hero-section=settings]) .knx-section-orbit-mount .knx-orbit-core{background:radial-gradient(circle at 33% 18%,var(--knx-magenta),var(--knx-accent-strong) 39%,var(--knx-accent-deep) 83%)!important;box-shadow:inset 0 0 18px color-mix(in srgb,var(--knx-on-accent) 35%,transparent),0 0 0 5px var(--knx-accent-soft),var(--knx-glow-accent)!important}
+.knx-section-hero:is([data-hero-section=system],[data-hero-section=services],[data-hero-section=repair],[data-hero-section=startup],[data-hero-section=settings]) .knx-section-orbit-mount .knx-orbit-core :is(strong,.knx-orbit-core-sub,.knx-orbit-core-mark>svg){color:var(--knx-on-accent)!important}
+.knx-section-instrument:before{content:'';position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--knx-accent) 28%,transparent),transparent 72%);pointer-events:none;z-index:0}
+.knx-living-track{stroke-opacity:.42;stroke-width:1.5}
+.knx-living-orbital-light>g:nth-child(2)>.knx-living-track{stroke:var(--knx-light-trail)}
+.knx-living-orbital-light>g:nth-child(3)>.knx-living-track{stroke:var(--knx-magenta)}
+.knx-living-shell .knx-section-orbit-mount :is(.knx-orbit-tool,.knoux-orbit__tool){left:var(--knx-hero-node-x)!important;top:var(--knx-hero-node-y)!important}
+
+/* Only the original title/ornamental layer is replaced. All original inputs,
+   native states, service actions, disclosures and workbenches remain mounted. */
+.knx-living-shell .knx-living-workspace{--knx-hero-h:0px;position:relative;min-width:0;min-height:0;overflow:hidden;border:1px solid var(--knx-line-soft);border-radius:var(--knx-r-lg);background:var(--knx-surface)}
+.knx-living-workspace>:first-child{width:100%!important;max-width:none!important;height:100%!important;min-height:0!important;margin:0!important;border:0!important}
+.knx-living-workspace :is(.knx-command-hero,.home-hero,.approved-hero,.sys-hero,.apps-hero,.cln-hero,.stp-hero,.svc-hero,.rep-hero,.auto-hero,.knx-storage-hero,.atl-hero,.knx-workspace-hero,.osa-hero,.knx-settings-tools){height:auto!important;min-height:0!important;max-height:none!important;grid-template-columns:minmax(0,1fr)!important;padding:10px 12px!important;gap:6px!important;overflow:visible!important;border-radius:var(--knx-r-md)!important}
+.knx-living-workspace :is(.home-hero,.sys-hero,.apps-hero,.cln-hero,.stp-hero,.svc-hero,.rep-hero,.auto-hero,.knx-storage-hero,.atl-hero,.knx-workspace-hero,.osa-hero,.knx-settings-tools) :is(h1,.sys-hero-eyebrow,.home-hero-lede,.osa-identity,.osa-lede,.apps-hero-lede,.knx-reference-atmosphere,.hero-features){display:none!important}
+.knx-living-workspace :is(.home-hero-orbit,.approved-orbit,.sys-hero-orbit,.apps-hero-orbit,.cln-hero-orbit,.stp-hero-orbit,.svc-hero-orbit,.rep-hero-orbit,.auto-hero-orbit,.scan-hero-orbit,.knx-storage-orbit,.atl-hero-orbit,.knx-workspace-orbit,.osa-hero-orbit,.knx-domain-orbit-compact,.knx-files-heading){display:none!important}
+.knx-living-workspace .home-hero{display:block!important}
+.knx-living-workspace .home-hero-pipeline{margin-top:8px}
+.knx-living-workspace .home-command-main{display:flex!important;flex-direction:column!important;padding:8px!important;overflow:auto!important}
+.knx-living-workspace .home-command-main>*{flex-shrink:0}
+.knx-living-workspace .home-columns{min-height:430px!important;flex:1 0 430px}
+.knx-living-workspace .home-deck-grid{grid-auto-rows:minmax(62px,auto)}
+.knx-living-workspace .home-command-body{height:100%!important;grid-template-columns:minmax(0,1fr)!important;padding:0!important}
+.knx-living-workspace .home-command{grid-template-rows:minmax(0,1fr)!important}
+.knx-living-workspace .knx-files-header{height:auto!important;min-height:0!important;max-height:none!important;gap:6px!important;padding:8px!important}
+.knx-living-workspace [data-testid=files-workspace]{padding:8px 8px 0!important;grid-template-rows:auto minmax(180px,1fr) 48px!important;overflow:auto!important}
+.knx-living-workspace .studio-integration-body{height:100%!important;min-height:0!important;grid-template-columns:minmax(0,1fr)!important;padding:0!important}
+.knx-living-workspace .os-studio-frame{padding:0!important;min-height:0!important}
+.knx-living-workspace .os-studio{height:100%!important;min-height:0!important}
+.knx-living-workspace :is(.knx-command-main,.knx-command-primary,.pane-overview,.sys-workspace,.apps-main-content,.osa-main){min-height:0}
+.knx-living-shell .knx-living-workspace .knx-command-canvas{overflow-y:auto!important;overscroll-behavior:contain;padding-inline-end:3px}
+.knx-living-shell .knx-living-workspace .knx-command-body{flex:1 0 370px!important;min-height:370px!important}
+.knx-living-shell .knx-living-workspace .knx-command-status{flex-shrink:0}
+.knx-living-shell .knx-living-workspace .os-studio.is-overview{grid-template-rows:auto minmax(350px,1fr)!important;overflow-y:auto!important;overscroll-behavior:contain}
+.knx-living-workspace .osa-hero-copy{display:block!important}
+.knx-living-workspace :is(main,.knx-command-canvas){background-image:radial-gradient(ellipse at 65% 0%,color-mix(in srgb,var(--knx-section-accent) 7%,transparent),transparent 60%)}
+.knx-living-workspace :is(.sys-panel,.apps-panel,.stp-panel,.cln-panel,.svc-panel,.rep-panel,.auto-panel,.knx-ref-card,.home-panel){border-color:color-mix(in srgb,var(--knx-section-accent) 21%,var(--knx-line-soft));box-shadow:var(--knx-elev-1)}
+
+@media(min-width:1800px){.knx-living-shell{--knx-section-hero-h:360px;--knx-section-orbit-size:330px}}
+@media(max-height:820px){.knx-living-shell{--knx-section-hero-h:280px;--knx-section-orbit-size:252px}.knx-section-copy h1{font-size:28px!important}.knx-section-copy h2{font-size:22px;margin-bottom:5px}.knx-section-copy p{font-size:11px}.knx-section-copy p[lang=ar]{font-size:12px}.knx-section-hero{padding:16px 18px!important}.knx-section-identity{gap:10px}.knx-section-emblem{width:52px;height:52px;flex-basis:52px;border-radius:16px}.knx-section-emblem svg{width:32px;height:32px}.knx-reference-workflow{bottom:13px;left:15px;right:29%}.knx-reference-workflow li:not(.knx-workflow-connections){font-size:10px}.knx-reference-workflow small{font-size:11px}.knx-workflow-glyph{width:37px;height:37px}.knx-workflow-glyph svg{width:21px;height:21px}.knx-reference-workflow:before{top:18px}.knx-living-shell .knx-section-orbit-mount :is(.knx-orbit-tool,.knoux-orbit__tool){width:61px!important;height:59px!important}.knx-section-orbit-mount :is(.knx-orbit-label,.knoux-orbit__capsule span){font-size:9.5px!important}.knx-section-orbit-mount :is(.knx-orbit-core strong,.knoux-orbit__core strong){font-size:12px!important}.knx-section-orbit-mount .knx-orbit-core-sub{display:none!important}.knx-section-instrument{right:8px}}
+@media(max-width:1050px){.knx-living-shell{--knx-shell-rail:190px;--knx-section-orbit-size:238px}.knx-section-scene{opacity:.58;width:44%;left:28%}.knx-section-identity{width:64%}.knx-section-copy p{max-width:320px}.knx-section-emblem{display:none}.knx-reference-workflow{right:32%}}
+@media(max-width:750px){.knx-living-shell{--knx-shell-rail:160px;--knx-section-hero-h:440px;--knx-section-orbit-size:210px;--knx-section-gap:7px}.knx-section-identity{width:100%!important}.knx-section-copy h1{font-size:22px!important}.knx-section-copy h2{font-size:19px}.knx-section-copy p{font-size:10px;max-width:100%}.knx-section-instrument{top:58%;right:6px}.knx-section-scene{left:-17%!important;top:31%!important;width:85%!important;height:45%!important;opacity:.7}.knx-reference-workflow{left:5px!important;right:5px!important;bottom:10px;gap:2px}.knx-workflow-glyph{width:28px;height:28px}.knx-workflow-glyph svg{width:17px;height:17px}.knx-reference-workflow li:not(.knx-workflow-connections){font-size:8px}.knx-reference-workflow small{font-size:9px}.knx-reference-workflow:before{top:14px}}
+@media(prefers-reduced-motion:reduce){.knx-living-revolution,.knx-scene-float,.knx-scan-beam{animation:none!important;will-change:auto}.knx-living-revolution.track-1{transform:rotate(30deg)}.knx-living-revolution.track-2{transform:rotate(65deg)}}
+@media(prefers-reduced-transparency:reduce){.knx-section-hero,.knx-living-workspace{background:var(--knx-canvas-lit)!important;backdrop-filter:none!important}.knx-section-scene{opacity:.65}.knx-living-star{filter:none}}
+@media(forced-colors:active){.knx-section-scene,.knx-living-orbital-light{display:none}.knx-section-hero{border:1px solid CanvasText!important}}
+
+@media(max-height:820px){.knx-reference-workflow .knx-workflow-connections{height:37px}}

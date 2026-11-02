@@ -12,6 +12,7 @@ import { KnouxMark, KnouxCircularEmblem } from '../../visual/ReferenceAtmosphere
 import { NativeBridgePanel } from '../../native/NativeBridgePanel';
 import { controlNativeWindow, getNativeShell, readBridgeStatus } from '../../native/client';
 import type { BridgeStatusData } from '../../../shared/native-contracts';
+import {LivingChromeMount} from '../../visual/LivingLayoutContext';
 import {
   Home,
   Target,
@@ -229,7 +230,7 @@ export interface KNOuXSidebarProps {
  * Standard Left Navigation Sidebar
  * Enforces unified 13 sections with glowing active pill, top brand card, and bottom status
  */
-export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = ({
+const KNOuXSidebarContent: React.FC<KNOuXSidebarProps> = ({
   activeSection,
   onNavigate,
   isArabic = false,
@@ -410,7 +411,7 @@ export interface KNOuXTitleBarProps {
  * that do not get the shell's own section finder (Ctrl/⌘+K, arrow keys, Enter,
  * Escape) so the advertised shortcut is never a fake placeholder.
  */
-export const KNOuXTitleBar: React.FC<KNOuXTitleBarProps> = ({
+const KNOuXTitleBarContent: React.FC<KNOuXTitleBarProps> = ({
   sectionName,
   sectionSubtitle,
   onNavigateHome,
@@ -762,3 +763,7 @@ export const KNOuXTitleBar: React.FC<KNOuXTitleBarProps> = ({
     </header>
   );
 };
+
+/** Same page-owned controls, mounted once in the shared shell. */
+export const KNOuXTitleBar: React.FC<KNOuXTitleBarProps> = props => <LivingChromeMount slot="chrome"><KNOuXTitleBarContent {...props}/></LivingChromeMount>;
+export const KNOuXSidebar: React.FC<KNOuXSidebarProps> = props => <LivingChromeMount slot="navigation"><KNOuXSidebarContent {...props}/></LivingChromeMount>;

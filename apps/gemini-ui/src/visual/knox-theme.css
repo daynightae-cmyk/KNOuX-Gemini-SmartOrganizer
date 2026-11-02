@@ -31,7 +31,19 @@
   --knx-r-lg: 18px;
   --knx-r-xl: 24px;
   --knx-r-pill: 999px;
+  /* One real content frame, independent of each route's inspector/tools. */
+  --knx-chrome-h: 58px;
+  --knx-shell-rail: 240px;
+  --knx-section-gap: 12px;
+  --knx-section-hero-h: 340px;
+  --knx-section-orbit-size: 312px;
 
+  /* Provisional shared hero minimum, not a measurement of the approved artwork.
+     Existing headers also contain real controls and must be allowed to grow.
+     Exact shared bounds require reconciling each route's composition first. */
+  --knx-hero-h: 252px;
+  --knx-hero-pad-y: 12px;
+  --knx-hero-pad-x: 18px;
   --knx-sp-1: 4px;
   --knx-sp-2: 8px;
   --knx-sp-3: 12px;
@@ -100,6 +112,8 @@ html:not([data-theme='light']) {
   --knx-success: #35e0a4;
   --knx-warning: #ffc861;
   --knx-error: #ff6b9a;
+  --knx-magenta: #ed7fff;
+  --knx-light-trail: #76efff;
   --knx-info: #6cb8ff;
 
   --knx-glow-accent: 0 0 26px rgba(140, 92, 246, 0.3);
@@ -117,6 +131,9 @@ html:not([data-theme='light']) {
     radial-gradient(ellipse 62% 44% at 78% -6%, rgba(124, 58, 237, 0.3), transparent 62%),
     radial-gradient(ellipse 48% 38% at 4% 104%, rgba(14, 116, 144, 0.24), transparent 66%),
     radial-gradient(ellipse 30% 24% at 46% 42%, rgba(88, 28, 135, 0.16), transparent 70%);
+
+  --knx-hero-glow: radial-gradient(ellipse 62% 78% at 78% 50%, rgba(169, 120, 255, 0.20), transparent 62%),
+    radial-gradient(ellipse 48% 62% at 18% 42%, rgba(70, 224, 255, 0.10), transparent 60%);
 
   /* Historical names kept for the existing domain bridge. */
   --knx-night-canvas: var(--knx-canvas);
@@ -176,6 +193,8 @@ html[data-theme='light'] {
   --knx-success: #0f766e;
   --knx-warning: #b45309;
   --knx-error: #be123c;
+  --knx-magenta: #c83bea;
+  --knx-light-trail: #42dcff;
   --knx-info: #1d4ed8;
 
   --knx-glow-accent: 0 6px 20px rgba(109, 40, 217, 0.16);
@@ -193,6 +212,9 @@ html[data-theme='light'] {
     radial-gradient(ellipse 58% 40% at 80% -8%, rgba(139, 92, 246, 0.16), transparent 62%),
     radial-gradient(ellipse 46% 36% at 2% 104%, rgba(8, 145, 178, 0.12), transparent 66%),
     radial-gradient(ellipse 32% 26% at 44% 44%, rgba(167, 139, 250, 0.1), transparent 70%);
+
+  --knx-hero-glow: radial-gradient(ellipse 62% 78% at 78% 50%, rgba(109, 40, 217, 0.10), transparent 62%),
+    radial-gradient(ellipse 48% 62% at 18% 42%, rgba(14, 116, 144, 0.06), transparent 60%);
 
   /* Historical names kept for the existing domain bridge. */
   --knx-night-canvas: var(--knx-canvas);
@@ -231,4 +253,11 @@ html[data-theme='light'] body {
   background-attachment: fixed;
   color: var(--knx-ink);
   font-family: var(--knx-font-ui);
+}
+
+@media (max-width: 1500px) {
+  :root { --knx-hero-h: 236px; --knx-hero-pad-y: 10px; --knx-hero-pad-x: 14px; }
+}
+@media (max-height: 820px) {
+  :root { --knx-hero-h: 214px; --knx-hero-pad-y: 8px; --knx-hero-pad-x: 14px; }
 }

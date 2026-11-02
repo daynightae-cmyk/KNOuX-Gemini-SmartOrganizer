@@ -117,7 +117,7 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
             ]}
           />
         </div>
-        <OrbitalControl title={t(locale, 'Analyze Cleanup', 'تحليل التنظيف')} subtitle={t(locale, 'Discover · Review · Confirm', 'استكشف · راجع · وافق')}
+        <OrbitalControl hero title={t(locale, 'Analyze Cleanup', 'تحليل التنظيف')} subtitle={t(locale, 'Discover · Review · Confirm', 'استكشف · راجع · وافق')}
           eyebrow={t(locale, 'Scan categories', 'فئات الفحص')}
           onActivate={() => void controller.startScan(categories, ageDays)} disabled={!controller.nativeAvailable || !canScan} running={scanning}
           tools={[

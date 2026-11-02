@@ -2,7 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import {Search,X} from 'lucide-react';
 import {useStudio} from './context';
 import {useNavigation} from '../context/NavigationContext';
-import {ReferenceHeader,ReferenceSidebar} from '../components/shell/ReferenceChrome';
+import {KNOuXTitleBar,KNOuXSidebar} from '../components/shell/KNOuXShellComponents';
 import {STUDIO_STAGES} from '../operations/organization-studio-model';
 import './studio-integration.css';
 
@@ -24,8 +24,8 @@ export function StudioPage({onNavigate:_onNavigate}:{onNavigate?:(section:string
  },[searchOpen]);
  const choose=(stageId:number)=>{setSearchOpen(false);setQuery('');window.dispatchEvent(new CustomEvent('knoux:live-organization',{detail:{stageId}}));};
  return <div dir={ar?'rtl':'ltr'} data-testid="studio-workspace" className="approved-home studio-integration-shell" data-theme-mode={navigation.theme === 'light' ? 'day' : 'night'}>
-  <ReferenceHeader preciseThemeLabels searchLabel={ar?'ابحث عن مرحلة في استوديو التنظيم…':'Find a stage in Organization Studio…'} onSearch={()=>setSearchOpen(true)} onNotifications={()=>setNotice(v=>!v)}/>
-  <div className="studio-integration-body"><ReferenceSidebar active="studio" connected={!!window.knouxOperationsV1}/><main className="os-studio-frame">
+  <KNOuXTitleBar sectionName={ar?'استوديو التنظيم':'Organization Studio'} searchQuery={query} onSearchChange={value=>{setQuery(value);setSearchOpen(true);}} searchPlaceholder={ar?'ابحث عن مرحلة في استوديو التنظيم…':'Find a stage in Organization Studio…'} isArabic={ar} onToggleArabic={navigation.toggleLocale} onNavigateHome={()=>navigation.navigateTo('home')} onOpenSettings={()=>navigation.navigateTo('settings')} onOpenNotifications={()=>setNotice(v=>!v)}/>
+  <div className="studio-integration-body"><KNOuXSidebar activeSection="studio" onNavigate={navigation.navigateTo} isArabic={ar}/><main className="os-studio-frame">
    <div id="knoux-studio-operation-stage" className="os-studio-mount" data-testid="studio-live-mount"/>
   </main></div>
   {notice&&<aside className="studio-integration-notice" role="status" data-testid="studio-status-notice"><strong>{ar?'حالة التنظيم':'Organization status'}</strong><p>{ar?'البيانات والخطط والإيصالات متاحة داخل مراحل الاستوديو. الاتصال بالمحرّك لا يثبت اكتمال أي عملية.':'Measured inventory, plans and receipts are available in Studio stages. Engine connectivity does not establish operation completion.'}</p><button data-testid="studio-open-history" onClick={()=>{setNotice(false);choose(8);}}>{ar?'فتح السجل والتراجع':'Open History & Undo'}</button><button onClick={()=>setNotice(false)}>{ar?'إغلاق':'Close'}</button></aside>}
