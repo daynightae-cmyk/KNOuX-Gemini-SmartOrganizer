@@ -15,7 +15,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 PARENT = ROOT.parent
 OUTPUT = ROOT / 'docs/evidence/reconciliation-20261102/preservation-inventory.json'
 SKIP = {'.git', 'node_modules', 'dist', 'release', 'release-gemini', 'win-unpacked', '__pycache__', '.cache', 'packaged', 'package-final', 'packaged-release-gemini-m0'}
-EXTENSIONS = {'.ts', '.tsx', '.js', '.jsx', '.cjs', '.mjs', '.css', '.svg', '.png', '.jpg', '.jpeg', '.webp'}
+EXTENSIONS = {'.ts', '.tsx', '.js', '.jsx', '.cjs', '.mjs', '.css', '.svg', '.png', '.jpg', '.jpeg', '.webp', '.json', '.html'}
 
 
 def git(*args):
@@ -62,7 +62,10 @@ for candidate in candidates:
                     target_cache[target] = value if value is None or current.suffix.lower() in {'.png', '.jpg', '.jpeg', '.webp'} else value.replace(b'\r\n', b'\n')
                 current = target_cache[target]
                 digest = blob_hash(normalized)
-                disposition = ('CURRENT_BYTE_EQUIVALENT' if current == normalized else 'HISTORICAL_BLOB_PRESERVED_ON_MAIN' if digest in history else 'CONTENT_REVIEW_REQUIRED')
+                evidence_only = ('/docs/evidence/' in spelling or '/validation-canonical/electron/' in spelling
+                                 or '/validation-clone/electron/' in spelling
+                                 or '/KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028/electron/' in spelling)
+                disposition = ('PRESERVED_TEST_EVIDENCE_ONLY' if evidence_only else 'CURRENT_BYTE_EQUIVALENT' if current == normalized else 'HISTORICAL_BLOB_PRESERVED_ON_MAIN' if digest in history else 'CONTENT_REVIEW_REQUIRED')
                 counts[disposition] += 1
                 records.append({'source': str(source), 'target': target, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest(), 'normalizedGitBlob': digest, 'disposition': disposition})
             except OSError as error:

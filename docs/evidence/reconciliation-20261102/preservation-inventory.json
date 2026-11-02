@@ -1,5 +1,5 @@
 {
-  "baseline": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+  "baseline": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee",
   "scope": "Whitelisted source and assets in named preservation roots; vendor/build/package binaries and unrelated credentials excluded. Historical blob presence is preservation proof only, not current behavior equivalence.",
   "roots": [
     "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\.worktrees\\_wip-backups",
@@ -17,9 +17,10 @@
     "D:\\KNOUX-Workspace\\KNOuX_VISUAL_RECOVERY_20261030_234713"
   ],
   "counts": {
-    "HISTORICAL_BLOB_PRESERVED_ON_MAIN": 263,
-    "CURRENT_BYTE_EQUIVALENT": 224,
-    "CONTENT_REVIEW_REQUIRED": 190
+    "HISTORICAL_BLOB_PRESERVED_ON_MAIN": 172,
+    "CURRENT_BYTE_EQUIVALENT": 223,
+    "CONTENT_REVIEW_REQUIRED": 137,
+    "PRESERVED_TEST_EVIDENCE_ONLY": 164
   },
   "errors": [],
   "refs": [
@@ -30,12 +31,12 @@
     },
     {
       "ref": "refs/heads/main",
-      "sha": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+      "sha": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee",
       "commitsNotInMain": 0
     },
     {
       "ref": "refs/remotes/origin/HEAD",
-      "sha": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+      "sha": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee",
       "commitsNotInMain": 0
     },
     {
@@ -75,7 +76,7 @@
     },
     {
       "ref": "refs/remotes/origin/main",
-      "sha": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+      "sha": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee",
       "commitsNotInMain": 0
     },
     {
@@ -956,6 +957,14 @@
       "sha256": "8b5adae2083f05db9ecdd3031c3cbb35179b5ffc426c0e8b25ca3f648c37939b",
       "normalizedGitBlob": "982d7ca528e261c8d70116349e225bed20651a9d",
       "disposition": "CONTENT_REVIEW_REQUIRED"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\shared\\native-contract.json",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "bytes": 31903,
+      "sha256": "9ee4ac74e7d196b63d27c87aaac2e8602cb3ed965d7dad345567d1b116644ff2",
+      "normalizedGitBlob": "c90016166b3289fcb64e9d83444854e51b8216f3",
+      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\shared\\native-contracts.ts",
@@ -2222,6 +2231,14 @@
       "disposition": "CONTENT_REVIEW_REQUIRED"
     },
     {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\canonical-services.json",
+      "target": "apps/gemini-ui/src/service-navigation/canonical-services.json",
+      "bytes": 80924,
+      "sha256": "f7618321ceaffbce665873fbffe6de28396bdfe6c139e6bab113ffa4e835617f",
+      "normalizedGitBlob": "075caad1a3ced15dba374c23c4603fbb76119cdf",
+      "disposition": "CONTENT_REVIEW_REQUIRED"
+    },
+    {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\model.ts",
       "target": "apps/gemini-ui/src/service-navigation/model.ts",
       "bytes": 1072,
@@ -2451,7 +2468,7 @@
       "bytes": 2759,
       "sha256": "13c04e4d00737e02ea4ee34a7dca8ef0747c28aabe5716e241108ce239eb7723",
       "normalizedGitBlob": "e2dd27b91b90b1679f26f55801a9ca63d4559e07",
-      "disposition": "CURRENT_BYTE_EQUIVALENT"
+      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\smart-scan\\SmartScanHero.tsx",
@@ -3475,7 +3492,7 @@
       "bytes": 685257,
       "sha256": "6c77ff5ea114704ddab71a58d6a0e9a20fec7b7970893c7a01796d102ff4e142",
       "normalizedGitBlob": "3efbea45d589f3a97f1c6bb577f962e9fe3c09c9",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\3\\docs\\evidence\\live-organization\\electron\\preserved-files-light.png",
@@ -3483,7 +3500,7 @@
       "bytes": 603968,
       "sha256": "fa5f73837d505fe2f11b4f19ca68d6c6e795e71d6b16e494d0bc1eace18137b5",
       "normalizedGitBlob": "e1bd7fc6f7a6c4351f1ff8ea4e0fb12d129d1451",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\3\\docs\\evidence\\live-organization\\electron\\preserved-studio-dark.png",
@@ -3491,7 +3508,7 @@
       "bytes": 853862,
       "sha256": "5e62cdd56c523483b661e733b0760382ac764d7d1c7de52db71d154d8e35210e",
       "normalizedGitBlob": "5e10e5184ed81d6de7a995d403826719742e3b02",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\3\\docs\\evidence\\live-organization\\electron\\preserved-studio-light.png",
@@ -3499,7 +3516,7 @@
       "bytes": 937016,
       "sha256": "d6569b0916e74b248a701b2aa21d08372cb5ebc87fe3cf84dd81f37b843ac0a5",
       "normalizedGitBlob": "f2c1b147f3789ea694efe16802f3a0dfdcf39358",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\apps\\gemini-ui\\scripts\\canvas-electron-preview.mjs",
@@ -3547,7 +3564,7 @@
       "bytes": 333679,
       "sha256": "27b5cdcccc26dca647ae6745d28a8c014520be4fa1a7b55838c31ead5d48413a",
       "normalizedGitBlob": "7e93f00f128492048b9d15b36e9e9b2ca53e1dc0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\canvas-rollout\\electron\\files-light.png",
@@ -3555,7 +3572,7 @@
       "bytes": 604473,
       "sha256": "3424ff52e6a4e1841bfa0e5676f1fc23bdbd3de88aab363cc2ec4d40e2a054ce",
       "normalizedGitBlob": "4d9b47f49886a6297f90119da1251146e81fed26",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\canvas-rollout\\electron\\home-light.png",
@@ -3563,7 +3580,15 @@
       "bytes": 503911,
       "sha256": "bf45701cb6d764ae10a0dd0e531ec293da4ffa58ce65a6e23f1b2175f4f619df",
       "normalizedGitBlob": "a8f48a66ee80a9c3ce555f1aee314d9473fb978c",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\canvas-rollout\\electron\\preview.json",
+      "target": "electron/preview.json",
+      "bytes": 1172,
+      "sha256": "82da4508922120fdcf76025352730ea33aba7cfd3e8b9a28d15b503c2ecb3588",
+      "normalizedGitBlob": "47f0c4c1fb5f133f7122f9dfcd2dd322429edcb8",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\canvas-rollout\\electron\\smart_scan-light.png",
@@ -3571,7 +3596,15 @@
       "bytes": 486027,
       "sha256": "52d7c92b189401a9c2bc1e5ad75a3f8e07cda06a6ec7ea86f2ba8c27ee29d5b2",
       "normalizedGitBlob": "77c86dc10afd9dff0c83b78577e3910711b28018",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\files-owner-pilot\\electron\\checks.json",
+      "target": "electron/checks.json",
+      "bytes": 1623,
+      "sha256": "fdeea4e93b23e022b3f1816d440013e5d6ff44b2c0e2fcddf14309f405071888",
+      "normalizedGitBlob": "22776c26e27b791ffbea9795edf5057ce090363a",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\files-owner-pilot\\electron\\dark-1366x768.png",
@@ -3579,7 +3612,7 @@
       "bytes": 476373,
       "sha256": "fe19561ba87e5c0a75e0b59eeac481d69cb7aa060255cfbeda8d8575871f2d9d",
       "normalizedGitBlob": "3d1bfed50fcfc00d3d37639f34dcf906abb41a39",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\files-owner-pilot\\electron\\dark-1672x941.png",
@@ -3587,7 +3620,7 @@
       "bytes": 648652,
       "sha256": "61d9160d2afb986f79d831c1ff1f25713fa829223bd1c583685a6a767597c6de",
       "normalizedGitBlob": "14f3933a78ad96a497ead78b8101dfbd4c31f0cb",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\files-owner-pilot\\electron\\light-1366x768.png",
@@ -3595,7 +3628,7 @@
       "bytes": 427776,
       "sha256": "16c429c3311ee5278604710ae66a0d4ce766665c8c0b75994b10d608d3e2da93",
       "normalizedGitBlob": "580d523c565ae899168912b1b92c87d4d9d6a307",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\files-owner-pilot\\electron\\light-1672x941.png",
@@ -3603,7 +3636,7 @@
       "bytes": 569593,
       "sha256": "279fd379a5faf7950d8abb55bec24905e3287e60ce0b23e8d5c2505a8c364200",
       "normalizedGitBlob": "39cad4b43b0f773b8e00dd26ac0f07a4831dc19a",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\preserved\\6\\docs\\evidence\\files-owner-pilot\\electron\\search-diagnostic.png",
@@ -3611,7 +3644,7 @@
       "bytes": 806089,
       "sha256": "0a56f4be3b6e5a3af6bf3e88d47e88cf5f9d35c4de92a529df35390827ae6f84",
       "normalizedGitBlob": "a7e172f24c03d7f6920cdd0fa0cf28b50534fecd",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\moved-receipt.png",
@@ -3619,7 +3652,7 @@
       "bytes": 239850,
       "sha256": "cafc7e296dfa6d478ac6e1802d3acc1653f88be14acb6166f51ddfc96f6aa78e",
       "normalizedGitBlob": "c554151f734399c7f40cc30b236bd49f7b895754",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-files-dark-1366.png",
@@ -3627,7 +3660,7 @@
       "bytes": 506545,
       "sha256": "dacbac788732c04e2071fc7ab7b32d8773c2c9ac65808ffdd6fefd04ec6a8a11",
       "normalizedGitBlob": "9c163877bc0eca7c9b5c791bfdc85374708cc58a",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-files-dark-1672.png",
@@ -3635,7 +3668,7 @@
       "bytes": 685915,
       "sha256": "f50ae703e1784064a29f51473940cdd0615fc2955943851bf79341667536a823",
       "normalizedGitBlob": "9fc199b67516931070fc5234ff7dd181dc160698",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-files-light-1366.png",
@@ -3643,7 +3676,7 @@
       "bytes": 446746,
       "sha256": "344d0a6b7918016bc0a90cbae44548b9bf8f79146a9591d1165f02e9cbe5a25c",
       "normalizedGitBlob": "aad3dfb315a98cc9e3f32d9393cd81a926098e8e",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-files-light-1672.png",
@@ -3651,7 +3684,7 @@
       "bytes": 604548,
       "sha256": "7e52e689475959270850c3961bb0c0a49a5837c4b7ba2be4e5f98e977b4dc0da",
       "normalizedGitBlob": "56dcfc7804f79c509722e59feb07225c34c314ec",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-studio-dark-1366.png",
@@ -3659,7 +3692,7 @@
       "bytes": 652552,
       "sha256": "936ec771ce35ca823641c9a2ad3abcf2fd90099e6254c3dbfce95e2a364ea65e",
       "normalizedGitBlob": "5ef3dc42a7d2084a6b716e2f98eeb561284abd37",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-studio-dark-1672.png",
@@ -3667,7 +3700,7 @@
       "bytes": 856026,
       "sha256": "ad8ee49debd9e355a9e28388e1f4c8d9a2f0cc2c4f6f80d0c09c9ecca05e236b",
       "normalizedGitBlob": "4a39b22c2746f6336582e4b3ca5bf6ab2f7e74c7",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-studio-light-1366.png",
@@ -3675,7 +3708,7 @@
       "bytes": 714831,
       "sha256": "3b3218e69e0e0605da1cb6af631618e4454af2324b41c656f245b6b006c014c2",
       "normalizedGitBlob": "61ea9ed12543cfcc7c9d3aefa31c21b72df3f4d0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preserved-studio-light-1672.png",
@@ -3683,7 +3716,7 @@
       "bytes": 941302,
       "sha256": "be9d8148ed7f92f255be5a68a29321398cd081df4614b147957c9cc8a79d891d",
       "normalizedGitBlob": "27f330862def08f297a8dd11191d91a3e0a67d23",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preview-dark-1366.png",
@@ -3691,7 +3724,7 @@
       "bytes": 215019,
       "sha256": "506733a73ac8b80320f67cbe7dc986817d0c569dad6ad8f3631547530b896da0",
       "normalizedGitBlob": "d0bae48bf36b528967c292d5c49c91df058cdc2d",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preview-dark-1672.png",
@@ -3699,7 +3732,7 @@
       "bytes": 247102,
       "sha256": "dab69eeacff56709bd5372e235d498eaf881ab1186e40f5a2c73ede04a30bf01",
       "normalizedGitBlob": "db5135aa3e90afd0e2f4bb8c53a1bf83b9dd7789",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preview-light-1366.png",
@@ -3707,7 +3740,7 @@
       "bytes": 184672,
       "sha256": "6e66a57cf9f3b0fecdf03e7271f82e546e262e51ed16e2d6d854d120548b808a",
       "normalizedGitBlob": "add4f664f0c47a704063b91028ee473576b268a4",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\preview-light-1672.png",
@@ -3715,7 +3748,15 @@
       "bytes": 213602,
       "sha256": "27cec0853bc3b5a24194b944e438672eec9cf416e785137b34588228226f5585",
       "normalizedGitBlob": "6a821f22c0de13c889e0a9613140b300a0e171a5",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\proof.json",
+      "target": "electron/organization/proof.json",
+      "bytes": 201073,
+      "sha256": "f646ff0fead9799bcd3dc57904394dd4466227306f0dc0582207c3726f38cbd6",
+      "normalizedGitBlob": "906d6c2538874833af8aff3f2745f137bf4d08c8",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\organization\\restored-receipt.png",
@@ -3723,7 +3764,7 @@
       "bytes": 248656,
       "sha256": "074755be851bd0fdbf57b2fe4da98c6f003ca289a487d41157a9b6f2539b9482",
       "normalizedGitBlob": "7b37d3ef560c34940985f4298c9b22ca35bdb8a8",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\plan-dark.png",
@@ -3731,7 +3772,7 @@
       "bytes": 287439,
       "sha256": "b05919d367f0a14d7fd9961b52edb2be6f3208f97f87047dc60de3ec6859ac63",
       "normalizedGitBlob": "0b02f76147aebec8c018fdabe506b67588ff23bd",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\plan-light.png",
@@ -3739,7 +3780,7 @@
       "bytes": 254978,
       "sha256": "8d4470489401b0f7902464649ae0bf4a1eada98477519d6498986d6412106caf",
       "normalizedGitBlob": "1d0ee67a379ac11b99c061ede4444d1c321c45cd",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\preserved-cleanup-dark.png",
@@ -3747,7 +3788,7 @@
       "bytes": 543698,
       "sha256": "a1feddcc75dc4b0bdff30e4be8231fcbd530a09a14579de8920ba6380e5ac961",
       "normalizedGitBlob": "b53b38e22a1c139f75c575e1602e54252dc077b2",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\preserved-cleanup-light.png",
@@ -3755,7 +3796,7 @@
       "bytes": 454932,
       "sha256": "374f3d89e4819d2af644f5676622bd61e9e96738deb06efada88f545a64f28ba",
       "normalizedGitBlob": "4dc3cd5779b318be7c8f79b422193cdaad60a7c2",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\preserved-storage-dark.png",
@@ -3763,7 +3804,7 @@
       "bytes": 518809,
       "sha256": "a86eebf40e02ae79e3fe8f547b1124fa9c7d119bf575959b94ece048790f9ac4",
       "normalizedGitBlob": "67e5f99c45fea51acd45ad4657eed55934d4b9cc",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\preserved-storage-light.png",
@@ -3771,7 +3812,15 @@
       "bytes": 460565,
       "sha256": "53102620f43d0cfe3f0a0c0a155c5af0ad9d3d3c7f05793141b6382c29fbca0f",
       "normalizedGitBlob": "95c9a46f5eef00368c527472e9cbe10f2ec4ed17",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\proof.json",
+      "target": "electron/vault/proof.json",
+      "bytes": 40701,
+      "sha256": "cfad061cf1c9e51587def242890165997d5e2f57063826766851fe4a9de5bb80",
+      "normalizedGitBlob": "4b7785b0b69d51ede053457ad23027dd5ce0cf37",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\quarantine-receipt.png",
@@ -3779,7 +3828,7 @@
       "bytes": 258224,
       "sha256": "185dc4dbe1681875d8eb02e0242cbe5eb837724b27f77bc4e1292c573d66f592",
       "normalizedGitBlob": "a936c534d018024ac9cf2b8faf7bfb87929d35d0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\restored-report.png",
@@ -3787,7 +3836,7 @@
       "bytes": 252055,
       "sha256": "1b81f89e0cf205d224af803e1a7a0449fcfe8a5eed24c23aceaaf45bf45f787d",
       "normalizedGitBlob": "1f27b771b9e4dca4bd837ecf020a188ee2538ead",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\treemap-dark-1366.png",
@@ -3795,7 +3844,7 @@
       "bytes": 211558,
       "sha256": "40c0b88e2ec24897b092510badc04cc1ebe48cccbea5ee97aa8f4ac9e6d00be5",
       "normalizedGitBlob": "6891024f7b71c63c79c1fc45e96feff95955b8ae",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\treemap-dark-1672.png",
@@ -3803,7 +3852,7 @@
       "bytes": 252179,
       "sha256": "fc9d06d2e9c2ec618a70a15c3ca08a430872f2f1b77c790f635b6e612290e5be",
       "normalizedGitBlob": "9a3910c783e5790a9cf457a82d334b8d1ebeef13",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\treemap-light-1366.png",
@@ -3811,7 +3860,7 @@
       "bytes": 186039,
       "sha256": "f466eb6ce2e8c4e21e6beb094b05995090faf69081a492fb4a9f6dd2439992b1",
       "normalizedGitBlob": "f6be464106cf9b4f3a9dc15d5bacf0cc0c8c3f6e",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-canonical\\electron\\vault\\treemap-light-1672.png",
@@ -3819,7 +3868,7 @@
       "bytes": 219544,
       "sha256": "3b15c01523a081d2ae810f47b9ff6e068425995f643f6346ec0ee756d4b6f0b1",
       "normalizedGitBlob": "c94cf9f59269fada49df1d2469f4de337800c386",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\moved-receipt.png",
@@ -3827,7 +3876,7 @@
       "bytes": 240275,
       "sha256": "3226b8831f175ead5d598d3f8d27ed2ddeda4f4ec4e18f6a4e216d63dbc86ce1",
       "normalizedGitBlob": "5ff3dbba14d322b6f7b7a699489996f6e2b7014a",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-dark-1366.png",
@@ -3835,7 +3884,7 @@
       "bytes": 506555,
       "sha256": "c04b9fb90c42337c658ced5fea26a35d544ffb6f93d7ab009bf1df0373e5221a",
       "normalizedGitBlob": "b6a0ba4412c9dfd3783d636a8e4a3bb8a899b2d7",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-dark-1672.png",
@@ -3843,7 +3892,7 @@
       "bytes": 686092,
       "sha256": "cc1360bfd09fa8730efa5acdc1e588854907d705ef9d24c8700e85ea44a02497",
       "normalizedGitBlob": "dd1c3d27797b4a0ccc323d09709a9c07c4ba3ead",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-light-1366.png",
@@ -3851,7 +3900,7 @@
       "bytes": 446769,
       "sha256": "b5aba36df32f9dc77ebb420bec25768c1431cc94b4616d30ed08ff61ee3b362d",
       "normalizedGitBlob": "0ff5ad168859b46896242c754ee96190c413f3ea",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-files-light-1672.png",
@@ -3859,7 +3908,7 @@
       "bytes": 604671,
       "sha256": "99ec9b6cf8f43ef7eae4828bf633aed2f5727117db41dd8073b999cecfa664f1",
       "normalizedGitBlob": "d14d647f9e605a3d643f3171b2fa76be0aa3a6d8",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-studio-dark-1366.png",
@@ -3867,7 +3916,7 @@
       "bytes": 652552,
       "sha256": "936ec771ce35ca823641c9a2ad3abcf2fd90099e6254c3dbfce95e2a364ea65e",
       "normalizedGitBlob": "5ef3dc42a7d2084a6b716e2f98eeb561284abd37",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-studio-dark-1672.png",
@@ -3875,7 +3924,7 @@
       "bytes": 856026,
       "sha256": "ad8ee49debd9e355a9e28388e1f4c8d9a2f0cc2c4f6f80d0c09c9ecca05e236b",
       "normalizedGitBlob": "4a39b22c2746f6336582e4b3ca5bf6ab2f7e74c7",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-studio-light-1366.png",
@@ -3883,7 +3932,7 @@
       "bytes": 714831,
       "sha256": "3b3218e69e0e0605da1cb6af631618e4454af2324b41c656f245b6b006c014c2",
       "normalizedGitBlob": "61ea9ed12543cfcc7c9d3aefa31c21b72df3f4d0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preserved-studio-light-1672.png",
@@ -3891,7 +3940,7 @@
       "bytes": 941302,
       "sha256": "be9d8148ed7f92f255be5a68a29321398cd081df4614b147957c9cc8a79d891d",
       "normalizedGitBlob": "27f330862def08f297a8dd11191d91a3e0a67d23",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-dark-1366.png",
@@ -3899,7 +3948,7 @@
       "bytes": 215512,
       "sha256": "e0907c61c5522f11a50cf6a6e5424921748ec98c54ca69108a3d2e7670b249b9",
       "normalizedGitBlob": "0f3c9db5c3e988c95729e1a9b403cedbd4758c48",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-dark-1672.png",
@@ -3907,7 +3956,7 @@
       "bytes": 247552,
       "sha256": "63eb561996e51d486ba07315501bfb419130da3f41b579aef0103a1296816e00",
       "normalizedGitBlob": "530e7d0619b7526209b9dea6dcea7d367311588c",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-light-1366.png",
@@ -3915,7 +3964,7 @@
       "bytes": 185218,
       "sha256": "86644a85f7a6a117af051282c36e4db9b21e0a9e5c5a24a4329aa0c93afa8547",
       "normalizedGitBlob": "d2c18e93892468b22e133cd3ae8192d7dc1cb096",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\preview-light-1672.png",
@@ -3923,7 +3972,15 @@
       "bytes": 214013,
       "sha256": "c4064190fa6c3ba261c4489ed98e98d71370612beca7432c397509c7dff6eb9b",
       "normalizedGitBlob": "2379583c225f748e904157011ae3c0b39dd93520",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\proof.json",
+      "target": "electron/organization/proof.json",
+      "bytes": 201072,
+      "sha256": "6d75e5c1e01ecfcf3b3fb9c8cd62e3835a47ce9ddcb47bfdf2e259f9f6e0780f",
+      "normalizedGitBlob": "553983cbd8e9a8d60207d437cea2be393bf17114",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\organization\\restored-receipt.png",
@@ -3931,7 +3988,7 @@
       "bytes": 248690,
       "sha256": "bc3b4e146c49c2303a7e280cc8651b89be8bce8c2e74ad80729c09a0450b511f",
       "normalizedGitBlob": "7850ece8dc0be4ef8ca876f8e5733e35f0c31e7b",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\plan-dark.png",
@@ -3939,7 +3996,7 @@
       "bytes": 286116,
       "sha256": "69474e73de9a8b4e81a02515d6c9f540dba5ed2d2f3e533fa5a0b76db7527983",
       "normalizedGitBlob": "556b6c2f7d6b64ba6db78d2063ef8b22f1eb3935",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\plan-light.png",
@@ -3947,7 +4004,7 @@
       "bytes": 253664,
       "sha256": "024c670423b0982e1b1bb272498d00f0ebd87a9d3d393385340b4e0af18cf85d",
       "normalizedGitBlob": "e1f503c8c76821a88d17cdbcc66e863a307c1709",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\preserved-cleanup-dark.png",
@@ -3955,7 +4012,7 @@
       "bytes": 543698,
       "sha256": "a1feddcc75dc4b0bdff30e4be8231fcbd530a09a14579de8920ba6380e5ac961",
       "normalizedGitBlob": "b53b38e22a1c139f75c575e1602e54252dc077b2",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\preserved-cleanup-light.png",
@@ -3963,7 +4020,7 @@
       "bytes": 454932,
       "sha256": "374f3d89e4819d2af644f5676622bd61e9e96738deb06efada88f545a64f28ba",
       "normalizedGitBlob": "4dc3cd5779b318be7c8f79b422193cdaad60a7c2",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\preserved-storage-dark.png",
@@ -3971,7 +4028,7 @@
       "bytes": 518827,
       "sha256": "043516f5a913adc15f6ae7268db8e7ff85737874b7b3b89eeb1e4d2ab070438e",
       "normalizedGitBlob": "8efafa048f35962a684648028d46f24cb11be0cc",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\preserved-storage-light.png",
@@ -3979,7 +4036,15 @@
       "bytes": 460571,
       "sha256": "9315b147930ab37a466562eff7bb17fd8d017a27674fe235ec09bb6b66623fc0",
       "normalizedGitBlob": "b8a5a1c5bbe547db306afa0ff95a74015fffc26c",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\proof.json",
+      "target": "electron/vault/proof.json",
+      "bytes": 40701,
+      "sha256": "d1140ca87eacb17058ca036b19d6e8a262d54b817edcd861db05cbb71a753911",
+      "normalizedGitBlob": "410af578817f16dfe79fd265948df4cd4f89853b",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\quarantine-receipt.png",
@@ -3987,7 +4052,7 @@
       "bytes": 257962,
       "sha256": "aaee500913d8b84419f399b67b40f25f52945e10ff5fbeea5a77b532c45b73e3",
       "normalizedGitBlob": "19317fc20f4fb1c4eeafe549ed4f84277bf1752a",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\restored-report.png",
@@ -3995,7 +4060,7 @@
       "bytes": 251879,
       "sha256": "5ff857169ef8d32b08110f6e63bd908b7c508aee7d18c6875b5cc400fe413534",
       "normalizedGitBlob": "862eeadeaee3f405f9b58f4e6fedf602e74544cf",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-dark-1366.png",
@@ -4003,7 +4068,7 @@
       "bytes": 211131,
       "sha256": "1dfed93a320b1ab428bbfb600383e5161de8413c9b2b806c651ed0961a6074fa",
       "normalizedGitBlob": "e1771056aceb17f3187845787a1028c29069ffd4",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-dark-1672.png",
@@ -4011,7 +4076,7 @@
       "bytes": 254707,
       "sha256": "1ca0b35d2b0c61143fa91357222ba1bb9a5b156b86429e1af6eb6a60e1deebd7",
       "normalizedGitBlob": "3dd127493c269c2e8d4a4b41245ccef8adabd1c3",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-light-1366.png",
@@ -4019,7 +4084,7 @@
       "bytes": 185676,
       "sha256": "33ad541ed5f6763d3d8a05935ba0c9515c34eb05c88698682e556e95cc3d14da",
       "normalizedGitBlob": "6258ee27b78a5f9406b2ea58ebd1253e34962b91",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_GH013_AUTHORIZED_RECOVERY_20261028\\validation-clone\\electron\\vault\\treemap-light-1672.png",
@@ -4027,7 +4092,7 @@
       "bytes": 219280,
       "sha256": "5cfd285fcfa2bacee2277a317d9f94fb4879af8a1ccc2d1f578db2cf05d2e125",
       "normalizedGitBlob": "5fbd287e27a312ca2e82372e25035e1b5f623d00",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\apps\\gemini-ui\\electron\\main.cjs",
@@ -4107,7 +4172,7 @@
       "bytes": 685257,
       "sha256": "6c77ff5ea114704ddab71a58d6a0e9a20fec7b7970893c7a01796d102ff4e142",
       "normalizedGitBlob": "3efbea45d589f3a97f1c6bb577f962e9fe3c09c9",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-files-light.png",
@@ -4115,7 +4180,7 @@
       "bytes": 603968,
       "sha256": "fa5f73837d505fe2f11b4f19ca68d6c6e795e71d6b16e494d0bc1eace18137b5",
       "normalizedGitBlob": "e1bd7fc6f7a6c4351f1ff8ea4e0fb12d129d1451",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-studio-dark.png",
@@ -4123,7 +4188,7 @@
       "bytes": 853862,
       "sha256": "5e62cdd56c523483b661e733b0760382ac764d7d1c7de52db71d154d8e35210e",
       "normalizedGitBlob": "5e10e5184ed81d6de7a995d403826719742e3b02",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-studio-light.png",
@@ -4131,7 +4196,7 @@
       "bytes": 937016,
       "sha256": "d6569b0916e74b248a701b2aa21d08372cb5ebc87fe3cf84dd81f37b843ac0a5",
       "normalizedGitBlob": "f2c1b147f3789ea694efe16802f3a0dfdcf39358",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\live-organization\\working-files\\electron\\studio\\studio-organization.cjs",
@@ -4171,6 +4236,14 @@
       "bytes": 3351,
       "sha256": "b96e91870071f451a0f4a20b9b5049e5ff30c0457c9d537f52d46368dc474d26",
       "normalizedGitBlob": "e4669964511d1df97c872896f0131020557b95ac",
+      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\root\\working-files\\apps\\gemini-ui\\shared\\native-contract.json",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "bytes": 33044,
+      "sha256": "fdeb3344f32b1ec97652fef1ab0982ff3d7626738db423cd1dd9d8d01cd5fc0d",
+      "normalizedGitBlob": "94c4b6a07d2f1cec7b958b0f3fe3c9dd080a8b39",
       "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
     },
     {
@@ -4323,7 +4396,7 @@
       "bytes": 333679,
       "sha256": "27b5cdcccc26dca647ae6745d28a8c014520be4fa1a7b55838c31ead5d48413a",
       "normalizedGitBlob": "7e93f00f128492048b9d15b36e9e9b2ca53e1dc0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\files-light.png",
@@ -4331,7 +4404,7 @@
       "bytes": 604473,
       "sha256": "3424ff52e6a4e1841bfa0e5676f1fc23bdbd3de88aab363cc2ec4d40e2a054ce",
       "normalizedGitBlob": "4d9b47f49886a6297f90119da1251146e81fed26",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\home-light.png",
@@ -4339,7 +4412,15 @@
       "bytes": 503911,
       "sha256": "bf45701cb6d764ae10a0dd0e531ec293da4ffa58ce65a6e23f1b2175f4f619df",
       "normalizedGitBlob": "a8f48a66ee80a9c3ce555f1aee314d9473fb978c",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\preview.json",
+      "target": "electron/preview.json",
+      "bytes": 1172,
+      "sha256": "82da4508922120fdcf76025352730ea33aba7cfd3e8b9a28d15b503c2ecb3588",
+      "normalizedGitBlob": "47f0c4c1fb5f133f7122f9dfcd2dd322429edcb8",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\smart_scan-light.png",
@@ -4347,7 +4428,15 @@
       "bytes": 486027,
       "sha256": "52d7c92b189401a9c2bc1e5ad75a3f8e07cda06a6ec7ea86f2ba8c27ee29d5b2",
       "normalizedGitBlob": "77c86dc10afd9dff0c83b78577e3910711b28018",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\checks.json",
+      "target": "electron/checks.json",
+      "bytes": 1623,
+      "sha256": "fdeea4e93b23e022b3f1816d440013e5d6ff44b2c0e2fcddf14309f405071888",
+      "normalizedGitBlob": "22776c26e27b791ffbea9795edf5057ce090363a",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\dark-1366x768.png",
@@ -4355,7 +4444,7 @@
       "bytes": 476373,
       "sha256": "fe19561ba87e5c0a75e0b59eeac481d69cb7aa060255cfbeda8d8575871f2d9d",
       "normalizedGitBlob": "3d1bfed50fcfc00d3d37639f34dcf906abb41a39",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\dark-1672x941.png",
@@ -4363,7 +4452,7 @@
       "bytes": 648652,
       "sha256": "61d9160d2afb986f79d831c1ff1f25713fa829223bd1c583685a6a767597c6de",
       "normalizedGitBlob": "14f3933a78ad96a497ead78b8101dfbd4c31f0cb",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\light-1366x768.png",
@@ -4371,7 +4460,7 @@
       "bytes": 427776,
       "sha256": "16c429c3311ee5278604710ae66a0d4ce766665c8c0b75994b10d608d3e2da93",
       "normalizedGitBlob": "580d523c565ae899168912b1b92c87d4d9d6a307",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\light-1672x941.png",
@@ -4379,7 +4468,7 @@
       "bytes": 569593,
       "sha256": "279fd379a5faf7950d8abb55bec24905e3287e60ce0b23e8d5c2505a8c364200",
       "normalizedGitBlob": "39cad4b43b0f773b8e00dd26ac0f07a4831dc19a",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\search-diagnostic.png",
@@ -4387,7 +4476,7 @@
       "bytes": 806089,
       "sha256": "0a56f4be3b6e5a3af6bf3e88d47e88cf5f9d35c4de92a529df35390827ae6f84",
       "normalizedGitBlob": "a7e172f24c03d7f6920cdd0fa0cf28b50534fecd",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-files-dark.png",
@@ -4395,7 +4484,7 @@
       "bytes": 685257,
       "sha256": "6c77ff5ea114704ddab71a58d6a0e9a20fec7b7970893c7a01796d102ff4e142",
       "normalizedGitBlob": "3efbea45d589f3a97f1c6bb577f962e9fe3c09c9",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-files-light.png",
@@ -4403,7 +4492,7 @@
       "bytes": 603968,
       "sha256": "fa5f73837d505fe2f11b4f19ca68d6c6e795e71d6b16e494d0bc1eace18137b5",
       "normalizedGitBlob": "e1bd7fc6f7a6c4351f1ff8ea4e0fb12d129d1451",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-studio-dark.png",
@@ -4411,7 +4500,7 @@
       "bytes": 853862,
       "sha256": "5e62cdd56c523483b661e733b0760382ac764d7d1c7de52db71d154d8e35210e",
       "normalizedGitBlob": "5e10e5184ed81d6de7a995d403826719742e3b02",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-studio-light.png",
@@ -4419,7 +4508,7 @@
       "bytes": 937016,
       "sha256": "d6569b0916e74b248a701b2aa21d08372cb5ebc87fe3cf84dd81f37b843ac0a5",
       "normalizedGitBlob": "f2c1b147f3789ea694efe16802f3a0dfdcf39358",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\plan-dark.png",
@@ -4427,7 +4516,7 @@
       "bytes": 287069,
       "sha256": "c5bac27cded1e6862608b7957fb71d11ffbc09f0538dc3fd790012252eb21d19",
       "normalizedGitBlob": "69e46d9abbf59e239633865c4bebda7ccd5c032c",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\plan-light.png",
@@ -4435,7 +4524,7 @@
       "bytes": 254776,
       "sha256": "1014a212f6a238e3de305dac089208107957758aec9f4ef95c851add3fb24b53",
       "normalizedGitBlob": "c4299460a4c7e4e0c31b8567be620a4b280f37d6",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\preserved-cleanup-dark.png",
@@ -4443,7 +4532,7 @@
       "bytes": 520421,
       "sha256": "f86efe4f449d4ed6718f8fbc8ccdd143a16820b61ef1bf716c71954785df2727",
       "normalizedGitBlob": "0cf116d1899a53b6e71e692b1df71a0d4eee169c",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\preserved-cleanup-light.png",
@@ -4451,7 +4540,7 @@
       "bytes": 436163,
       "sha256": "5e8dd75d038f07e7ad6d3edc7881de6878eae2ff88f7017c9968442307c4143f",
       "normalizedGitBlob": "e78f6cdb5a997fd3fc2fb631ee0d581197624073",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\preserved-storage-dark.png",
@@ -4459,7 +4548,7 @@
       "bytes": 518726,
       "sha256": "0c443f3d54c4e46d03e514b165e46a37ad8fc1597d0fa845966492887bb199b8",
       "normalizedGitBlob": "eea27c0b7af3dbeabd7b5a57d2016290efc85593",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\preserved-storage-light.png",
@@ -4467,7 +4556,15 @@
       "bytes": 460441,
       "sha256": "bb22f8e5360abec20626c52dee538dda136a36d0c9a5443ef52b4870d5d30e5d",
       "normalizedGitBlob": "04cfad6b8711347760f7c1067ed9a4e4a942a553",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\proof.json",
+      "target": "electron/proof.json",
+      "bytes": 40701,
+      "sha256": "437b656f2dc0a315e9e79af3da77e87345815ed32a6878d67afd4e59d8b1025f",
+      "normalizedGitBlob": "588150bd8c8070e0378bc3cf525993e688289ead",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\quarantine-receipt.png",
@@ -4475,7 +4572,7 @@
       "bytes": 257912,
       "sha256": "368e5c97b4261b95186c21eb4b3915fc396d4a3bf6807b52cb774d0acfc7d34e",
       "normalizedGitBlob": "bb80ff6e4386dcf004268baa79c2ade8d0b33bb1",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\restored-report.png",
@@ -4483,7 +4580,7 @@
       "bytes": 251822,
       "sha256": "538effa59f35f1a04e179bf281363e2637ffb091ffa0b88589abe6f87aded928",
       "normalizedGitBlob": "2677541d981927491c180a0c35aa71c9f0a93409",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\treemap-dark-1366.png",
@@ -4491,7 +4588,7 @@
       "bytes": 211289,
       "sha256": "218668d8580256d9258b8a60d113be370044299f5a1c8a25f3b0b66bfa9e8dc6",
       "normalizedGitBlob": "c32103d5203cbe41e25158d970e0019e3b1b8eee",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\treemap-dark-1672.png",
@@ -4499,7 +4596,7 @@
       "bytes": 251991,
       "sha256": "982df857522b8607f314c8da9396a443356b5dd35acb7f74426b7ccff7eb6429",
       "normalizedGitBlob": "37b98d888be122a6879ab80e4db03d3f94a87a47",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\treemap-light-1366.png",
@@ -4507,7 +4604,7 @@
       "bytes": 185905,
       "sha256": "d91e72cc81987523fa103b5a201bd57009c2ea25a1e35eb117439d4bfbd3db9c",
       "normalizedGitBlob": "b5eadf444c6a2fdcbb96a423b0b33d2ab426f369",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\live-organization\\working-files\\docs\\evidence\\storage-cleanup-wave2\\electron\\treemap-light-1672.png",
@@ -4515,7 +4612,7 @@
       "bytes": 219516,
       "sha256": "ead22f7615643819847e5eceda3ac92dd28413fadb7c293528a4dae55d86b790",
       "normalizedGitBlob": "046b280165178e0b02f6fddf847cbacfbd0148c6",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\root\\working-files\\apps\\gemini-ui\\electron\\main.cjs",
@@ -4547,6 +4644,14 @@
       "bytes": 3351,
       "sha256": "b96e91870071f451a0f4a20b9b5049e5ff30c0457c9d537f52d46368dc474d26",
       "normalizedGitBlob": "e4669964511d1df97c872896f0131020557b95ac",
+      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\root\\working-files\\apps\\gemini-ui\\shared\\native-contract.json",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "bytes": 33044,
+      "sha256": "fdeb3344f32b1ec97652fef1ab0982ff3d7626738db423cd1dd9d8d01cd5fc0d",
+      "normalizedGitBlob": "94c4b6a07d2f1cec7b958b0f3fe3c9dd080a8b39",
       "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
     },
     {
@@ -4699,7 +4804,7 @@
       "bytes": 333679,
       "sha256": "27b5cdcccc26dca647ae6745d28a8c014520be4fa1a7b55838c31ead5d48413a",
       "normalizedGitBlob": "7e93f00f128492048b9d15b36e9e9b2ca53e1dc0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\files-light.png",
@@ -4707,7 +4812,7 @@
       "bytes": 604473,
       "sha256": "3424ff52e6a4e1841bfa0e5676f1fc23bdbd3de88aab363cc2ec4d40e2a054ce",
       "normalizedGitBlob": "4d9b47f49886a6297f90119da1251146e81fed26",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\home-light.png",
@@ -4715,7 +4820,15 @@
       "bytes": 503911,
       "sha256": "bf45701cb6d764ae10a0dd0e531ec293da4ffa58ce65a6e23f1b2175f4f619df",
       "normalizedGitBlob": "a8f48a66ee80a9c3ce555f1aee314d9473fb978c",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\preview.json",
+      "target": "electron/preview.json",
+      "bytes": 1172,
+      "sha256": "82da4508922120fdcf76025352730ea33aba7cfd3e8b9a28d15b503c2ecb3588",
+      "normalizedGitBlob": "47f0c4c1fb5f133f7122f9dfcd2dd322429edcb8",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\smart_scan-light.png",
@@ -4723,7 +4836,15 @@
       "bytes": 486027,
       "sha256": "52d7c92b189401a9c2bc1e5ad75a3f8e07cda06a6ec7ea86f2ba8c27ee29d5b2",
       "normalizedGitBlob": "77c86dc10afd9dff0c83b78577e3910711b28018",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\checks.json",
+      "target": "electron/checks.json",
+      "bytes": 1623,
+      "sha256": "fdeea4e93b23e022b3f1816d440013e5d6ff44b2c0e2fcddf14309f405071888",
+      "normalizedGitBlob": "22776c26e27b791ffbea9795edf5057ce090363a",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\dark-1366x768.png",
@@ -4731,7 +4852,7 @@
       "bytes": 476373,
       "sha256": "fe19561ba87e5c0a75e0b59eeac481d69cb7aa060255cfbeda8d8575871f2d9d",
       "normalizedGitBlob": "3d1bfed50fcfc00d3d37639f34dcf906abb41a39",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\dark-1672x941.png",
@@ -4739,7 +4860,7 @@
       "bytes": 648652,
       "sha256": "61d9160d2afb986f79d831c1ff1f25713fa829223bd1c583685a6a767597c6de",
       "normalizedGitBlob": "14f3933a78ad96a497ead78b8101dfbd4c31f0cb",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\light-1366x768.png",
@@ -4747,7 +4868,7 @@
       "bytes": 427776,
       "sha256": "16c429c3311ee5278604710ae66a0d4ce766665c8c0b75994b10d608d3e2da93",
       "normalizedGitBlob": "580d523c565ae899168912b1b92c87d4d9d6a307",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\light-1672x941.png",
@@ -4755,7 +4876,7 @@
       "bytes": 569593,
       "sha256": "279fd379a5faf7950d8abb55bec24905e3287e60ce0b23e8d5c2505a8c364200",
       "normalizedGitBlob": "39cad4b43b0f773b8e00dd26ac0f07a4831dc19a",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\search-diagnostic.png",
@@ -4763,7 +4884,7 @@
       "bytes": 806089,
       "sha256": "0a56f4be3b6e5a3af6bf3e88d47e88cf5f9d35c4de92a529df35390827ae6f84",
       "normalizedGitBlob": "a7e172f24c03d7f6920cdd0fa0cf28b50534fecd",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-files-dark.png",
@@ -4771,7 +4892,7 @@
       "bytes": 685257,
       "sha256": "6c77ff5ea114704ddab71a58d6a0e9a20fec7b7970893c7a01796d102ff4e142",
       "normalizedGitBlob": "3efbea45d589f3a97f1c6bb577f962e9fe3c09c9",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-files-light.png",
@@ -4779,7 +4900,7 @@
       "bytes": 603968,
       "sha256": "fa5f73837d505fe2f11b4f19ca68d6c6e795e71d6b16e494d0bc1eace18137b5",
       "normalizedGitBlob": "e1bd7fc6f7a6c4351f1ff8ea4e0fb12d129d1451",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-studio-dark.png",
@@ -4787,7 +4908,7 @@
       "bytes": 853862,
       "sha256": "5e62cdd56c523483b661e733b0760382ac764d7d1c7de52db71d154d8e35210e",
       "normalizedGitBlob": "5e10e5184ed81d6de7a995d403826719742e3b02",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\live-organization\\working-files\\docs\\evidence\\live-organization\\electron\\preserved-studio-light.png",
@@ -4795,7 +4916,7 @@
       "bytes": 937016,
       "sha256": "d6569b0916e74b248a701b2aa21d08372cb5ebc87fe3cf84dd81f37b843ac0a5",
       "normalizedGitBlob": "f2c1b147f3789ea694efe16802f3a0dfdcf39358",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\root\\working-files\\apps\\gemini-ui\\electron\\main.cjs",
@@ -4827,6 +4948,14 @@
       "bytes": 3351,
       "sha256": "b96e91870071f451a0f4a20b9b5049e5ff30c0457c9d537f52d46368dc474d26",
       "normalizedGitBlob": "e4669964511d1df97c872896f0131020557b95ac",
+      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\root\\working-files\\apps\\gemini-ui\\shared\\native-contract.json",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "bytes": 33044,
+      "sha256": "fdeb3344f32b1ec97652fef1ab0982ff3d7626738db423cd1dd9d8d01cd5fc0d",
+      "normalizedGitBlob": "94c4b6a07d2f1cec7b958b0f3fe3c9dd080a8b39",
       "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
     },
     {
@@ -4979,7 +5108,7 @@
       "bytes": 333679,
       "sha256": "27b5cdcccc26dca647ae6745d28a8c014520be4fa1a7b55838c31ead5d48413a",
       "normalizedGitBlob": "7e93f00f128492048b9d15b36e9e9b2ca53e1dc0",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\files-light.png",
@@ -4987,7 +5116,7 @@
       "bytes": 604473,
       "sha256": "3424ff52e6a4e1841bfa0e5676f1fc23bdbd3de88aab363cc2ec4d40e2a054ce",
       "normalizedGitBlob": "4d9b47f49886a6297f90119da1251146e81fed26",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\home-light.png",
@@ -4995,7 +5124,15 @@
       "bytes": 503911,
       "sha256": "bf45701cb6d764ae10a0dd0e531ec293da4ffa58ce65a6e23f1b2175f4f619df",
       "normalizedGitBlob": "a8f48a66ee80a9c3ce555f1aee314d9473fb978c",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\preview.json",
+      "target": "electron/preview.json",
+      "bytes": 1172,
+      "sha256": "82da4508922120fdcf76025352730ea33aba7cfd3e8b9a28d15b503c2ecb3588",
+      "normalizedGitBlob": "47f0c4c1fb5f133f7122f9dfcd2dd322429edcb8",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\canvas-rollout\\electron\\smart_scan-light.png",
@@ -5003,7 +5140,15 @@
       "bytes": 486027,
       "sha256": "52d7c92b189401a9c2bc1e5ad75a3f8e07cda06a6ec7ea86f2ba8c27ee29d5b2",
       "normalizedGitBlob": "77c86dc10afd9dff0c83b78577e3910711b28018",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\checks.json",
+      "target": "electron/checks.json",
+      "bytes": 1623,
+      "sha256": "fdeea4e93b23e022b3f1816d440013e5d6ff44b2c0e2fcddf14309f405071888",
+      "normalizedGitBlob": "22776c26e27b791ffbea9795edf5057ce090363a",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\dark-1366x768.png",
@@ -5011,7 +5156,7 @@
       "bytes": 476373,
       "sha256": "fe19561ba87e5c0a75e0b59eeac481d69cb7aa060255cfbeda8d8575871f2d9d",
       "normalizedGitBlob": "3d1bfed50fcfc00d3d37639f34dcf906abb41a39",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\dark-1672x941.png",
@@ -5019,7 +5164,7 @@
       "bytes": 648652,
       "sha256": "61d9160d2afb986f79d831c1ff1f25713fa829223bd1c583685a6a767597c6de",
       "normalizedGitBlob": "14f3933a78ad96a497ead78b8101dfbd4c31f0cb",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\light-1366x768.png",
@@ -5027,7 +5172,7 @@
       "bytes": 427776,
       "sha256": "16c429c3311ee5278604710ae66a0d4ce766665c8c0b75994b10d608d3e2da93",
       "normalizedGitBlob": "580d523c565ae899168912b1b92c87d4d9d6a307",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\light-1672x941.png",
@@ -5035,7 +5180,7 @@
       "bytes": 569593,
       "sha256": "279fd379a5faf7950d8abb55bec24905e3287e60ce0b23e8d5c2505a8c364200",
       "normalizedGitBlob": "39cad4b43b0f773b8e00dd26ac0f07a4831dc19a",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\visual-owner-rebuild\\working-files\\docs\\evidence\\files-owner-pilot\\electron\\search-diagnostic.png",
@@ -5043,7 +5188,7 @@
       "bytes": 806089,
       "sha256": "0a56f4be3b6e5a3af6bf3e88d47e88cf5f9d35c4de92a529df35390827ae6f84",
       "normalizedGitBlob": "a7e172f24c03d7f6920cdd0fa0cf28b50534fecd",
-      "disposition": "HISTORICAL_BLOB_PRESERVED_ON_MAIN"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_ORBIT_STEERING_WIP_PRESERVE_20261028\\apps\\gemini-ui\\scripts\\home-anima-electron.mjs",
@@ -5059,7 +5204,7 @@
       "bytes": 644471,
       "sha256": "0cd4e3d54cd2e1bf2eb3d841f0cf079e7af2e798b6f5f2dee67c64aa7cca3791",
       "normalizedGitBlob": "65f3f512b75a52a273780c08b0b10f473c81897a",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-dark-1366.png",
@@ -5067,7 +5212,7 @@
       "bytes": 566196,
       "sha256": "101a0deed62eb460cb03e0c17e898a68a84e3656cf2778893cc82692f219fa3a",
       "normalizedGitBlob": "af6c2224aa80bcfeef5654ddeeadc988a1887a78",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-dark-1672.png",
@@ -5075,7 +5220,7 @@
       "bytes": 799296,
       "sha256": "23f1d8643a9d3fc8bd7bbc9884e75b76f850bb4d8bdf96840be4b9ee1ef45c7b",
       "normalizedGitBlob": "a7593d369f90c627be18ed3251298c5e853cb17b",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-dark-1920.png",
@@ -5083,7 +5228,7 @@
       "bytes": 1018048,
       "sha256": "2aa2ec26548aab6738693e9c57e30284f39c79b5a67124712c79ba8606ed80a9",
       "normalizedGitBlob": "b20922d708b6e83ac9682d12e8164c8114eac89f",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-light-1366.png",
@@ -5091,7 +5236,7 @@
       "bytes": 542530,
       "sha256": "5fe52d7097ff9429fa81cdf89e7129b2a5175b53fde070179fcdaaf953599f4a",
       "normalizedGitBlob": "26d155449bb3c0a10b773ffaba8e01610565ba7e",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-light-1672.png",
@@ -5099,7 +5244,7 @@
       "bytes": 782989,
       "sha256": "c930a2bc6b68bf9d91ef75aa5e8cda142805fdfed7b9be376f69a51bdb856f71",
       "normalizedGitBlob": "c65ae0de4c1903c4c5fdd4369b0725cd958a7c05",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-ar-light-1920.png",
@@ -5107,7 +5252,7 @@
       "bytes": 1046912,
       "sha256": "2fa37a6d51a5dfcbfba7b33c9408471a1559d264e3c351e8347c0918726155c0",
       "normalizedGitBlob": "6abfd1c1fbf361db2fecea5d9d4efc3d603fac33",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-dark-1366.png",
@@ -5115,7 +5260,7 @@
       "bytes": 570659,
       "sha256": "6cdb316f63c438c761f2c4131ef61b96cf6c98deba486e37899a6aa5aec34f97",
       "normalizedGitBlob": "d97db66561d9fb1672677ba17d0404535ec1334b",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-dark-1672.png",
@@ -5123,7 +5268,7 @@
       "bytes": 808787,
       "sha256": "9227cf2a1367314e488a79cf201722366425dd85a748dd165678d32aea48a499",
       "normalizedGitBlob": "c0b901e3f42a184a7b54b8758b435f5a053eb15d",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-dark-1920.png",
@@ -5131,7 +5276,7 @@
       "bytes": 1023411,
       "sha256": "74e84084eabd873a8c80c96e093681c4c0458231da9492e19f160e916bb8cddd",
       "normalizedGitBlob": "dc7886bafa4166899c2a3b8022bd21cd2e67ffdb",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-light-1366.png",
@@ -5139,7 +5284,7 @@
       "bytes": 556645,
       "sha256": "b2ae821fbdd8cbd0df12bb721d0e4681e82b7410ae89d3040da0a11420ec56c5",
       "normalizedGitBlob": "08ee07debbd87a62bbf7c05022e26f98a1165379",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-light-1672.png",
@@ -5147,7 +5292,7 @@
       "bytes": 798992,
       "sha256": "86c521f4f8ee49ab5329db593325beecda76d680e01bd8b8bf5dcab03fe0238a",
       "normalizedGitBlob": "f97e060970e5743c1fbc061418879ca9ec06c785",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\library-en-light-1920.png",
@@ -5155,7 +5300,7 @@
       "bytes": 1051930,
       "sha256": "43490df2ba6831dca9202436c0b23ba368c8a00998ed951b7af5f7c171b76c97",
       "normalizedGitBlob": "e465b1273b8c98369e16942ede8b1e8e30b6113f",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\overview-dark.png",
@@ -5163,7 +5308,7 @@
       "bytes": 993741,
       "sha256": "7841c79488186f9d5e54efc98231ec7da12fec3da36333c5b1217705a639e20e",
       "normalizedGitBlob": "47035cde6da455fc1098cee96eee822a94c3457a",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\overview-light.png",
@@ -5171,7 +5316,15 @@
       "bytes": 798007,
       "sha256": "fdf530397e16028a16f07ba9f6f6ad4b78bff32013a8a0dcedb428d8f24a7c5e",
       "normalizedGitBlob": "e46548d0200c09a08bc9f4d601d3f036ff0bcd88",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\proof.json",
+      "target": "electron/proof.json",
+      "bytes": 252802,
+      "sha256": "f732ad32fcd4f0965fce0e7c4089b175b6ce4a44184dcac20bf8099f0210a242",
+      "normalizedGitBlob": "f6aa3b9bc7fb53695b34156feb854a8984203f43",
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\restore-verified.png",
@@ -5179,7 +5332,7 @@
       "bytes": 593365,
       "sha256": "10226511780397276126679b6e40b0e2bec94e054541b28a8a556657379ca2b7",
       "normalizedGitBlob": "efe4d660acbd2d2ac91d7ecf9c2e5cc7e7d79af5",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-1-dark.png",
@@ -5187,7 +5340,7 @@
       "bytes": 600409,
       "sha256": "e634de353f0618e3ed457c730372d3db9a60c8d073b7a8949a0a4f647d71e52d",
       "normalizedGitBlob": "d24c6141afbe47c2e2ff2e097232822d582a73fa",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-1-light.png",
@@ -5195,7 +5348,7 @@
       "bytes": 532773,
       "sha256": "1d3d64b29a4edac26dd8f81fc4e469a7e60a5bb211d63479fb7c6d6ad5839eab",
       "normalizedGitBlob": "36b43459f69d07a2950c075f9c951096c228f38b",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-2-dark.png",
@@ -5203,7 +5356,7 @@
       "bytes": 818085,
       "sha256": "9f9ab6b7fecec578213ba03f7d5d38e3b28ed1781c720028fe003ff827fd4c92",
       "normalizedGitBlob": "19b30a4d86330f958871abdd14e85df4a460ffc0",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-2-light.png",
@@ -5211,7 +5364,7 @@
       "bytes": 799280,
       "sha256": "d44caa842acb0283a063403e8173883b2227df4b710d4d8e442024b5493a599c",
       "normalizedGitBlob": "bacc0e34db8635e2bff50d75ef2f2a3c98ecd59a",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-3-dark.png",
@@ -5219,7 +5372,7 @@
       "bytes": 589920,
       "sha256": "0499317be9cc76ac98a7a2ec4dd7c52377253217630ee919f2db54bc594ef58c",
       "normalizedGitBlob": "fbb52e64f63451e8c53311610e13eb3ae0e977cd",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-3-light.png",
@@ -5227,7 +5380,7 @@
       "bytes": 532788,
       "sha256": "c8ff552a4424832be20b934e7f7b550219d66e66edebf26da861504d854dfd0b",
       "normalizedGitBlob": "f93b7bf6ff9692aecd8defc51411da310431b557",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-4-dark.png",
@@ -5235,7 +5388,7 @@
       "bytes": 587566,
       "sha256": "d8aa1a9cbb6b62c914589a613c3e71b46ec9072af4212292d7f318bca359691c",
       "normalizedGitBlob": "72638f440389ddace4a95139c2b531862ce89812",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-4-light.png",
@@ -5243,7 +5396,7 @@
       "bytes": 523634,
       "sha256": "27ce24119dae66d3f560c5bf54554844f8117049b590f7db7f1d106e2cc30648",
       "normalizedGitBlob": "00243d635509cb8c65f4083a641c0e4f3485fbd7",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-5-dark.png",
@@ -5251,7 +5404,7 @@
       "bytes": 603875,
       "sha256": "b54bda8100d817364ad04f93ea2304211ae356797418f9518249c077e0e36716",
       "normalizedGitBlob": "77f2217487d5758fb429f534cee7776c862dbfda",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-5-light.png",
@@ -5259,7 +5412,7 @@
       "bytes": 548910,
       "sha256": "34050fe521f931ec47d39cd8a3742f35ab3a2e2ba3b3cc2e10449a4c22f4d155",
       "normalizedGitBlob": "a6ad8b13067a2f0ba83dffec63ddc30a1ea820cb",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-6-dark.png",
@@ -5267,7 +5420,7 @@
       "bytes": 614988,
       "sha256": "36686edc2e5dcac334d6e6e068d88f123d3f12a21e1a47cc3729beff49c92410",
       "normalizedGitBlob": "72ef954e866038701681b8ca30ad48f5725fd73d",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-6-light.png",
@@ -5275,7 +5428,7 @@
       "bytes": 526445,
       "sha256": "82e66c1d275ccb62bd61c0740e833c94722070971be34c125890aebacc0925b1",
       "normalizedGitBlob": "9f9377fdc62de85516cfe0a1f67a471f754751fb",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-7-dark.png",
@@ -5283,7 +5436,7 @@
       "bytes": 623545,
       "sha256": "75f02c66260555b8ce2c4c2347e384287458e92f9f2f8a4563b523051758e81a",
       "normalizedGitBlob": "66794ed3c02dd0e9a934bbdca3aa4f6c5c30c1b3",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-7-light.png",
@@ -5291,7 +5444,7 @@
       "bytes": 566003,
       "sha256": "efb7e12fa6572f29c6bb63cb3cdc0a7af587dbafd7c858617e33fc8c3b1f6400",
       "normalizedGitBlob": "2c016c14fa4df5df23568d83c57fe34b30464056",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-8-dark.png",
@@ -5299,7 +5452,7 @@
       "bytes": 567552,
       "sha256": "2a03f48cead77caf180c712e4781f80680f746656f0d870e2afe2380cdd1f662",
       "normalizedGitBlob": "c21f62ec94f1d9f69d16ef128e125f02f2a0a551",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-8-light.png",
@@ -5307,7 +5460,7 @@
       "bytes": 504636,
       "sha256": "546341897612558937c4d36fdd4b63615b255a1092bafc50e227dd6d14d2b36f",
       "normalizedGitBlob": "fd182857ae959feaa65c353a1dd0c3e6845e27cf",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-9-dark.png",
@@ -5315,7 +5468,7 @@
       "bytes": 722611,
       "sha256": "8eb34a6ce7d975604c3c2a1e4a9a5fa2bc2b7b38a1de13eea786f1990d7807e4",
       "normalizedGitBlob": "d1c33aca6f9738333706c332afa3f829150a3acb",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_FULLSTACK_ITERATIONS_PRESERVE_20261028\\electron\\stage-9-light.png",
@@ -5323,7 +5476,7 @@
       "bytes": 645379,
       "sha256": "88d06c41d0dd21c73d5bfa864d31de1badd4e91c9afc4b9553e0f768f3fb4a6a",
       "normalizedGitBlob": "2bea0c725f30b81ffefba83288aeb94b3a006a4d",
-      "disposition": "CONTENT_REVIEW_REQUIRED"
+      "disposition": "PRESERVED_TEST_EVIDENCE_ONLY"
     },
     {
       "source": "D:\\KNOUX-Workspace\\KNOuX_STUDIO_WIP_PRESERVE_20261028_061238\\apps\\gemini-ui\\scripts\\live-organization-electron.mjs",

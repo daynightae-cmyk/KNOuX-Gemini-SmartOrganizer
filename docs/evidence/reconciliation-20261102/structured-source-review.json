@@ -1,0 +1,98 @@
+{
+  "scope": "Five source JSON files excluded from original source-extension inventory were inspected separately; originals left unchanged.",
+  "records": [
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\shared\\native-contract.json",
+      "sha256": "9ee4ac74e7d196b63d27c87aaac2e8602cb3ed965d7dad345567d1b116644ff2",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "byteEquivalent": false,
+      "donorTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "currentTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "decision": "Retain current allowlist/Clipboard capabilities; old contract is archival evidence, never restore wholesale."
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_20261028\\worktrees\\root\\working-files\\apps\\gemini-ui\\shared\\native-contract.json",
+      "sha256": "fdeb3344f32b1ec97652fef1ab0982ff3d7626738db423cd1dd9d8d01cd5fc0d",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "byteEquivalent": false,
+      "donorTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "currentTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "decision": "Retain current allowlist/Clipboard capabilities; old contract is archival evidence, never restore wholesale."
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_LOCAL_INTEGRATION_BACKUP_REFRESH_20261028_0108\\worktrees\\root\\working-files\\apps\\gemini-ui\\shared\\native-contract.json",
+      "sha256": "fdeb3344f32b1ec97652fef1ab0982ff3d7626738db423cd1dd9d8d01cd5fc0d",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "byteEquivalent": false,
+      "donorTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "currentTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "decision": "Retain current allowlist/Clipboard capabilities; old contract is archival evidence, never restore wholesale."
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_M0_FINAL_PRESERVATION_20261028_012802\\worktrees\\root\\working-files\\apps\\gemini-ui\\shared\\native-contract.json",
+      "sha256": "fdeb3344f32b1ec97652fef1ab0982ff3d7626738db423cd1dd9d8d01cd5fc0d",
+      "target": "apps/gemini-ui/shared/native-contract.json",
+      "byteEquivalent": false,
+      "donorTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "currentTopLevelKeys": [
+        "contractVersion",
+        "namespace",
+        "channels",
+        "capabilities",
+        "windowActions"
+      ],
+      "decision": "Retain current allowlist/Clipboard capabilities; old contract is archival evidence, never restore wholesale."
+    },
+    {
+      "source": "D:\\KNOUX-Workspace\\KNOuX_ANIMA_V0_INTEGRATION_20261030_062624\\incoming\\KNOuX-Latest-Source-Code\\apps\\gemini-ui\\src\\service-navigation\\canonical-services.json",
+      "sha256": "f7618321ceaffbce665873fbffe6de28396bdfe6c139e6bab113ffa4e835617f",
+      "rows": 181,
+      "distinctIDs": 181,
+      "exactIDsInCurrentMatrix": 181,
+      "currentMatrix": "docs/SERVICE_CAPABILITY_MATRIX.md",
+      "decision": "Preserve donor routing catalog externally. All 181 IDs accounted for in current matrix; this is identity coverage, not execution/visual certification. No competing runtime directory introduced."
+    }
+  ]
+}
