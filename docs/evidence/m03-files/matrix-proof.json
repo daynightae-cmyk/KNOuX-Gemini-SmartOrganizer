@@ -1,0 +1,147 @@
+{
+  "capturedAt": "2026-11-02T09:55:52.530Z",
+  "sizes": [
+    {
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "themes": [
+    "night",
+    "day"
+  ],
+  "locales": [
+    "en"
+  ],
+  "frames": [
+    {
+      "label": "files-night-en-1672x941",
+      "section": "files",
+      "theme": "night",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "ltr",
+        "visualSection": "files",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 10,
+            "y": 66,
+            "w": 230,
+            "h": 865
+          },
+          "hero": null,
+          "primaryCta": {
+            "x": 1412,
+            "y": 901,
+            "w": 236,
+            "h": 34
+          },
+          "headings": [
+            "Files"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 1,
+          "nodes": 5
+        },
+        "inertButtons": 13
+      },
+      "file": "files-night-en-1672x941.png"
+    },
+    {
+      "label": "files-day-en-1672x941",
+      "section": "files",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "files",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 10,
+            "y": 66,
+            "w": 230,
+            "h": 865
+          },
+          "hero": null,
+          "primaryCta": {
+            "x": 1412,
+            "y": 901,
+            "w": 236,
+            "h": 34
+          },
+          "headings": [
+            "Files"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 1,
+          "nodes": 5
+        },
+        "inertButtons": 13
+      },
+      "file": "files-day-en-1672x941.png"
+    }
+  ],
+  "orbitCoverage": [
+    {
+      "section": "files",
+      "frames": 2,
+      "dial": 2,
+      "pipes": 2,
+      "complete": true
+    }
+  ],
+  "failures": [],
+  "pageErrors": [],
+  "consoleIssues": [
+    "console: The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "orbitComplete": [
+    "files"
+  ],
+  "orbitMissing": [],
+  "ok": true
+}

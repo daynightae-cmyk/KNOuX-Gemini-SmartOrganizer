@@ -32,6 +32,7 @@ import {
 } from './model';
 import type { CleanupLocale } from './model';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import { HeroFeatures } from '../visual/HeroFeatures';
 
 export interface CleanupHeroProps {
@@ -161,6 +162,30 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
           )}
         </div>
       </div>
+
+      {/* The shared measured tube, bound to Cleanup's own controller state.
+          Execution stays gated: no stage claims an effect Home did not run. */}
+      <ServicePipeline
+        locale={locale}
+        accent="emerald"
+        dense
+        testId="cleanup-pipeline"
+        live={scanning}
+        caption={controller.inventory
+          ? `${t(locale, 'Measured candidates', 'مرشاحات مقيسة')} · ${controller.inventory.mutation ?? t(locale, 'mutation gated', 'التغيير محجوب')}`
+          : t(locale, 'A measured discovery is required', 'يلزم اكتشاف مقيس')}
+        onSelect={(id) => {
+          if (id === 'discover') void controller.startScan(categories, ageDays);
+          else if (id === 'stage') void controller.stagePlan(controller.inventory?.candidates.map((candidate) => candidate.id) ?? [], 'quarantine');
+        }}
+        stages={[
+          { id: 'discover', label: t(locale, 'Discover', 'اكتشاف'), state: scanning ? 'active' : controller.inventory ? 'complete' : controller.nativeAvailable ? 'pending' : 'gated' },
+          { id: 'classify', label: t(locale, 'Classify', 'تصنيف'), state: controller.inventory?.coverage?.rootsScanned ? 'complete' : controller.inventory ? 'partial' : 'pending' },
+          { id: 'review', label: t(locale, 'Review', 'مراجعة'), state: controller.busy === 'plan' ? 'active' : controller.plan ? 'complete' : 'pending' },
+          { id: 'stage', label: t(locale, 'Stage plan', 'ترحيل الخطة'), state: controller.plan ? 'complete' : 'pending' },
+          { id: 'execute', label: t(locale, 'Execute', 'تنفيذ'), state: 'gated' },
+        ]}
+      />
 
       <details className="cln-scope-details" open={scanning || undefined}>
         <summary>{t(locale, 'Discovery scope & age', 'نطاق الاستكشاف وعمر الملفات')} · {categories.length}</summary>

@@ -73,6 +73,7 @@ import '../storage.css';
 import '../storage/atlas-panels.css';
 import { StorageDrivesPanel, StorageHeroMetrics, StorageVolumeAnalysis } from '../storage/StorageAtlasPanels';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import { HeroFeatures } from '../visual/HeroFeatures';
 
 interface StoragePageProps {
@@ -337,6 +338,30 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
         {/* 3. Main Scrollable Canvas (Hero + Top Strip + Volume Bays + Analysis + Inspector + Services) */}
         <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
+          {/* The shared measured tube, bound to Storage's own native reads. */}
+          <ServicePipeline
+            locale={isArabic ? 'ar' : 'en'}
+            accent="violet"
+            dense
+            testId="storage-pipeline"
+            live={storageNative.scanning}
+            caption={storageNative.volumes.length
+              ? (isArabic ? 'أقراص مقيسة من النظام' : 'Measured volumes from the system')
+              : (isArabic ? 'يلزم قراءة الأقراص' : 'A volume read is required')}
+            onSelect={(id) => {
+              if (id === 'volumes') void storageNative.refreshVolumes();
+              else if (id === 'scope' || id === 'analyze') void storageNative.chooseSource();
+              else if (id === 'reclaim') window.location.hash = 'cleanup';
+            }}
+            stages={[
+              { id: 'volumes', label: isArabic ? 'الأقراص' : 'Volumes', state: storageNative.volumes.length ? 'complete' : storageNative.volumesError ? 'gated' : storageNative.scanning ? 'active' : 'pending' },
+              { id: 'scope', label: isArabic ? 'النطاق' : 'Scope', state: storageNative.source ? 'complete' : 'gated' },
+              { id: 'analyze', label: isArabic ? 'تحليل' : 'Analyze', state: storageNative.scanning ? 'active' : analysis ? 'complete' : 'pending' },
+              { id: 'classify', label: isArabic ? 'تصنيف' : 'Classify', state: analysis ? (analysis.coverage?.warnings?.length ? 'partial' : 'complete') : 'pending' },
+              { id: 'reclaim', label: isArabic ? 'تحرير المساحة' : 'Reclaim', state: 'pending' },
+            ]}
+          />
+
           <CommandCanvas locale={isArabic ? 'ar' : 'en'} statusTypes={[StorageBanner]}>
           {/* Hero Section */}
           <div className="knx-storage-hero atl-hero relative z-10">

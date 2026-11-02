@@ -67,6 +67,7 @@ import { useNavigation } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import '../files.css';
 import { OrbitalControl } from '../visual/OrbitalControl';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import { ReferenceAtmosphere } from '../visual/ReferenceAtmosphere';
 import {readSearchIntent,consumeSearchIntent} from '../home/search';
 
@@ -270,7 +271,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   // Measured aggregates replace every fixture figure; the fixture remains
   // visible only when no native source exists.
-  const indexedItemCount = measured && measuredOverview ? measuredOverview.totals.files : 1_248_632;
+  const indexedItemCount = measuredOverview?.totals.files ?? 0;
   const indexedLocations = measured && measuredOverview ? 1 : 5;
   const measuredCategoryTotals = useMemo(() => {
     const totals = new Map<string, number>();
@@ -565,6 +566,31 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   ]} />
               </div>
             </div>
+
+            {/* The same measured energy tube every other workspace carries,
+                bound to Files' own native state: nothing here is decorative. */}
+            <ServicePipeline
+              locale={locale}
+              accent="sky"
+              dense
+              testId="files-pipeline"
+              live={filesNative.scanning}
+              caption={measured
+                ? (locale === 'ar' ? 'فهرس مقيس من المصادر المصرح بها' : 'Measured index from authorized sources')
+                : (locale === 'ar' ? 'يلزم مصدر مصرّح به' : 'An authorized source is required')}
+              onSelect={(id) => {
+                if (id === 'authorize') document.querySelector<HTMLElement>('[data-testid="files-add-source"]')?.focus();
+                else if (id === 'inspect' || id === 'verify') document.querySelector<HTMLElement>('[data-testid="files-search"]')?.focus();
+                else if (id === 'organize') { if (onNavigateSection) onNavigateSection('studio'); else navigateTo('studio'); }
+              }}
+              stages={[
+                { id: 'authorize', label: locale === 'ar' ? 'تصريح' : 'Authorize', state: filesNative.sources.length ? 'complete' : 'gated' },
+                { id: 'index', label: locale === 'ar' ? 'فهرسة' : 'Index', state: filesNative.scanning ? 'active' : measured && measuredOverview ? 'complete' : 'pending' },
+                { id: 'inspect', label: locale === 'ar' ? 'فحص' : 'Inspect', state: filesNative.metadataLoading ? 'active' : filesNative.metadata ? 'complete' : 'pending' },
+                { id: 'verify', label: locale === 'ar' ? 'تدقيق' : 'Verify', state: filesNative.hashLoading ? 'active' : filesNative.hash ? 'complete' : 'pending' },
+                { id: 'organize', label: locale === 'ar' ? 'تنظيم' : 'Organize', state: measured && filesNative.files.length ? 'partial' : 'pending' },
+              ]}
+            />
 
             <div className="knx-files-metrics" aria-label={locale === 'en' ? 'Index overview' : 'ملخص الفهرس'}>
               {[

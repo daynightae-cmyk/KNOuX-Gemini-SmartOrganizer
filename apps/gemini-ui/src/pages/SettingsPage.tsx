@@ -46,6 +46,7 @@ import {
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation } from '../context/NavigationContext';
 import {KnouxOrbit} from '../visual/KnouxOrbit';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import { ClipboardVault } from '../clipboard/ClipboardVault';
 
 export interface SettingsPageProps {
@@ -838,6 +839,25 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                 </p>
               </div>
             </div>
+
+            {/* The shared measured tube. Settings stays honest about what it is:
+                local preferences plus real capability status, with every effect
+                that does not exist in this phase shown as gated, never as done. */}
+            <ServicePipeline
+              locale={isArabic ? 'ar' : 'en'}
+              accent="indigo"
+              dense
+              testId="settings-pipeline"
+              caption={isArabic ? 'تفضيلات محلية فقط' : 'Local preferences only'}
+              onSelect={(id) => setActiveTab(id === 'profile' ? 'backup' : id === 'appearance' ? 'appearance' : 'guard')}
+              stages={[
+                { id: 'appearance', label: isArabic ? 'المظهر' : 'Appearance', state: themePreference ? 'complete' : 'pending' },
+                { id: 'profile', label: isArabic ? 'الملف' : 'Profile', state: profileSavedAt ? 'complete' : 'pending' },
+                { id: 'engine', label: isArabic ? 'المحرك' : 'Engine', state: 'gated' },
+                { id: 'guard', label: isArabic ? 'الحماية' : 'Guards', state: 'gated' },
+                { id: 'ai_keys', label: isArabic ? 'مفاتيح AI' : 'AI keys', state: 'gated' },
+              ]}
+            />
 
             <div className="knx-domain-orbit-compact" data-testid="settings-orbit"><KnouxOrbit title={isArabic?'الإعدادات':'Settings'} subtitle={isArabic?'تفضيلات محلية فقط':'Local preferences only'} state="partial" onActivate={()=>setActiveTab('guard')} tools={([
               {id:'engine',label:isArabic?'الأداء':'Engine',icon:Cpu},{id:'ai_keys',label:isArabic?'جلسة AI':'AI Session',icon:Key},{id:'guard',label:isArabic?'الخصوصية':'Privacy',icon:Shield},{id:'appearance',label:isArabic?'المظهر':'Appearance',icon:Palette},{id:'language',label:isArabic?'اللغة':'Language',icon:Languages},{id:'backup',label:isArabic?'الملف':'Profile',icon:Database},

@@ -150,9 +150,9 @@
         "docs/M02_HOME_REFERENCE_ACCEPTANCE_20261102.md"
       ],
       "visualReference": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/day/00_home-command-center.png (sha256 a777e4847a8bf8b44a6153b7795f05d325e23b3904025951a5b0015c0166569d, verified against REFERENCES_MANIFEST.json order 0)",
-      "commitSha": null,
-      "remoteSha": null,
-      "ci": null,
+      "commitSha": "98d7f0284dbe9c7b40c6eda54a3720832bd031b2",
+      "remoteSha": "98d7f0284dbe9c7b40c6eda54a3720832bd031b2",
+      "ci": "https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer/actions/runs/41424135421 (success, exact SHA 98d7f0284dbe9c7b40c6eda54a3720832bd031b2)",
       "status": "PARTIAL",
       "outstandingExternalRequirements": [],
       "runtimeScope": true,
@@ -163,30 +163,44 @@
       "title": "One shared live orbital wheel plus energy tubes across all 14 sections",
       "scope": "Single canonical orbit+tube system bound to measured state through the existing typed architecture, present on every route.",
       "sourcePaths": [
-        "apps/gemini-ui/src/visual/KnouxOrbit.tsx",
-        "apps/gemini-ui/src/visual/ServicePipeline.tsx",
-        "apps/gemini-ui/src/visual/orbital-engine.css",
-        "apps/gemini-ui/src/visual/service-pipeline.css"
+        "apps/gemini-ui/src/pages/FilesPage.tsx",
+        "apps/gemini-ui/src/pages/StoragePage.tsx",
+        "apps/gemini-ui/src/cleanup/CleanupHero.tsx",
+        "apps/gemini-ui/src/pages/SettingsPage.tsx",
+        "apps/gemini-ui/scripts/theme-evidence-matrix.mjs",
+        "apps/gemini-ui/src/visual/ServicePipeline.tsx"
       ],
       "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
       "dependencies": [
         "M01-VISUAL-SYSTEM"
       ],
-      "ui": "planned",
-      "nativeProvider": "planned",
-      "apiIpc": "planned",
-      "persistence": "planned",
-      "securityConsent": "planned",
-      "tests": [],
-      "electronEvidence": [],
-      "visualReference": null,
+      "ui": "One orbital instrument and one measured energy tube on all 14 routes, verified by DOM measurement rather than assertion. The four routes that had no tube now carry it: Files (Authorize, Index, Inspect, Verify, Organize), Storage (Volumes, Scope, Analyze, Classify, Reclaim), Cleanup (Discover, Classify, Review, Stage plan, Execute) and Settings (Appearance, Profile, Engine, Guards, AI keys).",
+      "nativeProvider": "Every stage state derives from the section's own live controller: filesNative sources / scanning / metadata / hash loading flags, storageNative volumes / source / scanning / analysis coverage, the cleanup controller's inventory / coverage / plan / busy, and Settings' themePreference plus profileSavedAt. Stages describing an effect that does not exist in this phase render gated with a lock badge, never complete.",
+      "apiIpc": "unchanged; no new IPC surface was introduced for the tubes.",
+      "persistence": "unchanged.",
+      "securityConsent": "No action is executed from a stage. Cleanup's Execute stage is permanently gated. Settings' Engine, Guards and AI keys stages are gated because those providers are not connected. Files' and Storage's stage clicks only focus an existing control or navigate to an existing workspace.",
+      "tests": [
+        "npm run lint -> exit 0",
+        "npm run build -> exit 0",
+        "npm run test:theme -> exit 0",
+        "npm run test:i18n -> exit 0",
+        "npm run test:files / test:storage / test:cleanup / test:settings / test:navigation / test:workbench -> each exit 0",
+        "node scripts/theme-evidence-matrix.mjs --themes=night,day --sizes=1672x941 -> exit 0, 28 frames, orbit complete on 14/14"
+      ],
+      "electronEvidence": [
+        "docs/evidence/theme-matrix-20261102-m03-1672/matrix-proof.json",
+        "docs/evidence/m03-storage-b/matrix-proof.json",
+        "docs/evidence/m03-files/matrix-proof.json",
+        "docs/evidence/m03-storage-cleanup/matrix-proof.json"
+      ],
+      "visualReference": "missions/VISUAL_REDESIGN_DAY_NIGHT_20261027/references/night/04_applications.png (tube reference) and 03_smart_scan.png (day tube)",
       "commitSha": null,
       "remoteSha": null,
       "ci": null,
-      "status": "PLANNED",
+      "status": "PARTIAL",
       "outstandingExternalRequirements": [],
       "runtimeScope": true,
-      "notes": "Measured inventory from the final 1672x941 night/day matrix: all 14 routes render the dial; Files, Storage, Cleanup and Settings render no energy tubes. 10/14 complete, 4/14 open. This is evidence, not an estimate."
+      "notes": "CHECKPOINT. Coverage is now measured at 14/14 for dial AND tubes from the DOM of real Electron frames, up from the 10/14 this ledger recorded before the work. Two honest gaps remain. First, the orbital dial's own state prop is not telemetry-wired everywhere: Settings pins it to the literal string 'partial', so that dial does not react to the real bridge. Second, CommandCanvas routes children into slots by className/testid and renders an unrecognised child with a zero box, so Storage's tube had to sit beside the canvas instead of inside the hero - a shell limitation to resolve, not a design choice. Telemetry wiring across all 14 dials is the next step of this mission and must be verified against live provider reads, not rendered SVG presence."
     },
     {
       "missionId": "M04-SECTION-HEADERS",
