@@ -1,0 +1,209 @@
+{
+  "contract": "repair.v1",
+  "generatedAt": "2026-11-02T23:08:18.733Z",
+  "readOnly": true,
+  "mutation": "none",
+  "redacted": true,
+  "summary": "Read-only Recovery Lab report: 4 adapter(s), 5 update service(s), 0 restore point(s), 0 journal preview(s). No repair command was executed.",
+  "sections": [
+    {
+      "id": "identity",
+      "titleEn": "Privilege & identity",
+      "titleAr": "الصلاحيات والهوية",
+      "status": "validated",
+      "measured": 3,
+      "unknown": 0,
+      "items": [
+        {
+          "label": "Operating system",
+          "value": "Microsoft Windows 10 Pro 19045",
+          "status": "measured"
+        },
+        {
+          "label": "Elevation",
+          "value": "standard user",
+          "status": "measured"
+        },
+        {
+          "label": "Pending reboot",
+          "value": "no",
+          "status": "measured"
+        }
+      ]
+    },
+    {
+      "id": "servicing",
+      "titleEn": "Servicing evidence",
+      "titleAr": "أدلة الخدمة",
+      "status": "partial",
+      "measured": 2,
+      "unknown": 1,
+      "items": [
+        {
+          "label": "DISM log",
+          "value": "1477381 bytes",
+          "status": "measured"
+        },
+        {
+          "label": "CBS log",
+          "value": "10435815 bytes",
+          "status": "measured"
+        },
+        {
+          "label": "Component store health",
+          "value": "not run — execution gated",
+          "status": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "titleEn": "Network evidence",
+      "titleAr": "أدلة الشبكة",
+      "status": "validated",
+      "measured": 3,
+      "unknown": 0,
+      "items": [
+        {
+          "label": "Adapters",
+          "value": "4",
+          "status": "measured"
+        },
+        {
+          "label": "DNS cache entries",
+          "value": "33",
+          "status": "measured"
+        },
+        {
+          "label": "Winsock providers",
+          "value": "28",
+          "status": "measured"
+        }
+      ]
+    },
+    {
+      "id": "update",
+      "titleEn": "Update servicing evidence",
+      "titleAr": "أدلة خدمة التحديث",
+      "status": "validated",
+      "measured": 3,
+      "unknown": 0,
+      "items": [
+        {
+          "label": "Services",
+          "value": "5",
+          "status": "measured"
+        },
+        {
+          "label": "SoftwareDistribution",
+          "value": "present",
+          "status": "measured"
+        },
+        {
+          "label": "Download items",
+          "value": "23",
+          "status": "measured"
+        }
+      ]
+    },
+    {
+      "id": "restore",
+      "titleEn": "Restore evidence",
+      "titleAr": "أدلة الاستعادة",
+      "status": "partial",
+      "measured": 1,
+      "unknown": 2,
+      "items": [
+        {
+          "label": "Status",
+          "value": "permission_denied",
+          "status": "measured"
+        },
+        {
+          "label": "Points",
+          "value": "0",
+          "status": "warning"
+        },
+        {
+          "label": "Reason",
+          "value": "Access denied",
+          "status": "warning"
+        }
+      ]
+    },
+    {
+      "id": "journal",
+      "titleEn": "Preview journal",
+      "titleAr": "سجل المعاينات",
+      "status": "validated",
+      "measured": 2,
+      "unknown": 0,
+      "items": [
+        {
+          "label": "Entries",
+          "value": "0",
+          "status": "measured"
+        },
+        {
+          "label": "Executed repairs",
+          "value": "0",
+          "status": "measured"
+        }
+      ]
+    },
+    {
+      "id": "gates",
+      "titleEn": "Mutation gates",
+      "titleAr": "بوابات التغيير",
+      "status": "validated",
+      "measured": 8,
+      "unknown": 0,
+      "items": [
+        {
+          "label": "repair.dism.restore",
+          "value": "Run DISM RestoreHealth (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.sfc.scannow",
+          "value": "Run SFC ScanNow (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.dns.flush",
+          "value": "Flush the DNS resolver cache (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.winsock.reset",
+          "value": "Reset the Winsock catalog (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.tcpip.reset",
+          "value": "Reset the TCP/IP stack (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.restore.apply",
+          "value": "Restore a system restore point (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.update.reset",
+          "value": "Reset Windows Update servicing state (Mission 11)",
+          "status": "measured"
+        },
+        {
+          "label": "repair.elevation.request",
+          "value": "Request elevated execution (Mission 11)",
+          "status": "measured"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "The application is not elevated. Elevated diagnostics are published as gated previews and were not executed."
+  ],
+  "receipt": "repair-report:9a885f64b49010a6f08b9267"
+}

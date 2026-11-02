@@ -1,4 +1,3 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer - Recovery Lab (Mission 11).
  *
@@ -53,6 +52,9 @@ import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost
 import { Chip, CopyButton, SearchBox, downloadJson, cx } from '../system/ui';
 import { GuidedSequence } from '../repair/ui';
 import '../repair.css';
+import {CompactServiceDock} from '../components/workbench/CompactServiceDock';
+import {RepairLiveStage} from '../repair/RepairLiveStage';
+import '../repair/repair-inner-workspace.css';
 
 export interface RepairPageProps {
   onNavigateSection?: (section: string) => void;
@@ -69,6 +71,9 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
 
   const [selectedToolId, setSelectedToolId] = useState<RepairToolId>('repair-component-scan');
   const [query, setQuery] = useState('');
+  const [overview,setOverview]=useState(false),[detached,setDetached]=useState(false);
+  const integratedRef=useRef<HTMLElement>(null);
+  useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[selectedToolId]);
   const [activeWorkbench, setActiveWorkbench] = useState<RepairToolId | null>(null);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.repair.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
@@ -113,11 +118,11 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
       return;
     }
     triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    setActiveWorkbench(id);
+    setSelectedToolId(id);setOverview(false);setActiveWorkbench(id);
   }, [controller, locale]);
 
   const closeWorkbench = useCallback(() => {
-    setActiveWorkbench(null);
+    setActiveWorkbench(null);setDetached(false);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   }, []);
 
@@ -233,6 +238,11 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
         onOpenSettings={() => navigate('settings')}
       />
 
+      <div className="sys-shell">
+        <KNOuXSidebar activeSection="repair" onNavigate={navigate} isArabic={locale === AR} />
+
+        <div className="sys-shell-main">
+          <main className="sys-main knx-custom-scrollbar rep-main repair-inner-workspace" data-testid="repair-workspace">
       {controller.notice ? (
         <div className="sys-toast sys-toast-good" role="status">
           <CheckCircle2 aria-hidden="true" />
@@ -252,12 +262,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
         </div>
       ) : null}
 
-      <div className="sys-shell">
-        <KNOuXSidebar activeSection="repair" onNavigate={navigate} isArabic={locale === AR} />
-
-        <div className="sys-shell-main">
-          <main className="sys-main knx-custom-scrollbar rep-main" data-testid="repair-workspace">
-          <CommandCanvas locale={locale}>
+          <div hidden className="repair-header-bridge">
             <section className="sys-hero rep-hero" data-testid="repair-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -384,6 +389,9 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </aside>
             </section>
 
+          </div>
+          <div className="repair-compact-dock"><CompactServiceDock testIdPrefix="repair" isArabic={locale==='ar'} label={t(locale,'Repair tools','أدوات الإصلاح')} selectedId={selectedToolId} onSelect={id=>{setSelectedToolId(id as RepairToolId);setOverview(false);}} items={REPAIR_TOOLS.map(entry=>({id:entry.id,label:locale==='ar'?entry.ar:entry.en,icon:<entry.icon/>,capability:!controller.nativeAvailable?t(locale,'Native unavailable','Native غير متاح'):controller.capabilities?t(locale,STATE_META[controller.capabilities.services.find(capability=>capability.id===entry.id)?.state||entry.state].en,STATE_META[controller.capabilities.services.find(capability=>capability.id===entry.id)?.state||entry.state].ar):t(locale,'Reading capabilities','قراءة القدرات'),hint:entry.provider+' · '+(locale==='ar'?entry.blurbAr:entry.blurbEn)}))}/></div>
+          <div className="repair-process-row"><RepairLiveStage controller={controller} locale={locale} toolId={selectedToolId}/><div className="repair-process-tools"><button data-testid="repair-overview" aria-pressed={overview} onClick={()=>setOverview(v=>!v)}>{t(locale,'Overview','نظرة عامة')}</button><button disabled={!snapshot} data-testid="repair-side-view" onClick={()=>{setActiveWorkbench(selectedToolId);setDetached(true);}}>{t(locale,'Side view','عرض جانبي')}</button><details><summary>{t(locale,'Coverage & metrics','التغطية والمؤشرات')}</summary><div>
             {!controller.nativeAvailable ? (
               <div className="sys-banner is-required" data-testid="repair-native-required">
                 <Lock aria-hidden="true" />
@@ -449,6 +457,8 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               </button>
             </div>
 
+          </div></details></div></div>
+          {!overview?<section ref={integratedRef} id="active-service-workspace" role="tabpanel" aria-labelledby={`service-tab-${selectedToolId}`} className="rep-integrated-service" data-testid="repair-integrated-service">{snapshot?<RepairServiceWorkspace embedded toolId={selectedToolId} locale={locale} controller={controller} onClose={closeWorkbench} mode={workbenchMode} width={workbenchWidth} onModeChange={setWorkbenchMode} onResize={setWorkbenchWidth}/>:<div className="rep-ready"><SelectedToolIcon/><h2>{toolLabel(selectedToolId,locale)}</h2><p>{locale==='ar'?selectedTool.blurbAr:selectedTool.blurbEn}</p><p>{t(locale,'Read-only discovery is required before this tool can show measured prerequisites and command previews.','يلزم اكتشاف للقراءة فقط قبل عرض المتطلبات المقيسة ومعاينات الأوامر.')}</p><button className="sys-btn" disabled={!controller.nativeAvailable||controller.scanning} onClick={()=>void controller.startScan()}>{t(locale,'Discover repair evidence','اكتشاف أدلة الإصلاح')}</button></div>}</section>:<div className="repair-original-overview">
             <div className="rep-workspace-grid">
               <section className="rep-tools-panel" aria-labelledby="rep-tools-title">
                 <div className="rep-panel-head">
@@ -601,7 +611,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
 
-          </CommandCanvas>
+          </div>}
           </main>
 
           <footer className="sys-actionbar rep-actionbar" data-testid="repair-actionbar">
@@ -611,7 +621,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
               <span className="sys-chip sys-chip-bad">{t(locale, '0 executed', '0 منفذ')}</span>
               {snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}
             </div>
-            <div className="sys-actionbar-actions">
+            <div className="sys-actionbar-actions"><button type="button" data-testid="repair-discovery" className="sys-btn" disabled={!controller.nativeAvailable||controller.cancelling} onClick={()=>controller.scanning?void controller.cancelScan():void controller.startScan()}>{controller.scanning?t(locale,'Cancel discovery','إلغاء الاكتشاف'):t(locale,'Discover evidence','اكتشاف الأدلة')}</button><button type="button" data-testid="repair-stage-preview" className="sys-btn" disabled={!snapshot||controller.busy==='plan'} onClick={()=>void stageSelected()}>{t(locale,'Stage preview','تهيئة معاينة')}</button><button type="button" data-testid="repair-export-report" className="sys-btn" disabled={!snapshot||controller.busy==='report'} onClick={()=>void exportReport()}>{t(locale,'Export report','تصدير التقرير')}</button>
               <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openWorkbench('repair-history')} disabled={!snapshot}>
                 <History aria-hidden="true" />{t(locale, 'History', 'السجل')}
               </button>
@@ -626,7 +636,7 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
         </div>
       </div>
 
-      {activeWorkbench && snapshot ? (
+      {activeWorkbench && snapshot && detached ? (
         <RepairServiceWorkspace
           toolId={activeWorkbench}
           locale={locale}

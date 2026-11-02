@@ -65,9 +65,10 @@ export interface RepairServiceWorkspaceProps {
   onModeChange: (mode: WorkbenchMode) => void;
   onResize: (width: number) => void;
   toolSelector?: React.ReactNode;
+  embedded?: boolean;
 }
 
-export function RepairServiceWorkspace({ toolId, locale, controller, onClose, mode, width, onModeChange, onResize, toolSelector }: RepairServiceWorkspaceProps) {
+export function RepairServiceWorkspace({ toolId, locale, controller, onClose, mode, width, onModeChange, onResize, toolSelector,embedded=false }: RepairServiceWorkspaceProps) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const closeCallback = useRef(onClose);
   closeCallback.current = onClose;
@@ -76,6 +77,7 @@ export function RepairServiceWorkspace({ toolId, locale, controller, onClose, mo
   const Component = REPAIR_WORKBENCHES[toolId];
 
   useEffect(() => {
+    if(embedded)return;
     const opener = document.activeElement as HTMLElement | null;
     closeRef.current?.focus({preventScroll:true});
     const onKeyDown = (event: KeyboardEvent) => {
@@ -104,7 +106,7 @@ export function RepairServiceWorkspace({ toolId, locale, controller, onClose, mo
       window.removeEventListener('keydown',onKeyDown);
       if(opener?.isConnected)opener.focus({preventScroll:true});
     };
-  }, []);
+  }, [embedded]);
 
   if (!snapshot || !Component) return null;
 
@@ -125,6 +127,7 @@ export function RepairServiceWorkspace({ toolId, locale, controller, onClose, mo
     </span>
   );
 
+  if(embedded)return <div data-testid="repair-integrated-tool" data-tool={toolId}>{body}</div>;
   if (mode === 'side') {
     return (
       <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width }} data-testid="repair-workbench-side-shell">

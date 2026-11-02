@@ -1,0 +1,26 @@
+[
+  {
+    "command": "npm run lint",
+    "exitCode": 0
+  },
+  {
+    "exitCode": 0,
+    "command": "npm run test:repair"
+  },
+  {
+    "exitCode": 0,
+    "command": "npm run test:workbench"
+  },
+  {
+    "exitCode": 0,
+    "command": "npm run test:theme"
+  },
+  {
+    "exitCode": 0,
+    "command": "npm run test:i18n"
+  },
+  {
+    "exitCode": 0,
+    "command": "npm run test:navigation"
+  }
+]
