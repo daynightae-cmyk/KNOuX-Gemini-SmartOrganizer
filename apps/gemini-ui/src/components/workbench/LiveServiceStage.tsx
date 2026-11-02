@@ -1,3 +1,4 @@
+import './service-stage.css';
 import {useState,type ReactNode} from 'react';
 import {Activity,ChevronDown} from 'lucide-react';
 

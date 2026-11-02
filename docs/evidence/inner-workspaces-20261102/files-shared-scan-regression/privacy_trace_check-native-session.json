@@ -1,0 +1,415 @@
+{
+  "id": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+  "mode": "service",
+  "requestedServices": [
+    "privacy_trace_check"
+  ],
+  "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+  "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+  "scope": "authorized-folder",
+  "status": "complete",
+  "startedAt": "2026-11-02T21:04:10.820Z",
+  "finishedAt": "2026-11-02T21:04:12.105Z",
+  "cancelRequested": false,
+  "progressPercent": 100,
+  "progressDeterminate": true,
+  "stages": [
+    {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:10.820Z",
+      "finishedAt": "2026-11-02T21:04:10.820Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Downloaded-origin sample",
+      "labelAr": "عينة أصل التنزيل",
+      "provider": "Files metadata / Zone.Identifier",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:10.821Z",
+      "finishedAt": "2026-11-02T21:04:12.105Z",
+      "durationMs": 1284,
+      "detail": "0 of 12 sampled file(s) carry a download-origin zone marker.",
+      "error": null
+    },
+    {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:12.105Z",
+      "finishedAt": "2026-11-02T21:04:12.105Z",
+      "durationMs": 0,
+      "detail": "2 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    }
+  ],
+  "services": [
+    {
+      "serviceId": "privacy_trace_check",
+      "labelEn": "Privacy Trace Check",
+      "labelAr": "فحص آثار الخصوصية",
+      "state": "partial",
+      "status": "complete",
+      "permission": "read-only",
+      "mutation": "none",
+      "source": "Studio/Files inventory + Files metadata / Zone.Identifier",
+      "startedAt": "2026-11-02T21:04:10.820Z",
+      "finishedAt": null,
+      "stages": [
+        {
+          "id": "inventory",
+          "labelEn": "Authorized folder inventory",
+          "labelAr": "فهرس المجلد المصرح به",
+          "status": "complete"
+        },
+        {
+          "id": "privacy",
+          "labelEn": "Downloaded-origin sample",
+          "labelAr": "عينة أصل التنزيل",
+          "status": "complete"
+        }
+      ],
+      "data": {
+        "scope": "authorized-folder",
+        "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+        "stageCount": 2,
+        "readOnly": true,
+        "sample": {
+          "sampled": 12,
+          "withZone": 0,
+          "hosts": [],
+          "samples": [
+            {
+              "fileId": 28,
+              "relative": "measured-large-fixture.bin",
+              "name": "measured-large-fixture.bin",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 0,
+              "relative": "archive.zip",
+              "name": "archive.zip",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 1,
+              "relative": "clip.mp4",
+              "name": "clip.mp4",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 3,
+              "relative": "duplicate-b.bin",
+              "name": "duplicate-b.bin",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 29,
+              "relative": "report.csv",
+              "name": "report.csv",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 30,
+              "relative": "source.ts",
+              "name": "source.ts",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 2,
+              "relative": "duplicate-a.bin",
+              "name": "duplicate-a.bin",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 27,
+              "relative": "measured-document-23.txt",
+              "name": "measured-document-23.txt",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 26,
+              "relative": "measured-document-22.txt",
+              "name": "measured-document-22.txt",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 25,
+              "relative": "measured-document-21.txt",
+              "name": "measured-document-21.txt",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 24,
+              "relative": "measured-document-20.txt",
+              "name": "measured-document-20.txt",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            },
+            {
+              "fileId": 22,
+              "relative": "measured-document-18.txt",
+              "name": "measured-document-18.txt",
+              "zoneId": null,
+              "zoneAvailable": false,
+              "host": null,
+              "referrer": null
+            }
+          ],
+          "errors": 0,
+          "sampleLimit": 12,
+          "browserHistoryRead": false,
+          "cookiesRead": false,
+          "clipboardRead": false
+        },
+        "browserHistoryRead": false,
+        "cookiesRead": false,
+        "clipboardRead": false
+      },
+      "warnings": [
+        "Only Windows Zone.Identifier metadata for a bounded sample of recent indexed files is read.",
+        "Browser history, cookies, autofill and clipboard contents are not read."
+      ],
+      "limitations": [
+        "Samples Windows Zone.Identifier provenance for recent indexed files. Browser history, cookies and clipboard data are not read.",
+        "One or more provider stages returned partial evidence; see warnings."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "stableId": "large:9ec80d65-3be9-484c-9297-21997ce0fd75:28",
+      "kind": "large-file",
+      "serviceId": "large_files_review",
+      "titleEn": "measured-large-fixture.bin",
+      "titleAr": "measured-large-fixture.bin",
+      "evidence": "measured-large-fixture.bin — measured 201 MB. Review only; no file was touched.",
+      "bytes": 210763776,
+      "itemCount": 1,
+      "severity": "low",
+      "risk": "review",
+      "scope": "authorized-folder",
+      "provenance": {
+        "provider": "Files/Studio inventory",
+        "mode": "measured",
+        "scope": "authorized-folder"
+      },
+      "pathPreview": [
+        "measured-large-fixture.bin"
+      ]
+    },
+    {
+      "stableId": "duplicate:candidate:9ec80d65-3be9-484c-9297-21997ce0fd75:1048595:2",
+      "kind": "duplicate-candidate",
+      "serviceId": "duplicate_finder",
+      "titleEn": "2 same-size files (unverified)",
+      "titleAr": "2 ملفات بالحجم نفسه (غير متحقق منها)",
+      "evidence": "1 MB each by metadata only. Content was not hashed in this scan, so these are candidates, not confirmed duplicates.",
+      "bytes": 1048595,
+      "itemCount": 2,
+      "severity": "low",
+      "risk": "info",
+      "scope": "authorized-folder",
+      "provenance": {
+        "provider": "Files/Studio inventory",
+        "mode": "measured",
+        "scope": "authorized-folder"
+      },
+      "pathPreview": [
+        "duplicate-a.bin",
+        "duplicate-b.bin"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-duplicates-candidates",
+      "titleEn": "Verify same-size duplicate candidates",
+      "titleAr": "تحقق من مرشحات المكررات المتساوية بالحجم",
+      "detailEn": "1 size collision group(s) were found by metadata only. Run Deep Scan or Duplicate Finder to hash them before drawing any conclusion.",
+      "detailAr": "1 مجموعة تصادم بالحجم وُجدت بالبيانات الوصفية فقط. شغّل الفحص العميق أو مكتشف المكررات لتجزئتها قبل استنتاج أي شيء.",
+      "evidence": "Metadata-only candidate groups: 1. Content verified: 0.",
+      "serviceId": "duplicate_finder",
+      "confidence": "derived",
+      "risk": "info",
+      "target": "scan-service:duplicate_finder"
+    }
+  ],
+  "breakdown": [
+    {
+      "id": "large",
+      "labelEn": "Large files",
+      "labelAr": "ملفات كبيرة",
+      "colorHex": "#ec4899",
+      "count": 1,
+      "bytes": 210763776,
+      "percentage": 50
+    },
+    {
+      "id": "duplicates",
+      "labelEn": "Duplicates",
+      "labelAr": "مكررات",
+      "colorHex": "#f59e0b",
+      "count": 1,
+      "bytes": 1048595,
+      "percentage": 50
+    }
+  ],
+  "kpis": [
+    {
+      "id": "coverage",
+      "labelEn": "Stage coverage",
+      "labelAr": "تغطية المراحل",
+      "value": "100%",
+      "subtextEn": "3/3 stages returned",
+      "subtextAr": "3/3 مرحلة اكتملت",
+      "accentColor": "cyan",
+      "indicatorType": "ring",
+      "provenance": "measured"
+    },
+    {
+      "id": "files",
+      "labelEn": "Files indexed",
+      "labelAr": "الملفات المفهرسة",
+      "value": "31",
+      "subtextEn": "203 MB",
+      "subtextAr": "203 MB",
+      "accentColor": "blue",
+      "indicatorType": "stack",
+      "provenance": "measured"
+    },
+    {
+      "id": "issues",
+      "labelEn": "Findings",
+      "labelAr": "النتائج",
+      "value": "2",
+      "subtextEn": "0 high severity",
+      "subtextAr": "0 خطورة عالية",
+      "accentColor": "red",
+      "indicatorType": "alert",
+      "provenance": "measured"
+    },
+    {
+      "id": "space",
+      "labelEn": "Duplicate bytes",
+      "labelAr": "بايتات مكررة",
+      "value": "—",
+      "subtextEn": "Duplicate stage not in this scope",
+      "subtextAr": "مرحلة التكرار غير مشمولة في هذا الفحص",
+      "accentColor": "purple",
+      "indicatorType": "disk",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Origin markers",
+      "labelAr": "علامات الأصل",
+      "value": "0",
+      "subtextEn": "sample of 12 file(s)",
+      "subtextAr": "عينة من 12 ملف",
+      "accentColor": "teal",
+      "indicatorType": "shield",
+      "provenance": "measured"
+    },
+    {
+      "id": "health",
+      "labelEn": "Health score",
+      "labelAr": "درجة الصحة",
+      "value": "—",
+      "subtextEn": "No numeric signals",
+      "subtextAr": "لا توجد إشارات رقمية",
+      "accentColor": "green",
+      "indicatorType": "sparkline",
+      "provenance": "unavailable"
+    }
+  ],
+  "summary": {
+    "id": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "mode": "service",
+    "status": "complete",
+    "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+    "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+    "scope": "authorized-folder",
+    "startedAt": "2026-11-02T21:04:10.820Z",
+    "finishedAt": "2026-11-02T21:04:12.105Z",
+    "progressPercent": 100,
+    "progressDeterminate": true,
+    "stagesTotal": 3,
+    "stagesCompleted": 3,
+    "stagesFailed": 0,
+    "findingsCount": 2,
+    "highSeverityCount": 0,
+    "filesIndexed": 31,
+    "bytesIndexed": 212872154,
+    "verifiedReclaimableBytes": 0,
+    "verifiedDuplicateGroups": 0,
+    "privacySignalCount": 0,
+    "healthScore": null,
+    "healthBasis": [
+      "No numeric CPU, memory or volume signal was available."
+    ],
+    "warnings": [
+      "Only Windows Zone.Identifier metadata for a bounded sample of recent indexed files is read.",
+      "Browser history, cookies, autofill and clipboard contents are not read."
+    ],
+    "limitations": [
+      "Read-only: no file, service, startup or registry value is changed.",
+      "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+    ],
+    "requestedServices": [
+      "privacy_trace_check"
+    ]
+  },
+  "warnings": [
+    "Only Windows Zone.Identifier metadata for a bounded sample of recent indexed files is read.",
+    "Browser history, cookies, autofill and clipboard contents are not read."
+  ],
+  "limitations": [
+    "Read-only: no file, service, startup or registry value is changed.",
+    "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+  ],
+  "error": null
+}

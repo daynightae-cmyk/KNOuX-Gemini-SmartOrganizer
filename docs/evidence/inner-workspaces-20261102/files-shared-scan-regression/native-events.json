@@ -1,0 +1,2102 @@
+[
+  {
+    "type": "scan-started",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "mode": "service",
+    "services": [
+      "quick_scan"
+    ],
+    "stageCount": 5,
+    "at": "2026-11-02T21:03:36.446Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:36.447Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:36.447Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:36.447Z",
+      "finishedAt": "2026-11-02T21:03:36.464Z",
+      "durationMs": 17,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 33.3,
+    "at": "2026-11-02T21:03:36.464Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:36.464Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:36.464Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:36.464Z",
+      "finishedAt": "2026-11-02T21:03:48.596Z",
+      "durationMs": 12133,
+      "detail": "3 mounted volume(s); 2 below 10% free.",
+      "error": null
+    },
+    "progressPercent": 44.4,
+    "at": "2026-11-02T21:03:48.597Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:48.597Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:48.597Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:48.597Z",
+      "finishedAt": "2026-11-02T21:03:51.276Z",
+      "durationMs": 2679,
+      "detail": "Measured CPU, memory and OS summary (3 signal groups).",
+      "error": null
+    },
+    "progressPercent": 66.7,
+    "at": "2026-11-02T21:03:51.276Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "services",
+      "labelEn": "Windows service summary",
+      "labelAr": "ملخص خدمات ويندوز",
+      "provider": "Win32_Service",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:51.276Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:51.276Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "services",
+      "labelEn": "Windows service summary",
+      "labelAr": "ملخص خدمات ويندوز",
+      "provider": "Win32_Service",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:51.276Z",
+      "finishedAt": "2026-11-02T21:03:52.770Z",
+      "durationMs": 1494,
+      "detail": "272 service(s): 120 running, 152 stopped.",
+      "error": null
+    },
+    "progressPercent": 88.9,
+    "at": "2026-11-02T21:03:52.770Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:52.770Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:03:52.770Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:52.770Z",
+      "finishedAt": "2026-11-02T21:03:52.778Z",
+      "durationMs": 8,
+      "detail": "5 finding(s), 4 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:03:52.778Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "cd164e74-b471-438d-bd7a-447684357070",
+    "summary": {
+      "id": "cd164e74-b471-438d-bd7a-447684357070",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:03:36.446Z",
+      "finishedAt": "2026-11-02T21:03:52.778Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 5,
+      "stagesCompleted": 5,
+      "stagesFailed": 0,
+      "findingsCount": 5,
+      "highSeverityCount": 3,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": 52,
+      "healthBasis": [
+        "Memory 92% used → −18 points.",
+        "CPU 67% momentary load → 0 points.",
+        "2 volume(s) below 10% free → −30 points."
+      ],
+      "warnings": [
+        "Service control is not exposed by the platform bridge; later section providers own mutations.",
+        "Per-service control and per-service stopped-automatic classification are not exposed by this platform."
+      ],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "quick_scan"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:03:52.787Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "mode": "service",
+    "services": [
+      "deep_scan"
+    ],
+    "stageCount": 10,
+    "at": "2026-11-02T21:03:53.594Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:53.594Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:53.594Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:53.594Z",
+      "finishedAt": "2026-11-02T21:03:53.595Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 13.6,
+    "at": "2026-11-02T21:03:53.595Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:53.596Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:53.596Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:53.596Z",
+      "finishedAt": "2026-11-02T21:03:57.262Z",
+      "durationMs": 3666,
+      "detail": "3 mounted volume(s); 2 below 10% free.",
+      "error": null
+    },
+    "progressPercent": 18.2,
+    "at": "2026-11-02T21:03:57.262Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:03:57.262Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:03:57.262Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:03:57.262Z",
+      "finishedAt": "2026-11-02T21:04:01.496Z",
+      "durationMs": 4234,
+      "detail": "Measured CPU, memory and OS summary (3 signal groups).",
+      "error": null
+    },
+    "progressPercent": 27.3,
+    "at": "2026-11-02T21:04:01.496Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "services",
+      "labelEn": "Windows service summary",
+      "labelAr": "ملخص خدمات ويندوز",
+      "provider": "Win32_Service",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:01.496Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:01.496Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "services",
+      "labelEn": "Windows service summary",
+      "labelAr": "ملخص خدمات ويندوز",
+      "provider": "Win32_Service",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:01.496Z",
+      "finishedAt": "2026-11-02T21:04:02.972Z",
+      "durationMs": 1476,
+      "detail": "272 service(s): 120 running, 152 stopped.",
+      "error": null
+    },
+    "progressPercent": 36.4,
+    "at": "2026-11-02T21:04:02.972Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "startup",
+      "labelEn": "Startup item inventory",
+      "labelAr": "جرد عناصر بدء التشغيل",
+      "provider": "Win32_StartupCommand",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:02.972Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Provider query in progress. Cancellation is honoured when the bounded query returns.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:02.972Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "startup",
+      "labelEn": "Startup item inventory",
+      "labelAr": "جرد عناصر بدء التشغيل",
+      "provider": "Win32_StartupCommand",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:02.972Z",
+      "finishedAt": "2026-11-02T21:04:03.637Z",
+      "durationMs": 665,
+      "detail": "7 startup entries measured. Commands and user names are not exposed.",
+      "error": null
+    },
+    "progressPercent": 45.5,
+    "at": "2026-11-02T21:04:03.637Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "apps",
+      "labelEn": "Installed software inventory",
+      "labelAr": "جرد البرامج المثبتة",
+      "provider": "uninstall-registry",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:03.637Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Provider query in progress. Cancellation is honoured when the bounded query returns.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:03.637Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "apps",
+      "labelEn": "Installed software inventory",
+      "labelAr": "جرد البرامج المثبتة",
+      "provider": "uninstall-registry",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:03.637Z",
+      "finishedAt": "2026-11-02T21:04:04.516Z",
+      "durationMs": 878,
+      "detail": "52 installed application record(s) measured from the uninstall registry.",
+      "error": null
+    },
+    "progressPercent": 59.1,
+    "at": "2026-11-02T21:04:04.516Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "emptyFolders",
+      "labelEn": "Empty-folder discovery",
+      "labelAr": "اكتشاف المجلدات الفارغة",
+      "provider": "Files bounded walk",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:04.516Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:04.516Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "emptyFolders",
+      "labelEn": "Empty-folder discovery",
+      "labelAr": "اكتشاف المجلدات الفارغة",
+      "provider": "Files bounded walk",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:04.516Z",
+      "finishedAt": "2026-11-02T21:04:04.518Z",
+      "durationMs": 2,
+      "detail": "1 empty folder(s) in 2 scanned folder(s).",
+      "error": null
+    },
+    "progressPercent": 68.2,
+    "at": "2026-11-02T21:04:04.518Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "privacy",
+      "labelEn": "Downloaded-origin sample",
+      "labelAr": "عينة أصل التنزيل",
+      "provider": "Files metadata / Zone.Identifier",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:04.518Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:04.518Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "privacy",
+      "labelEn": "Downloaded-origin sample",
+      "labelAr": "عينة أصل التنزيل",
+      "provider": "Files metadata / Zone.Identifier",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:04.518Z",
+      "finishedAt": "2026-11-02T21:04:05.488Z",
+      "durationMs": 970,
+      "detail": "0 of 12 sampled file(s) carry a download-origin zone marker.",
+      "error": null
+    },
+    "progressPercent": 77.3,
+    "at": "2026-11-02T21:04:05.488Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "duplicates",
+      "labelEn": "Byte-exact duplicate verification",
+      "labelAr": "تحقق بايتي من المكررات",
+      "provider": "Storage SHA-256 verification",
+      "weight": 4,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:05.488Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:05.488Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "duplicates",
+      "labelEn": "Byte-exact duplicate verification",
+      "labelAr": "تحقق بايتي من المكررات",
+      "provider": "Storage SHA-256 verification",
+      "weight": 4,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:05.488Z",
+      "finishedAt": "2026-11-02T21:04:05.584Z",
+      "durationMs": 96,
+      "detail": "1 byte-identical group(s) verified across 2 hashed file(s).",
+      "error": null
+    },
+    "progressPercent": 95.5,
+    "at": "2026-11-02T21:04:05.584Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:05.584Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:05.584Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:05.584Z",
+      "finishedAt": "2026-11-02T21:04:05.584Z",
+      "durationMs": 0,
+      "detail": "14 finding(s), 5 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:05.584Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+    "summary": {
+      "id": "de2a4208-bca6-412a-bcc6-3f269ab01953",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:03:53.594Z",
+      "finishedAt": "2026-11-02T21:04:05.585Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 10,
+      "stagesCompleted": 10,
+      "stagesFailed": 0,
+      "findingsCount": 14,
+      "highSeverityCount": 3,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 1048595,
+      "verifiedDuplicateGroups": 1,
+      "privacySignalCount": 0,
+      "healthScore": 44,
+      "healthBasis": [
+        "Memory 92% used → −18 points.",
+        "CPU 90% momentary load → −8 points.",
+        "2 volume(s) below 10% free → −30 points."
+      ],
+      "warnings": [
+        "Service control is not exposed by the platform bridge; later section providers own mutations.",
+        "Per-service control and per-service stopped-automatic classification are not exposed by this platform.",
+        "Boot duration and per-item startup cost are not measured; no seconds estimate is reported.",
+        "“Unused” and “orphaned” classifications are not measured. No uninstall capability is exposed.",
+        "Only Windows Zone.Identifier metadata for a bounded sample of recent indexed files is read.",
+        "Browser history, cookies, autofill and clipboard contents are not read."
+      ],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "deep_scan"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:05.611Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "mode": "service",
+    "services": [
+      "duplicate_finder"
+    ],
+    "stageCount": 3,
+    "at": "2026-11-02T21:04:06.510Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:06.510Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:06.510Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:06.510Z",
+      "finishedAt": "2026-11-02T21:04:06.511Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 37.5,
+    "at": "2026-11-02T21:04:06.511Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "stage": {
+      "id": "duplicates",
+      "labelEn": "Byte-exact duplicate verification",
+      "labelAr": "تحقق بايتي من المكررات",
+      "provider": "Storage SHA-256 verification",
+      "weight": 4,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:06.511Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:06.511Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "stage": {
+      "id": "duplicates",
+      "labelEn": "Byte-exact duplicate verification",
+      "labelAr": "تحقق بايتي من المكررات",
+      "provider": "Storage SHA-256 verification",
+      "weight": 4,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:06.511Z",
+      "finishedAt": "2026-11-02T21:04:06.552Z",
+      "durationMs": 41,
+      "detail": "1 byte-identical group(s) verified across 2 hashed file(s).",
+      "error": null
+    },
+    "progressPercent": 87.5,
+    "at": "2026-11-02T21:04:06.552Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:06.552Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:06.552Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:06.552Z",
+      "finishedAt": "2026-11-02T21:04:06.553Z",
+      "durationMs": 1,
+      "detail": "2 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:06.553Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+    "summary": {
+      "id": "01ba9358-eab6-4833-a25d-0fcbc865a9b6",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:04:06.510Z",
+      "finishedAt": "2026-11-02T21:04:06.553Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 3,
+      "stagesCompleted": 3,
+      "stagesFailed": 0,
+      "findingsCount": 2,
+      "highSeverityCount": 0,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 1048595,
+      "verifiedDuplicateGroups": 1,
+      "privacySignalCount": null,
+      "healthScore": null,
+      "healthBasis": [
+        "No numeric CPU, memory or volume signal was available."
+      ],
+      "warnings": [],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "duplicate_finder"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:06.556Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+    "mode": "service",
+    "services": [
+      "large_files_review"
+    ],
+    "stageCount": 2,
+    "at": "2026-11-02T21:04:07.477Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:07.477Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:07.477Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:07.477Z",
+      "finishedAt": "2026-11-02T21:04:07.478Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 75,
+    "at": "2026-11-02T21:04:07.478Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:07.478Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:07.478Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:07.478Z",
+      "finishedAt": "2026-11-02T21:04:07.479Z",
+      "durationMs": 1,
+      "detail": "2 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:07.479Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+    "summary": {
+      "id": "94495e80-5c4e-4d0e-bd37-991ba39a3329",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:04:07.477Z",
+      "finishedAt": "2026-11-02T21:04:07.479Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 2,
+      "stagesCompleted": 2,
+      "stagesFailed": 0,
+      "findingsCount": 2,
+      "highSeverityCount": 0,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": null,
+      "healthBasis": [
+        "No numeric CPU, memory or volume signal was available."
+      ],
+      "warnings": [],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "large_files_review"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:07.517Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "mode": "service",
+    "services": [
+      "junk_cleaner"
+    ],
+    "stageCount": 3,
+    "at": "2026-11-02T21:04:09.526Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:09.526Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:09.526Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:09.526Z",
+      "finishedAt": "2026-11-02T21:04:09.526Z",
+      "durationMs": 0,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 50,
+    "at": "2026-11-02T21:04:09.526Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "stage": {
+      "id": "emptyFolders",
+      "labelEn": "Empty-folder discovery",
+      "labelAr": "اكتشاف المجلدات الفارغة",
+      "provider": "Files bounded walk",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:09.526Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:09.526Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "stage": {
+      "id": "emptyFolders",
+      "labelEn": "Empty-folder discovery",
+      "labelAr": "اكتشاف المجلدات الفارغة",
+      "provider": "Files bounded walk",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:09.526Z",
+      "finishedAt": "2026-11-02T21:04:09.531Z",
+      "durationMs": 5,
+      "detail": "1 empty folder(s) in 2 scanned folder(s).",
+      "error": null
+    },
+    "progressPercent": 83.3,
+    "at": "2026-11-02T21:04:09.531Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:09.531Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:09.531Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:09.531Z",
+      "finishedAt": "2026-11-02T21:04:09.531Z",
+      "durationMs": 0,
+      "detail": "3 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:09.531Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+    "summary": {
+      "id": "3e91edc1-1bcc-48f8-90f3-5d29bfd04e6b",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:04:09.526Z",
+      "finishedAt": "2026-11-02T21:04:09.531Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 3,
+      "stagesCompleted": 3,
+      "stagesFailed": 0,
+      "findingsCount": 3,
+      "highSeverityCount": 0,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": null,
+      "healthBasis": [
+        "No numeric CPU, memory or volume signal was available."
+      ],
+      "warnings": [],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "junk_cleaner"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:09.534Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "mode": "service",
+    "services": [
+      "privacy_trace_check"
+    ],
+    "stageCount": 3,
+    "at": "2026-11-02T21:04:10.820Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:10.820Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:10.820Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:10.820Z",
+      "finishedAt": "2026-11-02T21:04:10.820Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 50,
+    "at": "2026-11-02T21:04:10.821Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "stage": {
+      "id": "privacy",
+      "labelEn": "Downloaded-origin sample",
+      "labelAr": "عينة أصل التنزيل",
+      "provider": "Files metadata / Zone.Identifier",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:10.821Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:10.821Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "stage": {
+      "id": "privacy",
+      "labelEn": "Downloaded-origin sample",
+      "labelAr": "عينة أصل التنزيل",
+      "provider": "Files metadata / Zone.Identifier",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:10.821Z",
+      "finishedAt": "2026-11-02T21:04:12.105Z",
+      "durationMs": 1284,
+      "detail": "0 of 12 sampled file(s) carry a download-origin zone marker.",
+      "error": null
+    },
+    "progressPercent": 83.3,
+    "at": "2026-11-02T21:04:12.105Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:12.105Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:12.105Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:12.105Z",
+      "finishedAt": "2026-11-02T21:04:12.105Z",
+      "durationMs": 0,
+      "detail": "2 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:12.105Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+    "summary": {
+      "id": "339a5981-65ad-46ca-a55d-56ddeb1a0edd",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:04:10.820Z",
+      "finishedAt": "2026-11-02T21:04:12.105Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 3,
+      "stagesCompleted": 3,
+      "stagesFailed": 0,
+      "findingsCount": 2,
+      "highSeverityCount": 0,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": 0,
+      "healthScore": null,
+      "healthBasis": [
+        "No numeric CPU, memory or volume signal was available."
+      ],
+      "warnings": [
+        "Only Windows Zone.Identifier metadata for a bounded sample of recent indexed files is read.",
+        "Browser history, cookies, autofill and clipboard contents are not read."
+      ],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "privacy_trace_check"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:12.113Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+    "mode": "service",
+    "services": [
+      "startup_impact_check"
+    ],
+    "stageCount": 2,
+    "at": "2026-11-02T21:04:13.069Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+    "stage": {
+      "id": "startup",
+      "labelEn": "Startup item inventory",
+      "labelAr": "جرد عناصر بدء التشغيل",
+      "provider": "Win32_StartupCommand",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:13.069Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Provider query in progress. Cancellation is honoured when the bounded query returns.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:13.069Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+    "stage": {
+      "id": "startup",
+      "labelEn": "Startup item inventory",
+      "labelAr": "جرد عناصر بدء التشغيل",
+      "provider": "Win32_StartupCommand",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:13.069Z",
+      "finishedAt": "2026-11-02T21:04:14.414Z",
+      "durationMs": 1345,
+      "detail": "7 startup entries measured. Commands and user names are not exposed.",
+      "error": null
+    },
+    "progressPercent": 66.7,
+    "at": "2026-11-02T21:04:14.414Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:14.414Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:14.414Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:14.414Z",
+      "finishedAt": "2026-11-02T21:04:14.414Z",
+      "durationMs": 0,
+      "detail": "7 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:14.414Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+    "summary": {
+      "id": "056d3a66-7a72-4ce6-a396-f1c3eb16b4dd",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": null,
+      "sourceLabel": null,
+      "scope": "system-providers-only",
+      "startedAt": "2026-11-02T21:04:13.069Z",
+      "finishedAt": "2026-11-02T21:04:14.414Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 2,
+      "stagesCompleted": 2,
+      "stagesFailed": 0,
+      "findingsCount": 7,
+      "highSeverityCount": 0,
+      "filesIndexed": null,
+      "bytesIndexed": null,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": null,
+      "healthBasis": [
+        "No numeric CPU, memory or volume signal was available."
+      ],
+      "warnings": [
+        "Boot duration and per-item startup cost are not measured; no seconds estimate is reported."
+      ],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "startup_impact_check"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:14.418Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+    "mode": "service",
+    "services": [
+      "app_health_review"
+    ],
+    "stageCount": 2,
+    "at": "2026-11-02T21:04:15.278Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+    "stage": {
+      "id": "apps",
+      "labelEn": "Installed software inventory",
+      "labelAr": "جرد البرامج المثبتة",
+      "provider": "uninstall-registry",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:15.278Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Provider query in progress. Cancellation is honoured when the bounded query returns.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:15.278Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+    "stage": {
+      "id": "apps",
+      "labelEn": "Installed software inventory",
+      "labelAr": "جرد البرامج المثبتة",
+      "provider": "uninstall-registry",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:15.278Z",
+      "finishedAt": "2026-11-02T21:04:16.211Z",
+      "durationMs": 933,
+      "detail": "52 installed application record(s) measured from the uninstall registry.",
+      "error": null
+    },
+    "progressPercent": 75,
+    "at": "2026-11-02T21:04:16.211Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:16.211Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:16.211Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:16.211Z",
+      "finishedAt": "2026-11-02T21:04:16.211Z",
+      "durationMs": 0,
+      "detail": "0 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:16.211Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+    "summary": {
+      "id": "2e5e7bc2-2876-4547-a1e9-df3adc967c3c",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": null,
+      "sourceLabel": null,
+      "scope": "system-providers-only",
+      "startedAt": "2026-11-02T21:04:15.278Z",
+      "finishedAt": "2026-11-02T21:04:16.211Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 2,
+      "stagesCompleted": 2,
+      "stagesFailed": 0,
+      "findingsCount": 0,
+      "highSeverityCount": 0,
+      "filesIndexed": null,
+      "bytesIndexed": null,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": null,
+      "healthBasis": [
+        "No numeric CPU, memory or volume signal was available."
+      ],
+      "warnings": [
+        "“Unused” and “orphaned” classifications are not measured. No uninstall capability is exposed."
+      ],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "app_health_review"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:16.215Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "mode": "service",
+    "services": [
+      "system_health_pulse"
+    ],
+    "stageCount": 3,
+    "at": "2026-11-02T21:04:17.139Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:17.139Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:17.139Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:17.139Z",
+      "finishedAt": "2026-11-02T21:04:20.191Z",
+      "durationMs": 3052,
+      "detail": "3 mounted volume(s); 2 below 10% free.",
+      "error": null
+    },
+    "progressPercent": 25,
+    "at": "2026-11-02T21:04:20.191Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:20.191Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:20.191Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:20.191Z",
+      "finishedAt": "2026-11-02T21:04:22.778Z",
+      "durationMs": 2587,
+      "detail": "Measured CPU, memory and OS summary (3 signal groups).",
+      "error": null
+    },
+    "progressPercent": 75,
+    "at": "2026-11-02T21:04:22.778Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:22.778Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:22.778Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:22.778Z",
+      "finishedAt": "2026-11-02T21:04:22.778Z",
+      "durationMs": 0,
+      "detail": "4 finding(s), 3 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:22.778Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "dc877911-bb56-4504-9f35-21a790c57d05",
+    "summary": {
+      "id": "dc877911-bb56-4504-9f35-21a790c57d05",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": null,
+      "sourceLabel": null,
+      "scope": "system-providers-only",
+      "startedAt": "2026-11-02T21:04:17.139Z",
+      "finishedAt": "2026-11-02T21:04:22.778Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 3,
+      "stagesCompleted": 3,
+      "stagesFailed": 0,
+      "findingsCount": 4,
+      "highSeverityCount": 3,
+      "filesIndexed": null,
+      "bytesIndexed": null,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": 44,
+      "healthBasis": [
+        "Memory 90% used → −18 points.",
+        "CPU 100% momentary load → −8 points.",
+        "2 volume(s) below 10% free → −30 points."
+      ],
+      "warnings": [],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "system_health_pulse"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:22.782Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "mode": "service",
+    "services": [
+      "smart_recommendations"
+    ],
+    "stageCount": 5,
+    "at": "2026-11-02T21:04:23.538Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:23.538Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:23.538Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:23.538Z",
+      "finishedAt": "2026-11-02T21:04:23.539Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 33.3,
+    "at": "2026-11-02T21:04:23.539Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:23.539Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:23.539Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:23.539Z",
+      "finishedAt": "2026-11-02T21:04:26.581Z",
+      "durationMs": 3042,
+      "detail": "3 mounted volume(s); 2 below 10% free.",
+      "error": null
+    },
+    "progressPercent": 44.4,
+    "at": "2026-11-02T21:04:26.581Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:26.581Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:26.581Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:26.581Z",
+      "finishedAt": "2026-11-02T21:04:29.113Z",
+      "durationMs": 2532,
+      "detail": "Measured CPU, memory and OS summary (3 signal groups).",
+      "error": null
+    },
+    "progressPercent": 66.7,
+    "at": "2026-11-02T21:04:29.113Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "services",
+      "labelEn": "Windows service summary",
+      "labelAr": "ملخص خدمات ويندوز",
+      "provider": "Win32_Service",
+      "weight": 2,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:29.113Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:29.113Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "services",
+      "labelEn": "Windows service summary",
+      "labelAr": "ملخص خدمات ويندوز",
+      "provider": "Win32_Service",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:29.113Z",
+      "finishedAt": "2026-11-02T21:04:30.116Z",
+      "durationMs": 1003,
+      "detail": "272 service(s): 120 running, 152 stopped.",
+      "error": null
+    },
+    "progressPercent": 88.9,
+    "at": "2026-11-02T21:04:30.116Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:30.116Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": null,
+      "error": null
+    },
+    "at": "2026-11-02T21:04:30.116Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:30.116Z",
+      "finishedAt": "2026-11-02T21:04:30.116Z",
+      "durationMs": 0,
+      "detail": "6 finding(s), 4 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:30.116Z"
+  },
+  {
+    "type": "scan-complete",
+    "sessionId": "56be9670-88bb-4be0-9923-f909a9c41de5",
+    "summary": {
+      "id": "56be9670-88bb-4be0-9923-f909a9c41de5",
+      "mode": "service",
+      "status": "complete",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:04:23.538Z",
+      "finishedAt": "2026-11-02T21:04:30.116Z",
+      "progressPercent": 100,
+      "progressDeterminate": true,
+      "stagesTotal": 5,
+      "stagesCompleted": 5,
+      "stagesFailed": 0,
+      "findingsCount": 6,
+      "highSeverityCount": 3,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": 44,
+      "healthBasis": [
+        "Memory 92% used → −18 points.",
+        "CPU 100% momentary load → −8 points.",
+        "2 volume(s) below 10% free → −30 points."
+      ],
+      "warnings": [
+        "Service control is not exposed by the platform bridge; later section providers own mutations.",
+        "Per-service control and per-service stopped-automatic classification are not exposed by this platform."
+      ],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "smart_recommendations"
+      ]
+    },
+    "progressPercent": 100,
+    "at": "2026-11-02T21:04:30.127Z"
+  },
+  {
+    "type": "scan-started",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "mode": "service",
+    "services": [
+      "deep_scan"
+    ],
+    "stageCount": 10,
+    "at": "2026-11-02T21:04:46.390Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:46.390Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:46.390Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "stage": {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:46.390Z",
+      "finishedAt": "2026-11-02T21:04:46.391Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    "progressPercent": 13.6,
+    "at": "2026-11-02T21:04:46.391Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:46.391Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Measured provider call in progress.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:46.391Z"
+  },
+  {
+    "type": "scan-cancelled-requested",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "at": "2026-11-02T21:04:47.245Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "stage": {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:46.391Z",
+      "finishedAt": "2026-11-02T21:04:50.315Z",
+      "durationMs": 3924,
+      "detail": "3 mounted volume(s); 2 below 10% free.",
+      "error": null
+    },
+    "progressPercent": 18.2,
+    "at": "2026-11-02T21:04:50.315Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "running",
+      "startedAt": "2026-11-02T21:04:50.316Z",
+      "finishedAt": null,
+      "durationMs": null,
+      "detail": "Cancelled before provider work started.",
+      "error": null
+    },
+    "at": "2026-11-02T21:04:50.316Z"
+  },
+  {
+    "type": "scan-stage",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "stage": {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T21:04:50.316Z",
+      "finishedAt": "2026-11-02T21:04:50.316Z",
+      "durationMs": 0,
+      "detail": "4 finding(s), 3 recommendation(s), 1 service result(s).",
+      "error": null
+    },
+    "progressPercent": 22.7,
+    "at": "2026-11-02T21:04:50.316Z"
+  },
+  {
+    "type": "scan-cancelled",
+    "sessionId": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+    "summary": {
+      "id": "adee777a-9c78-4525-8297-8f0fcd1576b2",
+      "mode": "service",
+      "status": "cancelled",
+      "sourceId": "9ec80d65-3be9-484c-9297-21997ce0fd75",
+      "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scope": "authorized-folder",
+      "startedAt": "2026-11-02T21:04:46.390Z",
+      "finishedAt": "2026-11-02T21:04:50.316Z",
+      "progressPercent": 22.7,
+      "progressDeterminate": true,
+      "stagesTotal": 10,
+      "stagesCompleted": 3,
+      "stagesFailed": 0,
+      "findingsCount": 4,
+      "highSeverityCount": 2,
+      "filesIndexed": 31,
+      "bytesIndexed": 212872154,
+      "verifiedReclaimableBytes": 0,
+      "verifiedDuplicateGroups": 0,
+      "privacySignalCount": null,
+      "healthScore": 70,
+      "healthBasis": [
+        "2 volume(s) below 10% free → −30 points."
+      ],
+      "warnings": [],
+      "limitations": [
+        "Read-only: no file, service, startup or registry value is changed.",
+        "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+      ],
+      "requestedServices": [
+        "deep_scan"
+      ]
+    },
+    "progressPercent": 22.7,
+    "at": "2026-11-02T21:04:50.329Z"
+  }
+]

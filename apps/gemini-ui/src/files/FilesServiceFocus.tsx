@@ -57,6 +57,7 @@ interface FilesServiceFocusProps {
   draft: FilesToolDraft;
   onDraftChange: (patch: Partial<FilesToolDraft>) => void;
   embedded?: boolean;
+  nativeAvailable?: boolean;
 }
 
 function EmptyNative({ locale, onAdd }: { locale: 'en' | 'ar'; onAdd?: () => void }) {
@@ -95,6 +96,7 @@ export function FilesServiceFocus({
   onSort,
   query, results, queryError, onQueryChange, onSelectFile, onOpenService, draft, onDraftChange,
   embedded = false,
+  nativeAvailable = true,
 }: FilesServiceFocusProps) {
   const meta = FILES_DOMAIN_SERVICES.find((entry) => entry.key === service);
   const title = meta ? (locale === 'en' ? meta.labelEn : meta.labelAr) : service;
@@ -117,7 +119,7 @@ export function FilesServiceFocus({
   };
 
   const renderBody = () => {
-    if (!measured) return <EmptyNative locale={locale} onAdd={onAdd} />;
+    if (!measured) return <EmptyNative locale={locale} onAdd={nativeAvailable?onAdd:undefined} />;
 
     switch (service) {
       case 'file-downloads-inventory':
@@ -297,7 +299,7 @@ export function FilesServiceFocus({
               {hash.warnings.map((warning,index) => <p key={index} role="status">{warning}</p>)}
               <details><summary>{locale === 'en' ? 'Native identity evidence' : 'دليل الهوية الأصلي'}</summary><code className="knx-tool-path">{hash.fileIdentity || (locale === 'en' ? 'Identity unavailable' : 'الهوية غير متاحة')}</code><small>{hash.algorithm.toUpperCase()} · {hash.permission}</small></details>
             </section> : !hashLoading ? <p className="knx-tool-evidence">{locale === 'en' ? 'No digest measured for this file yet.' : 'لم تُقس بصمة هذا الملف بعد.'}</p> : null}
-            <div className="knx-tool-actions"><button type="button" onClick={onHash} disabled={hashLoading} data-testid="files-hash-compute">{locale === 'en' ? (hashLoading ? 'Reading…' : 'Compute SHA-256') : (hashLoading ? 'جارٍ القراءة…' : 'حساب SHA-256')}</button><button type="button" onClick={() => void copyDigest()} disabled={!hash || hashLoading}>{locale === 'en' ? 'Copy digest' : 'نسخ البصمة'}</button><output role="status">{copyStatus}</output></div>
+            <div className="knx-tool-actions"><button type="button" onClick={onHash} disabled={hashLoading||typeof selectedFile.nativeFileId!=='number'} data-testid="files-hash-compute">{locale === 'en' ? (hashLoading ? 'Reading…' : 'Compute SHA-256') : (hashLoading ? 'جارٍ القراءة…' : 'حساب SHA-256')}</button><button type="button" onClick={() => void copyDigest()} disabled={!hash || hashLoading}>{locale === 'en' ? 'Copy digest' : 'نسخ البصمة'}</button><output role="status">{copyStatus}</output></div>
           </div>
         );
       case 'file-search':
@@ -376,7 +378,7 @@ export function FilesServiceFocus({
             <details className="knx-tool-evidence"><summary>{locale === 'en' ? 'Origin information' : 'معلومات المصدر'}</summary><p className="knx-tool-path">{metadata.zone.host || '—'}</p><p className="knx-tool-path">{metadata.zone.referrer || '—'}</p></details>
             <p>{locale === 'en' ? 'EXIF, audio tags and PDF document properties are not provided by this filesystem contract.' : 'عقد نظام الملفات لا يوفر EXIF أو الوسوم الصوتية أو خصائص مستند PDF.'}</p>
             {metadata.warnings.map((warning,index) => <p role="status" key={index}>{warning}</p>)}
-            <div className="knx-tool-actions"><button type="button" onClick={onHash} disabled={hashLoading}>{locale === 'en' ? 'Compute SHA-256' : 'حساب SHA-256'}</button></div>
+            <div className="knx-tool-actions"><button type="button" onClick={onHash} disabled={hashLoading||typeof selectedFile.nativeFileId!=='number'}>{locale === 'en' ? 'Compute SHA-256' : 'حساب SHA-256'}</button></div>
             {hash ? <code className="knx-tool-path">{hash.digest}</code> : null}
           </section>
         ) : <p role="status" data-testid="files-metadata-workbench">{locale === 'en' ? 'Select a file to read its metadata.' : 'اختر ملفًا لقراءة بياناته.'}</p>;

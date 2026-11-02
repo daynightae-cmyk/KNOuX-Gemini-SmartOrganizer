@@ -51,8 +51,8 @@ export function FilesNativeBanner({
           : measured
           ? (locale === 'en' ? 'Native measured index — read-only' : 'فهرس أصلي مقيس — للقراءة فقط')
           : available
-          ? (locale === 'en' ? 'Native bridge ready — authorize a folder' : 'الجسر الأصلي جاهز — مصرّح بمجلد')
-          : (locale === 'en' ? 'Design fixture preview — not this device' : 'معاينة تصميم تجريبية — ليست لهذا الجهاز')}
+          ? (locale === 'en' ? 'Native bridge ready — authorize a folder' : 'الجسر الأصلي جاهز — صرّح بمجلد')
+          : (locale === 'en' ? 'Native bridge unavailable — no device index' : 'الجسر الأصلي غير متاح — لا يوجد فهرس للجهاز')}
       </span>
 
       {measured && overview && (
@@ -99,6 +99,7 @@ export function FilesNativeBanner({
         {available ? (
           <>
             <button
+              data-testid="files-add-source"
               onClick={onAdd}
               disabled={scanning}
               className="px-2 py-0.5 rounded border border-current/30 hover:border-current flex items-center gap-1 disabled:opacity-50 cursor-pointer"

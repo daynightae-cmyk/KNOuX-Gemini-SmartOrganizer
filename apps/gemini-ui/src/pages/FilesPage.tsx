@@ -51,13 +51,13 @@ import {
 
 import {
   FILES_DOMAIN_SERVICES,
-  FILES_INSTANT_FIND_FIXTURE,
-  FILE_TYPES_DISTRIBUTION,
   FileCategoryFilter,
   FileResultItem,
   FilesServiceKey,
-  MODIFICATION_AGE_DISTRIBUTION,
 } from '../lib/file-inventory';
+import {CompactServiceDock} from '../components/workbench/CompactServiceDock';
+import {FilesLiveStage} from '../files/FilesLiveStage';
+import '../files/files-inner-workspace.css';
 import { FileIcon } from '../components/files/FileIcon';
 import { useFilesNative, formatBytes } from '../files/useFilesNative';
 import { FilesNativeBanner } from '../files/FilesNativeBanner';
@@ -75,11 +75,12 @@ interface FilesPageProps {
   onNavigateSection?: (section: string) => void;
 }
 
+// An empty UI selection is never a native file result.
+const EMPTY_SELECTION:FileResultItem={id:'',name:'',parentFolder:'',type:'',category:'other',sizeBytes:0,sizeFormatted:'',dateModifiedFormatted:'',dateModifiedRaw:'',source:''};
 export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const { navigateTo, isActive, locale, isArabic, toggleLocale, setLocale } = useNavigation();
-  const [files, setFiles] = useState<FileResultItem[]>(FILES_INSTANT_FIND_FIXTURE);
-  const [selectedFile, setSelectedFile] = useState<FileResultItem>(FILES_INSTANT_FIND_FIXTURE[1]); // Aurora_Norway.jpg active
-  const [checkedFileIds, setCheckedFileIds] = useState<Set<string>>(new Set(['file-2'])); // file-2 checked in screenshot
+  const [selectedFile, setSelectedFile] = useState<FileResultItem>(EMPTY_SELECTION);
+  const [checkedFileIds, setCheckedFileIds] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<FileCategoryFilter>('all');
   const [searchIntent] = useState(() => {const hit=readSearchIntent('file');return hit?.kind==='file'?hit:null;});
   const [searchQuery, setSearchQuery] = useState(searchIntent?.label || '');
@@ -91,6 +92,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [sortBy, setSortBy] = useState<'date_desc' | 'name_asc' | 'size_desc'>('date_desc');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [activeService, setActiveService] = useState<FilesServiceKey | null>(null);
+  const [detached,setDetached]=useState(false);
+  const [inspectorVisible,setInspectorVisible]=useState(false);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.files.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -109,8 +112,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [inspectorTab, setInspectorTab] = useState<'details' | 'tools' | 'insights'>('details');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const filesNative = useFilesNative(searchIntent?.sourceId);
-  const measured = filesNative.mode === 'measured';
-  const sourceFiles = measured ? filesNative.files : files;
+  const measured = filesNative.mode === 'measured' && !!filesNative.overview && filesNative.overview.source.id === filesNative.source?.id;
+  const sourceFiles = measured ? filesNative.files : [];
   const measuredOverview = filesNative.overview;
   // Side/expanded hosts live at different positions. Keep tool drafts here so
   // changing layout or reopening a service cannot discard a filter/selection.
@@ -140,7 +143,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   };
 
   // Filter and sort files. Measured filtering is primarily executed by the
-  // native query; this pass keeps fixture filters honest and applies the same
+  // native query; this pass applies the same
   // visible predicates to the returned page.
   const filteredFiles = useMemo(() => {
     const now = Date.now();
@@ -207,11 +210,10 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   // Keep a real selected row when a measured page arrives.
   useEffect(() => {
-    if (!measured || !filteredFiles.length) return;
-    if (!filteredFiles.some((file) => file.id === selectedFile.id)) {
-      setSelectedFile(filteredFiles[0]);
-      setCheckedFileIds(new Set());
-    }
+    const match=measured?filteredFiles.find(file=>file.id===selectedFile.id):null;
+    const next=match||filteredFiles[0]||EMPTY_SELECTION;
+    if(next!==selectedFile)setSelectedFile(next);
+    if(!match)setCheckedFileIds(current=>current.size?new Set():current);
   }, [measured, filteredFiles, selectedFile.id]);
 
   useEffect(() => {
@@ -225,7 +227,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
     if (!measured) return;
     const fileId = selectedFile.nativeFileId;
     if (typeof fileId === 'number') void filesNative.loadMetadata(fileId);
-  }, [measured, selectedFile.id, selectedFile.nativeFileId, filesNative.loadMetadata]);
+  }, [measured, selectedFile.id, selectedFile.nativeFileId, filesNative.source?.id, filesNative.loadMetadata]);
 
   const L = locale === 'ar'
     ? {
@@ -242,7 +244,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         ageDay: 'آخر 24 ساعة', ageWeek: 'آخر 7 أيام', ageMonth: 'آخر 30 يومًا', ageYear: 'آخر سنة', ageOlder: 'أقدم / غير معروف',
         open: 'فتح', reveal: 'إظهار في المستكشف', copyPath: 'نسخ المسار',
         calculateHash: 'حساب SHA-256', planStudio: 'خطة في استوديو التنظيم',
-        livePreview: 'معاينة الخدمة الحية', services: 'خدمات KNOuX', measured: 'مقيس', fixture: 'تجريبي',
+        livePreview: 'معاينة الخدمة الحية', services: 'خدمات KNOuX', measured: 'مقيس', fixture: 'غير مقيس',
         selected: 'ملف محدد', selectedPlural: 'ملفات محددة', first: 'أول', of: 'من',
         path: 'المسار', created: 'أُنشئ', identity: 'الهوية', zone: 'المنطقة / MotW', attributes: 'السمات',
         readingMetadata: 'جارٍ قراءة البيانات الوصفية…', hashing: 'جارٍ حساب التجزئة للقراءة فقط…',
@@ -262,17 +264,16 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         ageDay: 'Last 24 hours', ageWeek: 'Last 7 days', ageMonth: 'Last 30 days', ageYear: 'Last year', ageOlder: 'Older / unknown',
         open: 'Open', reveal: 'Reveal in Explorer', copyPath: 'Copy Path',
         calculateHash: 'Calculate SHA-256', planStudio: 'Plan in Organization Studio',
-        livePreview: 'Live Service Preview', services: 'KNOuX Services', measured: 'MEASURED', fixture: 'FIXTURE',
+        livePreview: 'Live Service Preview', services: 'KNOuX Services', measured: 'MEASURED', fixture: 'Not measured',
         selected: 'file selected', selectedPlural: 'files selected', first: 'first', of: 'of',
         path: 'Path', created: 'Created', identity: 'Identity', zone: 'Zone / MotW', attributes: 'Attributes',
         readingMetadata: 'جارٍ قراءة البيانات الوصفية…', hashing: 'جارٍ حساب التجزئة للقراءة فقط…',
         openStudio: 'Open Organization Studio', noMetadata: 'Select a measured file.',
       };
 
-  // Measured aggregates replace every fixture figure; the fixture remains
-  // visible only when no native source exists.
+  // Aggregates are unavailable until an authorized index has been measured.
   const indexedItemCount = measuredOverview?.totals.files ?? 0;
-  const indexedLocations = measured && measuredOverview ? 1 : 5;
+  const indexedLocations = measured && measuredOverview ? 1 : 0;
   const measuredCategoryTotals = useMemo(() => {
     const totals = new Map<string, number>();
     for (const category of measuredOverview?.categories || []) {
@@ -296,15 +297,15 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
     measured ? `${measuredCategoryTotals[key].toLocaleString()}${key === 'folders' ? '*' : ''}` : fixtureLabel;
 
   const categoryPills = [
-    { id: 'all' as FileCategoryFilter, label: `${L.all} (${measured ? countLabel('all', '') : '1.2M'})`, icon: null },
-    { id: 'files' as FileCategoryFilter, label: `${L.files} (${measured ? countLabel('files', '') : '987K'})`, icon: FileText },
-    { id: 'folders' as FileCategoryFilter, label: `${L.folders} (${measured ? countLabel('folders', '') : '261K'})`, icon: Folder, color: '#eab308' },
-    { id: 'images' as FileCategoryFilter, label: `${L.images} (${measured ? countLabel('images', '') : '184K'})`, icon: ImageIcon, color: '#ec4899' },
-    { id: 'videos' as FileCategoryFilter, label: `${L.videos} (${measured ? countLabel('videos', '') : '48K'})`, icon: Video, color: '#a855f7' },
-    { id: 'documents' as FileCategoryFilter, label: `${L.documents} (${measured ? countLabel('documents', '') : '320K'})`, icon: FileText, color: '#3b82f6' },
-    { id: 'archives' as FileCategoryFilter, label: `${L.archives} (${measured ? countLabel('archives', '') : '24K'})`, icon: Archive, color: '#f59e0b' },
-    { id: 'code' as FileCategoryFilter, label: `${L.code} (${measured ? countLabel('code', '') : '96K'})`, icon: Code, color: '#10b981' },
-    { id: 'other' as FileCategoryFilter, label: `${L.other} (${measured ? countLabel('other', '') : '47K'})`, icon: FileText, color: '#64748b' },
+    { id: 'all' as FileCategoryFilter, label: `${L.all} (${measured ? countLabel('all', '') : '—'})`, icon: null },
+    { id: 'files' as FileCategoryFilter, label: `${L.files} (${measured ? countLabel('files', '') : '—'})`, icon: FileText },
+    { id: 'folders' as FileCategoryFilter, label: `${L.folders} (${measured ? countLabel('folders', '') : '—'})`, icon: Folder, color: '#eab308' },
+    { id: 'images' as FileCategoryFilter, label: `${L.images} (${measured ? countLabel('images', '') : '—'})`, icon: ImageIcon, color: '#ec4899' },
+    { id: 'videos' as FileCategoryFilter, label: `${L.videos} (${measured ? countLabel('videos', '') : '—'})`, icon: Video, color: '#a855f7' },
+    { id: 'documents' as FileCategoryFilter, label: `${L.documents} (${measured ? countLabel('documents', '') : '—'})`, icon: FileText, color: '#3b82f6' },
+    { id: 'archives' as FileCategoryFilter, label: `${L.archives} (${measured ? countLabel('archives', '') : '—'})`, icon: Archive, color: '#f59e0b' },
+    { id: 'code' as FileCategoryFilter, label: `${L.code} (${measured ? countLabel('code', '') : '—'})`, icon: Code, color: '#10b981' },
+    { id: 'other' as FileCategoryFilter, label: `${L.other} (${measured ? countLabel('other', '') : '—'})`, icon: FileText, color: '#64748b' },
   ];
 
   const distributionPalette = ['#3b82f6', '#a855f7', '#10b981', '#f59e0b', '#ec4899', '#06b6d4', '#84cc16', '#64748b'];
@@ -316,10 +317,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         percentage: measuredTypeTotal ? Math.max(1, Math.round((item.count / measuredTypeTotal) * 100)) : 0,
         color: distributionPalette[index % distributionPalette.length],
       }))
-    : FILE_TYPES_DISTRIBUTION.map((item, index) => ({
-        ...item,
-        label: [L.images, L.videos, L.documents, L.archives, L.code, L.other][index] || item.label,
-      }));
+    : [];
   const measuredAgeTotal = measuredOverview?.ages.reduce((sum, item) => sum + item.count, 0) || 0;
   const ageStats = measured
     ? (measuredOverview?.ages || []).map((item, index) => ({
@@ -328,10 +326,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         percentage: measuredAgeTotal ? Math.max(0, Math.round((item.count / measuredAgeTotal) * 100)) : 0,
         color: distributionPalette[index % distributionPalette.length],
       }))
-    : MODIFICATION_AGE_DISTRIBUTION.map((item, index) => ({
-        ...item,
-        label: [L.ageDay, L.ageWeek, L.ageMonth, L.ageYear, L.ageOlder][index] || item.label,
-      }));
+    : [];
 
   // Aggregate selected files info
   const selectedCount = checkedFileIds.size;
@@ -354,7 +349,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   const handleOpenFile = async () => {
     if (!measured || typeof selectedNativeId !== 'number') {
-      showToast('Design fixture — no Windows file was opened.');
+      showToast('Select a measured file before opening it.');
       return;
     }
     const result = await filesNative.openFile(selectedNativeId);
@@ -363,7 +358,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   const handleRevealFile = async () => {
     if (!measured || typeof selectedNativeId !== 'number') {
-      showToast('Design fixture — Explorer was not asked to reveal anything.');
+      showToast('Select a measured file before revealing it.');
       return;
     }
     const result = await filesNative.revealFile(selectedNativeId);
@@ -371,7 +366,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   };
 
   const handleCopyPath = async () => {
-    const value = measured ? selectedMetadata?.fullPath : `${selectedFile.parentFolder}\\${selectedFile.name}`;
+    const value = measured ? selectedMetadata?.fullPath : null;
     if (!value) {
       showToast('Measured path is still loading.');
       return;
@@ -469,7 +464,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         }}
         scopeCount={selectedCount || (measured && selectedFile.nativeRelative ? 1 : 0)}
         scopeBytes={selectedCount ? selectedSizeFormatted : measured && selectedFile.nativeRelative ? selectedFile.sizeFormatted : '0 B'}
-        onClose={() => setActiveService(null)}
+        onClose={() => setDetached(false)}
         onAdd={() => void filesNative.addSource()}
         onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
         onOpenStudio={handleOpenStudio}
@@ -477,6 +472,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         onHash={() => void handleHashFile()}
         onSort={(value) => setSortBy(value)}
         embedded
+        nativeAvailable={filesNative.available}
       />
     );
   };
@@ -499,7 +495,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         onNavigateHome={() => (onNavigateSection ? onNavigateSection('home') : navigateTo('home'))}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder={locale === 'ar' ? 'ابحث في الملفات أو المجلدات أو المحتوى... (Ctrl+K)' : 'Search files, folders, content, or type a command... (Ctrl+K)'}
+        searchPlaceholder={locale === 'ar' ? 'ابحث في الملفات أو المجلدات أو المحتوى... (Ctrl+K)' : 'Search indexed names, folders, and metadata... (Ctrl+K)'}
         isArabic={locale === 'ar'}
         onToggleArabic={toggleLocale}
       />
@@ -514,20 +510,16 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace" data-workbench-side={Boolean(activeService && workbenchMode === 'side')} style={{ '--files-inspector-width': activeService && workbenchMode === 'side' ? `${workbenchWidth}px` : '350px' } as React.CSSProperties}>
+        <main className="files-inner-workspace flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden" data-testid="files-workspace" data-workbench-side={Boolean(activeService && detached && workbenchMode === 'side')} style={{ '--files-inspector-width': activeService && detached && workbenchMode === 'side' ? `${workbenchWidth}px` : '350px' } as React.CSSProperties}>
           {/* Toast feedback */}
           {toastMessage && (
-            <div className="absolute top-3 right-6 z-50 px-3.5 py-2 rounded-lg bg-cyan-950/95 border border-cyan-400 text-cyan-200 text-xs shadow-xl flex items-center gap-2">
+            <div className="files-inline-feedback" role="status">
               <CheckCircle className="w-4 h-4 text-cyan-400" />
               <span>{toastMessage}</span>
             </div>
           )}
 
-          {/* 1. Hero & Commanding Search Area */}
-          <div className="knx-files-header relative pt-3 pb-2 px-6 shrink-0 bg-gradient-to-b from-[#08172e] to-[#061226] border-b border-[#0f2444] select-none overflow-hidden">
-            <div className="absolute inset-0 files-hero-nebula pointer-events-none" />
-
-            {/* Breadcrumb & Title */}
+          <div hidden className="files-header-bridge">            {/* Breadcrumb & Title */}
             <div data-knx-hero className="knx-files-heading relative z-10 mb-2">
               <ReferenceAtmosphere />
               <div className="knx-files-intro">
@@ -567,40 +559,9 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               </div>
             </div>
 
-            {/* The same measured energy tube every other workspace carries,
-                bound to Files' own native state: nothing here is decorative. */}
-            <ServicePipeline
-              locale={locale}
-              accent="sky"
-              dense
-              testId="files-pipeline"
-              live={filesNative.scanning}
-              caption={measured
-                ? (locale === 'ar' ? 'فهرس مقيس من المصادر المصرح بها' : 'Measured index from authorized sources')
-                : (locale === 'ar' ? 'يلزم مصدر مصرّح به' : 'An authorized source is required')}
-              onSelect={(id) => {
-                if (id === 'authorize') document.querySelector<HTMLElement>('[data-testid="files-add-source"]')?.focus();
-                else if (id === 'inspect' || id === 'verify') document.querySelector<HTMLElement>('[data-testid="files-search"]')?.focus();
-                else if (id === 'organize') { if (onNavigateSection) onNavigateSection('studio'); else navigateTo('studio'); }
-              }}
-              stages={[
-                { id: 'authorize', label: locale === 'ar' ? 'تصريح' : 'Authorize', state: filesNative.sources.length ? 'complete' : 'gated' },
-                { id: 'index', label: locale === 'ar' ? 'فهرسة' : 'Index', state: filesNative.scanning ? 'active' : measured && measuredOverview ? 'complete' : 'pending' },
-                { id: 'inspect', label: locale === 'ar' ? 'فحص' : 'Inspect', state: filesNative.metadataLoading ? 'active' : filesNative.metadata ? 'complete' : 'pending' },
-                { id: 'verify', label: locale === 'ar' ? 'تدقيق' : 'Verify', state: filesNative.hashLoading ? 'active' : filesNative.hash ? 'complete' : 'pending' },
-                { id: 'organize', label: locale === 'ar' ? 'تنظيم' : 'Organize', state: measured && filesNative.files.length ? 'partial' : 'pending' },
-              ]}
-            />
-
-            <div className="knx-files-metrics" aria-label={locale === 'en' ? 'Index overview' : 'ملخص الفهرس'}>
-              {[
-                {icon:FileText, value:measured ? indexedItemCount.toLocaleString() : '—', label:locale === 'en' ? 'Indexed Files' : 'الملفات المفهرسة', detail:measured ? (locale === 'en' ? 'Authorized index' : 'فهرس مصرّح') : L.fixture},
-                {icon:Folder, value:measured ? measuredOverview?.totals.folders.toLocaleString() ?? '—' : '—', label:locale === 'en' ? 'Indexed Folders' : 'المجلدات المفهرسة', detail:locale === 'en' ? 'Within selected source' : 'داخل المصدر المحدد'},
-                {icon:Clock, value:measured ? measuredOverview?.ages[0]?.count.toLocaleString() ?? '—' : '—', label:locale === 'en' ? 'Recent Changes' : 'التغييرات الحديثة', detail:L.ageDay},
-                {icon:HardDrive, value:measured && measuredOverview ? formatBytes(measuredOverview.totals.bytes) : '—', label:locale === 'en' ? 'Indexed Volume' : 'حجم الفهرس', detail:locale === 'en' ? 'Metadata inventory' : 'جرد البيانات الوصفية'},
-              ].map(({icon:Icon,value,label,detail}) => <div key={label}><Icon/><span><strong>{value}</strong><span>{label}</span><small>{detail}</small></span></div>)}
-            </div>
-
+</div>
+          <div className="files-compact-dock"><CompactServiceDock testIdPrefix="files" selectedId={activeService} onSelect={id=>{setActiveService(id as FilesServiceKey);setDetached(false);}} isArabic={isArabic} label={isArabic?'خدمات الملفات':'File services'} items={FILES_DOMAIN_SERVICES.map(service=>({id:service.key,label:isArabic?service.labelAr:service.labelEn,icon:renderServiceIcon(service.iconName),capability:!filesNative.available?(isArabic?'يتطلب جسرًا أصليًا':'Native required'):service.key.startsWith('file-organize-')?(isArabic?'مراجعة في Studio':'Studio review'):measured?(isArabic?'فهرس أصلي':'Native index'):(isArabic?'يتطلب تصريحًا':'Authorization required'),hint:isArabic?service.descAr:service.descEn}))}/></div>
+          <div className="files-operational-toolbar">
             {/* Wide Search Bar with Live Index Status */}
             <div className="knx-files-searchbar relative mb-2.5">
               <div className="flex items-center bg-[#07152b] border border-[#173766] rounded-xl px-3.5 py-2 shadow-inner focus-within:border-[#2476ff] transition-all">
@@ -613,7 +574,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={
                     locale === 'en'
-                      ? 'Search files, folders, content, or use filters...'
+                      ? 'Search indexed names, folders, or use filters...'
                       : 'ابحث عن الملفات أو المجلدات أو استخدم الفلاتر...'
                   }
                   className="w-full bg-transparent text-xs text-white placeholder-slate-500 outline-none font-medium"
@@ -630,7 +591,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                     <span className="font-bold text-white font-mono">
                       {measured
                         ? `${indexedItemCount.toLocaleString()} ${locale === 'en' ? 'items' : 'عنصر'}`
-                        : (locale === 'en' ? 'Fixture results' : 'نتائج تجريبية')}
+                        : (locale === 'en' ? 'No authorized index' : 'لا يوجد فهرس مصرح')}
                     </span>
                     <div className="text-slate-400 text-[9px]">
                       {measured
@@ -644,20 +605,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               </div>
             </div>
 
-            <FilesNativeBanner
-              locale={locale}
-              available={filesNative.available}
-              mode={filesNative.mode}
-              overview={filesNative.overview}
-              scanning={filesNative.scanning}
-              progress={filesNative.progress}
-              error={filesNative.error}
-              warnings={filesNative.warnings}
-              onAdd={() => void filesNative.addSource()}
-              onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
-              onCancel={() => void filesNative.cancelScan()}
-            />
 
+            <FilesLiveStage native={filesNative} locale={locale} query={searchQuery} returned={filteredFiles.length} title={activeServiceMeta?(isArabic?activeServiceMeta.labelAr:activeServiceMeta.labelEn):(isArabic?'ذكاء الملفات':'File intelligence')}/>
             {/* Category Filter Pills (9 categories) */}
             <div className="knx-files-categories flex flex-wrap items-center gap-1.5 pb-1 mb-2" data-testid="files-categories" tabIndex={-1} role="group" aria-label={locale === 'en' ? 'File type filters' : 'تصفية نوع الملف'}>
               {categoryPills.map((tab) => {
@@ -687,8 +636,25 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               })}
             </div>
 
+
+            <div className="files-tool-disclosures"><button type="button" onClick={()=>{setActiveService(null);setDetached(false);}}>{isArabic?'النتائج':'Results'}</button>
+              <details className="files-scope-controls"><summary>{isArabic?'النطاق':'Scope'}</summary>            <FilesNativeBanner
+              locale={locale}
+              available={filesNative.available}
+              mode={filesNative.mode}
+              overview={filesNative.overview}
+              scanning={filesNative.scanning}
+              progress={filesNative.progress}
+              error={filesNative.error}
+              warnings={filesNative.warnings}
+              onAdd={() => void filesNative.addSource()}
+              onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
+              onCancel={() => void filesNative.cancelScan()}
+            />
+
+</details>
             {/* Sub-Filters Menus (Extension, Size, Date, Location, Sort) */}
-            <details className="knx-files-advanced"><summary>{locale === 'en' ? 'Filters & view' : 'الفلاتر والعرض'}</summary>
+            <details className="knx-files-advanced"><summary>{locale === 'en' ? 'Filters' : 'الفلاتر'}</summary>
             <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
               <div className="flex flex-wrap items-center gap-2">
                 {/* Extension */}
@@ -828,7 +794,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
             {/* 2. Data Composition Band (Two Horizontal Distribution Gauges) */}
             </details>
-            <details className="knx-files-distribution"><summary>{locale === 'en' ? 'File type & age breakdown' : 'تفاصيل أنواع الملفات وأعمارها'}</summary>
+            <details className="knx-files-distribution"><summary>{locale === 'en' ? 'Types & age' : 'الأنواع والعمر'}</summary>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3 pt-2.5 border-t border-[#0e223d]">
               {/* Distribution 1: File Types */}
               <div className="bg-[#07152b] p-2.5 rounded-lg border border-[#122b50]">
@@ -887,10 +853,49 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               </div>
             </div>
             </details>
+
+              <details><summary>{isArabic?'المراحل':'Stages'}</summary>            {/* The same measured energy tube every other workspace carries,
+                bound to Files' own native state: nothing here is decorative. */}
+            <ServicePipeline
+              locale={locale}
+              accent="sky"
+              dense
+              testId="files-pipeline"
+              live={filesNative.scanning}
+              caption={measured
+                ? (locale === 'ar' ? 'فهرس مقيس من المصادر المصرح بها' : 'Measured index from authorized sources')
+                : (locale === 'ar' ? 'يلزم مصدر مصرّح به' : 'An authorized source is required')}
+              onSelect={(id) => {
+                if (id === 'authorize') document.querySelector<HTMLElement>('[data-testid="files-add-source"]')?.focus();
+                else if (id === 'inspect' || id === 'verify') document.querySelector<HTMLElement>('[data-testid="files-search"]')?.focus();
+                else if (id === 'organize') { if (onNavigateSection) onNavigateSection('studio'); else navigateTo('studio'); }
+              }}
+              stages={[
+                { id: 'authorize', label: locale === 'ar' ? 'تصريح' : 'Authorize', state: filesNative.sources.length ? 'complete' : 'gated' },
+                { id: 'index', label: locale === 'ar' ? 'فهرسة' : 'Index', state: filesNative.scanning ? 'active' : measured && measuredOverview ? 'complete' : 'pending' },
+                { id: 'inspect', label: locale === 'ar' ? 'فحص' : 'Inspect', state: filesNative.metadataLoading ? 'active' : filesNative.metadata ? 'complete' : 'pending' },
+                { id: 'verify', label: locale === 'ar' ? 'تدقيق' : 'Verify', state: filesNative.hashLoading ? 'active' : filesNative.hash ? 'complete' : 'pending' },
+                { id: 'organize', label: locale === 'ar' ? 'تنظيم' : 'Organize', state: measured && filesNative.files.length ? 'partial' : 'pending' },
+              ]}
+            />
+
+            <div className="knx-files-metrics" aria-label={locale === 'en' ? 'Index overview' : 'ملخص الفهرس'}>
+              {[
+                {icon:FileText, value:measured ? indexedItemCount.toLocaleString() : '—', label:locale === 'en' ? 'Indexed Files' : 'الملفات المفهرسة', detail:measured ? (locale === 'en' ? 'Authorized index' : 'فهرس مصرّح') : L.fixture},
+                {icon:Folder, value:measured ? measuredOverview?.totals.folders.toLocaleString() ?? '—' : '—', label:locale === 'en' ? 'Indexed Folders' : 'المجلدات المفهرسة', detail:locale === 'en' ? 'Within selected source' : 'داخل المصدر المحدد'},
+                {icon:Clock, value:measured ? measuredOverview?.ages[0]?.count.toLocaleString() ?? '—' : '—', label:locale === 'en' ? 'Recent Changes' : 'التغييرات الحديثة', detail:L.ageDay},
+                {icon:HardDrive, value:measured && measuredOverview ? formatBytes(measuredOverview.totals.bytes) : '—', label:locale === 'en' ? 'Indexed Volume' : 'حجم الفهرس', detail:locale === 'en' ? 'Metadata inventory' : 'جرد البيانات الوصفية'},
+              ].map(({icon:Icon,value,label,detail}) => <div key={label}><Icon/><span><strong>{value}</strong><span>{label}</span><small>{detail}</small></span></div>)}
+            </div>
+
+</details>
+              <button type="button" aria-pressed={inspectorVisible} onClick={()=>setInspectorVisible(v=>!v)}>{isArabic?'المفتش':'Inspector'}</button>
+              {activeService?<button type="button" onClick={()=>{setDetached(true);setInspectorVisible(true);}}>{isArabic?'عرض جانبي':'Side view'}</button>:null}
+            </div>
           </div>
           {/* 3. Main Center Split: Table Register & Right Detail Inspector */}
           <div className="knx-files-split flex-1 flex gap-3 px-6 py-2.5 min-h-0 overflow-hidden">
-            {/* Left-Center Results Table */}
+            {(!activeService||detached)?<>            {/* Left-Center Results Table */}
             <div className="knx-files-results flex-1 bg-[#061226] rounded-xl border border-[#132c52] overflow-hidden flex flex-col min-h-0 select-none shadow-inner">
               {duplicateOnly && <div className="flex items-center gap-2 px-3 py-1.5 text-[10px] text-amber-200 bg-amber-500/10 border-b border-amber-400/30" role="status" data-testid="files-duplicate-notice"><Copy className="w-3 h-3 shrink-0" aria-hidden="true"/><span className="flex-1">{locale === 'en' ? 'Repeated names only. Same names do not prove identical content.' : 'أسماء متكررة فقط. تشابه الأسماء لا يثبت تطابق المحتوى.'}</span><button type="button" onClick={() => setDuplicateOnly(false)} className="underline shrink-0">{locale === 'en' ? 'Clear' : 'مسح'}</button></div>}
               {/* Table Header */}
@@ -935,17 +940,18 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
               {/* Empty state */}
               {filteredFiles.length === 0 && (
-                <div className="flex-1 flex flex-col items-center justify-center gap-2 text-center p-6">
+                <div className="files-ready-intelligence flex-1 flex flex-col justify-center gap-2 p-6">
                   <FileText className="w-8 h-8 text-slate-500" />
                   <div className="text-xs font-semibold text-slate-300">
                     {measured
                       ? (activeCategory === 'folders'
-                          ? 'Folder rows are not indexed by this read-only inventory.'
-                          : 'No measured files match the current filters.')
-                      : 'No fixture files match the current filters.'}
+                          ? (locale==='ar'?'هذا الفهرس للملفات؛ صفوف المجلدات غير مفهرسة.':'Folder rows are not indexed by this read-only inventory.')
+                          : (locale==='ar'?'لا توجد ملفات مقيسة تطابق عوامل التصفية الحالية.':'No measured files match the current filters.'))
+                      : (locale==='ar'?'صرّح بمجلد لعرض ملفاتك الفعلية.':'Authorize a folder to see its actual files.')}
                   </div>
+                  {!measured?<button type="button" data-testid="files-authorize-primary" disabled={!filesNative.available||filesNative.scanning} onClick={()=>void filesNative.addSource()} className="files-authorize-primary">{locale==='ar'?'اختيار مجلد مصرح':'Choose authorized folder'}</button>:null}
                   <div className="text-[10px] text-slate-500">
-                    {measured ? 'Adjust the query or rescan the authorized source.' : 'Design fixture only — no device scan occurred.'}
+                    {measured ? (locale==='ar'?'عدّل البحث أو أعد فحص المصدر المصرح به.':'Adjust the query or rescan the authorized source.') : (locale==='ar'?'الفهرسة للبيانات الوصفية فقط وضمن اختيارك.':'Metadata indexing stays within the folder you choose.')}
                   </div>
                 </div>
               )}
@@ -1058,6 +1064,10 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                     return (
                       <div
                         key={file.id}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={locale==='ar'?`فحص ${file.name}`:`Inspect ${file.name}`}
+                        onKeyDown={event=>{if(event.target===event.currentTarget&&(event.key==='Enter'||event.key===' ')){event.preventDefault();setSelectedFile(file);}}}
                         onClick={() => setSelectedFile(file)}
                         className={`rounded-lg overflow-hidden border cursor-pointer transition-all ${isSelected ? 'border-[#2476ff] bg-[#0e2447] shadow-[0_0_12px_rgba(36,118,255,0.35)]' : 'border-[#132c52] bg-[#08172c] hover:border-[#1d427b]'}`}
                       >
@@ -1092,36 +1102,37 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               )}
             </div>
 
+</>:<section id="active-service-workspace" role="tabpanel" aria-labelledby={`service-tab-${activeService}`} className="files-integrated-service knx-service-workspace" data-testid="files-integrated-service">{renderFilesServiceBody()}</section>}
             {/* Right Detail Panel / pinned service workbench */}
-            <div
-              className={`knx-files-inspector shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
-              style={activeService && workbenchMode === 'side' ? { width: `${workbenchWidth}px` } : undefined}
+            {(inspectorVisible||detached)?<div
+              className={`knx-files-inspector shrink-0 flex flex-col gap-2.5 select-none overflow-y-auto files-scrollbar ${activeService && detached && workbenchMode === 'side' ? '' : 'w-80 xl:w-96'}`}
+              style={activeService && detached && workbenchMode === 'side' ? { width: `${workbenchWidth}px` } : undefined}
             >
               <div className="knx-files-inspector-head">
                 <h2>{locale === 'en' ? 'Selected File' : 'الملف المحدد'}</h2>
                 <div role="tablist" aria-label={locale === 'en' ? 'File inspector' : 'مفتش الملفات'}>
-                  {(['details','tools','insights'] as const).map((tab, index) => <button key={tab} id={`files-tab-${tab}`} role="tab" aria-controls={`files-panel-${tab}`} aria-selected={inspectorTab === tab} tabIndex={inspectorTab === tab ? 0 : -1} onClick={() => setInspectorTab(tab)} onKeyDown={event => {
+                  {(['details','insights'] as const).map((tab, index) => <button key={tab} id={`files-tab-${tab}`} role="tab" aria-controls={`files-panel-${tab}`} aria-selected={inspectorTab === tab} tabIndex={inspectorTab === tab ? 0 : -1} onClick={() => setInspectorTab(tab)} onKeyDown={event => {
                     if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
                     event.preventDefault();
-                    const tabs = ['details','tools','insights'] as const;
+                    const tabs = ['details','insights'] as const;
                     const delta = (event.key === 'ArrowRight' ? 1 : -1) * (isArabic ? -1 : 1);
-                    const next = tabs[event.key === 'Home' ? 0 : event.key === 'End' ? 2 : (index + delta + 3) % 3];
+                    const next = tabs[event.key === 'Home' ? 0 : event.key === 'End' ? 1 : (index + delta + 2) % 2];
                     setInspectorTab(next);
                     document.getElementById(`files-tab-${next}`)?.focus();
                   }}>{locale === 'en' ? ({details:'Details',tools:'Tools',insights:'Insights'}[tab]) : ({details:'التفاصيل',tools:'الأدوات',insights:'الرؤى'}[tab])}</button>)}
                 </div>
               </div>
-              {activeService && workbenchMode === 'side' ? (
+              {activeService && detached && workbenchMode === 'side' ? (
                 <div className="h-[480px] shrink-0" data-testid="files-workbench-side-shell">
                   <ServiceWorkbenchHost
                     serviceId={activeService}
                     icon={renderServiceIcon(activeServiceMeta?.iconName || 'FileText')}
                     title={activeServiceMeta ? (locale === 'en' ? activeServiceMeta.labelEn : activeServiceMeta.labelAr) : activeService}
-                    subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'fixture context' : 'سياق تجريبي')}`}
+                    subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'no authorized index' : 'لا يوجد فهرس مصرح')}`}
                     locale={locale}
                     mode="side"
                     onModeChange={setWorkbenchMode}
-                    onClose={() => setActiveService(null)}
+                    onClose={() => setDetached(false)}
                     onResize={(width) => setWorkbenchWidth(width)}
                     minWidth={320}
                     maxWidth={560}
@@ -1144,8 +1155,9 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   </ServiceWorkbenchHost>
                 </div>
               ) : null}
+              {typeof selectedFile.nativeFileId!=='number'?<p className="files-no-selection">{locale==='ar'?'اختار ملفًا مقيسًا من النتائج لعرض معاينته وبياناته.':'Select a measured result to inspect its preview and metadata.'}</p>:null}
               {/* Selected File Dossier */}
-              <div id="files-panel-details" role="tabpanel" aria-labelledby="files-tab-details" hidden={inspectorTab !== 'details'} className="knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg">
+              <div id="files-panel-details" role="tabpanel" aria-labelledby="files-tab-details" hidden={inspectorTab !== 'details'||typeof selectedFile.nativeFileId!=='number'} className="knx-files-dossier bg-[#07152b] rounded-xl p-3.5 border border-[#132c52] space-y-3 shadow-lg">
                 {/* Header with Title and Window Controls */}
                 <div className="flex items-center justify-between pb-2 border-b border-[#0f2545]">
                   <div className="flex items-center gap-2 truncate">
@@ -1153,7 +1165,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                       {selectedFile.name}
                     </span>
                     <span className={`text-[8px] font-mono font-bold px-1 py-0.5 rounded border ${measured ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : 'bg-amber-950/60 text-amber-300 border-amber-500/40'}`}>
-                      {measured ? 'MEASURED' : 'FIXTURE'}
+                      {measured ? 'MEASURED' : 'NO INDEX'}
                     </span>
                   </div>
 
@@ -1333,15 +1345,15 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </button>
               </div>
 
-              {inspectorTab === 'details' && !activeService ? <section className="knx-files-recommended">
-                <div><h3>{locale === 'en' ? 'Explore & inspect' : 'استكشف وافحص'}</h3><button onClick={() => setInspectorTab('tools')}>{locale === 'en' ? 'All tools' : 'كل الأدوات'} <ChevronRight size={14}/></button></div>
+              {inspectorTab === 'details' && !activeService && typeof selectedFile.nativeFileId==='number' ? <section className="knx-files-recommended">
+                <div><h3>{locale === 'en' ? 'Explore & inspect' : 'استكشف وافحص'}</h3><button onClick={() => document.querySelector<HTMLElement>('.files-compact-dock [role=tab]')?.focus()}>{locale === 'en' ? 'All tools' : 'كل الأدوات'} <ChevronRight size={14}/></button></div>
                 {FILES_DOMAIN_SERVICES.filter(service => ['file-recents','file-largest','file-metadata','file-hash'].includes(service.key)).map(service => <button key={service.key} onClick={() => setActiveService(service.key)}>
                   {renderServiceIcon(service.iconName)}<span>{locale === 'en' ? service.labelEn : service.labelAr}</span><ChevronRight size={16}/>
                 </button>)}
               </section> : null}
 
               {/* Sub-Card 1: Live Service Preview */}
-              <div id="files-panel-insights" role="tabpanel" aria-labelledby="files-tab-insights" hidden={inspectorTab !== 'insights'} className="bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
+              <div id="files-panel-insights" role="tabpanel" aria-labelledby="files-tab-insights" hidden={inspectorTab !== 'insights'||typeof selectedFile.nativeFileId!=='number'} className="bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
                 <div className="flex items-center justify-between pb-1.5 border-b border-[#0f2545]">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-white">
                     <Cloud className="w-3.5 h-3.5 text-cyan-400" />
@@ -1371,8 +1383,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   <div className="flex items-start gap-1.5 min-w-0">
                     <Lightbulb className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                     <div className="text-[10px] text-slate-300 leading-snug">
-                      <span className="text-amber-300 font-bold">Suggested action: </span>
-                      {selectedFile.suggestedAction || 'Move to Pictures\\Nature\\ and rename using YYYY-MM-DD_Location format.'}
+                      <span className="text-amber-300 font-bold">{locale==='ar'?'الخطوة التالية: ':'Next step: '}</span>
+                      {selectedFile.suggestedAction || (locale==='ar'?'راجع المصدر والوجهة والقواعد في Studio؛ لا توجد خطة منفذة لهذا الملف.':'Review the source, destination and rules in Studio; no plan has executed for this file.')}
                     </div>
                   </div>
                   <button onClick={() => handleOpenStudio(6)} title="Review this in the Studio plan" className="shrink-0">
@@ -1381,45 +1393,20 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </div>
               </div>
 
-              {/* Sub-Card 2: KNOuX Services (12 Domain Service Cards Dock) */}
-              <div id="files-panel-tools" role="tabpanel" aria-labelledby="files-tab-tools" hidden={inspectorTab !== 'tools'} className="knx-files-service-panel bg-[#07152b] rounded-xl p-3 border border-[#132c52] space-y-2">
-                <div className="text-xs font-bold text-white flex items-center justify-between pb-1 border-b border-[#0f2545]">
-                  <span>{L.services}</span>
-                  <span className="text-[9px] text-slate-500 font-mono">{measured ? 'Measured read-only' : 'Design fixture'}</span>
-                </div>
-
-                <div className="knx-files-tools grid grid-cols-3 gap-2">
-                  {FILES_DOMAIN_SERVICES.map((serv) => (
-                    <button
-                      key={serv.key}
-                      data-service-key={serv.key}
-                      data-testid={`files-service-${serv.key}`}
-                      onClick={() => setActiveService(serv.key)}
-                      className="p-1.5 rounded-lg bg-[#091a33] hover:bg-[#122e57] text-cyan-300 hover:text-white border border-[#142e56] hover:border-[#2476ff]/60 flex flex-col items-center justify-center gap-1 transition-all cursor-pointer group"
-                      title={serv.labelEn}
-                    >
-                      {renderServiceIcon(serv.iconName)}
-                      <span className="text-[8px] font-mono leading-tight text-center truncate w-full text-slate-400 group-hover:text-cyan-200">
-                        {locale === 'ar' ? serv.labelAr : serv.labelEn}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+            </div>:null}
           </div>
 
-          {activeService && workbenchMode === 'expanded' ? (
+          {activeService && detached && workbenchMode === 'expanded' ? (
             <div className="absolute inset-x-0 top-0 bottom-12 z-40 bg-[#040b18]/95 p-3" data-testid="files-workbench-expanded-shell">
               <ServiceWorkbenchHost
                 serviceId={activeService}
                 icon={renderServiceIcon(activeServiceMeta?.iconName || 'FileText')}
                 title={activeServiceMeta ? (locale === 'en' ? activeServiceMeta.labelEn : activeServiceMeta.labelAr) : activeService}
-                subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'fixture context' : 'سياق تجريبي')}`}
+                subtitle={`${selectedFile.name} · ${measured ? (locale === 'en' ? 'measured context' : 'سياق مقيس') : (locale === 'en' ? 'no authorized index' : 'لا يوجد فهرس مصرح')}`}
                 locale={locale}
                 mode="expanded"
                 onModeChange={setWorkbenchMode}
-                onClose={() => setActiveService(null)}
+                onClose={() => setDetached(false)}
                 testId="files-workbench-expanded"
                 toolSelector={
                   <select
@@ -1466,17 +1453,19 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   <><span className="text-cyan-300 font-bold">فهرس مقيس للقراءة فقط</span> • يبقى التنفيذ محظورًا حتى الموافقة الصريحة.</>
                 )
               ) : locale === 'en' ? (
-                <><span className="text-amber-300 font-bold">Design fixture</span> • Index real files in the Electron client.</>
+                <><span className="text-amber-300 font-bold">No authorized index</span> • Choose a folder to start.</>
               ) : (
-                <><span className="text-amber-300 font-bold">بيانات تجريبية</span> • افهرس ملفات حقيقية في عميل Electron.</>
+                <><span className="text-amber-300 font-bold">لا يوجد فهرس مصرح</span> • اختر مجلدًا للبدء.</>
               )}
             </div>
 
             {/* Opt-in native live workflow; the approved overview stays intact. */}
-            <button data-testid="files-live-organization" className="knx-files-primary" onClick={() => openLiveOrganization(1)}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
+            {filesNative.scanning?<button type="button" data-testid="files-cancel-index" onClick={()=>void filesNative.cancelScan()}>{locale==='ar'?'إلغاء الفهرسة':'Cancel indexing'}</button>:null}
+            <button data-testid="files-live-organization" disabled={!measured||!indexedItemCount} className="knx-files-primary" onClick={() => openLiveOrganization(1)}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
             {/* Right Action Button */}
             <button
               data-testid="files-plan-cta"
+              disabled={!measured||!indexedItemCount}
               onClick={() => handleOpenStudio(6)}
               className="knx-files-primary px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#713bff] via-[#2476ff] to-[#1c5fdb] hover:from-[#844dff] hover:to-[#226cf0] text-xs font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(36,118,255,0.6)] border border-cyan-400/50 cursor-pointer"
             >

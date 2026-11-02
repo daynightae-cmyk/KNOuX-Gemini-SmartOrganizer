@@ -1,8 +1,8 @@
 /**
  * Read-only native state for the Files / Instant Find section.
  *
- * The browser preview keeps its design fixture. A measured source replaces the
- * ledger, distributions and inspector values only after a real scan completes.
+ * Rows, distributions and inspector values come from an explicitly authorized
+ * source. Without the native bridge the page shows an unavailable state.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
@@ -136,7 +136,9 @@ export function useFilesNative(preferredSourceId?: string) {
   const [overview, setOverview] = useState<FilesOverview | null>(null);
   const [files, setFiles] = useState<FileResultItem[]>([]);
   const [scanning, setScanning] = useState(false);
+  const [querying, setQuerying] = useState(false);
   const [progress, setProgress] = useState<{ files: number; folders: number; bytes: number } | null>(null);
+  const [lastIndexEvent,setLastIndexEvent]=useState<StudioProgressEvent|null>(null);
   const [error, setError] = useState<string | null>(null);
   const [warnings, setWarnings] = useState<string[]>([]);
   const [metadata, setMetadata] = useState<FilesMetadata | null>(null);
@@ -147,12 +149,20 @@ export function useFilesNative(preferredSourceId?: string) {
   const [emptyFoldersLoading, setEmptyFoldersLoading] = useState(false);
 
   const querySeq = useRef(0);
+  const metadataSeq = useRef(0);
+  const hashSeq = useRef(0);
+  const emptySeq = useRef(0);
   const queryTimer = useRef<number | null>(null);
   const lastFilters = useRef<FilesQueryFilters>({});
   const activeSourceRef = useRef<StudioSource | null>(null);
   const sourceIdRef = useRef<string | null>(null);
 
   const setActiveSource = useCallback((next: StudioSource | null) => {
+    if(sourceIdRef.current !== (next?.id||null)) {
+      querySeq.current++;metadataSeq.current++;hashSeq.current++;emptySeq.current++;
+      setQuerying(false);setMetadataLoading(false);setHashLoading(false);setEmptyFoldersLoading(false);
+      setFiles([]);setOverview(null);setMetadata(null);setHash(null);setEmptyFolders(null);setLastIndexEvent(null);setProgress(null);
+    }
     activeSourceRef.current = next;
     sourceIdRef.current = next?.id || null;
     setSource(next);
@@ -162,6 +172,7 @@ export function useFilesNative(preferredSourceId?: string) {
 
   const reloadOverview = useCallback(async (sourceId: string) => {
     const envelope = await loadFilesOverview(sourceId);
+    if(sourceId!==sourceIdRef.current)return;
     if (!envelope) return;
     if (envelope.status === 'complete' && envelope.data) {
       setOverview(envelope.data);
@@ -189,6 +200,8 @@ export function useFilesNative(preferredSourceId?: string) {
       ...sortRequest(filters.sort),
       limit: 200,
     };
+    setQuerying(true);
+    try {
     const envelope = await queryFilesInventory(request);
     if (seq !== querySeq.current) return;
     if (!envelope || envelope.status !== 'complete' || !envelope.data) {
@@ -213,6 +226,10 @@ export function useFilesNative(preferredSourceId?: string) {
         );
       }
     }
+    } catch(error) {
+      if(seq===querySeq.current){setFiles([]);setError(error instanceof Error?error.message:'The native query failed.');}
+    } finally {if(seq===querySeq.current)setQuerying(false);}
+
   }, []);
 
   const applyReadySource = useCallback(async (next: StudioSource) => {
@@ -252,8 +269,11 @@ export function useFilesNative(preferredSourceId?: string) {
     }
     const next = chosen.data;
     setSources((prev) => [next, ...prev.filter((entry) => entry.id !== next.id)]);
+    // Select the newly authorized scope before indexing so its progress,
+    // cancellation and successful inventory belong to the same source.
+    setActiveSource(next);
     await scanSource(next.id);
-  }, [scanSource]);
+  }, [scanSource, setActiveSource]);
 
   const cancelScan = useCallback(async () => {
     const sourceId = sourceIdRef.current;
@@ -264,10 +284,14 @@ export function useFilesNative(preferredSourceId?: string) {
   const loadMetadata = useCallback(async (fileId: number) => {
     const sourceId = sourceIdRef.current;
     if (!sourceId) return;
+    const seq=++metadataSeq.current;
+    hashSeq.current++;
+    setHashLoading(false);
     setMetadataLoading(true);
     setHash(null);
     try {
       const envelope = await loadFileMetadata(sourceId, fileId);
+      if(seq!==metadataSeq.current||sourceId!==sourceIdRef.current)return;
       if (!envelope || envelope.status !== 'complete' || !envelope.data) {
         setMetadata(null);
         setError(envelope?.error?.message || 'The file metadata could not be read.');
@@ -276,40 +300,44 @@ export function useFilesNative(preferredSourceId?: string) {
       setMetadata(envelope.data);
       setWarnings((prev) => Array.from(new Set([...prev, ...(envelope.data?.warnings || [])])));
     } finally {
-      setMetadataLoading(false);
+      if(seq===metadataSeq.current)setMetadataLoading(false);
     }
   }, []);
 
   const computeHash = useCallback(async (fileId: number) => {
     const sourceId = sourceIdRef.current;
     if (!sourceId) return;
+    const seq=++hashSeq.current;
     setHashLoading(true);
     setHash(null);
     try {
       const envelope = await hashFile(sourceId, fileId);
+      if(seq!==hashSeq.current||sourceId!==sourceIdRef.current)return;
       if (!envelope || envelope.status !== 'complete' || !envelope.data) {
         setError(envelope?.error?.message || 'The file hash could not be computed.');
         return;
       }
       setHash(envelope.data);
     } finally {
-      setHashLoading(false);
+      if(seq===hashSeq.current)setHashLoading(false);
     }
   }, []);
 
   const loadEmpty = useCallback(async () => {
     const sourceId = sourceIdRef.current;
     if (!sourceId) return;
+    const seq=++emptySeq.current;
     setEmptyFoldersLoading(true);
     try {
       const envelope = await loadEmptyFolders(sourceId, 200);
+      if(seq!==emptySeq.current||sourceId!==sourceIdRef.current)return;
       if (!envelope || envelope.status !== 'complete' || !envelope.data) {
         setError(envelope?.error?.message || 'Empty-folder discovery failed.');
         return;
       }
       setEmptyFolders(envelope.data);
     } finally {
-      setEmptyFoldersLoading(false);
+      if(seq===emptySeq.current)setEmptyFoldersLoading(false);
     }
   }, []);
 
@@ -338,6 +366,8 @@ export function useFilesNative(preferredSourceId?: string) {
     let active = true;
     const unsubscribe = subscribeFilesProgress((event: StudioProgressEvent) => {
       if (!active) return;
+      if(event.sourceId!==sourceIdRef.current)return;
+      setLastIndexEvent(event);
       if (event.type === 'scan-progress') {
         setProgress({ files: event.files || 0, folders: event.folders || 0, bytes: event.bytes || 0 });
       }
@@ -385,7 +415,9 @@ export function useFilesNative(preferredSourceId?: string) {
     overview,
     files,
     scanning,
+    querying,
     progress,
+    lastIndexEvent,
     error,
     warnings,
     metadata,
