@@ -1,0 +1,31 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:clipboard
+> npm run test:clipboard --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:clipboard
+> node scripts/clipboard-native-test.cjs
+
+{
+  "status": "PASS",
+  "checks": [
+    "init, status, list and poll observe no clipboard before opt-in",
+    "opt-in captures exact text, encrypts payload and metadata",
+    "consecutive and non-consecutive duplicates collapse",
+    "pause, private mode and disable perform zero reads",
+    "OTP/key/password heuristics and oversized payloads are skipped",
+    "pin/search/filter/copy-back work; unrelated next clipboard is not suppressed",
+    "encrypted restart preserves pins/history and never resumes consent; age retention prunes unpinned items",
+    "missing item and malformed requests are rejected",
+    "count cap is enforced and pinned entries are not silently evicted",
+    "encryption unavailable/basic_text fallback never persists plaintext",
+    "failed decryption preserves original bytes until explicit discard",
+    "corruption is reported and never overwritten",
+    "failed atomic rename keeps prior ciphertext, removes only own temporary file and reports pending memory state",
+    "image round-trip, DROPFILES parsing, file-path text copy-back, literal Unicode paths, format opt-outs and invalid DROPFILES",
+    "revocation cancels an in-flight asynchronous clipboard read",
+    "all eight IPC endpoints reject untrusted senders; native cancellation, exact arity and allowlisted fields are enforced"
+  ],
+  "fixture": "D:\\Temp\\knoux-clipboard-test-MqVnX5",
+  "personalClipboardAccess": false
+}

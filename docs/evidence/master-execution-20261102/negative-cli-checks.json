@@ -1,0 +1,48 @@
+[
+  {
+    "command": [
+      "python",
+      "scripts/test-verify-execution-evidence.py"
+    ],
+    "exitCode": 0,
+    "expectedExit": 0,
+    "observedAtUtc": "2026-11-02T05:39:17.653277+00:00",
+    "stdout": "",
+    "stderr": "test_green_ci_on_other_sha_is_not_evidence (__main__.EvidenceGateTests.test_green_ci_on_other_sha_is_not_evidence) ... ok\ntest_incomplete_receipt_and_racing_writer_refused (__main__.EvidenceGateTests.test_incomplete_receipt_and_racing_writer_refused) ... ok\ntest_latest_failed_or_running_ci_cannot_use_old_green (__main__.EvidenceGateTests.test_latest_failed_or_running_ci_cannot_use_old_green) ... ok\ntest_new_head_and_new_untracked_path_are_stale (__main__.EvidenceGateTests.test_new_head_and_new_untracked_path_are_stale) ... ok\ntest_same_head_modified_dirty_content_is_stale (__main__.EvidenceGateTests.test_same_head_modified_dirty_content_is_stale) ... ok\ntest_unchanged_receipt (__main__.EvidenceGateTests.test_unchanged_receipt) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.001s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python",
+      "scripts/verify-execution-evidence.py",
+      "--check",
+      "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\master-execution-20261102\\stale-head-fixture.json"
+    ],
+    "exitCode": 2,
+    "expectedExit": 2,
+    "observedAtUtc": "2026-11-02T05:39:24.511590+00:00",
+    "errors": [
+      "STALE_root",
+      "STALE_head",
+      "STALE_sourceSha256",
+      "STALE_workingTree"
+    ],
+    "head": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+    "snapshotConsistent": true
+  },
+  {
+    "command": [
+      "python",
+      "scripts/verify-execution-evidence.py",
+      "--check",
+      "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\master-execution-20261102\\malformed-object-fixture.json"
+    ],
+    "exitCode": 2,
+    "expectedExit": 2,
+    "observedAtUtc": "2026-11-02T05:39:34.402885+00:00",
+    "errors": [
+      "INVALID_RECEIPT_OBJECT"
+    ],
+    "head": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+    "snapshotConsistent": true
+  }
+]

@@ -1,0 +1,432 @@
+{
+  "id": "db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca",
+  "mode": "service",
+  "requestedServices": [
+    "startup_impact_check"
+  ],
+  "sourceId": null,
+  "sourceLabel": null,
+  "scope": "system-providers-only",
+  "status": "complete",
+  "startedAt": "2026-11-02T19:40:07.609Z",
+  "finishedAt": "2026-11-02T19:40:08.578Z",
+  "cancelRequested": false,
+  "progressPercent": 100,
+  "progressDeterminate": true,
+  "stages": [
+    {
+      "id": "startup",
+      "labelEn": "Startup item inventory",
+      "labelAr": "جرد عناصر بدء التشغيل",
+      "provider": "Win32_StartupCommand",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:40:07.609Z",
+      "finishedAt": "2026-11-02T19:40:08.577Z",
+      "durationMs": 968,
+      "detail": "7 startup entries measured. Commands and user names are not exposed.",
+      "error": null
+    },
+    {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:40:08.577Z",
+      "finishedAt": "2026-11-02T19:40:08.578Z",
+      "durationMs": 1,
+      "detail": "7 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    }
+  ],
+  "services": [
+    {
+      "serviceId": "startup_impact_check",
+      "labelEn": "Startup Impact Check",
+      "labelAr": "فحص إقلاع النظام",
+      "state": "available",
+      "status": "complete",
+      "permission": "read-only",
+      "mutation": "none",
+      "source": "Win32_StartupCommand",
+      "startedAt": "2026-11-02T19:40:07.609Z",
+      "finishedAt": null,
+      "stages": [
+        {
+          "id": "startup",
+          "labelEn": "Startup item inventory",
+          "labelAr": "جرد عناصر بدء التشغيل",
+          "status": "complete"
+        }
+      ],
+      "data": {
+        "scope": "system-providers-only",
+        "sourceLabel": null,
+        "stageCount": 1,
+        "readOnly": true,
+        "items": [
+          {
+            "name": "KNOUX-DesktopCommander-AutoStart",
+            "source": "other",
+            "location": "Startup",
+            "writable": false,
+            "managedBySmartOrganizer": false,
+            "provider": "Win32_StartupCommand"
+          },
+          {
+            "name": "IDMan",
+            "source": "registry-run-user",
+            "location": "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "writable": true,
+            "managedBySmartOrganizer": true,
+            "provider": "Win32_StartupCommand"
+          },
+          {
+            "name": "com.minimax.agent",
+            "source": "registry-run-user",
+            "location": "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "writable": true,
+            "managedBySmartOrganizer": true,
+            "provider": "Win32_StartupCommand"
+          },
+          {
+            "name": "GoogleChromeAutoLaunch_CB20F16047D9EED95732B5B56EC61537",
+            "source": "registry-run-user",
+            "location": "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "writable": true,
+            "managedBySmartOrganizer": true,
+            "provider": "Win32_StartupCommand"
+          },
+          {
+            "name": "MicrosoftEdgeAutoLaunch_825ED4111625C20439A858E27D8C70CB",
+            "source": "registry-run-user",
+            "location": "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "writable": true,
+            "managedBySmartOrganizer": true,
+            "provider": "Win32_StartupCommand"
+          },
+          {
+            "name": "Opera Stable",
+            "source": "registry-run-user",
+            "location": "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "writable": true,
+            "managedBySmartOrganizer": true,
+            "provider": "Win32_StartupCommand"
+          },
+          {
+            "name": "SecurityHealth",
+            "source": "registry-run-machine",
+            "location": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "writable": false,
+            "managedBySmartOrganizer": false,
+            "provider": "Win32_StartupCommand"
+          }
+        ],
+        "bySource": {
+          "other": 1,
+          "registry-run-user": 5,
+          "registry-run-machine": 1
+        },
+        "writableCount": 5,
+        "bootTimeMeasured": false,
+        "mutationAvailable": false,
+        "gatedMission": "09"
+      },
+      "warnings": [
+        "Boot duration and per-item startup cost are not measured; no seconds estimate is reported."
+      ],
+      "limitations": [
+        "Reads Win32_StartupCommand entries. Boot-time seconds are not measured and are never invented; enable/disable is gated to Mission 09.",
+        "One or more provider stages returned partial evidence; see warnings."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:registry-run-user:com.minimax.agent",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "com.minimax.agent",
+      "titleAr": "com.minimax.agent",
+      "evidence": "Registered at registry-run-user (HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      ]
+    },
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:registry-run-user:GoogleChromeAutoLaunch_CB20F16047D9EED95732B5B56EC61537",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "GoogleChromeAutoLaunch_CB20F16047D9EED95732B5B56EC61537",
+      "titleAr": "GoogleChromeAutoLaunch_CB20F16047D9EED95732B5B56EC61537",
+      "evidence": "Registered at registry-run-user (HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      ]
+    },
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:registry-run-user:IDMan",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "IDMan",
+      "titleAr": "IDMan",
+      "evidence": "Registered at registry-run-user (HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      ]
+    },
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:registry-run-user:MicrosoftEdgeAutoLaunch_825ED4111625C20439A858E27D8C70CB",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "MicrosoftEdgeAutoLaunch_825ED4111625C20439A858E27D8C70CB",
+      "titleAr": "MicrosoftEdgeAutoLaunch_825ED4111625C20439A858E27D8C70CB",
+      "evidence": "Registered at registry-run-user (HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      ]
+    },
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:registry-run-user:Opera Stable",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "Opera Stable",
+      "titleAr": "Opera Stable",
+      "evidence": "Registered at registry-run-user (HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "HKU\\S-1-5-21-1128305507-1447294474-2667022863-1000\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      ]
+    },
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:registry-run-machine:SecurityHealth",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "SecurityHealth",
+      "titleAr": "SecurityHealth",
+      "evidence": "Registered at registry-run-machine (HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      ]
+    },
+    {
+      "stableId": "startup:db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca:other:KNOUX-DesktopCommander-AutoStart",
+      "kind": "startup-item",
+      "serviceId": "startup_impact_check",
+      "titleEn": "KNOUX-DesktopCommander-AutoStart",
+      "titleAr": "KNOUX-DesktopCommander-AutoStart",
+      "evidence": "Registered at other (Startup). Read-only inventory; no startup value was changed.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "low",
+      "risk": "info",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_StartupCommand",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": [
+        "Startup"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-startup-review",
+      "titleEn": "Review startup entries before changing anything",
+      "titleAr": "راجع عناصر بدء التشغيل قبل تغيير أي شيء",
+      "detailEn": "7 startup entries are registered. KNOuX only measured the list; enable/disable and delay are gated to Mission 09 and require explicit approval.",
+      "detailAr": "7 عنصر بدء تشغيل مسجل. قاس KNOuX القائمة فقط؛ التفعيل/التعطيل والتأخير مؤجلان للمهمة 09 ويتطلبان موافقة صريحة.",
+      "evidence": "Win32_StartupCommand inventory; boot duration is not measured.",
+      "serviceId": "startup_impact_check",
+      "confidence": "measured",
+      "risk": "info",
+      "target": "startup"
+    }
+  ],
+  "breakdown": [
+    {
+      "id": "startup",
+      "labelEn": "Startup items",
+      "labelAr": "عناصر الإقلاع",
+      "colorHex": "#8b5cf6",
+      "count": 7,
+      "bytes": 0,
+      "percentage": 100
+    }
+  ],
+  "kpis": [
+    {
+      "id": "coverage",
+      "labelEn": "Stage coverage",
+      "labelAr": "تغطية المراحل",
+      "value": "100%",
+      "subtextEn": "2/2 stages returned",
+      "subtextAr": "2/2 مرحلة اكتملت",
+      "accentColor": "cyan",
+      "indicatorType": "ring",
+      "provenance": "measured"
+    },
+    {
+      "id": "files",
+      "labelEn": "Files indexed",
+      "labelAr": "الملفات المفهرسة",
+      "value": "—",
+      "subtextEn": "No authorized folder",
+      "subtextAr": "لا يوجد مجلد مصرح",
+      "accentColor": "blue",
+      "indicatorType": "stack",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "issues",
+      "labelEn": "Findings",
+      "labelAr": "النتائج",
+      "value": "7",
+      "subtextEn": "0 high severity",
+      "subtextAr": "0 خطورة عالية",
+      "accentColor": "red",
+      "indicatorType": "alert",
+      "provenance": "measured"
+    },
+    {
+      "id": "space",
+      "labelEn": "Duplicate bytes",
+      "labelAr": "بايتات مكررة",
+      "value": "—",
+      "subtextEn": "Duplicate stage not in this scope",
+      "subtextAr": "مرحلة التكرار غير مشمولة في هذا الفحص",
+      "accentColor": "purple",
+      "indicatorType": "disk",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Origin markers",
+      "labelAr": "علامات الأصل",
+      "value": "—",
+      "subtextEn": "privacy sample not run",
+      "subtextAr": "لم تُشغّل عينة الخصوصية",
+      "accentColor": "teal",
+      "indicatorType": "shield",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "health",
+      "labelEn": "Health score",
+      "labelAr": "درجة الصحة",
+      "value": "—",
+      "subtextEn": "No numeric signals",
+      "subtextAr": "لا توجد إشارات رقمية",
+      "accentColor": "green",
+      "indicatorType": "sparkline",
+      "provenance": "unavailable"
+    }
+  ],
+  "summary": {
+    "id": "db4aaaa9-e908-4fad-b0cb-7ba2ef1c0aca",
+    "mode": "service",
+    "status": "complete",
+    "sourceId": null,
+    "sourceLabel": null,
+    "scope": "system-providers-only",
+    "startedAt": "2026-11-02T19:40:07.609Z",
+    "finishedAt": "2026-11-02T19:40:08.578Z",
+    "progressPercent": 100,
+    "progressDeterminate": true,
+    "stagesTotal": 2,
+    "stagesCompleted": 2,
+    "stagesFailed": 0,
+    "findingsCount": 7,
+    "highSeverityCount": 0,
+    "filesIndexed": null,
+    "bytesIndexed": null,
+    "verifiedReclaimableBytes": 0,
+    "verifiedDuplicateGroups": 0,
+    "privacySignalCount": null,
+    "healthScore": null,
+    "healthBasis": [
+      "No numeric CPU, memory or volume signal was available."
+    ],
+    "warnings": [
+      "Boot duration and per-item startup cost are not measured; no seconds estimate is reported."
+    ],
+    "limitations": [
+      "Read-only: no file, service, startup or registry value is changed.",
+      "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+    ],
+    "requestedServices": [
+      "startup_impact_check"
+    ]
+  },
+  "warnings": [
+    "Boot duration and per-item startup cost are not measured; no seconds estimate is reported."
+  ],
+  "limitations": [
+    "Read-only: no file, service, startup or registry value is changed.",
+    "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+  ],
+  "error": null
+}

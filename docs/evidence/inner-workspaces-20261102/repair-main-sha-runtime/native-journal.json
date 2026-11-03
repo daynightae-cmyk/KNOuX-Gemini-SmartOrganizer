@@ -1,0 +1,194 @@
+[
+  {
+    "id": "repair-journal-0595d319-ac49-4b0d-9d71-066be043bf75",
+    "at": "2026-11-02T23:15:55.509Z",
+    "kind": "preview",
+    "title": "Windows Update Reset",
+    "summary": "1 immutable preview item(s); elevation required; reboot required; nothing executed.",
+    "toolIds": [
+      "repair-update-reset"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": true,
+    "receipt": "plan:75c4ef2641fb671e0e962c42",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-b24f8334-4682-455f-8feb-54cc8f2f38f6",
+    "at": "2026-11-02T23:15:54.607Z",
+    "kind": "preview",
+    "title": "System Restore Inspector",
+    "summary": "1 immutable preview item(s); elevation required; reboot required; nothing executed.",
+    "toolIds": [
+      "repair-restore-point"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": true,
+    "receipt": "plan:c1636b6250f39854d0d42c44",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-16bc4cdf-e5a6-43fd-b78b-4d54b9cbcfb7",
+    "at": "2026-11-02T23:15:53.707Z",
+    "kind": "preview",
+    "title": "Troubleshooter Gateway",
+    "summary": "1 immutable preview item(s); elevation not required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-troubleshooters"
+    ],
+    "risk": "read-only",
+    "elevationRequired": false,
+    "rebootRequired": false,
+    "receipt": "plan:c61a954a53361f67d05031ce",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-07bc0e87-b657-497a-b384-2e54d55ccb0b",
+    "at": "2026-11-02T23:15:52.366Z",
+    "kind": "preview",
+    "title": "Repair Audit Journal",
+    "summary": "1 immutable preview item(s); elevation not required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-history"
+    ],
+    "risk": "read-only",
+    "elevationRequired": false,
+    "rebootRequired": false,
+    "receipt": "plan:12dd5ea28e6adbe93b87dba8",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-8bdb8e97-25ea-4ec1-b790-ef528c720c01",
+    "at": "2026-11-02T23:15:51.407Z",
+    "kind": "preview",
+    "title": "TCP/IP Reset Diff",
+    "summary": "1 immutable preview item(s); elevation required; reboot required; nothing executed.",
+    "toolIds": [
+      "repair-tcpip-reset"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": true,
+    "receipt": "plan:631399aeb5534cdef0ad7087",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-35bc5c71-2c9b-477b-8800-12dde9f0d036",
+    "at": "2026-11-02T23:15:50.409Z",
+    "kind": "preview",
+    "title": "Winsock Reset Review",
+    "summary": "1 immutable preview item(s); elevation required; reboot required; nothing executed.",
+    "toolIds": [
+      "repair-winsock-reset"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": true,
+    "receipt": "plan:aa4017f23bddb98d45308cc2",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-646f9c4e-3f31-4d12-b208-e62430078aa8",
+    "at": "2026-11-02T23:15:49.243Z",
+    "kind": "preview",
+    "title": "DNS Cache Refresh",
+    "summary": "1 immutable preview item(s); elevation required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-dns-flush"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": false,
+    "receipt": "plan:b7a8a4ed631d3cd0ce86bd20",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-413e422f-cdcd-4af6-9fde-cc28106548b8",
+    "at": "2026-11-02T23:15:47.995Z",
+    "kind": "preview",
+    "title": "SFC ScanNow",
+    "summary": "1 immutable preview item(s); elevation required; reboot required; nothing executed.",
+    "toolIds": [
+      "repair-files-repair"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": true,
+    "receipt": "plan:be2d592ad6b2f76632bf2ffb",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-deff5e47-addd-4c64-8b0e-3f756d4cee2f",
+    "at": "2026-11-02T23:15:46.982Z",
+    "kind": "preview",
+    "title": "SFC VerifyOnly",
+    "summary": "1 immutable preview item(s); elevation required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-files-verify"
+    ],
+    "risk": "elevated-read-only",
+    "elevationRequired": true,
+    "rebootRequired": false,
+    "receipt": "plan:0b374d2c39f5ea9bed9b0645",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-1b102c0f-3eb8-4f86-aada-f81370c00dd9",
+    "at": "2026-11-02T23:15:46.077Z",
+    "kind": "preview",
+    "title": "DISM RestoreHealth",
+    "summary": "1 immutable preview item(s); elevation required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-component-restore"
+    ],
+    "risk": "administrative",
+    "elevationRequired": true,
+    "rebootRequired": false,
+    "receipt": "plan:8d114cff6637f295a3695e04",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-2d119c9a-f447-4911-b442-51a35cfc6897",
+    "at": "2026-11-02T23:15:44.978Z",
+    "kind": "preview",
+    "title": "DISM ScanHealth",
+    "summary": "1 immutable preview item(s); elevation required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-component-scan"
+    ],
+    "risk": "elevated-read-only",
+    "elevationRequired": true,
+    "rebootRequired": false,
+    "receipt": "plan:84763efb57da67ae45ae7dc2",
+    "readOnly": true,
+    "mutation": "none"
+  },
+  {
+    "id": "repair-journal-852dc95c-32d8-4e29-adef-71924700441d",
+    "at": "2026-11-02T23:15:43.888Z",
+    "kind": "preview",
+    "title": "DISM CheckHealth",
+    "summary": "1 immutable preview item(s); elevation required; reboot not required; nothing executed.",
+    "toolIds": [
+      "repair-component-check"
+    ],
+    "risk": "elevated-read-only",
+    "elevationRequired": true,
+    "rebootRequired": false,
+    "receipt": "plan:7ecfbab637c5655546b367b1",
+    "readOnly": true,
+    "mutation": "none"
+  }
+]

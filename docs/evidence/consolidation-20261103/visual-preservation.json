@@ -1,0 +1,398 @@
+[
+  {
+    "domain": "scan",
+    "visualCommit": "8ff81311e0b1cfae7c80080baea4d8338512fbef",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/components/workbench/CompactServiceDock.tsx",
+        "unchangedSinceVisualCommit": false,
+        "laterDiffLines": 33,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/components/workbench/LiveServiceStage.tsx",
+        "unchangedSinceVisualCommit": false,
+        "laterDiffLines": 9,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/RecentScans.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/ScanLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/ScanServiceReady.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/ScanServiceWorkspace.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/ScanServices.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/ScanStageConsole.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/model.ts",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/scan-inner-workspace.css",
+        "unchangedSinceVisualCommit": false,
+        "laterDiffLines": 36,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/service-renderers/DuplicateFinderRenderer.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/service-renderers/LargeFilesRenderer.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/useSmartScan.ts",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/scan-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "files",
+    "visualCommit": "518ec7fe8f796f29198aa81aafef684726b4cd6a",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/components/workbench/CompactServiceDock.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/components/workbench/LiveServiceStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/components/workbench/service-stage.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/files/FilesLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/files/FilesNativeBanner.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/files/FilesServiceFocus.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/files/files-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/files/useFilesNative.ts",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/pages/FilesPage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/smart-scan/scan-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/files-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "studio",
+    "visualCommit": "8cf9d96892e90ee8adb46064de90e200fcc3c178",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/operations/OrganizationLiveWorkbench.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/operations/StudioLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/operations/studio-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/studio-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "apps",
+    "visualCommit": "e86fbf659c391b2a0dadb354ef7abcc6667ebe39",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/apps/AppServiceWorkspace.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/apps/ApplicationServices.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/apps/ApplicationsLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/apps/apps-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/apps-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "repair",
+    "visualCommit": "ef25624bbf40a915aa38ca27e62b9263755982b3",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/pages/RepairPage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/repair/RepairLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/repair/RepairServiceWorkspaces.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/repair/repair-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/repair-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "cleanup",
+    "visualCommit": "11875da98b460ecc4ac28fcee1ff9ee14d0790d7",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/cleanup/CandidateRegister.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/cleanup/CleanupHero.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/cleanup/CleanupLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/cleanup/PlanGate.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/cleanup/ServiceRail.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/cleanup/cleanup-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/pages/CleanupPage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/cleanup-main-sha-runtime-v2/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "storage",
+    "visualCommit": "0c853c9a66fb6e39317c0c13dc22d89aec62f995",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/pages/StoragePage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/storage/StorageBanner.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/storage/StorageLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/storage/storage-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/storage/useStorageNative.ts",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/storage-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  },
+  {
+    "domain": "startup",
+    "visualCommit": "a1aacd89ce69d9d5e70afe2ae7b8984c8f8a437b",
+    "ancestorOfCurrentMain": true,
+    "source": [
+      {
+        "path": "apps/gemini-ui/src/pages/StartupPage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/startup/AutorunRegister.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/startup/PlanGate.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/startup/ServiceRail.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/startup/StartupLiveStage.tsx",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      },
+      {
+        "path": "apps/gemini-ui/src/startup/startup-inner-workspace.css",
+        "unchangedSinceVisualCommit": true,
+        "laterDiffLines": 0,
+        "uncommittedDiffLines": 0
+      }
+    ],
+    "historicalProof": "docs/evidence/inner-workspaces-20261102/startup-main-sha-runtime/proof.json",
+    "historicalProofOk": true
+  }
+]

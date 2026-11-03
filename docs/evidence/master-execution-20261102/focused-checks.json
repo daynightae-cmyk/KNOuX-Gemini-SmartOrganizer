@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "python",
+      "scripts/verify-workspace.py"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"workspace\": \"D:\\\\KNOUX-Workspace\\\\KNOuX-Gemini-SmartOrganizer\",\n  \"origin\": \"https://github.com/daynightae-cmyk/KNOuX-Gemini-SmartOrganizer.git\",\n  \"branch\": \"main\",\n  \"sha\": \"0b7513f108da9ac4a0fe52f7099e547eae2d793f\",\n  \"status\": \"PASS\"\n}\n",
+    "stderr": "",
+    "observedAtUtc": "2026-11-02T05:38:39.493345+00:00"
+  },
+  {
+    "command": [
+      "python",
+      "scripts/test-verify-execution-evidence.py"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "test_green_ci_on_other_sha_is_not_evidence (__main__.EvidenceGateTests.test_green_ci_on_other_sha_is_not_evidence) ... ok\ntest_incomplete_receipt_and_racing_writer_refused (__main__.EvidenceGateTests.test_incomplete_receipt_and_racing_writer_refused) ... ok\ntest_latest_failed_or_running_ci_cannot_use_old_green (__main__.EvidenceGateTests.test_latest_failed_or_running_ci_cannot_use_old_green) ... ok\ntest_new_head_and_new_untracked_path_are_stale (__main__.EvidenceGateTests.test_new_head_and_new_untracked_path_are_stale) ... ok\ntest_same_head_modified_dirty_content_is_stale (__main__.EvidenceGateTests.test_same_head_modified_dirty_content_is_stale) ... ok\ntest_unchanged_receipt (__main__.EvidenceGateTests.test_unchanged_receipt) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.001s\n\nOK\n",
+    "observedAtUtc": "2026-11-02T05:38:39.811491+00:00"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "--",
+      "docs/PROJECT_EXECUTION_CONTROL_20261102.md",
+      "docs/SECOND_GENERATION_PROJECT_EXECUTION_PROMPT.md",
+      "scripts/verify-execution-evidence.py",
+      "scripts/test-verify-execution-evidence.py"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "observedAtUtc": "2026-11-02T05:38:39.861897+00:00"
+  }
+]

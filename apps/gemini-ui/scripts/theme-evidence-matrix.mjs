@@ -202,7 +202,7 @@ async function appliedState() {
       geometry: {
         header: rect('.approved-header, .knoux-titlebar, header'),
         sidebar: rect('aside'),
-        hero: rect('.approved-hero, .knx-command-hero, .sys-hero, .apps-hero, .cln-hero, .stp-hero, .svc-hero, .rep-hero, .auto-hero, .scan-hero, .knx-storage-hero, .atl-hero, .knx-workspace-hero, .osa-hero, .os-focus-header'),
+        hero: rect('[data-knx-hero], .home-hero, .knx-files-header, .knx-settings-hero, .approved-hero, .knx-command-hero, .sys-hero, .apps-hero, .cln-hero, .stp-hero, .svc-hero, .rep-hero, .auto-hero, .scan-hero, .knx-storage-hero, .atl-hero, .knx-workspace-hero, .osa-hero, .os-focus-header'),
         primaryCta: rect('[data-testid*="cta"], .approved-hero-actions button, .sys-hero-actions button'),
         headings: [...document.querySelectorAll('h1')].map((node) => node.textContent.trim().slice(0, 60)),
       },
@@ -236,7 +236,18 @@ for (const size of SIZES) {
               await page.waitForTimeout(1500);
             }
           }
-          frames.push({ label, section, theme, locale, size, ok: true, state, file: path.basename(file) });
+          // Positive control: a frame captured in the wrong theme, or the
+          // wrong writing direction, must fail the run instead of quietly
+          // becoming evidence. One observed day-labelled frame was actually
+          // rendered night, and the harness had called it OK.
+          const expectedDir = locale === 'ar' ? 'rtl' : 'ltr';
+          const mismatches = [];
+          if (state.themeAttr !== theme) mismatches.push(`themeAttr=${state.themeAttr} expected ${theme}`);
+          if (state.dir !== expectedDir) mismatches.push(`dir=${state.dir} expected ${expectedDir}`);
+          if (state.visualSection !== section) mismatches.push(`visualSection=${state.visualSection}`);
+          frames.push({ label, section, theme, locale, size, ok: !mismatches.length,
+            ...(mismatches.length ? { error: `frame does not match its label: ${mismatches.join(', ')}` } : {}),
+            state, file: path.basename(file) });
           console.log(
             `${label} -> ${JSON.stringify({
               theme: state.themeAttr,

@@ -34,6 +34,9 @@ def git(*args):
  return p.stdout.strip()
 try:
  is_canonical=(ROOT.resolve()==EXPECTED.resolve())
+ # Owner consolidation 2026-11-03: implementation continues only in canonical
+ # local main. Historical isolated exceptions below no longer authorize writes.
+ assert is_canonical,"OWNER MAIN-ONLY MANDATE: use the canonical D: checkout"
  is_visual=(ROOT.resolve()==VISUAL_WORKTREE.resolve())
  is_live=(ROOT.resolve()==LIVE_WORKTREE.resolve())
  is_unified=(ROOT.resolve()==UNIFIED_WORKTREE.resolve())
@@ -44,6 +47,7 @@ try:
  assert Path(git("rev-parse","--path-format=absolute","--git-common-dir")).resolve()==(EXPECTED/".git").resolve(),"WRONG GIT COMMON DIR"
  assert git("remote","get-url","origin").rstrip("/")==REMOTE,"WRONG REMOTE"
  actual_branch=git("branch","--show-current")
+ assert actual_branch==BRANCH,"OWNER MAIN-ONLY MANDATE: use canonical main"
  if is_canonical:
   assert actual_branch in (BRANCH,SERVICE_REVIEW_BRANCH),"WRONG CANONICAL BRANCH"
  expected_branch=ANIMA_BRANCH if is_anima else UNIFIED_BRANCH if is_unified else actual_branch if is_canonical else LIVE_BRANCH if is_live else ALLSERVICES_BRANCH if is_allservices else VISUAL_BRANCH

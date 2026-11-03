@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python",
+    "scripts/verify-execution-evidence.py",
+    "--check",
+    "D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\docs\\evidence\\master-execution-20261102\\provenance-initial.json"
+  ],
+  "exitCode": 2,
+  "oldHead": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+  "currentHead": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+  "errors": [
+    "STALE_sourceSha256",
+    "STALE_workingTree",
+    "STALE_indexSha256"
+  ],
+  "snapshotConsistent": true,
+  "scope": "Source/status/tool coverage changed since the earlier receipt. A missing old index fingerprint is stale receipt coverage, not evidence an external writer modified the index. Expected refusal; no product failure asserted."
+}

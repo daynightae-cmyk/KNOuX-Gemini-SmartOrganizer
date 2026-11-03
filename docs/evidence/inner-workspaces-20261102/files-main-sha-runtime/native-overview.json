@@ -1,0 +1,644 @@
+{
+  "contractVersion": 1,
+  "capability": "files.overview",
+  "requestId": "5eab78a9-f8c4-430b-af03-9ac99e263220",
+  "status": "complete",
+  "source": "KNOuX Files read-only adapter",
+  "observedAt": "2026-11-02T21:15:06.739Z",
+  "permission": "read-only",
+  "warnings": [],
+  "data": {
+    "source": {
+      "id": "8a25c6d6-fe22-4f97-8529-4ecc6faf0b5a",
+      "path": "D:\\Temp\\knoux-inner-files-lOWnfJ\\AUTHORIZED-A",
+      "label": "AUTHORIZED-A",
+      "addedAt": "2026-11-02T21:15:06.020Z",
+      "status": "ready",
+      "fileCount": 44,
+      "folderCount": 2,
+      "fileTypesCount": 3,
+      "totalBytes": 31647,
+      "categories": [
+        {
+          "key": "document",
+          "count": 42,
+          "bytes": 31550
+        },
+        {
+          "key": "image",
+          "count": 1,
+          "bytes": 68
+        },
+        {
+          "key": "other",
+          "count": 1,
+          "bytes": 29
+        }
+      ],
+      "lastScanned": "2026-11-02T21:15:06.056Z",
+      "partial": false,
+      "warnings": []
+    },
+    "totals": {
+      "files": 44,
+      "bytes": 31647,
+      "folders": 2,
+      "categories": 3,
+      "partial": false
+    },
+    "categories": [
+      {
+        "key": "document",
+        "count": 42,
+        "bytes": 31550
+      },
+      {
+        "key": "image",
+        "count": 1,
+        "bytes": 68
+      },
+      {
+        "key": "other",
+        "count": 1,
+        "bytes": 29
+      }
+    ],
+    "extensions": [
+      {
+        "ext": "txt",
+        "count": 42,
+        "bytes": 31550
+      },
+      {
+        "ext": "png",
+        "count": 1,
+        "bytes": 68
+      },
+      {
+        "ext": "bin",
+        "count": 1,
+        "bytes": 29
+      }
+    ],
+    "ages": [
+      {
+        "key": "day",
+        "label": "Last 24 hours",
+        "count": 44,
+        "bytes": 31647
+      },
+      {
+        "key": "week",
+        "label": "Last 7 days",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "month",
+        "label": "Last 30 days",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "year",
+        "label": "Last year",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "older",
+        "label": "Older / unknown",
+        "count": 0,
+        "bytes": 0
+      }
+    ],
+    "recent": [
+      {
+        "id": 0,
+        "name": "hash-target.bin",
+        "relative": "hash-target.bin",
+        "parentFolder": "",
+        "category": "other",
+        "size": 29,
+        "ext": "bin",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 37,
+        "name": "measured-document-36.txt",
+        "relative": "measured-document-36.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1295,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 38,
+        "name": "measured-document-37.txt",
+        "relative": "measured-document-37.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1330,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 39,
+        "name": "measured-document-38.txt",
+        "relative": "measured-document-38.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1365,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 40,
+        "name": "measured-document-39.txt",
+        "relative": "measured-document-39.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1400,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 41,
+        "name": "measured-document-40.txt",
+        "relative": "measured-document-40.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1435,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 42,
+        "name": "measured-document-41.txt",
+        "relative": "measured-document-41.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1470,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 43,
+        "name": "measured-pixel.png",
+        "relative": "measured-pixel.png",
+        "parentFolder": "",
+        "category": "image",
+        "size": 68,
+        "ext": "png",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 36,
+        "name": "measured-document-35.txt",
+        "relative": "measured-document-35.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1260,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.798Z",
+        "modifiedMs": 1793654098798.7742,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 34,
+        "name": "measured-document-33.txt",
+        "relative": "measured-document-33.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1190,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.797Z",
+        "modifiedMs": 1793654098797.775,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 35,
+        "name": "measured-document-34.txt",
+        "relative": "measured-document-34.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1225,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.797Z",
+        "modifiedMs": 1793654098797.775,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 31,
+        "name": "measured-document-30.txt",
+        "relative": "measured-document-30.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1085,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.796Z",
+        "modifiedMs": 1793654098796.7754,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 32,
+        "name": "measured-document-31.txt",
+        "relative": "measured-document-31.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1120,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.796Z",
+        "modifiedMs": 1793654098796.7754,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 33,
+        "name": "measured-document-32.txt",
+        "relative": "measured-document-32.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1155,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.796Z",
+        "modifiedMs": 1793654098796.7754,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 30,
+        "name": "measured-document-29.txt",
+        "relative": "measured-document-29.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1050,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.795Z",
+        "modifiedMs": 1793654098795.776,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 28,
+        "name": "measured-document-27.txt",
+        "relative": "measured-document-27.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 980,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.794Z",
+        "modifiedMs": 1793654098794.7766,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 29,
+        "name": "measured-document-28.txt",
+        "relative": "measured-document-28.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1015,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.794Z",
+        "modifiedMs": 1793654098794.7766,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 26,
+        "name": "measured-document-25.txt",
+        "relative": "measured-document-25.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 910,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.793Z",
+        "modifiedMs": 1793654098793.7776,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 27,
+        "name": "measured-document-26.txt",
+        "relative": "measured-document-26.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 945,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.793Z",
+        "modifiedMs": 1793654098793.7776,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 23,
+        "name": "measured-document-22.txt",
+        "relative": "measured-document-22.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 805,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.792Z",
+        "modifiedMs": 1793654098792.7798,
+        "readonly": false,
+        "hidden": false
+      }
+    ],
+    "largest": [
+      {
+        "id": 42,
+        "name": "measured-document-41.txt",
+        "relative": "measured-document-41.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1470,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 41,
+        "name": "measured-document-40.txt",
+        "relative": "measured-document-40.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1435,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 40,
+        "name": "measured-document-39.txt",
+        "relative": "measured-document-39.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1400,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 39,
+        "name": "measured-document-38.txt",
+        "relative": "measured-document-38.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1365,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 38,
+        "name": "measured-document-37.txt",
+        "relative": "measured-document-37.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1330,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 37,
+        "name": "measured-document-36.txt",
+        "relative": "measured-document-36.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1295,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.799Z",
+        "modifiedMs": 1793654098799.3223,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 36,
+        "name": "measured-document-35.txt",
+        "relative": "measured-document-35.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1260,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.798Z",
+        "modifiedMs": 1793654098798.7742,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 35,
+        "name": "measured-document-34.txt",
+        "relative": "measured-document-34.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1225,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.797Z",
+        "modifiedMs": 1793654098797.775,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 34,
+        "name": "measured-document-33.txt",
+        "relative": "measured-document-33.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1190,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.797Z",
+        "modifiedMs": 1793654098797.775,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 33,
+        "name": "measured-document-32.txt",
+        "relative": "measured-document-32.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1155,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.796Z",
+        "modifiedMs": 1793654098796.7754,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 32,
+        "name": "measured-document-31.txt",
+        "relative": "measured-document-31.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1120,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.796Z",
+        "modifiedMs": 1793654098796.7754,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 31,
+        "name": "measured-document-30.txt",
+        "relative": "measured-document-30.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1085,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.796Z",
+        "modifiedMs": 1793654098796.7754,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 30,
+        "name": "measured-document-29.txt",
+        "relative": "measured-document-29.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1050,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.795Z",
+        "modifiedMs": 1793654098795.776,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 29,
+        "name": "measured-document-28.txt",
+        "relative": "measured-document-28.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 1015,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.794Z",
+        "modifiedMs": 1793654098794.7766,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 28,
+        "name": "measured-document-27.txt",
+        "relative": "measured-document-27.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 980,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.794Z",
+        "modifiedMs": 1793654098794.7766,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 27,
+        "name": "measured-document-26.txt",
+        "relative": "measured-document-26.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 945,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.793Z",
+        "modifiedMs": 1793654098793.7776,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 26,
+        "name": "measured-document-25.txt",
+        "relative": "measured-document-25.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 910,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.793Z",
+        "modifiedMs": 1793654098793.7776,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 25,
+        "name": "measured-document-24.txt",
+        "relative": "measured-document-24.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 875,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.792Z",
+        "modifiedMs": 1793654098792.7798,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 24,
+        "name": "measured-document-23.txt",
+        "relative": "measured-document-23.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 840,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.792Z",
+        "modifiedMs": 1793654098792.7798,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 23,
+        "name": "measured-document-22.txt",
+        "relative": "measured-document-22.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 805,
+        "ext": "txt",
+        "modifiedAt": "2026-11-02T21:14:58.792Z",
+        "modifiedMs": 1793654098792.7798,
+        "readonly": false,
+        "hidden": false
+      }
+    ],
+    "scannedAt": "2026-11-02T21:15:06.056Z",
+    "warnings": [],
+    "coverage": "complete",
+    "permission": "read-only"
+  }
+}

@@ -1,0 +1,964 @@
+{
+  "head": "ef25624bbf40a915aa38ca27e62b9263755982b3",
+  "profile": "D:\\Temp\\knoux-inner-repair-SDyl1y\\profile",
+  "scope": "Read-only native evidence, immutable previews and isolated app journal only. No DISM/SFC/reset/restore/repair command or Settings launch executed.",
+  "checks": [
+    {
+      "name": "native-read-only-discovery",
+      "ok": true,
+      "evidence": {
+        "nativeStatus": "complete",
+        "coverage": [
+          {
+            "key": "identity",
+            "status": "complete",
+            "items": 10,
+            "note": null
+          },
+          {
+            "key": "servicing",
+            "status": "complete",
+            "items": 3,
+            "note": null
+          },
+          {
+            "key": "network",
+            "status": "complete",
+            "items": 14,
+            "note": null
+          },
+          {
+            "key": "update",
+            "status": "complete",
+            "items": 5,
+            "note": null
+          },
+          {
+            "key": "restore",
+            "status": "partial",
+            "items": 0,
+            "note": "Access denied"
+          },
+          {
+            "key": "journal",
+            "status": "complete",
+            "items": 4,
+            "note": null
+          }
+        ],
+        "receipt": "repair:d83699eec583cdd81eee3e35",
+        "actualCommandsExecuted": 0
+      }
+    },
+    {
+      "name": "twelve-actual-workbenches-and-layouts",
+      "ok": true,
+      "evidence": [
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-component-check",
+          "dockHeight": 70,
+          "bodyHeight": 257.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-component-scan",
+          "dockHeight": 70,
+          "bodyHeight": 257.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-component-restore",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-files-verify",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-files-repair",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-dns-flush",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-winsock-reset",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-tcpip-reset",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-history",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-troubleshooters",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-restore-point",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-update-reset",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-component-check",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-component-scan",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-component-restore",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-files-verify",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-files-repair",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-dns-flush",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-winsock-reset",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-tcpip-reset",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-history",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-troubleshooters",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-restore-point",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "repair-update-reset",
+          "dockHeight": 70,
+          "bodyHeight": 416.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-component-check",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-component-scan",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-component-restore",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-files-verify",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-files-repair",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-dns-flush",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-winsock-reset",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-tcpip-reset",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-history",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-troubleshooters",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-restore-point",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "repair-update-reset",
+          "dockHeight": 70,
+          "bodyHeight": 197,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-component-check",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-component-scan",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-component-restore",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-files-verify",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-files-repair",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-dns-flush",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-winsock-reset",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-tcpip-reset",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-history",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-troubleshooters",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-restore-point",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "repair-update-reset",
+          "dockHeight": 70,
+          "bodyHeight": 297.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        }
+      ]
+    },
+    {
+      "name": "immutable-previews-for-all-twelve",
+      "ok": true,
+      "evidence": {
+        "receipts": [
+          {
+            "id": "repair-component-check",
+            "receipt": "plan:7ecfbab637c5655546b367b1",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-component-scan",
+            "receipt": "plan:84763efb57da67ae45ae7dc2",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-component-restore",
+            "receipt": "plan:8d114cff6637f295a3695e04",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-files-verify",
+            "receipt": "plan:0b374d2c39f5ea9bed9b0645",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-files-repair",
+            "receipt": "plan:be2d592ad6b2f76632bf2ffb",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-dns-flush",
+            "receipt": "plan:b7a8a4ed631d3cd0ce86bd20",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-winsock-reset",
+            "receipt": "plan:aa4017f23bddb98d45308cc2",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-tcpip-reset",
+            "receipt": "plan:631399aeb5534cdef0ad7087",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-history",
+            "receipt": "plan:12dd5ea28e6adbe93b87dba8",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-troubleshooters",
+            "receipt": "plan:c61a954a53361f67d05031ce",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-restore-point",
+            "receipt": "plan:c1636b6250f39854d0d42c44",
+            "kind": "preview"
+          },
+          {
+            "id": "repair-update-reset",
+            "receipt": "plan:75c4ef2641fb671e0e962c42",
+            "kind": "preview"
+          }
+        ],
+        "repairExecutionAvailable": false
+      }
+    },
+    {
+      "name": "history-query-and-result-inspection",
+      "ok": true,
+      "evidence": {
+        "nativeEntries": 12,
+        "emptyQuery": true,
+        "lastEntryReachable": true,
+        "font": 12
+      }
+    },
+    {
+      "name": "native-report-export-and-optional-side-view",
+      "ok": true,
+      "evidence": {
+        "reportReceipt": "repair-report:8853fad6a3f600d26a83e0da",
+        "sections": 7,
+        "sideViewRoundTrip": true,
+        "overviewAvailable": true
+      }
+    },
+    {
+      "name": "real-native-discovery-cancellation",
+      "ok": true,
+      "evidence": {
+        "sessionId": "2b4c3cc3-ffbc-4992-bf5e-0a23ccbd1d4f",
+        "nativeTerminal": "running",
+        "stages": [
+          {
+            "key": "identity",
+            "status": "running"
+          },
+          {
+            "key": "servicing",
+            "status": "pending"
+          },
+          {
+            "key": "network",
+            "status": "pending"
+          },
+          {
+            "key": "update",
+            "status": "pending"
+          },
+          {
+            "key": "restore",
+            "status": "pending"
+          },
+          {
+            "key": "journal",
+            "status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "name": "browser-unavailable-no-repair-fixtures",
+      "ok": true,
+      "evidence": {
+        "status": "UNAVAILABLE",
+        "measuredTools": 0
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

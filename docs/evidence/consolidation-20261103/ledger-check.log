@@ -1,0 +1,35 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 ledger:check
+> python scripts/verify-mission-ledger.py
+
+{
+  "ledger": "docs\\MISSION_LEDGER.json",
+  "missions": 22,
+  "statuses": {
+    "M00-BASELINE": "COMPLETE_VERIFIED",
+    "M01-VISUAL-SYSTEM": "PARTIAL",
+    "M02-HOME-REFERENCE": "PARTIAL",
+    "M03-UNIVERSAL-ORBIT": "PARTIAL",
+    "M04-SECTION-HEADERS": "PLANNED",
+    "M05-HOME-SERVICES": "PARTIAL",
+    "M06-SCAN-MODES": "PLANNED",
+    "M07-STUDIO": "PLANNED",
+    "M08-WORKSPACE": "PLANNED",
+    "M09-APPLICATIONS": "PLANNED",
+    "M10-FILES": "PLANNED",
+    "M11-STORAGE": "PLANNED",
+    "M12-CLEANUP": "PLANNED",
+    "M13-STARTUP": "PLANNED",
+    "M14-SYSTEM": "PLANNED",
+    "M15-REPAIR": "PLANNED",
+    "M16-SERVICES": "PLANNED",
+    "M17-AUTOMATION": "PLANNED",
+    "M18-SETTINGS": "PLANNED",
+    "M19-SMART-SCAN-REQUIREMENTS": "PLANNED",
+    "M20-DIAGNOSTIC-PATHWAYS": "PLANNED",
+    "M21-RELEASE-GATES": "PLANNED"
+  },
+  "ok": true,
+  "problems": [],
+  "warnings": []
+}

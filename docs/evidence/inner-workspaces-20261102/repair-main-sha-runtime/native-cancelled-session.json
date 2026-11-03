@@ -1,0 +1,99 @@
+{
+  "contractVersion": 1,
+  "capability": "repair.status",
+  "requestId": "ff045d81-a836-468a-9a9d-b826b1ba7041",
+  "status": "complete",
+  "source": "KNOuX Recovery Lab read-only repair evidence",
+  "observedAt": "2026-11-02T23:16:00.450Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "contract": "repair.v1",
+    "id": "2b4c3cc3-ffbc-4992-bf5e-0a23ccbd1d4f",
+    "status": "running",
+    "startedAt": "2026-11-02T23:15:59.701Z",
+    "completedAt": null,
+    "progress": 0,
+    "stages": [
+      {
+        "key": "identity",
+        "labelEn": "Privilege & tool identity",
+        "labelAr": "الصلاحيات وهوية الأدوات",
+        "status": "running",
+        "provider": "WindowsPrincipal + Win32_OperatingSystem + fixed tool paths",
+        "startedAt": "2026-11-02T23:15:59.701Z",
+        "completedAt": null,
+        "durationMs": null,
+        "items": null,
+        "warning": null
+      },
+      {
+        "key": "servicing",
+        "labelEn": "Servicing logs & component store",
+        "labelAr": "سجلات الخدمة ومخزن المكونات",
+        "status": "pending",
+        "provider": "Not started",
+        "startedAt": null,
+        "completedAt": null,
+        "durationMs": null,
+        "items": null,
+        "warning": null
+      },
+      {
+        "key": "network",
+        "labelEn": "Adapters, DNS cache & Winsock catalog",
+        "labelAr": "المحولات وذاكرة DNS وكتالوج Winsock",
+        "status": "pending",
+        "provider": "Not started",
+        "startedAt": null,
+        "completedAt": null,
+        "durationMs": null,
+        "items": null,
+        "warning": null
+      },
+      {
+        "key": "update",
+        "labelEn": "Update services & cache metadata",
+        "labelAr": "خدمات التحديث وبيانات الذاكرة",
+        "status": "pending",
+        "provider": "Not started",
+        "startedAt": null,
+        "completedAt": null,
+        "durationMs": null,
+        "items": null,
+        "warning": null
+      },
+      {
+        "key": "restore",
+        "labelEn": "Restore point evidence",
+        "labelAr": "أدلة نقاط الاستعادة",
+        "status": "pending",
+        "provider": "Not started",
+        "startedAt": null,
+        "completedAt": null,
+        "durationMs": null,
+        "items": null,
+        "warning": null
+      },
+      {
+        "key": "journal",
+        "labelEn": "Preview journal & troubleshooters",
+        "labelAr": "سجل المعاينات ومستكشفات الأعطال",
+        "status": "pending",
+        "provider": "Not started",
+        "startedAt": null,
+        "completedAt": null,
+        "durationMs": null,
+        "items": null,
+        "warning": null
+      }
+    ],
+    "warnings": [],
+    "readOnly": true,
+    "mutation": "none"
+  }
+}

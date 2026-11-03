@@ -1,0 +1,218 @@
+{
+  "scope": "Local source and fixture tests; see runtime receipt for separate development Electron scope",
+  "initial": [
+    {
+      "command": "npm run lint",
+      "exitCode": 1,
+      "seconds": 31.2,
+      "log": "lint.log"
+    },
+    {
+      "command": "npm run test:native",
+      "exitCode": 0,
+      "seconds": 10.3,
+      "log": "test-native.log"
+    },
+    {
+      "command": "npm run test:ai",
+      "exitCode": 1,
+      "seconds": 7.61,
+      "log": "test-ai.log"
+    },
+    {
+      "command": "npm run test:google",
+      "exitCode": 0,
+      "seconds": 26.11,
+      "log": "test-google.log"
+    },
+    {
+      "command": "npm run test:workspace",
+      "exitCode": 0,
+      "seconds": 14.82,
+      "log": "test-workspace.log"
+    },
+    {
+      "command": "npm run test:settings",
+      "exitCode": 0,
+      "seconds": 11.78,
+      "log": "test-settings.log"
+    },
+    {
+      "command": "npm run test:home",
+      "exitCode": 0,
+      "seconds": 10.76,
+      "log": "test-home.log"
+    },
+    {
+      "command": "npm run test:theme",
+      "exitCode": 0,
+      "seconds": 10.62,
+      "log": "test-theme.log"
+    },
+    {
+      "command": "npm run test:i18n",
+      "exitCode": 0,
+      "seconds": 7.35,
+      "log": "test-i18n.log"
+    },
+    {
+      "command": "npm run test:workbench",
+      "exitCode": 0,
+      "seconds": 10.8,
+      "log": "test-workbench.log"
+    },
+    {
+      "command": "npm run test:navigation",
+      "exitCode": 0,
+      "seconds": 6.71,
+      "log": "test-navigation.log"
+    },
+    {
+      "command": "npm run test:clipboard",
+      "exitCode": 0,
+      "seconds": 8.37,
+      "log": "test-clipboard.log"
+    },
+    {
+      "command": "npm run test:studio",
+      "exitCode": 0,
+      "seconds": 11.16,
+      "log": "test-studio.log"
+    },
+    {
+      "command": "npm run test:studio-safety",
+      "exitCode": 0,
+      "seconds": 10.12,
+      "log": "test-studio-safety.log"
+    },
+    {
+      "command": "npm run test:files",
+      "exitCode": 0,
+      "seconds": 23.69,
+      "log": "test-files.log"
+    },
+    {
+      "command": "npm run test:storage",
+      "exitCode": 0,
+      "seconds": 44.9,
+      "log": "test-storage.log"
+    },
+    {
+      "command": "npm run test:scan",
+      "exitCode": 1,
+      "seconds": 68.52,
+      "log": "test-scan.log"
+    },
+    {
+      "command": "npm run test:apps",
+      "exitCode": 0,
+      "seconds": 57.0,
+      "log": "test-apps.log"
+    },
+    {
+      "command": "npm run test:cleanup",
+      "exitCode": 0,
+      "seconds": 17.72,
+      "log": "test-cleanup.log"
+    },
+    {
+      "command": "npm run test:startup",
+      "exitCode": 0,
+      "seconds": 24.23,
+      "log": "test-startup.log"
+    },
+    {
+      "command": "npm run test:system",
+      "exitCode": 0,
+      "seconds": 15.87,
+      "log": "test-system.log"
+    },
+    {
+      "command": "npm run test:repair",
+      "exitCode": 0,
+      "seconds": 25.23,
+      "log": "test-repair.log"
+    },
+    {
+      "command": "npm run test:services",
+      "exitCode": 0,
+      "seconds": 49.33,
+      "log": "test-services.log"
+    },
+    {
+      "command": "npm run test:automation",
+      "exitCode": 0,
+      "seconds": 16.66,
+      "log": "test-automation.log"
+    },
+    {
+      "command": "npm run ledger:check",
+      "exitCode": 0,
+      "seconds": 5.76,
+      "log": "ledger-check.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "seconds": 29.01,
+      "log": "build.log"
+    }
+  ],
+  "correctiveReruns": [
+    {
+      "command": "npm.cmd run lint",
+      "exitCode": 0,
+      "log": "rerun-lint.log"
+    },
+    {
+      "command": "npm.cmd run test:ai",
+      "exitCode": 0,
+      "log": "rerun-ai.log"
+    },
+    {
+      "command": "node --import tsx --test tests/home/search-history.test.ts",
+      "exitCode": 0,
+      "log": "rerun-history.log"
+    }
+  ],
+  "scanRerun": "rerun-scan.log",
+  "homeWithHistory": "final-home.log",
+  "all26FinalCommandsPassed": true,
+  "finalCommands": {
+    "npm run lint": 0,
+    "npm run test:native": 0,
+    "npm run test:ai": 0,
+    "npm run test:google": 0,
+    "npm run test:workspace": 0,
+    "npm run test:settings": 0,
+    "npm run test:home": 0,
+    "npm run test:theme": 0,
+    "npm run test:i18n": 0,
+    "npm run test:workbench": 0,
+    "npm run test:navigation": 0,
+    "npm run test:clipboard": 0,
+    "npm run test:studio": 0,
+    "npm run test:studio-safety": 0,
+    "npm run test:files": 0,
+    "npm run test:storage": 0,
+    "npm run test:scan": 0,
+    "npm run test:apps": 0,
+    "npm run test:cleanup": 0,
+    "npm run test:startup": 0,
+    "npm run test:system": 0,
+    "npm run test:repair": 0,
+    "npm run test:services": 0,
+    "npm run test:automation": 0,
+    "npm run ledger:check": 0,
+    "npm run build": 0
+  },
+  "notCertified": [
+    "pixel-reference acceptance",
+    "live Google account",
+    "paid AI provider",
+    "privileged owner system effects",
+    "installed app",
+    "release/deployment"
+  ],
+  "runtimeReceipt": "electron.json"
+}

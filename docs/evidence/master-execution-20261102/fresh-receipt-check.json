@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "scripts/verify-execution-evidence.py",
+    "--check",
+    "docs/evidence/master-execution-20261102/provenance-final.json"
+  ],
+  "exitCode": 0,
+  "head": "0b7513f108da9ac4a0fe52f7099e547eae2d793f",
+  "snapshotConsistent": true,
+  "errors": [],
+  "scope": "Bounded actual CLI freshness; no product acceptance"
+}

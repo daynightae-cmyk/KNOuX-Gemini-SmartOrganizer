@@ -1,0 +1,74 @@
+[
+  {
+    "type": "scan-progress",
+    "sourceId": "5b76f5cc-bd50-44d0-85af-23329e459003",
+    "files": 1,
+    "bytes": 1048576,
+    "folders": 1,
+    "message": "Reading directory entries (metadata only).",
+    "at": "2026-11-03T00:22:08.789Z"
+  },
+  {
+    "type": "scan-progress",
+    "sourceId": "5b76f5cc-bd50-44d0-85af-23329e459003",
+    "files": 32,
+    "bytes": 2111977,
+    "folders": 3,
+    "message": "Reading directory entries (metadata only).",
+    "at": "2026-11-03T00:22:08.794Z"
+  },
+  {
+    "type": "scan-complete",
+    "sourceId": "5b76f5cc-bd50-44d0-85af-23329e459003",
+    "files": 32,
+    "bytes": 2111977,
+    "folders": 3,
+    "message": "Read-only inventory complete.",
+    "at": "2026-11-03T00:22:08.797Z"
+  },
+  {
+    "type": "scan-progress",
+    "sourceId": "29fb49bc-0ac0-416d-9bb6-33c874b1d658",
+    "files": 1,
+    "bytes": 25,
+    "folders": 1,
+    "message": "Reading directory entries (metadata only).",
+    "at": "2026-11-03T00:23:02.783Z"
+  },
+  {
+    "type": "scan-progress",
+    "sourceId": "29fb49bc-0ac0-416d-9bb6-33c874b1d658",
+    "files": 1,
+    "bytes": 25,
+    "folders": 1,
+    "message": "Reading directory entries (metadata only).",
+    "at": "2026-11-03T00:23:02.783Z"
+  },
+  {
+    "type": "scan-complete",
+    "sourceId": "29fb49bc-0ac0-416d-9bb6-33c874b1d658",
+    "files": 1,
+    "bytes": 25,
+    "folders": 1,
+    "message": "Read-only inventory complete.",
+    "at": "2026-11-03T00:23:02.808Z"
+  },
+  {
+    "type": "scan-progress",
+    "sourceId": "effa8d29-5107-4c4e-97e3-2004140c5242",
+    "files": 0,
+    "bytes": 0,
+    "folders": 1,
+    "message": "Reading directory entries (metadata only).",
+    "at": "2026-11-03T00:23:09.267Z"
+  },
+  {
+    "type": "scan-cancelled",
+    "sourceId": "effa8d29-5107-4c4e-97e3-2004140c5242",
+    "files": 0,
+    "bytes": 0,
+    "folders": 1,
+    "message": "Scan cancelled; partial index preserved.",
+    "at": "2026-11-03T00:23:09.292Z"
+  }
+]

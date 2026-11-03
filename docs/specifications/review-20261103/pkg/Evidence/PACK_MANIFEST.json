@@ -1,0 +1,64 @@
+﻿{
+    "snapshot":  "2026-11-03T00:19:24.9500748+04:00",
+    "source":  "Local canonical Windows checkout",
+    "head":  "8ff81311e0b1cfae7c80080baea4d8338512fbef",
+    "originMainTrackingRef":  "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+    "serviceRows":  181,
+    "files":  [
+                  {
+                      "path":  "docs/LIVE_SERVICE_EXECUTION_STATUS_181.csv",
+                      "sha256":  "CB77CEEB1A2FA07A147DCECE579F145F7DAAC2DD0A7EB20AA72208F8AAA86597",
+                      "bytes":  35759,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/SERVICE_CAPABILITY_MATRIX.md",
+                      "sha256":  "7BDEB7CD80D16B7EA1760309F80080D0E0D80304BBE2FD7FAE5D0281F858CF7A",
+                      "bytes":  48846,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/SERVICE_REGISTRY_EVIDENCE.md",
+                      "sha256":  "8D4E7D452F75553C04CE06CF68722AF158486DF4CA350CA8EAD994C3CC76EEF1",
+                      "bytes":  51606,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/SERVICE_WORKSPACE_IMPLEMENTATION.csv",
+                      "sha256":  "51D8C44DE4B4B507DFADEEF6535292CD14DA30E8F36513CB28DA703BC493D326",
+                      "bytes":  116153,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/SERVICE_WORKBENCH_ACCEPTANCE.md",
+                      "sha256":  "4B3A6328354894FDE263CD5DB1754CAB57A30CF32C115528BB3C5463B742BEB3",
+                      "bytes":  50150,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/SERVICE_WORKBENCH_HOST_AUDIT.md",
+                      "sha256":  "5F35751B100CF4688A6C35467A0916BFE94EE22BA921459B082F6B49EE31AD43",
+                      "bytes":  9451,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/MISSION_LEDGER.json",
+                      "sha256":  "1F0343A1564A2C9DD22BF4F15A659016E4DCD6A2F0ED737BA6127FEE5A59F3FA",
+                      "bytes":  74109,
+                      "localGitStatus":  " M docs/MISSION_LEDGER.json"
+                  },
+                  {
+                      "path":  "missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md",
+                      "sha256":  "394D7AD1483765DE5CEFCA1CCCCE3F9C017CA9B540616F2DC2A8AB4620C8D6BA",
+                      "bytes":  8093,
+                      "localGitStatus":  ""
+                  },
+                  {
+                      "path":  "docs/handoffs/VISUAL_FIDELITY_CODEX_20261102.md",
+                      "sha256":  "4E2E9EB6AC8728E6785920E4DE2F15F9A6C2BCAFE409B0ECD4738748CA85CF50",
+                      "bytes":  19378,
+                      "localGitStatus":  "?? docs/handoffs/VISUAL_FIDELITY_CODEX_20261102.md"
+                  }
+              ],
+    "warning":  "Older documentation and historic statuses MUST be checked against real code/tests and active worktrees before claims of completion."
+}

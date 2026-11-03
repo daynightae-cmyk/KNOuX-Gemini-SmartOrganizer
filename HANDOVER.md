@@ -1,4 +1,12 @@
-# HANDOVER — KNOuX 181-Service Full Product Implementation
+# HANDOVER — historical Qoder implementation record
+
+**Superseded execution location, 2026-11-03:** use canonical local `main` and
+[START_HERE_DEEPSEEK.md](START_HERE_DEEPSEEK.md). The C: branch described below
+has been merged into main in `21595ee`; it is no longer a coding destination.
+The final Qoder note is retained at
+`docs/handoffs/QODER_EXECUTION_RECORD_20261103.md`.
+
+---
 
 | Field | Value |
 |---|---|

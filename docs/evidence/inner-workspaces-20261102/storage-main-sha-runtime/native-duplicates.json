@@ -1,0 +1,50 @@
+{
+  "contractVersion": 1,
+  "capability": "storage.duplicates.verify",
+  "requestId": "425a060b-8744-4fee-9007-ac4d3445fc70",
+  "status": "complete",
+  "source": "KNOuX Storage read-only adapter",
+  "observedAt": "2026-11-03T00:22:49.392Z",
+  "permission": "read-only",
+  "warnings": [],
+  "data": {
+    "groups": [
+      {
+        "size": 1048576,
+        "digest": "2ce11db501025c1a6a3158d82b9b8ec421c5832ad83e307c9ef850337af9d504",
+        "files": [
+          {
+            "id": 0,
+            "name": "matching-a.bin",
+            "relative": "matching-a.bin",
+            "size": 1048576,
+            "modifiedAt": "2026-11-03T00:21:58.881Z"
+          },
+          {
+            "id": 1,
+            "name": "matching-b.bin",
+            "relative": "matching-b.bin",
+            "size": 1048576,
+            "modifiedAt": "2026-11-03T00:21:58.883Z"
+          }
+        ],
+        "count": 2,
+        "wastedBytes": 1048576
+      }
+    ],
+    "summary": {
+      "candidates": 1,
+      "filesHashed": 2,
+      "bytesHashed": 2097152,
+      "verifiedGroups": 1,
+      "reclaimableVerifiedBytes": 1048576,
+      "budgetReached": false,
+      "maxFiles": 48,
+      "maxBytes": 268435456
+    },
+    "errors": [],
+    "warnings": [],
+    "permission": "read-only",
+    "mutation": "none"
+  }
+}

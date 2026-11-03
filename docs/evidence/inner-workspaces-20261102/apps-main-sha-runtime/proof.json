@@ -1,0 +1,924 @@
+{
+  "head": "e86fbf659c391b2a0dadb354ef7abcc6667ebe39",
+  "profile": "D:\\Temp\\knoux-inner-apps-QGZbOm\\profile",
+  "scope": "Actual read-only Windows providers; no settings launch, uninstall, installation or OS write invoked",
+  "checks": [
+    {
+      "name": "real-native-inventory",
+      "ok": true,
+      "evidence": {
+        "nativeStatus": "complete",
+        "rows": 148,
+        "coverage": {
+          "registryItems": 52,
+          "appxItems": 96,
+          "returned": 148,
+          "sourceFailures": 0,
+          "entryFailures": 0,
+          "startupEntries": 7,
+          "existenceChecked": 14,
+          "existenceMissing": 0,
+          "truncated": false
+        },
+        "mutation": "none"
+      }
+    },
+    {
+      "name": "register-query-selection-and-dossier",
+      "ok": true,
+      "evidence": {
+        "nativeFirstName": "7-Zip 26.05 (x64)",
+        "queryAndEmpty": true,
+        "dossier": true
+      }
+    },
+    {
+      "name": "all-twelve-tools-and-responsive-layouts",
+      "ok": true,
+      "evidence": [
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-inventory",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-identity",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-search",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0,
+          "searchResult": {
+            "font": 12,
+            "firstRowVisible": true
+          }
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-publisher",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-recent",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-uninstall-queue",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-leftovers",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-updates",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-size",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-store-packages",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-associations",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "app-startup-impact",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-inventory",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-identity",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-search",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0,
+          "searchResult": {
+            "font": 12,
+            "firstRowVisible": true
+          }
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-publisher",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-recent",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-uninstall-queue",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-leftovers",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-updates",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-size",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-store-packages",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-associations",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "app-startup-impact",
+          "dockHeight": 70,
+          "bodyHeight": 419.5,
+          "bodyWidth": 1642,
+          "footerRight": 1901,
+          "footerBottom": 1061,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-inventory",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-identity",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-search",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0,
+          "searchResult": {
+            "font": 12,
+            "firstRowVisible": true
+          }
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-publisher",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-recent",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-uninstall-queue",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-leftovers",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-updates",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-size",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-store-packages",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-associations",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "app-startup-impact",
+          "dockHeight": 70,
+          "bodyHeight": 200,
+          "bodyWidth": 1088,
+          "footerRight": 1107,
+          "footerBottom": 749,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-inventory",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-identity",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-search",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0,
+          "searchResult": {
+            "font": 12,
+            "firstRowVisible": true
+          }
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-publisher",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-recent",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-uninstall-queue",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-leftovers",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-updates",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-size",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-store-packages",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-associations",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "app-startup-impact",
+          "dockHeight": 70,
+          "bodyHeight": 300.5,
+          "bodyWidth": 1394,
+          "footerRight": 1653,
+          "footerBottom": 922,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        }
+      ]
+    },
+    {
+      "name": "native-authenticode-query",
+      "ok": true,
+      "evidence": {
+        "resultText": "1527c705-839a-4832-9118-54d4Bd6a0c89\n\nCN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US · 10.0.19041.4239\n\nValid signature\nVerify Authenticode signature\nExecutable\nC:\\Windows\\SystemApps\\Microsoft.Windows.FilePicker_cw5n1h2txyewy\\FilePicker.exe\nSigner\nCN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\nIssuer\nCN=Microsoft Windows Production PCA 2011, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\nThumbprint\n3B77DB29AC72AA6B5880ECB2ED5EC1EC6601D847\nValid from\n19 Jun 2025\nValid to\n17 Jun 2026\nChecked\n3 Nov 2026, 02:37\nProvider\nGet-AuthenticodeSignature\nCERTIFICATE CHAIN\n1\nCN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\nCN=Microsoft Windows Production PCA 2011, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\n2\nCN=Microsoft Windows Production PCA 2011, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\nCN=Microsoft Root Certificate Authority 2010, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\n3\nCN=Microsoft Root Certificate Authority 2010, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\nCN=Microsoft Root Certificate Authority 2010, O=Microsoft Corporation, L=Redmond, S=Washington, C=US\n\nLocal Authenticode status. Certificate revocation was not checked (RevocationMode=NoCheck).",
+        "claim": "Actual provider result; validity is not assumed"
+      }
+    },
+    {
+      "name": "native-association-and-package-queries",
+      "ok": true,
+      "evidence": {
+        "leftoverCandidatesQueried": true,
+        "associationQueried": true,
+        "installedPackagesQueried": true,
+        "updatesQueried": true,
+        "terminalStatus": "PARTIAL"
+      }
+    },
+    {
+      "name": "bounded-size-measurement-and-cancel",
+      "ok": true,
+      "evidence": {
+        "nativeCancellationRequested": true,
+        "nativeCancellationResult": true,
+        "actualResult": "Measurement walks install folders only, skips reparse points and enforces entry/depth/time budgets. Reported sizes stay separate.\n\n8 / 40 selected\n3 / 8\nUse current selection\nTop 8 reported\nMeasure selected\nMeasurable applications\n\nOnly records with a registered install location.\n\nMicrosoft Edge\n895 MB\nMicrosoft Edge WebView2 Runtime\n871 MB\nMicrosoft Build of OpenJDK 21.0.12.1+1 (x64)\n328 MB\nK-Lite Codec Pack 20.0.5 Standard\n176 MB\nIntel(R) Processor Graphics\n74.2 MB\nGit\n11.3 MB\n7-Zip 26.05 (x64)\n5.65 MB\nInfatica\n4.66 MB\nWinRAR 7.23 (64-bit)\n0 B\nMicrosoft Visual Studio Installer\n0 B\nVisual Studio Build Tools 2026\n0 B\nzoxide\n0 B\nGoogle Cloud SDK\n0 B\nfzf\n0 B\nOpera Stable 138.0.6044.24\n0 B\nBun\n0 B\nwindows.immersivecontrolpanel\n—\nMicrosoft.UI.Xaml.2.0\n—\nMicrosoft.MicrosoftEdge.Stable\n—\nWindows.PrintDialog\n—\nMicrosoft.Wallet\n—\nMicrosoft.Microsoft3DViewer\n—\nMicrosoft.NET.Native.Framework.2.2\n—\nMicrosoft.NET.Native.Framework.2.2\n—\nMicrosoft.NET.Native.Runtime.2.2\n—\nMicrosoft.NET.Native.Runtime.2.2\n—\nMicrosoft.VCLibs.140.00\n—\nMicrosoft.VCLibs.140.00\n—\nMicrosoft.MicrosoftStickyNotes\n—\nMicrosoft.UI.Xaml.2.7\n—\nMicrosoft.UI.Xaml.2.7\n—\nMicrosoft.UI.Xaml.2.8\n—\nMicrosoft.UI.Xaml.2.8\n—\nMicrosoft.WindowsAppRuntime.1.8\n—\nMicrosoft.WindowsAppRuntime.1.8\n—\nMicrosoftCorporationII.WinAppRuntime.Main.1.8\n—\nMicrosoft.VCLibs.140.00.UWPDesktop\n—\nMicrosoft.VCLibs.140.00.UWPDesktop\n—\nMicrosoft.WinAppRuntime.DDLM.8000.994.2142.0-x6\n—\nMicrosoft.WinAppRuntime.DDLM.8000.994.2142.0-x8\n—\nMicrosoft.DesktopAppInstaller\n—\nMicrosoft.BioEnrollment\n—\nMicrosoft.Windows.CloudExperienceHost\n—\nMicrosoft.AAD.BrokerPlugin\n—\nMicrosoft.Windows.OOBENetworkConnectionFlow\n—\nMicrosoft.Windows.OOBENetworkCaptivePortal\n—\nMicrosoftWindows.UndockedDevKit\n—\nMicrosoft.Windows.StartMenuExperienceHost\n—\nMicrosoft.Windows.ShellExperienceHost\n—\nMicrosoft.Windows.ContentDeliveryManager\n—\nMicrosoftWindows.Client.CBS\n—\nWindows.CBSPreview\n—\nNcsiUwpApp\n—\nMicrosoft.XboxGameCallableUI\n—\nMicrosoft.Windows.XGpuEjectDialog\n—\nMicrosoft.Windows.SecureAssessmentBrowser\n—\nMicrosoft.Windows.SecHealthUI\n—\nMicrosoft.Windows.PinningConfirmationDialog\n—\nMicrosoft.Windows.PeopleExperienceHost\n—\nMicrosoft.Windows.ParentalControls\n—\nMicrosoft.Windows.NarratorQuickStart\n—\nMicrosoft.Windows.CapturePicker\n—\nMicrosoft.Windows.CallingShellApp\n—\nMicrosoft.Windows.AssignedAccessLockApp\n—\nMicrosoft.Windows.Apprep.ChxApp\n—\nMicrosoft.Win32WebViewHost\n—\nMicrosoft.MicrosoftEdgeDevToolsClient\n—\nMicrosoft.LockApp\n—\nMicrosoft.ECApp\n—\nMicrosoft.CredDialogHost\n—\nMicrosoft.AsyncTextService\n—\nMicrosoft.AccountsControl\n—\nF46D4000-FD22-4DB4-AC8E-4E1DDDE828FE\n—\nE2A4F912-2574-4A75-9BB0-0D023378592B\n—\nc5e2524a-ea46-4f67-841f-6a9465d9d515\n—\n1527c705-839a-4832-9118-54d4Bd6a0c89\n—\nMicrosoft.Windows.DevHome\n—\nMicrosoft.WebpImageExtension\n—\nMicrosoft.VP9VideoExtensions\n—\nMicrosoft.WindowsCalculator\n—\nmicrosoft.windowscommunicationsapps\n—\nMicrosoft.WindowsAlarms\n—\nMicrosoft.UI.Xaml.2.3\n—\nMicrosoft.UI.Xaml.2.3\n—\nMicrosoft.WindowsSoundRecorder\n—\nMicrosoft.WebMediaExtensions\n—\nMicrosoft.BingSearch\n—\nMicrosoft.UI.Xaml.2.4\n—\nMicrosoft.UI.Xaml.2.4\n—\nMicrosoft.ScreenSketch\n—\nMicrosoft.Windows.Photos\n—\nMicrosoft.WindowsAppRuntime.1.7\n—\nMicrosoft.WindowsAppRuntime.1.7\n—\nMicrosoft.GetHelp\n—\nMicrosoft.YourPhone\n—\nMicrosoft.WindowsTerminal\n—\nMicrosoft.Winget.Fonts.Source\n—\nMicrosoftWindows.CrossDevice\n—\nMicrosoftCorporationII.WinAppRuntime.Main.2\n—\nMicrosoft.Windows.Search\n—\nMicrosoft.EdgeDevtoolsPlugin\n—\nohmyposh.cli\n—\nMicrosoft.WindowsCamera\n—\nLocalSend.App\n—\nMicrosoft.HEIFImageExtension\n—\nMicrosoft.WindowsAppRuntime.2\n—\nMicrosoft.WindowsAppRuntime.2\n—\nMicrosoftCorporationII.WinAppRuntime.Singleton\n—\nMicrosoft.StorePurchaseApp\n—\nOpenAI.Codex\n—\nMicrosoft.WindowsStore\n—\nMicrosoft.Winget.Source\n—\nThe size measurement was cancelled; remaining apps were not measured.\nMicrosoft Edge\n895 MB\nreported: 2.77 GB\nfiles: 931\n156.0.4314.58 · 882 MB\nPlatformExperiencesHelper · 3.04 MB\nMicrosoft Edge WebView2 Runtime\n871 MB\nreported: 2.76 GB\nfiles: 932\n156.0.4314.58 · 871 MB\nSetupMetrics · 59.7 KB\nMicrosoft Build of OpenJDK 21.0.12.1+1 (x64)\n—\nreported: 328 MB\nfiles: —\nK-Lite Codec Pack 20.0.5 Standard\n—\nreported: 176 MB\nfiles: —\nIntel(R) Processor Graphics\n—\nreported: 74.2 MB\nfiles: —\nGit\n11.3 MB\nreported: 342 MB\nfiles: 87\npartial\nusr · 2.25 MB\n\ncancelled\n\n7-Zip 26.05 (x64)\n—\nreported: 5.65 MB\nfiles: —\nInfatica\n—\nreported: 4.66 MB\nfiles: —"
+      }
+    },
+    {
+      "name": "immutable-review-plan-and-real-export",
+      "ok": true,
+      "evidence": {
+        "nativeReviewPlan": "6a20edf6b13ae38fb9af",
+        "executionAvailable": false,
+        "sideViewRoundTrip": true
+      }
+    },
+    {
+      "name": "browser-unavailable-no-invented-apps",
+      "ok": true,
+      "evidence": {
+        "status": "UNAVAILABLE",
+        "rows": 0
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

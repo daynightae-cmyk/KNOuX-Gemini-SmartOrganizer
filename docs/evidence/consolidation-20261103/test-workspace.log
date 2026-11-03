@@ -1,0 +1,29 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:workspace
+> npm run test:workspace --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:workspace
+> node scripts/workspace-consent-test.cjs
+
+[workspace-consent-test]
+  ✓ 10 Workspace services are declared in the approved order
+  ✓ every service declares its least-privilege scope
+  ✓ the fake connected state and simulated banner are gone
+  ✓ no alert, fake success or direct Google API call exists
+  ✓ the header exposes real mutually exclusive Google states
+  ✓ the consent review lists identity scopes and one row per service
+  ✓ each service is gated on its own granted product scope before any read
+  ✓ the live surfaces expose honest loading, empty, error and provenance states
+  ✓ the real Sheets workbench distinguishes live data from fixtures
+  ✓ service actions state that nothing was executed
+  ✓ fixtures and local-only writes remain explicitly labelled
+  ✓ the OAuth dialog is keyboard reachable and Escape closes it
+  ✓ no token or client-secret material is reachable from the renderer
+{
+  "ok": true,
+  "services": 10,
+  "scopes": 10,
+  "failures": []
+}
+[workspace-consent-test] PASS

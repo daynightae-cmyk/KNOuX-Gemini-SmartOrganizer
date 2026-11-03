@@ -1,0 +1,12 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 lint
+> npm run lint --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 lint
+> tsc --noEmit
+
+shared/native-contracts.ts(3659,13): error TS2300: Duplicate identifier 'AiProviderId'.
+shared/native-contracts.ts(3661,13): error TS2300: Duplicate identifier 'AiStorageBoundary'.
+shared/native-contracts.ts(3735,13): error TS2300: Duplicate identifier 'AiProviderId'.
+shared/native-contracts.ts(3737,13): error TS2300: Duplicate identifier 'AiStorageBoundary'.

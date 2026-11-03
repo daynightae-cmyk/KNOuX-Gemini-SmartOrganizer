@@ -1,0 +1,48 @@
+{
+  "contractVersion": 1,
+  "capability": "cleanup.schedule",
+  "requestId": "4456d0c9-8c76-455f-abeb-beb3ab79f03e",
+  "status": "complete",
+  "source": "KNOuX Clean Room read-only coordinator",
+  "observedAt": "2026-11-02T23:59:25.338Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "draft": {
+      "frequency": "daily",
+      "time": "02:00",
+      "weekdays": [
+        1,
+        3,
+        5
+      ],
+      "categories": [
+        "temp"
+      ],
+      "scanOnly": true
+    },
+    "occurrences": [
+      "2026-11-03T22:00:00.000Z",
+      "2026-11-04T22:00:00.000Z",
+      "2026-11-05T22:00:00.000Z",
+      "2026-11-06T22:00:00.000Z",
+      "2026-11-07T22:00:00.000Z"
+    ],
+    "quietHours": {
+      "from": "00:00",
+      "to": "06:00",
+      "respected": true
+    },
+    "execution": {
+      "available": false,
+      "gate": "Mission 13 scheduled automation",
+      "reason": "Creating a Windows scheduled task and running unattended cleanup require the automation mission and explicit approval. This draft never persists."
+    },
+    "readOnly": true,
+    "mutation": "none"
+  }
+}

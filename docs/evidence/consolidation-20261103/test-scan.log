@@ -1,0 +1,11 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:scan
+> npm run test:scan --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:scan
+> node scripts/scan-native-test.cjs && node --import tsx --test tests/scan/model.test.ts
+
+[scan-native-test] FAILED Error: Timed out waiting for scan session e1fd8f73-fd39-4517-8150-1c0979dc8e73; last status=running
+    at waitForSession (D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\scripts\scan-native-test.cjs:164:9)
+    at async D:\KNOUX-Workspace\KNOuX-Gemini-SmartOrganizer\apps\gemini-ui\scripts\scan-native-test.cjs:304:16

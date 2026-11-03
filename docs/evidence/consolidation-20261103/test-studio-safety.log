@@ -1,0 +1,25 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:studio-safety
+> npm run test:studio-safety --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:studio-safety
+> node scripts/studio-attribute-reader-test.cjs
+
+{
+  "status": "PASS",
+  "checks": [
+    "real Win32 attributes, literal Unicode path, missing path and fresh plain-to-junction replacement",
+    "malformed fails closed",
+    "null fails closed",
+    "invalid attributes fails closed",
+    "exit fails closed",
+    "timeout fails closed",
+    "cold PowerShell startup has a separate finite budget; warm metadata queries remain bounded",
+    "startup failure is categorized without logging file paths or weakening safety",
+    "spawn refusal and invalid inputs fail closed",
+    "fresh attribute reads reject reparse, offline, recall and exhausted budget",
+    "unavailable Windows metadata never assumes a safe file"
+  ],
+  "fixture": "D:\\Temp\\knoux-readonly-attributes-T7JCJL"
+}

@@ -1,0 +1,34 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:ai
+> npm run test:ai --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:ai
+> node scripts/ai-bridge-test.cjs
+
+{
+  "ok": false,
+  "checks": 154,
+  "providers": [
+    "openrouter",
+    "openai",
+    "anthropic"
+  ],
+  "channels": [
+    "aiStatus",
+    "aiConfigure",
+    "aiClear",
+    "aiVerify",
+    "aiComplete",
+    "aiCancel"
+  ],
+  "limits": {
+    "maxMessages": 24,
+    "maxResponseBytes": 262144,
+    "maxInFlight": 4
+  },
+  "failures": [
+    "the AI namespace only invokes the six fixed channels",
+    "the AI preload surface accepts no destination field"
+  ]
+}

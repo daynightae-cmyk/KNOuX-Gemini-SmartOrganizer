@@ -1,0 +1,94 @@
+{
+  "observedAtUtc": "2026-11-02T06:01:44.145466+00:00",
+  "rootDelivery": "LOCAL_UNCOMMITTED",
+  "rootCommitted": false,
+  "rootPushed": false,
+  "prMerged": false,
+  "deployed": false,
+  "productionVerified": false,
+  "activeForeignWriter": "01a19a6e-ee28-7ff3-9042-aea382933af5",
+  "sharedGitIntegration": "Root did not take product writer ownership; newest owner request is prompt update only",
+  "commands": {
+    "head": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exitCode": 0,
+      "stdout": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee\n",
+      "stderr": ""
+    },
+    "trackingMain": {
+      "command": [
+        "git",
+        "rev-parse",
+        "origin/main"
+      ],
+      "exitCode": 0,
+      "stdout": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee\n",
+      "stderr": ""
+    },
+    "remoteMain": {
+      "command": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ],
+      "exitCode": 0,
+      "stdout": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee\trefs/heads/main\n",
+      "stderr": ""
+    },
+    "status": {
+      "command": [
+        "git",
+        "status",
+        "--porcelain=v1",
+        "-uall"
+      ],
+      "exitCode": 0,
+      "stdout": "?? docs/PROJECT_EXECUTION_CONTROL_20261102.md\n?? docs/SECOND_GENERATION_PROJECT_EXECUTION_PROMPT.md\n?? docs/evidence/master-execution-20261102/actual-drift-rejection.json\n?? docs/evidence/master-execution-20261102/artifact-validation.json\n?? docs/evidence/master-execution-20261102/delivery-checkpoint.json\n?? docs/evidence/master-execution-20261102/final-focused-tests.json\n?? docs/evidence/master-execution-20261102/focused-checks.json\n?? docs/evidence/master-execution-20261102/fresh-receipt-check.json\n?? docs/evidence/master-execution-20261102/instruction-and-ownership.json\n?? docs/evidence/master-execution-20261102/latest-owner-amendment.json\n?? docs/evidence/master-execution-20261102/latest-recovery-followup.json\n?? docs/evidence/master-execution-20261102/malformed-object-fixture.json\n?? docs/evidence/master-execution-20261102/negative-cli-checks.json\n?? docs/evidence/master-execution-20261102/owned-changes.patch\n?? docs/evidence/master-execution-20261102/owned-manifest.json\n?? docs/evidence/master-execution-20261102/preview-http.json\n?? docs/evidence/master-execution-20261102/provenance-final.json\n?? docs/evidence/master-execution-20261102/provenance-initial.json\n?? docs/evidence/master-execution-20261102/reality-checkpoint.json\n?? docs/evidence/master-execution-20261102/stale-head-fixture.json\n?? scripts/test-verify-execution-evidence.py\n?? scripts/verify-execution-evidence.py\n",
+      "stderr": ""
+    },
+    "staged": {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "worktrees": {
+      "command": [
+        "git",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "exitCode": 0,
+      "stdout": "worktree D:/KNOUX-Workspace/KNOuX-Gemini-SmartOrganizer\nHEAD 0b7513f108da9ac4a0fe52f7099e547eae2d793f\nbranch refs/heads/main\n\n",
+      "stderr": ""
+    }
+  },
+  "rootOwnedFiles": [
+    "docs/PROJECT_EXECUTION_CONTROL_20261102.md",
+    "docs/SECOND_GENERATION_PROJECT_EXECUTION_PROMPT.md",
+    "scripts/verify-execution-evidence.py",
+    "scripts/test-verify-execution-evidence.py"
+  ],
+  "cleanup": {
+    "registeredNoncanonicalEligible": 0,
+    "removed": 0,
+    "recoveredBytes": 0
+  },
+  "publishedRecoverySha": "52a407ec7f072f31f2e44b4fef91bf89d0c669ee",
+  "publishedRecoveryCi": {
+    "run": 41397120081,
+    "status": "in_progress",
+    "conclusion": null
+  }
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "command": "npm.cmd run lint",
+    "exitCode": 0,
+    "log": "rerun-lint.log"
+  },
+  {
+    "command": "npm.cmd run test:ai",
+    "exitCode": 0,
+    "log": "rerun-ai.log"
+  },
+  {
+    "command": "node --import tsx --test tests/home/search-history.test.ts",
+    "exitCode": 0,
+    "log": "rerun-history.log"
+  }
+]

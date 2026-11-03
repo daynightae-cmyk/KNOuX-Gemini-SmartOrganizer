@@ -1,0 +1,25 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:cleanup
+> npm run test:cleanup --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:cleanup
+> node scripts/cleanup-native-test.cjs
+
+{
+  "ok": true,
+  "services": 12,
+  "stages": 5,
+  "candidates": 11,
+  "eligibleBytes": 7344,
+  "reviewBytes": 37468,
+  "blockedBytes": 13692,
+  "recycleItems": 3,
+  "unusedItems": 1,
+  "planBlocked": 3,
+  "vaultEntries": 1,
+  "journalEntries": 1,
+  "scheduleOccurrences": 5,
+  "failures": []
+}
+[cleanup-native-test] PASS

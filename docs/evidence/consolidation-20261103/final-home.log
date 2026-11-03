@@ -1,0 +1,41 @@
+
+> knoux-gemini-smartorganizer@0.4.0-gemini.0 test:home
+> npm run test:home --prefix apps/gemini-ui
+
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:home
+> node scripts/home-live-test.cjs && node --import tsx --test tests/home/search.test.ts tests/home/search-history.test.ts
+
+[home-live-test]
+  ✓ Home retains local measured aggregation and mounts approved composition
+  ✓ the live hook reads only existing measured bridges
+  ✓ all obsolete Home fixture totals are removed
+  ✓ KPI cards expose measured values and no decorative fake trend
+  ✓ system overview uses current native samples, not a fake timeline
+  ✓ storage, quick access and activity render only measured props
+  ✓ pending actions are review-only and never claim execution from Home
+  ✓ Home insight is measured or explicitly unmeasured
+  ✓ the command palette distinguishes measured inventory search from command execution
+{
+  "ok": true,
+  "checks": 10,
+  "failures": []
+}
+[home-live-test] PASS
+✔ history survives reads, deduplicates, caps at eight and really clears (4.0614ms)
+✔ corrupt storage and invalid persisted queries cannot become history (0.5743ms)
+✔ blocked localStorage getter and failed writes never prevent Home loading (0.6065ms)
+✔ federates only existing indexes and measured apps, with stable source-qualified keys (5.5832ms)
+✔ accepts the native zero-based file ID and preserves it through handoff (0.7385ms)
+✔ denied, fixture, wrong-source, malformed and duplicate identities fail closed per index (2.4156ms)
+✔ timeouts, empty and bounded searches stay honest; no authorization or scan exists (12.0134ms)
+✔ navigation intents are memory-only, expire, reject invalid IDs and consume once (0.9101ms)
+✔ a timed-out native read does not poison later manual searches of the same key (16.0044ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 619.5779

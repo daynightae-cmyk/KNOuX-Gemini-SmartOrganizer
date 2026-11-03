@@ -1,0 +1,111 @@
+{
+  "ok": true,
+  "checks": 26,
+  "failures": [],
+  "results": [
+    {
+      "name": "capabilities list ten read-only products and mark Forms/Slides selectable",
+      "ok": true
+    },
+    {
+      "name": "an unknown product is rejected locally",
+      "ok": true
+    },
+    {
+      "name": "a missing product scope fails before any request is made",
+      "ok": true
+    },
+    {
+      "name": "a disconnected account fails before any request is made",
+      "ok": true
+    },
+    {
+      "name": "Gmail reads metadata only, caps detail fetches and reports truncation",
+      "ok": true
+    },
+    {
+      "name": "Tasks reads bounded lists and completed tasks are marked, not changed",
+      "ok": true
+    },
+    {
+      "name": "Forms requires a locally selected, validated document",
+      "ok": true
+    },
+    {
+      "name": "Slides requires a locally selected presentation and reads its outline",
+      "ok": true
+    },
+    {
+      "name": "document selection is capped, deduplicated, persistent and removable",
+      "ok": true
+    },
+    {
+      "name": "Contacts reads the account connections with bounded fields",
+      "ok": true
+    },
+    {
+      "name": "Calendar reads primary events from the start of today",
+      "ok": true
+    },
+    {
+      "name": "Picker reads Drive metadata only, with no content download",
+      "ok": true
+    },
+    {
+      "name": "Chat lists spaces without requesting message history",
+      "ok": true
+    },
+    {
+      "name": "Classroom lists active courses only",
+      "ok": true
+    },
+    {
+      "name": "a 401 marks reauthorization and returns GOOGLE_REAUTH_REQUIRED",
+      "ok": true
+    },
+    {
+      "name": "a 403 returns GOOGLE_SCOPE_MISSING and does not mark reauthorization",
+      "ok": true
+    },
+    {
+      "name": "a 429 returns GOOGLE_RATE_LIMITED with Retry-After seconds",
+      "ok": true
+    },
+    {
+      "name": "a 500 returns a retryable GOOGLE_API_UNAVAILABLE",
+      "ok": true
+    },
+    {
+      "name": "an oversized response is rejected before parsing",
+      "ok": true
+    },
+    {
+      "name": "a hung request is aborted as GOOGLE_TIMEOUT",
+      "ok": true
+    },
+    {
+      "name": "item output is capped at the configured maximum for every list reader",
+      "ok": true
+    },
+    {
+      "name": "endpoint overrides cannot leave the reviewed origins",
+      "ok": true
+    },
+    {
+      "name": "disconnect purges Forms and Slides local selections",
+      "ok": true
+    },
+    {
+      "name": "document URL parsers accept only docs.google.com /d/ URLs",
+      "ok": true
+    },
+    {
+      "name": "error mapping distinguishes quota from permission",
+      "ok": true
+    },
+    {
+      "name": "renderer, preload and shared contracts carry no token material",
+      "ok": true
+    }
+  ]
+}

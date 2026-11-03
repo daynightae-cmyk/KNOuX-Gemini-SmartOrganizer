@@ -1,0 +1,818 @@
+{
+  "01": [
+    {
+      "file": null,
+      "functions": []
+    }
+  ],
+  "02": [
+    {
+      "file": "apps/gemini-ui/src/scan/native.ts",
+      "functions": [
+        {
+          "fn": "loadScanCapabilities",
+          "args": "",
+          "payload": "ScanCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "loadScanSources",
+          "args": "",
+          "payload": "StudioSource[]",
+          "shell_method": "listSources"
+        },
+        {
+          "fn": "chooseScanSource",
+          "args": "",
+          "payload": "StudioSource | null",
+          "shell_method": "chooseSource"
+        },
+        {
+          "fn": "indexScanSource",
+          "args": "sourceId: string",
+          "payload": "StudioSource",
+          "shell_method": "indexSource"
+        },
+        {
+          "fn": "startScan",
+          "args": "request: ScanStartRequest",
+          "payload": "ScanStarted",
+          "shell_method": "start"
+        },
+        {
+          "fn": "cancelScan",
+          "args": "sessionId: string",
+          "payload": "ScanCancelResult",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadScanSession",
+          "args": "sessionId: string",
+          "payload": "ScanSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "loadScanHistory",
+          "args": "",
+          "payload": "ScanSummary[]",
+          "shell_method": "history"
+        }
+      ]
+    }
+  ],
+  "03": [
+    {
+      "file": "apps/gemini-ui/src/studio/native.ts",
+      "functions": [
+        {
+          "fn": "listStudioSources",
+          "args": "",
+          "payload": "StudioSource[]",
+          "shell_method": "listSources"
+        },
+        {
+          "fn": "chooseStudioSource",
+          "args": "",
+          "payload": "StudioSource | null",
+          "shell_method": "chooseSource"
+        },
+        {
+          "fn": "removeStudioSource",
+          "args": "sourceId: string",
+          "payload": "{ removed: boolean }",
+          "shell_method": "removeSource"
+        },
+        {
+          "fn": "scanStudioSource",
+          "args": "sourceId: string",
+          "payload": "StudioSource",
+          "shell_method": "scanSource"
+        },
+        {
+          "fn": "cancelStudioScan",
+          "args": "sourceId: string): Promise<void> { await getStudioShell()?.cancelScan(sourceId); } export ",
+          "payload": "StudioQueryResult",
+          "shell_method": "query"
+        },
+        {
+          "fn": "loadStudioThumbnails",
+          "args": "sourceId: string, fileIds: number[]",
+          "payload": "Record<string, { thumbnail: string | null; reason?: string }",
+          "shell_method": "thumbnails"
+        },
+        {
+          "fn": "chooseStudioDestination",
+          "args": "",
+          "payload": "{ id: string; path: string } | null",
+          "shell_method": "chooseDestination"
+        },
+        {
+          "fn": "previewStudioPlan",
+          "args": "request: Parameters<StudioShellApi['previewPlan']>[0]",
+          "payload": "StudioPlanPreview",
+          "shell_method": "previewPlan"
+        },
+        {
+          "fn": "loadStudioPreviewHistory",
+          "args": "",
+          "payload": "StudioPreviewHistoryEntry[]",
+          "shell_method": "previewHistory"
+        }
+      ]
+    }
+  ],
+  "04": [
+    {
+      "file": "apps/gemini-ui/src/workspace/google-native.ts",
+      "functions": [
+        {
+          "fn": "loadGoogleStatus",
+          "args": "",
+          "payload": "GoogleConnectionStatus",
+          "shell_method": "getStatus"
+        },
+        {
+          "fn": "beginGoogleConnect",
+          "args": "",
+          "payload": "GoogleConnectionStatus",
+          "shell_method": "connect"
+        },
+        {
+          "fn": "cancelGoogleConnect",
+          "args": "",
+          "payload": "GoogleConnectionStatus",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "disconnectGoogle",
+          "args": "",
+          "payload": "GoogleConnectionStatus",
+          "shell_method": "disconnect"
+        },
+        {
+          "fn": "listGoogleSheets",
+          "args": "",
+          "payload": "GoogleSheetsListResult",
+          "shell_method": "listSheets"
+        },
+        {
+          "fn": "addGoogleSpreadsheet",
+          "args": "input: string",
+          "payload": "GoogleSelectionResult",
+          "shell_method": "addSpreadsheet"
+        },
+        {
+          "fn": "removeGoogleSpreadsheet",
+          "args": "id: string",
+          "payload": "GoogleSelectionResult",
+          "shell_method": "removeSpreadsheet"
+        },
+        {
+          "fn": "readGoogleSheet",
+          "args": "request: { id: string; range?: string; majorDimension?: 'ROWS' | 'COLUMNS'; }",
+          "payload": "GoogleSheetValues",
+          "shell_method": "readSheet"
+        }
+      ]
+    }
+  ],
+  "05": [
+    {
+      "file": "apps/gemini-ui/src/apps/native.ts",
+      "functions": [
+        {
+          "fn": "loadAppsCapabilities",
+          "args": "",
+          "payload": "AppsCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "loadAppsInventory",
+          "args": "",
+          "payload": "AppsInventory",
+          "shell_method": "inventory"
+        },
+        {
+          "fn": "verifyAppSignature",
+          "args": "appId: string",
+          "payload": "AppSignatureResult",
+          "shell_method": "signature"
+        },
+        {
+          "fn": "loadAppAssociations",
+          "args": "",
+          "payload": "AppAssociations",
+          "shell_method": "associations"
+        },
+        {
+          "fn": "measureAppSizes",
+          "args": "appIds: string[], operationId: string",
+          "payload": "AppSizesResult",
+          "shell_method": "sizes"
+        },
+        {
+          "fn": "cancelAppSizes",
+          "args": "operationId: string): Promise<void> { await getAppsShell()?.cancelSizes(operationId); } ex",
+          "payload": "AppLeftoversResult",
+          "shell_method": "leftovers"
+        },
+        {
+          "fn": "checkAppUpdates",
+          "args": "",
+          "payload": "AppUpdatesResult",
+          "shell_method": "updates"
+        },
+        {
+          "fn": "buildAppPlan",
+          "args": "appIds: string[]",
+          "payload": "AppPlan",
+          "shell_method": "plan"
+        },
+        {
+          "fn": "loadAppPackages",
+          "args": "tab: 'installed' | 'discover', query?: string",
+          "payload": "AppPackagesResult",
+          "shell_method": "packages"
+        },
+        {
+          "fn": "openWindowsSettings",
+          "args": "target: 'defaultapps' | 'appsfeatures'",
+          "payload": "{ opened: boolean; target: string }",
+          "shell_method": "openSettings"
+        }
+      ]
+    }
+  ],
+  "06": [
+    {
+      "file": "apps/gemini-ui/src/files/native.ts",
+      "functions": [
+        {
+          "fn": "listFilesSources",
+          "args": "",
+          "payload": "StudioSource[]",
+          "shell_method": "listSources"
+        },
+        {
+          "fn": "chooseFilesSource",
+          "args": "",
+          "payload": "StudioSource | null",
+          "shell_method": "chooseSource"
+        },
+        {
+          "fn": "scanFilesSource",
+          "args": "sourceId: string",
+          "payload": "StudioSource",
+          "shell_method": "scanSource"
+        },
+        {
+          "fn": "cancelFilesScan",
+          "args": "sourceId: string): Promise<void> { await getFilesShell()?.cancelScan(sourceId); } export a",
+          "payload": "StudioQueryResult & { unsupported?: string }",
+          "shell_method": "query"
+        },
+        {
+          "fn": "loadFilesThumbnails",
+          "args": "sourceId: string, fileIds: number[]",
+          "payload": "Record<string, { thumbnail: string | null; reason?: string }",
+          "shell_method": "thumbnails"
+        },
+        {
+          "fn": "loadFilesOverview",
+          "args": "sourceId: string",
+          "payload": "FilesOverview",
+          "shell_method": "overview"
+        },
+        {
+          "fn": "loadFileMetadata",
+          "args": "sourceId: string, fileId: number",
+          "payload": "FilesMetadata",
+          "shell_method": "metadata"
+        },
+        {
+          "fn": "hashFile",
+          "args": "sourceId: string, fileId: number",
+          "payload": "FilesHashResult",
+          "shell_method": "hash"
+        },
+        {
+          "fn": "loadEmptyFolders",
+          "args": "sourceId: string, limit = 200",
+          "payload": "FilesEmptyFoldersResult",
+          "shell_method": "emptyFolders"
+        },
+        {
+          "fn": "openIndexedFile",
+          "args": "sourceId: string, fileId: number",
+          "payload": "{ opened: boolean; fileId: number; requestedPath: string }",
+          "shell_method": "open"
+        },
+        {
+          "fn": "revealIndexedFile",
+          "args": "sourceId: string, fileId: number",
+          "payload": "{ requested: boolean; fileId: number; requestedPath: string }",
+          "shell_method": "reveal"
+        }
+      ]
+    }
+  ],
+  "07": [
+    {
+      "file": "apps/gemini-ui/src/storage/native.ts",
+      "functions": [
+        {
+          "fn": "loadStorageVolumes",
+          "args": "",
+          "payload": "StorageVolumesResult",
+          "shell_method": "volumes"
+        },
+        {
+          "fn": "loadStorageHistory",
+          "args": "",
+          "payload": "StorageHistoryResult",
+          "shell_method": "history"
+        },
+        {
+          "fn": "loadStorageAnalysis",
+          "args": "sourceId: string",
+          "payload": "StorageAnalysis",
+          "shell_method": "analysis"
+        },
+        {
+          "fn": "verifyStorageDuplicates",
+          "args": "sourceId: string",
+          "payload": "StorageDuplicateResult",
+          "shell_method": "verifyDuplicates"
+        }
+      ]
+    }
+  ],
+  "08": [
+    {
+      "file": "apps/gemini-ui/src/cleanup/native.ts",
+      "functions": [
+        {
+          "fn": "loadCleanupCapabilities",
+          "args": "",
+          "payload": "CleanupCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "startCleanupScan",
+          "args": "categories: CleanupCategory[], ageDays: number",
+          "payload": "CleanupSession",
+          "shell_method": "start"
+        },
+        {
+          "fn": "readCleanupStatus",
+          "args": "sessionId: string",
+          "payload": "CleanupSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "cancelCleanupScan",
+          "args": "sessionId: string",
+          "payload": "{cancelled:boolean;status:string;sessionId:string}",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadCleanupInventory",
+          "args": "",
+          "payload": "CleanupInventory",
+          "shell_method": "inventory"
+        },
+        {
+          "fn": "loadCleanupEstimate",
+          "args": "",
+          "payload": "CleanupEstimate",
+          "shell_method": "estimate"
+        },
+        {
+          "fn": "loadCleanupQuarantine",
+          "args": "",
+          "payload": "CleanupQuarantine",
+          "shell_method": "quarantine"
+        },
+        {
+          "fn": "loadCleanupUnused",
+          "args": "request: { sourceId?: string; ageDays: number; limit?: number; }",
+          "payload": "CleanupUnusedResult",
+          "shell_method": "unused"
+        },
+        {
+          "fn": "buildCleanupPlan",
+          "args": "candidateIds: string[], mode: CleanupPlan['mode']",
+          "payload": "CleanupPlan",
+          "shell_method": "plan"
+        },
+        {
+          "fn": "loadCleanupSchedule",
+          "args": "request: { frequency: 'daily' | 'weekly'; time: string; weekdays: number[]; categories: Cl",
+          "payload": "CleanupScheduleDraft",
+          "shell_method": "schedule"
+        },
+        {
+          "fn": "loadCleanupReport",
+          "args": "",
+          "payload": "CleanupReport",
+          "shell_method": "report"
+        },
+        {
+          "fn": "openCleanupSettings",
+          "args": "target: 'storage' | 'windowsupdate'",
+          "payload": "{ opened: boolean; target: string }",
+          "shell_method": "openSettings"
+        }
+      ]
+    }
+  ],
+  "09": [
+    {
+      "file": "apps/gemini-ui/src/startup/native.ts",
+      "functions": [
+        {
+          "fn": "loadStartupCapabilities",
+          "args": "",
+          "payload": "StartupCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "startStartupScan",
+          "args": "request: { includeTasks?: boolean; includeServices?: boolean; includeBoot?: boolean; }",
+          "payload": "StartupSession",
+          "shell_method": "start"
+        },
+        {
+          "fn": "readStartupStatus",
+          "args": "sessionId: string",
+          "payload": "StartupSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "cancelStartupScan",
+          "args": "sessionId: string",
+          "payload": "{cancelled:boolean;status:string;sessionId:string}",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadStartupInventory",
+          "args": "",
+          "payload": "StartupInventory",
+          "shell_method": "inventory"
+        },
+        {
+          "fn": "loadStartupServices",
+          "args": "",
+          "payload": "StartupServiceEntry[]",
+          "shell_method": "services"
+        },
+        {
+          "fn": "loadStartupTasks",
+          "args": "",
+          "payload": "StartupTaskEntry[]",
+          "shell_method": "tasks"
+        },
+        {
+          "fn": "loadStartupImpact",
+          "args": "",
+          "payload": "StartupImpact",
+          "shell_method": "impact"
+        },
+        {
+          "fn": "loadStartupJournal",
+          "args": "",
+          "payload": "StartupJournal",
+          "shell_method": "journal"
+        },
+        {
+          "fn": "loadStartupSessions",
+          "args": "",
+          "payload": "StartupSessions",
+          "shell_method": "sessions"
+        },
+        {
+          "fn": "buildStartupPlan",
+          "args": "request: { entryIds: string[]; mode: StartupPlan['mode']; delayMinutes?: number; }",
+          "payload": "StartupPlan",
+          "shell_method": "plan"
+        },
+        {
+          "fn": "loadStartupReport",
+          "args": "",
+          "payload": "StartupReport",
+          "shell_method": "report"
+        },
+        {
+          "fn": "openStartupSettings",
+          "args": "",
+          "payload": "{ opened: boolean; target: string }",
+          "shell_method": "openSettings"
+        }
+      ]
+    }
+  ],
+  "10": [
+    {
+      "file": "apps/gemini-ui/src/system/native.ts",
+      "functions": [
+        {
+          "fn": "loadSystemCapabilities",
+          "args": "",
+          "payload": "SystemCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "startSystemScan",
+          "args": "",
+          "payload": "SystemSession",
+          "shell_method": "start"
+        },
+        {
+          "fn": "readSystemStatus",
+          "args": "sessionId: string",
+          "payload": "SystemSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "cancelSystemScan",
+          "args": "sessionId: string",
+          "payload": "{cancelled:boolean;status:string;sessionId:string}",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadSystemSnapshot",
+          "args": "",
+          "payload": "SystemSnapshot",
+          "shell_method": "snapshot"
+        },
+        {
+          "fn": "readSystemSample",
+          "args": "",
+          "payload": "SystemMetrics",
+          "shell_method": "sample"
+        },
+        {
+          "fn": "loadSystemProcesses",
+          "args": "",
+          "payload": "SystemProcessResult",
+          "shell_method": "processes"
+        },
+        {
+          "fn": "querySystemEvents",
+          "args": "query: SystemEventQuery",
+          "payload": "SystemEventsResult",
+          "shell_method": "events"
+        },
+        {
+          "fn": "verifySystemSignatures",
+          "args": "paths: string[]",
+          "payload": "SystemSignatureResult",
+          "shell_method": "signatures"
+        },
+        {
+          "fn": "runSystemDiagnostic",
+          "args": "request: { type: SystemDiagnosticType; target: string; port?: number; }",
+          "payload": "SystemDiagnosticResult",
+          "shell_method": "diagnostics"
+        },
+        {
+          "fn": "runSystemTraceroute",
+          "args": "request: { target: string; maxHops?: number; }",
+          "payload": "SystemTracerouteResult",
+          "shell_method": "traceroute"
+        },
+        {
+          "fn": "loadHostsFile",
+          "args": "",
+          "payload": "HostsFileInfo",
+          "shell_method": "hosts"
+        },
+        {
+          "fn": "stageHostsPlan",
+          "args": "draft: HostsDraft",
+          "payload": "HostsPlan",
+          "shell_method": "hostsPlan"
+        },
+        {
+          "fn": "loadSystemReport",
+          "args": "options?: { redact?: boolean }",
+          "payload": "SystemReport",
+          "shell_method": "report"
+        },
+        {
+          "fn": "openSystemSettings",
+          "args": "target: 'display' | 'network' | 'wifi' | 'sound',",
+          "payload": "{ opened: boolean; target: string }",
+          "shell_method": "openSettings"
+        }
+      ]
+    }
+  ],
+  "11": [
+    {
+      "file": "apps/gemini-ui/src/repair/native.ts",
+      "functions": [
+        {
+          "fn": "loadRepairCapabilities",
+          "args": "",
+          "payload": "RepairCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "startRepairScan",
+          "args": "",
+          "payload": "RepairSession",
+          "shell_method": "start"
+        },
+        {
+          "fn": "readRepairStatus",
+          "args": "sessionId: string",
+          "payload": "RepairSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "cancelRepairScan",
+          "args": "sessionId: string",
+          "payload": "{cancelled:boolean;status:string;sessionId:string}",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadRepairSnapshot",
+          "args": "",
+          "payload": "RepairSnapshot",
+          "shell_method": "snapshot"
+        },
+        {
+          "fn": "stageRepairPlan",
+          "args": "toolIds: RepairToolId[]",
+          "payload": "RepairPlan",
+          "shell_method": "plan"
+        },
+        {
+          "fn": "loadRepairJournal",
+          "args": "",
+          "payload": "RepairJournalEntry[]",
+          "shell_method": "journal"
+        },
+        {
+          "fn": "loadRepairReport",
+          "args": "options?: { redact?: boolean }",
+          "payload": "RepairReport",
+          "shell_method": "report"
+        },
+        {
+          "fn": "openRepairSettings",
+          "args": "target: 'windowsupdate' | 'troubleshoot' | 'recovery',",
+          "payload": "{ opened: boolean; target: string }",
+          "shell_method": "openSettings"
+        }
+      ]
+    }
+  ],
+  "12": [
+    {
+      "file": "apps/gemini-ui/src/services/native.ts",
+      "functions": [
+        {
+          "fn": "loadServicesCapabilities",
+          "args": "",
+          "payload": "ServicesCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "startServicesScan",
+          "args": "",
+          "payload": "ServicesSession",
+          "shell_method": "start"
+        },
+        {
+          "fn": "readServicesStatus",
+          "args": "sessionId: string",
+          "payload": "ServicesSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "cancelServicesScan",
+          "args": "sessionId: string",
+          "payload": "{cancelled:boolean;status:string;sessionId:string}",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadServicesSnapshot",
+          "args": "",
+          "payload": "ServicesSnapshot",
+          "shell_method": "snapshot"
+        },
+        {
+          "fn": "stageServicePlan",
+          "args": "request: { serviceName: string; action: ServiceAction; startupType?: ServiceStartupType; }",
+          "payload": "ServiceOperationPlan",
+          "shell_method": "plan"
+        },
+        {
+          "fn": "loadServicesJournal",
+          "args": "",
+          "payload": "ServicesJournalEntry[]",
+          "shell_method": "journal"
+        },
+        {
+          "fn": "loadServicesReport",
+          "args": "options?: { redact?: boolean }",
+          "payload": "ServicesReport",
+          "shell_method": "report"
+        }
+      ]
+    }
+  ],
+  "13": [
+    {
+      "file": "apps/gemini-ui/src/automation/native.ts",
+      "functions": [
+        {
+          "fn": "loadAutomationCapabilities",
+          "args": "",
+          "payload": "AutomationCapabilities",
+          "shell_method": "capabilities"
+        },
+        {
+          "fn": "startAutomationScan",
+          "args": "",
+          "payload": "AutomationSession",
+          "shell_method": "start"
+        },
+        {
+          "fn": "readAutomationStatus",
+          "args": "sessionId: string",
+          "payload": "AutomationSession",
+          "shell_method": "status"
+        },
+        {
+          "fn": "cancelAutomationScan",
+          "args": "sessionId: string",
+          "payload": "{cancelled:boolean;status:string;sessionId:string}",
+          "shell_method": "cancel"
+        },
+        {
+          "fn": "loadAutomationSnapshot",
+          "args": "",
+          "payload": "AutomationSnapshot",
+          "shell_method": "snapshot"
+        },
+        {
+          "fn": "loadAutomationWorkflows",
+          "args": "",
+          "payload": "AutomationWorkflow[]",
+          "shell_method": "workflows"
+        },
+        {
+          "fn": "saveAutomationWorkflow",
+          "args": "workflow: AutomationWorkflow | Omit<AutomationWorkflow, 'id' | 'createdAt' | 'updatedAt' |",
+          "payload": "AutomationWorkflow",
+          "shell_method": "save"
+        },
+        {
+          "fn": "loadAutomationTemplates",
+          "args": "",
+          "payload": "AutomationTemplate[]",
+          "shell_method": "templates"
+        },
+        {
+          "fn": "dryRunAutomation",
+          "args": "workflow: AutomationWorkflow | Omit<AutomationWorkflow, 'id' | 'createdAt' | 'updatedAt' |",
+          "payload": "AutomationDryRunResult",
+          "shell_method": "dryRun"
+        },
+        {
+          "fn": "previewAutomationSchedule",
+          "args": "spec: AutomationScheduleSpec",
+          "payload": "AutomationSchedulePreview",
+          "shell_method": "schedulePreview"
+        },
+        {
+          "fn": "validateAutomationImport",
+          "args": "payload: unknown",
+          "payload": "AutomationImportValidation",
+          "shell_method": "validateImport"
+        },
+        {
+          "fn": "loadAutomationJournal",
+          "args": "",
+          "payload": "AutomationJournalEntry[]",
+          "shell_method": "journal"
+        },
+        {
+          "fn": "loadAutomationReport",
+          "args": "options?: { redact?: boolean }",
+          "payload": "AutomationReport",
+          "shell_method": "report"
+        }
+      ]
+    }
+  ],
+  "14": [
+    {
+      "file": "apps/gemini-ui/src/clipboard/native.ts",
+      "functions": []
+    }
+  ]
+}
