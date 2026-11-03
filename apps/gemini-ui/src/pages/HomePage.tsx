@@ -3,7 +3,8 @@ import {Search,X,ChevronRight} from 'lucide-react';
 import {ApprovedHomeScreen} from '../components/home/ApprovedHomeScreen';
 import {SECTIONS_DIRECTORY,useNavigation} from '../context/NavigationContext';
 import {useHomeLive} from '../home/live';
-import {searchHomeInventory,publishSearchIntent,type InventoryHit} from '../home/search';
+import {searchHomeInventory,publishSearchIntent,type InventoryHit,type SourceOutcome} from '../home/search';
+import {readSearchHistory,pushSearchHistory,clearSearchHistory,type SearchHistoryEntry} from '../home/search-history';
 
 interface HomePageProps {onNavigateSection?:(section:string)=>void;onNavigate?:(section:string)=>void}
 /** One existing route and local native aggregator; only the visual composition changes. */
@@ -11,6 +12,7 @@ export function HomePage({onNavigateSection,onNavigate}:HomePageProps){
  const navigation=useNavigation(),homeLive=useHomeLive();
  const [paletteOpen,setPaletteOpen]=useState(false),[query,setQuery]=useState('');
  const [inventoryHits,setInventoryHits]=useState<InventoryHit[]>([]),[searchBusy,setSearchBusy]=useState(false),[searchPartial,setSearchPartial]=useState(false);
+ const [sourceOutcomes,setSourceOutcomes]=useState<SourceOutcome[]>([]),[history,setHistory]=useState<SearchHistoryEntry[]>(()=>readSearchHistory());
  const dialog=useRef<HTMLDialogElement>(null);
  const navigate=(section:string)=>(onNavigateSection??onNavigate??navigation.navigateTo)(section);
  const sections=SECTIONS_DIRECTORY.filter(section=>(section.id+' '+section.labelEn+' '+section.labelAr).toLowerCase().includes(query.trim().toLowerCase()));
@@ -30,11 +32,11 @@ export function HomePage({onNavigateSection,onNavigate}:HomePageProps){
  const choose=(section:string)=>{setPaletteOpen(false);setQuery('');navigate(section);};
  useEffect(()=>{
   let active=true;
-  setInventoryHits([]);setSearchPartial(false);
+  setInventoryHits([]);setSearchPartial(false);setSourceOutcomes([]);
   if(!paletteOpen||query.trim().length<2){setSearchBusy(false);return;}
   setSearchBusy(true);
   const timer=window.setTimeout(()=>{
-   void searchHomeInventory(query,homeLive).then(result=>{if(active){setInventoryHits(result.hits);setSearchPartial(result.warnings.length>0);}})
+   void searchHomeInventory(query,homeLive).then(result=>{if(active){setInventoryHits(result.hits);setSearchPartial(result.warnings.length>0);setSourceOutcomes(result.sources);if(result.hits.length)setHistory(pushSearchHistory(query));}})
     .catch(()=>{if(active)setSearchPartial(true);}).finally(()=>{if(active)setSearchBusy(false);});
   },180);
   return()=>{active=false;window.clearTimeout(timer);};
@@ -50,6 +52,15 @@ export function HomePage({onNavigateSection,onNavigate}:HomePageProps){
     {inventoryHits.map(hit=><button key={hit.key} data-testid={`home-search-${hit.kind}`} onClick={()=>chooseInventory(hit)}><span>{hit.label}<small style={{display:'block'}}>{hit.kind==='file'?(navigation.isArabic?'بحث في الملفات':'Find in Files'):(navigation.isArabic?'مراجعة التطبيق':'Review application')} · {hit.source}</small></span><ChevronRight/></button>)}
     {!searchBusy&&!inventoryHits.length&&<p role="status">{navigation.isArabic?'لا توجد نتائج مقيسة مطابقة.':'No matching measured inventory results.'}</p>}
     {searchPartial&&<p role="status">{navigation.isArabic?'التغطية محدودة أو بعض المزوّدات غير متاحة. راجع القسم المختص.':'Coverage is limited or some providers are unavailable. Review the owning workspace.'}</p>}
+    {sourceOutcomes.length>0&&<div className="home-search-coverage" role="group" aria-label={navigation.isArabic?'تغطية كل مصدر':'Per-source coverage'} data-testid="home-search-coverage">
+     {sourceOutcomes.map(outcome=><span key={outcome.id} data-state={outcome.state} title={outcome.reason??''}><i aria-hidden="true"/>{outcome.label}<b>{outcome.state==='failed'?(navigation.isArabic?'تعذّر':'failed'):(outcome.total!=null&&outcome.total>outcome.matched?`${outcome.matched} / ${outcome.total}`:`${outcome.matched}`)}</b></span>)}
+    </div>}
+   </nav>}
+   {query.trim().length<2&&<nav aria-label={navigation.isArabic?'عمليات بحث سابقة':'Recent searches'} className="home-search-history" data-testid="home-search-history">
+    {history.length?<>
+     <header><span>{navigation.isArabic?'عمليات بحث سابقة محفوظة محليًا':'Recent searches, stored on this device only'}</span><button data-testid="home-search-history-clear" onClick={()=>{clearSearchHistory();setHistory(readSearchHistory());}}>{navigation.isArabic?'مسح':'Clear'}</button></header>
+     <div>{history.map(entry=><button key={entry.query} onClick={()=>setQuery(entry.query)} title={entry.at}>{entry.query}</button>)}</div>
+    </>:<p>{navigation.isArabic?'لا سجل بحث بعد. البحث الذي يعطي نتائجًا يُحفظ محليًا حتى ثمانية عناصر.':'No search history yet. Searches that return results are kept locally, up to eight.'}</p>}
    </nav>}
    <footer>{navigation.isArabic?'Enter للانتقال · Esc للإغلاق · لا يتم فتح ملفات أو تشغيل تطبيقات':'Enter to navigate · Esc to close · No files opened or apps launched'}</footer>
   </dialog>}
