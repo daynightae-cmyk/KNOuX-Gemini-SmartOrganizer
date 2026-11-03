@@ -49,6 +49,7 @@ import { useGoogleWorkspace } from '../../workspace/useGoogleWorkspace';
 import type { GoogleProductId, GoogleWorkspaceItem } from '../../../shared/native-contracts';
 import {KnouxOrbit} from '../../visual/KnouxOrbit';
 import {ServicePipeline} from '../../visual/ServicePipeline';
+import '../../workspace/google-workspace.css';
 
 interface GoogleWorkspaceHubProps {
   locale?: 'en' | 'ar';
@@ -1189,7 +1190,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
   function selectOrbitService(id:HubServiceId){setActiveService(id);const first=(localAdditions[id]??[])[0]??(BASE_ITEMS[id]??[])[0];setSelectedItemId(first?.id||'');}
 
   return (
-    <div dir={isAr ? 'rtl' : 'ltr'} className="w-screen h-screen flex flex-col bg-[#050a15] text-slate-100 overflow-hidden font-sans select-none relative" data-testid="workspace-hub">
+    <div dir={isAr ? 'rtl' : 'ltr'} className="knx-google-workspace w-screen h-screen flex flex-col overflow-hidden font-sans select-none relative" data-testid="workspace-hub" style={{background: 'var(--knx-canvas)', color: 'var(--knx-ink)'}}>
       <KNOuXTitleBar
         sectionName={isAr ? "خدمات Google" : "Google Workspace"}
         sectionSubtitle={isAr ? "مركز التكامل السحابي" : "Cloud Integration Hub"}

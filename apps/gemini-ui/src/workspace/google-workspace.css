@@ -1,0 +1,72 @@
+/*
+ * Google Workspace integration hub — theme-token re-skin (D04, Phase II).
+ *
+ * The hub predates the Living Glass token layer and shipped hardcoded
+ * slate/navy values, which broke Day mode and let Night drift off-palette.
+ * This sheet maps every hardcoded arbitrary value to the semantic Knoux roles,
+ * so both themes render correctly and focus rings stay visible. It changes no
+ * layout, copy, fixture label, scope gate or OAuth behaviour; it only repaints.
+ * Load order: after the theme layer, before page-specific layout sheets.
+ */
+.knx-google-workspace { --google-hub-radius: var(--knx-r-lg); }
+
+/* --- canvas & gradients ---------------------------------------------------- */
+.knx-google-workspace .bg-\[\#050a15\], .knx-google-workspace .bg-\[\#050c1b\],
+.knx-google-workspace .bg-\[\#030710\], .knx-google-workspace .bg-\[\#040a16\] { background-color: var(--knx-canvas) !important; }
+.knx-google-workspace .bg-gradient-to-b { background-image: none !important; background-color: var(--knx-atmosphere) !important; }
+
+/* --- panels: base → surface-2, raised → raised, hover → hover -------------- */
+.knx-google-workspace .bg-\[\#061226\], .knx-google-workspace .bg-\[\#071328\],
+.knx-google-workspace .bg-\[\#07162c\] { background-color: var(--knx-surface-2) !important; }
+.knx-google-workspace .bg-\[\#061226\]\/80 { background-color: color-mix(in srgb, var(--knx-surface-2) 88%, transparent) !important; }
+.knx-google-workspace .bg-\[\#08152c\], .knx-google-workspace .bg-\[\#091833\],
+.knx-google-workspace .bg-\[\#0b1b36\] { background-color: var(--knx-raised) !important; }
+.knx-google-workspace .bg-\[\#0b1f3d\], .knx-google-workspace .bg-\[\#0f2444\],
+.knx-google-workspace .bg-\[\#0d2450\], .knx-google-workspace .bg-\[\#102952\],
+.knx-google-workspace .bg-\[\#142e56\] { background-color: var(--knx-hover) !important; }
+.knx-google-workspace .bg-\[\#245089\] { background-color: var(--knx-line-strong) !important; }
+
+/* --- borders ---------------------------------------------------------------- */
+.knx-google-workspace :is(.border-\[\#173766\], .border-\[\#1d3f6e\], .border-\[\#1b3f70\],
+  .border-\[\#122b52\], .border-\[\#15325e\], .border-slate-700, .border-slate-800,
+  .border-slate-800\/60) { border-color: var(--knx-line) !important; }
+.knx-google-workspace :is(.divide-\[\#122b52\] > :not([hidden]) ~ :not([hidden])) { border-color: var(--knx-line-soft) !important; }
+
+/* --- text ------------------------------------------------------------------- */
+.knx-google-workspace .text-slate-100, .knx-google-workspace .text-slate-200,
+.knx-google-workspace .text-white { color: var(--knx-ink) !important; }
+.knx-google-workspace .text-slate-300 { color: var(--knx-ink-2) !important; }
+.knx-google-workspace .text-slate-400, .knx-google-workspace .text-slate-500 { color: var(--knx-muted) !important; }
+.knx-google-workspace .text-cyan-200, .knx-google-workspace .text-cyan-300,
+.knx-google-workspace .text-cyan-400 { color: var(--knx-cyan) !important; }
+.knx-google-workspace .text-emerald-200, .knx-google-workspace .text-emerald-300,
+.knx-google-workspace .text-emerald-400 { color: var(--knx-success) !important; }
+.knx-google-workspace .text-amber-200, .knx-google-workspace .text-amber-300,
+.knx-google-workspace .text-amber-400 { color: var(--knx-warning) !important; }
+.knx-google-workspace .text-rose-200, .knx-google-workspace .text-rose-300,
+.knx-google-workspace .text-rose-400 { color: var(--knx-error) !important; }
+
+/* --- translucent feedback pills/toasts --------------------------------------- */
+.knx-google-workspace .bg-cyan-950\/95, .knx-google-workspace .bg-cyan-950\/90 { background-color: color-mix(in srgb, var(--knx-inset) 92%, transparent) !important; border-color: var(--knx-line-strong) !important; color: var(--knx-cyan) !important; }
+.knx-google-workspace .bg-emerald-500\/10, .knx-google-workspace .bg-emerald-500\/15,
+.knx-google-workspace .bg-emerald-950\/30, .knx-google-workspace .bg-emerald-950\/20 { background-color: color-mix(in srgb, var(--knx-success) 14%, transparent) !important; }
+.knx-google-workspace .border-emerald-500\/30, .knx-google-workspace .border-emerald-500\/40 { border-color: color-mix(in srgb, var(--knx-success) 42%, transparent) !important; }
+.knx-google-workspace .bg-amber-500\/10, .knx-google-workspace .bg-amber-500\/15, .knx-google-workspace .bg-amber-950\/20 { background-color: color-mix(in srgb, var(--knx-warning) 14%, transparent) !important; }
+.knx-google-workspace .border-amber-500\/30, .knx-google-workspace .border-amber-500\/35, .knx-google-workspace .border-amber-500\/40 { border-color: color-mix(in srgb, var(--knx-warning) 42%, transparent) !important; }
+.knx-google-workspace .bg-rose-500\/10, .knx-google-workspace .bg-rose-500\/15,
+.knx-google-workspace .bg-rose-950\/25, .knx-google-workspace .bg-rose-950\/30 { background-color: color-mix(in srgb, var(--knx-error) 13%, transparent) !important; }
+.knx-google-workspace .border-rose-500\/30, .knx-google-workspace .border-rose-500\/40 { border-color: color-mix(in srgb, var(--knx-error) 42%, transparent) !important; }
+
+/* --- inputs ------------------------------------------------------------------ */
+.knx-google-workspace :is(input, select, textarea) { background-color: var(--knx-inset) !important; border-color: var(--knx-line) !important; color: var(--knx-ink) !important; }
+.knx-google-workspace :is(input, select, textarea)::placeholder { color: var(--knx-muted-2) !important; }
+
+/* --- focus rings: visible, on-brand ------------------------------------------ */
+.knx-google-workspace :is(button, a, input, select, textarea, [tabindex]):focus-visible { outline: 2px solid var(--knx-focus) !important; outline-offset: 2px; border-radius: var(--knx-r-sm); box-shadow: var(--knx-focus-ring) !important; }
+
+/* --- controls that keep blue/violet accents readable on both themes ---------- */
+.knx-google-workspace .bg-blue-600 { background-color: var(--knx-accent-deep) !important; border-color: var(--knx-line-strong) !important; }
+
+/* --- scroll surfaces ---------------------------------------------------------- */
+.knx-google-workspace .knx-custom-scrollbar { scrollbar-width: thin; scrollbar-color: var(--knx-line-strong) transparent; }
+@media (prefers-reduced-motion: reduce) { .knx-google-workspace * { animation: none !important; transition: none !important; } }

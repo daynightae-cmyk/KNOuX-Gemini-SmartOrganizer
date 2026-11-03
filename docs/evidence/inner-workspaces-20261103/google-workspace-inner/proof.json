@@ -1,0 +1,47 @@
+{
+  "head": "63b178917b1c7a6650ec918d036849c2d7555592",
+  "profile": "D:\\Temp\\knoux-inner-workspace-jGxChU\\profile",
+  "scope": "Google Workspace Phase II: Living Glass token re-skin of the integration hub. No Google account connected, no network request made, no OAuth consent simulated; fixture sets remain labeled as fixtures.",
+  "checks": [
+    {
+      "name": "hub-renders-honestly-without-consent",
+      "ok": true,
+      "evidence": {
+        "fixtureLabels": 1,
+        "services": 10,
+        "badge": "Preview + on-demand Google"
+      }
+    },
+    {
+      "name": "ten-services-and-layouts",
+      "ok": true,
+      "evidence": {
+        "frames": 40,
+        "captured": 4
+      }
+    },
+    {
+      "name": "oauth-gate-and-modal-report-honest-state",
+      "ok": true,
+      "evidence": {
+        "missingClientReported": true,
+        "enableDisabled": false,
+        "statusText": "Not connected — OAuth ready for review\nNo account or email is shown before conse"
+      }
+    },
+    {
+      "name": "overview-frames-and-focus",
+      "ok": true,
+      "evidence": {
+        "frames": 4,
+        "keyboardFocus": true,
+        "pressed": null
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}
