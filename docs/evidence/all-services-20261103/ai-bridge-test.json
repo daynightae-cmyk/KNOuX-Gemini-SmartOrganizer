@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "checks": 154,
+  "providers": [
+    "openrouter",
+    "openai",
+    "anthropic"
+  ],
+  "channels": [
+    "aiStatus",
+    "aiConfigure",
+    "aiClear",
+    "aiVerify",
+    "aiComplete",
+    "aiCancel"
+  ],
+  "limits": {
+    "maxMessages": 24,
+    "maxResponseBytes": 262144,
+    "maxInFlight": 4
+  },
+  "failures": []
+}
+[ai-bridge] PASS

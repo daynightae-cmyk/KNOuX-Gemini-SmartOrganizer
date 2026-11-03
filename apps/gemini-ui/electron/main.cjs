@@ -44,6 +44,7 @@ const { RepairBridge } = require('./native/repair-bridge.cjs');
 const { ServicesBridge } = require('./native/services-bridge.cjs');
 const { AutomationBridge } = require('./native/automation-bridge.cjs');
 const { GoogleOAuthService, TokenVault } = require('./native/google-auth.cjs');
+const { AiBridge, PROVIDER_IDS: AI_PROVIDER_IDS } = require('./native/ai-bridge.cjs');
 const {
   ok,
   fail,
@@ -113,6 +114,7 @@ let repairBridge = null;
 let servicesBridge = null;
 let automationBridge = null;
 let googleOAuthService = null;
+let aiBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
   app.quit();
@@ -133,7 +135,13 @@ function bridgeStatusData() {
   const windows = process.platform === 'win32';
   const capabilities = Object.values(contract.capabilities).map((capability) => ({
     ...capability,
-    status: capability.id === 'folder.choose' ? 'available' : windows ? 'available' : 'unsupported',
+    // The AI bridge is a Main-process network gate, not a Windows provider: it
+    // is available wherever the bridge object initialized.
+    status: capability.id === 'folder.choose'
+      ? 'available'
+      : capability.id.startsWith('ai.')
+        ? (aiBridge ? 'available' : 'unavailable')
+        : windows ? 'available' : 'unsupported',
     ...(fixture ? { detail: 'Development fixture mode — no measured reading' } : {}),
   }));
   return {
@@ -1798,6 +1806,103 @@ function registerIpc() {
       return googleOAuthService.readSheet(payload);
     })
   );
+
+  /* AI provider bridge. The credential lives here in Main and never travels
+     back to the renderer. Destination selection is not accepted from callers:
+     any payload that tries to name a URL, host or header is refused outright,
+     so a compromised renderer cannot turn this into a general proxy. */
+  const FORBIDDEN_AI_KEYS = ['url', 'uri', 'endpoint', 'host', 'hostname', 'baseUrl', 'baseURL', 'origin', 'headers', 'fetch', 'target'];
+  const assertNoDestinationOverride = (payload, capability) => {
+    if (payload == null) return;
+    if (typeof payload !== 'object' || Array.isArray(payload)) {
+      throw Object.assign(new Error(`The ${capability} payload must be an object.`), { code: 'AI_INPUT_INVALID' });
+    }
+    const offender = FORBIDDEN_AI_KEYS.find((key) => key in payload);
+    if (offender) {
+      throw Object.assign(new Error(`The AI bridge does not accept a caller-supplied "${offender}".`), { code: 'AI_DESTINATION_OVERRIDE_FORBIDDEN' });
+    }
+  };
+
+  const aiGuard = (channel, capability, permission, handler) =>
+    ipcMain.handle(channel, (event, ...args) =>
+      guard(event, capability, args, async (callArgs) => {
+        if (!aiBridge) {
+          return fail({
+            capability,
+            status: 'unavailable',
+            source: 'AI provider main-process bridge',
+            permission: 'not-granted',
+            error: { code: 'AI_BRIDGE_UNINITIALIZED', message: 'The AI provider bridge is not initialized.', retryable: false },
+          });
+        }
+        try {
+          const data = await handler(callArgs);
+          return ok({
+            capability,
+            status: 'complete',
+            source: 'AI provider main-process bridge',
+            permission,
+            data,
+          });
+        } catch (error) {
+          const code = typeof error?.code === 'string' && /^[A-Z0-9_]{3,64}$/.test(error.code) ? error.code : 'AI_BRIDGE_ERROR';
+          const rawMessage = typeof error?.message === 'string' ? error.message : 'The AI request failed.';
+          return fail({
+            capability,
+            status: code === 'AI_BRIDGE_UNINITIALIZED' ? 'unavailable' : 'failed',
+            source: 'AI provider main-process bridge',
+            permission,
+            // Never echo an unredacted provider or stack message back across IPC.
+            error: { code, message: aiBridge.redactSecret(rawMessage), retryable: Boolean(error?.retryable) },
+          });
+        }
+      })
+    );
+
+  aiGuard(contract.channels.aiStatus, 'ai.status', 'read-only', async (callArgs) => {
+    assertNoArguments(callArgs, 'ai.status');
+    return aiBridge.getStatus();
+  });
+
+  aiGuard(contract.channels.aiConfigure, 'ai.configure', 'user-initiated', async (callArgs) => {
+    const payload = callArgs[0];
+    assertNoDestinationOverride(payload, 'ai.configure');
+    if (!payload || typeof payload !== 'object') {
+      throw Object.assign(new Error('A provider and key object is required.'), { code: 'AI_INPUT_INVALID' });
+    }
+    if (!AI_PROVIDER_IDS.includes(payload.provider)) {
+      throw Object.assign(new Error('The requested AI provider is not supported.'), { code: 'AI_PROVIDER_UNSUPPORTED' });
+    }
+    if (typeof payload.apiKey !== 'string' || !payload.apiKey.trim()) {
+      throw Object.assign(new Error('An AI provider key is required.'), { code: 'AI_KEY_REQUIRED' });
+    }
+    if (payload.persist !== undefined && typeof payload.persist !== 'boolean') {
+      throw Object.assign(new Error('The persist flag must be a boolean.'), { code: 'AI_INPUT_INVALID' });
+    }
+    return aiBridge.configure(payload);
+  });
+
+  aiGuard(contract.channels.aiClear, 'ai.clear', 'user-initiated', async (callArgs) => {
+    assertNoArguments(callArgs, 'ai.clear');
+    return aiBridge.clear();
+  });
+
+  aiGuard(contract.channels.aiVerify, 'ai.verify', 'user-initiated', async (callArgs) => {
+    const payload = callArgs[0];
+    assertNoDestinationOverride(payload, 'ai.verify');
+    return aiBridge.verifyKey(payload || {});
+  });
+
+  aiGuard(contract.channels.aiComplete, 'ai.complete', 'user-initiated', async (callArgs) => {
+    const payload = callArgs[0];
+    assertNoDestinationOverride(payload, 'ai.complete');
+    return aiBridge.complete(payload || {});
+  });
+
+  aiGuard(contract.channels.aiCancel, 'ai.cancel', 'user-initiated', async (callArgs) => {
+    assertNoArguments(callArgs, 'ai.cancel');
+    return aiBridge.cancelAll();
+  });
 
 }
 
@@ -6616,6 +6721,15 @@ app.whenReady().then(async () => {
   });
   clipboardVault = createClipboardVault({ clipboard, nativeImage, safeStorage, storagePath: path.join(app.getPath('userData'), 'clipboard-vault-v1.bin') });
   await clipboardVault.init();
+  // AI provider bridge. Session memory is the default; a persisted credential
+  // only exists when the user explicitly opted in and Windows encryption is
+  // available, so restoring at startup rehydrates a choice they already made.
+  aiBridge = new AiBridge({
+    safeStorage,
+    rootPath: path.join(app.getPath('userData'), 'ai-bridge-v1'),
+    isPackaged: app.isPackaged,
+  });
+  await aiBridge.restore().catch(() => ({ restored: false, reason: 'restore-failed' }));
   trace('registering ipc');
   registerIpc();
   trace('creating window');

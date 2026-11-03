@@ -3,14 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * KNOuX AI Assistant Chatbot Copilot
- * Session-only credential entry. Persistent secure storage and AI provider
- * execution are owned by the later Settings/Assistant mission; this component
- * must not claim activation when no provider is connected.
+ *
+ * The credential is handed to the Main-process AI bridge and never held here.
+ * Completions go through the fixed `knoux:ai:v1:complete` channel, so this
+ * component cannot choose a network destination and cannot leak a key into a
+ * renderer log. Without the desktop bridge it says so instead of pretending.
  */
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AiProviderIcon } from '../app/AppIcon';
-import { clearAiSession, getAiSession, setAiSession } from '../../lib/ai-session';
+import { getAiSession, refreshAiSession, resetAiSession } from '../../lib/ai-session';
+import { cancelAiRequests, clearAiProvider, configureAiProvider, hasAiBridge, requestAiCompletion } from '../../lib/ai-bridge';
+import type { AiChatMessage, AiProviderId } from '../../../shared/native-contracts';
 import {
   Sparkles,
   MessageSquare,
@@ -50,13 +54,13 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   
-  // API Key & Provider State — session memory only (no localStorage).
-  const [provider, setProvider] = useState<'openrouter' | 'openai'>(() => {
-    const saved = getAiSession().provider;
-    return saved === 'openai' ? 'openai' : 'openrouter';
-  });
-  const [apiKey, setApiKey] = useState<string>(() => getAiSession().apiKey);
-  const [isKeySaved, setIsKeySaved] = useState<boolean>(() => Boolean(getAiSession().apiKey));
+  // Provider selection and a transient key draft. The draft is handed to Main
+  // and immediately forgotten; this component never holds a credential.
+  const [provider, setProvider] = useState<AiProviderId>(() => getAiSession().provider);
+  const [keyDraft, setKeyDraft] = useState('');
+  const [isKeySaved, setIsKeySaved] = useState<boolean>(() => getAiSession().hasKey);
+  const [bridgeReady, setBridgeReady] = useState<boolean>(() => hasAiBridge());
+  const [credentialScope, setCredentialScope] = useState<string>(() => getAiSession().storage);
 
   // Chat State
   const [inputMessage, setInputMessage] = useState<string>('');
@@ -65,8 +69,8 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
       id: '1',
       sender: 'ai',
       text: isAr
-        ? 'مرحباً بك! مزوّد الذكاء الاصطناعي غير موصول في مرحلة المنصة للقراءة فقط. يمكنك مراجعة حالة الجسر الأصلي من الشريط الجانبي، وتكامل AI يُستكمل في مهمة الإعدادات والمساعد.'
-        : 'Hello! The AI provider is not connected in this read-only platform phase. You can inspect the native bridge status from the sidebar; AI integration lands in the Settings/Assistant mission.',
+        ? 'مرحباً بك! يعمل مساعد KNOuX عبر الجسر الأصلي للمفاتيح: يُسلَّم المفتاح لعملية Main ولا يعود للمعروض. افتح إعدادات المزود لتسليم مفتاح، وستُنفَّذ الطلبات في المحرك الأصلي.'
+        : 'Hello! KNOuX Copilot runs through the native credential bridge: a key is handed to the Main process and never returned to this view. Open provider settings to hand over a key, and requests will execute in the native engine.',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -94,30 +98,61 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
     return () => window.removeEventListener('keydown', handleKey);
   }, [isOpen]);
 
-  const handleSaveKey = (e: React.FormEvent) => {
+  // Sync the honest bridge state each time the panel opens.
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    setBridgeReady(hasAiBridge());
+    void refreshAiSession().then((state) => {
+      if (cancelled) return;
+      setIsKeySaved(state.hasKey);
+      setCredentialScope(state.storage);
+      if (state.hasKey) setProvider(state.provider);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen]);
+
+  const pushAssistantNote = (text: string) => {
+    setMessages((prev) => [
+      ...prev,
+      { id: Date.now().toString(), sender: 'ai', text, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
+    ]);
+  };
+
+  const handleSaveKey = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (apiKey.trim()) {
-      setAiSession(apiKey, provider);
-      setIsKeySaved(true);
+    const draft = keyDraft.trim();
+    if (!draft) return;
+    // Forget the renderer copy first: Main owns it from here on.
+    setKeyDraft('');
+    const result = await configureAiProvider({ provider, apiKey: draft });
+    const state = await refreshAiSession();
+    setIsKeySaved(state.hasKey);
+    setCredentialScope(state.storage);
+    if (result.ok && result.data.configured) {
       setIsSettingsOpen(false);
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          sender: 'ai',
-          text: isAr
-            ? 'تم الاحتفاظ بالمفتاح في ذاكرة هذه الجلسة فقط. لا يوجد تخزين آمن دائم بعد، وتكامل مزود AI يُستكمل في مهمة الإعدادات والمساعد.'
-            : 'Key held in memory for this session only. Persistent secure storage is not connected yet; AI provider integration lands in the Settings/Assistant mission.',
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        },
-      ]);
+      pushAssistantNote(
+        isAr
+          ? 'تسلّم محرك Windows المفتاح. يُنفَّذ كل طلب من عملية Main ولا يصل المفتاح إلى هذا العرض.'
+          : 'The native engine holds the key now. Every request runs in the Main process; this view never sees the credential again.'
+      );
+    } else {
+      pushAssistantNote(
+        result.ok
+          ? isAr ? 'رفض محرك Windows المفتاح.' : 'The native engine rejected the credential.'
+          : result.error.message
+      );
     }
   };
 
-  const handleClearKey = () => {
-    clearAiSession();
-    setApiKey('');
+  const handleClearKey = async () => {
+    await clearAiProvider();
+    resetAiSession();
+    setKeyDraft('');
     setIsKeySaved(false);
+    setCredentialScope('empty');
   };
 
   // Scroll to bottom on new message
@@ -142,60 +177,36 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
     setMessages((prev) => [...prev, newMsg]);
     setIsGenerating(true);
 
+    // Build the bounded conversation the bridge will forward. Only the last few
+    // real turns are sent; the bridge applies its own hard limits on top.
+    const history: AiChatMessage[] = messages
+      .slice(-10)
+      .map((entry) => ({ role: entry.sender === 'user' ? 'user' : 'assistant', content: entry.text }) as AiChatMessage)
+      .filter((entry) => entry.content.trim().length > 0);
+    history.push({ role: 'user', content: userText });
+
     try {
       let aiResponseText = '';
 
-      if (isKeySaved && apiKey) {
-        // Real API Call to OpenRouter or OpenAI
-        const endpoint =
-          provider === 'openrouter'
-            ? 'https://openrouter.ai/api/v1/chat/completions'
-            : 'https://api.openai.com/v1/chat/completions';
-
-        const modelName =
-          provider === 'openrouter' ? 'anthropic/claude-3.5-sonnet' : 'gpt-4o-mini';
-
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey.trim()}`,
-            ...(provider === 'openrouter' && {
-              'HTTP-Referer': window.location.origin,
-              'X-Title': 'KNOuX SmartOrganizer AI Copilot',
-            }),
-          },
-          body: JSON.stringify({
-            model: modelName,
-            messages: [
-              {
-                role: 'system',
-                content:
-                  'You are KNOuX AI Copilot, an expert Windows system organizer and diagnostic assistant embedded inside KNOuX SmartOrganizer. Help the user manage apps, files, storage, cleanup, startup, and services.',
-              },
-              { role: 'user', content: userText },
-            ],
-            temperature: 0.7,
-          }),
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          aiResponseText =
-            data.choices?.[0]?.message?.content ||
-            (isAr ? 'تم استلام الرد بنجاح.' : 'Response received successfully.');
-        } else {
-          const errData = await res.json().catch(() => ({}));
+      if (isKeySaved && bridgeReady) {
+        // Single bounded completion, executed inside the Main process.
+        const result = await requestAiCompletion({ messages: history });
+        if (result.ok && result.data.ok && result.data.text) {
+          aiResponseText = result.data.text;
+        } else if (result.ok) {
           aiResponseText = isAr
-            ? `خطأ في الاتصال بالخدمة (${res.status}): ${errData.error?.message || 'تحقق من صحة المفتاح.'}`
-            : `API Error (${res.status}): ${errData.error?.message || 'Please check your API key.'}`;
+            ? `رفض المزود الطلب (HTTP ${result.data.status}): ${result.data.error?.message || 'تحقق من صحة المفتاح.'}`
+            : `Provider error (HTTP ${result.data.status}): ${result.data.error?.message || 'Please check your API key.'}`;
+        } else {
+          aiResponseText = isAr
+            ? `تعذّر تنفيذ الطلب عبر الجسر الأصلي: ${result.error.message}`
+            : `The native bridge could not run the request: ${result.error.message}`;
         }
       } else {
-        // Intelligent Simulated Assistant Response when key is not provided yet
-        await new Promise((r) => setTimeout(r, 1200));
+        // No simulated "AI answer". The assistant states what is missing.
         aiResponseText = isAr
-          ? `ملاحظة: لم تقم بإدخال مفتاح الـ API بعد. لإجابات ذكية حقيقية عبر الإنترنت، يرجى النقر على أيقونة الإعدادات (⚙️) أعلاه وإدخال مفتاح ${provider === 'openrouter' ? 'OpenRouter' : 'OpenAI Code Console v2'}. وفي الوقت الحالي، إليك إرشادات نظام KNOuX: القسم الحالي النشط هو "${currentSection}". يمكنك فحص المخلفات أو تنظيم الملفات بكل سهولة!`
-          : `Note: You have not entered an API key yet. For live AI responses, click the settings icon (⚙️) above and enter your ${provider === 'openrouter' ? 'OpenRouter' : 'OpenAI Code Console v2'} key. Currently, your active section is "${currentSection}". You can run smart scans, organize files, and optimize storage anytime!`;
+          ? `لا يوجد مفتاح لدى الجسر الأصلي${bridgeReady ? '' : ' والجسر غير متاح أصلاً خارج تطبيق سطح المكتب'}. افتح إعدادات المزود (⚙️) وسلّم مفتاح ${provider} لتشغيل إجابات حقيقية. القسم النشط حالياً: "${currentSection}".`
+          : `No credential is held by the native bridge${bridgeReady ? '' : ', and the bridge only exists in the desktop app'}. Open provider settings (⚙️) and hand over your ${provider} key to get live answers. Active section: "${currentSection}".`;
       }
 
       setMessages((prev) => [
@@ -207,19 +218,25 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
-    } catch (err: any) {
+    } catch {
+      // Never interpolate a raw thrown value: it can carry a request context.
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           sender: 'ai',
-          text: isAr ? `حدث خطأ أثناء الاتصال: ${err.message}` : `Connection error: ${err.message}`,
+          text: isAr ? 'تعذّر إتمام الطلب عبر الجسر الأصلي.' : 'The request did not complete through the native bridge.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleCancelGeneration = async () => {
+    await cancelAiRequests();
+    setIsGenerating(false);
   };
 
   return (
@@ -248,11 +265,12 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                         : 'bg-amber-950/80 text-amber-300 border-amber-500/50'
                     }`}
                   >
-                    {isKeySaved ? (isAr ? 'مفتاح جلسة' : 'Session Key') : (isAr ? 'يحتاج مفتاح' : 'Needs Key')}
+                    {isKeySaved ? (isAr ? 'مفتاح في المحرك' : 'Key in Main') : (isAr ? 'يحتاج مفتاح' : 'Needs Key')}
                   </span>
                 </div>
                 <div className="text-[10px] text-cyan-400 font-mono">
-                  {provider === 'openrouter' ? 'OpenRouter API' : 'OpenAI Code Console v2'} · not connected
+                  {provider === 'openrouter' ? 'OpenRouter' : provider === 'anthropic' ? 'Anthropic' : 'OpenAI'} ·{' '}
+                  {bridgeReady ? (isKeySaved ? `Main bridge · ${credentialScope}` : 'Main bridge · no key') : 'desktop bridge unavailable'}
                 </div>
               </div>
             </div>
@@ -296,7 +314,7 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                   <label className="text-slate-300 font-medium block mb-1">
                     {isAr ? 'اختر المزود (Provider)' : 'Select AI Provider'}
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-3 gap-2">
                     <button
                       type="button"
                       onClick={() => setProvider('openrouter')}
@@ -319,6 +337,17 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                     >
                       <AiProviderIcon provider="openai" /> OpenAI
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => setProvider('anthropic')}
+                      className={`p-1.5 rounded-lg border text-center font-semibold transition cursor-pointer ${
+                        provider === 'anthropic'
+                          ? 'border-cyan-400 bg-cyan-950/40 text-cyan-200'
+                          : 'border-slate-800 bg-slate-900/60 text-slate-400'
+                      }`}
+                    >
+                      <AiProviderIcon provider="anthropic" /> Anthropic
+                    </button>
                   </div>
                 </div>
 
@@ -328,10 +357,12 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                   </label>
                   <input
                     type="password"
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
+                    value={keyDraft}
+                    onChange={(e) => setKeyDraft(e.target.value)}
+                    autoComplete="off"
+                    spellCheck={false}
                     placeholder={
-                      provider === 'openrouter' ? 'sk-or-v1-...' : 'sk-proj-...'
+                      provider === 'openrouter' ? 'sk-or-v1-...' : provider === 'anthropic' ? 'sk-ant-...' : 'sk-proj-...'
                     }
                     className="w-full bg-[#040a16] border border-[#1b3f70] rounded-lg px-3 py-1.5 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 font-mono text-xs"
                   />
@@ -344,18 +375,18 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                       onClick={handleClearKey}
                       className="text-rose-400 hover:underline text-[11px]"
                     >
-                      {isAr ? 'حذف مفتاح الجلسة' : 'Remove Session Key'}
+                      {isAr ? 'محو المفتاح من المحرك' : 'Erase Key from Engine'}
                     </button>
                   ) : (
                     <span className="text-[10px] text-slate-400">
-                      {isAr ? 'ذاكرة الجلسة فقط؛ لا تخزين دائم ولا مزود موصول' : 'Session memory only; no persistence or provider connection'}
+                      {isAr ? 'يُسلَّم للمحرك الأصلي؛ لا localStorage ولا ملف تفضيلات' : 'Handed to the native engine; no localStorage, no profile file'}
                     </span>
                   )}
                   <button
                     type="submit"
                     className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs cursor-pointer shadow-md"
                   >
-                    {isAr ? 'حفظ للجلسة' : 'Hold for Session'}
+                    {isAr ? 'تسليم للمحرك' : 'Hand to Engine'}
                   </button>
                 </div>
               </form>
@@ -405,7 +436,14 @@ export const KNOuXAssistantChat: React.FC<KNOuXAssistantChatProps> = ({
                 </div>
                 <div className="p-3 rounded-2xl bg-[#08162e] border border-[#17345f] text-slate-300 rounded-tl-none flex items-center gap-2">
                   <RefreshCw className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
-                  <span className="text-xs">{isAr ? 'جاري التفكير...' : 'Thinking...'}</span>
+                  <span className="text-xs">{isAr ? 'جاري التنفيذ في المحرك الأصلي...' : 'Running in the native engine...'}</span>
+                  <button
+                    type="button"
+                    onClick={handleCancelGeneration}
+                    className="ms-auto px-2 py-0.5 rounded-md bg-[#081730] hover:bg-[#11274f] text-[10px] text-rose-300 border border-[#183661] cursor-pointer"
+                  >
+                    {isAr ? 'إلغاء' : 'Cancel'}
+                  </button>
                 </div>
               </div>
             )}
