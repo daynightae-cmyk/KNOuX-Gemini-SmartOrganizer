@@ -1,0 +1,44 @@
+{
+  "schema": "knoux.ai-bridge-electron-probe.v1",
+  "startedAt": "2026-11-03T03:35:56.137Z",
+  "electron": "43.4.1",
+  "node": "24.18.1",
+  "chrome": "150.0.7871.224",
+  "platform": "win32",
+  "packaged": false,
+  "userData": "D:\\Temp\\knoux-ai-probe-8088",
+  "providers": [
+    "openrouter",
+    "openai",
+    "anthropic"
+  ],
+  "safeStoragePresent": true,
+  "dpapiEncryptionAvailable": true,
+  "statusShape": {
+    "configured": true,
+    "storage": "session-memory",
+    "fingerprint": "74ea146e4e01",
+    "destination": "openrouter.ai",
+    "storageAvailable": true
+  },
+  "credentialBlobBytes": 119,
+  "verifyRequest": {
+    "url": "https://openrouter.ai/api/v1/auth/key",
+    "method": "GET",
+    "headerNames": [
+      "content-type",
+      "Authorization",
+      "X-Title"
+    ],
+    "hasAbortSignal": true
+  },
+  "redactedErrorMessage": "The provider rejected the request (401). invalid token [redacted]",
+  "limits": {
+    "maxMessages": 24,
+    "maxResponseBytes": 262144
+  },
+  "finishedAt": "2026-11-03T03:35:57.090Z",
+  "checkCount": 29,
+  "failures": [],
+  "ok": true
+}

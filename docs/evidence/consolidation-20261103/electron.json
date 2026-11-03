@@ -1,62 +1,225 @@
 {
-  "head": "21595ee2612041ec513583cb32dcf7a8910a9e1c",
-  "scope": "Development Electron; read-only bridge status and route rendering; no live cloud request, owner mutation or installed-app claim",
+  "head": "75443693c76bb10c2d2bf894aa5edcaff0ccb7f2",
+  "scope": "Development Electron; active Codex artwork and all 91 inner-workspace selections, read-only bridge status and route rendering; no service-effect, live cloud request, owner mutation or installed-app claim",
   "routes": [
     {
       "section": "home",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "studio",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "files",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "smart_scan",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "applications",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "repair",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "cleanup",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "storage",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "startup",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "system",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "services",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "automation",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "workspace",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
     },
     {
       "section": "settings",
-      "rendered": true
+      "rendered": true,
+      "originalArtworkLoaded": true
+    }
+  ],
+  "visualActivation": [
+    {
+      "section": "studio",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "mission-03-01",
+        "mission-03-02",
+        "mission-03-03",
+        "mission-03-04",
+        "mission-03-05",
+        "mission-03-06",
+        "mission-03-07",
+        "mission-03-08",
+        "mission-03-09"
+      ]
+    },
+    {
+      "section": "files",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "file-downloads-inventory",
+        "file-organize-preview",
+        "file-organize-apply",
+        "file-organize-undo",
+        "file-empty-folders",
+        "file-hash",
+        "file-search",
+        "file-type-map",
+        "file-recents",
+        "file-largest",
+        "file-metadata",
+        "file-provenance"
+      ]
+    },
+    {
+      "section": "smart_scan",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "quick_scan",
+        "deep_scan",
+        "duplicate_finder",
+        "large_files_review",
+        "junk_cleaner",
+        "privacy_trace_check",
+        "startup_impact_check",
+        "app_health_review",
+        "system_health_pulse",
+        "smart_recommendations"
+      ]
+    },
+    {
+      "section": "applications",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "app-inventory",
+        "app-identity",
+        "app-search",
+        "app-publisher",
+        "app-recent",
+        "app-uninstall-queue",
+        "app-leftovers",
+        "app-updates",
+        "app-size",
+        "app-store-packages",
+        "app-associations",
+        "app-startup-impact"
+      ]
+    },
+    {
+      "section": "repair",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "repair-component-check",
+        "repair-component-scan",
+        "repair-component-restore",
+        "repair-files-verify",
+        "repair-files-repair",
+        "repair-dns-flush",
+        "repair-winsock-reset",
+        "repair-tcpip-reset",
+        "repair-history",
+        "repair-troubleshooters",
+        "repair-restore-point",
+        "repair-update-reset"
+      ]
+    },
+    {
+      "section": "cleanup",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "cleanup-temp-preview",
+        "cleanup-temp-quarantine",
+        "cleanup-temp-undo",
+        "cleanup-quarantine-list",
+        "cleanup-estimate",
+        "cleanup-recycle",
+        "cleanup-unused",
+        "cleanup-update-cache",
+        "cleanup-browser-cache",
+        "cleanup-logs",
+        "cleanup-schedule",
+        "cleanup-reports"
+      ]
+    },
+    {
+      "section": "storage",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "storage-disks",
+        "storage-large-files",
+        "storage-duplicates",
+        "storage-treemap",
+        "storage-top-folders",
+        "storage-filetypes",
+        "storage-scan-overview",
+        "storage-fragmentation",
+        "storage-smart",
+        "storage-reclaim",
+        "storage-history",
+        "storage-removable"
+      ]
+    },
+    {
+      "section": "startup",
+      "dockVisible": true,
+      "inlineWorkspaceVisible": true,
+      "selectedServices": [
+        "startup-overview",
+        "startup-disable",
+        "startup-restore",
+        "startup-sources",
+        "startup-journal",
+        "startup-filter",
+        "startup-impact",
+        "startup-services",
+        "startup-tasks",
+        "startup-delay",
+        "startup-batch",
+        "startup-undo-all"
+      ]
     }
   ],
   "errors": [],
@@ -64,17 +227,17 @@
   "bridge": {
     "shell": {
       "contractVersion": 1,
-      "requestId": "ab9e5c4c-9c8c-4cff-97f6-c2fbf6650f41",
+      "requestId": "7ecbb7c1-fe8d-446c-abd2-6aba0af4062d",
       "capability": "bridge.status",
       "status": "available",
       "source": "KNOuX Gemini Electron main",
-      "observedAt": "2026-11-03T03:28:19.835Z",
+      "observedAt": "2026-11-03T03:44:03.618Z",
       "permission": "read-only",
       "warnings": [],
       "provenance": {
         "provider": "Electron main process",
         "mode": "measured",
-        "observedAt": "2026-11-03T03:28:19.835Z",
+        "observedAt": "2026-11-03T03:44:03.618Z",
         "coverage": "full",
         "permissions": [
           "read-only"
@@ -1126,10 +1289,10 @@
     "ai": {
       "contractVersion": 1,
       "capability": "ai.status",
-      "requestId": "e4c8703d-d0c7-414a-b86e-ab5f7f966fa9",
+      "requestId": "d3dbad9e-aa6f-4619-bae9-d96c1439af87",
       "status": "complete",
       "source": "AI provider main-process bridge",
-      "observedAt": "2026-11-03T03:28:19.840Z",
+      "observedAt": "2026-11-03T03:44:03.632Z",
       "permission": "read-only",
       "warnings": [],
       "data": {
@@ -1149,16 +1312,16 @@
         "inFlight": 0,
         "lastVerifiedAt": null,
         "lastError": null,
-        "observedAt": "2026-11-03T03:28:19.840Z"
+        "observedAt": "2026-11-03T03:44:03.632Z"
       }
     },
     "google": {
       "contractVersion": 1,
       "capability": "google.workspace.capabilities",
-      "requestId": "e54dca6b-28eb-43da-a5c8-1c2c53851135",
+      "requestId": "354ca537-459c-4a69-9d39-4b6e294a4232",
       "status": "complete",
       "source": "Google OAuth main-process coordinator",
-      "observedAt": "2026-11-03T03:28:19.841Z",
+      "observedAt": "2026-11-03T03:44:03.633Z",
       "permission": "read-only",
       "warnings": [],
       "data": {
@@ -1235,16 +1398,16 @@
             "selection": false
           }
         ],
-        "updatedAt": "2026-11-03T03:28:16.727Z"
+        "updatedAt": "2026-11-03T03:43:55.217Z"
       }
     },
     "googleState": {
       "contractVersion": 1,
       "capability": "google.status",
-      "requestId": "a10058b2-7e5c-44ef-baec-c237f721beef",
+      "requestId": "f7e89208-6ed7-4cde-bb2c-0dbcc05f81aa",
       "status": "complete",
       "source": "Google OAuth main-process coordinator",
-      "observedAt": "2026-11-03T03:28:19.957Z",
+      "observedAt": "2026-11-03T03:44:03.670Z",
       "permission": "read-only",
       "warnings": [],
       "data": {
@@ -1277,7 +1440,7 @@
         "selectedSpreadsheetCount": 0,
         "obtainedAt": null,
         "lastError": null,
-        "updatedAt": "2026-11-03T03:28:19.957Z"
+        "updatedAt": "2026-11-03T03:44:03.670Z"
       }
     }
   }
