@@ -8,11 +8,15 @@
 import {
   NATIVE_CONTRACT_VERSION,
   type GoogleConnectionStatus,
+  type GoogleProductId,
   type GoogleSelectionResult,
   type GoogleSheetMetadata,
   type GoogleSheetValues,
   type GoogleSheetsListResult,
   type GoogleShellApi,
+  type GoogleWorkspaceCapabilities,
+  type GoogleWorkspaceReadResult,
+  type GoogleWorkspaceSelectionResult,
   type NativeEnvelope,
 } from '../../shared/native-contracts';
 
@@ -94,3 +98,38 @@ export type {
   GoogleSheetsListResult,
   GoogleSheetValues,
 };
+
+/* ---------------------------------------------------------------- Workspace */
+
+export async function loadGoogleWorkspaceCapabilities(): Promise<NativeEnvelope<GoogleWorkspaceCapabilities> | null> {
+  const api = getGoogleShell();
+  if (!api) return null;
+  return assertEnvelope(await api.workspaceCapabilities(), 'google.workspace.capabilities');
+}
+
+export async function authorizeGoogleProduct(product: GoogleProductId): Promise<NativeEnvelope<GoogleConnectionStatus> | null> {
+  const api = getGoogleShell();
+  if (!api) return null;
+  return assertEnvelope(await api.authorizeWorkspace(product), 'google.workspace.authorize');
+}
+
+export async function readGoogleWorkspace(request: {
+  product: GoogleProductId;
+  id?: string;
+  query?: string;
+}): Promise<NativeEnvelope<GoogleWorkspaceReadResult> | null> {
+  const api = getGoogleShell();
+  if (!api) return null;
+  return assertEnvelope(await api.readWorkspace(request), 'google.workspace.read');
+}
+
+export async function selectGoogleWorkspace(request: {
+  product: GoogleProductId;
+  action: 'add' | 'remove';
+  input?: string;
+  id?: string;
+}): Promise<NativeEnvelope<GoogleWorkspaceSelectionResult> | null> {
+  const api = getGoogleShell();
+  if (!api) return null;
+  return assertEnvelope(await api.selectWorkspace(request), 'google.workspace.select');
+}

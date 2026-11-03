@@ -8,20 +8,27 @@
 import { useCallback, useEffect, useState } from 'react';
 import type {
   GoogleConnectionStatus,
+  GoogleProductId,
   GoogleSheetMetadata,
   GoogleSheetValues,
   GoogleSheetsListResult,
+  GoogleWorkspaceCapabilities,
+  GoogleWorkspaceReadResult,
 } from '../../shared/native-contracts';
 import {
   addGoogleSpreadsheet,
+  authorizeGoogleProduct,
   beginGoogleConnect,
   cancelGoogleConnect,
   disconnectGoogle,
   getGoogleShell,
   listGoogleSheets,
   loadGoogleStatus,
+  loadGoogleWorkspaceCapabilities,
   readGoogleSheet,
+  readGoogleWorkspace,
   removeGoogleSpreadsheet,
+  selectGoogleWorkspace,
 } from './google-native';
 
 export interface GoogleWorkspaceController {
@@ -35,6 +42,10 @@ export interface GoogleWorkspaceController {
   busy: 'sheets' | 'add' | 'remove' | 'read' | 'disconnect' | null;
   error: { code: string; message: string } | null;
   notice: string | null;
+  capabilities: GoogleWorkspaceCapabilities | null;
+  workspaceResults: Partial<Record<GoogleProductId, GoogleWorkspaceReadResult>>;
+  workspaceBusy: GoogleProductId | null;
+  workspaceError: { product: GoogleProductId; code: string; message: string } | null;
   refreshStatus: () => Promise<void>;
   connect: () => Promise<boolean>;
   cancelConnect: () => Promise<void>;
@@ -43,6 +54,10 @@ export interface GoogleWorkspaceController {
   addSpreadsheet: (input: string) => Promise<boolean>;
   removeSpreadsheet: (id: string) => Promise<boolean>;
   readSheet: (id: string, range?: string) => Promise<GoogleSheetValues | null>;
+  loadCapabilities: () => Promise<void>;
+  authorizeProduct: (product: GoogleProductId) => Promise<boolean>;
+  readProduct: (product: GoogleProductId, options?: { id?: string; query?: string }) => Promise<GoogleWorkspaceReadResult | null>;
+  selectDocument: (product: GoogleProductId, action: 'add' | 'remove', input: string) => Promise<boolean>;
   clearError: () => void;
   clearNotice: () => void;
 }
@@ -66,6 +81,10 @@ export function useGoogleWorkspace(): GoogleWorkspaceController {
   const [busy, setBusy] = useState<GoogleWorkspaceController['busy']>(null);
   const [error, setError] = useState<GoogleWorkspaceController['error']>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  const [capabilities, setCapabilities] = useState<GoogleWorkspaceCapabilities | null>(null);
+  const [workspaceResults, setWorkspaceResults] = useState<Partial<Record<GoogleProductId, GoogleWorkspaceReadResult>>>({});
+  const [workspaceBusy, setWorkspaceBusy] = useState<GoogleProductId | null>(null);
+  const [workspaceError, setWorkspaceError] = useState<GoogleWorkspaceController['workspaceError']>(null);
 
   const refreshStatus = useCallback(async () => {
     if (!bridgeAvailable) {
@@ -143,6 +162,8 @@ export function useGoogleWorkspace(): GoogleWorkspaceController {
       setSheets([]);
       setSheetFailures([]);
       setValues(null);
+      setWorkspaceResults({});
+      setWorkspaceError(null);
       setNotice('The local Google grant was removed. Revoke the app at myaccount.google.com/permissions if you also want to remove the Google-side grant.');
       return true;
     } catch (caught) {
@@ -244,6 +265,111 @@ export function useGoogleWorkspace(): GoogleWorkspaceController {
     }
   }, [bridgeAvailable]);
 
+  const loadCapabilities = useCallback(async () => {
+    if (!bridgeAvailable) return;
+    try {
+      const envelope = await loadGoogleWorkspaceCapabilities();
+      if (envelope?.data) setCapabilities(envelope.data);
+    } catch {
+      // A capabilities read is descriptive only; the per-product gate still
+      // reports its own state, so a failure here must not block the hub.
+    }
+  }, [bridgeAvailable]);
+
+  const authorizeProduct = useCallback(async (product: GoogleProductId) => {
+    if (!bridgeAvailable) {
+      setWorkspaceError({
+        product,
+        code: 'GOOGLE_BRIDGE_UNAVAILABLE',
+        message: 'The native Google bridge is unavailable in this preview.',
+      });
+      return false;
+    }
+    setWorkspaceBusy(product);
+    setWorkspaceError(null);
+    setNotice(null);
+    try {
+      const envelope = await authorizeGoogleProduct(product);
+      if (envelope?.data) setStatus(envelope.data);
+      const failure = envelopeError(envelope);
+      if (failure) {
+        setWorkspaceError({ product, ...failure });
+        return false;
+      }
+      setNotice('Google authorization completed for this service only.');
+      return true;
+    } catch (caught) {
+      setWorkspaceError({
+        product,
+        code: 'GOOGLE_PRODUCT_AUTH_FAILED',
+        message: String((caught as Error)?.message || caught),
+      });
+      return false;
+    } finally {
+      setWorkspaceBusy(null);
+      void refreshStatus();
+    }
+  }, [bridgeAvailable, refreshStatus]);
+
+  const readProduct = useCallback(async (
+    product: GoogleProductId,
+    options: { id?: string; query?: string } = {}
+  ) => {
+    if (!bridgeAvailable) return null;
+    setWorkspaceBusy(product);
+    setWorkspaceError(null);
+    try {
+      const envelope = await readGoogleWorkspace({ product, ...options });
+      const failure = envelopeError(envelope);
+      if (failure) {
+        setWorkspaceError({ product, ...failure });
+        return null;
+      }
+      const result = envelope?.data || null;
+      if (result) setWorkspaceResults((current) => ({ ...current, [product]: result }));
+      return result;
+    } catch (caught) {
+      setWorkspaceError({
+        product,
+        code: 'GOOGLE_WORKSPACE_READ_FAILED',
+        message: String((caught as Error)?.message || caught),
+      });
+      return null;
+    } finally {
+      setWorkspaceBusy(null);
+    }
+  }, [bridgeAvailable]);
+
+  const selectDocument = useCallback(async (
+    product: GoogleProductId,
+    action: 'add' | 'remove',
+    input: string
+  ) => {
+    if (!bridgeAvailable) return false;
+    setWorkspaceBusy(product);
+    setWorkspaceError(null);
+    try {
+      const envelope = await selectGoogleWorkspace(
+        action === 'remove' ? { product, action, id: input } : { product, action, input }
+      );
+      const failure = envelopeError(envelope);
+      if (failure) {
+        setWorkspaceError({ product, ...failure });
+        return false;
+      }
+      return true;
+    } catch (caught) {
+      setWorkspaceError({
+        product,
+        code: 'GOOGLE_SELECTION_FAILED',
+        message: String((caught as Error)?.message || caught),
+      });
+      return false;
+    } finally {
+      setWorkspaceBusy(null);
+    }
+  }, [bridgeAvailable]);
+
   return {
     bridgeAvailable,
     status,
@@ -263,6 +389,14 @@ export function useGoogleWorkspace(): GoogleWorkspaceController {
     addSpreadsheet,
     removeSpreadsheet,
     readSheet,
+    capabilities,
+    workspaceResults,
+    workspaceBusy,
+    workspaceError,
+    loadCapabilities,
+    authorizeProduct,
+    readProduct,
+    selectDocument,
     clearError: () => setError(null),
     clearNotice: () => setNotice(null),
   };

@@ -38,12 +38,12 @@ const SCOPES = [
   'spreadsheets.readonly',
   'gmail.readonly',
   'tasks.readonly',
-  'forms.readonly',
+  'forms.body.readonly',
   'contacts.readonly',
   'calendar.readonly',
-  'picker.googleapis.com (JS API)',
+  'drive.metadata.readonly',
   'presentations.readonly',
-  'chat.messages.readonly',
+  'chat.spaces.readonly',
   'classroom.courses.readonly',
 ];
 
@@ -67,10 +67,15 @@ check('the fake connected state and simulated banner are gone', () => {
 
 check('no alert, fake success or direct Google API call exists', () => {
   assert.ok(!/\balert\s*\(/.test(source), 'alert() is forbidden');
-  assert.ok(!/fetch\s*\(/.test(source), 'network fetch is forbidden');
-  assert.ok(!/https?:\/\//.test(source), 'external URL is forbidden');
-  assert.ok(!/gapi\.|accounts\.google\.com|oauth2\.googleapis/i.test(source), 'OAuth/API endpoint is forbidden');
+  assert.ok(!/fetch\s*\(/.test(source), 'network fetch is forbidden in the renderer');
+  assert.ok(!/googleapis|accounts\.google\.com|gapi\./i.test(source), 'OAuth/API endpoint is forbidden');
   assert.ok(!/(?:localStorage|sessionStorage)\s*\.\s*(?:setItem|getItem|removeItem|clear)/.test(source), 'token-like browser storage is forbidden');
+  const urls = source.match(/https?:\/\/[^\s'"`)]+/g) || [];
+  assert.deepEqual(
+    urls.filter((url) => !url.startsWith('https://docs.google.com')),
+    [],
+    'the only external URL the hub may name is the docs.google.com document form'
+  );
 });
 
 check('the header exposes real mutually exclusive Google states', () => {
@@ -81,15 +86,37 @@ check('the header exposes real mutually exclusive Google states', () => {
   assert.match(source, /Review Google access/);
 });
 
-check('the consent review shows the fixed four-scope set and real connect action', () => {
+check('the consent review lists identity scopes and one row per service', () => {
   assert.match(source, /data-testid="workspace-oauth-modal"/);
   assert.match(source, /data-testid="workspace-oauth-status"/);
   assert.match(source, /data-testid="workspace-oauth-connect"/);
   assert.match(source, /data-testid="workspace-oauth-cancel"/);
   assert.match(source, /data-testid="workspace-oauth-scopes"/);
-  assert.match(source, /SCOPE_ROWS\.map/);
+  assert.match(source, /SCOPE_ROWS\.filter/);
+  assert.match(source, /HUB_SERVICES\.map/);
+  assert.match(source, /workspace-scope-\$\{service\.id\}/);
   assert.ok(!/workspace-oauth-copy/.test(source), 'fake copy-only consent gate must be gone');
   assert.ok(!/type="checkbox"/.test(source), 'the hub must not simulate scope checkboxes');
+});
+
+check('each service is gated on its own granted product scope before any read', () => {
+  assert.match(source, /const SERVICE_PRODUCT: Record<HubServiceId, GoogleProductId>/);
+  assert.match(source, /google\.authorizeProduct\(activeProduct\)/);
+  assert.match(source, /google\.readProduct\(activeProduct\)/);
+  assert.match(source, /workspace-gate-\$\{activeService\}/);
+  assert.match(source, /workspace-enable-\$\{activeService\}/);
+  assert.match(source, /activeGrant !== 'granted'/);
+  assert.match(source, /SELECTION_SERVICES/);
+});
+
+check('the live surfaces expose honest loading, empty, error and provenance states', () => {
+  assert.match(source, /data-testid="workspace-live-loading"/);
+  assert.match(source, /data-testid="workspace-live-empty"/);
+  assert.match(source, /data-testid="workspace-live-error/);
+  assert.match(source, /data-testid="workspace-provenance"/);
+  assert.match(source, /liveResult\.provenance\.api/);
+  assert.match(source, /workspace-document-input-\$\{activeService\}/);
+  assert.match(source, /Read-only — no write or external open/);
 });
 
 check('the real Sheets workbench distinguishes live data from fixtures', () => {
@@ -113,9 +140,13 @@ check('service actions state that nothing was executed', () => {
 
 check('fixtures and local-only writes remain explicitly labelled', () => {
   assert.match(source, /Preview \+ on-demand Google/);
-  assert.match(source, /other nine Google services remain design previews|الخدمات التسع الأخرى تبقى معاينة تصميمية/);
+  assert.match(source, /Live Google — read only/);
   assert.match(source, /Stays inside this browser only/);
   assert.match(source, /No operation performed against Google/);
+  assert.match(source, /read from Google/);
+  assert.match(source, /Record source/);
+  assert.match(source, /Fixture/);
+  assert.match(source, /Live read/);
   assert.match(sheets, /No general Drive search/);
 });
 

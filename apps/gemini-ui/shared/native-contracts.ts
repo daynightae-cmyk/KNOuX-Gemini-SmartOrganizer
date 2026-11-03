@@ -3520,12 +3520,78 @@ export interface GoogleConnectionStatus {
   account: GoogleAccountSummary | null;
   grantedScopes: string[];
   missingScopes: string[];
+  products: Record<GoogleProductId, GoogleProductGrant>;
+  reauthRequired: boolean;
   tokenStorage: 'windows-dpapi-safeStorage' | 'unavailable';
   storageAvailable: boolean;
   selectedSpreadsheetCount: number;
   obtainedAt: string | null;
   lastError: { code: string; message: string; retryable: boolean } | null;
   updatedAt: string;
+}
+
+/* Per-product Workspace readers. A product is granted only by its own explicit
+   consent; the renderer never receives a token, a URL or a request body. */
+export type GoogleProductId =
+  | 'sheets'
+  | 'gmail'
+  | 'tasks'
+  | 'forms'
+  | 'contacts'
+  | 'calendar'
+  | 'picker'
+  | 'slides'
+  | 'chat'
+  | 'classroom';
+
+export type GoogleProductGrant = 'granted' | 'missing' | 'not-requested';
+
+export interface GoogleWorkspaceField {
+  label: string;
+  value: string;
+}
+
+export interface GoogleWorkspaceItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  meta: string;
+  status: 'live' | 'warn' | 'muted';
+  fields: GoogleWorkspaceField[];
+}
+
+export interface GoogleWorkspaceReadResult {
+  contract: 'google.workspace.v1';
+  product: GoogleProductId;
+  scope: string;
+  restricted: boolean;
+  items: GoogleWorkspaceItem[];
+  count: number;
+  truncated: boolean;
+  failures: Array<{ id: string; code: string }>;
+  selection?: { ids: string[]; selected: number };
+  provenance: { api: string; mode: string; note: string };
+  quota: { retryAfterSeconds?: number | null } | null;
+  observedAt: string;
+}
+
+export interface GoogleWorkspaceCapabilities {
+  contract: 'google.workspace.v1';
+  products: Array<{
+    id: GoogleProductId;
+    label: string;
+    scope: string;
+    restricted: boolean;
+    selection: boolean;
+  }>;
+  updatedAt: string;
+}
+
+export interface GoogleWorkspaceSelectionResult {
+  product: GoogleProductId;
+  ids: string[];
+  added?: boolean;
+  removed?: boolean;
 }
 
 export interface GoogleSheetTab {
@@ -3575,6 +3641,15 @@ export interface GoogleShellApi {
   addSpreadsheet: (input: string) => Promise<NativeEnvelope<GoogleSelectionResult>>;
   removeSpreadsheet: (id: string) => Promise<NativeEnvelope<GoogleSelectionResult>>;
   readSheet: (request: { id: string; range?: string; majorDimension?: 'ROWS' | 'COLUMNS' }) => Promise<NativeEnvelope<GoogleSheetValues>>;
+  workspaceCapabilities: () => Promise<NativeEnvelope<GoogleWorkspaceCapabilities>>;
+  authorizeWorkspace: (product: GoogleProductId) => Promise<NativeEnvelope<GoogleConnectionStatus>>;
+  readWorkspace: (request: { product: GoogleProductId; id?: string; query?: string }) => Promise<NativeEnvelope<GoogleWorkspaceReadResult>>;
+  selectWorkspace: (request: {
+    product: GoogleProductId;
+    action: 'add' | 'remove';
+    input?: string;
+    id?: string;
+  }) => Promise<NativeEnvelope<GoogleWorkspaceSelectionResult>>;
 }
 
 /* AI provider bridge v1. The credential is written into the Main process and is

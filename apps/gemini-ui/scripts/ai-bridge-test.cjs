@@ -428,6 +428,8 @@ async function run() {
     assert(contract.capabilities['ai.configure'].mode === 'user-initiated', 'handing a credential to Main is user-initiated');
     assert(!Object.keys(contract.capabilities).some((id) => /^ai\.(shell|exec|system|run|delete)/i.test(id)), 'the AI contract exposes no OS execution capability');
     assert(/exposeInMainWorld\(\s*'knouxAiV1'/.test(preload), 'preload exposes the fixed AI namespace');
+    assert((preload.match(/exposeInMainWorld\(\s*'knouxAiV1'/g) || []).length === 1,
+      'the AI namespace is exposed once after integration; duplicate exposure breaks Electron preload');
     const aiBlock = preload.slice(preload.indexOf("'knouxAiV1'"), preload.indexOf("'knouxShell'"));
     assert(!/ipcRenderer\.on\(/.test(aiBlock), 'the AI namespace opens no event stream');
     assert(!aiBlock.includes('ipcRenderer.invoke(' + '"' ) && (aiBlock.match(/ipcRenderer\.invoke\(CHANNELS\./g) || []).length === 6, 'the AI namespace only invokes the six fixed channels');
