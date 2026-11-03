@@ -1,5 +1,5 @@
 {
-  "head": "75443693c76bb10c2d2bf894aa5edcaff0ccb7f2",
+  "head": "cfe4ea18105c7730f9e0818cb7fcc8c43b7b3ac2",
   "scope": "Development Electron; active Codex artwork and all 91 inner-workspace selections, read-only bridge status and route rendering; no service-effect, live cloud request, owner mutation or installed-app claim",
   "routes": [
     {
@@ -227,17 +227,17 @@
   "bridge": {
     "shell": {
       "contractVersion": 1,
-      "requestId": "7ecbb7c1-fe8d-446c-abd2-6aba0af4062d",
+      "requestId": "0f6a10b3-2851-484d-a72c-97fec7c5807a",
       "capability": "bridge.status",
       "status": "available",
       "source": "KNOuX Gemini Electron main",
-      "observedAt": "2026-11-03T03:44:03.618Z",
+      "observedAt": "2026-11-03T04:13:13.226Z",
       "permission": "read-only",
       "warnings": [],
       "provenance": {
         "provider": "Electron main process",
         "mode": "measured",
-        "observedAt": "2026-11-03T03:44:03.618Z",
+        "observedAt": "2026-11-03T04:13:13.226Z",
         "coverage": "full",
         "permissions": [
           "read-only"
@@ -1289,10 +1289,10 @@
     "ai": {
       "contractVersion": 1,
       "capability": "ai.status",
-      "requestId": "d3dbad9e-aa6f-4619-bae9-d96c1439af87",
+      "requestId": "42598af8-4a65-4ba0-8347-e7025d4098ef",
       "status": "complete",
       "source": "AI provider main-process bridge",
-      "observedAt": "2026-11-03T03:44:03.632Z",
+      "observedAt": "2026-11-03T04:13:13.229Z",
       "permission": "read-only",
       "warnings": [],
       "data": {
@@ -1312,16 +1312,16 @@
         "inFlight": 0,
         "lastVerifiedAt": null,
         "lastError": null,
-        "observedAt": "2026-11-03T03:44:03.632Z"
+        "observedAt": "2026-11-03T04:13:13.229Z"
       }
     },
     "google": {
       "contractVersion": 1,
       "capability": "google.workspace.capabilities",
-      "requestId": "354ca537-459c-4a69-9d39-4b6e294a4232",
+      "requestId": "9350df85-e489-4b23-a84a-019b86b96867",
       "status": "complete",
       "source": "Google OAuth main-process coordinator",
-      "observedAt": "2026-11-03T03:44:03.633Z",
+      "observedAt": "2026-11-03T04:13:13.233Z",
       "permission": "read-only",
       "warnings": [],
       "data": {
@@ -1398,16 +1398,16 @@
             "selection": false
           }
         ],
-        "updatedAt": "2026-11-03T03:43:55.217Z"
+        "updatedAt": "2026-11-03T04:13:05.127Z"
       }
     },
     "googleState": {
       "contractVersion": 1,
       "capability": "google.status",
-      "requestId": "f7e89208-6ed7-4cde-bb2c-0dbcc05f81aa",
+      "requestId": "1e2bf962-f54b-4b85-b379-161544106243",
       "status": "complete",
       "source": "Google OAuth main-process coordinator",
-      "observedAt": "2026-11-03T03:44:03.670Z",
+      "observedAt": "2026-11-03T04:13:13.274Z",
       "permission": "read-only",
       "warnings": [],
       "data": {
@@ -1440,7 +1440,7 @@
         "selectedSpreadsheetCount": 0,
         "obtainedAt": null,
         "lastError": null,
-        "updatedAt": "2026-11-03T03:44:03.670Z"
+        "updatedAt": "2026-11-03T04:13:13.272Z"
       }
     }
   }
