@@ -340,17 +340,44 @@ assert(typeof pkg.scripts['desktop:smoke'] === 'string', 'desktop smoke script e
 assert(typeof pkg.scripts['desktop:pack'] === 'string', 'desktop pack script exists');
 
 assert(/exposeInMainWorld\(\s*'knouxGoogleV1'/.test(preload), 'preload exposes the Google bridge');
+const googleChannels = [
+  'googleStatus',
+  'googleConnect',
+  'googleCancel',
+  'googleDisconnect',
+  'googleSheetsList',
+  'googleSheetAdd',
+  'googleSheetRemove',
+  'googleSheetRead',
+  'googleWorkspaceCapabilities',
+  'googleWorkspaceAuthorize',
+  'googleWorkspaceRead',
+  'googleWorkspaceSelect',
+];
+assert(googleChannels.every((channel) => main.includes(`contract.channels.${channel}`)), 'every Google channel has an IPC handler');
+assert(googleChannels.every((channel) => preload.includes(`CHANNELS.${channel}`)), 'every Google channel crosses the preload bridge');
 assert(contract.channels.googleStatus === 'knoux:google:v1:status', 'Google status channel is fixed');
 assert(contract.channels.googleSheetRead === 'knoux:google:v1:sheet-read', 'Google sheet-read channel is fixed');
+assert(contract.channels.googleWorkspaceRead === 'knoux:google:v1:workspace-read', 'Google workspace-read channel is fixed');
 assert(contract.capabilities['google.connect'].mode === 'user-initiated', 'Google connect is user-initiated');
 assert(contract.capabilities['google.status'].mode === 'read-only', 'Google status is read-only');
+assert(contract.capabilities['google.workspace.authorize'].mode === 'user-initiated', 'per-product Google consent is user-initiated');
+assert(contract.capabilities['google.workspace.read'].mode === 'read-only', 'per-product Google reads are read-only');
+assert(contract.capabilities['google.workspace.select'].mode === 'user-initiated', 'Forms/Slides selection is user-initiated');
+assert(googleAuth.PRODUCT_IDS.length === 10, 'the Google product registry covers all ten services');
+assert(googleAuth.PRODUCT_IDS.every((id) => googleAuth.PRODUCTS[id].scope.endsWith('.readonly')), 'every product scope is read-only');
+assert(googleAuth.PRODUCT_IDS.every((id) => !/\.(write|send|modify|compose|delete|manage)/i.test(googleAuth.PRODUCTS[id].scope)), 'no product scope is write-capable');
+assert(googleAuth.REQUEST_SCOPES.length === 4, 'the default consent still requests exactly four scopes');
+assert(!googleAuth.REQUEST_SCOPES.some((scope) => /drive|gmail|calendar|tasks|forms|presentations|chat|classroom|contacts|spreadsheets(?!\.readonly)/i.test(scope)), 'the default consent requests no broad non-Sheets scope');
 assert(
-  ['googleStatus', 'googleConnect', 'googleCancel', 'googleDisconnect', 'googleSheetsList', 'googleSheetAdd', 'googleSheetRemove', 'googleSheetRead']
-    .every((channel) => main.includes(`contract.channels.${channel}`)),
-  'every Google channel has an IPC handler'
+  googleAuth.PRODUCT_IDS.filter((id) => id !== 'sheets').every((id) => !googleAuth.REQUEST_SCOPES.includes(googleAuth.PRODUCTS[id].scope)),
+  'no product scope is requested without its own consent'
 );
-assert(googleAuth.REQUEST_SCOPES.length === 4, 'Google requests exactly four scopes');
-assert(!googleAuth.REQUEST_SCOPES.some((scope) => /drive|gmail|calendar|tasks|forms|presentations|chat|classroom|contacts|spreadsheets(?!\.readonly)/i.test(scope)), 'Google requests no broad non-Sheets scope');
+const workspaceSource = read('electron/native/google-workspace.cjs');
+assert(googleAuth.PRODUCT_IDS.filter((id) => id !== 'sheets').every((id) => workspaceSource.includes(`case '${id}':`)), 'every product has a workspace reader');
+assert(!/method:\s*'(POST|PUT|PATCH|DELETE)'/i.test(workspaceSource), 'the workspace readers issue no write HTTP method');
+assert(/redirect:\s*'error'/.test(workspaceSource), 'the workspace readers refuse redirects');
+assert(workspaceSource.includes('requireProduct(product)'), 'the workspace readers require the product scope locally');
 assert(googleSource.includes('code_challenge_method') && googleSource.includes("'S256'"), 'Google uses PKCE S256');
 assert(googleSource.includes("host: '127.0.0.1'"), 'Google loopback binds to 127.0.0.1');
 assert(googleSource.includes('safeStorage') && googleSource.includes('windows-dpapi-safeStorage'), 'Google stores tokens with DPAPI-backed safeStorage');

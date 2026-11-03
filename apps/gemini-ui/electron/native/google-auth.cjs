@@ -28,19 +28,105 @@ const GOOGLE = Object.freeze({
   sheets: 'https://sheets.googleapis.com/v4/spreadsheets',
 });
 
-const REQUEST_SCOPES = Object.freeze([
-  'openid',
-  'email',
-  'profile',
-  'https://www.googleapis.com/auth/spreadsheets.readonly',
-]);
+/**
+ * Product registry. One Google consent per product, requested the first time
+ * that product's workspace is opened. Every scope here is read-only; nothing
+ * in this application requests a write-capable Google scope.
+ *
+ * `restricted` marks scopes that Google gates behind app verification for
+ * public release. The flag is descriptive only - it never widens access.
+ */
+const PRODUCTS = Object.freeze({
+  sheets: Object.freeze({
+    id: 'sheets',
+    label: 'Google Sheets',
+    scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+    display: 'spreadsheets.readonly',
+    restricted: false,
+  }),
+  gmail: Object.freeze({
+    id: 'gmail',
+    label: 'Gmail',
+    scope: 'https://www.googleapis.com/auth/gmail.readonly',
+    display: 'gmail.readonly',
+    restricted: true,
+  }),
+  tasks: Object.freeze({
+    id: 'tasks',
+    label: 'Google Tasks',
+    scope: 'https://www.googleapis.com/auth/tasks.readonly',
+    display: 'tasks.readonly',
+    restricted: false,
+  }),
+  forms: Object.freeze({
+    id: 'forms',
+    label: 'Google Forms',
+    scope: 'https://www.googleapis.com/auth/forms.body.readonly',
+    display: 'forms.body.readonly',
+    restricted: false,
+  }),
+  contacts: Object.freeze({
+    id: 'contacts',
+    label: 'Google Contacts',
+    scope: 'https://www.googleapis.com/auth/contacts.readonly',
+    display: 'contacts.readonly',
+    restricted: false,
+  }),
+  calendar: Object.freeze({
+    id: 'calendar',
+    label: 'Google Calendar',
+    scope: 'https://www.googleapis.com/auth/calendar.readonly',
+    display: 'calendar.readonly',
+    restricted: true,
+  }),
+  picker: Object.freeze({
+    id: 'picker',
+    label: 'Google Picker (Drive-backed)',
+    scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+    display: 'drive.metadata.readonly',
+    restricted: true,
+  }),
+  slides: Object.freeze({
+    id: 'slides',
+    label: 'Google Slides',
+    scope: 'https://www.googleapis.com/auth/presentations.readonly',
+    display: 'presentations.readonly',
+    restricted: false,
+  }),
+  chat: Object.freeze({
+    id: 'chat',
+    label: 'Google Chat',
+    scope: 'https://www.googleapis.com/auth/chat.spaces.readonly',
+    display: 'chat.spaces.readonly',
+    restricted: false,
+  }),
+  classroom: Object.freeze({
+    id: 'classroom',
+    label: 'Google Classroom',
+    scope: 'https://www.googleapis.com/auth/classroom.courses.readonly',
+    display: 'classroom.courses.readonly',
+    restricted: false,
+  }),
+});
 
-const REQUIRED_SCOPES = Object.freeze([
+const PRODUCT_IDS = Object.freeze(Object.keys(PRODUCTS));
+
+/** Identity scopes that every Google connection carries. */
+const IDENTITY_SCOPES = Object.freeze([
   'openid',
   'https://www.googleapis.com/auth/userinfo.email',
   'https://www.googleapis.com/auth/userinfo.profile',
-  'https://www.googleapis.com/auth/spreadsheets.readonly',
 ]);
+
+/**
+ * The default consent request. It is exactly the reviewed identity set plus the
+ * read-only Sheets scope, so an existing Sheets connection keeps working and
+ * no other product scope is granted without its own explicit consent.
+ */
+const REQUEST_SCOPES = Object.freeze([...IDENTITY_SCOPES, PRODUCTS.sheets.scope]);
+
+/** Scopes without which a stored connection is unusable at all. */
+const REQUIRED_SCOPES = IDENTITY_SCOPES;
 
 const DISPLAY_SCOPES = Object.freeze([
   'openid',
@@ -48,6 +134,25 @@ const DISPLAY_SCOPES = Object.freeze([
   'userinfo.profile',
   'spreadsheets.readonly',
 ]);
+
+const SCOPE_LABELS = Object.freeze({
+  openid: 'openid',
+  'https://www.googleapis.com/auth/userinfo.email': 'userinfo.email',
+  'https://www.googleapis.com/auth/userinfo.profile': 'userinfo.profile',
+  ...Object.fromEntries(Object.values(PRODUCTS).map((product) => [product.scope, product.display])),
+});
+
+function normalizeProduct(value) {
+  const id = String(value == null ? '' : value).trim().toLowerCase();
+  if (!PRODUCT_IDS.includes(id)) {
+    throw googleError('GOOGLE_PRODUCT_INVALID', 'The requested Google product is not supported.', false);
+  }
+  return id;
+}
+
+function productScope(product) {
+  return PRODUCTS[normalizeProduct(product)].scope;
+}
 
 const MAX_CLIENT_BYTES = 128 * 1024;
 const MAX_TOKEN_BYTES = 256 * 1024;
@@ -386,6 +491,7 @@ class GoogleOAuthService {
     this.connectAbort = null;
     this.accessToken = null;
     this.accessTokenExpiresAt = 0;
+    this.reauthRequired = false;
     this.lastError = null;
     this.initialized = false;
     this.updatedAt = new Date(this.now()).toISOString();
@@ -437,20 +543,25 @@ class GoogleOAuthService {
     else if (this.refreshToken && this.storageAvailable && missingScopes.length === 0) connection = 'connected';
     else if (this.refreshToken && this.storageAvailable && missingScopes.length > 0) connection = 'permission-missing';
     else if (this.lastError && /^GOOGLE_TOKEN_STORE_/.test(this.lastError.code || '')) connection = 'error';
+    const products = {};
+    for (const id of PRODUCT_IDS) {
+      const scope = PRODUCTS[id].scope;
+      products[id] = this.grantedScopes.includes(scope)
+        ? 'granted'
+        : this.refreshToken
+          ? 'missing'
+          : 'not-requested';
+    }
     return {
       contract: CONTRACT,
       configured: this.configured,
       connection,
       connected: Boolean(this.refreshToken && this.storageAvailable),
       account: this.refreshToken ? this.account : null,
-      grantedScopes: DISPLAY_SCOPES.filter((_label, index) => {
-        const scope = REQUIRED_SCOPES[index];
-        return this.grantedScopes.includes(scope);
-      }),
-      missingScopes: DISPLAY_SCOPES.filter((_label, index) => {
-        const scope = REQUIRED_SCOPES[index];
-        return !this.grantedScopes.includes(scope);
-      }),
+      grantedScopes: this.grantedScopes.map((scope) => SCOPE_LABELS[scope]).filter(Boolean),
+      missingScopes: missingScopes.map((scope) => SCOPE_LABELS[scope]).filter(Boolean),
+      products,
+      reauthRequired: Boolean(this.reauthRequired),
       tokenStorage: this.storageAvailable ? 'windows-dpapi-safeStorage' : 'unavailable',
       storageAvailable: this.storageAvailable,
       selectedSpreadsheetCount: this.selection.ids.length,
@@ -460,8 +571,45 @@ class GoogleOAuthService {
     };
   }
 
-  async connect() {
+  /**
+   * True only when the product's own read-only scope is already granted.
+   * Never triggers a network call or a consent prompt.
+   */
+  hasProduct(product) {
+    const id = normalizeProduct(product);
+    return this.grantedScopes.includes(PRODUCTS[id].scope);
+  }
+
+  requireProduct(product) {
+    const id = normalizeProduct(product);
+    if (!this.refreshToken) {
+      throw googleError('GOOGLE_NOT_CONNECTED', 'No Google account is connected.', false);
+    }
+    if (!this.grantedScopes.includes(PRODUCTS[id].scope)) {
+      throw googleError(
+        'GOOGLE_SCOPE_MISSING',
+        `The read-only ${PRODUCTS[id].label} scope was not granted. Enable that service first.`,
+        false
+      );
+    }
+    return id;
+  }
+
+  /**
+   * Called when a Google API answers 401. The stored refresh token is kept (it
+   * may still be usable) but the cached access token is dropped and the next
+   * connect() re-runs consent instead of short-circuiting.
+   */
+  markReauthRequired() {
+    this.reauthRequired = true;
+    this.accessToken = null;
+    this.accessTokenExpiresAt = 0;
+    this.touch();
+  }
+
+  async connect(options = {}) {
     await this.initialize();
+    const product = normalizeProduct(options?.product == null ? 'sheets' : options.product);
     if (this.connecting) {
       throw googleError('GOOGLE_CONNECT_IN_PROGRESS', 'A Google authorization is already in progress.', true);
     }
@@ -474,30 +622,39 @@ class GoogleOAuthService {
     if (!this.storageAvailable) {
       throw googleError('GOOGLE_STORAGE_UNAVAILABLE', 'Windows-protected credential storage is unavailable.', false);
     }
-    if (this.refreshToken) {
+    // An existing grant that already carries this product scope needs nothing -
+    // unless Google rejected the stored token, in which case a fresh consent is
+    // the only way forward.
+    if (this.refreshToken && this.hasProduct(product) && !this.reauthRequired) {
       this.touch();
       return this.status();
     }
+    const incremental = Boolean(this.refreshToken);
+    const granted = new Set(this.grantedScopes);
+    const requested = [...IDENTITY_SCOPES, ...PRODUCT_IDS.map((id) => PRODUCTS[id].scope).filter((scope) => granted.has(scope))];
+    requested.push(PRODUCTS[product].scope);
+    const scopes = [...new Set(requested)];
     this.connecting = true;
     this.lastError = null;
     this.touch();
     try {
-      const result = await this.runAuthorization();
-      this.refreshToken = result.refreshToken;
-      this.account = result.account;
-      this.grantedScopes = result.grantedScopes;
-      this.obtainedAt = new Date(this.now()).toISOString();
+      const result = await this.runAuthorization(scopes, { incremental });
+      this.refreshToken = result.refreshToken || this.refreshToken;
+      this.account = result.account || this.account;
+      this.grantedScopes = [...new Set([...this.grantedScopes, ...result.grantedScopes])];
+      this.obtainedAt = this.obtainedAt || new Date(this.now()).toISOString();
       this.accessToken = result.accessToken;
       this.accessTokenExpiresAt = result.expiresAt;
       await this.vault.save({
         version: 1,
-        refreshToken: result.refreshToken,
-        account: result.account,
-        grantedScopes: result.grantedScopes,
+        refreshToken: this.refreshToken,
+        account: this.account,
+        grantedScopes: this.grantedScopes,
         obtainedAt: this.obtainedAt,
       });
       this.connecting = false;
       this.connectAbort = null;
+      this.reauthRequired = false;
       this.touch();
       return this.status();
     } catch (error) {
@@ -523,7 +680,8 @@ class GoogleOAuthService {
     return this.status();
   }
 
-  async runAuthorization() {
+  async runAuthorization(scopes = REQUEST_SCOPES, options = {}) {
+    const incremental = options.incremental === true;
     const { verifier, challenge } = createPkcePair();
     const state = createState();
     const server = http.createServer();
@@ -640,12 +798,16 @@ class GoogleOAuthService {
       client_id: this.client.clientId,
       redirect_uri: redirectUri,
       response_type: 'code',
-      scope: REQUEST_SCOPES.join(' '),
+      scope: scopes.join(' '),
       state,
       code_challenge: challenge,
       code_challenge_method: 'S256',
       access_type: 'offline',
-      prompt: 'consent',
+      include_granted_scopes: 'true',
+      // A brand-new connection asks for an offline refresh token explicitly.
+      // An incremental grant reuses the stored refresh token, so the user does
+      // not have to re-approve the whole account again.
+      ...(incremental ? {} : { prompt: 'consent' }),
     }).toString();
 
     if (!this.shell || typeof this.shell.openExternal !== 'function') {
@@ -703,7 +865,7 @@ class GoogleOAuthService {
     if (!accessToken || tokenType.toLowerCase() !== 'bearer') {
       throw googleError('GOOGLE_TOKEN_INVALID', 'Google returned an unusable access token.', false);
     }
-    if (!refreshToken) {
+    if (!refreshToken && !this.refreshToken) {
       throw googleError('GOOGLE_REFRESH_TOKEN_MISSING', 'Google did not return an offline refresh token. Remove the app grant and try again.', true);
     }
     const grantedScopes = normalizeGrantedScopes(body.scope);
@@ -734,14 +896,12 @@ class GoogleOAuthService {
     };
   }
 
-  async getAccessToken() {
+  async getAccessToken(options = {}) {
     await this.initialize();
     if (!this.refreshToken) {
       throw googleError('GOOGLE_NOT_CONNECTED', 'No Google account is connected.', false);
     }
-    if (missingRequiredScopes(this.grantedScopes).includes('https://www.googleapis.com/auth/spreadsheets.readonly')) {
-      throw googleError('GOOGLE_SCOPE_MISSING', 'The read-only Sheets scope was not granted. Reconnect with the reviewed scope set.', false);
-    }
+    if (options.product != null) this.requireProduct(options.product);
     if (this.accessToken && this.accessTokenExpiresAt > this.now() + 60000) {
       return this.accessToken;
     }
@@ -798,6 +958,7 @@ class GoogleOAuthService {
     this.obtainedAt = null;
     this.accessToken = null;
     this.accessTokenExpiresAt = 0;
+    this.reauthRequired = false;
     await this.vault.clear();
     this.lastError = null;
     this.touch();
@@ -832,7 +993,8 @@ class GoogleOAuthService {
     if (!this.refreshToken) {
       throw googleError('GOOGLE_NOT_CONNECTED', 'No Google account is connected.', false);
     }
-    const token = await this.getAccessToken();
+    this.requireProduct('sheets');
+    const token = await this.getAccessToken({ product: 'sheets' });
     const sheets = [];
     const failures = [];
     for (const id of this.selection.ids.slice(0, MAX_SHEETS)) {
@@ -846,7 +1008,15 @@ class GoogleOAuthService {
         );
         const result = await readJsonResponse(response, 512 * 1024);
         if (!result.ok || !result.body) {
-          failures.push({ id, code: result.status === 403 ? 'GOOGLE_SCOPE_MISSING' : 'GOOGLE_SHEETS_READ_FAILED' });
+          failures.push({
+            id,
+            code:
+              result.status === 401
+                ? 'GOOGLE_REAUTH_REQUIRED'
+                : result.status === 403
+                  ? 'GOOGLE_SCOPE_MISSING'
+                  : 'GOOGLE_SHEETS_READ_FAILED',
+          });
           continue;
         }
         const body = result.body;
@@ -903,13 +1073,14 @@ class GoogleOAuthService {
     if (!this.refreshToken) {
       throw googleError('GOOGLE_NOT_CONNECTED', 'No Google account is connected.', false);
     }
+    this.requireProduct('sheets');
     const id = parseSpreadsheetInput(request.id);
     if (!this.selection.ids.includes(id)) {
       throw googleError('GOOGLE_SHEET_NOT_SELECTED', 'Add the spreadsheet before reading it.', false);
     }
     const range = validateRange(request.range);
     const majorDimension = request.majorDimension === 'COLUMNS' ? 'COLUMNS' : 'ROWS';
-    const token = await this.getAccessToken();
+    const token = await this.getAccessToken({ product: 'sheets' });
     const url = `${this.endpoints.sheets}/${encodeURIComponent(id)}/values/${encodeURIComponent(range)}?majorDimension=${majorDimension}`;
     const response = await fetchWithTimeout(
       this.fetchImpl,
@@ -919,6 +1090,9 @@ class GoogleOAuthService {
     );
     const result = await readJsonResponse(response, 2 * 1024 * 1024);
     if (!result.ok || !result.body) {
+      if (result.status === 401) {
+        throw googleError('GOOGLE_REAUTH_REQUIRED', 'The Google grant is no longer accepted. Reconnect the account.', false);
+      }
       if (result.status === 403) {
         throw googleError('GOOGLE_SCOPE_MISSING', 'The read-only Sheets scope is missing.', false);
       }
@@ -943,8 +1117,12 @@ class GoogleOAuthService {
 module.exports = {
   CONTRACT,
   GOOGLE,
+  PRODUCTS,
+  PRODUCT_IDS,
+  IDENTITY_SCOPES,
   REQUEST_SCOPES,
   REQUIRED_SCOPES,
+  DISPLAY_SCOPES,
   DEFAULT_RANGE,
   MAX_SHEETS,
   GoogleOAuthService,
@@ -957,5 +1135,7 @@ module.exports = {
   loadClientConfig,
   validateClientDocument,
   normalizeGrantedScopes,
+  normalizeProduct,
+  productScope,
   sanitizeError,
 };

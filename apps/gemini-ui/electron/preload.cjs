@@ -153,6 +153,10 @@ const CHANNELS = Object.freeze({
   googleSheetAdd: 'knoux:google:v1:sheet-add',
   googleSheetRemove: 'knoux:google:v1:sheet-remove',
   googleSheetRead: 'knoux:google:v1:sheet-read',
+  googleWorkspaceCapabilities: 'knoux:google:v1:workspace-capabilities',
+  googleWorkspaceAuthorize: 'knoux:google:v1:workspace-authorize',
+  googleWorkspaceRead: 'knoux:google:v1:workspace-read',
+  googleWorkspaceSelect: 'knoux:google:v1:workspace-select',
   aiStatus: 'knoux:ai:v1:status',
   aiConfigure: 'knoux:ai:v1:configure',
   aiClear: 'knoux:ai:v1:clear',
@@ -163,8 +167,10 @@ const CHANNELS = Object.freeze({
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
 /* Google Workspace v1 is the only network-capable namespace. It exposes
-   named status/connect/cancel/disconnect and bounded Sheets actions; token
-   and client-secret material never cross this bridge. */
+   named status/connect/cancel/disconnect and bounded Sheets actions, plus the
+   read-only per-product Workspace readers. The caller may name a product, a
+   document id and a search term - never a URL, host, header, method or body.
+   Token and client-secret material never cross this bridge. */
 contextBridge.exposeInMainWorld(
   'knouxGoogleV1',
   Object.freeze({
@@ -180,6 +186,20 @@ contextBridge.exposeInMainWorld(
       id: String(request?.id || ''),
       range: typeof request?.range === 'string' ? request.range : undefined,
       majorDimension: request?.majorDimension === 'COLUMNS' ? 'COLUMNS' : 'ROWS',
+    }),
+    workspaceCapabilities: () => ipcRenderer.invoke(CHANNELS.googleWorkspaceCapabilities),
+    authorizeWorkspace: (product) =>
+      ipcRenderer.invoke(CHANNELS.googleWorkspaceAuthorize, { product: String(product || '').slice(0, 40) }),
+    readWorkspace: (request) => ipcRenderer.invoke(CHANNELS.googleWorkspaceRead, {
+      product: String(request?.product || '').slice(0, 40),
+      id: typeof request?.id === 'string' ? request.id.slice(0, 160) : undefined,
+      query: typeof request?.query === 'string' ? request.query.slice(0, 200) : undefined,
+    }),
+    selectWorkspace: (request) => ipcRenderer.invoke(CHANNELS.googleWorkspaceSelect, {
+      product: String(request?.product || '').slice(0, 40),
+      action: request?.action === 'remove' ? 'remove' : 'add',
+      input: typeof request?.input === 'string' ? request.input.slice(0, 2048) : '',
+      id: typeof request?.id === 'string' ? request.id.slice(0, 160) : undefined,
     }),
   })
 );

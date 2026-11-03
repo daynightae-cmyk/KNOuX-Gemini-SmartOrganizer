@@ -6,9 +6,11 @@ import { GoogleProductIcons } from './GoogleProductIcon';
  * KNOuX Google Workspace Integration Hub
  * Manages Google Sheets, Gmail, Tasks, Forms, Contacts, Calendar, Picker, Slides, Chat, and Classroom.
  *
- * PHASE BOUNDARY: every surface in this hub renders high-fidelity local fixtures.
- * No Google account is contacted, no OAuth token is held, and nothing is written
- * to a Google service. The UI states that explicitly on every panel.
+ * DATA BOUNDARY: in Electron every service reads live data only after the user
+ * grants that service's own read-only scope. No Google request happens at
+ * startup; a read happens only on an explicit Enable/Refresh action. In a plain
+ * browser preview (no native bridge) the hub falls back to clearly labelled
+ * local fixtures and states that no Google request exists there.
  */
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -44,6 +46,7 @@ import { KNOuXTitleBar, KNOuXSidebar } from '../shell/KNOuXShellComponents';
 import { useNavigation } from '../../context/NavigationContext';
 import { GoogleSheetsWorkbench, SCOPE_ROWS } from '../../workspace/GoogleSheetsWorkbench';
 import { useGoogleWorkspace } from '../../workspace/useGoogleWorkspace';
+import type { GoogleProductId, GoogleWorkspaceItem } from '../../../shared/native-contracts';
 import {KnouxOrbit} from '../../visual/KnouxOrbit';
 import {ServicePipeline} from '../../visual/ServicePipeline';
 
@@ -149,7 +152,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     labelAr: 'النماذج',
     icon: GoogleProductIcons.forms,
     color: 'text-purple-400',
-    scope: 'forms.readonly',
+    scope: 'forms.body.readonly',
     syncEn: 'Fixture set — 3 forms, synthetic response counts',
     syncAr: 'بيانات محاكاة — 3 نماذج، أعداد إجابات اصطناعية',
     actionEn: 'New Survey Form',
@@ -191,7 +194,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     labelAr: 'محدد الملفات',
     icon: GoogleProductIcons.drive,
     color: 'text-indigo-400',
-    scope: 'picker.googleapis.com (JS API)',
+    scope: 'drive.metadata.readonly',
     syncEn: 'No Drive attached — selection list is a local mock',
     syncAr: 'لا يوجد Drive مرتبط — قائمة الاختيار نموذج محلي',
     actionEn: 'Launch Drive Picker',
@@ -219,7 +222,7 @@ const HUB_SERVICES: HubServiceDef[] = [
     labelAr: 'المحادثات',
     icon: GoogleProductIcons.chat,
     color: 'text-teal-400',
-    scope: 'chat.messages.readonly',
+    scope: 'chat.spaces.readonly',
     syncEn: 'Fixture set — 3 spaces with sample messages',
     syncAr: 'بيانات محاكاة — 3 مساحات مع رسائل نموذجية',
     actionEn: 'Send Chat Notification',
@@ -242,6 +245,44 @@ const HUB_SERVICES: HubServiceDef[] = [
     emptyAr: 'لا توجد مقررات في بيانات المحاكاة.',
   },
 ];
+
+/**
+ * The hub's service ids are deliberately identical to the native product ids,
+ * so a workspace selection maps one-to-one onto a consensual read scope.
+ */
+const SERVICE_PRODUCT: Record<HubServiceId, GoogleProductId> = {
+  sheets: 'sheets',
+  gmail: 'gmail',
+  tasks: 'tasks',
+  forms: 'forms',
+  contacts: 'contacts',
+  calendar: 'calendar',
+  picker: 'picker',
+  slides: 'slides',
+  chat: 'chat',
+  classroom: 'classroom',
+};
+
+/** Services that list themselves and therefore need a document selection. */
+const SELECTION_SERVICES: HubServiceId[] = ['forms', 'slides'];
+
+function liveItemToHubItem(item: GoogleWorkspaceItem): HubItem {
+  return {
+    id: item.id,
+    title: item.title,
+    subtitle: item.subtitle,
+    meta: item.meta,
+    badge: item.status === 'warn' ? 'attention' : item.status === 'muted' ? 'archived' : 'live',
+    badgeTone: item.status === 'warn' ? 'amber' : item.status === 'muted' ? 'slate' : 'emerald',
+    fields: item.fields.map((field, index) => ({
+      label: field.label,
+      value: field.value,
+      tone: index === 0 ? 'default' : 'muted',
+    })),
+    columns: ['#', 'Field', 'Value'],
+    rows: item.fields.map((field, index) => [String(index + 1).padStart(2, '0'), field.label, field.value]),
+  };
+}
 
 /* ------------------------------------------------------------------ fixtures */
 
@@ -946,6 +987,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
   const [activeService, setActiveService] = useState<HubServiceId>('sheets');
   const [selectedItemId, setSelectedItemId] = useState<string>('sheet-1');
   const [newInput, setNewInput] = useState('');
+  const [documentInput, setDocumentInput] = useState('');
   const [copiedId, setCopiedId] = useState(false);
   const [modalConfirmDisconnect, setModalConfirmDisconnect] = useState(false);
   const oauthCloseRef = useRef<HTMLButtonElement | null>(null);
@@ -953,6 +995,39 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
   const googleStatus = google.status;
   const googleConnected = Boolean(googleStatus?.connected && googleStatus.connection !== 'error');
   const googleConnection = googleStatus?.connection || (google.bridgeAvailable ? 'disconnected' : 'error');
+  const liveBridge = google.bridgeAvailable;
+  const activeProduct = SERVICE_PRODUCT[activeService];
+  const activeGrant = googleStatus?.products?.[activeProduct] ?? 'not-requested';
+  const liveResult = google.workspaceResults[activeProduct] ?? null;
+  const liveError = google.workspaceError?.product === activeProduct ? google.workspaceError : null;
+  const liveBusy = google.workspaceBusy === activeProduct;
+  const fixtureMode = !liveBridge;
+  const showGate = !fixtureMode && activeService !== 'sheets' && activeGrant !== 'granted';
+  const showLive = !fixtureMode && activeService !== 'sheets' && activeGrant === 'granted';
+  const requestedProducts = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (!liveBridge) return;
+    void google.loadCapabilities();
+    // Capabilities are descriptive; the per-service gate owns its own state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liveBridge]);
+
+  useEffect(() => {
+    if (!liveBridge) return;
+    if (activeService === 'sheets') return;
+    if (activeGrant !== 'granted') return;
+    if (requestedProducts.current.has(activeService)) return;
+    requestedProducts.current.add(activeService);
+    void google.readProduct(activeProduct);
+    // `google` is intentionally not a dependency: the controller object is
+    // recreated each render, and the ref above already prevents a read loop.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liveBridge, activeService, activeGrant, activeProduct]);
+
+  useEffect(() => {
+    if (!googleStatus?.connected) requestedProducts.current.clear();
+  }, [googleStatus?.connected]);
 
   useEffect(() => {
     if (!isOAuthModalOpen) return;
@@ -985,15 +1060,23 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
   );
 
   const allItems = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!fixtureMode) {
+      if (activeService === 'sheets') return [];
+      const items = (liveResult?.items ?? []).map(liveItemToHubItem);
+      if (!query) return items;
+      return items.filter((item) =>
+        `${item.title} ${item.subtitle} ${item.meta}`.toLowerCase().includes(query)
+      );
+    }
     const base = BASE_ITEMS[activeService] ?? [];
     const additions = localAdditions[activeService] ?? [];
-    const query = searchQuery.trim().toLowerCase();
     const merged = [...additions, ...base];
     if (!query) return merged;
     return merged.filter((item) =>
       `${item.title} ${item.subtitle} ${item.meta}`.toLowerCase().includes(query)
     );
-  }, [activeService, localAdditions, searchQuery]);
+  }, [activeService, localAdditions, searchQuery, fixtureMode, liveResult]);
 
   const selectedItem = useMemo(() => {
     const items = allItems;
@@ -1047,6 +1130,30 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
         ? `تمت إضافة "${title}" إلى بيانات المحاكاة المحلية فقط.`
         : `"${title}" added to the local fixture set only — nothing was sent to Google.`
     );
+  };
+
+  const handleAddDocument = async () => {
+    const value = documentInput.trim();
+    if (!value || !SELECTION_SERVICES.includes(activeService)) return;
+    const ok = await google.selectDocument(activeProduct, 'add', value);
+    if (ok) {
+      setDocumentInput('');
+      showToast(
+        isAr
+          ? 'تم حفظ مرجع المستند. اقرأ الخدمة لعرض تعريفه.'
+          : 'Document reference saved locally. Read the service to load its definition.'
+      );
+      void google.readProduct(activeProduct);
+    }
+  };
+
+  const handleRemoveDocument = async (id: string) => {
+    if (!SELECTION_SERVICES.includes(activeService)) return;
+    const ok = await google.selectDocument(activeProduct, 'remove', id);
+    if (ok) {
+      showToast(isAr ? 'تمت إزالة المستند من القائمة المحلية.' : 'Document removed from the local selection list.');
+      void google.readProduct(activeProduct);
+    }
   };
 
   const handleCopyId = () => {
@@ -1129,18 +1236,18 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             <p className="text-xs text-cyan-400 font-mono mt-0.5">
               {googleConnected
                 ? (isAr
-                    ? `حساب Google متصل للقراءة فقط · ${googleStatus?.account?.email || 'البريد غير متاح'}`
-                    : `Read-only Google Sheets connected · ${googleStatus?.account?.email || 'email unavailable'}`)
+                    ? `حساب Google متصل · ${googleStatus?.account?.email || 'البريد غير متاح'} · ${google.capabilities?.products.filter((p) => googleStatus?.products?.[p.id] === 'granted').length ?? 0} من 10 خدمات مفعّلة`
+                    : `Google account connected · ${googleStatus?.account?.email || 'email unavailable'} · ${google.capabilities?.products.filter((p) => googleStatus?.products?.[p.id] === 'granted').length ?? 0} of 10 services enabled`)
                 : (isAr
-                    ? 'خدمات Google التسع الأخرى تبقى معاينة تصميمية؛ الجداول تتطلب اتصالًا صريحًا.'
-                    : 'The other nine Google services remain design previews; Sheets requires an explicit connection.')}
+                    ? 'لا يوجد اتصال تلقائي. كل خدمة تطلب نطاق قراءة خاصاً بها عند أول استخدام.'
+                    : 'No automatic connection. Each service requests its own read-only scope the first time you use it.')}
             </p>
           </div>
         </div>
 
-        <div className="knx-domain-orbit-compact" data-testid="workspace-orbit"><KnouxOrbit hero coreMark={<GoogleProductIcons.google className="knx-provider-mark" />} title="Workspace" subtitle={activeService==='sheets'&&googleConnected?(isAr?'قراءة متصلة':'Read-only connection'):(isAr?'معاينة · بلا API حي':'Preview · no live API')} state={!google.bridgeAvailable?'unavailable':activeService==='sheets'&&googleConnected?'ready':'partial'} onActivate={()=>setIsOAuthModalOpen(true)} tools={([
+        <div className="knx-domain-orbit-compact" data-testid="workspace-orbit"><KnouxOrbit hero coreMark={<GoogleProductIcons.google className="knx-provider-mark" />} title="Workspace" subtitle={!google.bridgeAvailable?(isAr?'معاينة · بلا جسر أصلي':'Preview · no native bridge'):activeGrant==='granted'?(isAr?'نطاق ممنوح · قراءة فقط':'Scope granted · read only'):googleConnected?(isAr?'نطاق هذه الخدمة غير ممنوح':'This service scope not granted'):(isAr?'غير متصل':'Not connected')} state={!google.bridgeAvailable?'unavailable':activeGrant==='granted'?'ready':googleConnected?'partial':'partial'} onActivate={()=>setIsOAuthModalOpen(true)} tools={([
           {id:'sheets',label:isAr?'الجداول':'Sheets',icon:GoogleProductIcons.sheets},{id:'gmail',label:'Gmail',icon:GoogleProductIcons.gmail},{id:'tasks',label:isAr?'المهام':'Tasks',icon:GoogleProductIcons.tasks},{id:'forms',label:isAr?'النماذج':'Forms',icon:GoogleProductIcons.forms},{id:'contacts',label:isAr?'جهات الاتصال':'Contacts',icon:GoogleProductIcons.contacts},{id:'calendar',label:isAr?'التقويم':'Calendar',icon:GoogleProductIcons.calendar},
-        ] as const).map((tool,i)=>({...tool,active:activeService===tool.id,hint:tool.id==='sheets'?'Open the Sheets consent/workbench; never connect automatically':'Local design preview only; no Google API execution',onClick:()=>selectOrbitService(tool.id),position:[{x:25,y:17},{x:75,y:17},{x:12,y:51},{x:88,y:51},{x:25,y:83},{x:75,y:83}][i]}))}/></div>
+        ] as const).map((tool,i)=>({...tool,active:activeService===tool.id,hint:!google.bridgeAvailable?(isAr?'معاينة محلية فقط':'Local preview only'):SERVICE_PRODUCT[tool.id]==='sheets'?(isAr?'افتح مساحة الجداول واتصل صراحةً':'Open the Sheets workspace and connect explicitly'):(isAr?'قراءة فقط بعد تفعيل نطاق الخدمة':'Read-only after this service scope is enabled'),onClick:()=>selectOrbitService(tool.id),position:[{x:25,y:17},{x:75,y:17},{x:12,y:51},{x:88,y:51},{x:25,y:83},{x:75,y:83}][i]}))}/></div>
         <div className="flex items-center gap-2.5 shrink-0">
           <div className="flex items-center gap-2" data-testid="workspace-connection-state">
             <span className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-[11px] font-mono ${googleConnected ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : googleConnection === 'error' ? 'bg-rose-500/10 border-rose-500/30 text-rose-300' : 'bg-amber-500/10 border-amber-500/30 text-amber-300'}`}>
@@ -1165,7 +1272,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
           onSelect={() => setIsOAuthModalOpen(true)}
           caption={
             googleConnected
-              ? (isAr ? 'الجداول للقراءة فقط · الرمز في تخزين Windows المحمي' : 'Sheets read-only · token in Windows-protected storage')
+              ? (isAr ? 'قراءة فقط عند الطلب · الرمز في تخزين Windows المحمي' : 'Read-only on demand · token in Windows-protected storage')
               : (isAr ? 'موافقة OAuth صريحة مطلوبة · لا يُحتفظ بأي رمز' : 'Explicit OAuth consent required · no token is held')
           }
           stages={[
@@ -1177,24 +1284,25 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             {
               id: 'review-scopes',
               label: isAr ? 'مراجعة الصلاحيات' : 'Review scopes',
+              detail: isAr ? 'لكل خدمة' : 'Per service',
               state: googleConnected ? 'complete' : 'active',
             },
             {
               id: 'select-service',
               label: isAr ? 'اختيار الخدمة' : 'Select service',
-              detail: isAr ? 'معاينة' : 'Preview',
-              state: 'partial',
+              detail: isAr ? 'تفعيل صريح' : 'Explicit enable',
+              state: showLive ? 'complete' : googleConnected ? 'active' : 'pending',
             },
             {
               id: 'preview-data',
-              label: isAr ? 'معاينة البيانات' : 'Preview data',
-              state: googleConnected && google.sheets.length ? 'complete' : 'pending',
+              label: isAr ? 'قراءة البيانات' : 'Read data',
+              state: showLive && liveResult ? 'complete' : showLive ? 'active' : 'pending',
             },
             {
               id: 'sync-state',
               label: isAr ? 'حالة المزامنة' : 'Sync state',
               detail: isAr ? 'عند الطلب' : 'On demand',
-              state: 'pending',
+              state: showLive && liveResult ? 'complete' : 'pending',
             },
           ]}
         />
@@ -1210,13 +1318,19 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             const isActive = activeService === srv.id;
             const count = srv.id === 'sheets'
               ? (google.sheets.length || googleStatus?.selectedSpreadsheetCount || 0)
-              : (BASE_ITEMS[srv.id] ?? []).length + (localAdditions[srv.id] ?? []).length;
+              : fixtureMode
+                ? (BASE_ITEMS[srv.id] ?? []).length + (localAdditions[srv.id] ?? []).length
+                : (google.workspaceResults[srv.id]?.count ?? 0);
             return (
               <button
                 key={srv.id}
                 data-testid={`workspace-service-${srv.id}`}
                 onClick={() => {
                   setActiveService(srv.id);
+                  if (!fixtureMode) {
+                    setSelectedItemId('');
+                    return;
+                  }
                   const first = (localAdditions[srv.id] ?? [])[0] ?? (BASE_ITEMS[srv.id] ?? [])[0];
                   setSelectedItemId(first ? first.id : '');
                 }}
@@ -1244,15 +1358,21 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             <div className="rounded-lg bg-[#08152c] border border-[#15325e] p-2.5 text-[10px] leading-relaxed text-slate-400">
               <div className="flex items-center gap-1.5 text-cyan-300 font-semibold mb-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>{isAr ? 'وضع المعاينة فقط' : 'Preview-only mode'}</span>
+                <span>
+                  {fixtureMode
+                    ? (isAr ? 'معاينة المتصفح' : 'Browser preview')
+                    : googleConnected
+                      ? (isAr ? 'قراءة فقط — بدون كتابة' : 'Read-only live mode')
+                      : (isAr ? 'غير متصل' : 'Not connected')}
+                </span>
               </div>
               {googleConnected
                 ? (isAr
-                    ? 'جداول Google حية للقراءة فقط بعد موافقتك. الخدمات التسع الأخرى تبقى بيانات محاكاة محلية.'
-                    : 'Google Sheets is live read-only after your consent. The other nine services remain local fixtures.')
+                    ? 'جداول Google حية للقراءة فقط. الخدمات الأخرى تُفعّل واحدة واحدة، وكل خدمة تطلب نطاق قراءة خاصاً بها.'
+                    : `Sheets is live read-only. ${google.capabilities?.products.filter((p) => p.id !== 'sheets' && googleStatus?.products?.[p.id] === 'granted').length ?? 0} of 9 other Google services are enabled; each one asks for its own read-only scope.`)
                 : (isAr
-                    ? 'جداول Google غير متصلة. الخدمات الأخرى بيانات محاكاة محلية؛ لا يُرسل بريد أو حدث أو مهمة.'
-                    : 'Google Sheets is not connected. The other services are local fixtures; no mail, event, task or message is sent.')}
+                    ? 'لا يوجد حساب Google متصل. افتح خدمة واضغط «تفعيل» لطلب نطاق القراءة الخاص بها فقط.'
+                    : 'No Google account is connected. Open a service and press Enable to request only that service’s read-only scope.')}
             </div>
           </div>
         </div>
@@ -1274,23 +1394,195 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <button
-                  onClick={() => handleAction(activeDef.actionEn)}
+                  onClick={() => {
+                    if (fixtureMode) {
+                      handleAction(activeDef.actionEn);
+                      return;
+                    }
+                    if (showGate) {
+                      void google.authorizeProduct(activeProduct);
+                      return;
+                    }
+                    void google.readProduct(activeProduct);
+                  }}
+                  disabled={!fixtureMode && liveBusy}
                   data-testid="workspace-action"
-                  className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-wait text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>{isAr ? activeDef.actionAr : activeDef.actionEn}</span>
+                  {fixtureMode ? <Plus className="w-3.5 h-3.5" /> : showGate ? <Lock className="w-3.5 h-3.5" /> : <RefreshCw className={`w-3.5 h-3.5 ${liveBusy ? 'animate-spin' : ''}`} />}
+                  <span>
+                    {fixtureMode
+                      ? (isAr ? activeDef.actionAr : activeDef.actionEn)
+                      : showGate
+                        ? (isAr ? `تفعيل ${activeDef.labelAr}` : `Enable ${activeDef.labelEn}`)
+                        : (isAr ? 'تحديث القراءة' : 'Refresh read')}
+                  </span>
                 </button>
               </div>
             </div>
 
-            <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-5 overflow-hidden">
+            {/* Honest per-service gate. No Google request is made before the
+                user presses Enable, and only this service's scope is asked for. */}
+            {showGate ? (
+              <div
+                className="flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar p-5"
+                data-testid={`workspace-gate-${activeService}`}
+              >
+                <div className="max-w-2xl mx-auto rounded-2xl bg-[#08152c] border border-[#173766] p-5 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#0b1f3d] border border-[#1d3f6e] flex items-center justify-center shrink-0">
+                      <Lock className="w-5 h-5 text-cyan-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-bold text-white">
+                        {isAr ? `تفعيل ${activeDef.labelAr}` : `Enable ${activeDef.labelEn}`}
+                      </h3>
+                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                        {isAr
+                          ? 'تقرأ مساحة العمل هذه بيانات حية فقط بعد منح نطاق القراءة الخاص بها. لا يُطلب أي شيء من Google قبل الضغط على تفعيل.'
+                          : 'This workspace reads live data only after you grant its own read-only scope. Nothing is requested from Google before you press Enable, and other Google services keep their existing grants.'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl bg-[#07162c] border border-[#122b52] px-3.5 py-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-slate-500">
+                      {isAr ? 'النطاق المطلوب' : 'Requested scope'}
+                    </div>
+                    <div className="text-[11px] font-mono text-cyan-300 mt-0.5">{activeDef.scope}</div>
+                    <div className="text-[10px] text-slate-500 mt-1 leading-relaxed">
+                      {isAr
+                        ? 'نطاق قراءة فقط. لا كتابة ولا حذف ولا إرسال.'
+                        : 'Read-only. No write, delete or send capability is requested or implemented.'}
+                    </div>
+                  </div>
+
+                  {activeGrant === 'not-requested' ? (
+                    <div className="rounded-xl border border-amber-500/35 bg-amber-950/20 px-3.5 py-2.5 text-[10.5px] text-amber-200">
+                      {isAr
+                        ? 'لا يوجد حساب Google متصل بعد. سيؤدي التفعيل إلى فتح المتصفح لطلب هويتك مع نطاق هذه الخدمة فقط.'
+                        : 'No Google account is connected yet. Enabling opens the system browser to request your identity plus this service scope only.'}
+                    </div>
+                  ) : null}
+
+                  {liveError ? (
+                    <div role="alert" className="rounded-xl border border-rose-500/40 bg-rose-950/30 px-3.5 py-2.5 text-rose-200 text-[10.5px]" data-testid="workspace-live-error">
+                      <div className="font-mono font-bold">{liveError.code}</div>
+                      <div className="opacity-90 mt-0.5">{liveError.message}</div>
+                    </div>
+                  ) : null}
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => void google.authorizeProduct(activeProduct)}
+                      disabled={liveBusy || !googleStatus?.configured}
+                      data-testid={`workspace-enable-${activeService}`}
+                      className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+                    >
+                      <Lock className="w-3.5 h-3.5" />
+                      <span>{liveBusy ? (isAr ? 'انتظار المتصفح…' : 'Waiting for browser…') : (isAr ? `تفعيل ${activeDef.labelAr}` : `Enable ${activeDef.labelEn}`)}</span>
+                    </button>
+                    <span className="text-[10px] text-slate-500">
+                      {isAr ? 'متصفح النظام · التوكن يبقى في العملية الرئيسية' : 'System browser · token stays in the main process'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+            <div className={`flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-5 overflow-hidden ${showGate ? 'hidden' : ''}`}>
               {/* Item list */}
               <div className="xl:col-span-2 border-b xl:border-b-0 xl:border-e border-[#122b52] overflow-y-auto knx-custom-scrollbar p-3 space-y-2">
-                {allItems.length === 0 ? (
-                  <div className="rounded-xl bg-[#091833] border border-dashed border-[#173766] p-6 text-center text-slate-400 text-xs">
-                    {isAr ? activeDef.emptyAr : activeDef.emptyEn}
+                {!fixtureMode && activeService !== 'sheets' && liveBusy && !liveResult ? (
+                  <div className="rounded-xl bg-[#091833] border border-[#173766] p-6 text-center text-slate-300 text-xs space-y-2" data-testid="workspace-live-loading">
+                    <RefreshCw className="w-5 h-5 mx-auto text-cyan-400 animate-spin" />
+                    <div>{isAr ? 'جارٍ قراءة هذه الخدمة من Google…' : 'Reading this service from Google…'}</div>
                   </div>
+                ) : null}
+
+                {!fixtureMode && activeService !== 'sheets' && liveError && !liveResult ? (
+                  <div role="alert" className="rounded-xl border border-rose-500/40 bg-rose-950/25 p-4 text-rose-200 text-xs space-y-1.5" data-testid="workspace-live-error-panel">
+                    <div className="flex items-center gap-1.5 font-bold">
+                      <ShieldAlert className="w-4 h-4 shrink-0" />
+                      <span>{isAr ? 'تعذر إكمال القراءة' : 'This read could not complete'}</span>
+                    </div>
+                    <div className="font-mono text-[10px] break-words">{liveError.code}</div>
+                    <div className="text-[10.5px] opacity-90 leading-relaxed">{liveError.message}</div>
+                    <button
+                      type="button"
+                      onClick={() => void google.readProduct(activeProduct)}
+                      className="mt-1 px-2.5 py-1 rounded bg-[#102952] text-cyan-300 hover:text-white text-[10.5px] font-semibold flex items-center gap-1"
+                    >
+                      <RefreshCw className="w-3 h-3" />
+                      <span>{isAr ? 'إعادة المحاولة' : 'Retry read'}</span>
+                    </button>
+                  </div>
+                ) : null}
+
+                {!fixtureMode && SELECTION_SERVICES.includes(activeService) && showLive ? (
+                  <div className="rounded-xl bg-[#08152c] border border-[#15325e] p-3 space-y-2" data-testid={`workspace-selection-${activeService}`}>
+                    <div className="flex items-center gap-1.5 text-[10.5px] font-semibold text-slate-200">
+                      <Plus className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                      <span>{isAr ? 'إضافة مستند لقراءته' : 'Add a document to read'}</span>
+                    </div>
+                    <p className="text-[10px] text-slate-500 leading-relaxed">
+                      {isAr
+                        ? 'هذه الخدمة لا توفر قائمة اكتشاف. ألصق رابط مستند Google أو معرّفه؛ يُحفظ محلياً فقط.'
+                        : 'This API has no discovery endpoint. Paste a Google document URL or id; it is stored locally only and never sent anywhere on its own.'}
+                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <input
+                        value={documentInput}
+                        onChange={(event) => setDocumentInput(event.target.value)}
+                        onKeyDown={(event) => {
+                          if (event.key === 'Enter') void handleAddDocument();
+                        }}
+                        placeholder={isAr ? 'https://docs.google.com/…' : 'https://docs.google.com/…'}
+                        aria-label={isAr ? 'رابط المستند' : 'Document URL or id'}
+                        data-testid={`workspace-document-input-${activeService}`}
+                        className="flex-1 min-w-0 bg-[#07162c] border border-[#1b3f70] rounded-lg px-2.5 py-1.5 text-[10.5px] text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/60"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => void handleAddDocument()}
+                        disabled={!documentInput.trim() || liveBusy}
+                        data-testid={`workspace-document-add-${activeService}`}
+                        className="px-2.5 py-1.5 rounded-lg bg-cyan-600/80 hover:bg-cyan-500 disabled:opacity-40 text-white text-[10.5px] font-semibold shrink-0"
+                      >
+                        {isAr ? 'إضافة' : 'Add'}
+                      </button>
+                    </div>
+                    {(liveResult?.selection?.ids ?? []).length > 0 ? (
+                      <ul className="space-y-1 pt-1">
+                        {(liveResult?.selection?.ids ?? []).map((id) => (
+                          <li key={id} className="flex items-center justify-between gap-2 text-[10px] font-mono">
+                            <span className="text-slate-400 truncate">{id}</span>
+                            <button
+                              type="button"
+                              onClick={() => void handleRemoveDocument(id)}
+                              aria-label={isAr ? 'إزالة المستند' : 'Remove document'}
+                              className="text-slate-500 hover:text-rose-300 shrink-0"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
+                ) : null}
+
+                {allItems.length === 0 ? (
+                  !fixtureMode && activeService !== 'sheets' && (liveBusy || liveError) ? null : (
+                    <div className="rounded-xl bg-[#091833] border border-dashed border-[#173766] p-6 text-center text-slate-400 text-xs" data-testid="workspace-live-empty">
+                      {!fixtureMode && activeService !== 'sheets' && liveResult
+                        ? (isAr
+                            ? 'قرأت Google هذه الخدمة ولم تُرجع أي عنصر لهذا الحساب.'
+                            : 'Google returned no items for this account in the reviewed read range.')
+                        : (isAr ? activeDef.emptyAr : activeDef.emptyEn)}
+                    </div>
+                  )
                 ) : (
                   allItems.map((item) => {
                     const isSel = item.id === selectedItem?.id;
@@ -1332,19 +1624,66 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                     <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[10px]">
                       <span className="text-slate-500">{isAr ? 'عناصر معروضة' : 'Items in view'}</span>
                       <span className="font-mono text-end text-slate-200">{allItems.length}</span>
-                      <span className="text-slate-500">{isAr ? 'صفوف المعاينة' : 'Preview rows'}</span>
+                      <span className="text-slate-500">{isAr ? 'صفوف المعاينة' : 'Inspect fields'}</span>
                       <span className="font-mono text-end text-slate-200">
                         {allItems.reduce((sum, i) => sum + i.rows.length, 0)}
                       </span>
-                      <span className="text-slate-500">{isAr ? 'سجلات حية' : 'Live records'}</span>
-                      <span className="font-mono text-end text-amber-300">0</span>
-                      <span className="text-slate-500">{isAr ? 'اتصال Google' : 'Google connection'}</span>
-                      <span className="font-mono text-end text-amber-300">
-                        {isAr ? 'غير متصل' : 'Not connected'}
+                      <span className="text-slate-500">{isAr ? 'مصدر السجلات' : 'Record source'}</span>
+                      <span className={`font-mono text-end ${fixtureMode ? 'text-amber-300' : 'text-emerald-300'}`}>
+                        {fixtureMode ? (isAr ? 'بيانات محاكاة' : 'Fixture') : (isAr ? 'قراءة حية' : 'Live read')}
+                      </span>
+                      <span className="text-slate-500">{isAr ? 'حالة القراءة' : 'Read state'}</span>
+                      <span className={`font-mono text-end ${fixtureMode ? 'text-amber-300' : liveBusy ? 'text-cyan-300' : 'text-emerald-300'}`}>
+                        {fixtureMode
+                          ? (isAr ? 'غير متصل' : 'Offline')
+                          : liveBusy
+                            ? (isAr ? 'جارٍ القراءة' : 'Reading')
+                            : (isAr ? 'مكتملة' : 'Complete')}
                       </span>
                     </div>
+                    {!fixtureMode && liveResult && liveResult.failures.length > 0 ? (
+                      <div className="mt-2 pt-2 border-t border-[#15325e] text-[10px] text-amber-300">
+                        {isAr
+                          ? `تعذر قراءة ${liveResult.failures.length} عنصراً منفصلاً.`
+                          : `${liveResult.failures.length} item(s) could not be read and were skipped.`}
+                      </div>
+                    ) : null}
                   </div>
                 )}
+
+                {/* Provenance: states exactly which API produced this list. */}
+                {!fixtureMode && showLive && liveResult ? (
+                  <div className="rounded-xl bg-[#07162c] border border-[#122b52] p-3" data-testid="workspace-provenance">
+                    <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-300 mb-1">
+                      <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                      <span>{isAr ? 'مصدر البيانات' : 'Data provenance'}</span>
+                    </div>
+                    <div className="text-[10px] text-slate-400 leading-relaxed space-y-0.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-slate-500">{isAr ? 'الواجهة' : 'API'}</span>
+                        <span className="font-mono text-slate-300 text-end">{liveResult.provenance.api}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-slate-500">{isAr ? 'النمط' : 'Mode'}</span>
+                        <span className="font-mono text-slate-300 text-end">{liveResult.provenance.mode}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-slate-500">{isAr ? 'النطاق' : 'Scope'}</span>
+                        <span className="font-mono text-cyan-300 text-end break-all">{liveResult.scope}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-slate-500">{isAr ? 'وقت القراءة' : 'Observed'}</span>
+                        <span className="font-mono text-slate-300 text-end">{liveResult.observedAt.replace('T', ' ').slice(0, 19)}Z</span>
+                      </div>
+                    </div>
+                    <p className="mt-1.5 text-[10px] text-slate-500 leading-relaxed">{liveResult.provenance.note}</p>
+                    {liveResult.truncated ? (
+                      <p className="mt-1 text-[10px] text-amber-300">
+                        {isAr ? 'النتائج مقطوعة عند الحد المراجع.' : 'Results are capped at the reviewed item limit.'}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
 
               {/* Contextual inspector */}
@@ -1374,13 +1713,23 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                       </div>
 
                       <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[#173766] flex-wrap">
-                        <button
-                          onClick={() => handleAction(`${activeDef.labelEn}: ${selectedItem.title}`)}
-                          className="px-2.5 py-1 rounded bg-[#102952] text-cyan-300 hover:text-white text-[11px] font-medium cursor-pointer flex items-center gap-1"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          <span>{isAr ? 'فتح في الخدمة' : `Open in ${activeDef.labelEn.replace('Google ', '')}`}</span>
-                        </button>
+                        {fixtureMode ? (
+                          <button
+                            onClick={() => handleAction(`${activeDef.labelEn}: ${selectedItem.title}`)}
+                            className="px-2.5 py-1 rounded bg-[#102952] text-cyan-300 hover:text-white text-[11px] font-medium cursor-pointer flex items-center gap-1"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            <span>{isAr ? 'فتح في الخدمة' : `Open in ${activeDef.labelEn.replace('Google ', '')}`}</span>
+                          </button>
+                        ) : (
+                          <span
+                            className="px-2.5 py-1 rounded bg-[#0b1f3d] border border-emerald-500/30 text-emerald-300 text-[10.5px] font-medium flex items-center gap-1"
+                            data-testid="workspace-read-only"
+                          >
+                            <Lock className="w-3 h-3" />
+                            <span>{isAr ? 'قراءة فقط — لا كتابة ولا فتح خارجي' : 'Read-only — no write or external open'}</span>
+                          </span>
+                        )}
                         <button
                           onClick={handleCopyId}
                           className="px-2.5 py-1 rounded bg-[#102952] text-slate-300 hover:text-white text-[11px] font-medium cursor-pointer flex items-center gap-1"
@@ -1421,8 +1770,10 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                           <Table2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                           <span>{isAr ? 'جدول المعاينة' : 'Preview table'}</span>
                         </div>
-                        <span className="px-1.5 py-0.5 rounded bg-[#0b1f3d] border border-[#1d3f6e] text-[9px] font-mono text-amber-300">
-                          {isAr ? 'نموذج محاكاة' : 'fixture data'}
+                        <span className={`px-1.5 py-0.5 rounded bg-[#0b1f3d] border border-[#1d3f6e] text-[9px] font-mono ${fixtureMode ? 'text-amber-300' : 'text-emerald-300'}`}>
+                          {fixtureMode
+                            ? (isAr ? 'نموذج محاكاة' : 'fixture data')
+                            : (isAr ? 'مقروء من Google' : 'read from Google')}
                         </span>
                       </div>
                       <div className="overflow-x-auto knx-custom-scrollbar">
@@ -1459,41 +1810,47 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                       </div>
                     </div>
 
-                    {/* Activity trail — derived from the selected fixture, clearly local */}
+                    {/* Activity trail — honest about local fixtures vs a live read */}
                     <div className="rounded-xl bg-[#091833] border border-[#173766] p-3.5">
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-200">
                           <History className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                           <span>{isAr ? 'سجل النشاط' : 'Activity trail'}</span>
                         </div>
-                        <span className="px-1.5 py-0.5 rounded bg-[#0b1f3d] border border-[#1d3f6e] text-[9px] font-mono text-slate-400">
-                          {isAr ? 'محلي فقط' : 'local only'}
+                        <span className={`px-1.5 py-0.5 rounded bg-[#0b1f3d] border border-[#1d3f6e] text-[9px] font-mono ${fixtureMode ? 'text-slate-400' : 'text-emerald-300'}`}>
+                          {fixtureMode ? (isAr ? 'محلي فقط' : 'local only') : (isAr ? 'قراءة حية' : 'live read')}
                         </span>
                       </div>
                       <ol className="space-y-1.5">
                         <li className="flex items-start gap-2 text-[10.5px]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1" />
+                          <span className={`w-1.5 h-1.5 rounded-full shrink-0 mt-1 ${fixtureMode ? 'bg-cyan-400' : 'bg-emerald-400'}`} />
                           <span className="text-slate-300 flex-1">
-                            {isAr ? 'تم تحميل بيانات المحاكاة' : 'Fixture snapshot loaded'}
+                            {fixtureMode
+                              ? (isAr ? 'تم تحميل بيانات المحاكاة' : 'Fixture snapshot loaded')
+                              : (isAr ? `قُرِئ من ${liveResult?.provenance.api ?? 'Google API'}` : `Read from ${liveResult?.provenance.api ?? 'the Google API'}`)}
                           </span>
                           <span className="font-mono text-slate-500 shrink-0">{selectedItem.meta}</span>
                         </li>
                         <li className="flex items-start gap-2 text-[10.5px]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-1" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1" />
                           <span className="text-slate-300 flex-1">
-                            {isAr ? 'تم عرض المعاينة داخل المتصفح' : 'Local preview rendered in-browser'}
+                            {fixtureMode
+                              ? (isAr ? 'تم عرض المعاينة داخل المتصفح' : 'Local preview rendered in-browser')
+                              : (isAr ? `طُبّع ${liveResult?.count ?? 0} عنصراً في العملية الرئيسية` : `Normalized ${liveResult?.count ?? 0} item(s) in the main process`)}
                           </span>
                           <span className="font-mono text-slate-500 shrink-0">
-                            {selectedItem.rows.length} {isAr ? 'صف' : 'rows'}
+                            {selectedItem.rows.length} {isAr ? 'صف' : 'fields'}
                           </span>
                         </li>
                         <li className="flex items-start gap-2 text-[10.5px]">
                           <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1" />
                           <span className="text-slate-300 flex-1">
-                            {isAr ? 'لم يتم تنفيذ أي عملية على Google' : 'No operation performed against Google'}
+                            {fixtureMode
+                              ? (isAr ? 'لم يتم تنفيذ أي عملية على Google' : 'No operation performed against Google')
+                              : (isAr ? 'قراءة فقط — لم تُرسل أي كتابة أو حذف' : 'Read-only — no write, delete or send request was made')}
                           </span>
-                          <span className="font-mono text-amber-300 shrink-0">
-                            {isAr ? 'مجمّد' : 'Frozen'}
+                          <span className={`font-mono shrink-0 ${fixtureMode ? 'text-amber-300' : 'text-emerald-300'}`}>
+                            {fixtureMode ? (isAr ? 'مجمّد' : 'Frozen') : (isAr ? 'آمن' : 'Safe')}
                           </span>
                         </li>
                       </ol>
@@ -1524,9 +1881,11 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                 </div>
                 <div className="text-[10px] font-mono text-cyan-300 truncate mt-0.5">{activeDef.scope}</div>
                 <div className="text-[9.5px] text-slate-500 mt-0.5">
-                  {googleConnected
-                    ? (isAr ? 'ممنوح للقراءة فقط بعد موافقتك' : 'Granted read-only after your consent')
-                    : (isAr ? 'لا يُطلب حتى تضغط اتصال Google' : 'Not requested until you press Connect Google')}
+                  {fixtureMode
+                    ? (isAr ? 'معاينة فقط — لا يوجد جسر أصلي' : 'Preview only — no native bridge')
+                    : activeGrant === 'granted'
+                      ? (isAr ? 'ممنوح للقراءة فقط بعد موافقتك' : 'Granted read-only after your consent')
+                      : (isAr ? 'لم يُمنح بعد — يلزم تفعيل هذه الخدمة' : 'Not granted yet — enable this service to request it')}
                 </div>
               </div>
             </div>
@@ -1544,7 +1903,9 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                     ? (googleConnected
                         ? (isAr ? 'قراءة فقط عند الطلب · لا مزامنة خلفية' : 'Read only on demand · no background sync')
                         : (isAr ? 'لا مزامنة — يلزم اتصال صريح' : 'No sync — explicit connection required'))
-                    : (isAr ? activeDef.syncAr : activeDef.syncEn)}
+                    : fixtureMode
+                      ? (isAr ? activeDef.syncAr : activeDef.syncEn)
+                      : (isAr ? 'قراءة فقط عند الطلب · لا مزامنة خلفية' : 'Read only on demand · no background sync')}
                 </div>
               </div>
             </div>
@@ -1571,34 +1932,51 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             ) : (
               <div className="rounded-xl bg-[#071328] border border-[#1b3f70] p-3 flex items-start gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-[#0b1f3d] border border-[#1d3f6e] flex items-center justify-center shrink-0">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  {fixtureMode ? <Sparkles className="w-3.5 h-3.5 text-amber-400" /> : <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-[11px] font-semibold text-white truncate">
-                    {isAr ? 'إضافة عنصر محلي' : 'Add local fixture item'}
+                    {fixtureMode
+                      ? (isAr ? 'إضافة عنصر محلي' : 'Add local fixture item')
+                      : (isAr ? 'نطاق هذه الخدمة' : 'This service scope')}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-1">
-                    <input
-                      type="text"
-                      value={newInput}
-                      onChange={(e) => setNewInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleAddLocalItem();
-                      }}
-                      placeholder={isAr ? 'عنصر جديد…' : 'New local item…'}
-                      className="flex-1 min-w-0 px-2 py-1 bg-[#0b1b36] border border-[#173766] rounded text-[10.5px] text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400"
-                    />
-                    <button
-                      onClick={handleAddLocalItem}
-                      disabled={!newInput.trim()}
-                      className="px-2 py-1 rounded bg-cyan-600 hover:bg-cyan-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-[10.5px] font-semibold cursor-pointer disabled:cursor-not-allowed shrink-0"
-                    >
-                      {isAr ? 'إضافة' : 'Add'}
-                    </button>
-                  </div>
-                  <div className="text-[9.5px] text-slate-500 mt-1">
-                    {isAr ? 'يبقى داخل المتصفح' : 'Stays inside this browser only'}
-                  </div>
+                  {fixtureMode ? (
+                    <>
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <input
+                          type="text"
+                          value={newInput}
+                          onChange={(e) => setNewInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleAddLocalItem();
+                          }}
+                          placeholder={isAr ? 'عنصر جديد…' : 'New local item…'}
+                          className="flex-1 min-w-0 px-2 py-1 bg-[#0b1b36] border border-[#173766] rounded text-[10.5px] text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+                        />
+                        <button
+                          onClick={handleAddLocalItem}
+                          disabled={!newInput.trim()}
+                          className="px-2 py-1 rounded bg-cyan-600 hover:bg-cyan-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-[10.5px] font-semibold cursor-pointer disabled:cursor-not-allowed shrink-0"
+                        >
+                          {isAr ? 'إضافة' : 'Add'}
+                        </button>
+                      </div>
+                      <div className="text-[9.5px] text-slate-500 mt-1">
+                        {isAr ? 'يبقى داخل المتصفح' : 'Stays inside this browser only'}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-[10px] font-mono text-cyan-300 mt-0.5 break-all">{activeDef.scope}</div>
+                      <div className="text-[9.5px] text-slate-500 mt-1 leading-snug">
+                        {activeGrant === 'granted'
+                          ? (isAr ? 'ممنوح · قراءة فقط · عند الطلب' : 'Granted · read-only · on demand')
+                          : localAdditions[activeService]?.length
+                            ? (isAr ? 'غير ممنوح · أزل الإضافات المحلية القديمة' : 'Not granted · remove legacy local additions')
+                            : (isAr ? 'غير ممنوح · فعّل الخدمة لقراءتها' : 'Not granted · enable the service to read it')}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -1617,7 +1995,7 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
             <Globe className="w-5 h-5 text-cyan-400" />
             <div>
               <h2 id="workspace-oauth-title" className="text-sm font-bold text-white">
-                {isAr ? 'وصول Google — قراءة الجداول فقط' : 'Google access — Sheets read only'}
+                {isAr ? 'وصول Google — قراءة فقط، خدمة واحدة في كل مرة' : 'Google access — read only, one service at a time'}
               </h2>
               <p className="text-[10px] text-slate-400 mt-0.5">
                 {isAr ? 'اتصال صريح عبر متصفح النظام. لا رموز في الواجهة.' : 'Explicit system-browser connection. No token in this interface.'}
@@ -1653,10 +2031,10 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
 
         <div>
           <div className="text-[11px] font-semibold text-slate-200 mb-1.5">
-            {isAr ? 'النطاقات الأربعة الثابتة — لا تُوسّع تلقائيًا' : 'Fixed four-scope set — never expanded automatically'}
+            {isAr ? 'الهوية الأساسية + نطاق واحد لكل خدمة' : 'Identity baseline + one read-only scope per service'}
           </div>
           <div className="rounded-lg bg-[#07162c] border border-[#122b52] divide-y divide-[#122b52]" data-testid="workspace-oauth-scopes">
-            {SCOPE_ROWS.map((scope) => (
+            {SCOPE_ROWS.filter((scope) => scope.labelEn !== 'spreadsheets.readonly').map((scope) => (
               <div key={scope.labelEn} className="flex items-start justify-between gap-3 px-3 py-2">
                 <div className="min-w-0">
                   <div className="text-[10.5px] font-mono text-cyan-300">{scope.labelEn}</div>
@@ -1665,7 +2043,42 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
                 <Lock className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
               </div>
             ))}
+            {HUB_SERVICES.map((service) => {
+              const grant = googleStatus?.products?.[SERVICE_PRODUCT[service.id]] ?? 'not-requested';
+              const granted = grant === 'granted';
+              const Icon = service.icon;
+              return (
+                <div key={service.id} className="flex items-start justify-between gap-3 px-3 py-2" data-testid={`workspace-scope-${service.id}`}>
+                  <div className="min-w-0 flex items-start gap-2">
+                    <Icon className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${service.color}`} />
+                    <div className="min-w-0">
+                      <div className="text-[10.5px] font-mono text-cyan-300">{service.scope}</div>
+                      <div className="text-[10px] text-slate-500">
+                        {isAr ? service.labelAr : service.labelEn}
+                        {' · '}
+                        {granted
+                          ? (isAr ? 'ممنوح' : 'granted')
+                          : grant === 'missing'
+                            ? (isAr ? 'غير ممنوح — فعّل من مساحة الخدمة' : 'not granted — enable from its workspace')
+                            : (isAr ? 'لم يُطلب بعد' : 'not requested yet')}
+                      </div>
+                    </div>
+                  </div>
+                  {granted ? (
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                  ) : (
+                    <Lock className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
+                  )}
+                </div>
+              );
+            })}
           </div>
+        </div>
+
+        <div className="rounded-xl border border-[#173766] bg-[#07162c] px-3.5 py-2.5 text-[10px] text-slate-400 leading-relaxed">
+          {isAr
+            ? 'لا يُطلب أي نطاق قبل الضغط على «اتصال Google»، وبعد ذلك يُطلب نطاق خدمة واحدة فقط عند تفعيلها. كل النطاقات للقراءة فقط؛ لا كتابة أو حذف أو إرسال. بعض نطاقات Gmail وCalendar وDrive تحتاج مراجعة Google للتطبيقات العامة.'
+            : 'No scope is requested before you press Connect Google. After that, each service adds only its own read-only scope when you enable it. Every scope is read-only: no write, delete or send. Gmail, Calendar and Drive scopes need Google verification before a public release.'}
         </div>
 
         {googleStatus?.connection === 'permission-missing' ? (
@@ -1690,8 +2103,8 @@ export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale =
 
         <div className="rounded-xl border border-[#173766] bg-[#07162c] px-3.5 py-2.5 text-[10px] text-slate-400 leading-relaxed">
           {isAr
-            ? 'تخزين الرموز: Windows DPAPI عبر safeStorage في العملية الرئيسية. لا تُكتب الرموز في localStorage أو السجلات أو Git. لا يوجد بحث Drive ولا كتابة Google.'
-            : 'Token storage: Windows DPAPI via safeStorage in the main process. Tokens are never written to localStorage, logs or Git. There is no Drive search and no Google write.'}
+            ? 'تخزين الرموز: Windows DPAPI عبر safeStorage في العملية الرئيسية. لا تُكتب الرموز في localStorage أو السجلات أو Git. جسر Drive يقرأ بيانات وصفية فقط، ولا توجد أي كتابة على Google.'
+            : 'Token storage: Windows DPAPI via safeStorage in the main process. Tokens are never written to localStorage, logs or Git. The Drive-backed Picker reads metadata only; there is no Google write anywhere in this app.'}
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#0f2444] pt-3">

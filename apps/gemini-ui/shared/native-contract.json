@@ -142,6 +142,10 @@
     "googleSheetAdd": "knoux:google:v1:sheet-add",
     "googleSheetRemove": "knoux:google:v1:sheet-remove",
     "googleSheetRead": "knoux:google:v1:sheet-read",
+    "googleWorkspaceCapabilities": "knoux:google:v1:workspace-capabilities",
+    "googleWorkspaceAuthorize": "knoux:google:v1:workspace-authorize",
+    "googleWorkspaceRead": "knoux:google:v1:workspace-read",
+    "googleWorkspaceSelect": "knoux:google:v1:workspace-select",
     "aiStatus": "knoux:ai:v1:status",
     "aiConfigure": "knoux:ai:v1:configure",
     "aiClear": "knoux:ai:v1:clear",
@@ -150,14 +154,54 @@
     "aiCancel": "knoux:ai:v1:cancel"
   },
   "capabilities": {
-    "clipboard.status": { "id": "clipboard.status", "title": "Read local vault status without observing the clipboard", "mode": "read-only", "channel": "knoux:clipboard:v1:status" },
-    "clipboard.configure": { "id": "clipboard.configure", "title": "Configure session-only capture after native consent", "mode": "user-initiated", "channel": "knoux:clipboard:v1:configure" },
-    "clipboard.list": { "id": "clipboard.list", "title": "Search bounded saved vault history", "mode": "user-initiated", "channel": "knoux:clipboard:v1:list" },
-    "clipboard.get": { "id": "clipboard.get", "title": "Inspect a saved vault item", "mode": "user-initiated", "channel": "knoux:clipboard:v1:get" },
-    "clipboard.pin": { "id": "clipboard.pin", "title": "Pin or unpin a saved vault item", "mode": "user-initiated", "channel": "knoux:clipboard:v1:pin" },
-    "clipboard.remove": { "id": "clipboard.remove", "title": "Remove one vault item after native confirmation", "mode": "user-initiated", "channel": "knoux:clipboard:v1:remove" },
-    "clipboard.clear": { "id": "clipboard.clear", "title": "Discard vault history and stop capture after native confirmation", "mode": "user-initiated", "channel": "knoux:clipboard:v1:clear" },
-    "clipboard.copy": { "id": "clipboard.copy", "title": "Copy a saved item back after native confirmation", "mode": "user-initiated", "channel": "knoux:clipboard:v1:copy" },
+    "clipboard.status": {
+      "id": "clipboard.status",
+      "title": "Read local vault status without observing the clipboard",
+      "mode": "read-only",
+      "channel": "knoux:clipboard:v1:status"
+    },
+    "clipboard.configure": {
+      "id": "clipboard.configure",
+      "title": "Configure session-only capture after native consent",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:configure"
+    },
+    "clipboard.list": {
+      "id": "clipboard.list",
+      "title": "Search bounded saved vault history",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:list"
+    },
+    "clipboard.get": {
+      "id": "clipboard.get",
+      "title": "Inspect a saved vault item",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:get"
+    },
+    "clipboard.pin": {
+      "id": "clipboard.pin",
+      "title": "Pin or unpin a saved vault item",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:pin"
+    },
+    "clipboard.remove": {
+      "id": "clipboard.remove",
+      "title": "Remove one vault item after native confirmation",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:remove"
+    },
+    "clipboard.clear": {
+      "id": "clipboard.clear",
+      "title": "Discard vault history and stop capture after native confirmation",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:clear"
+    },
+    "clipboard.copy": {
+      "id": "clipboard.copy",
+      "title": "Copy a saved item back after native confirmation",
+      "mode": "user-initiated",
+      "channel": "knoux:clipboard:v1:copy"
+    },
     "bridge.status": {
       "id": "bridge.status",
       "title": "Bridge handshake",
@@ -931,6 +975,30 @@
       "title": "Read bounded values from a selected spreadsheet after explicit action",
       "mode": "read-only",
       "channel": "knoux:google:v1:sheet-read"
+    },
+    "google.workspace.capabilities": {
+      "id": "google.workspace.capabilities",
+      "title": "List the reviewed Google product scopes and read-only readers",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:workspace-capabilities"
+    },
+    "google.workspace.authorize": {
+      "id": "google.workspace.authorize",
+      "title": "Request one product read-only scope in the system browser",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:workspace-authorize"
+    },
+    "google.workspace.read": {
+      "id": "google.workspace.read",
+      "title": "Read bounded items for one granted Google product",
+      "mode": "read-only",
+      "channel": "knoux:google:v1:workspace-read"
+    },
+    "google.workspace.select": {
+      "id": "google.workspace.select",
+      "title": "Remember a validated Google Forms or Slides document reference",
+      "mode": "user-initiated",
+      "channel": "knoux:google:v1:workspace-select"
     },
     "ai.status": {
       "id": "ai.status",

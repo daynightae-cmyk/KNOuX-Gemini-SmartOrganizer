@@ -44,6 +44,7 @@ const { RepairBridge } = require('./native/repair-bridge.cjs');
 const { ServicesBridge } = require('./native/services-bridge.cjs');
 const { AutomationBridge } = require('./native/automation-bridge.cjs');
 const { GoogleOAuthService, TokenVault } = require('./native/google-auth.cjs');
+const { GoogleWorkspaceService } = require('./native/google-workspace.cjs');
 const { AiBridge, PROVIDER_IDS: AI_PROVIDER_IDS } = require('./native/ai-bridge.cjs');
 const {
   ok,
@@ -114,6 +115,7 @@ let repairBridge = null;
 let servicesBridge = null;
 let automationBridge = null;
 let googleOAuthService = null;
+let googleWorkspaceService = null;
 let aiBridge = null;
 
 if (!isSmoke && !app.requestSingleInstanceLock()) {
@@ -1760,7 +1762,11 @@ function registerIpc() {
   ipcMain.handle(contract.channels.googleDisconnect, (event, ...args) =>
     googleGuard(event, 'google.disconnect', args, 'user-authorized', async (callArgs) => {
       assertNoArguments(callArgs, 'google.disconnect');
-      return googleOAuthService.disconnect();
+      const status = await googleOAuthService.disconnect();
+      if (googleWorkspaceService) {
+        await googleWorkspaceService.purgeLocalCopies().catch(() => ({ purged: false }));
+      }
+      return status;
     })
   );
 
@@ -1804,6 +1810,71 @@ function registerIpc() {
         throw Object.assign(new Error('The sheet dimension is invalid.'), { code: 'GOOGLE_INPUT_INVALID' });
       }
       return googleOAuthService.readSheet(payload);
+    })
+  );
+
+  /* Google Workspace read providers. The renderer may name a reviewed product,
+     a document id and a short query string. It cannot name a URL, host, header,
+     HTTP method or request body - those are fixed in google-workspace.cjs. */
+  const requireWorkspaceService = () => {
+    if (!googleWorkspaceService) {
+      throw Object.assign(new Error('The Google Workspace readers are not initialized.'), {
+        code: 'GOOGLE_WORKSPACE_UNAVAILABLE',
+      });
+    }
+    return googleWorkspaceService;
+  };
+
+  ipcMain.handle(contract.channels.googleWorkspaceCapabilities, (event, ...args) =>
+    googleGuard(event, 'google.workspace.capabilities', args, 'read-only', async (callArgs) => {
+      assertNoArguments(callArgs, 'google.workspace.capabilities');
+      return requireWorkspaceService().capabilities();
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleWorkspaceAuthorize, (event, ...args) =>
+    googleGuard(event, 'google.workspace.authorize', args, 'user-authorized', async (callArgs) => {
+      const payload = callArgs[0];
+      if (!payload || typeof payload !== 'object' || typeof payload.product !== 'string') {
+        throw Object.assign(new Error('A Google product id is required.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      requireWorkspaceService();
+      return googleOAuthService.connect({ product: payload.product });
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleWorkspaceRead, (event, ...args) =>
+    googleGuard(event, 'google.workspace.read', args, 'read-only', async (callArgs) => {
+      const payload = callArgs[0];
+      if (!payload || typeof payload !== 'object' || typeof payload.product !== 'string' || payload.product.length > 40) {
+        throw Object.assign(new Error('A Google product id is required.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      if (payload.id != null && (typeof payload.id !== 'string' || payload.id.length > 160)) {
+        throw Object.assign(new Error('The Google document id is invalid.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      if (payload.query != null && (typeof payload.query !== 'string' || payload.query.length > 200)) {
+        throw Object.assign(new Error('The Google search term is too long.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      return requireWorkspaceService().read(payload);
+    })
+  );
+
+  ipcMain.handle(contract.channels.googleWorkspaceSelect, (event, ...args) =>
+    googleGuard(event, 'google.workspace.select', args, 'user-initiated', async (callArgs) => {
+      const payload = callArgs[0];
+      if (!payload || typeof payload !== 'object' || typeof payload.product !== 'string') {
+        throw Object.assign(new Error('A Google product id is required.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      if (payload.action !== 'add' && payload.action !== 'remove') {
+        throw Object.assign(new Error('The selection action is invalid.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      if (payload.input != null && (typeof payload.input !== 'string' || payload.input.length > 2048)) {
+        throw Object.assign(new Error('The Google document reference is too long.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      if (payload.id != null && (typeof payload.id !== 'string' || payload.id.length > 160)) {
+        throw Object.assign(new Error('The Google document id is invalid.'), { code: 'GOOGLE_INPUT_INVALID' });
+      }
+      return requireWorkspaceService().select(payload);
     })
   );
 
@@ -4899,49 +4970,62 @@ async function runSmoke(win) {
              const state = document.querySelector('[data-testid="workspace-connection-state"]')?.innerText || '';
              if (!/Not connected|غير متصل/i.test(state)) failures.push('connection-state');
              if (document.body.innerText.includes('Simulate Connected State') || document.body.innerText.includes('Sandbox preview toggled on')) failures.push('fake-connected-control');
+             if (/(Fixture set|fixture data|Sandbox fixture)/i.test(document.body.innerText)) failures.push('fixture-text-visible');
+             const statusEnvelope = window.knouxGoogleV1 ? await window.knouxGoogleV1.getStatus() : null;
+             const configured = Boolean(statusEnvelope?.data?.configured);
+             const products = statusEnvelope?.data?.products || {};
+             if (Object.keys(products).length !== 10) failures.push('product-map-' + Object.keys(products).length);
              const seen = new Set();
              for (const id of ids) {
                const button = document.querySelector('[data-testid="workspace-service-' + id + '"]');
                if (!button) { failures.push(id + ':missing'); continue; }
                button.click();
-               await wait(90);
+               await wait(110);
                const title = document.querySelector('[data-testid="workspace-service-title"]')?.textContent?.trim() || '';
-               const action = document.querySelector('[data-testid="workspace-action"]');
                if (title) seen.add(id);
                if (id === 'sheets') {
                  if (!document.querySelector('[data-testid="workspace-sheets-workbench"]')) failures.push('sheets-workbench-missing');
                  if (!document.querySelector('[data-testid="workspace-google-state"]')) failures.push('sheets-state-missing');
                  if (!document.querySelector('[data-testid="workspace-google-disconnected"]')) failures.push('sheets-disconnected-state-missing');
-               } else if (!action) {
-                 failures.push(id + ':action-missing');
+                 continue;
                }
+               const gate = document.querySelector('[data-testid="workspace-gate-' + id + '"]');
+               if (!gate) { failures.push(id + ':gate-missing'); continue; }
+               const enable = gate.querySelector('[data-testid="workspace-enable-' + id + '"]');
+               if (!enable) failures.push(id + ':enable-missing');
+               const action = document.querySelector('[data-testid="workspace-action"]');
+               if (!action) failures.push(id + ':action-missing');
+               else if (!/Enable|تفعيل/i.test(action.innerText || '')) failures.push(id + ':action-not-enable');
+               if (enable && configured && enable.disabled) failures.push(id + ':enable-disabled-with-client');
+               if (enable && !configured && !enable.disabled) failures.push(id + ':enable-clickable-without-client');
              }
-             const action = document.querySelector('[data-testid="workspace-action"]');
-             if (action) {
-               action.click();
-               await wait(160);
-               const toast = document.querySelector('[data-testid="workspace-toast"]')?.innerText || '';
-               if (!/Preview only|معاينة فقط/.test(toast) || !/not executed|لم يُنفذ|لم ينفذ/i.test(toast)) failures.push('action-toast');
-             } else failures.push('action-target');
+             const gmailButton = document.querySelector('[data-testid="workspace-service-gmail"]');
+             if (gmailButton) {
+               gmailButton.click();
+               await wait(110);
+               if (document.querySelector('[data-testid="workspace-oauth-modal"]')) failures.push('modal-opened-by-navigation');
+             }
              const connect = document.querySelector('[data-testid="workspace-connect-button"]');
              if (!connect) failures.push('connect-review-missing');
              else {
                connect.click();
-               await wait(180);
+               await wait(200);
                const modal = document.querySelector('[data-testid="workspace-oauth-modal"]');
                if (!modal) failures.push('oauth-modal-missing');
                else {
                  const scopeRows = modal.querySelectorAll('[data-testid="workspace-oauth-scopes"] > div').length;
-                 if (scopeRows !== 4) failures.push('scope-count-' + scopeRows);
+                 if (scopeRows !== 13) failures.push('scope-count-' + scopeRows);
+                 const productRows = modal.querySelectorAll('[data-testid^="workspace-scope-"]').length;
+                 if (productRows !== 10) failures.push('product-scope-count-' + productRows);
                  if (!modal.querySelector('[data-testid="workspace-oauth-status"]')) failures.push('oauth-status-missing');
                  if (!modal.querySelector('[data-testid="workspace-oauth-connect"]') && !modal.querySelector('[data-testid="workspace-oauth-disconnect"]')) failures.push('oauth-action-missing');
                  if (/refresh_token|access_token|client_secret/i.test(modal.innerText || '')) failures.push('token-text-in-modal');
                  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-                 await wait(120);
+                 await wait(140);
                  if (document.querySelector('[data-testid="workspace-oauth-modal"]')) failures.push('escape-close');
                }
              }
-             return { ok: failures.length === 0 && seen.size === 10, services: seen.size, failures };
+             return { ok: failures.length === 0 && seen.size === 10, services: seen.size, configured, failures };
            })()`,
           true
         );
@@ -6712,12 +6796,18 @@ app.whenReady().then(async () => {
     const oauthRoot = path.join(app.getPath('userData'), 'oauth');
     await fsp.rm(path.join(oauthRoot, 'google-refresh.bin'), { force: true }).catch(() => {});
     await fsp.rm(path.join(oauthRoot, 'selected-sheets.json'), { force: true }).catch(() => {});
+    await fsp.rm(path.join(oauthRoot, 'google-forms-selection.json'), { force: true }).catch(() => {});
+    await fsp.rm(path.join(oauthRoot, 'google-slides-selection.json'), { force: true }).catch(() => {});
   }
   googleOAuthService = new GoogleOAuthService({
     safeStorage,
     shell,
     userDataPath: app.getPath('userData'),
     env: process.env,
+  });
+  googleWorkspaceService = new GoogleWorkspaceService({
+    oauth: googleOAuthService,
+    userDataPath: app.getPath('userData'),
   });
   clipboardVault = createClipboardVault({ clipboard, nativeImage, safeStorage, storagePath: path.join(app.getPath('userData'), 'clipboard-vault-v1.bin') });
   await clipboardVault.init();
