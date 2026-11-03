@@ -1,0 +1,200 @@
+{
+  "capturedAt": "2026-11-03T00:25:53.792Z",
+  "head": "0c853c9a66fb6e39317c0c13dc22d89aec62f995",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-BGlZtT",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "startup-day-en-1672x941",
+      "section": "startup",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "startup-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "startup",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 3,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Analyze StartupMeasure · Inspect · Review",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured autorun register",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured boot impact",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Delay policy preview",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Scheduled task autoruns",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Filter by impact and state",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Immutable preview journal",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "unified": {
+          "content": {
+            "x": 240,
+            "y": 58,
+            "w": 1432,
+            "h": 883
+          },
+          "scene": "startup",
+          "sceneKind": "bitmap",
+          "sceneReady": true,
+          "sceneCount": 1,
+          "liveOrbits": 1,
+          "chromeHeaders": 1,
+          "navigationRails": 1,
+          "particleSystems": 1
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-canvas has-reference-inspector",
+            "rect": {
+              "x": 265,
+              "y": 435,
+              "w": 1382,
+              "h": 434.5
+            },
+            "scrollHeight": 805,
+            "clientHeight": 435
+          },
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 1233,
+              "y": 716.5,
+              "w": 388,
+              "h": 140
+            },
+            "scrollHeight": 610,
+            "clientHeight": 139
+          }
+        ],
+        "headings": [
+          "Startup Control",
+          "Startup Control"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "startup",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "unifiedGeometryChecked": true,
+  "geometryTolerance": 2,
+  "geometryErrors": [],
+  "unifiedGeometryOk": true,
+  "geometryGroups": {
+    "1672x941/day/en": {
+      "x": 12,
+      "y": 12,
+      "w": 1408,
+      "h": 340
+    }
+  },
+  "visualFidelityAccepted": false
+}

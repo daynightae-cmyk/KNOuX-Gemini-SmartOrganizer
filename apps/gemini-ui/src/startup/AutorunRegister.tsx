@@ -110,36 +110,6 @@ export function AutorunRegister({
             <Filter className="w-3.5 h-3.5" />
           </button>
         </div>
-      </header>
-
-      <div className="stp-tabs" role="tablist" aria-label={t(locale, 'Autorun sources', 'مصادر بدء التشغيل')}>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={filters.source === 'all'}
-          className={`stp-tab ${filters.source === 'all' ? 'is-active' : ''}`}
-          onClick={() => onChangeFilters({ source: 'all' })}
-        >
-          {t(locale, 'All Sources', 'كل المصادر')}
-          <span className="stp-tab-count">{formatCount(counts.all)}</span>
-        </button>
-        {ENTRY_SOURCES.map((source) => (
-          <button
-            key={source}
-            type="button"
-            role="tab"
-            aria-selected={filters.source === source}
-            className={`stp-tab ${filters.source === source ? 'is-active' : ''}`}
-            style={{ '--stp-source': SOURCE_META[source].accent } as React.CSSProperties}
-            onClick={() => onChangeFilters({ source })}
-          >
-            <span className="stp-source-dot" />
-            {sourceLabel(source, locale)}
-            <span className="stp-tab-count">{formatCount(counts[source])}</span>
-          </button>
-        ))}
-      </div>
-
       <div className="stp-filter-row">
         <label className="stp-search">
           <Search className="w-3.5 h-3.5" />
@@ -190,7 +160,37 @@ export function AutorunRegister({
         </select>
       </div>
 
-      <div className="stp-table-wrap knx-custom-scrollbar">
+      </header>
+
+      <div className="stp-tabs" role="tablist" aria-label={t(locale, 'Autorun sources', 'مصادر بدء التشغيل')}>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={filters.source === 'all'}
+          className={`stp-tab ${filters.source === 'all' ? 'is-active' : ''}`}
+          onClick={() => onChangeFilters({ source: 'all' })}
+        >
+          {t(locale, 'All Sources', 'كل المصادر')}
+          <span className="stp-tab-count">{formatCount(counts.all)}</span>
+        </button>
+        {ENTRY_SOURCES.map((source) => (
+          <button
+            key={source}
+            type="button"
+            role="tab"
+            aria-selected={filters.source === source}
+            className={`stp-tab ${filters.source === source ? 'is-active' : ''}`}
+            style={{ '--stp-source': SOURCE_META[source].accent } as React.CSSProperties}
+            onClick={() => onChangeFilters({ source })}
+          >
+            <span className="stp-source-dot" />
+            {sourceLabel(source, locale)}
+            <span className="stp-tab-count">{formatCount(counts[source])}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="stp-table-wrap knx-custom-scrollbar" data-testid="startup-register-scroll">
         <table className="stp-table">
           <thead>
             <tr>

@@ -43,7 +43,7 @@ export function PlanGate({ locale, plan, onClose, onNotice }: PlanGateProps) {
 
   return (
     <div className="stp-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="stp-plan-gate-title">
-      <div className="stp-plan-gate" data-testid="startup-plan-gate">
+      <div className="stp-plan-gate" data-testid="startup-plan-gate" data-plan-id={plan.id} data-immutable={plan.immutable} data-mutation={plan.mutation} data-execution-available={plan.execution.available}>
         <div className="stp-plan-gate-head">
           <div className="stp-plan-gate-icon"><Lock className="w-5 h-5" /></div>
           <div className="min-w-0">

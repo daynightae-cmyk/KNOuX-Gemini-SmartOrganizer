@@ -1,4 +1,3 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — Boot Control (Mission 09).
  *
@@ -9,7 +8,7 @@ import { CommandCanvas } from '../visual/CommandCanvas';
  * protected receipt and native consent; task, service, startup-folder, delay,
  * batch, journal and elevation writes remain gated.
  */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -44,6 +43,8 @@ import {
 } from '../startup/model';
 import type { StartupFilters, StartupLocale, StartupServiceId } from '../startup/model';
 import '../startup.css';
+import {StartupLiveStage} from '../startup/StartupLiveStage';
+import '../startup/startup-inner-workspace.css';
 
 export interface StartupPageProps {
   onNavigateSection?: (section: string) => void;
@@ -62,6 +63,9 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<StartupServiceId | null>(null);
   const [planOpen, setPlanOpen] = useState(false);
+  const [detached,setDetached]=useState(false),[inspectorOpen,setInspectorOpen]=useState(false);
+  const integratedRef=useRef<HTMLElement>(null);
+  useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.startup.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -157,6 +161,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
   };
 
   const adjustScope = () => {
+    setActiveService(null);setDetached(false);
     setFilters(DEFAULT_FILTERS);
     controller.showNotice(t(locale, 'Scope filters reset over the measured register. Nothing was changed.', 'أُعيد ضبط مرشحات النطاق على السجل المقيس. لم يتغير شيء.'));
     window.setTimeout(() => {
@@ -232,6 +237,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
         sectionName={t(locale, 'Startup', 'بدء التشغيل')}
         sectionSubtitle={t(locale, 'Measured Boot Control', 'تحكم الإقلاع المقيس')}
         onNavigateHome={() => handleNavigate('home')}
+        searchQuery={filters.query} onSearchChange={query=>patchFilters({query})}
         searchPlaceholder={t(locale, 'Search measured autoruns… (Ctrl+K)', 'ابحث في مداخل البدء المقيسة… (Ctrl+K)')}
         isArabic={locale === 'ar'}
         onToggleArabic={() => {
@@ -241,6 +247,14 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
         onOpenSettings={() => handleNavigate('settings')}
       />
 
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+        <KNOuXSidebar activeSection="startup" onNavigate={handleNavigate} isArabic={locale === 'ar'} />
+
+        <div className="flex-1 flex flex-col min-h-0">
+          <main
+            data-testid="startup-workspace"
+            className="stp-main startup-inner-workspace flex-1 min-h-0"
+          >
       {controller.notice ? (
         <div className="stp-toast stp-toast-good" role="status">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -264,17 +278,9 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
         </div>
       ) : null}
 
-      <div className="flex flex-1 min-h-0 overflow-hidden">
-        <KNOuXSidebar activeSection="startup" onNavigate={handleNavigate} isArabic={locale === 'ar'} />
-
-        <div className="flex-1 flex flex-col min-h-0">
-          <main
-            data-testid="startup-workspace"
-            className="stp-main flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar"
-          >
-          <CommandCanvas locale={locale} heroTypes={[StartupHero]} metricTypes={[StartupMetrics]} statusTypes={[StartupBootline]} toolTypes={[ServiceRail]} toolPlacement="rail">
-            <StartupHero locale={locale} controller={controller} onOpenService={openService} />
-
+          <div hidden className="startup-header-bridge"><StartupHero locale={locale} controller={controller} onOpenService={openService}/></div>
+          <ServiceRail locale={locale} controller={controller} selectedCount={checkedIds.size} selectedService={activeService} onOpenService={setActiveService}/>
+          <div className="startup-process-row"><StartupLiveStage controller={controller} locale={locale} service={activeService} title={activeService?startupServiceLabel(activeService):t(locale,'Autorun register','سجل بدء التشغيل')}/><div className="startup-process-tools"><button onClick={()=>{setActiveService(null);setDetached(false);}}>{t(locale,'Register','السجل')}</button><button aria-pressed={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>{t(locale,'Inspector','المفتش')}</button>{activeService?<button onClick={()=>setDetached(true)}>{t(locale,'Side view','عرض جانبي')}</button>:null}<details><summary>{t(locale,'Boot & coverage','الإقلاع والتغطية')}</summary><div>
             <StartupMetrics locale={locale} controller={controller} />
 
             <StartupBootline locale={locale} controller={controller} onOpenService={openService} />
@@ -304,7 +310,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
                       : t(locale, 'Reading the read-only coordinator…', 'جارٍ قراءة المنسق للقراءة فقط…')}
                   </p>
                 </div>
-                <span className="stp-chip stp-chip-good ml-auto shrink-0">{t(locale, 'MEASURED', 'مقيس')}</span>
+                <span className="stp-chip stp-chip-good ml-auto shrink-0">{inventory?t(locale, 'MEASURED', 'مقيس'):t(locale,'UNMEASURED','غير مقيس')}</span>
                 {inventory?.warnings?.length ? (
                   <span className="stp-chip stp-chip-warn shrink-0">
                     {formatCount(inventory.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}
@@ -312,42 +318,6 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
                 ) : null}
               </div>
             )}
-
-            <div className="stp-work-grid">
-              <AutorunRegister
-                locale={locale}
-                entries={filteredEntries}
-                counts={counts}
-                filters={filters}
-                onChangeFilters={patchFilters}
-                onResetFilters={() => setFilters(DEFAULT_FILTERS)}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-                checkedIds={checkedIds}
-                onToggleCheck={toggleCheck}
-                onToggleAll={toggleAllVisible}
-                loading={controller.loading}
-                scanning={controller.scanning}
-                totalCount={inventory?.entries.length || 0}
-              />
-              <AutorunInspector
-                locale={locale}
-                entry={selectedEntry}
-                checkedEntries={checkedEntries}
-                busy={controller.busy === 'plan'}
-                planStaged={Boolean(controller.plan)}
-                onStagePlan={(ids, mode) => void stagePlan(ids, mode)}
-                onOpenService={openService}
-                onNotice={controller.showNotice}
-              />
-            </div>
-
-            <ServiceRail
-              locale={locale}
-              controller={controller}
-              selectedCount={checkedIds.size}
-              onOpenService={setActiveService}
-            />
 
             <div className="stp-foot-strip">
               <span>
@@ -372,7 +342,39 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
               ) : null}
             </div>
 
-          </CommandCanvas>
+</div></details></div></div>
+            <div className="stp-work-grid">
+            {(!activeService||detached)?<>
+              <AutorunRegister
+                locale={locale}
+                entries={filteredEntries}
+                counts={counts}
+                filters={filters}
+                onChangeFilters={patchFilters}
+                onResetFilters={() => setFilters(DEFAULT_FILTERS)}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+                checkedIds={checkedIds}
+                onToggleCheck={toggleCheck}
+                onToggleAll={toggleAllVisible}
+                loading={controller.loading}
+                scanning={controller.scanning}
+                totalCount={inventory?.entries.length || 0}
+              />
+              </>:<section ref={integratedRef} id="active-service-workspace" role="tabpanel" aria-labelledby={`service-tab-${activeService}`} className="stp-integrated-service knx-service-workspace" data-testid="startup-integrated-service">{renderStartupServiceBody()}</section>}
+              {inspectorOpen?<AutorunInspector
+                locale={locale}
+                entry={selectedEntry}
+                checkedEntries={checkedEntries}
+                busy={controller.busy === 'plan'}
+                planStaged={Boolean(controller.plan)}
+                onStagePlan={(ids, mode) => void stagePlan(ids, mode)}
+                onOpenService={openService}
+                onNotice={controller.showNotice}
+              />:null}
+            </div>
+
+
           </main>
 
           <footer className="stp-actionbar" data-testid="startup-actionbar">
@@ -397,7 +399,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
                 </span>
               ) : null}
             </div>
-            <div className="stp-actionbar-actions">
+            <div className="stp-actionbar-actions"><button data-testid="startup-discovery" className="stp-btn" disabled={!controller.nativeAvailable||controller.cancelling} onClick={()=>controller.scanning?void controller.cancelScan():void controller.startScan()}>{controller.scanning?t(locale,'Cancel discovery','إلغاء الاكتشاف'):t(locale,'Discover entries','اكتشاف المداخل')}</button>
               <button
                 type="button"
                 className="stp-btn stp-btn-primary"
@@ -438,7 +440,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
         </div>
       </div>
 
-      {activeService ? (
+      {activeService && detached ? (
         workbenchMode === 'side' ? (
           <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="startup-workbench-side-shell">
             <ServiceWorkbenchHost
@@ -449,7 +451,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
               locale={locale}
               mode="side"
               onModeChange={setWorkbenchMode}
-              onClose={closeWorkbench}
+              onClose={()=>setDetached(false)}
               onResize={(width) => setWorkbenchWidth(width)}
               minWidth={340}
               maxWidth={720}
@@ -470,7 +472,7 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
               locale={locale}
               mode="expanded"
               onModeChange={setWorkbenchMode}
-              onClose={closeWorkbench}
+              onClose={()=>setDetached(false)}
               testId="startup-workbench-expanded"
               toolSelector={startupWorkbenchToolSelector}
               footer={<span className="text-amber-300">{t(locale, 'Read-only discovery · supported HKCU changes require native approval', 'اكتشاف للقراءة فقط · تغييرات HKCU المدعومة تتطلب موافقة Native')}</span>}

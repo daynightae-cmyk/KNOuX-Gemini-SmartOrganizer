@@ -3,6 +3,7 @@
  * evidence; no card claims a mutation channel that does not exist.
  */
 import React from 'react';
+import {CompactServiceDock} from '../components/workbench/CompactServiceDock';
 import {
   Activity,
   CalendarClock,
@@ -20,7 +21,6 @@ import {
 } from 'lucide-react';
 import type { StartupController } from './useStartup';
 import {
-  SERVICE_ACCENTS,
   SERVICE_FALLBACK_META,
   SERVICE_IDS,
   formatCount,
@@ -34,6 +34,7 @@ export interface ServiceRailProps {
   controller: StartupController;
   selectedCount: number;
   onOpenService: (service: StartupServiceId) => void;
+  selectedService?:StartupServiceId|null;
 }
 
 export function serviceIcon(key: StartupServiceId, className = 'w-3.5 h-3.5') {
@@ -128,70 +129,6 @@ function measuredSummary(
   }
 }
 
-export function ServiceRail({ locale, controller, selectedCount, onOpenService }: ServiceRailProps) {
-  const capabilityMap = new Map((controller.capabilities?.services || []).map((service) => [service.id, service]));
-
-  return (
-    <section className="stp-panel stp-services" data-testid="startup-services" aria-labelledby="stp-services-title">
-      <header className="stp-panel-head">
-        <div>
-          <h2 id="stp-services-title" className="stp-panel-title">
-            {t(locale, 'Boot Control specialisations', 'تخصصات التحكم في الإقلاع')}
-          </h2>
-          <p className="stp-panel-sub">
-            {t(
-              locale,
-              'Twelve read-only workbenches over one measured inventory. Mutation, elevation and rollback stay declared as gates.',
-              'اثنتا عشرة ورشة للقراءة فقط على جرد مقيس واحد. التغيير ورفع الصلاحيات والتراجع تبقى بوابات معلنة.'
-            )}
-          </p>
-        </div>
-        <span className="stp-chip stp-chip-muted">
-          {formatCount(controller.capabilities?.serviceCount || SERVICE_IDS.length)} {t(locale, 'services', 'خدمة')}
-        </span>
-      </header>
-
-      <div className="stp-service-grid">
-        {SERVICE_IDS.map((id) => {
-          const capability = capabilityMap.get(id);
-          const fallback = SERVICE_FALLBACK_META[id];
-          const accent = SERVICE_ACCENTS[id];
-          const state = capability?.state || null;
-          const title = capability
-            ? (locale === 'ar' ? capability.labelAr : capability.labelEn)
-            : (locale === 'ar' ? fallback.titleAr : fallback.titleEn);
-          const summary = measuredSummary(id, controller, selectedCount, locale);
-          const provider = capability?.provider || null;
-          const note = capability ? (locale === 'ar' ? capability.noteAr : capability.noteEn) : null;
-          return (
-            <button
-              key={id}
-              type="button"
-              data-testid={`startup-service-${id}`}
-              className="stp-service-card"
-              onClick={() => onOpenService(id)}
-              title={note || summary}
-              aria-label={`${title} — ${summary}`}
-            >
-              <span
-                className="stp-service-icon"
-                style={{ color: accent, borderColor: `${accent}55`, background: `${accent}18` }}
-              >
-                {serviceIcon(id)}
-              </span>
-              <span className="stp-service-copy">
-                <span className="stp-service-title">{title}</span>
-                <span className="stp-service-sub" title={provider ? `${summary} · ${provider}` : summary}>{summary}</span>
-              </span>
-              {state ? (
-                <span className={`stp-state stp-state-${state}`}>{serviceStateLabel(state, locale)}</span>
-              ) : (
-                <span className="stp-state stp-state-native">{t(locale, 'Native', 'أصلي')}</span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </section>
-  );
+export function ServiceRail({locale,controller,selectedCount,onOpenService,selectedService=null}:ServiceRailProps){
+ return <div className="startup-compact-dock" data-testid="startup-services"><CompactServiceDock testIdPrefix="startup" isArabic={locale==='ar'} label={t(locale,'Startup services','خدمات بدء التشغيل')} selectedId={selectedService} onSelect={id=>onOpenService(id as StartupServiceId)} items={SERVICE_IDS.map(id=>{const c=controller.capabilities?.services.find(x=>x.id===id),m=SERVICE_FALLBACK_META[id];return{id,label:c?(locale==='ar'?c.labelAr:c.labelEn):(locale==='ar'?m.titleAr:m.titleEn),icon:serviceIcon(id),capability:!controller.nativeAvailable?t(locale,'Native unavailable','Native غير متاح'):c?serviceStateLabel(c.state,locale):t(locale,'Reading capabilities','قراءة القدرات'),result:measuredSummary(id,controller,selectedCount,locale),hint:c?(c.provider+' · '+(locale==='ar'?c.noteAr:c.noteEn)):measuredSummary(id,controller,selectedCount,locale)}})}/></div>;
 }

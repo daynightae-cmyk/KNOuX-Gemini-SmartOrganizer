@@ -1,0 +1,71 @@
+{
+  "contractVersion": 1,
+  "capability": "startup.status",
+  "requestId": "750d6cb2-be8b-4638-b96e-f927d83813a4",
+  "status": "complete",
+  "source": "KNOuX Boot Control read-only coordinator",
+  "observedAt": "2026-11-03T00:55:50.147Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "id": "5cd91f83-9e11-4686-9143-0fea3621f1d9",
+    "status": "cancelled",
+    "startedAt": "2026-11-03T00:55:48.207Z",
+    "finishedAt": "2026-11-03T00:55:49.707Z",
+    "stages": [
+      {
+        "key": "registry",
+        "labelEn": "Registry autoruns",
+        "labelAr": "مداخل التسجيل",
+        "status": "failed",
+        "detail": "Reading registry autoruns and StartupApproved state",
+        "startedAt": "2026-11-03T00:55:48.207Z",
+        "finishedAt": null
+      },
+      {
+        "key": "folders",
+        "labelEn": "Startup folders",
+        "labelAr": "مجلدات البدء",
+        "status": "pending",
+        "detail": "Waiting",
+        "startedAt": null,
+        "finishedAt": null
+      },
+      {
+        "key": "tasks",
+        "labelEn": "Logon tasks",
+        "labelAr": "مهام تسجيل الدخول",
+        "status": "pending",
+        "detail": "Waiting",
+        "startedAt": null,
+        "finishedAt": null
+      },
+      {
+        "key": "services",
+        "labelEn": "Boot services",
+        "labelAr": "خدمات الإقلاع",
+        "status": "pending",
+        "detail": "Waiting",
+        "startedAt": null,
+        "finishedAt": null
+      },
+      {
+        "key": "boot",
+        "labelEn": "Boot diagnostics",
+        "labelAr": "تشخيص الإقلاع",
+        "status": "pending",
+        "detail": "Waiting",
+        "startedAt": null,
+        "finishedAt": null
+      }
+    ],
+    "entryCount": null,
+    "warningCount": 0,
+    "cancelled": true,
+    "error": "The operation was aborted"
+  }
+}

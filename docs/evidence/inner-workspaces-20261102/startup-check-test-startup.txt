@@ -1,0 +1,32 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:startup
+> node scripts/startup-native-test.cjs && node scripts/startup-native-test.cjs --portable-paths
+
+{
+  "ok": true,
+  "services": 12,
+  "stages": 5,
+  "entries": 9,
+  "tasks": 3,
+  "servicesMeasured": 3,
+  "bootEvents": 2,
+  "protectedCount": 3,
+  "planItems": 4,
+  "planConflicts": 2,
+  "failures": []
+}
+[startup-native-test] PASS
+{
+  "ok": true,
+  "services": 12,
+  "stages": 5,
+  "entries": 9,
+  "tasks": 3,
+  "servicesMeasured": 3,
+  "bootEvents": 2,
+  "protectedCount": 3,
+  "planItems": 4,
+  "planConflicts": 2,
+  "failures": []
+}
+[startup-native-test] PASS
