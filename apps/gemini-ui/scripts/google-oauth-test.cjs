@@ -88,6 +88,8 @@ function createGoogleMock() {
     revokeRequests: 0,
     failTokenExchange: false,
     rejectRefresh: false,
+    tokenScope:
+      'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly',
   };
   const server = http.createServer((request, response) => {
     const chunks = [];
@@ -107,7 +109,7 @@ function createGoogleMock() {
             access_token: 'mock-access-token-refreshed',
             expires_in: 3600,
             token_type: 'Bearer',
-            scope: 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly',
+            scope: state.tokenScope,
           });
         }
         return jsonResponse(response, 200, {
@@ -115,7 +117,7 @@ function createGoogleMock() {
           refresh_token: 'mock-refresh-token-secret-value',
           expires_in: 3600,
           token_type: 'Bearer',
-          scope: 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly',
+          scope: state.tokenScope,
         });
       }
       if (url === '/userinfo') {
@@ -282,6 +284,63 @@ async function main() {
     assert.ok(!statusText.includes('mock-refresh-token-secret-value'));
     assert.ok(!statusText.includes('mock-access-token'));
     assert.ok(!statusText.includes('client_secret'));
+  });
+
+  await check('default consent grants only Sheets plus identity scopes', async () => {
+    const status = await service.getStatus();
+    assert.equal(Object.keys(status.products).length, 10);
+    assert.equal(status.products.sheets, 'granted');
+    for (const id of ['gmail', 'tasks', 'forms', 'contacts', 'calendar', 'picker', 'slides', 'chat', 'classroom']) {
+      assert.equal(status.products[id], 'missing');
+    }
+    assert.equal(status.reauthRequired, false);
+    assert.equal(service.hasProduct('gmail'), false);
+    assert.throws(() => service.requireProduct('gmail'), (error) => error.code === 'GOOGLE_SCOPE_MISSING');
+  });
+
+  await check('a product scope is refused locally before any token request', async () => {
+    const before = mock.state.tokenRequests;
+    await assert.rejects(() => service.getAccessToken({ product: 'gmail' }), (error) => error.code === 'GOOGLE_SCOPE_MISSING');
+    assert.equal(mock.state.tokenRequests, before, 'an ungranted product must not reach the token endpoint');
+  });
+
+  await check('incremental consent adds one product scope without a full re-prompt', async () => {
+    const gmailScope = 'https://www.googleapis.com/auth/gmail.readonly';
+    mock.state.tokenScope = `openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly ${gmailScope}`;
+    const before = mock.state.tokenRequests;
+    const status = await service.connect({ product: 'gmail' });
+    assert.equal(mock.state.tokenRequests, before + 1);
+    const authUrl = new URL(service.shell.authUrl);
+    assert.equal(authUrl.searchParams.get('include_granted_scopes'), 'true');
+    assert.equal(authUrl.searchParams.get('prompt'), null, 'incremental consent must not force a full re-prompt');
+    const requested = authUrl.searchParams.get('scope') || '';
+    assert.ok(requested.includes(gmailScope));
+    assert.ok(requested.includes('https://www.googleapis.com/auth/spreadsheets.readonly'), 'existing grants stay in the request');
+    assert.equal(status.products.gmail, 'granted');
+    assert.equal(status.products.sheets, 'granted');
+    assert.equal(status.products.chat, 'missing');
+    assert.equal(service.hasProduct('gmail'), true);
+    assert.equal(await service.getAccessToken({ product: 'gmail' }), 'mock-access-token-1');
+    mock.state.tokenScope =
+      'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly';
+  });
+
+  await check('a rejected grant forces fresh consent instead of short-circuiting', async () => {
+    service.markReauthRequired();
+    assert.equal(service.status().reauthRequired, true);
+    const gmailScope = 'https://www.googleapis.com/auth/gmail.readonly';
+    mock.state.tokenScope = `openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly ${gmailScope}`;
+    const before = mock.state.tokenRequests;
+    const status = await service.connect({ product: 'gmail' });
+    assert.equal(mock.state.tokenRequests, before + 1, 'a rejected grant must not be reused silently');
+    assert.equal(status.reauthRequired, false);
+    assert.equal(status.products.gmail, 'granted');
+    mock.state.tokenScope =
+      'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly';
+  });
+
+  await check('an unsupported product id is rejected before consent', async () => {
+    await assert.rejects(() => service.connect({ product: 'drive-search' }), (error) => error.code === 'GOOGLE_PRODUCT_INVALID');
   });
 
   await check('selected spreadsheet is added by URL/ID and listed with bounded metadata', async () => {
