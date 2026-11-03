@@ -1,0 +1,413 @@
+{
+  "id": "135d4a03-a7e4-409a-8753-3c46829ccf02",
+  "mode": "service",
+  "requestedServices": [
+    "system_health_pulse"
+  ],
+  "sourceId": null,
+  "sourceLabel": null,
+  "scope": "system-providers-only",
+  "status": "complete",
+  "startedAt": "2026-11-02T19:18:54.777Z",
+  "finishedAt": "2026-11-02T19:19:00.346Z",
+  "cancelRequested": false,
+  "progressPercent": 100,
+  "progressDeterminate": true,
+  "stages": [
+    {
+      "id": "capacity",
+      "labelEn": "Mounted volume capacity",
+      "labelAr": "سعة وحدات التخزين",
+      "provider": "Win32_LogicalDisk",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:18:54.777Z",
+      "finishedAt": "2026-11-02T19:18:58.052Z",
+      "durationMs": 3275,
+      "detail": "3 mounted volume(s); 2 below 10% free.",
+      "error": null
+    },
+    {
+      "id": "system",
+      "labelEn": "System health pulse",
+      "labelAr": "نبض صحة النظام",
+      "provider": "Win32 system providers",
+      "weight": 2,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:18:58.052Z",
+      "finishedAt": "2026-11-02T19:19:00.346Z",
+      "durationMs": 2294,
+      "detail": "Measured CPU, memory and OS summary (3 signal groups).",
+      "error": null
+    },
+    {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:19:00.346Z",
+      "finishedAt": "2026-11-02T19:19:00.346Z",
+      "durationMs": 0,
+      "detail": "3 finding(s), 3 recommendation(s), 1 service result(s).",
+      "error": null
+    }
+  ],
+  "services": [
+    {
+      "serviceId": "system_health_pulse",
+      "labelEn": "System Health Pulse",
+      "labelAr": "نبض تشخيص النظام",
+      "state": "available",
+      "status": "complete",
+      "permission": "read-only",
+      "mutation": "none",
+      "source": "Win32_LogicalDisk + Win32 system providers",
+      "startedAt": "2026-11-02T19:18:54.777Z",
+      "finishedAt": null,
+      "stages": [
+        {
+          "id": "capacity",
+          "labelEn": "Mounted volume capacity",
+          "labelAr": "سعة وحدات التخزين",
+          "status": "complete"
+        },
+        {
+          "id": "system",
+          "labelEn": "System health pulse",
+          "labelAr": "نبض صحة النظام",
+          "status": "complete"
+        }
+      ],
+      "data": {
+        "scope": "system-providers-only",
+        "sourceLabel": null,
+        "stageCount": 2,
+        "readOnly": true,
+        "system": {
+          "platform": "win32",
+          "osCaption": "Microsoft Windows 10 Pro",
+          "osVersion": "10.0.19045",
+          "osBuild": "19045",
+          "uptimeSeconds": 55291,
+          "uptimeSource": "Win32_OperatingSystem.LastBootUpTime",
+          "cpuModel": "Intel(R) Core(TM) i5-4570 CPU @ 3.20GHz",
+          "cpuCores": 4,
+          "cpuLogicalProcessors": 4,
+          "cpuLoadPercent": 36,
+          "cpuLoadSource": "Win32_PerfFormattedData_PerfOS_Processor (_Total)",
+          "memoryTotalBytes": 12769726464,
+          "memoryFreeBytes": 2043039744,
+          "memoryUsedPercent": 84,
+          "systemDrive": "C:",
+          "systemDriveFreeBytes": 5276848128,
+          "systemDriveTotalBytes": 140302163968,
+          "degraded": false,
+          "degradationReason": null,
+          "basis": [
+            "CPU load read from the Windows processor provider.",
+            "Memory pressure read from the Windows operating-system provider.",
+            "Volume capacity read from Win32_LogicalDisk."
+          ]
+        },
+        "volumes": [
+          {
+            "id": "volume:c:",
+            "deviceId": "C:",
+            "letter": "C:",
+            "label": "Mounted volume",
+            "fileSystem": "NTFS",
+            "driveType": 3,
+            "totalBytes": 140302163968,
+            "capacityAvailable": true,
+            "freeBytes": 5276848128,
+            "usedBytes": 135025315840,
+            "usedPercent": 96.2,
+            "freePercent": 3.8,
+            "isLowSpace": true,
+            "physicalDevice": null,
+            "physicalDeviceAvailable": false,
+            "smartAvailable": false,
+            "readOnly": true
+          },
+          {
+            "id": "volume:d:",
+            "deviceId": "D:",
+            "letter": "D:",
+            "label": "Day Night",
+            "fileSystem": "NTFS",
+            "driveType": 3,
+            "totalBytes": 62913507328,
+            "capacityAvailable": true,
+            "freeBytes": 2010112000,
+            "usedBytes": 60903395328,
+            "usedPercent": 96.8,
+            "freePercent": 3.2,
+            "isLowSpace": true,
+            "physicalDevice": null,
+            "physicalDeviceAvailable": false,
+            "smartAvailable": false,
+            "readOnly": true
+          },
+          {
+            "id": "volume:k:",
+            "deviceId": "K:",
+            "letter": "K:",
+            "label": "KNOuX PROJECTS",
+            "fileSystem": "NTFS",
+            "driveType": 3,
+            "totalBytes": 51522826240,
+            "capacityAvailable": true,
+            "freeBytes": 6101348352,
+            "usedBytes": 45421477888,
+            "usedPercent": 88.2,
+            "freePercent": 11.8,
+            "isLowSpace": false,
+            "physicalDevice": null,
+            "physicalDeviceAvailable": false,
+            "smartAvailable": false,
+            "readOnly": true
+          }
+        ],
+        "healthScore": null,
+        "basis": [
+          "CPU load read from the Windows processor provider.",
+          "Memory pressure read from the Windows operating-system provider.",
+          "Volume capacity read from Win32_LogicalDisk."
+        ]
+      },
+      "warnings": [],
+      "limitations": [
+        "Measured CPU load, memory pressure and mounted volume capacity at the moment of the scan."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "stableId": "low-space:volume:c:",
+      "kind": "low-space",
+      "serviceId": "system_health_pulse",
+      "titleEn": "C: low free space",
+      "titleAr": "C: مساحة حرة منخفضة",
+      "evidence": "4.9 GB free of 131 GB (3.8% free) measured at scan time.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "high",
+      "risk": "attention",
+      "scope": "mounted-volume",
+      "provenance": {
+        "provider": "Win32_LogicalDisk",
+        "mode": "measured",
+        "scope": "mounted-volume"
+      },
+      "pathPreview": []
+    },
+    {
+      "stableId": "low-space:volume:d:",
+      "kind": "low-space",
+      "serviceId": "system_health_pulse",
+      "titleEn": "D: low free space",
+      "titleAr": "D: مساحة حرة منخفضة",
+      "evidence": "1.9 GB free of 58.6 GB (3.2% free) measured at scan time.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "high",
+      "risk": "attention",
+      "scope": "mounted-volume",
+      "provenance": {
+        "provider": "Win32_LogicalDisk",
+        "mode": "measured",
+        "scope": "mounted-volume"
+      },
+      "pathPreview": []
+    },
+    {
+      "stableId": "memory:135d4a03-a7e4-409a-8753-3c46829ccf02",
+      "kind": "memory-pressure",
+      "serviceId": "system_health_pulse",
+      "titleEn": "84% memory in use",
+      "titleAr": "84% من الذاكرة قيد الاستخدام",
+      "evidence": "1.9 GB free of 11.9 GB at scan time.",
+      "bytes": 0,
+      "itemCount": 1,
+      "severity": "medium",
+      "risk": "attention",
+      "scope": "system",
+      "provenance": {
+        "provider": "Win32_OperatingSystem",
+        "mode": "measured",
+        "scope": "system"
+      },
+      "pathPreview": []
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-low-space:volume:c:",
+      "titleEn": "Free space on C:",
+      "titleAr": "حرّر مساحة على C:",
+      "detailEn": "C: has 3.8% free (4.9 GB). Review the largest measured files and Storage Atlas before removing anything.",
+      "detailAr": "C: لديها 3.8% مساحة حرة (4.9 GB). راجع أكبر الملفات المقيسة وأطلس التخزين قبل إزالة أي شيء.",
+      "evidence": "Measured capacity: 4.9 GB free of 131 GB.",
+      "serviceId": "system_health_pulse",
+      "confidence": "measured",
+      "risk": "attention",
+      "target": "storage"
+    },
+    {
+      "id": "rec-low-space:volume:d:",
+      "titleEn": "Free space on D:",
+      "titleAr": "حرّر مساحة على D:",
+      "detailEn": "D: has 3.2% free (1.9 GB). Review the largest measured files and Storage Atlas before removing anything.",
+      "detailAr": "D: لديها 3.2% مساحة حرة (1.9 GB). راجع أكبر الملفات المقيسة وأطلس التخزين قبل إزالة أي شيء.",
+      "evidence": "Measured capacity: 1.9 GB free of 58.6 GB.",
+      "serviceId": "system_health_pulse",
+      "confidence": "measured",
+      "risk": "attention",
+      "target": "storage"
+    },
+    {
+      "id": "rec-memory-pressure",
+      "titleEn": "Reduce memory pressure",
+      "titleAr": "قلل ضغط الذاكرة",
+      "detailEn": "84% of memory was in use during the scan. Close unused applications or postpone heavy work; KNOuX does not terminate processes.",
+      "detailAr": "84% من الذاكرة كانت قيد الاستخدام أثناء الفحص. أغلق التطبيقات غير المستخدمة أو أجل العمل الثقيل؛ لا ينهي KNOuX العمليات.",
+      "evidence": "Momentary Win32_OperatingSystem sample.",
+      "serviceId": "system_health_pulse",
+      "confidence": "measured",
+      "risk": "attention",
+      "target": "system"
+    }
+  ],
+  "breakdown": [
+    {
+      "id": "storage",
+      "labelEn": "Low space",
+      "labelAr": "مساحة منخفضة",
+      "colorHex": "#a855f7",
+      "count": 2,
+      "bytes": 0,
+      "percentage": 66.7
+    },
+    {
+      "id": "system",
+      "labelEn": "System pressure",
+      "labelAr": "ضغط النظام",
+      "colorHex": "#f43f5e",
+      "count": 1,
+      "bytes": 0,
+      "percentage": 33.3
+    }
+  ],
+  "kpis": [
+    {
+      "id": "coverage",
+      "labelEn": "Stage coverage",
+      "labelAr": "تغطية المراحل",
+      "value": "100%",
+      "subtextEn": "3/3 stages returned",
+      "subtextAr": "3/3 مرحلة اكتملت",
+      "accentColor": "cyan",
+      "indicatorType": "ring",
+      "provenance": "measured"
+    },
+    {
+      "id": "files",
+      "labelEn": "Files indexed",
+      "labelAr": "الملفات المفهرسة",
+      "value": "—",
+      "subtextEn": "No authorized folder",
+      "subtextAr": "لا يوجد مجلد مصرح",
+      "accentColor": "blue",
+      "indicatorType": "stack",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "issues",
+      "labelEn": "Findings",
+      "labelAr": "النتائج",
+      "value": "3",
+      "subtextEn": "2 high severity",
+      "subtextAr": "2 خطورة عالية",
+      "accentColor": "red",
+      "indicatorType": "alert",
+      "provenance": "measured"
+    },
+    {
+      "id": "space",
+      "labelEn": "Duplicate bytes",
+      "labelAr": "بايتات مكررة",
+      "value": "—",
+      "subtextEn": "Duplicate stage not in this scope",
+      "subtextAr": "مرحلة التكرار غير مشمولة في هذا الفحص",
+      "accentColor": "purple",
+      "indicatorType": "disk",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Origin markers",
+      "labelAr": "علامات الأصل",
+      "value": "—",
+      "subtextEn": "privacy sample not run",
+      "subtextAr": "لم تُشغّل عينة الخصوصية",
+      "accentColor": "teal",
+      "indicatorType": "shield",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "health",
+      "labelEn": "Health score",
+      "labelAr": "درجة الصحة",
+      "value": "62/100",
+      "subtextEn": "Measured signals",
+      "subtextAr": "إشارات مقيسة",
+      "accentColor": "green",
+      "indicatorType": "sparkline",
+      "provenance": "partial"
+    }
+  ],
+  "summary": {
+    "id": "135d4a03-a7e4-409a-8753-3c46829ccf02",
+    "mode": "service",
+    "status": "complete",
+    "sourceId": null,
+    "sourceLabel": null,
+    "scope": "system-providers-only",
+    "startedAt": "2026-11-02T19:18:54.777Z",
+    "finishedAt": "2026-11-02T19:19:00.346Z",
+    "progressPercent": 100,
+    "progressDeterminate": true,
+    "stagesTotal": 3,
+    "stagesCompleted": 3,
+    "stagesFailed": 0,
+    "findingsCount": 3,
+    "highSeverityCount": 2,
+    "filesIndexed": null,
+    "bytesIndexed": null,
+    "verifiedReclaimableBytes": 0,
+    "verifiedDuplicateGroups": 0,
+    "privacySignalCount": null,
+    "healthScore": 62,
+    "healthBasis": [
+      "Memory 84% used → −8 points.",
+      "CPU 36% momentary load → 0 points.",
+      "2 volume(s) below 10% free → −30 points."
+    ],
+    "warnings": [],
+    "limitations": [
+      "Read-only: no file, service, startup or registry value is changed.",
+      "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+    ],
+    "requestedServices": [
+      "system_health_pulse"
+    ]
+  },
+  "warnings": [],
+  "limitations": [
+    "Read-only: no file, service, startup or registry value is changed.",
+    "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+  ],
+  "error": null
+}

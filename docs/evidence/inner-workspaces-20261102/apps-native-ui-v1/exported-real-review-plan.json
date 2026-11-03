@@ -1,0 +1,45 @@
+{
+  "contract": "apps.v1",
+  "exportedAt": "2026-11-02T22:09:44.785Z",
+  "readOnly": true,
+  "mutation": "none",
+  "plan": {
+    "planId": "84633c6a81f1d8c0dcba",
+    "contract": "apps.v1",
+    "createdAt": "2026-11-02T22:09:43.180Z",
+    "mode": "uninstall",
+    "items": [
+      {
+        "appId": "806f646a03c2f7eb5724",
+        "name": "1527c705-839a-4832-9118-54d4Bd6a0c89",
+        "publisher": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+        "method": "appx-package",
+        "risk": "blocked",
+        "reasons": [
+          "Windows marks this package as non-removable."
+        ],
+        "reclaimBytes": null,
+        "reclaimSource": "unknown",
+        "reversible": false
+      }
+    ],
+    "totals": {
+      "count": 1,
+      "blocked": 1,
+      "reclaimBytes": null,
+      "reclaimSource": "unknown"
+    },
+    "restorePoint": {
+      "status": "not-checked",
+      "reason": "System Restore availability requires a separate read and is not queried by this plan preview."
+    },
+    "execution": {
+      "available": false,
+      "gate": "Mission 08 — Cleanup execution",
+      "reason": "No uninstall IPC exists. Execution requires an approved cleanup plan, per-target consent, elevation where required, verified postcondition and a recovery journal."
+    },
+    "immutable": true,
+    "mutation": "none"
+  },
+  "disclaimer": "This is a non-executable review plan. No uninstall, update, association or startup change was performed."
+}

@@ -1,0 +1,35 @@
+{
+  "capturedAt": "2026-11-02T22:39:14.504Z",
+  "head": "e86fbf659c391b2a0dadb354ef7abcc6667ebe39",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-tDK61L",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "repair-day-en-1672x941",
+      "section": "repair",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": false,
+      "error": "ENOSPC: no space left on device, write"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "repair",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": false,
+  "unifiedGeometryChecked": true,
+  "geometryTolerance": 2,
+  "geometryErrors": [
+    "repair-day-en-1672x941: missing shared geometry"
+  ],
+  "unifiedGeometryOk": false,
+  "geometryGroups": {},
+  "visualFidelityAccepted": false
+}

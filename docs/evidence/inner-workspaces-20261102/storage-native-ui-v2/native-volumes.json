@@ -1,0 +1,122 @@
+{
+  "contractVersion": 1,
+  "capability": "storage.volumes",
+  "requestId": "eae77fc8-e05b-4e8f-b7c7-00bfa3e84d67",
+  "status": "complete",
+  "source": "KNOuX Storage read-only adapter",
+  "observedAt": "2026-11-03T00:11:55.748Z",
+  "permission": "read-only",
+  "warnings": [],
+  "data": {
+    "volumes": [
+      {
+        "id": "volume:c:",
+        "deviceId": "C:",
+        "letter": "C:",
+        "label": "Mounted volume",
+        "fileSystem": "NTFS",
+        "driveType": 3,
+        "totalBytes": 140302163968,
+        "capacityAvailable": true,
+        "freeBytes": 15417618432,
+        "usedBytes": 124884545536,
+        "usedPercent": 89,
+        "freePercent": 11,
+        "isLowSpace": false,
+        "physicalDevice": null,
+        "physicalDeviceAvailable": false,
+        "smartAvailable": false,
+        "readOnly": true
+      },
+      {
+        "id": "volume:d:",
+        "deviceId": "D:",
+        "letter": "D:",
+        "label": "Day Night",
+        "fileSystem": "NTFS",
+        "driveType": 3,
+        "totalBytes": 62913507328,
+        "capacityAvailable": true,
+        "freeBytes": 1539284992,
+        "usedBytes": 61374222336,
+        "usedPercent": 97.6,
+        "freePercent": 2.4,
+        "isLowSpace": true,
+        "physicalDevice": null,
+        "physicalDeviceAvailable": false,
+        "smartAvailable": false,
+        "readOnly": true
+      },
+      {
+        "id": "volume:k:",
+        "deviceId": "K:",
+        "letter": "K:",
+        "label": "KNOuX PROJECTS",
+        "fileSystem": "NTFS",
+        "driveType": 3,
+        "totalBytes": 51522826240,
+        "capacityAvailable": true,
+        "freeBytes": 6063833088,
+        "usedBytes": 45458993152,
+        "usedPercent": 88.2,
+        "freePercent": 11.8,
+        "isLowSpace": false,
+        "physicalDevice": null,
+        "physicalDeviceAvailable": false,
+        "smartAvailable": false,
+        "readOnly": true
+      }
+    ],
+    "history": [
+      {
+        "capturedAt": "2026-11-03T00:11:53.141Z",
+        "source": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
+        "volumes": [
+          {
+            "deviceId": "C:",
+            "totalBytes": 140302163968,
+            "freeBytes": 15417868288
+          },
+          {
+            "deviceId": "D:",
+            "totalBytes": 62913507328,
+            "freeBytes": 1539284992
+          },
+          {
+            "deviceId": "K:",
+            "totalBytes": 51522826240,
+            "freeBytes": 6063833088
+          }
+        ]
+      },
+      {
+        "capturedAt": "2026-11-03T00:11:55.746Z",
+        "source": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
+        "volumes": [
+          {
+            "deviceId": "C:",
+            "totalBytes": 140302163968,
+            "freeBytes": 15417618432
+          },
+          {
+            "deviceId": "D:",
+            "totalBytes": 62913507328,
+            "freeBytes": 1539284992
+          },
+          {
+            "deviceId": "K:",
+            "totalBytes": 51522826240,
+            "freeBytes": 6063833088
+          }
+        ]
+      }
+    ],
+    "observedAt": "2026-11-03T00:11:55.746Z",
+    "provider": "Win32_OperatingSystem + Win32_Processor + Win32_Battery + Win32_PerfFormattedData_PerfOS_Processor + Win32_LogicalDisk",
+    "status": "complete",
+    "coverage": "full",
+    "warnings": [],
+    "hardwareIdentityAvailable": false,
+    "smartAvailable": false
+  }
+}

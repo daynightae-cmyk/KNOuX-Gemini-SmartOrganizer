@@ -1,0 +1,189 @@
+{
+  "capturedAt": "2026-11-02T18:09:07.056Z",
+  "head": "41a3768bb2b83111fa7e29aa38473d9980ca6e14",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-Ed8GcI",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "smart_scan-day-en-1672x941",
+      "section": "smart_scan",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "smart_scan-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "smart_scan",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 1,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Start Smart ScanSafe, read-only analysis",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured read-only plan",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Extended read-only sweep",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Startup impact evidence",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured health pulse",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Application health",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Privacy traces",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "unified": {
+          "content": {
+            "x": 240,
+            "y": 58,
+            "w": 1432,
+            "h": 883
+          },
+          "scene": "smart_scan",
+          "sceneKind": "bitmap",
+          "sceneReady": true,
+          "sceneCount": 1,
+          "liveOrbits": 1,
+          "chromeHeaders": 1,
+          "navigationRails": 1,
+          "particleSystems": 1
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "scan-service-body min-h-0 flex-1 overflow-y-auto knx-custom-scrollbar py-1",
+            "rect": {
+              "x": 268,
+              "y": 600.46875,
+              "w": 1692.796875,
+              "h": 211.4375
+            },
+            "scrollHeight": 279,
+            "clientHeight": 211
+          }
+        ],
+        "headings": [
+          "Smart Scan",
+          "Smart Scan"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "smart_scan",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "unifiedGeometryChecked": true,
+  "geometryTolerance": 2,
+  "geometryErrors": [],
+  "unifiedGeometryOk": true,
+  "geometryGroups": {
+    "1672x941/day/en": {
+      "x": 12,
+      "y": 12,
+      "w": 1408,
+      "h": 340
+    }
+  },
+  "visualFidelityAccepted": false
+}

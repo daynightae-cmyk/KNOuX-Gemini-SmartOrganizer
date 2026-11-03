@@ -1,0 +1,69 @@
+{
+  "head": "8ff81311e0b1cfae7c80080baea4d8338512fbef",
+  "fixture": "D:\\Temp\\knoux-inner-files-yYmbTX\\AUTHORIZED-A",
+  "second": "D:\\Temp\\knoux-inner-files-yYmbTX\\AUTHORIZED-B",
+  "profile": "D:\\Temp\\knoux-inner-files-yYmbTX\\profile",
+  "checks": [
+    {
+      "name": "idle-no-fabricated-index",
+      "ok": true,
+      "evidence": {
+        "rows": 0,
+        "status": "IDLE"
+      }
+    },
+    {
+      "name": "first-authorization-displays-native-results",
+      "ok": true,
+      "evidence": {
+        "nativeCount": 44,
+        "renderedRows": 44
+      }
+    },
+    {
+      "name": "query-category-and-empty-state",
+      "ok": true,
+      "evidence": {
+        "nativeSearch": true,
+        "imageFilter": true,
+        "emptyQuery": true
+      }
+    },
+    {
+      "name": "metadata-hash-empty-folder-and-all-services",
+      "ok": true,
+      "evidence": {
+        "digest": "1d9a21c73073052b17f9aa08d8eb757c3b821242e9fc504f4f934945a21ecd70",
+        "services": [
+          "file-downloads-inventory",
+          "file-organize-preview",
+          "file-organize-apply",
+          "file-organize-undo",
+          "file-empty-folders",
+          "file-hash",
+          "file-search",
+          "file-type-map",
+          "file-recents",
+          "file-largest",
+          "file-metadata",
+          "file-provenance"
+        ],
+        "keyboard": true,
+        "mutationsExecuted": 0
+      }
+    },
+    {
+      "name": "responsive-native-ledger-and-inspector",
+      "ok": false,
+      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('files-panel-details') to be visible\u001b[22m\n"
+    }
+  ],
+  "errors": [
+    "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('files-panel-details') to be visible\u001b[22m\n"
+  ],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "fixtureUnchanged": true,
+  "ok": false
+}

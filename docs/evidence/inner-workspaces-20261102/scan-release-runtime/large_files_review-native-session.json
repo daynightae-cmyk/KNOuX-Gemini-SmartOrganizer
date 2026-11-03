@@ -1,0 +1,528 @@
+{
+  "id": "1693a954-68e4-4d0f-ad8f-f303be7fa29a",
+  "mode": "service",
+  "requestedServices": [
+    "large_files_review"
+  ],
+  "sourceId": "f8ea04b8-3760-4c89-afd7-66dd1fd7a505",
+  "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+  "scope": "authorized-folder",
+  "status": "complete",
+  "startedAt": "2026-11-02T19:18:47.823Z",
+  "finishedAt": "2026-11-02T19:18:47.824Z",
+  "cancelRequested": false,
+  "progressPercent": 100,
+  "progressDeterminate": true,
+  "stages": [
+    {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:18:47.823Z",
+      "finishedAt": "2026-11-02T19:18:47.823Z",
+      "durationMs": 0,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:18:47.824Z",
+      "finishedAt": "2026-11-02T19:18:47.824Z",
+      "durationMs": 0,
+      "detail": "2 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    }
+  ],
+  "services": [
+    {
+      "serviceId": "large_files_review",
+      "labelEn": "Large Files Review",
+      "labelAr": "مراجعة الملفات الكبيرة",
+      "state": "available",
+      "status": "complete",
+      "permission": "read-only",
+      "mutation": "none",
+      "source": "Studio/Files inventory",
+      "startedAt": "2026-11-02T19:18:47.823Z",
+      "finishedAt": null,
+      "stages": [
+        {
+          "id": "inventory",
+          "labelEn": "Authorized folder inventory",
+          "labelAr": "فهرس المجلد المصرح به",
+          "status": "complete"
+        }
+      ],
+      "data": {
+        "scope": "authorized-folder",
+        "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+        "stageCount": 1,
+        "readOnly": true,
+        "thresholdBytes": 209715200,
+        "files": [
+          {
+            "id": 28,
+            "name": "measured-large-fixture.bin",
+            "relative": "measured-large-fixture.bin",
+            "parentFolder": "",
+            "category": "other",
+            "size": 210763776,
+            "ext": "bin",
+            "modifiedAt": "2026-11-02T19:18:02.179Z",
+            "modifiedMs": 1793647082179.7642,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 2,
+            "name": "duplicate-a.bin",
+            "relative": "duplicate-a.bin",
+            "parentFolder": "",
+            "category": "other",
+            "size": 1048595,
+            "ext": "bin",
+            "modifiedAt": "2026-11-02T19:18:02.120Z",
+            "modifiedMs": 1793647082120.6528,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 3,
+            "name": "duplicate-b.bin",
+            "relative": "duplicate-b.bin",
+            "parentFolder": "",
+            "category": "other",
+            "size": 1048595,
+            "ext": "bin",
+            "modifiedAt": "2026-11-02T19:18:02.123Z",
+            "modifiedMs": 1793647082123.6516,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 27,
+            "name": "measured-document-23.txt",
+            "relative": "measured-document-23.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 888,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.115Z",
+            "modifiedMs": 1793647082115.6562,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 26,
+            "name": "measured-document-22.txt",
+            "relative": "measured-document-22.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 851,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.114Z",
+            "modifiedMs": 1793647082114.6575,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 25,
+            "name": "measured-document-21.txt",
+            "relative": "measured-document-21.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 814,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.110Z",
+            "modifiedMs": 1793647082110.659,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 24,
+            "name": "measured-document-20.txt",
+            "relative": "measured-document-20.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 777,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.109Z",
+            "modifiedMs": 1793647082109.66,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 23,
+            "name": "measured-document-19.txt",
+            "relative": "measured-document-19.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 740,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.106Z",
+            "modifiedMs": 1793647082106.6614,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 22,
+            "name": "measured-document-18.txt",
+            "relative": "measured-document-18.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 703,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.106Z",
+            "modifiedMs": 1793647082106.6614,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 21,
+            "name": "measured-document-17.txt",
+            "relative": "measured-document-17.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 666,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.103Z",
+            "modifiedMs": 1793647082103.6626,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 20,
+            "name": "measured-document-16.txt",
+            "relative": "measured-document-16.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 629,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.102Z",
+            "modifiedMs": 1793647082102.663,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 19,
+            "name": "measured-document-15.txt",
+            "relative": "measured-document-15.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 592,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.101Z",
+            "modifiedMs": 1793647082101.6648,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 18,
+            "name": "measured-document-14.txt",
+            "relative": "measured-document-14.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 555,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.101Z",
+            "modifiedMs": 1793647082101.6648,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 17,
+            "name": "measured-document-13.txt",
+            "relative": "measured-document-13.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 518,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.097Z",
+            "modifiedMs": 1793647082097.6665,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 16,
+            "name": "measured-document-12.txt",
+            "relative": "measured-document-12.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 481,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.094Z",
+            "modifiedMs": 1793647082094.6692,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 15,
+            "name": "measured-document-11.txt",
+            "relative": "measured-document-11.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 444,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.090Z",
+            "modifiedMs": 1793647082090.671,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 14,
+            "name": "measured-document-10.txt",
+            "relative": "measured-document-10.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 407,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.084Z",
+            "modifiedMs": 1793647082084.6736,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 13,
+            "name": "measured-document-09.txt",
+            "relative": "measured-document-09.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 360,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.084Z",
+            "modifiedMs": 1793647082084.6736,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 12,
+            "name": "measured-document-08.txt",
+            "relative": "measured-document-08.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 324,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.083Z",
+            "modifiedMs": 1793647082083.6743,
+            "readonly": false,
+            "hidden": false
+          },
+          {
+            "id": 11,
+            "name": "measured-document-07.txt",
+            "relative": "measured-document-07.txt",
+            "parentFolder": "",
+            "category": "document",
+            "size": 288,
+            "ext": "txt",
+            "modifiedAt": "2026-11-02T19:18:02.073Z",
+            "modifiedMs": 1793647082073.6802,
+            "readonly": false,
+            "hidden": false
+          }
+        ],
+        "totalBytes": 212871003,
+        "count": 20
+      },
+      "warnings": [],
+      "limitations": [
+        "Ranked from measured file sizes inside the authorized folder."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "stableId": "large:f8ea04b8-3760-4c89-afd7-66dd1fd7a505:28",
+      "kind": "large-file",
+      "serviceId": "large_files_review",
+      "titleEn": "measured-large-fixture.bin",
+      "titleAr": "measured-large-fixture.bin",
+      "evidence": "measured-large-fixture.bin — measured 201 MB. Review only; no file was touched.",
+      "bytes": 210763776,
+      "itemCount": 1,
+      "severity": "low",
+      "risk": "review",
+      "scope": "authorized-folder",
+      "provenance": {
+        "provider": "Files/Studio inventory",
+        "mode": "measured",
+        "scope": "authorized-folder"
+      },
+      "pathPreview": [
+        "measured-large-fixture.bin"
+      ]
+    },
+    {
+      "stableId": "duplicate:candidate:f8ea04b8-3760-4c89-afd7-66dd1fd7a505:1048595:2",
+      "kind": "duplicate-candidate",
+      "serviceId": "duplicate_finder",
+      "titleEn": "2 same-size files (unverified)",
+      "titleAr": "2 ملفات بالحجم نفسه (غير متحقق منها)",
+      "evidence": "1 MB each by metadata only. Content was not hashed in this scan, so these are candidates, not confirmed duplicates.",
+      "bytes": 1048595,
+      "itemCount": 2,
+      "severity": "low",
+      "risk": "info",
+      "scope": "authorized-folder",
+      "provenance": {
+        "provider": "Files/Studio inventory",
+        "mode": "measured",
+        "scope": "authorized-folder"
+      },
+      "pathPreview": [
+        "duplicate-a.bin",
+        "duplicate-b.bin"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-duplicates-candidates",
+      "titleEn": "Verify same-size duplicate candidates",
+      "titleAr": "تحقق من مرشحات المكررات المتساوية بالحجم",
+      "detailEn": "1 size collision group(s) were found by metadata only. Run Deep Scan or Duplicate Finder to hash them before drawing any conclusion.",
+      "detailAr": "1 مجموعة تصادم بالحجم وُجدت بالبيانات الوصفية فقط. شغّل الفحص العميق أو مكتشف المكررات لتجزئتها قبل استنتاج أي شيء.",
+      "evidence": "Metadata-only candidate groups: 1. Content verified: 0.",
+      "serviceId": "duplicate_finder",
+      "confidence": "derived",
+      "risk": "info",
+      "target": "scan-service:duplicate_finder"
+    }
+  ],
+  "breakdown": [
+    {
+      "id": "large",
+      "labelEn": "Large files",
+      "labelAr": "ملفات كبيرة",
+      "colorHex": "#ec4899",
+      "count": 1,
+      "bytes": 210763776,
+      "percentage": 50
+    },
+    {
+      "id": "duplicates",
+      "labelEn": "Duplicates",
+      "labelAr": "مكررات",
+      "colorHex": "#f59e0b",
+      "count": 1,
+      "bytes": 1048595,
+      "percentage": 50
+    }
+  ],
+  "kpis": [
+    {
+      "id": "coverage",
+      "labelEn": "Stage coverage",
+      "labelAr": "تغطية المراحل",
+      "value": "100%",
+      "subtextEn": "2/2 stages returned",
+      "subtextAr": "2/2 مرحلة اكتملت",
+      "accentColor": "cyan",
+      "indicatorType": "ring",
+      "provenance": "measured"
+    },
+    {
+      "id": "files",
+      "labelEn": "Files indexed",
+      "labelAr": "الملفات المفهرسة",
+      "value": "31",
+      "subtextEn": "203 MB",
+      "subtextAr": "203 MB",
+      "accentColor": "blue",
+      "indicatorType": "stack",
+      "provenance": "measured"
+    },
+    {
+      "id": "issues",
+      "labelEn": "Findings",
+      "labelAr": "النتائج",
+      "value": "2",
+      "subtextEn": "0 high severity",
+      "subtextAr": "0 خطورة عالية",
+      "accentColor": "red",
+      "indicatorType": "alert",
+      "provenance": "measured"
+    },
+    {
+      "id": "space",
+      "labelEn": "Duplicate bytes",
+      "labelAr": "بايتات مكررة",
+      "value": "—",
+      "subtextEn": "Duplicate stage not in this scope",
+      "subtextAr": "مرحلة التكرار غير مشمولة في هذا الفحص",
+      "accentColor": "purple",
+      "indicatorType": "disk",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Origin markers",
+      "labelAr": "علامات الأصل",
+      "value": "—",
+      "subtextEn": "privacy sample not run",
+      "subtextAr": "لم تُشغّل عينة الخصوصية",
+      "accentColor": "teal",
+      "indicatorType": "shield",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "health",
+      "labelEn": "Health score",
+      "labelAr": "درجة الصحة",
+      "value": "—",
+      "subtextEn": "No numeric signals",
+      "subtextAr": "لا توجد إشارات رقمية",
+      "accentColor": "green",
+      "indicatorType": "sparkline",
+      "provenance": "unavailable"
+    }
+  ],
+  "summary": {
+    "id": "1693a954-68e4-4d0f-ad8f-f303be7fa29a",
+    "mode": "service",
+    "status": "complete",
+    "sourceId": "f8ea04b8-3760-4c89-afd7-66dd1fd7a505",
+    "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+    "scope": "authorized-folder",
+    "startedAt": "2026-11-02T19:18:47.823Z",
+    "finishedAt": "2026-11-02T19:18:47.824Z",
+    "progressPercent": 100,
+    "progressDeterminate": true,
+    "stagesTotal": 2,
+    "stagesCompleted": 2,
+    "stagesFailed": 0,
+    "findingsCount": 2,
+    "highSeverityCount": 0,
+    "filesIndexed": 31,
+    "bytesIndexed": 212872154,
+    "verifiedReclaimableBytes": 0,
+    "verifiedDuplicateGroups": 0,
+    "privacySignalCount": null,
+    "healthScore": null,
+    "healthBasis": [
+      "No numeric CPU, memory or volume signal was available."
+    ],
+    "warnings": [],
+    "limitations": [
+      "Read-only: no file, service, startup or registry value is changed.",
+      "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+    ],
+    "requestedServices": [
+      "large_files_review"
+    ]
+  },
+  "warnings": [],
+  "limitations": [
+    "Read-only: no file, service, startup or registry value is changed.",
+    "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+  ],
+  "error": null
+}

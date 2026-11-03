@@ -1,0 +1,45 @@
+{
+  "capturedAt": "2026-11-02T08:36:20.426Z",
+  "electron": {
+    "window": "real Electron, GPU enabled",
+    "observationMs": 3000
+  },
+  "results": [
+    {
+      "section": "settings",
+      "theme": "night",
+      "ok": false,
+      "error": "root did not mount"
+    },
+    {
+      "section": "studio",
+      "theme": "night",
+      "ok": true,
+      "frames": 4,
+      "p50": 1016.7,
+      "p95": 1018.6,
+      "worst": 1018.6,
+      "droppedFrames": 3,
+      "droppedShare": 1,
+      "longTaskCount": 0,
+      "longTaskWorst": 0,
+      "backdropElements": 0,
+      "animatedElements": 39,
+      "usedJSHeapAfter": 13400000,
+      "heapBefore": 13400000,
+      "heapGrowth": 0
+    }
+  ],
+  "summary": {
+    "routes": 1,
+    "worstP95": 1018.6,
+    "worstDroppedShare": 1,
+    "maxBackdropElements": 0,
+    "routesOverBudget": [
+      "studio/night"
+    ],
+    "heapGrowthBytes": 0
+  },
+  "pageErrors": [],
+  "ok": false
+}

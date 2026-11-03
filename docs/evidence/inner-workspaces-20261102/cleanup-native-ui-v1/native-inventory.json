@@ -1,0 +1,4002 @@
+{
+  "contractVersion": 1,
+  "capability": "cleanup.inventory",
+  "requestId": "274aa675-e53b-4a0b-9bd1-e07bbf7c38ba",
+  "status": "complete",
+  "source": "KNOuX Clean Room read-only coordinator",
+  "observedAt": "2026-11-02T23:35:59.321Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "observedAt": "2026-11-02T23:35:57.739Z",
+    "status": "complete",
+    "readOnly": true,
+    "mutation": "none",
+    "candidates": [
+      {
+        "id": "cln:63945ea150c2f7fd6f4ad92f",
+        "name": "167f9623-8ae0-490f-b0fb-87cf411a3f77.tmp",
+        "path": "%TEMP%\\167f9623-8ae0-490f-b0fb-87cf411a3f77.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 351885894,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T23:14:01.232Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8e4bcf68a3379c583b2c629d",
+        "name": "7799f624-bab9-4adf-a433-f35a61d778aa.tmp",
+        "path": "%TEMP%\\7799f624-bab9-4adf-a433-f35a61d778aa.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 81049152,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:39:57.420Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:22420ef96876ab112c11ce4c",
+        "name": "e111b065-d659-4abb-a02e-d5bd60e63be2.tmp",
+        "path": "%TEMP%\\e111b065-d659-4abb-a02e-d5bd60e63be2.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 63518000,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:14:55.600Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5d90bba9f00b20a08084a517",
+        "name": "a7ab8c0d-206c-4e61-b2f8-022d971420a9.tmp",
+        "path": "%TEMP%\\a7ab8c0d-206c-4e61-b2f8-022d971420a9.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 41654799,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:18:57.707Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d4a0bacc8e3360de09ba2de4",
+        "name": "91ee1fc7-470d-46df-aa23-789d5c40be1d.tmp",
+        "path": "%TEMP%\\91ee1fc7-470d-46df-aa23-789d5c40be1d.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 26592893,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T12:44:38.154Z",
+        "ageDays": 0.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8b99117549880d6b66cd3b6c",
+        "name": "afb87340-2d3e-48fd-a166-1317f0cc3f52.tmp",
+        "path": "%TEMP%\\afb87340-2d3e-48fd-a166-1317f0cc3f52.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 21362160,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:11:28.514Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ea816874ee81aac9882c7b15",
+        "name": ".bun-1747889258-e1cd43857cefa531.dll",
+        "path": "%TEMP%\\.bun-1747889258-e1cd43857cefa531.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 6393896,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:27:36.271Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c1899f4b20129e436f6fb894",
+        "name": ".bun-1747889258-a8fac683dfbaa7a.dll",
+        "path": "%TEMP%\\.bun-1747889258-a8fac683dfbaa7a.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 5308296,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T22:58:31.190Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1580f046ed980d9508952250",
+        "name": ".bun-1747889258-ff51b3648e1aa3dc.dll",
+        "path": "%TEMP%\\.bun-1747889258-ff51b3648e1aa3dc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 5234568,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T06:15:13.793Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3bab6b0c3688f40ae3901b4a",
+        "name": "8e426ab1-cfd7-4cc9-96e8-6c819f28882f.tmp",
+        "path": "%TEMP%\\8e426ab1-cfd7-4cc9-96e8-6c819f28882f.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 3761232,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T16:57:05.818Z",
+        "ageDays": 0.3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8e23b321d62d01e0f093a808",
+        "name": "e1ea1de4-e102-46be-9648-94b34475026f.tmp",
+        "path": "%TEMP%\\e1ea1de4-e102-46be-9648-94b34475026f.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 2917265,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T15:58:52.396Z",
+        "ageDays": 0.3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:30eae2247b4e3e9a5506c3cc",
+        "name": "417200ef-adb1-4b3d-963e-6f85fb1d5447.tmp",
+        "path": "%TEMP%\\417200ef-adb1-4b3d-963e-6f85fb1d5447.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 2916224,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T15:58:49.941Z",
+        "ageDays": 0.3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:7de614e354af609a4cbbac8c",
+        "name": "338b383f-c5e0-4f76-b89d-0b499c98fa11.tmp",
+        "path": "%TEMP%\\338b383f-c5e0-4f76-b89d-0b499c98fa11.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 2264333,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:59:00.813Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:7bbddb85eb63535b9d613b9c",
+        "name": "4899c4d9-ae61-4d1f-8327-a38e2abd5e65.tmp",
+        "path": "%TEMP%\\4899c4d9-ae61-4d1f-8327-a38e2abd5e65.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1895759,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T23:35:51.627Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:556bac37d354a1c7bb78b397",
+        "name": "_iu14D2N.tmp",
+        "path": "%TEMP%\\_iu14D2N.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1323064,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-27T10:41:14.647Z",
+        "ageDays": 6.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:07067786fb72ab03b04fc1bb",
+        "name": "3321213f-ca1f-4cab-888e-ca22acff287b.tmp",
+        "path": "%TEMP%\\3321213f-ca1f-4cab-888e-ca22acff287b.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1309110,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:59:29.719Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:52d381ab482096c2da67a88f",
+        "name": "384c0c6c-7d30-4cfe-92ac-ff48ed7eb719.tmp",
+        "path": "%TEMP%\\384c0c6c-7d30-4cfe-92ac-ff48ed7eb719.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 990156,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T23:29:52.368Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:837afb80c4f2c6cc0684105e",
+        "name": "319b2899-f2db-4998-9426-f0b12022caf4.tmp",
+        "path": "%TEMP%\\319b2899-f2db-4998-9426-f0b12022caf4.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 966999,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:16:22.033Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a9219d6f9be0cdf4ce391352",
+        "name": "960dfdda-fea5-41d9-8e57-91de75b90f50.tmp",
+        "path": "%TEMP%\\960dfdda-fea5-41d9-8e57-91de75b90f50.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 966999,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:16:05.661Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0ecca625e1d91c017fb20677",
+        "name": "dc80ae1d-e290-4286-ab56-1f78f1d24a9b.tmp",
+        "path": "%TEMP%\\dc80ae1d-e290-4286-ab56-1f78f1d24a9b.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 966999,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:14:57.634Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:cff2d5325277e7a34c2881ae",
+        "name": "sqlite-3.41.2.2-3c96cb57-3420-4b86-94af-db01706ad206-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-3c96cb57-3420-4b86-94af-db01706ad206-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-30T22:54:36.191Z",
+        "ageDays": 3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:02c7cb0fd323793ecf4118ab",
+        "name": "sqlite-3.41.2.2-749f4457-5ecc-4576-87c3-b1246aeefbaf-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-749f4457-5ecc-4576-87c3-b1246aeefbaf-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-30T22:54:44.068Z",
+        "ageDays": 3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6c36331647626070e4aacf48",
+        "name": "sqlite-3.41.2.2-b3a75ff8-d597-4560-a7bf-d89dc55b49f5-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-b3a75ff8-d597-4560-a7bf-d89dc55b49f5-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-30T22:54:58.014Z",
+        "ageDays": 3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:421e9ffabf3433636d610b27",
+        "name": "sqlite-3.41.2.2-c33e8a95-e3e9-47e2-a6a8-3b16da910a2f-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-c33e8a95-e3e9-47e2-a6a8-3b16da910a2f-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-30T22:55:02.983Z",
+        "ageDays": 3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:86076715e5c3bd84aae54a62",
+        "name": "2c1129d0-521d-47a4-a9ab-dafc44918582.tmp",
+        "path": "%TEMP%\\2c1129d0-521d-47a4-a9ab-dafc44918582.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 727536,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T23:10:23.113Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9e3ab91be0cb7761e3b65bd2",
+        "name": "46278ed9-2385-423d-bbe7-07b110a45049.tmp.webp",
+        "path": "%TEMP%\\46278ed9-2385-423d-bbe7-07b110a45049.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 660248,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:25.367Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d11c4ebde1b9fd9df4475f70",
+        "name": "5b619f2c-8061-44e8-89eb-21fb8be8e8a5.tmp.webp",
+        "path": "%TEMP%\\5b619f2c-8061-44e8-89eb-21fb8be8e8a5.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 660248,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:33.079Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f807fe034de169cea8c7ebe2",
+        "name": "655d4786-a754-4ab6-86e5-be2e4035cfd1.tmp.webp",
+        "path": "%TEMP%\\655d4786-a754-4ab6-86e5-be2e4035cfd1.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 660248,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:39.876Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:df49c593bba20b1cbc41e770",
+        "name": "7be27557-4518-4e8d-a446-7fba5ece5666.tmp.webp",
+        "path": "%TEMP%\\7be27557-4518-4e8d-a446-7fba5ece5666.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 660248,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:53.628Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:01ef5887b14f065b82b0dfad",
+        "name": "bb03745f-17af-4c2a-9a02-715ec5b0f4ee.tmp.webp",
+        "path": "%TEMP%\\bb03745f-17af-4c2a-9a02-715ec5b0f4ee.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 660248,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.213Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fde8351cc883adc79fab0762",
+        "name": "d850390a-642a-4bc5-97ff-1d2db1c8359b.tmp.webp",
+        "path": "%TEMP%\\d850390a-642a-4bc5-97ff-1d2db1c8359b.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 660248,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:26.180Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5b05e499685696b00ddcd10c",
+        "name": "5148940c-af59-487b-b5a0-64eb61ba0ab7.tmp",
+        "path": "%TEMP%\\5148940c-af59-487b-b5a0-64eb61ba0ab7.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 626327,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T12:44:28.040Z",
+        "ageDays": 0.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:25f66a86dcc1a6eee03d924c",
+        "name": "codex-clipboard-17024aba-66c5-41cc-8495-e27b2ea618b9.png",
+        "path": "%TEMP%\\codex-clipboard-17024aba-66c5-41cc-8495-e27b2ea618b9.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 527647,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T05:56:48.778Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8d0fd2e69be9cbfc3ffb1e2d",
+        "name": ".bun-1747889258-3cba9b8dc4fa4e45.node",
+        "path": "%TEMP%\\.bun-1747889258-3cba9b8dc4fa4e45.node",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 518144,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T02:46:10.969Z",
+        "ageDays": 2.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ea08890c63cf61f89bd5c977",
+        "name": ".fee7afd39f1ff7ee-00000000.node",
+        "path": "%TEMP%\\.fee7afd39f1ff7ee-00000000.node",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 518144,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T21:19:41.735Z",
+        "ageDays": 1.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d340c1acc55718bc255b63a0",
+        "name": "codex-clipboard-227290f4-1d31-40f9-b23d-45c6df7ad7a0.png",
+        "path": "%TEMP%\\codex-clipboard-227290f4-1d31-40f9-b23d-45c6df7ad7a0.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 391579,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T06:22:57.710Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:de6a432529ba35fdcf3e0452",
+        "name": "a3c4e502-18a9-4bf2-a59d-02742b23f23f.tmp.mp4",
+        "path": "%TEMP%\\a3c4e502-18a9-4bf2-a59d-02742b23f23f.tmp.mp4",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 391287,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T04:58:38.971Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5ae202aa19e3501df5c196c8",
+        "name": "8aa80688-85c4-4f6d-8ccd-b02ed3c13cb9.tmp",
+        "path": "%TEMP%\\8aa80688-85c4-4f6d-8ccd-b02ed3c13cb9.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 369622,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T20:25:57.871Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ee7885fefd7a244ae2f719d1",
+        "name": "acd4f672-41fa-4c1c-93ec-3545b4d76b77.tmp",
+        "path": "%TEMP%\\acd4f672-41fa-4c1c-93ec-3545b4d76b77.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 357518,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:03:22.418Z",
+        "ageDays": 2.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c0b3eec3005aad84e36357a9",
+        "name": "27135174-ee3a-483f-a1e3-16f4a353e471.tmp",
+        "path": "%TEMP%\\27135174-ee3a-483f-a1e3-16f4a353e471.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 351893,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:23:17.988Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b3e6a69ea3c9fdbe91d95289",
+        "name": "2253a8c0-2bb9-4879-bc3a-0d7e4395b601.tmp",
+        "path": "%TEMP%\\2253a8c0-2bb9-4879-bc3a-0d7e4395b601.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 279530,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:05:22.368Z",
+        "ageDays": 2.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:dc7f65c0983f1432ba129476",
+        "name": "KNOUX_FIVE_PROMPTS_ARCHIVE_BASE64.txt",
+        "path": "%TEMP%\\KNOUX_FIVE_PROMPTS_ARCHIVE_BASE64.txt",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 253504,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:42:34.027Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:57e1aa8d8cbe8b23bf617206",
+        "name": "28839c08-1181-440e-9854-cbfbf6a8a868.tmp",
+        "path": "%TEMP%\\28839c08-1181-440e-9854-cbfbf6a8a868.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 252170,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:23:26.803Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1d99e69525f9f8cea96e66b3",
+        "name": "31b7b910-1690-46e6-9148-9180288a2e3f.tmp.css",
+        "path": "%TEMP%\\31b7b910-1690-46e6-9148-9180288a2e3f.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 213873,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:51.789Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:22af28f6580629550aebe786",
+        "name": "655b6b88-36fe-427b-854a-43ffb25f26cf.tmp.css",
+        "path": "%TEMP%\\655b6b88-36fe-427b-854a-43ffb25f26cf.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 213873,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:19:09.755Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9b4339cef08f01c9c1fc60b2",
+        "name": "ac10d502-501e-472a-ac30-7b7df925a35d.tmp.css",
+        "path": "%TEMP%\\ac10d502-501e-472a-ac30-7b7df925a35d.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 213873,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:50.384Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5d488a05cbd64f7f18fae0db",
+        "name": "d3201494-75d6-4f01-b062-e98008005da4.tmp",
+        "path": "%TEMP%\\d3201494-75d6-4f01-b062-e98008005da4.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 190816,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T22:20:33.314Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:598b1a84ef18ccb500111702",
+        "name": "KNOUX_FIVE_PROMPTS_10_PROJECTS_20261102.zip",
+        "path": "%TEMP%\\KNOUX_FIVE_PROMPTS_10_PROJECTS_20261102.zip",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 190053,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:42:33.900Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6272db4af48e25f3f1a1a149",
+        "name": "knoux_five_prompts_requested_20261102.zip",
+        "path": "%TEMP%\\knoux_five_prompts_requested_20261102.zip",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 189882,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:41:57.077Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d67c47d6f6aa402b58f05f9a",
+        "name": "1102a11a-afb4-4008-8169-1f1fa5ad1214.tmp.ogg",
+        "path": "%TEMP%\\1102a11a-afb4-4008-8169-1f1fa5ad1214.tmp.ogg",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 182720,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:25.874Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b2b3a8050e96a5f78789fae9",
+        "name": "1723eb11-c9bc-48f9-9005-f917c9773d10.tmp.ogg",
+        "path": "%TEMP%\\1723eb11-c9bc-48f9-9005-f917c9773d10.tmp.ogg",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 182720,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:26.439Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:445393292e42e054ede5e6b5",
+        "name": "4877d2b9-dc5c-4246-b280-561087a49b88.tmp.ogg",
+        "path": "%TEMP%\\4877d2b9-dc5c-4246-b280-561087a49b88.tmp.ogg",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 182720,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:40.696Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e8af895b168d15d9eb5fb1b4",
+        "name": "753f9c4e-95e0-441b-85c7-8e33147436ae.tmp.ogg",
+        "path": "%TEMP%\\753f9c4e-95e0-441b-85c7-8e33147436ae.tmp.ogg",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 182720,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:54.178Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fd97edca513a07cd73efc242",
+        "name": "87ce1fa4-44a1-41e2-bec0-d518498cf257.tmp.ogg",
+        "path": "%TEMP%\\87ce1fa4-44a1-41e2-bec0-d518498cf257.tmp.ogg",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 182720,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.502Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:854bd1a35a42839f4a46b481",
+        "name": "a88c848a-1c7c-417e-8fa3-1c4ec0869704.tmp.ogg",
+        "path": "%TEMP%\\a88c848a-1c7c-417e-8fa3-1c4ec0869704.tmp.ogg",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 182720,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:33.216Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:062e008666f141bae06638ad",
+        "name": "0798eedb-cb75-4c26-817d-2408f04642da.tmp.js",
+        "path": "%TEMP%\\0798eedb-cb75-4c26-817d-2408f04642da.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 172985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:39.459Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8a189a68c2da65b0b9f40404",
+        "name": "1be14485-019e-4858-a4c4-789c0403df79.tmp.js",
+        "path": "%TEMP%\\1be14485-019e-4858-a4c4-789c0403df79.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 172985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:24.293Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1c1948c0e73bd92faac13d7c",
+        "name": "1eb591f2-c7ce-4070-a3d5-f97d711a869d.tmp.js",
+        "path": "%TEMP%\\1eb591f2-c7ce-4070-a3d5-f97d711a869d.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 172985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:32.184Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:644eb42150799e5d32b57850",
+        "name": "30475d1f-bbaa-4254-af73-25a9f51288fc.tmp.js",
+        "path": "%TEMP%\\30475d1f-bbaa-4254-af73-25a9f51288fc.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 172985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:25.905Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:26696f70b4f065e1669ee015",
+        "name": "ae2c77ee-cd2c-44f0-95e3-7d5a9f0008a7.tmp.js",
+        "path": "%TEMP%\\ae2c77ee-cd2c-44f0-95e3-7d5a9f0008a7.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 172985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:52.805Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d8724e226e79b03dd023340a",
+        "name": "b7771772-7d5b-4eb5-a6b1-c85736810eda.tmp.js",
+        "path": "%TEMP%\\b7771772-7d5b-4eb5-a6b1-c85736810eda.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 172985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.019Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:473976292c882fdbee7319fb",
+        "name": "1fce4662-38cf-4272-8a34-47a89cee1a98.tmp.wav",
+        "path": "%TEMP%\\1fce4662-38cf-4272-8a34-47a89cee1a98.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 169034,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:41:32.543Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:87e7ce2a7b81ba1cdc684bf3",
+        "name": "9d178ca7-690e-4d98-9f42-a538943bea1b.tmp.wav",
+        "path": "%TEMP%\\9d178ca7-690e-4d98-9f42-a538943bea1b.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 169034,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:58:25.565Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:bdcbe169506c262f05a949bd",
+        "name": "b5c40361-3978-4f11-a1c8-533f161f8a96.tmp.wav",
+        "path": "%TEMP%\\b5c40361-3978-4f11-a1c8-533f161f8a96.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 169034,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:39:37.203Z",
+        "ageDays": 2.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8303dbdfb8112b53b45a450a",
+        "name": "306162c4-079e-4db0-a0c5-0f95f1eab3de.tmp.wav",
+        "path": "%TEMP%\\306162c4-079e-4db0-a0c5-0f95f1eab3de.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 139748,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:41:32.528Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fedbb4fd4484ea019d3c20be",
+        "name": "634c998a-336a-4ddb-bb07-8d1bf25f518f.tmp.wav",
+        "path": "%TEMP%\\634c998a-336a-4ddb-bb07-8d1bf25f518f.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 139748,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:39:37.201Z",
+        "ageDays": 2.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:628506d8b8a4ee02c6b5571d",
+        "name": "dde9d702-70dd-438f-be4e-da39f4bad08f.tmp.wav",
+        "path": "%TEMP%\\dde9d702-70dd-438f-be4e-da39f4bad08f.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 139748,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:58:25.565Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0c3d6fb036b62e4453e1700d",
+        "name": "115ff3a9-4794-4820-a03d-60d6ec18243c.tmp.js",
+        "path": "%TEMP%\\115ff3a9-4794-4820-a03d-60d6ec18243c.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 135606,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:32.115Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1bb934a87ce2b42c31f65712",
+        "name": "3320b57d-64f1-45b5-b012-f67bbc602c33.tmp.js",
+        "path": "%TEMP%\\3320b57d-64f1-45b5-b012-f67bbc602c33.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 135606,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:51.309Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6e0cbd125d7f17eb86557231",
+        "name": "93c2b206-23d3-4570-8e2c-e062ce25c13a.tmp.js",
+        "path": "%TEMP%\\93c2b206-23d3-4570-8e2c-e062ce25c13a.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 135606,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:39.431Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:845461bcc4b0a573188e8e6d",
+        "name": "def34ac5-4e2a-44fd-8979-46ab5eefe74c.tmp.js",
+        "path": "%TEMP%\\def34ac5-4e2a-44fd-8979-46ab5eefe74c.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 135606,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:25.892Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:091e65e1d012498d39e43dbd",
+        "name": "e5a081ac-6c82-479c-a4c4-b84fbba7cae3.tmp.js",
+        "path": "%TEMP%\\e5a081ac-6c82-479c-a4c4-b84fbba7cae3.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 135606,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:24.226Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:babd2962ebc0c8bf23b23854",
+        "name": "ffcbba33-4022-41d9-bf6e-2023dcede524.tmp.js",
+        "path": "%TEMP%\\ffcbba33-4022-41d9-bf6e-2023dcede524.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 135606,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.010Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:2c7ddd1c218eca93a81a98ce",
+        "name": "stag_face_zoom.png",
+        "path": "%TEMP%\\stag_face_zoom.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 110261,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T23:09:24.281Z",
+        "ageDays": 2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:291226f3b7280eb94b154e65",
+        "name": "5724ff28-35a1-4f57-b447-9726070303a3.tmp",
+        "path": "%TEMP%\\5724ff28-35a1-4f57-b447-9726070303a3.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 109882,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T23:02:23.788Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a7b183b75a0bff9ad1290946",
+        "name": "job73.log",
+        "path": "%TEMP%\\job73.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 105904,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T15:47:15.096Z",
+        "ageDays": 0.3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:4e8e4f2afdee931a65b5c8e6",
+        "name": "wct10C8.tmp",
+        "path": "%TEMP%\\wct10C8.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 105787,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-28T23:15:46.000Z",
+        "ageDays": 5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3c3de4fa0d44588607de5465",
+        "name": "02e9c067-b838-49d1-9e78-67623403ef43.tmp.wav",
+        "path": "%TEMP%\\02e9c067-b838-49d1-9e78-67623403ef43.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 102674,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:58:25.565Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f8fc6512ab5c9e2dd7dfaf33",
+        "name": "a02aeac8-f919-423e-8dfb-a93d49cc32fb.tmp.wav",
+        "path": "%TEMP%\\a02aeac8-f919-423e-8dfb-a93d49cc32fb.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 102674,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T03:41:32.528Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:593ae881d0996b20b5df4d1b",
+        "name": "fe1d42c0-b289-476b-9ec9-f81e22334e9e.tmp.wav",
+        "path": "%TEMP%\\fe1d42c0-b289-476b-9ec9-f81e22334e9e.tmp.wav",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 102674,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:39:37.203Z",
+        "ageDays": 2.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5abb7f38cba85af3f5495c09",
+        "name": "1fc98783-32f3-4a83-a9ef-02edb1bee6f9.tmp",
+        "path": "%TEMP%\\1fc98783-32f3-4a83-a9ef-02edb1bee6f9.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 98398,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:22:21.905Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ebf8572c32093b3c30eee9d8",
+        "name": "72ba243f-627b-4bed-aed1-6102f85c27fd.tmp",
+        "path": "%TEMP%\\72ba243f-627b-4bed-aed1-6102f85c27fd.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 96144,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T22:18:42.549Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1497d10a6dc573ad8f84f6e6",
+        "name": "07eda75a-3ed7-45d7-9a74-3ad563d02701.tmp.js",
+        "path": "%TEMP%\\07eda75a-3ed7-45d7-9a74-3ad563d02701.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 81865,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:51.786Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:7d92bc329bb1fb89ca141e50",
+        "name": "68ed0c2b-084d-466c-be0d-b44baf343c62.tmp.js",
+        "path": "%TEMP%\\68ed0c2b-084d-466c-be0d-b44baf343c62.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 81865,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:50.388Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fc1e828f6043f2f212f2b98e",
+        "name": "a3ef9cea-b7b6-4c8e-ac91-b92eb9eab474.tmp.js",
+        "path": "%TEMP%\\a3ef9cea-b7b6-4c8e-ac91-b92eb9eab474.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 81865,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:19:09.715Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:2a77d3d744462e4f5e6d51e9",
+        "name": "42754d4b-d6ed-4a04-924c-6e6225baecd0.tmp",
+        "path": "%TEMP%\\42754d4b-d6ed-4a04-924c-6e6225baecd0.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 78644,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:02:52.378Z",
+        "ageDays": 2.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fe2555985ab434acbec926fb",
+        "name": "57d0d488-6ae5-4142-8742-035f58d00afc.tmp.js",
+        "path": "%TEMP%\\57d0d488-6ae5-4142-8742-035f58d00afc.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 69517,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:52:01.138Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3f280f8c0e796c10312eb7fc",
+        "name": "09a2d779-833f-4ed1-9f62-51677905f56d.tmp.css",
+        "path": "%TEMP%\\09a2d779-833f-4ed1-9f62-51677905f56d.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 68467,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.019Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:4b832168b3c8fc72d416e6d7",
+        "name": "0bd877a1-f2e8-4215-928f-1ec61f71d228.tmp.css",
+        "path": "%TEMP%\\0bd877a1-f2e8-4215-928f-1ec61f71d228.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 68467,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:24.460Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0d32247c5e13046b6d07aa43",
+        "name": "23a77aba-4e19-4ff4-a0eb-42e177cf5ba0.tmp.css",
+        "path": "%TEMP%\\23a77aba-4e19-4ff4-a0eb-42e177cf5ba0.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 68467,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:32.346Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:928f7e1498936f493c61976b",
+        "name": "243e853f-e3d0-4cf6-a29a-116ea0465379.tmp.css",
+        "path": "%TEMP%\\243e853f-e3d0-4cf6-a29a-116ea0465379.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 68467,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:51.437Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9f710fd72408bec66d02930e",
+        "name": "633865de-5b1e-4781-b30e-d586d84afbd3.tmp.css",
+        "path": "%TEMP%\\633865de-5b1e-4781-b30e-d586d84afbd3.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 68467,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:39.455Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:86655704a0efadc1ab11aaed",
+        "name": "edf93d28-af97-4d14-9083-6c81a7ce88c6.tmp.css",
+        "path": "%TEMP%\\edf93d28-af97-4d14-9083-6c81a7ce88c6.tmp.css",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 68467,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:25.906Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:734e488d0149fb372aab367c",
+        "name": "knoux-donor-OrganizationLiveWorkbench.tsx.18947.diff",
+        "path": "%TEMP%\\knoux-donor-OrganizationLiveWorkbench.tsx.18947.diff",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 64972,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T05:34:52.074Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f94947ca81cdcd8842e30c87",
+        "name": "080b6a34-e60d-427c-b79d-93a653fda9ab.tmp.js",
+        "path": "%TEMP%\\080b6a34-e60d-427c-b79d-93a653fda9ab.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 62336,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:32.304Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:2ad17697c4d7927b166485e7",
+        "name": "2f0e2b56-4dc6-45d4-9de2-79f6031e462a.tmp.js",
+        "path": "%TEMP%\\2f0e2b56-4dc6-45d4-9de2-79f6031e462a.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 62336,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:25.894Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0ba76d9e98686c08e451abc5",
+        "name": "38508f76-5848-4ed1-b72a-bb89e69c2914.tmp.js",
+        "path": "%TEMP%\\38508f76-5848-4ed1-b72a-bb89e69c2914.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 62336,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:39.452Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:79d5a74c727830f0b9d77773",
+        "name": "6fad4518-ab0b-41ab-8fe0-29417cc3e80c.tmp.js",
+        "path": "%TEMP%\\6fad4518-ab0b-41ab-8fe0-29417cc3e80c.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 62336,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:51.448Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9ab493b1b2b3f715ea7e37ac",
+        "name": "ac70aae0-376a-4dba-b150-02f346859a01.tmp.js",
+        "path": "%TEMP%\\ac70aae0-376a-4dba-b150-02f346859a01.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 62336,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.012Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a59795b2c4951371e03d5531",
+        "name": "f8f6d107-10fb-4c12-a6e6-593ff093ae57.tmp.js",
+        "path": "%TEMP%\\f8f6d107-10fb-4c12-a6e6-593ff093ae57.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 62336,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:24.420Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:bd0f2c3168387f51f95aa91a",
+        "name": "knoux-gate3.log",
+        "path": "%TEMP%\\knoux-gate3.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 57428,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T01:30:18.734Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b837479eea12f495dd4a963c",
+        "name": "knoux-donor-OrganizationLiveWorkbench.tsx.41366.diff",
+        "path": "%TEMP%\\knoux-donor-OrganizationLiveWorkbench.tsx.41366.diff",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 55249,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T05:34:52.036Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1a97b4fae93e400387dfc424",
+        "name": "a9168a62-993e-4ea5-b5d8-5f14bd66a6d9.tmp.js",
+        "path": "%TEMP%\\a9168a62-993e-4ea5-b5d8-5f14bd66a6d9.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 53803,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:08.912Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9d67b9a70729806cd8cb8891",
+        "name": "knoux-gate2.log",
+        "path": "%TEMP%\\knoux-gate2.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 51157,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T01:24:16.936Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:db0b1eeaa14d77534bf18e8e",
+        "name": "d3f5e49b-4eff-4e68-8a52-7e0a7eb49f0d.tmp.js",
+        "path": "%TEMP%\\d3f5e49b-4eff-4e68-8a52-7e0a7eb49f0d.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 51093,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:27.787Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:455c6874a866645c02121f19",
+        "name": "knoux-gate.log",
+        "path": "%TEMP%\\knoux-gate.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 47985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:08:33.934Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0e99e188d9b6a4aaa103881c",
+        "name": "knoux-gate5.log",
+        "path": "%TEMP%\\knoux-gate5.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 47983,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T04:47:46.715Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f4e946952c8b5819c01134b9",
+        "name": "merged-smoke.log",
+        "path": "%TEMP%\\merged-smoke.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 43701,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T07:48:58.598Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8d5b9f9a33173e955a918132",
+        "name": "aa6955a7-b6b4-4683-ace5-4c6d5be0de95.tmp",
+        "path": "%TEMP%\\aa6955a7-b6b4-4683-ace5-4c6d5be0de95.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 41986,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:16:14.437Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:aad697381c0b788e31f9093a",
+        "name": "21ef8b0a-4050-4300-b7c3-ed956007c65c.tmp.webp",
+        "path": "%TEMP%\\21ef8b0a-4050-4300-b7c3-ed956007c65c.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 41352,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:52.050Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:faad7f47db43b7fe5566c2e2",
+        "name": "79ed4282-0c54-4255-87de-ea84655b87d4.tmp.webp",
+        "path": "%TEMP%\\79ed4282-0c54-4255-87de-ea84655b87d4.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 41352,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:50.695Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1845379ae9ddfe14fe5d7059",
+        "name": "9ec7f3bf-6857-4822-b2f6-adf5d3af3d4a.tmp.webp",
+        "path": "%TEMP%\\9ec7f3bf-6857-4822-b2f6-adf5d3af3d4a.tmp.webp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 41352,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:19:10.917Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:81f3176526f290b34de7111f",
+        "name": "knoux-pr4-c01638d.patch",
+        "path": "%TEMP%\\knoux-pr4-c01638d.patch",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 35808,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T05:31:44.911Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:aed551bc89fbaae40febe2f1",
+        "name": "knoux_generate_prompt_vault_20261102.py",
+        "path": "%TEMP%\\knoux_generate_prompt_vault_20261102.py",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 35589,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:08:08.114Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ce52a554c6e0b5e9a17485e4",
+        "name": "1b670d14-c104-4616-b094-7384cf493a89.tmp",
+        "path": "%TEMP%\\1b670d14-c104-4616-b094-7384cf493a89.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 35419,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T23:19:37.420Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8f5cfabb723ba6bbd4f696e8",
+        "name": "6a1d50ce-61af-449d-86b9-089076c6d09a.tmp",
+        "path": "%TEMP%\\6a1d50ce-61af-449d-86b9-089076c6d09a.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 35419,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:05:39.261Z",
+        "ageDays": 2.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:403ea63a688b92c8628a2509",
+        "name": "f53d9ef4-3fa9-4112-8ebd-18d8e21432f1.tmp",
+        "path": "%TEMP%\\f53d9ef4-3fa9-4112-8ebd-18d8e21432f1.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 35419,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T05:11:56.974Z",
+        "ageDays": 2.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:75deccd25c92abe8326e3351",
+        "name": "u_home.xml",
+        "path": "%TEMP%\\u_home.xml",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 35145,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T02:34:50.601Z",
+        "ageDays": 1.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:27b7620ed8c819ded3d8636b",
+        "name": "knoux-t4.log",
+        "path": "%TEMP%\\knoux-t4.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 34996,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T04:34:52.301Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:4f35fcb199b1dc77972644e6",
+        "name": "knoux-tests2.log",
+        "path": "%TEMP%\\knoux-tests2.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 34675,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:24:37.078Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a561b5286c1c3b9007f612fe",
+        "name": "65ddcc8b-91c5-48dc-8e18-85b3743a4344.tmp.js",
+        "path": "%TEMP%\\65ddcc8b-91c5-48dc-8e18-85b3743a4344.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 33763,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:52:02.268Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6c1e5f73cde9dcaf1e5a5442",
+        "name": "knoux-donor-ApprovedHomeScreen.tsx.20468.diff",
+        "path": "%TEMP%\\knoux-donor-ApprovedHomeScreen.tsx.20468.diff",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 32428,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T05:34:52.015Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0809a380e2d49ae6806aa138",
+        "name": "37ac75b5-b035-49fa-949e-dcab5364c75a.tmp.js",
+        "path": "%TEMP%\\37ac75b5-b035-49fa-949e-dcab5364c75a.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29522,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T23:59:24.385Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1860ccd4c97142533c516c6e",
+        "name": "9c5866d0-4b81-465d-b65a-fac0628a55de.tmp.js",
+        "path": "%TEMP%\\9c5866d0-4b81-465d-b65a-fac0628a55de.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29522,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:51:39.463Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:efaab66362465447a47a02c3",
+        "name": "9ecfdb1d-ae34-4d69-9150-ed73b8253ba9.tmp.js",
+        "path": "%TEMP%\\9ecfdb1d-ae34-4d69-9150-ed73b8253ba9.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29522,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T00:01:25.903Z",
+        "ageDays": 1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:2377f847ffec129f27413d76",
+        "name": "c1a7d9d5-6d18-44dc-b0ea-094fd4f9524a.tmp.js",
+        "path": "%TEMP%\\c1a7d9d5-6d18-44dc-b0ea-094fd4f9524a.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29522,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:53:41.012Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b1dac72dd5c596946c57264e",
+        "name": "cd36f518-b6f2-48ba-9137-3d6dd5b96fe1.tmp.js",
+        "path": "%TEMP%\\cd36f518-b6f2-48ba-9137-3d6dd5b96fe1.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29522,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:18:51.981Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b173ae967aa5b68cdbab055e",
+        "name": "d7e99176-6495-4b7a-92ec-7035d9eff7f7.tmp.js",
+        "path": "%TEMP%\\d7e99176-6495-4b7a-92ec-7035d9eff7f7.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29522,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:25:32.268Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:7eade0eb51c3ba31b4bcb349",
+        "name": "knoux-donor-OrganizationStudioOverview.tsx.8055.diff",
+        "path": "%TEMP%\\knoux-donor-OrganizationStudioOverview.tsx.8055.diff",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 29484,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T05:34:52.038Z",
+        "ageDays": 0.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:955519f34682400893760f63",
+        "name": "allbtns.txt",
+        "path": "%TEMP%\\allbtns.txt",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 28747,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T14:59:11.647Z",
+        "ageDays": 0.4,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e2289d0b86f00c6a6f5406a9",
+        "name": "f26226e0-e151-4f0d-811f-c01a76755cf3.tmp",
+        "path": "%TEMP%\\f26226e0-e151-4f0d-811f-c01a76755cf3.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 27250,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T20:49:47.785Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:72f945f558f8826002fb0f94",
+        "name": "knoux-smoke-all2.log",
+        "path": "%TEMP%\\knoux-smoke-all2.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 26305,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T06:49:43.681Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5cbaa3eb6f36dce73a86d072",
+        "name": "knoux_generate_multi_agent_masters_20261102.py",
+        "path": "%TEMP%\\knoux_generate_multi_agent_masters_20261102.py",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 25477,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:43:08.833Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e8aaae8fa9e53f24c7736e2e",
+        "name": "u_app.xml",
+        "path": "%TEMP%\\u_app.xml",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 25269,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-01T02:35:17.608Z",
+        "ageDays": 1.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8c67bcd94579cfaa2cfbe742",
+        "name": "ui_prompt.xml",
+        "path": "%TEMP%\\ui_prompt.xml",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 24525,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-10-31T21:38:08.568Z",
+        "ageDays": 2.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fffa1d71aa05244c2b030ac4",
+        "name": "b60df047-54fe-420b-a23a-1ee768fbb1dd.tmp.js",
+        "path": "%TEMP%\\b60df047-54fe-420b-a23a-1ee768fbb1dd.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 23717,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T02:52:01.787Z",
+        "ageDays": 0.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a239e126597beb1de302d5fd",
+        "name": "34726aa7-2400-4794-a295-e678ab1c1282.tmp",
+        "path": "%TEMP%\\34726aa7-2400-4794-a295-e678ab1c1282.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 22830,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T20:04:12.710Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:110def2673eb3d85eeaeccce",
+        "name": "cebc1906-110e-4dc7-9454-83d5fa0bcc57.tmp",
+        "path": "%TEMP%\\cebc1906-110e-4dc7-9454-83d5fa0bcc57.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 22830,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T21:20:14.859Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:4f451d83cdf55ca40ed02f1e",
+        "name": "e6bc34ec-a20b-4bab-914b-918c3664f04f.tmp",
+        "path": "%TEMP%\\e6bc34ec-a20b-4bab-914b-918c3664f04f.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 22830,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T22:20:52.278Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3b218e2da86653b4ae60a87a",
+        "name": "YaRasoolAllah-npm-audit-20261102.json",
+        "path": "%TEMP%\\YaRasoolAllah-npm-audit-20261102.json",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 22462,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-02T06:54:56.796Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d3a68cd99f4d61c8fcc125c4",
+        "name": "36 temporary folder(s)",
+        "path": "%TEMP%",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 0,
+        "fileCount": 0,
+        "folderCount": 2,
+        "modifiedAt": "2026-11-02T11:52:05.246Z",
+        "ageDays": 0.5,
+        "reasons": [
+          "Aggregated temporary subfolders; contents were not opened.",
+          "Some folders may belong to active applications."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Folder contents are not individually enumerated; review is mandatory.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "0 file(s) measured.",
+          "Measurement completed inside its budget."
+        ]
+      }
+    ],
+    "summary": {
+      "candidates": 141,
+      "eligibleBytes": 0,
+      "reviewBytes": 645163217,
+      "blockedBytes": 0,
+      "eligibleCount": 0,
+      "reviewCount": 141,
+      "blockedCount": 0,
+      "categories": {
+        "temp": {
+          "count": 141,
+          "bytes": 645163217,
+          "eligibleBytes": 0,
+          "reviewBytes": 645163217,
+          "blockedBytes": 0
+        }
+      }
+    },
+    "coverage": {
+      "rootsScanned": 1,
+      "rootsUnavailable": 1,
+      "filesMeasured": 140,
+      "foldersMeasured": 2,
+      "bytesMeasured": 645163217,
+      "truncated": false,
+      "skippedLinks": 0,
+      "errors": 0
+    },
+    "recycleItems": [],
+    "warnings": [
+      "Windows temporary folder: access was denied."
+    ]
+  }
+}

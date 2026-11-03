@@ -1,0 +1,91 @@
+{
+  "profile": "D:\\Temp\\knoux-fidelity-controls-Q9e7iW",
+  "results": [
+    {
+      "name": "files-search-scroll-en-1366",
+      "ok": true,
+      "evidence": {
+        "finalRow": "City_Skyline_8K.jpgC:\\Users\\Alex\\Pictures\\CitiesJPG Image7.3 MBOct 3, 2024 9:36 AMLocal Disk (C:)",
+        "finalRowCenterReachable": true,
+        "footer": {
+          "top": 719.9375,
+          "bottom": 767.9375
+        },
+        "resultsHeight": 132,
+        "toolsBottom": 539.9375,
+        "resultsTop": 576.9375,
+        "documentOverflow": 0,
+        "dataScope": "explicitly labelled built-in fixture; no owner folder authorized or file opened"
+      }
+    },
+    {
+      "name": "files-search-scroll-ar-1366",
+      "ok": true,
+      "evidence": {
+        "finalRow": "City_Skyline_8K.jpgC:\\Users\\Alex\\Pictures\\CitiesJPG Image7.3 MBOct 3, 2024 9:36 AMLocal Disk (C:)",
+        "finalRowCenterReachable": true,
+        "footer": {
+          "top": 720,
+          "bottom": 768
+        },
+        "resultsHeight": 132,
+        "toolsBottom": 540.046875,
+        "resultsTop": 577.046875,
+        "documentOverflow": 0,
+        "dataScope": "explicitly labelled built-in fixture; no owner folder authorized or file opened"
+      }
+    },
+    {
+      "name": "cleanup-expand-scope-ar-1366",
+      "ok": true,
+      "evidence": {
+        "before": {
+          "open": false,
+          "controls": [
+            {
+              "label": "ملفات مؤقتة",
+              "visible": false
+            },
+            {
+              "label": "ذاكرة المتصفح",
+              "visible": false
+            },
+            {
+              "label": "سجلات التشخيص",
+              "visible": false
+            },
+            {
+              "label": "سلة المحذوفات",
+              "visible": false
+            },
+            {
+              "label": "تحديث Windows",
+              "visible": false
+            },
+            {
+              "label": "أي عمريوم واحد7 أيام30 يومًا",
+              "visible": false
+            }
+          ]
+        },
+        "after": {
+          "open": true,
+          "visibleControls": 6
+        },
+        "dataScope": "local category choice only; discovery/quarantine/delete never triggered"
+      }
+    },
+    {
+      "name": "automation-show-overview-ar-1366",
+      "ok": true,
+      "evidence": {
+        "overviewVisible": true,
+        "reason": "short viewport intentionally starts in focused editor mode; existing Show overview restores the hero",
+        "dataScope": "local view preference only; workflow not executed"
+      }
+    }
+  ],
+  "errors": [],
+  "ok": true,
+  "visualFidelityAccepted": false
+}

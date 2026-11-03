@@ -1,0 +1,223 @@
+{
+  "capturedAt": "2026-11-02T08:07:03.009Z",
+  "sizes": [
+    {
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "themes": [
+    "day"
+  ],
+  "locales": [
+    "en"
+  ],
+  "frames": [
+    {
+      "label": "home-day-en-1672x941",
+      "section": "home",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "home",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgb(255, 255, 255)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 64
+          },
+          "sidebar": {
+            "x": 12,
+            "y": 72,
+            "w": 185,
+            "h": 857
+          },
+          "hero": {
+            "x": 209,
+            "y": 72,
+            "w": 1039,
+            "h": 282
+          },
+          "primaryCta": {
+            "x": 224,
+            "y": 243,
+            "w": 162,
+            "h": 32
+          },
+          "headings": [
+            "Welcome to KNOuX"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 1,
+          "nodes": 4
+        },
+        "inertButtons": 0
+      },
+      "file": "home-day-en-1672x941.png"
+    },
+    {
+      "label": "files-day-en-1672x941",
+      "section": "files",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "files",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 10,
+            "y": 66,
+            "w": 230,
+            "h": 865
+          },
+          "hero": null,
+          "primaryCta": {
+            "x": 1412,
+            "y": 901,
+            "w": 236,
+            "h": 34
+          },
+          "headings": [
+            "Files"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 13
+      },
+      "file": "files-day-en-1672x941.png"
+    },
+    {
+      "label": "cleanup-day-en-1672x941",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 10,
+            "y": 66,
+            "w": 230,
+            "h": 865
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 982,
+            "h": 362
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 0
+      },
+      "file": "cleanup-day-en-1672x941.png"
+    }
+  ],
+  "orbitCoverage": [
+    {
+      "section": "home",
+      "frames": 1,
+      "dial": 1,
+      "pipes": 1,
+      "complete": true
+    },
+    {
+      "section": "files",
+      "frames": 1,
+      "dial": 1,
+      "pipes": 0,
+      "complete": false
+    },
+    {
+      "section": "cleanup",
+      "frames": 1,
+      "dial": 1,
+      "pipes": 0,
+      "complete": false
+    }
+  ],
+  "failures": [],
+  "pageErrors": [],
+  "consoleIssues": [
+    "console: The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "orbitComplete": [
+    "home"
+  ],
+  "orbitMissing": [
+    "files",
+    "cleanup"
+  ],
+  "ok": true
+}

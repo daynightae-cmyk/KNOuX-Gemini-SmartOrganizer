@@ -1,0 +1,541 @@
+{
+  "contractVersion": 1,
+  "capability": "repair.snapshot",
+  "requestId": "3e0b7fe0-330f-472d-a5aa-8a2f80f74e9a",
+  "status": "complete",
+  "source": "KNOuX Recovery Lab read-only repair evidence",
+  "observedAt": "2026-11-02T23:00:16.673Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "contract": "repair.v1",
+    "generatedAt": "2026-11-02T23:00:16.106Z",
+    "readOnly": true,
+    "mutation": "none",
+    "fixtureFallback": false,
+    "identity": {
+      "osName": "Microsoft Windows 10 Pro",
+      "osVersion": "10.0.19045",
+      "osBuild": "19045",
+      "architecture": "64-bit",
+      "isAdmin": false,
+      "elevationMethod": "user-initiated UAC only",
+      "powershellVersion": "5.1.19041.6456",
+      "dismAvailable": true,
+      "sfcAvailable": true,
+      "safeBoot": null,
+      "pendingReboot": false,
+      "systemRoot": "C:\\Windows",
+      "observedAt": "2026-11-02T23:00:05.876Z"
+    },
+    "servicing": {
+      "dismLog": {
+        "path": "C:\\Windows\\Logs\\DISM\\dism.log",
+        "exists": true,
+        "sizeBytes": 1477381,
+        "lastWrite": "2026-11-02T07:30:50.291Z"
+      },
+      "cbsLog": {
+        "path": "C:\\Windows\\Logs\\CBS\\CBS.log",
+        "exists": true,
+        "sizeBytes": 10241961,
+        "lastWrite": "2026-11-02T22:58:30.953Z"
+      },
+      "componentStore": {
+        "path": "C:\\Windows\\WinSxS",
+        "exists": true,
+        "sizeBytes": null,
+        "lastWrite": "2026-10-20T06:27:42.965Z"
+      },
+      "pendingCbs": false,
+      "pendingWindowsUpdate": false,
+      "componentStoreHealth": "not-run",
+      "note": "DISM/SFC were not executed. Log and component-store metadata are measured; health cannot be inferred from file metadata."
+    },
+    "network": {
+      "adapters": [
+        {
+          "name": "Wi-Fi",
+          "description": "Intel(R) Centrino(R) Advanced-N 6235",
+          "status": "Up",
+          "linkSpeed": "144 Mbps",
+          "mac": "C4-D9-87-EC-1E-5E"
+        },
+        {
+          "name": "Local Area Connection* 13",
+          "description": "Microsoft Wi-Fi Direct Virtual Adapter #5",
+          "status": "Up",
+          "linkSpeed": "54 Mbps",
+          "mac": "C6-D9-87-EC-1E-5E"
+        },
+        {
+          "name": "Ethernet",
+          "description": "Intel(R) Ethernet Connection I217-LM",
+          "status": "Disconnected",
+          "linkSpeed": "0 bps",
+          "mac": "FC-4D-D4-42-CA-B9"
+        },
+        {
+          "name": "Bluetooth Network Connection",
+          "description": "Bluetooth Device (Personal Area Network)",
+          "status": "Not Present",
+          "linkSpeed": "0 bps",
+          "mac": "C4-D9-87-EC-1E-62"
+        }
+      ],
+      "addresses": [
+        {
+          "interfaceAlias": "Local Area Connection* 13",
+          "address": "192.168.137.1",
+          "prefixLength": 24,
+          "origin": "Manual"
+        },
+        {
+          "interfaceAlias": "Ethernet",
+          "address": "169.254.83.227",
+          "prefixLength": 16,
+          "origin": "WellKnown"
+        },
+        {
+          "interfaceAlias": "Local Area Connection* 12",
+          "address": "169.254.34.87",
+          "prefixLength": 16,
+          "origin": "WellKnown"
+        },
+        {
+          "interfaceAlias": "Wi-Fi",
+          "address": "192.168.70.103",
+          "prefixLength": 24,
+          "origin": "Dhcp"
+        },
+        {
+          "interfaceAlias": "Loopback Pseudo-Interface 1",
+          "address": "127.0.0.1",
+          "prefixLength": 8,
+          "origin": "WellKnown"
+        }
+      ],
+      "dnsServers": [
+        {
+          "interfaceAlias": "Ethernet",
+          "servers": []
+        },
+        {
+          "interfaceAlias": "Local Area Connection* 12",
+          "servers": []
+        },
+        {
+          "interfaceAlias": "Wi-Fi",
+          "servers": [
+            "192.168.70.1"
+          ]
+        },
+        {
+          "interfaceAlias": "Local Area Connection* 13",
+          "servers": []
+        },
+        {
+          "interfaceAlias": "Loopback Pseudo-Interface 1",
+          "servers": []
+        }
+      ],
+      "dnsCache": {
+        "status": "measured",
+        "entryCount": 59,
+        "note": "Only the record count is measured. Cached domain names are intentionally not displayed or persisted.",
+        "source": "ipconfig.exe /displaydns"
+      },
+      "winsock": {
+        "status": "measured",
+        "providerCount": 28,
+        "categories": [
+          "Base Service Provider",
+          "Base Service Provider (32)"
+        ],
+        "note": "Measured provider catalog metadata only. Layer paths are not persisted.",
+        "source": "netsh.exe winsock show catalog"
+      }
+    },
+    "update": {
+      "services": [
+        {
+          "name": "bits",
+          "displayName": "Background Intelligent Transfer Service",
+          "status": "Stopped",
+          "startType": "Manual"
+        },
+        {
+          "name": "cryptsvc",
+          "displayName": "Cryptographic Services",
+          "status": "Running",
+          "startType": "Automatic"
+        },
+        {
+          "name": "msiserver",
+          "displayName": "Windows Installer",
+          "status": "Stopped",
+          "startType": "Manual"
+        },
+        {
+          "name": "trustedinstaller",
+          "displayName": "Windows Modules Installer",
+          "status": "Running",
+          "startType": "Manual"
+        },
+        {
+          "name": "wuauserv",
+          "displayName": "Windows Update",
+          "status": "Running",
+          "startType": "Manual"
+        }
+      ],
+      "softwareDistribution": {
+        "path": "C:\\Windows\\SoftwareDistribution",
+        "exists": true
+      },
+      "download": {
+        "path": "C:\\Windows\\SoftwareDistribution\\Download",
+        "exists": true,
+        "items": 23
+      },
+      "pendingReboot": false,
+      "note": "Service and cache metadata are measured. The update reset sequence is not executed."
+    },
+    "restore": {
+      "status": "permission_denied",
+      "points": [],
+      "enabled": null,
+      "reason": "Access denied",
+      "source": "Get-ComputerRestorePoint"
+    },
+    "troubleshooters": {
+      "msdtAvailable": true,
+      "commandAvailable": true,
+      "settingsTarget": "troubleshoot",
+      "categories": [
+        {
+          "id": "network",
+          "labelEn": "Network & Internet",
+          "labelAr": "الشبكة والإنترنت",
+          "checklistEn": [
+            "Confirm the adapter is up in the measured evidence.",
+            "Compare DNS resolvers before changing anything.",
+            "Preview DNS/Winsock/TCPIP actions in the dedicated tools."
+          ],
+          "checklistAr": [
+            "تأكد من أن المحول متصل في الأدلة المقيسة.",
+            "قارن محللات DNS قبل أي تغيير.",
+            "عاين إجراءات DNS/Winsock/TCPIP في أدواتها المخصصة."
+          ],
+          "settingsTarget": "troubleshoot"
+        },
+        {
+          "id": "audio",
+          "labelEn": "Audio playback",
+          "labelAr": "تشغيل الصوت",
+          "checklistEn": [
+            "Open Windows Sound settings for endpoint selection.",
+            "Capture the measured audio endpoint inventory in System.",
+            "Do not reinstall drivers without a staged repair plan."
+          ],
+          "checklistAr": [
+            "افتح إعدادات الصوت في Windows لاختيار نقطة التشغيل.",
+            "راجع جرد نقاط الصوت المقيس في النظام.",
+            "لا تعد تثبيت التعريفات دون خطة إصلاح مُهيَّأة."
+          ],
+          "settingsTarget": "troubleshoot"
+        },
+        {
+          "id": "printer",
+          "labelEn": "Printer queue",
+          "labelAr": "قائمة الطباعة",
+          "checklistEn": [
+            "Use Windows settings for the installed printer list.",
+            "Repair world does not enumerate or modify printer queues.",
+            "Stage any driver servicing under Mission 11 review."
+          ],
+          "checklistAr": [
+            "استخدم إعدادات Windows لقائمة الطابعات المثبتة.",
+            "لا يسرد عالم الإصلاح قوائم الطباعة أو يعدلها.",
+            "هيّئ أي خدمة تعريفات تحت مراجعة المهمة 11."
+          ],
+          "settingsTarget": "troubleshoot"
+        },
+        {
+          "id": "update",
+          "labelEn": "Windows Update",
+          "labelAr": "Windows Update",
+          "checklistEn": [
+            "Check measured wuauserv/BITS state first.",
+            "Preview the servicing reset; execution is not available.",
+            "Open Windows Update settings for the user-initiated path."
+          ],
+          "checklistAr": [
+            "افحص حالة wuauserv/BITS المقيسة أولًا.",
+            "عاين إعادة تهيئة الخدمة؛ التنفيذ غير متاح.",
+            "افتح إعدادات Windows Update للمسار الذي يبدأه المستخدم."
+          ],
+          "settingsTarget": "windowsupdate"
+        }
+      ],
+      "note": "Only measured capability is reported. Category cards open allowlisted Windows settings; they do not launch a silent repair."
+    },
+    "journal": [],
+    "commands": [
+      {
+        "id": "repair-cmd-component-check",
+        "toolId": "repair-component-check",
+        "labelEn": "DISM CheckHealth",
+        "labelAr": "فحص صحة المكونات",
+        "display": "DISM.exe /Online /Cleanup-Image /CheckHealth",
+        "elevationRequired": true,
+        "risk": "elevated-read-only",
+        "rebootRequired": false,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-component-scan",
+        "toolId": "repair-component-scan",
+        "labelEn": "DISM ScanHealth",
+        "labelAr": "مسح صحة المكونات",
+        "display": "DISM.exe /Online /Cleanup-Image /ScanHealth",
+        "elevationRequired": true,
+        "risk": "elevated-read-only",
+        "rebootRequired": false,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-component-restore",
+        "toolId": "repair-component-restore",
+        "labelEn": "DISM RestoreHealth",
+        "labelAr": "استعادة صحة المكونات",
+        "display": "DISM.exe /Online /Cleanup-Image /RestoreHealth",
+        "elevationRequired": true,
+        "risk": "administrative",
+        "rebootRequired": false,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-files-verify",
+        "toolId": "repair-files-verify",
+        "labelEn": "SFC VerifyOnly",
+        "labelAr": "تحقق سلامة الملفات",
+        "display": "sfc.exe /verifyonly",
+        "elevationRequired": true,
+        "risk": "elevated-read-only",
+        "rebootRequired": false,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-files-repair",
+        "toolId": "repair-files-repair",
+        "labelEn": "SFC ScanNow",
+        "labelAr": "إصلاح ملفات النظام",
+        "display": "sfc.exe /scannow",
+        "elevationRequired": true,
+        "risk": "administrative",
+        "rebootRequired": true,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-dns-flush",
+        "toolId": "repair-dns-flush",
+        "labelEn": "Flush DNS cache",
+        "labelAr": "مسح ذاكرة DNS",
+        "display": "ipconfig.exe /flushdns",
+        "elevationRequired": false,
+        "risk": "administrative",
+        "rebootRequired": false,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-winsock-reset",
+        "toolId": "repair-winsock-reset",
+        "labelEn": "Reset Winsock catalog",
+        "labelAr": "إعادة كتالوج Winsock",
+        "display": "netsh.exe winsock reset",
+        "elevationRequired": true,
+        "risk": "administrative",
+        "rebootRequired": true,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-tcpip-reset",
+        "toolId": "repair-tcpip-reset",
+        "labelEn": "Reset TCP/IP stack",
+        "labelAr": "إعادة مكدس TCP/IP",
+        "display": "netsh.exe int ip reset",
+        "elevationRequired": true,
+        "risk": "administrative",
+        "rebootRequired": true,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-restore-apply",
+        "toolId": "repair-restore-point",
+        "labelEn": "System Restore handoff",
+        "labelAr": "انتقال استعادة النظام",
+        "display": "rstrui.exe (interactive Windows restore UI)",
+        "elevationRequired": true,
+        "risk": "administrative",
+        "rebootRequired": true,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      },
+      {
+        "id": "repair-cmd-update-reset",
+        "toolId": "repair-update-reset",
+        "labelEn": "Windows Update servicing reset",
+        "labelAr": "إعادة تهيئة خدمة التحديث",
+        "display": "Stop wuauserv/bits → rename SoftwareDistribution → start services",
+        "elevationRequired": true,
+        "risk": "administrative",
+        "rebootRequired": true,
+        "execution": {
+          "available": false,
+          "reason": "Mission 11 publishes a fixed preview only. Execution requires an elevated, separately approved executor that is not shipped."
+        }
+      }
+    ],
+    "gates": [
+      {
+        "id": "repair.dism.restore",
+        "mission": "11",
+        "title": "Run DISM RestoreHealth",
+        "reason": "Repairs the component store and may download servicing content. Requires elevation, explicit approval, bounded execution and postcondition verification."
+      },
+      {
+        "id": "repair.sfc.scannow",
+        "mission": "11",
+        "title": "Run SFC ScanNow",
+        "reason": "Repairs protected system files and may require a restart. No elevated executor is shipped in this mission."
+      },
+      {
+        "id": "repair.dns.flush",
+        "mission": "11",
+        "title": "Flush the DNS resolver cache",
+        "reason": "Clears measured resolver state and can disrupt name resolution temporarily. Only an immutable preview is available."
+      },
+      {
+        "id": "repair.winsock.reset",
+        "mission": "11",
+        "title": "Reset the Winsock catalog",
+        "reason": "Removes layered service providers and requires a reboot. High-risk operation with no execution channel."
+      },
+      {
+        "id": "repair.tcpip.reset",
+        "mission": "11",
+        "title": "Reset the TCP/IP stack",
+        "reason": "Disconnects active networking and requires a reboot. Backup and explicit high-risk approval are mandatory before any future executor."
+      },
+      {
+        "id": "repair.restore.apply",
+        "mission": "11",
+        "title": "Restore a system restore point",
+        "reason": "Reverts system state and may remove installed software. The Windows restore UI is user-initiated; no silent restore exists."
+      },
+      {
+        "id": "repair.update.reset",
+        "mission": "11",
+        "title": "Reset Windows Update servicing state",
+        "reason": "Stops update services and renames the update cache. Disruptive and must be separately approved."
+      },
+      {
+        "id": "repair.elevation.request",
+        "mission": "11",
+        "title": "Request elevated execution",
+        "reason": "No automatic elevation exists. A future executor must show a UAC-scoped, fixed-argument capability with explicit consent."
+      }
+    ],
+    "coverage": [
+      {
+        "key": "identity",
+        "status": "complete",
+        "items": 10,
+        "note": null
+      },
+      {
+        "key": "servicing",
+        "status": "complete",
+        "items": 3,
+        "note": null
+      },
+      {
+        "key": "network",
+        "status": "complete",
+        "items": 14,
+        "note": null
+      },
+      {
+        "key": "update",
+        "status": "complete",
+        "items": 5,
+        "note": null
+      },
+      {
+        "key": "restore",
+        "status": "partial",
+        "items": 0,
+        "note": "Access denied"
+      },
+      {
+        "key": "journal",
+        "status": "complete",
+        "items": 4,
+        "note": null
+      }
+    ],
+    "warnings": [
+      "The application is not elevated. Elevated diagnostics are published as gated previews and were not executed."
+    ],
+    "sources": [
+      "WindowsPrincipal",
+      "Win32_OperatingSystem",
+      "dism.exe/sfc.exe path check",
+      "DISM/CBS log metadata",
+      "WinSxS metadata",
+      "pending-reboot registry keys",
+      "Get-NetAdapter",
+      "Get-NetIPAddress",
+      "Get-DnsClientServerAddress",
+      "ipconfig.exe /displaydns (record count only)",
+      "netsh.exe winsock show catalog",
+      "Get-Service wuauserv/bits/cryptsvc/msiserver/trustedinstaller",
+      "SoftwareDistribution metadata",
+      "Get-ComputerRestorePoint",
+      "msdt.exe/Get-TroubleshootingPack capability",
+      "Local repair preview journal"
+    ],
+    "receipt": "repair:4cc09e52eac2c0363d11c1e1"
+  }
+}

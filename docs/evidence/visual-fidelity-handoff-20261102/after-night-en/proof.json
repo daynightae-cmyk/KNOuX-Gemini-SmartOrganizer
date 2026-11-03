@@ -1,0 +1,3344 @@
+{
+  "capturedAt": "2026-11-02T12:00:56.736Z",
+  "head": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-46OsIR",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "studio-night-en-1672x941",
+      "section": "studio",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "studio-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "studio",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 72
+        },
+        "hero": {
+          "x": 242,
+          "y": 85,
+          "w": 973,
+          "h": 252
+        },
+        "heroCount": 1,
+        "heroClass": "osa-hero",
+        "heroScrollHeight": 254,
+        "heroClientHeight": 250,
+        "controls": [
+          {
+            "label": "Run OrganizationAnalyze and preview your files",
+            "rect": {
+              "x": 975.1875,
+              "y": 138.5,
+              "w": 120,
+              "h": 120
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 902.90625,
+              "y": 86.640625,
+              "w": 78,
+              "h": 56.65625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1089.453125,
+              "y": 86.640625,
+              "w": 78,
+              "h": 56.65625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1131.265625,
+              "y": 170.171875,
+              "w": 78,
+              "h": 56.65625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Repeated file names. Same names do not prove identical content.",
+            "rect": {
+              "x": 1089.453125,
+              "y": 249.046875,
+              "w": 78,
+              "h": 56.65625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 902.90625,
+              "y": 249.046875,
+              "w": 78,
+              "h": 56.65625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 861.09375,
+              "y": 170.171875,
+              "w": 78,
+              "h": 56.65625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Undo · pending",
+            "rect": {
+              "x": 263,
+              "y": 197.421875,
+              "w": 82.46875,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Verify · pending",
+            "rect": {
+              "x": 349.46875,
+              "y": 175.421875,
+              "w": 82.484375,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Execute · requires approval",
+            "rect": {
+              "x": 435.953125,
+              "y": 197.421875,
+              "w": 82.484375,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review · pending",
+            "rect": {
+              "x": 522.4375,
+              "y": 175.421875,
+              "w": 82.484375,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Plan · pending",
+            "rect": {
+              "x": 608.921875,
+              "y": 197.421875,
+              "w": 82.484375,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Classify · pending",
+            "rect": {
+              "x": 695.40625,
+              "y": 175.421875,
+              "w": 82.484375,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Source · pending",
+            "rect": {
+              "x": 781.890625,
+              "y": 197.421875,
+              "w": 82.46875,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review repeated namesNo repeated names in this inventory",
+            "rect": {
+              "x": 935.84375,
+              "y": 300,
+              "w": 262.15625,
+              "h": 28
+            },
+            "disabled": true,
+            "centerReachable": false,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "os-inspector-scroll",
+            "rect": {
+              "x": 1228,
+              "y": 143,
+              "w": 418,
+              "h": 613
+            },
+            "scrollHeight": 664,
+            "clientHeight": 613
+          }
+        ],
+        "headings": [
+          "Organization Studio"
+        ]
+      }
+    },
+    {
+      "label": "home-night-en-1672x941",
+      "section": "home",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "home-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 348,
+        "heroClientHeight": 348,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 267,
+              "y": 206.078125,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 456.53125,
+              "y": 206.078125,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1307.375,
+              "y": 166.203125,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1344.375,
+              "y": 75.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1507.328125,
+              "y": 140.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1527.703125,
+              "y": 238.140625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1405.484375,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1242.515625,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 1181.40625,
+              "y": 205.703125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 269,
+              "y": 312.046875,
+              "w": 208.1875,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 481.1875,
+              "y": 300.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 693.375,
+              "y": 312.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 905.5625,
+              "y": 300.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 263,
+              "y": 815.125,
+              "w": 481.234375,
+              "h": 100.859375
+            },
+            "scrollHeight": 218,
+            "clientHeight": 101
+          },
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 786.234375,
+              "y": 815.125,
+              "w": 434.765625,
+              "h": 100.859375
+            },
+            "scrollHeight": 117,
+            "clientHeight": 101
+          }
+        ],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "workspace-night-en-1672x941",
+      "section": "workspace",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "workspace-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "workspace",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 40
+        },
+        "hero": {
+          "x": 240,
+          "y": 56,
+          "w": 1416,
+          "h": 252
+        },
+        "heroCount": 1,
+        "heroClass": "knx-workspace-hero rounded-xl bg-[#071328] border border-[#1b3f70] p-4 flex flex-col gap-3 shadow-xl shrink-0",
+        "heroScrollHeight": 250,
+        "heroClientHeight": 250,
+        "controls": [
+          {
+            "label": "WorkspacePreview · no live API",
+            "rect": {
+              "x": 1447,
+              "y": 132,
+              "w": 100,
+              "h": 100
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Open the Sheets consent/workbench; never connect automatically",
+            "rect": {
+              "x": 1395,
+              "y": 98.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1535,
+              "y": 98.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1358.59375,
+              "y": 159.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1571.390625,
+              "y": 159.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1395,
+              "y": 217.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1535,
+              "y": 217.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review Google access",
+            "rect": {
+              "x": 559.8125,
+              "y": 265.390625,
+              "w": 170.1875,
+              "h": 28
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Sync state · pending",
+            "rect": {
+              "x": 261,
+              "y": 151.1875,
+              "w": 211.59375,
+              "h": 90
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Preview data · pending",
+            "rect": {
+              "x": 476.59375,
+              "y": 129.1875,
+              "w": 211.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select service · partial",
+            "rect": {
+              "x": 692.1875,
+              "y": 151.1875,
+              "w": 211.609375,
+              "h": 90
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review scopes · current stage",
+            "rect": {
+              "x": 907.796875,
+              "y": 129.1875,
+              "w": 211.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · requires approval",
+            "rect": {
+              "x": 1123.390625,
+              "y": 151.1875,
+              "w": 211.609375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-google-tool-body flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar p-4 space-y-3",
+            "rect": {
+              "x": 513,
+              "y": 385,
+              "w": 1142,
+              "h": 381
+            },
+            "scrollHeight": 414,
+            "clientHeight": 381
+          }
+        ],
+        "headings": [
+          "Google Workspace Integration Hub"
+        ]
+      }
+    },
+    {
+      "label": "startup-night-en-1672x941",
+      "section": "startup",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "startup-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "startup",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 345.5
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 344,
+        "heroClientHeight": 344,
+        "controls": [
+          {
+            "label": "Verify boot · pending",
+            "rect": {
+              "x": 294,
+              "y": 245.1875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Approve · requires approval",
+            "rect": {
+              "x": 414.9375,
+              "y": 223.1875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review · pending",
+            "rect": {
+              "x": 535.890625,
+              "y": 245.1875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Filter · complete",
+            "rect": {
+              "x": 656.828125,
+              "y": 223.1875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · complete",
+            "rect": {
+              "x": 777.78125,
+              "y": 245.1875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Discover · complete",
+            "rect": {
+              "x": 898.734375,
+              "y": 223.1875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Analyze StartupMeasure · Inspect · Review",
+            "rect": {
+              "x": 1267.6484375,
+              "y": 161.8046875,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured autorun register",
+            "rect": {
+              "x": 1217.03125,
+              "y": 95.203125,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured boot impact",
+            "rect": {
+              "x": 1362.640625,
+              "y": 95.203125,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Delay policy preview",
+            "rect": {
+              "x": 1407.4375,
+              "y": 181.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Scheduled task autoruns",
+            "rect": {
+              "x": 1362.640625,
+              "y": 262.703125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Filter by impact and state",
+            "rect": {
+              "x": 1217.03125,
+              "y": 262.703125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Immutable preview journal",
+            "rect": {
+              "x": 1172.234375,
+              "y": 181.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Refresh evidence",
+            "rect": {
+              "x": 292,
+              "y": 352,
+              "w": 152.734375,
+              "h": 31.5
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Cancel scan",
+            "rect": {
+              "x": 452.734375,
+              "y": 352,
+              "w": 118.875,
+              "h": 31.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "stp-table-wrap knx-custom-scrollbar",
+            "rect": {
+              "x": 253,
+              "y": 752.1875,
+              "w": 980,
+              "h": 102.703125
+            },
+            "scrollHeight": 145,
+            "clientHeight": 103
+          },
+          {
+            "class": "stp-panel stp-inspector",
+            "rect": {
+              "x": 1259,
+              "y": 438.5,
+              "w": 388,
+              "h": 244.609375
+            },
+            "scrollHeight": 260,
+            "clientHeight": 243
+          },
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 1259,
+              "y": 697.109375,
+              "w": 388,
+              "h": 172.390625
+            },
+            "scrollHeight": 610,
+            "clientHeight": 171
+          }
+        ],
+        "headings": [
+          "Startup Control"
+        ]
+      }
+    },
+    {
+      "label": "smart_scan-night-en-1672x941",
+      "section": "smart_scan",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "smart_scan-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "smart_scan",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 254,
+          "y": 72,
+          "w": 978,
+          "h": 335.890625
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 334,
+        "heroClientHeight": 334,
+        "controls": [
+          {
+            "label": "Cleanup Gate · requires approval",
+            "rect": {
+              "x": 296,
+              "y": 278.890625,
+              "w": 93.375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Findings · pending",
+            "rect": {
+              "x": 393.375,
+              "y": 256.890625,
+              "w": 93.375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Deep Analysis · pending",
+            "rect": {
+              "x": 490.75,
+              "y": 278.890625,
+              "w": 93.375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Quick Scan · pending",
+            "rect": {
+              "x": 588.125,
+              "y": 256.890625,
+              "w": 93.375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Authorize · current stage",
+            "rect": {
+              "x": 685.5,
+              "y": 278.890625,
+              "w": 93.390625,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Start Smart ScanSafe, read-only analysis",
+            "rect": {
+              "x": 934.2421875,
+              "y": 179.7421875,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured read-only plan",
+            "rect": {
+              "x": 883.625,
+              "y": 122.234375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Extended read-only sweep",
+            "rect": {
+              "x": 1029.234375,
+              "y": 122.234375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Startup impact evidence",
+            "rect": {
+              "x": 1074.03125,
+              "y": 199.03125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured health pulse",
+            "rect": {
+              "x": 1029.234375,
+              "y": 271.546875,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Application health",
+            "rect": {
+              "x": 883.625,
+              "y": 280.640625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Privacy traces",
+            "rect": {
+              "x": 838.828125,
+              "y": 199.03125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-scan-status",
+            "rect": {
+              "x": 1257,
+              "y": 85,
+              "w": 388,
+              "h": 366.453125
+            },
+            "scrollHeight": 736,
+            "clientHeight": 366
+          }
+        ],
+        "headings": [
+          "Smart Scan"
+        ]
+      }
+    },
+    {
+      "label": "applications-night-en-1672x941",
+      "section": "applications",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "applications-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "applications",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 374.1875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 372,
+        "heroClientHeight": 372,
+        "controls": [
+          {
+            "label": "Evidence · pending",
+            "rect": {
+              "x": 294,
+              "y": 249.296875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Uninstall review · requires approval",
+            "rect": {
+              "x": 414.9375,
+              "y": 227.296875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Footprint · complete",
+            "rect": {
+              "x": 535.890625,
+              "y": 249.296875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Updates · pending",
+            "rect": {
+              "x": 656.828125,
+              "y": 227.296875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Inspect · complete",
+            "rect": {
+              "x": 777.78125,
+              "y": 249.296875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Inventory · pending",
+            "rect": {
+              "x": 898.734375,
+              "y": 227.296875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Analyze ApplicationsInventory · Inspect · Review",
+            "rect": {
+              "x": 1267.6484375,
+              "y": 179.1953125,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Inventory",
+            "rect": {
+              "x": 1217.03125,
+              "y": 121.6875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Updates",
+            "rect": {
+              "x": 1362.640625,
+              "y": 121.6875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Export",
+            "rect": {
+              "x": 1407.4375,
+              "y": 198.484375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Publishers",
+            "rect": {
+              "x": 1362.640625,
+              "y": 280.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Footprint",
+            "rect": {
+              "x": 1217.03125,
+              "y": 280.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Startup links",
+            "rect": {
+              "x": 1172.234375,
+              "y": 198.484375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Re-read the measured inventory",
+            "rect": {
+              "x": 292,
+              "y": 342.796875,
+              "w": 151.5,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Export measured evidence as JSON",
+            "rect": {
+              "x": 451.5,
+              "y": 342.796875,
+              "w": 120.515625,
+              "h": 34
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 1259,
+              "y": 736.484375,
+              "w": 388,
+              "h": 179.515625
+            },
+            "scrollHeight": 637,
+            "clientHeight": 179
+          }
+        ],
+        "headings": [
+          "Applications"
+        ]
+      }
+    },
+    {
+      "label": "services-night-en-1672x941",
+      "section": "services",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "services-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "services",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 398.796875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 397,
+        "heroClientHeight": 397,
+        "controls": [
+          {
+            "label": "Recover · requires approval",
+            "rect": {
+              "x": 294,
+              "y": 249.296875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Policy · pending",
+            "rect": {
+              "x": 414.9375,
+              "y": 227.296875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Preview · pending",
+            "rect": {
+              "x": 535.890625,
+              "y": 249.296875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Dependencies · pending",
+            "rect": {
+              "x": 656.828125,
+              "y": 227.296875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Inspect · pending",
+            "rect": {
+              "x": 777.78125,
+              "y": 249.296875,
+              "w": 116.953125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Discover · current stage",
+            "rect": {
+              "x": 898.734375,
+              "y": 227.296875,
+              "w": 116.9375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Cancel discovery",
+            "rect": {
+              "x": 292,
+              "y": 400.796875,
+              "w": 152.25,
+              "h": 36
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Export report",
+            "rect": {
+              "x": 449.25,
+              "y": 400.796875,
+              "w": 128.40625,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Service CommanderReview the measured SCM register",
+            "rect": {
+              "x": 1267.6484375,
+              "y": 209.1953125,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured running states",
+            "rect": {
+              "x": 1217.03125,
+              "y": 151.6875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Status query, read-only",
+            "rect": {
+              "x": 1362.640625,
+              "y": 151.6875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measured dependency edges",
+            "rect": {
+              "x": 1407.4375,
+              "y": 219.390625,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Fault diagnostics, no repair runs",
+            "rect": {
+              "x": 1362.640625,
+              "y": 310.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Bounded SCM events",
+            "rect": {
+              "x": 1217.03125,
+              "y": 310.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Policy preview only",
+            "rect": {
+              "x": 1172.234375,
+              "y": 219.390625,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 1259,
+              "y": 715.71875,
+              "w": 388,
+              "h": 149.28125
+            },
+            "scrollHeight": 588,
+            "clientHeight": 148
+          }
+        ],
+        "headings": [
+          "Service Commander"
+        ]
+      }
+    },
+    {
+      "label": "system-night-en-1672x941",
+      "section": "system",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "system-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "system",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 375.796875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 374,
+        "heroClientHeight": 374,
+        "controls": [
+          {
+            "label": "Report · pending",
+            "rect": {
+              "x": 292,
+              "y": 239.296875,
+              "w": 141.578125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Diagnose · pending",
+            "rect": {
+              "x": 437.578125,
+              "y": 217.296875,
+              "w": 141.578125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Analyze · pending",
+            "rect": {
+              "x": 583.15625,
+              "y": 239.296875,
+              "w": 141.59375,
+              "h": 90
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Sample · pending",
+            "rect": {
+              "x": 728.75,
+              "y": 217.296875,
+              "w": 141.578125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Collect · current stage",
+            "rect": {
+              "x": 874.328125,
+              "y": 239.296875,
+              "w": 141.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Cancel scan",
+            "rect": {
+              "x": 290,
+              "y": 383.796875,
+              "w": 119.4375,
+              "h": 36
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Refresh snapshot",
+            "rect": {
+              "x": 414.4375,
+              "y": 383.796875,
+              "w": 152.703125,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Sample now",
+            "rect": {
+              "x": 572.140625,
+              "y": 383.796875,
+              "w": 120.71875,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Export snapshot",
+            "rect": {
+              "x": 697.859375,
+              "y": 383.796875,
+              "w": 146.71875,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Run Health PulseReal readings. Clear sources.",
+            "rect": {
+              "x": 1268.7578125,
+              "y": 197.6953125,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "CPU",
+            "rect": {
+              "x": 1218.140625,
+              "y": 140.1875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "GPU",
+            "rect": {
+              "x": 1363.75,
+              "y": 140.1875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Memory",
+            "rect": {
+              "x": 1408.546875,
+              "y": 216.984375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Disk",
+            "rect": {
+              "x": 1363.75,
+              "y": 298.59375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Events",
+            "rect": {
+              "x": 1218.140625,
+              "y": 298.59375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Network",
+            "rect": {
+              "x": 1173.34375,
+              "y": 216.984375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 1259,
+              "y": 725,
+              "w": 388,
+              "h": 140
+            },
+            "scrollHeight": 620,
+            "clientHeight": 139
+          }
+        ],
+        "headings": [
+          "System Performance"
+        ]
+      }
+    },
+    {
+      "label": "repair-night-en-1672x941",
+      "section": "repair",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "repair-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "repair",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 982,
+          "h": 398.796875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 397,
+        "heroClientHeight": 397,
+        "controls": [
+          {
+            "label": "Verify · pending",
+            "rect": {
+              "x": 294,
+              "y": 249.296875,
+              "w": 65.578125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Execute · requires approval",
+            "rect": {
+              "x": 363.578125,
+              "y": 227.296875,
+              "w": 65.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Confirm · requires approval",
+            "rect": {
+              "x": 433.171875,
+              "y": 249.296875,
+              "w": 65.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review · pending",
+            "rect": {
+              "x": 502.765625,
+              "y": 227.296875,
+              "w": 65.578125,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Choose · pending",
+            "rect": {
+              "x": 572.34375,
+              "y": 249.296875,
+              "w": 65.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Inspect · pending",
+            "rect": {
+              "x": 641.9375,
+              "y": 227.296875,
+              "w": 65.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Diagnose · current stage",
+            "rect": {
+              "x": 711.53125,
+              "y": 249.296875,
+              "w": 65.59375,
+              "h": 68
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Cancel discovery",
+            "rect": {
+              "x": 292,
+              "y": 400.796875,
+              "w": 152.25,
+              "h": 36
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Stage preview",
+            "rect": {
+              "x": 449.25,
+              "y": 400.796875,
+              "w": 134.53125,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Export report",
+            "rect": {
+              "x": 588.78125,
+              "y": 400.796875,
+              "w": 128.40625,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "DiagnoseEvidence before action",
+            "rect": {
+              "x": 935.3671875,
+              "y": 209.1953125,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Verify system files · preview only",
+            "rect": {
+              "x": 884.75,
+              "y": 151.6875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Component store scan · preview only",
+            "rect": {
+              "x": 1030.359375,
+              "y": 151.6875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Restore health · requires approval",
+            "rect": {
+              "x": 1075.15625,
+              "y": 219.390625,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "DNS flush · preview only",
+            "rect": {
+              "x": 1030.359375,
+              "y": 310.09375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Restore points · never created here",
+            "rect": {
+              "x": 884.75,
+              "y": 301,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Immutable repair journal",
+            "rect": {
+              "x": 839.953125,
+              "y": 228.484375,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "rep-tools-panel",
+            "rect": {
+              "x": 252,
+              "y": 654.796875,
+              "w": 982,
+              "h": 221.203125
+            },
+            "scrollHeight": 589,
+            "clientHeight": 219
+          },
+          {
+            "class": "rep-brief-content",
+            "rect": {
+              "x": 1272,
+              "y": 252,
+              "w": 362,
+              "h": 494.625
+            },
+            "scrollHeight": 746,
+            "clientHeight": 495
+          }
+        ],
+        "headings": [
+          "Recovery Lab"
+        ]
+      }
+    },
+    {
+      "label": "automation-night-en-1672x941",
+      "section": "automation",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "automation-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "automation",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 278
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 276,
+        "heroClientHeight": 276,
+        "controls": [
+          {
+            "label": "Verify · pending",
+            "rect": {
+              "x": 788.875,
+              "y": 156.109375,
+              "w": 96.1875,
+              "h": 60.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Execute · requires approval",
+            "rect": {
+              "x": 889.0625,
+              "y": 144.109375,
+              "w": 96.1875,
+              "h": 60.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Approve · requires approval",
+            "rect": {
+              "x": 989.25,
+              "y": 156.109375,
+              "w": 96.1875,
+              "h": 60.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Dry run · pending",
+            "rect": {
+              "x": 1089.4375,
+              "y": 144.109375,
+              "w": 96.1875,
+              "h": 82.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Validate · pending",
+            "rect": {
+              "x": 1189.625,
+              "y": 156.109375,
+              "w": 96.1875,
+              "h": 60.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Trigger · partial",
+            "rect": {
+              "x": 1289.8125,
+              "y": 144.109375,
+              "w": 96.1875,
+              "h": 82.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Re-discover",
+            "rect": {
+              "x": 288,
+              "y": 242.984375,
+              "w": 99.8125,
+              "h": 28
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Refresh store",
+            "rect": {
+              "x": 391.8125,
+              "y": 242.984375,
+              "w": 104.265625,
+              "h": 28
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Preview schedule",
+            "rect": {
+              "x": 500.078125,
+              "y": 242.984375,
+              "w": 127.28125,
+              "h": 28
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Export report",
+            "rect": {
+              "x": 631.359375,
+              "y": 242.984375,
+              "w": 105.265625,
+              "h": 28
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Flow StudioCompose · Preview · Review",
+            "rect": {
+              "x": 1466,
+              "y": 130.734375,
+              "w": 96,
+              "h": 107
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Templates",
+            "rect": {
+              "x": 1476,
+              "y": 89.640625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Schedule",
+            "rect": {
+              "x": 1544.578125,
+              "y": 118.890625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "History",
+            "rect": {
+              "x": 1544.578125,
+              "y": 177.390625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Schedule preview only; no task is installed",
+            "rect": {
+              "x": 1476,
+              "y": 206.640625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Transfer",
+            "rect": {
+              "x": 1407.40625,
+              "y": 177.390625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review-only retention preview; no deletion",
+            "rect": {
+              "x": 1407.40625,
+              "y": 118.890625,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "auto-editor-lower",
+            "rect": {
+              "x": 463,
+              "y": 793,
+              "w": 936,
+              "h": 160
+            },
+            "scrollHeight": 241,
+            "clientHeight": 160
+          }
+        ],
+        "headings": [
+          "Flow Studio"
+        ]
+      }
+    },
+    {
+      "label": "files-night-en-1672x941",
+      "section": "files",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "files-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "files",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 265,
+          "y": 83,
+          "w": 1010,
+          "h": 357.25
+        },
+        "heroCount": 2,
+        "heroClass": "knx-files-heading relative z-10 mb-2",
+        "heroScrollHeight": 355,
+        "heroClientHeight": 355,
+        "controls": [
+          {
+            "label": "Explore FilesFind, organize and manage",
+            "rect": {
+              "x": 872,
+              "y": 153.625,
+              "w": 216,
+              "h": 216
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recent",
+            "rect": {
+              "x": 795.59375,
+              "y": 107.703125,
+              "w": 88,
+              "h": 82.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Large Files",
+            "rect": {
+              "x": 1076.390625,
+              "y": 107.703125,
+              "w": 88,
+              "h": 82.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Focus the type filter row",
+            "rect": {
+              "x": 1162.796875,
+              "y": 213.703125,
+              "w": 88,
+              "h": 82.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Repeated file names. Same names do not prove identical content.",
+            "rect": {
+              "x": 1076.390625,
+              "y": 326.328125,
+              "w": 88,
+              "h": 82.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Open the location filter",
+            "rect": {
+              "x": 795.59375,
+              "y": 326.328125,
+              "w": 88,
+              "h": 82.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Not available: the indexed contract exposes no tags",
+            "rect": {
+              "x": 709.1875,
+              "y": 213.703125,
+              "w": 88,
+              "h": 82.59375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": {
+          "workspace": {
+            "x": 240,
+            "y": 58,
+            "w": 1432,
+            "h": 883
+          },
+          "clientHeight": 883,
+          "scrollHeight": 947,
+          "outerTools": {
+            "x": 252,
+            "y": 70,
+            "w": 1036,
+            "h": 706.90625
+          },
+          "results": {
+            "x": 253,
+            "y": 813.90625,
+            "w": 1034,
+            "h": 132
+          },
+          "search": {
+            "x": 300,
+            "y": 633.3125,
+            "w": 695.84375,
+            "h": 26
+          },
+          "footer": {
+            "x": 252,
+            "y": 893,
+            "w": 1398,
+            "h": 48
+          }
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden",
+            "rect": {
+              "x": 240,
+              "y": 58,
+              "w": 1432,
+              "h": 883
+            },
+            "scrollHeight": 947,
+            "clientHeight": 883
+          },
+          {
+            "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+            "rect": {
+              "x": 253,
+              "y": 813.90625,
+              "w": 1034,
+              "h": 132
+            },
+            "scrollHeight": 456,
+            "clientHeight": 132
+          }
+        ],
+        "headings": [
+          "Files"
+        ]
+      }
+    },
+    {
+      "label": "storage-night-en-1672x941",
+      "section": "storage",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "storage-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "storage",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 116.875,
+          "w": 982,
+          "h": 326.46875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 324,
+        "heroClientHeight": 324,
+        "controls": [
+          {
+            "label": "Analyze StorageChoose a scope. See the detail.",
+            "rect": {
+              "x": 429.8046875,
+              "y": 214.6796875,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Re-read the measured volumes",
+            "rect": {
+              "x": 370.796875,
+              "y": 147.578125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select the volume using the most space",
+            "rect": {
+              "x": 533.1875,
+              "y": 147.578125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select the volume with the most free bytes",
+            "rect": {
+              "x": 572.390625,
+              "y": 238.78125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Treemap",
+            "rect": {
+              "x": 533.1875,
+              "y": 329.96875,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Largest Folders",
+            "rect": {
+              "x": 370.796875,
+              "y": 320.875,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Open the reclaim review",
+            "rect": {
+              "x": 331.59375,
+              "y": 238.78125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Explore Storage",
+            "rect": {
+              "x": 702,
+              "y": 367.84375,
+              "w": 492,
+              "h": 43.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-panel",
+            "rect": {
+              "x": 252,
+              "y": 512.140625,
+              "w": 982,
+              "h": 212
+            },
+            "scrollHeight": 239,
+            "clientHeight": 212
+          },
+          {
+            "class": "knx-command-panel",
+            "rect": {
+              "x": 252,
+              "y": 734.140625,
+              "w": 982,
+              "h": 130.859375
+            },
+            "scrollHeight": 1198,
+            "clientHeight": 131
+          },
+          {
+            "class": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-48",
+            "rect": {
+              "x": 836.15625,
+              "y": 868.125,
+              "w": 357.828125,
+              "h": 192
+            },
+            "scrollHeight": 358,
+            "clientHeight": 192
+          }
+        ],
+        "headings": [
+          "Volume Atlas"
+        ]
+      }
+    },
+    {
+      "label": "cleanup-night-en-1672x941",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "cleanup-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "cleanup",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 982,
+          "h": 463.875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 462,
+        "heroClientHeight": 462,
+        "controls": [
+          {
+            "label": "Analyze CleanupDiscover · Review · Confirm",
+            "rect": {
+              "x": 935.3671875,
+              "y": 161.8046875,
+              "w": 120.390625,
+              "h": 120.390625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Include temp roots in the scan",
+            "rect": {
+              "x": 884.75,
+              "y": 95.203125,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Include browser caches",
+            "rect": {
+              "x": 1030.359375,
+              "y": 95.203125,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Include diagnostic logs",
+            "rect": {
+              "x": 1075.15625,
+              "y": 172,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Include bin contents",
+            "rect": {
+              "x": 1030.359375,
+              "y": 262.703125,
+              "w": 76,
+              "h": 72.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Include update leftovers",
+            "rect": {
+              "x": 884.75,
+              "y": 253.609375,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Include stale items by age",
+            "rect": {
+              "x": 839.953125,
+              "y": 172,
+              "w": 76,
+              "h": 90.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Refresh evidence",
+            "rect": {
+              "x": 292,
+              "y": 350,
+              "w": 150.65625,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Run measured discovery",
+            "rect": {
+              "x": 450.65625,
+              "y": 350,
+              "w": 195.671875,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Execute · requires approval",
+            "rect": {
+              "x": 294,
+              "y": 400,
+              "w": 176.390625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Stage plan · pending",
+            "rect": {
+              "x": 474.390625,
+              "y": 388,
+              "w": 176.40625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review · pending",
+            "rect": {
+              "x": 654.796875,
+              "y": 400,
+              "w": 176.390625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Classify · partial",
+            "rect": {
+              "x": 835.1875,
+              "y": 388,
+              "w": 176.40625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Discover · complete",
+            "rect": {
+              "x": 1015.59375,
+              "y": 400,
+              "w": 176.390625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Discovery scope & age · 5",
+            "rect": {
+              "x": 292,
+              "y": 468.375,
+              "w": 193.109375,
+              "h": 33.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Temporary Files",
+            "rect": {
+              "x": 300,
+              "y": 518.875,
+              "w": 126.328125,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "Browser Cache",
+            "rect": {
+              "x": 430.328125,
+              "y": 518.875,
+              "w": 123.53125,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "Diagnostic Logs",
+            "rect": {
+              "x": 557.859375,
+              "y": 518.875,
+              "w": 128.34375,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "Recycle Bin",
+            "rect": {
+              "x": 690.203125,
+              "y": 518.875,
+              "w": 99.984375,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "Windows Update",
+            "rect": {
+              "x": 794.1875,
+              "y": 518.875,
+              "w": 136.28125,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "Minimum candidate age",
+            "rect": {
+              "x": 1011.515625,
+              "y": 518.875,
+              "w": 82,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 1259,
+              "y": 552.203125,
+              "w": 388,
+              "h": 312.796875
+            },
+            "scrollHeight": 610,
+            "clientHeight": 312
+          }
+        ],
+        "headings": [
+          "Smart Cleanup"
+        ]
+      }
+    },
+    {
+      "label": "settings-night-en-1672x941",
+      "section": "settings",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "settings-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "settings",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 40
+        },
+        "hero": {
+          "x": 244,
+          "y": 60,
+          "w": 1398,
+          "h": 252
+        },
+        "heroCount": 1,
+        "heroClass": "shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4",
+        "heroScrollHeight": 250,
+        "heroClientHeight": 250,
+        "controls": [
+          {
+            "label": "AI keys · requires approval",
+            "rect": {
+              "x": 924.90625,
+              "y": 159.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Guards · requires approval",
+            "rect": {
+              "x": 975.109375,
+              "y": 147.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Engine · requires approval",
+            "rect": {
+              "x": 1025.3125,
+              "y": 159.3125,
+              "w": 46.21875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Profile · pending",
+            "rect": {
+              "x": 1075.53125,
+              "y": 147.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Appearance · complete",
+            "rect": {
+              "x": 1125.734375,
+              "y": 159.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "SettingsLocal preferences only",
+            "rect": {
+              "x": 1279.953125,
+              "y": 136,
+              "w": 100,
+              "h": 100
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Engine",
+            "rect": {
+              "x": 1227.953125,
+              "y": 102.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "AI Session",
+            "rect": {
+              "x": 1367.953125,
+              "y": 102.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Privacy",
+            "rect": {
+              "x": 1191.546875,
+              "y": 163.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Appearance",
+            "rect": {
+              "x": 1404.34375,
+              "y": 163.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Language",
+            "rect": {
+              "x": 1227.953125,
+              "y": 221.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Profile",
+            "rect": {
+              "x": 1367.953125,
+              "y": 221.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Save Preferences",
+            "rect": {
+              "x": 1485.953125,
+              "y": 159,
+              "w": 137.046875,
+              "h": 54
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "KNOuX Engine & Services Control Center"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "studio",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "workspace",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "startup",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "smart_scan",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "applications",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "services",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "system",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "repair",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "automation",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "files",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "storage",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "cleanup",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "settings",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "visualFidelityAccepted": false
+}

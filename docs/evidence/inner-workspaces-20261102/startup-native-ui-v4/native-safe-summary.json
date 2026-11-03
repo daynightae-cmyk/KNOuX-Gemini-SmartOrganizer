@@ -1,0 +1,22 @@
+{
+  "contract": "startup.v1",
+  "readOnly": true,
+  "mutation": "none",
+  "entries": 47,
+  "services": 64,
+  "tasks": 39,
+  "coverage": {
+    "registryKeys": 3,
+    "startupFolders": 1,
+    "scheduledTasks": 39,
+    "servicesMeasured": 64,
+    "errors": [
+      "boot-events: No events were found that match the specified selection criteria."
+    ]
+  },
+  "warnings": [
+    "boot-events: No events were found that match the specified selection criteria.",
+    "28 startup executable(s) had no resolved signature evidence."
+  ],
+  "observedAt": "2026-11-03T00:49:55.009Z"
+}

@@ -1,0 +1,177 @@
+{
+  "capturedAt": "2026-11-02T21:20:35.894Z",
+  "head": "518ec7fe8f796f29198aa81aafef684726b4cd6a",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-fhHQcw",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "studio-day-en-1672x941",
+      "section": "studio",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "studio-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "studio",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 1,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Review plan",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Sources",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Visual Library",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Organization Builder",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Plan Review",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Execution",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "History & Undo",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "unified": {
+          "content": {
+            "x": 240,
+            "y": 58,
+            "w": 1432,
+            "h": 883
+          },
+          "scene": "studio",
+          "sceneKind": "bitmap",
+          "sceneReady": true,
+          "sceneCount": 1,
+          "liveOrbits": 1,
+          "chromeHeaders": 1,
+          "navigationRails": 1,
+          "particleSystems": 1
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 0,
+        "scrollRegions": [],
+        "headings": [
+          "Organization Studio",
+          "Sources"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "studio",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "unifiedGeometryChecked": true,
+  "geometryTolerance": 2,
+  "geometryErrors": [],
+  "unifiedGeometryOk": true,
+  "geometryGroups": {
+    "1672x941/day/en": {
+      "x": 12,
+      "y": 12,
+      "w": 1408,
+      "h": 340
+    }
+  },
+  "visualFidelityAccepted": false
+}

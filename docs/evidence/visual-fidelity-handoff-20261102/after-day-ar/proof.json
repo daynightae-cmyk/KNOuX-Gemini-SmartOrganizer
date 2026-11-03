@@ -1,0 +1,3142 @@
+{
+  "capturedAt": "2026-11-02T11:59:50.254Z",
+  "head": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-kgvMW3",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "studio-day-ar-1366x768",
+      "section": "studio",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "studio-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "studio",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 64
+        },
+        "hero": {
+          "x": 349,
+          "y": 75,
+          "w": 805,
+          "h": 225
+        },
+        "heroCount": 1,
+        "heroClass": "osa-hero",
+        "heroScrollHeight": 240,
+        "heroClientHeight": 223,
+        "controls": [
+          {
+            "label": "تشغيل التنظيمحلّل ملفاتك وعاينها",
+            "rect": {
+              "x": 945.9375,
+              "y": 115,
+              "w": 120,
+              "h": 120
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار هذه الفئة المقيسة وفتح المكتبة",
+            "rect": {
+              "x": 889.765625,
+              "y": 63.46875,
+              "w": 78,
+              "h": 56
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار هذه الفئة المقيسة وفتح المكتبة",
+            "rect": {
+              "x": 1044.109375,
+              "y": 63.46875,
+              "w": 78,
+              "h": 56
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار هذه الفئة المقيسة وفتح المكتبة",
+            "rect": {
+              "x": 1078.703125,
+              "y": 147,
+              "w": 78,
+              "h": 56
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أسماء ملفات مكررة. تشابه الأسماء لا يثبت تطابق المحتوى.",
+            "rect": {
+              "x": 1044.109375,
+              "y": 225.875,
+              "w": 78,
+              "h": 56
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار هذه الفئة المقيسة وفتح المكتبة",
+            "rect": {
+              "x": 889.765625,
+              "y": 225.875,
+              "w": 78,
+              "h": 56
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار هذه الفئة المقيسة وفتح المكتبة",
+            "rect": {
+              "x": 855.171875,
+              "y": 147,
+              "w": 78,
+              "h": 56
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التراجع · pending",
+            "rect": {
+              "x": 366,
+              "y": 166.421875,
+              "w": 67.546875,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التحقق · pending",
+            "rect": {
+              "x": 437.546875,
+              "y": 144.421875,
+              "w": 67.5625,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التنفيذ · requires approval",
+            "rect": {
+              "x": 509.109375,
+              "y": 166.421875,
+              "w": 67.546875,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "المراجعة · pending",
+            "rect": {
+              "x": 580.65625,
+              "y": 144.421875,
+              "w": 67.5625,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الخطة · pending",
+            "rect": {
+              "x": 652.21875,
+              "y": 166.421875,
+              "w": 67.546875,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التصنيف · pending",
+            "rect": {
+              "x": 723.765625,
+              "y": 144.421875,
+              "w": 67.5625,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "المصدر · pending",
+            "rect": {
+              "x": 795.328125,
+              "y": 166.421875,
+              "w": 67.546875,
+              "h": 67.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة الأسماء المتكررةلا أسماء متكررة في هذا الفهرس",
+            "rect": {
+              "x": 920.203125,
+              "y": 263,
+              "w": 216.796875,
+              "h": 28
+            },
+            "disabled": true,
+            "centerReachable": false,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "os-inspector-scroll",
+            "rect": {
+              "x": 20,
+              "y": 130,
+              "w": 318,
+              "h": 457
+            },
+            "scrollHeight": 660,
+            "clientHeight": 457
+          }
+        ],
+        "headings": [
+          "استوديو التنظيم"
+        ]
+      }
+    },
+    {
+      "label": "home-day-ar-1366x768",
+      "section": "home",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "home-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1106,
+          "h": 262.484375
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 299,
+        "heroClientHeight": 260,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 946.46875,
+              "y": 161.109375,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 726.390625,
+              "y": 161.109375,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 146.75,
+              "y": 164.84375,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 183.75,
+              "y": 104.484375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 310.9375,
+              "y": 155.125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 326.84375,
+              "y": 231.09375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 231.4375,
+              "y": 296.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": true
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 104.25,
+              "y": 296.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": true
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 56.546875,
+              "y": 205.765625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 442.5,
+              "y": 241.109375,
+              "w": 161.625,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 608.125,
+              "y": 229.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 773.75,
+              "y": 241.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 939.375,
+              "y": 229.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    },
+    {
+      "label": "workspace-day-ar-1366x768",
+      "section": "workspace",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "workspace-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "workspace",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 40
+        },
+        "hero": {
+          "x": 16,
+          "y": 56,
+          "w": 1110,
+          "h": 214
+        },
+        "heroCount": 1,
+        "heroClass": "knx-workspace-hero rounded-xl bg-[#071328] border border-[#1b3f70] p-4 flex flex-col gap-3 shadow-xl shrink-0",
+        "heroScrollHeight": 212,
+        "heroClientHeight": 212,
+        "controls": [
+          {
+            "label": "Workspaceمعاينة · بلا API حي",
+            "rect": {
+              "x": 921,
+              "y": 113,
+              "w": 100,
+              "h": 100
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Open the Sheets consent/workbench; never connect automatically",
+            "rect": {
+              "x": 869,
+              "y": 79.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1009,
+              "y": 79.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 832.59375,
+              "y": 140.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1045.390625,
+              "y": 140.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 869,
+              "y": 198.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Local design preview only; no Google API execution",
+            "rect": {
+              "x": 1009,
+              "y": 198.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة صلاحيات Google",
+            "rect": {
+              "x": 279.046875,
+              "y": 230.84375,
+              "w": 173.328125,
+              "h": 28
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "حالة المزامنة · pending",
+            "rect": {
+              "x": 33,
+              "y": 148.8125,
+              "w": 152,
+              "h": 78.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "معاينة البيانات · pending",
+            "rect": {
+              "x": 189,
+              "y": 126.8125,
+              "w": 152,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار الخدمة · partial",
+            "rect": {
+              "x": 345,
+              "y": 148.8125,
+              "w": 152,
+              "h": 78.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة الصلاحيات · current stage",
+            "rect": {
+              "x": 501,
+              "y": 126.8125,
+              "w": 152,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الربط · requires approval",
+            "rect": {
+              "x": 657,
+              "y": 148.8125,
+              "w": 152,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-google-tool-body flex-1 min-h-0 overflow-y-auto knx-custom-scrollbar p-4 space-y-3",
+            "rect": {
+              "x": 17,
+              "y": 347,
+              "w": 836,
+              "h": 246
+            },
+            "scrollHeight": 414,
+            "clientHeight": 246
+          }
+        ],
+        "headings": [
+          "مركز ربط Google Workspace"
+        ]
+      }
+    },
+    {
+      "label": "startup-day-ar-1366x768",
+      "section": "startup",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "startup-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "startup",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 275.5
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 274,
+        "heroClientHeight": 274,
+        "controls": [
+          {
+            "label": "تحقق الإقلاع · pending",
+            "rect": {
+              "x": 44,
+              "y": 205.34375,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "موافقة · requires approval",
+            "rect": {
+              "x": 138.25,
+              "y": 183.34375,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة · pending",
+            "rect": {
+              "x": 232.5,
+              "y": 205.34375,
+              "w": 90.265625,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصفية · complete",
+            "rect": {
+              "x": 326.765625,
+              "y": 183.34375,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · complete",
+            "rect": {
+              "x": 421.015625,
+              "y": 205.34375,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اكتشاف · complete",
+            "rect": {
+              "x": 515.265625,
+              "y": 183.34375,
+              "w": 90.265625,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحليل بدء التشغيلقِس · افحص · راجع",
+            "rect": {
+              "x": 803.171875,
+              "y": 134.8125,
+              "w": 103.1875,
+              "h": 104.375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "سجل بدء مقيس",
+            "rect": {
+              "x": 754.359375,
+              "y": 91.34375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أثر إقلاع مقيس",
+            "rect": {
+              "x": 879.15625,
+              "y": 91.34375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "معاينة سياسة التأخير",
+            "rect": {
+              "x": 917.5625,
+              "y": 152.140625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مهام مجدولة",
+            "rect": {
+              "x": 879.15625,
+              "y": 216.75,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصفية حسب الأثر والحالة",
+            "rect": {
+              "x": 754.359375,
+              "y": 216.75,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "سجل معاينة ثابت",
+            "rect": {
+              "x": 715.953125,
+              "y": 152.140625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحديث الأدلة",
+            "rect": {
+              "x": 42,
+              "y": 292,
+              "w": 111.5,
+              "h": 31.5
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "إلغاء الفحص",
+            "rect": {
+              "x": 161.5,
+              "y": 292,
+              "w": 116.25,
+              "h": 31.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "stp-panel stp-inspector",
+            "rect": {
+              "x": 25,
+              "y": 368.5,
+              "w": 315.5,
+              "h": 176
+            },
+            "scrollHeight": 258,
+            "clientHeight": 174
+          },
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 25,
+              "y": 558.5,
+              "w": 315.5,
+              "h": 140
+            },
+            "scrollHeight": 610,
+            "clientHeight": 139
+          }
+        ],
+        "headings": [
+          "تحكم بدء التشغيل"
+        ]
+      }
+    },
+    {
+      "label": "smart_scan-day-ar-1366x768",
+      "section": "smart_scan",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "smart_scan-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "smart_scan",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 367.5,
+          "y": 72,
+          "w": 744.5,
+          "h": 310.046875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 308,
+        "heroClientHeight": 308,
+        "controls": [
+          {
+            "label": "بوابة التنظيف · requires approval",
+            "rect": {
+              "x": 399.5,
+              "y": 282.546875,
+              "w": 61.6875,
+              "h": 70.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النتائج · pending",
+            "rect": {
+              "x": 465.1875,
+              "y": 260.546875,
+              "w": 61.703125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحليل عميق · pending",
+            "rect": {
+              "x": 530.890625,
+              "y": 282.546875,
+              "w": 61.703125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "فحص سريع · pending",
+            "rect": {
+              "x": 596.59375,
+              "y": 260.546875,
+              "w": 61.703125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مصادقة · current stage",
+            "rect": {
+              "x": 662.296875,
+              "y": 282.546875,
+              "w": 61.703125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "بدء الفحص الذكيتحليل آمن للقراءة فقط",
+            "rect": {
+              "x": 860.40625,
+              "y": 174.828125,
+              "w": 103.1875,
+              "h": 104.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "يكتب خطة قياس للقراءة فقط",
+            "rect": {
+              "x": 811.59375,
+              "y": 131.359375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مسح موسّع للقراءة فقط",
+            "rect": {
+              "x": 936.390625,
+              "y": 131.359375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أثر برامج البدء",
+            "rect": {
+              "x": 974.796875,
+              "y": 192.15625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "نبض النظام المقيس",
+            "rect": {
+              "x": 936.390625,
+              "y": 256.765625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "صحة التطبيقات",
+            "rect": {
+              "x": 811.59375,
+              "y": 256.765625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "آثار الخصوصية",
+            "rect": {
+              "x": 773.1875,
+              "y": 192.15625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-scan-status",
+            "rect": {
+              "x": 27,
+              "y": 85,
+              "w": 315.5,
+              "h": 279.953125
+            },
+            "scrollHeight": 736,
+            "clientHeight": 280
+          }
+        ],
+        "headings": [
+          "الفحص الذكي"
+        ]
+      }
+    },
+    {
+      "label": "applications-day-ar-1366x768",
+      "section": "applications",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "applications-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "applications",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 277.703125
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 276,
+        "heroClientHeight": 276,
+        "controls": [
+          {
+            "label": "أدلة · pending",
+            "rect": {
+              "x": 44,
+              "y": 209.453125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة الإزالة · requires approval",
+            "rect": {
+              "x": 138.25,
+              "y": 187.453125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "بصمة · complete",
+            "rect": {
+              "x": 232.5,
+              "y": 209.453125,
+              "w": 90.265625,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحديثات · pending",
+            "rect": {
+              "x": 326.765625,
+              "y": 187.453125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "فحص · complete",
+            "rect": {
+              "x": 421.015625,
+              "y": 209.453125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "جرد · pending",
+            "rect": {
+              "x": 515.265625,
+              "y": 187.453125,
+              "w": 90.265625,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحليل التطبيقاتجرد · فحص · مراجعة",
+            "rect": {
+              "x": 803.171875,
+              "y": 156.65625,
+              "w": 103.1875,
+              "h": 104.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الجرد",
+            "rect": {
+              "x": 754.359375,
+              "y": 113.1875,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التحديثات",
+            "rect": {
+              "x": 879.15625,
+              "y": 113.1875,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصدير",
+            "rect": {
+              "x": 917.5625,
+              "y": 173.984375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الناشرون",
+            "rect": {
+              "x": 879.15625,
+              "y": 238.59375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "المساحة",
+            "rect": {
+              "x": 754.359375,
+              "y": 238.59375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "روابط الإقلاع",
+            "rect": {
+              "x": 715.953125,
+              "y": 173.984375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "إعادة قراءة الجرد المقيس",
+            "rect": {
+              "x": 42,
+              "y": 291.703125,
+              "w": 107.375,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصدير الأدلة المقيسة بصيغة JSON",
+            "rect": {
+              "x": 157.375,
+              "y": 291.703125,
+              "w": 113.453125,
+              "h": 34
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 25,
+              "y": 594.09375,
+              "w": 315.5,
+              "h": 148.90625
+            },
+            "scrollHeight": 637,
+            "clientHeight": 148
+          }
+        ],
+        "headings": [
+          "التطبيقات"
+        ]
+      }
+    },
+    {
+      "label": "services-day-ar-1366x768",
+      "section": "services",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "services-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "services",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 314
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 312,
+        "heroClientHeight": 312,
+        "controls": [
+          {
+            "label": "استعادة · requires approval",
+            "rect": {
+              "x": 44,
+              "y": 231.203125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "سياسة · pending",
+            "rect": {
+              "x": 138.25,
+              "y": 209.203125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "معاينة · pending",
+            "rect": {
+              "x": 232.5,
+              "y": 231.203125,
+              "w": 90.265625,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اعتماديات · pending",
+            "rect": {
+              "x": 326.765625,
+              "y": 209.203125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "فحص · pending",
+            "rect": {
+              "x": 421.015625,
+              "y": 231.203125,
+              "w": 90.25,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اكتشاف · current stage",
+            "rect": {
+              "x": 515.265625,
+              "y": 209.203125,
+              "w": 90.265625,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "إلغاء الاكتشاف",
+            "rect": {
+              "x": 42,
+              "y": 308.453125,
+              "w": 118.046875,
+              "h": 36
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصدير التقرير",
+            "rect": {
+              "x": 165.046875,
+              "y": 308.453125,
+              "w": 113.703125,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قائد الخدماتراجع سجل SCM المقيس",
+            "rect": {
+              "x": 803.171875,
+              "y": 175.40625,
+              "w": 103.1875,
+              "h": 103.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "حالات التشغيل المقيسة",
+            "rect": {
+              "x": 754.359375,
+              "y": 131.34375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "استعلام الحالة، للقراءة فقط",
+            "rect": {
+              "x": 879.15625,
+              "y": 131.34375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "حواف اعتماديات مقيسة",
+            "rect": {
+              "x": 917.5625,
+              "y": 192.140625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تشخيص الأعطال، دون إصلاح",
+            "rect": {
+              "x": 879.15625,
+              "y": 256.75,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أحداث SCM محدودة",
+            "rect": {
+              "x": 754.359375,
+              "y": 256.75,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "معاينة السياسة فقط",
+            "rect": {
+              "x": 715.953125,
+              "y": 192.140625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-panel",
+            "rect": {
+              "x": 365.5,
+              "y": 572,
+              "w": 748.5,
+              "h": 133
+            },
+            "scrollHeight": 163,
+            "clientHeight": 133
+          },
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 25,
+              "y": 556,
+              "w": 315.5,
+              "h": 140
+            },
+            "scrollHeight": 588,
+            "clientHeight": 139
+          }
+        ],
+        "headings": [
+          "قائد الخدمات"
+        ]
+      }
+    },
+    {
+      "label": "system-day-ar-1366x768",
+      "section": "system",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "system-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "system",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 295.703125
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 294,
+        "heroClientHeight": 294,
+        "controls": [
+          {
+            "label": "تقرير · pending",
+            "rect": {
+              "x": 48,
+              "y": 205.453125,
+              "w": 108.203125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تشخيص · pending",
+            "rect": {
+              "x": 160.203125,
+              "y": 183.453125,
+              "w": 108.203125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحليل · pending",
+            "rect": {
+              "x": 272.40625,
+              "y": 205.453125,
+              "w": 108.21875,
+              "h": 78.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "عينة · pending",
+            "rect": {
+              "x": 384.625,
+              "y": 183.453125,
+              "w": 108.203125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "جمع · current stage",
+            "rect": {
+              "x": 496.828125,
+              "y": 205.453125,
+              "w": 108.203125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "إلغاء المسح",
+            "rect": {
+              "x": 46,
+              "y": 307.703125,
+              "w": 102.84375,
+              "h": 36
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحديث اللقطة",
+            "rect": {
+              "x": 153.84375,
+              "y": 307.703125,
+              "w": 115.875,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس الآن",
+            "rect": {
+              "x": 274.71875,
+              "y": 307.703125,
+              "w": 94.171875,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصدير اللقطة",
+            "rect": {
+              "x": 373.890625,
+              "y": 307.703125,
+              "w": 114.796875,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس نبض النظامقراءات حقيقية. مصادر واضحة.",
+            "rect": {
+              "x": 800.921875,
+              "y": 165.65625,
+              "w": 103.1875,
+              "h": 104.375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "CPU",
+            "rect": {
+              "x": 752.109375,
+              "y": 122.1875,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "GPU",
+            "rect": {
+              "x": 876.90625,
+              "y": 122.1875,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الذاكرة",
+            "rect": {
+              "x": 915.3125,
+              "y": 182.984375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "القرص",
+            "rect": {
+              "x": 876.90625,
+              "y": 247.59375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأحداث",
+            "rect": {
+              "x": 752.109375,
+              "y": 247.59375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الشبكة",
+            "rect": {
+              "x": 713.703125,
+              "y": 182.984375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 25,
+              "y": 628.703125,
+              "w": 315.5,
+              "h": 140
+            },
+            "scrollHeight": 618,
+            "clientHeight": 139
+          }
+        ],
+        "headings": [
+          "أداء النظام"
+        ]
+      }
+    },
+    {
+      "label": "repair-day-ar-1366x768",
+      "section": "repair",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "repair-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "repair",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 365.5,
+          "y": 70,
+          "w": 748.5,
+          "h": 321.140625
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 319,
+        "heroClientHeight": 319,
+        "controls": [
+          {
+            "label": "تحقق · pending",
+            "rect": {
+              "x": 397.5,
+              "y": 214.890625,
+              "w": 43.203125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تنفيذ · requires approval",
+            "rect": {
+              "x": 444.703125,
+              "y": 192.890625,
+              "w": 43.21875,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تأكيد · requires approval",
+            "rect": {
+              "x": 491.921875,
+              "y": 214.890625,
+              "w": 43.21875,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة · pending",
+            "rect": {
+              "x": 539.140625,
+              "y": 192.890625,
+              "w": 43.203125,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختيار · pending",
+            "rect": {
+              "x": 586.34375,
+              "y": 214.890625,
+              "w": 43.21875,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "فحص · pending",
+            "rect": {
+              "x": 633.5625,
+              "y": 192.890625,
+              "w": 43.21875,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تشخيص · current stage",
+            "rect": {
+              "x": 680.78125,
+              "y": 214.890625,
+              "w": 43.21875,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "إلغاء الاكتشاف",
+            "rect": {
+              "x": 395.5,
+              "y": 292.140625,
+              "w": 118.046875,
+              "h": 36
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تهيئة معاينة",
+            "rect": {
+              "x": 518.546875,
+              "y": 292.140625,
+              "w": 105.03125,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصدير التقرير",
+            "rect": {
+              "x": 395.5,
+              "y": 333.140625,
+              "w": 113.703125,
+              "h": 36
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تشخيصالدليل قبل الإجراء",
+            "rect": {
+              "x": 862.40625,
+              "y": 178.96875,
+              "w": 103.1875,
+              "h": 103.1875
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحقق من ملفات النظام · معاينة فقط",
+            "rect": {
+              "x": 813.59375,
+              "y": 134.90625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "فحص مخزن المكونات · معاينة فقط",
+            "rect": {
+              "x": 938.390625,
+              "y": 134.90625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "استعادة الصحة · تتطلب موافقة",
+            "rect": {
+              "x": 976.796875,
+              "y": 195.703125,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تفريغ DNS · معاينة فقط",
+            "rect": {
+              "x": 938.390625,
+              "y": 260.3125,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "نقاط الاستعادة · لا تُنشأ هنا",
+            "rect": {
+              "x": 813.59375,
+              "y": 260.3125,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "سجل إصلاح ثابت",
+            "rect": {
+              "x": 775.1875,
+              "y": 195.703125,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "rep-tools-panel",
+            "rect": {
+              "x": 365.5,
+              "y": 547.140625,
+              "w": 748.5,
+              "h": 155.859375
+            },
+            "scrollHeight": 658,
+            "clientHeight": 154
+          }
+        ],
+        "headings": [
+          "مختبر الاستعادة"
+        ]
+      }
+    },
+    {
+      "label": "automation-day-ar-1366x768",
+      "section": "automation",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "automation-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "automation",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": null,
+        "heroCount": 0,
+        "controls": [],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "auto-editor-lower",
+            "rect": {
+              "x": 243,
+              "y": 704,
+              "w": 690,
+              "h": 160
+            },
+            "scrollHeight": 286,
+            "clientHeight": 160
+          },
+          {
+            "class": "sys-panel-body",
+            "rect": {
+              "x": 262,
+              "y": 764,
+              "w": 662,
+              "h": 135
+            },
+            "scrollHeight": 170,
+            "clientHeight": 135
+          }
+        ],
+        "headings": [
+          "استوديو التدفق"
+        ]
+      }
+    },
+    {
+      "label": "files-day-ar-1366x768",
+      "section": "files",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "files-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "files",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 343,
+          "y": 81,
+          "w": 760,
+          "h": 215.1875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-files-heading relative z-10 mb-2",
+        "heroScrollHeight": 213,
+        "heroClientHeight": 213,
+        "controls": [
+          {
+            "label": "استكشف الملفاتابحث ونظّم وأدر ملفاتك",
+            "rect": {
+              "x": 465.703125,
+              "y": 116.796875,
+              "w": 143.59375,
+              "h": 143.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأحدث",
+            "rect": {
+              "x": 400.15625,
+              "y": 87.25,
+              "w": 88,
+              "h": 68.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ملفات كبيرة",
+            "rect": {
+              "x": 586.828125,
+              "y": 87.25,
+              "w": 88,
+              "h": 68.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الانتقال إلى صف تصفية النوع",
+            "rect": {
+              "x": 644.265625,
+              "y": 150.34375,
+              "w": 88,
+              "h": 68.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أسماء ملفات مكررة. تشابه الأسماء لا يثبت تطابق المحتوى.",
+            "rect": {
+              "x": 586.828125,
+              "y": 217.390625,
+              "w": 88,
+              "h": 68.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "فتح تصفية الموقع",
+            "rect": {
+              "x": 400.15625,
+              "y": 217.390625,
+              "w": 88,
+              "h": 68.59375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "غير متاح: عقد الفهرس لا يوفر وسومًا",
+            "rect": {
+              "x": 342.71875,
+              "y": 150.34375,
+              "w": 88,
+              "h": 68.59375
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": {
+          "workspace": {
+            "x": 0,
+            "y": 58,
+            "w": 1126,
+            "h": 710
+          },
+          "clientHeight": 710,
+          "scrollHeight": 781,
+          "outerTools": {
+            "x": 330,
+            "y": 68,
+            "w": 786,
+            "h": 543.046875
+          },
+          "results": {
+            "x": 331,
+            "y": 648.046875,
+            "w": 784,
+            "h": 132
+          },
+          "search": {
+            "x": 512.734375,
+            "y": 460.15625,
+            "w": 555.265625,
+            "h": 26
+          },
+          "footer": {
+            "x": 20,
+            "y": 720,
+            "w": 1096,
+            "h": 48
+          }
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "flex-1 flex flex-col min-w-0 bg-[#061226] relative overflow-hidden",
+            "rect": {
+              "x": 0,
+              "y": 58,
+              "w": 1126,
+              "h": 710
+            },
+            "scrollHeight": 781,
+            "clientHeight": 710
+          },
+          {
+            "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+            "rect": {
+              "x": 331,
+              "y": 648.046875,
+              "w": 784,
+              "h": 132
+            },
+            "scrollHeight": 456,
+            "clientHeight": 132
+          }
+        ],
+        "headings": [
+          "الملفات"
+        ]
+      }
+    },
+    {
+      "label": "storage-day-ar-1366x768",
+      "section": "storage",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "storage-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "storage",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 365.5,
+          "y": 116.875,
+          "w": 748.5,
+          "h": 345.890625
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 344,
+        "heroClientHeight": 344,
+        "controls": [
+          {
+            "label": "تحليل التخزيناختر نطاقاً للقياس",
+            "rect": {
+              "x": 541.90625,
+              "y": 188.28125,
+              "w": 103.1875,
+              "h": 103.1875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أعد قراءة الأحجام المقيسة",
+            "rect": {
+              "x": 485.890625,
+              "y": 136.625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختر الوحدة الأكثر استخدامًا",
+            "rect": {
+              "x": 625.09375,
+              "y": 136.625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اختر الوحدة الأكبر مساحة حرة",
+            "rect": {
+              "x": 658.6875,
+              "y": 208.828125,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الخريطة",
+            "rect": {
+              "x": 625.09375,
+              "y": 281.015625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "أكبر المجلدات",
+            "rect": {
+              "x": 485.890625,
+              "y": 281.015625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "افتح مراجعة الاستعادة",
+            "rect": {
+              "x": 452.296875,
+              "y": 208.828125,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "استكشف التخزين",
+            "rect": {
+              "x": 805.5,
+              "y": 397.265625,
+              "w": 278.5,
+              "h": 43.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-pane pane-overview",
+            "rect": {
+              "x": 365.5,
+              "y": 531.5625,
+              "w": 748.5,
+              "h": 134.84375
+            },
+            "scrollHeight": 222,
+            "clientHeight": 135
+          },
+          {
+            "class": "knx-command-panel",
+            "rect": {
+              "x": 375.5,
+              "y": 531.5625,
+              "w": 738.5,
+              "h": 212
+            },
+            "scrollHeight": 237,
+            "clientHeight": 212
+          },
+          {
+            "class": "knx-storage-inspector lg:col-span-4 flex flex-col gap-3",
+            "rect": {
+              "x": 25,
+              "y": 129.875,
+              "w": 315.5,
+              "h": 523.53125
+            },
+            "scrollHeight": 663,
+            "clientHeight": 524
+          }
+        ],
+        "headings": [
+          "أطلس الأقراص"
+        ]
+      }
+    },
+    {
+      "label": "cleanup-day-ar-1366x768",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "cleanup-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "cleanup",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 365.5,
+          "y": 70,
+          "w": 748.5,
+          "h": 393.875
+        },
+        "heroCount": 2,
+        "heroClass": "knx-command-hero",
+        "heroScrollHeight": 392,
+        "heroClientHeight": 392,
+        "controls": [
+          {
+            "label": "تحليل التنظيفاستكشف · راجع · وافق",
+            "rect": {
+              "x": 862.40625,
+              "y": 134.8125,
+              "w": 103.1875,
+              "h": 104.375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تضمين المجلدات المؤقتة",
+            "rect": {
+              "x": 813.59375,
+              "y": 91.34375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تضمين ذاكرات المتصفح",
+            "rect": {
+              "x": 938.390625,
+              "y": 91.34375,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تضمين سجلات التشخيص",
+            "rect": {
+              "x": 976.796875,
+              "y": 152.140625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تضمين محتويات السلة",
+            "rect": {
+              "x": 938.390625,
+              "y": 216.75,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تضمين بقايا التحديثات",
+            "rect": {
+              "x": 813.59375,
+              "y": 216.75,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تضمين العناصر القديمة",
+            "rect": {
+              "x": 775.1875,
+              "y": 152.140625,
+              "w": 76,
+              "h": 62.09375
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تحديث الأدلة",
+            "rect": {
+              "x": 395.5,
+              "y": 290,
+              "w": 111.375,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تشغيل استكشاف مقيس",
+            "rect": {
+              "x": 514.875,
+              "y": 290,
+              "w": 189.96875,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تنفيذ · requires approval",
+            "rect": {
+              "x": 397.5,
+              "y": 340,
+              "w": 133.6875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ترحيل الخطة · pending",
+            "rect": {
+              "x": 535.1875,
+              "y": 328,
+              "w": 133.703125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "مراجعة · pending",
+            "rect": {
+              "x": 672.890625,
+              "y": 340,
+              "w": 133.703125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تصنيف · partial",
+            "rect": {
+              "x": 810.59375,
+              "y": 328,
+              "w": 133.703125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اكتشاف · complete",
+            "rect": {
+              "x": 948.296875,
+              "y": 340,
+              "w": 133.6875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "نطاق الاستكشاف وعمر الملفات · 5",
+            "rect": {
+              "x": 395.5,
+              "y": 408.375,
+              "w": 222.3125,
+              "h": 33.5
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ملفات مؤقتة",
+            "rect": {
+              "x": 403.5,
+              "y": 458.875,
+              "w": 98.28125,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "ذاكرة المتصفح",
+            "rect": {
+              "x": 505.78125,
+              "y": 458.875,
+              "w": 109.890625,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "سجلات التشخيص",
+            "rect": {
+              "x": 619.671875,
+              "y": 458.875,
+              "w": 131.171875,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "سلة المحذوفات",
+            "rect": {
+              "x": 754.84375,
+              "y": 458.875,
+              "w": 116.46875,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "تحديث Windows",
+            "rect": {
+              "x": 875.3125,
+              "y": 458.875,
+              "w": 114.703125,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          },
+          {
+            "label": "الحد الأدنى لعمر المرشح",
+            "rect": {
+              "x": 451.5625,
+              "y": 504.875,
+              "w": 77,
+              "h": 34
+            },
+            "disabled": false,
+            "centerReachable": false,
+            "belowHero": true
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "cln-panel cln-register",
+            "rect": {
+              "x": 365.5,
+              "y": 606.421875,
+              "w": 748.5,
+              "h": 102.578125
+            },
+            "scrollHeight": 163,
+            "clientHeight": 101
+          },
+          {
+            "class": "cln-inspector-body knx-custom-scrollbar",
+            "rect": {
+              "x": 26,
+              "y": 154,
+              "w": 313.5,
+              "h": 178.625
+            },
+            "scrollHeight": 203,
+            "clientHeight": 179
+          },
+          {
+            "class": "knx-command-tool-rail",
+            "rect": {
+              "x": 25,
+              "y": 450.8125,
+              "w": 315.5,
+              "h": 245.1875
+            },
+            "scrollHeight": 610,
+            "clientHeight": 244
+          }
+        ],
+        "headings": [
+          "التنظيف الذكي"
+        ]
+      }
+    },
+    {
+      "label": "settings-day-ar-1366x768",
+      "section": "settings",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "settings-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "settings",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 40
+        },
+        "hero": {
+          "x": 30,
+          "y": 60,
+          "w": 1092,
+          "h": 214
+        },
+        "heroCount": 1,
+        "heroClass": "shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4",
+        "heroScrollHeight": 248,
+        "heroClientHeight": 212,
+        "controls": [
+          {
+            "label": "مفاتيح AI · requires approval",
+            "rect": {
+              "x": 456.375,
+              "y": 134.375,
+              "w": 23.609375,
+              "h": 56.75
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الحماية · requires approval",
+            "rect": {
+              "x": 483.984375,
+              "y": 122.375,
+              "w": 23.609375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "المحرك · requires approval",
+            "rect": {
+              "x": 511.59375,
+              "y": 134.375,
+              "w": 23.609375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملف · pending",
+            "rect": {
+              "x": 539.203125,
+              "y": 122.375,
+              "w": 23.609375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "المظهر · complete",
+            "rect": {
+              "x": 566.8125,
+              "y": 134.375,
+              "w": 23.609375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الإعداداتتفضيلات محلية فقط",
+            "rect": {
+              "x": 248.375,
+              "y": 117,
+              "w": 100,
+              "h": 100
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأداء",
+            "rect": {
+              "x": 196.375,
+              "y": 83.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "جلسة AI",
+            "rect": {
+              "x": 336.375,
+              "y": 83.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الخصوصية",
+            "rect": {
+              "x": 159.96875,
+              "y": 144.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "المظهر",
+            "rect": {
+              "x": 372.765625,
+              "y": 144.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اللغة",
+            "rect": {
+              "x": 196.375,
+              "y": 202.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملف",
+            "rect": {
+              "x": 336.375,
+              "y": 202.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "حفظ التفضيلات",
+            "rect": {
+              "x": 45,
+              "y": 140,
+              "w": 97.375,
+              "h": 54
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "flex-1 min-h-0 flex flex-col overflow-y-auto bg-gradient-to-b from-[#040b18] via-[#06142a] to-[#040b18] p-4 sm:p-5 gap-4 knx-custom-scrollbar",
+            "rect": {
+              "x": 0,
+              "y": 40,
+              "w": 1142,
+              "h": 691.25
+            },
+            "scrollHeight": 830,
+            "clientHeight": 691
+          }
+        ],
+        "headings": [
+          "مركز تخصيص وإعدادات KNOuX الفائقة"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "studio",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "workspace",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "startup",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "smart_scan",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "applications",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "services",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "system",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "repair",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "automation",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "files",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "storage",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "cleanup",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "settings",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "visualFidelityAccepted": false
+}

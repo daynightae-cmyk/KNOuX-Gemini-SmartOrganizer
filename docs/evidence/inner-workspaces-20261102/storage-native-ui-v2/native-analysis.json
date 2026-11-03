@@ -1,0 +1,705 @@
+{
+  "contractVersion": 1,
+  "capability": "storage.analysis",
+  "requestId": "b7f889ef-fd5f-44a4-9724-d7886419ded2",
+  "status": "complete",
+  "source": "KNOuX Storage read-only adapter",
+  "observedAt": "2026-11-03T00:11:59.651Z",
+  "permission": "read-only",
+  "warnings": [],
+  "data": {
+    "sourceId": "b2b975a2-1816-4ab9-8d8e-dcd39ad632d5",
+    "source": {
+      "id": "b2b975a2-1816-4ab9-8d8e-dcd39ad632d5",
+      "path": "D:\\Temp\\knoux-inner-storage-Q432c6\\AUTHORIZED-DISPOSABLE-FIXTURE",
+      "label": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "addedAt": "2026-11-03T00:11:59.423Z",
+      "status": "ready",
+      "fileCount": 32,
+      "folderCount": 3,
+      "fileTypesCount": 2,
+      "totalBytes": 2111977,
+      "categories": [
+        {
+          "key": "document",
+          "count": 30,
+          "bytes": 14825
+        },
+        {
+          "key": "other",
+          "count": 2,
+          "bytes": 2097152
+        }
+      ],
+      "lastScanned": "2026-11-03T00:11:59.472Z",
+      "partial": false,
+      "warnings": []
+    },
+    "totals": {
+      "files": 32,
+      "bytes": 2111977,
+      "folders": 3,
+      "categories": 2,
+      "partial": false,
+      "analyzedBytes": 2111977
+    },
+    "coverage": {
+      "files": 32,
+      "folders": 3,
+      "partial": false,
+      "warnings": [],
+      "lastScanned": "2026-11-03T00:11:59.472Z",
+      "scope": "D:\\Temp\\knoux-inner-storage-Q432c6\\AUTHORIZED-DISPOSABLE-FIXTURE",
+      "scopeKind": "authorized-folder",
+      "coversWholeVolume": false
+    },
+    "tree": {
+      "id": "folder:root",
+      "relative": "",
+      "name": "AUTHORIZED-DISPOSABLE-FIXTURE",
+      "sizeBytes": 2111977,
+      "files": 32,
+      "children": [
+        {
+          "id": "folder:__root_files__",
+          "relative": "",
+          "name": "(root files)",
+          "sizeBytes": 2104327,
+          "files": 17,
+          "children": []
+        },
+        {
+          "id": "folder:nested",
+          "relative": "nested",
+          "name": "nested",
+          "sizeBytes": 7650,
+          "files": 15,
+          "children": []
+        }
+      ]
+    },
+    "folders": [
+      {
+        "id": "folder:nested",
+        "name": "nested",
+        "relative": "nested",
+        "sizeBytes": 7650,
+        "files": 15,
+        "children": []
+      }
+    ],
+    "largest": [
+      {
+        "id": 0,
+        "name": "matching-a.bin",
+        "relative": "matching-a.bin",
+        "parentFolder": "",
+        "category": "other",
+        "size": 1048576,
+        "ext": "bin",
+        "modifiedAt": "2026-11-03T00:11:48.602Z",
+        "modifiedMs": 1793664708602.855,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 1,
+        "name": "matching-b.bin",
+        "relative": "matching-b.bin",
+        "parentFolder": "",
+        "category": "other",
+        "size": 1048576,
+        "ext": "bin",
+        "modifiedAt": "2026-11-03T00:11:48.603Z",
+        "modifiedMs": 1793664708603.8545,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 27,
+        "name": "storage-measured-29.txt",
+        "relative": "nested/storage-measured-29.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 960,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.601Z",
+        "modifiedMs": 1793664708601.855,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 13,
+        "name": "storage-measured-28.txt",
+        "relative": "storage-measured-28.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 928,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.600Z",
+        "modifiedMs": 1793664708600.8562,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 26,
+        "name": "storage-measured-27.txt",
+        "relative": "nested/storage-measured-27.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 896,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.591Z",
+        "modifiedMs": 1793664708591.8606,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 12,
+        "name": "storage-measured-26.txt",
+        "relative": "storage-measured-26.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 864,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.591Z",
+        "modifiedMs": 1793664708591.8606,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 25,
+        "name": "storage-measured-25.txt",
+        "relative": "nested/storage-measured-25.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 832,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.590Z",
+        "modifiedMs": 1793664708590.8618,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 11,
+        "name": "storage-measured-24.txt",
+        "relative": "storage-measured-24.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 800,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.590Z",
+        "modifiedMs": 1793664708590.8618,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 24,
+        "name": "storage-measured-23.txt",
+        "relative": "nested/storage-measured-23.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 768,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.589Z",
+        "modifiedMs": 1793664708589.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 10,
+        "name": "storage-measured-22.txt",
+        "relative": "storage-measured-22.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 736,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.589Z",
+        "modifiedMs": 1793664708589.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 23,
+        "name": "storage-measured-21.txt",
+        "relative": "nested/storage-measured-21.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 704,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.589Z",
+        "modifiedMs": 1793664708589.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 9,
+        "name": "storage-measured-20.txt",
+        "relative": "storage-measured-20.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 672,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.588Z",
+        "modifiedMs": 1793664708588.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 22,
+        "name": "storage-measured-19.txt",
+        "relative": "nested/storage-measured-19.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 640,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.588Z",
+        "modifiedMs": 1793664708588.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 7,
+        "name": "storage-measured-18.txt",
+        "relative": "storage-measured-18.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 608,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.587Z",
+        "modifiedMs": 1793664708587.8633,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 21,
+        "name": "storage-measured-17.txt",
+        "relative": "nested/storage-measured-17.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 576,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.587Z",
+        "modifiedMs": 1793664708587.8633,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 6,
+        "name": "storage-measured-16.txt",
+        "relative": "storage-measured-16.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 544,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.586Z",
+        "modifiedMs": 1793664708586.8635,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 20,
+        "name": "storage-measured-15.txt",
+        "relative": "nested/storage-measured-15.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 512,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.586Z",
+        "modifiedMs": 1793664708586.8635,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 5,
+        "name": "storage-measured-14.txt",
+        "relative": "storage-measured-14.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 480,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.585Z",
+        "modifiedMs": 1793664708585.864,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 19,
+        "name": "storage-measured-13.txt",
+        "relative": "nested/storage-measured-13.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 448,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.584Z",
+        "modifiedMs": 1793664708584.8647,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 4,
+        "name": "storage-measured-12.txt",
+        "relative": "storage-measured-12.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 416,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.584Z",
+        "modifiedMs": 1793664708584.8647,
+        "readonly": false,
+        "hidden": false
+      }
+    ],
+    "recent": [
+      {
+        "id": 1,
+        "name": "matching-b.bin",
+        "relative": "matching-b.bin",
+        "parentFolder": "",
+        "category": "other",
+        "size": 1048576,
+        "ext": "bin",
+        "modifiedAt": "2026-11-03T00:11:48.603Z",
+        "modifiedMs": 1793664708603.8545,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 0,
+        "name": "matching-a.bin",
+        "relative": "matching-a.bin",
+        "parentFolder": "",
+        "category": "other",
+        "size": 1048576,
+        "ext": "bin",
+        "modifiedAt": "2026-11-03T00:11:48.602Z",
+        "modifiedMs": 1793664708602.855,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 27,
+        "name": "storage-measured-29.txt",
+        "relative": "nested/storage-measured-29.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 960,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.601Z",
+        "modifiedMs": 1793664708601.855,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 13,
+        "name": "storage-measured-28.txt",
+        "relative": "storage-measured-28.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 928,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.600Z",
+        "modifiedMs": 1793664708600.8562,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 12,
+        "name": "storage-measured-26.txt",
+        "relative": "storage-measured-26.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 864,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.591Z",
+        "modifiedMs": 1793664708591.8606,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 26,
+        "name": "storage-measured-27.txt",
+        "relative": "nested/storage-measured-27.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 896,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.591Z",
+        "modifiedMs": 1793664708591.8606,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 11,
+        "name": "storage-measured-24.txt",
+        "relative": "storage-measured-24.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 800,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.590Z",
+        "modifiedMs": 1793664708590.8618,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 25,
+        "name": "storage-measured-25.txt",
+        "relative": "nested/storage-measured-25.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 832,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.590Z",
+        "modifiedMs": 1793664708590.8618,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 10,
+        "name": "storage-measured-22.txt",
+        "relative": "storage-measured-22.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 736,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.589Z",
+        "modifiedMs": 1793664708589.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 23,
+        "name": "storage-measured-21.txt",
+        "relative": "nested/storage-measured-21.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 704,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.589Z",
+        "modifiedMs": 1793664708589.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 24,
+        "name": "storage-measured-23.txt",
+        "relative": "nested/storage-measured-23.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 768,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.589Z",
+        "modifiedMs": 1793664708589.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 9,
+        "name": "storage-measured-20.txt",
+        "relative": "storage-measured-20.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 672,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.588Z",
+        "modifiedMs": 1793664708588.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 22,
+        "name": "storage-measured-19.txt",
+        "relative": "nested/storage-measured-19.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 640,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.588Z",
+        "modifiedMs": 1793664708588.8623,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 7,
+        "name": "storage-measured-18.txt",
+        "relative": "storage-measured-18.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 608,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.587Z",
+        "modifiedMs": 1793664708587.8633,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 21,
+        "name": "storage-measured-17.txt",
+        "relative": "nested/storage-measured-17.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 576,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.587Z",
+        "modifiedMs": 1793664708587.8633,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 6,
+        "name": "storage-measured-16.txt",
+        "relative": "storage-measured-16.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 544,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.586Z",
+        "modifiedMs": 1793664708586.8635,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 20,
+        "name": "storage-measured-15.txt",
+        "relative": "nested/storage-measured-15.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 512,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.586Z",
+        "modifiedMs": 1793664708586.8635,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 5,
+        "name": "storage-measured-14.txt",
+        "relative": "storage-measured-14.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 480,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.585Z",
+        "modifiedMs": 1793664708585.864,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 4,
+        "name": "storage-measured-12.txt",
+        "relative": "storage-measured-12.txt",
+        "parentFolder": "",
+        "category": "document",
+        "size": 416,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.584Z",
+        "modifiedMs": 1793664708584.8647,
+        "readonly": false,
+        "hidden": false
+      },
+      {
+        "id": 18,
+        "name": "storage-measured-11.txt",
+        "relative": "nested/storage-measured-11.txt",
+        "parentFolder": "nested",
+        "category": "document",
+        "size": 384,
+        "ext": "txt",
+        "modifiedAt": "2026-11-03T00:11:48.584Z",
+        "modifiedMs": 1793664708584.8647,
+        "readonly": false,
+        "hidden": false
+      }
+    ],
+    "categories": [
+      {
+        "key": "document",
+        "count": 30,
+        "bytes": 14825
+      },
+      {
+        "key": "other",
+        "count": 2,
+        "bytes": 2097152
+      }
+    ],
+    "extensions": [
+      {
+        "ext": "bin",
+        "count": 2,
+        "bytes": 2097152
+      },
+      {
+        "ext": "txt",
+        "count": 30,
+        "bytes": 14825
+      }
+    ],
+    "ages": [
+      {
+        "key": "day",
+        "label": "Last 24 hours",
+        "count": 32,
+        "bytes": 2111977
+      },
+      {
+        "key": "week",
+        "label": "Last 7 days",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "month",
+        "label": "Last 30 days",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "year",
+        "label": "Last year",
+        "count": 0,
+        "bytes": 0
+      },
+      {
+        "key": "older",
+        "label": "Older / unknown",
+        "count": 0,
+        "bytes": 0
+      }
+    ],
+    "duplicateCandidates": [
+      {
+        "sizeBytes": 1048576,
+        "count": 2,
+        "wastedBytes": 1048576,
+        "files": [
+          {
+            "id": 0,
+            "name": "matching-a.bin",
+            "relative": "matching-a.bin",
+            "size": 1048576,
+            "modifiedAt": "2026-11-03T00:11:48.602Z"
+          },
+          {
+            "id": 1,
+            "name": "matching-b.bin",
+            "relative": "matching-b.bin",
+            "size": 1048576,
+            "modifiedAt": "2026-11-03T00:11:48.603Z"
+          }
+        ],
+        "truncatedFiles": 0
+      }
+    ],
+    "duplicatePolicy": {
+      "candidatesAreSizeMatches": true,
+      "contentVerified": false,
+      "minimumBytes": 1048576,
+      "maxGroups": 20,
+      "maxVerifiedFiles": 48,
+      "maxVerifiedBytes": 268435456
+    },
+    "permission": "read-only"
+  }
+}

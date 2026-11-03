@@ -1,0 +1,147 @@
+{
+  "capturedAt": "2026-11-02T11:00:56.608Z",
+  "sizes": [
+    {
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "themes": [
+    "night",
+    "day"
+  ],
+  "locales": [
+    "en"
+  ],
+  "frames": [
+    {
+      "label": "settings-night-en-1672x941",
+      "section": "settings",
+      "theme": "night",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "ltr",
+        "visualSection": "settings",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 40
+          },
+          "sidebar": {
+            "x": 0,
+            "y": 40,
+            "w": 224,
+            "h": 901
+          },
+          "hero": {
+            "x": 244,
+            "y": 60,
+            "w": 1398,
+            "h": 252
+          },
+          "primaryCta": null,
+          "headings": [
+            "KNOuX Engine & Services Control Center"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 1,
+          "nodes": 5
+        },
+        "inertButtons": 0
+      },
+      "file": "settings-night-en-1672x941.png"
+    },
+    {
+      "label": "settings-day-en-1672x941",
+      "section": "settings",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "settings",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 40
+          },
+          "sidebar": {
+            "x": 0,
+            "y": 40,
+            "w": 224,
+            "h": 901
+          },
+          "hero": {
+            "x": 244,
+            "y": 60,
+            "w": 1398,
+            "h": 252
+          },
+          "primaryCta": null,
+          "headings": [
+            "KNOuX Engine & Services Control Center"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 1,
+          "nodes": 5
+        },
+        "inertButtons": 0
+      },
+      "file": "settings-day-en-1672x941.png"
+    }
+  ],
+  "orbitCoverage": [
+    {
+      "section": "settings",
+      "frames": 2,
+      "dial": 2,
+      "pipes": 2,
+      "complete": true
+    }
+  ],
+  "failures": [],
+  "pageErrors": [],
+  "consoleIssues": [
+    "console: The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "orbitComplete": [
+    "settings"
+  ],
+  "orbitMissing": [],
+  "ok": true
+}

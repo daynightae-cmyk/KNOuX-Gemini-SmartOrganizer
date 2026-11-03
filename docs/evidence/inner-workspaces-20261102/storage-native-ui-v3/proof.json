@@ -1,0 +1,889 @@
+{
+  "head": "11875da98b460ecc4ac28fcee1ff9ee14d0790d7",
+  "profile": "D:\\Temp\\knoux-inner-storage-efgQ9B\\profile",
+  "scope": "Production StorageBridge and Files index over owned disposable folders; actual Windows volume reads. No owner-file mutation, defrag, TRIM, eject, Settings launch or clipboard writes.",
+  "checks": [
+    {
+      "name": "native-volumes-and-unmeasured-folder",
+      "ok": true,
+      "evidence": {
+        "volumes": 3,
+        "noFixtureIndex": true
+      }
+    },
+    {
+      "name": "actual-authorised-folder-and-query",
+      "ok": true,
+      "evidence": {
+        "sourceId": "506a1daf-010b-4ba3-8caa-434b8facc5c7",
+        "nativeFiles": 32
+      }
+    },
+    {
+      "name": "twelve-original-services-and-layouts",
+      "ok": true,
+      "evidence": [
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-disks",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-large-files",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-duplicates",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-treemap",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-top-folders",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-filetypes",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-scan-overview",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-fragmentation",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-smart",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-reclaim",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-history",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-removable",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-disks",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-large-files",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-duplicates",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-treemap",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-top-folders",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-filetypes",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-scan-overview",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-fragmentation",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-smart",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-reclaim",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-history",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "storage-removable",
+          "dockHeight": 70,
+          "bodyHeight": 411.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-disks",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-large-files",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-duplicates",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-treemap",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-top-folders",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-filetypes",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-scan-overview",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-fragmentation",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-smart",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-reclaim",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-history",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "storage-removable",
+          "dockHeight": 70,
+          "bodyHeight": 192,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-disks",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-large-files",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-duplicates",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-treemap",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-top-folders",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-filetypes",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-scan-overview",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-fragmentation",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-smart",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-reclaim",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-history",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "storage-removable",
+          "dockHeight": 70,
+          "bodyHeight": 292.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        }
+      ]
+    },
+    {
+      "name": "actual-hash-verification-and-tools",
+      "ok": true,
+      "evidence": {
+        "verifiedGroups": 1,
+        "filesHashed": 2,
+        "smartExecution": "GATED",
+        "clipboardInvoked": false
+      }
+    },
+    {
+      "name": "optional-overview-side-and-real-vault",
+      "ok": true,
+      "evidence": {
+        "overview": true,
+        "sideEscape": true,
+        "realVaultHandoff": true,
+        "noVaultMutation": true
+      }
+    },
+    {
+      "name": "source-switch-and-native-cancel-error",
+      "ok": true,
+      "evidence": {
+        "sourceSwitch": true,
+        "actualScanCancelled": true,
+        "missingSourceFailed": true,
+        "unchangedFiles": 33,
+        "cancellationFilesRetained": 5000
+      }
+    },
+    {
+      "name": "browser-unavailable-no-fabricated-inventory",
+      "ok": true,
+      "evidence": {
+        "status": "UNAVAILABLE",
+        "measuredFolder": false
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

@@ -1,0 +1,2626 @@
+{
+  "capturedAt": "2026-11-02T12:18:30.718Z",
+  "head": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-gUGkgN",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "home-day-en-1366x768",
+      "section": "home",
+      "theme": "day",
+      "locale": "en",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "home-day-en-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1106,
+          "h": 282.78125
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 281,
+        "heroClientHeight": 281,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 263,
+              "y": 181.40625,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 452.53125,
+              "y": 181.40625,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1061.25,
+              "y": 132.390625,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1098.25,
+              "y": 107.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1225.4375,
+              "y": 141.421875,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1241.34375,
+              "y": 191.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1145.9375,
+              "y": 235.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1018.75,
+              "y": 235.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 971.046875,
+              "y": 175.015625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 265,
+              "y": 261.40625,
+              "w": 161.625,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 430.625,
+              "y": 249.40625,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 596.25,
+              "y": 261.40625,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 761.875,
+              "y": 249.40625,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "home-night-en-1366x768",
+      "section": "home",
+      "theme": "night",
+      "locale": "en",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "home-night-en-1366x768.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1106,
+          "h": 282.78125
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 281,
+        "heroClientHeight": 281,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 263,
+              "y": 181.40625,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 452.53125,
+              "y": 181.40625,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1061.25,
+              "y": 132.390625,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1098.25,
+              "y": 107.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1225.4375,
+              "y": 141.421875,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1241.34375,
+              "y": 191.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1145.9375,
+              "y": 235.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1018.75,
+              "y": 235.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 971.046875,
+              "y": 175.015625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 265,
+              "y": 261.40625,
+              "w": 161.625,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 430.625,
+              "y": 249.40625,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 596.25,
+              "y": 261.40625,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 761.875,
+              "y": 249.40625,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "home-day-ar-1366x768",
+      "section": "home",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "home-day-ar-1366x768.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1106,
+          "h": 262.484375
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 260,
+        "heroClientHeight": 260,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 946.46875,
+              "y": 161.109375,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 726.390625,
+              "y": 161.109375,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 146.75,
+              "y": 122.234375,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 183.75,
+              "y": 97.671875,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 310.9375,
+              "y": 131.265625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 326.84375,
+              "y": 181.671875,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 231.4375,
+              "y": 225.34375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 104.25,
+              "y": 225.34375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 56.546875,
+              "y": 164.859375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 442.5,
+              "y": 241.109375,
+              "w": 161.625,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 608.125,
+              "y": 229.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 773.75,
+              "y": 241.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 939.375,
+              "y": 229.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    },
+    {
+      "label": "home-night-ar-1366x768",
+      "section": "home",
+      "theme": "night",
+      "locale": "ar",
+      "width": 1366,
+      "height": 768,
+      "ok": true,
+      "screenshot": "home-night-ar-1366x768.png",
+      "state": {
+        "theme": "night",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1366,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1106,
+          "h": 262.484375
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 260,
+        "heroClientHeight": 260,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 946.46875,
+              "y": 161.109375,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 726.390625,
+              "y": 161.109375,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 146.75,
+              "y": 122.234375,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 183.75,
+              "y": 97.671875,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 310.9375,
+              "y": 131.265625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 326.84375,
+              "y": 181.671875,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 231.4375,
+              "y": 225.34375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 104.25,
+              "y": 225.34375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 56.546875,
+              "y": 164.859375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 442.5,
+              "y": 241.109375,
+              "w": 161.625,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 608.125,
+              "y": 229.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 773.75,
+              "y": 241.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 939.375,
+              "y": 229.109375,
+              "w": 161.625,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    },
+    {
+      "label": "home-day-en-1672x941",
+      "section": "home",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "home-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 348,
+        "heroClientHeight": 348,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 267,
+              "y": 206.078125,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 456.53125,
+              "y": 206.078125,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1307.375,
+              "y": 166.203125,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1344.375,
+              "y": 75.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1507.328125,
+              "y": 140.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1527.703125,
+              "y": 238.140625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1405.484375,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1242.515625,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 1181.40625,
+              "y": 205.703125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 269,
+              "y": 312.046875,
+              "w": 208.1875,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 481.1875,
+              "y": 300.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 693.375,
+              "y": 312.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 905.5625,
+              "y": 300.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 263,
+              "y": 815.125,
+              "w": 481.234375,
+              "h": 100.859375
+            },
+            "scrollHeight": 218,
+            "clientHeight": 101
+          },
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 786.234375,
+              "y": 815.125,
+              "w": 434.765625,
+              "h": 100.859375
+            },
+            "scrollHeight": 117,
+            "clientHeight": 101
+          }
+        ],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "home-night-en-1672x941",
+      "section": "home",
+      "theme": "night",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "home-night-en-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 348,
+        "heroClientHeight": 348,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 267,
+              "y": 206.078125,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 456.53125,
+              "y": 206.078125,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1307.375,
+              "y": 166.203125,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1344.375,
+              "y": 75.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1507.328125,
+              "y": 140.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1527.703125,
+              "y": 238.140625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1405.484375,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1242.515625,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 1181.40625,
+              "y": 205.703125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 269,
+              "y": 312.046875,
+              "w": 208.1875,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 481.1875,
+              "y": 300.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 693.375,
+              "y": 312.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 905.5625,
+              "y": 300.046875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 263,
+              "y": 815.125,
+              "w": 481.234375,
+              "h": 100.859375
+            },
+            "scrollHeight": 218,
+            "clientHeight": 101
+          },
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 786.234375,
+              "y": 815.125,
+              "w": 434.765625,
+              "h": 100.859375
+            },
+            "scrollHeight": 117,
+            "clientHeight": 101
+          }
+        ],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "home-day-ar-1672x941",
+      "section": "home",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "home-day-ar-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 348,
+        "heroClientHeight": 348,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 1248.46875,
+              "y": 190.859375,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 1028.390625,
+              "y": 190.859375,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 206.625,
+              "y": 166.203125,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 243.625,
+              "y": 75.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 406.578125,
+              "y": 140.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 426.953125,
+              "y": 238.140625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 304.734375,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 141.765625,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 80.65625,
+              "y": 205.703125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 558.25,
+              "y": 306.96875,
+              "w": 208.1875,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 770.4375,
+              "y": 294.96875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 982.625,
+              "y": 306.96875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 1194.8125,
+              "y": 294.96875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 927.765625,
+              "y": 815.125,
+              "w": 481.234375,
+              "h": 100.859375
+            },
+            "scrollHeight": 205,
+            "clientHeight": 101
+          },
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 451,
+              "y": 815.125,
+              "w": 434.765625,
+              "h": 100.859375
+            },
+            "scrollHeight": 117,
+            "clientHeight": 101
+          }
+        ],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    },
+    {
+      "label": "home-night-ar-1672x941",
+      "section": "home",
+      "theme": "night",
+      "locale": "ar",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "home-night-ar-1672x941.png",
+      "state": {
+        "theme": "night",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 348,
+        "heroClientHeight": 348,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 1248.46875,
+              "y": 190.859375,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 1028.390625,
+              "y": 190.859375,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 206.625,
+              "y": 166.203125,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 243.625,
+              "y": 75.9375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 406.578125,
+              "y": 140.828125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 426.953125,
+              "y": 238.140625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 304.734375,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 141.765625,
+              "y": 322.5,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 80.65625,
+              "y": 205.703125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 558.25,
+              "y": 306.96875,
+              "w": 208.1875,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 770.4375,
+              "y": 294.96875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 982.625,
+              "y": 306.96875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 1194.8125,
+              "y": 294.96875,
+              "w": 208.1875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 927.765625,
+              "y": 815.125,
+              "w": 481.234375,
+              "h": 100.859375
+            },
+            "scrollHeight": 205,
+            "clientHeight": 101
+          },
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 451,
+              "y": 815.125,
+              "w": 434.765625,
+              "h": 100.859375
+            },
+            "scrollHeight": 117,
+            "clientHeight": 101
+          }
+        ],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    },
+    {
+      "label": "home-day-en-1920x1080",
+      "section": "home",
+      "theme": "day",
+      "locale": "en",
+      "width": 1920,
+      "height": 1080,
+      "ok": true,
+      "screenshot": "home-day-en-1920x1080.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1660,
+          "h": 370
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 368,
+        "heroClientHeight": 368,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 267,
+              "y": 210.984375,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 456.53125,
+              "y": 210.984375,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1508.875,
+              "y": 176,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1545.875,
+              "y": 77.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1718.671875,
+              "y": 146.3125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1740.265625,
+              "y": 249.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1610.671875,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1437.875,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 1373.0625,
+              "y": 215.109375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 269,
+              "y": 326.734375,
+              "w": 246.9375,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 519.9375,
+              "y": 314.734375,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 770.875,
+              "y": 326.734375,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 1021.8125,
+              "y": 314.734375,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 263,
+              "y": 897.40625,
+              "w": 611.140625,
+              "h": 157.578125
+            },
+            "scrollHeight": 205,
+            "clientHeight": 158
+          }
+        ],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "home-night-en-1920x1080",
+      "section": "home",
+      "theme": "night",
+      "locale": "en",
+      "width": 1920,
+      "height": 1080,
+      "ok": true,
+      "screenshot": "home-night-en-1920x1080.png",
+      "state": {
+        "theme": "night",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 58
+        },
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1660,
+          "h": 370
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 368,
+        "heroClientHeight": 368,
+        "controls": [
+          {
+            "label": "Start a Quick Scan",
+            "rect": {
+              "x": 267,
+              "y": 210.984375,
+              "w": 181.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Search files and tools",
+            "rect": {
+              "x": 456.53125,
+              "y": 210.984375,
+              "w": 199.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1508.875,
+              "y": 176,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1545.875,
+              "y": 77.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1718.671875,
+              "y": 146.3125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1740.265625,
+              "y": 249.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1610.671875,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1437.875,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 1373.0625,
+              "y": 215.109375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recommend · pending",
+            "rect": {
+              "x": 269,
+              "y": 326.734375,
+              "w": 246.9375,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Summarize · pending",
+            "rect": {
+              "x": 519.9375,
+              "y": 314.734375,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Measure · current stage",
+            "rect": {
+              "x": 770.875,
+              "y": 326.734375,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Connect · pending",
+            "rect": {
+              "x": 1021.8125,
+              "y": 314.734375,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 263,
+              "y": 897.40625,
+              "w": 611.140625,
+              "h": 157.578125
+            },
+            "scrollHeight": 205,
+            "clientHeight": 158
+          }
+        ],
+        "headings": [
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "home-day-ar-1920x1080",
+      "section": "home",
+      "theme": "day",
+      "locale": "ar",
+      "width": 1920,
+      "height": 1080,
+      "ok": true,
+      "screenshot": "home-day-ar-1920x1080.png",
+      "state": {
+        "theme": "day",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1660,
+          "h": 370
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 368,
+        "heroClientHeight": 368,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 1496.46875,
+              "y": 195.765625,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 1276.390625,
+              "y": 195.765625,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 253.125,
+              "y": 176,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 290.125,
+              "y": 77.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 462.921875,
+              "y": 146.3125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 484.515625,
+              "y": 249.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 354.921875,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 182.125,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 117.3125,
+              "y": 215.109375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 651.25,
+              "y": 321.671875,
+              "w": 246.9375,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 902.1875,
+              "y": 309.671875,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 1153.125,
+              "y": 321.671875,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 1404.0625,
+              "y": 309.671875,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 1045.859375,
+              "y": 897.40625,
+              "w": 611.140625,
+              "h": 157.578125
+            },
+            "scrollHeight": 205,
+            "clientHeight": 158
+          }
+        ],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    },
+    {
+      "label": "home-night-ar-1920x1080",
+      "section": "home",
+      "theme": "night",
+      "locale": "ar",
+      "width": 1920,
+      "height": 1080,
+      "ok": true,
+      "screenshot": "home-night-ar-1920x1080.png",
+      "state": {
+        "theme": "night",
+        "dir": "rtl",
+        "route": "home",
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 58
+        },
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1660,
+          "h": 370
+        },
+        "heroCount": 1,
+        "heroClass": "home-hero",
+        "heroScrollHeight": 368,
+        "heroClientHeight": 368,
+        "controls": [
+          {
+            "label": "بدء فحص سريع",
+            "rect": {
+              "x": 1496.46875,
+              "y": 195.765625,
+              "w": 156.53125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "ابحث في الملفات والأدوات",
+            "rect": {
+              "x": 1276.390625,
+              "y": 195.765625,
+              "w": 212.078125,
+              "h": 38
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 253.125,
+              "y": 176,
+              "w": 158,
+              "h": 158
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الفحص الذكي",
+            "rect": {
+              "x": 290.125,
+              "y": 77.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الملفات",
+            "rect": {
+              "x": 462.921875,
+              "y": 146.3125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التطبيقات",
+            "rect": {
+              "x": 484.515625,
+              "y": 249.515625,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "النظام",
+            "rect": {
+              "x": 354.921875,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "التخزين",
+            "rect": {
+              "x": 182.125,
+              "y": 338.953125,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "الأتمتة",
+            "rect": {
+              "x": 117.3125,
+              "y": 215.109375,
+              "w": 84,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "توصية · pending",
+            "rect": {
+              "x": 651.25,
+              "y": 321.671875,
+              "w": 246.9375,
+              "h": 66.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "تلخيص · pending",
+            "rect": {
+              "x": 902.1875,
+              "y": 309.671875,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "قياس · current stage",
+            "rect": {
+              "x": 1153.125,
+              "y": 321.671875,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "اتصال · pending",
+            "rect": {
+              "x": 1404.0625,
+              "y": 309.671875,
+              "w": 246.9375,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "home-scroll",
+            "rect": {
+              "x": 1045.859375,
+              "y": 897.40625,
+              "w": 611.140625,
+              "h": 157.578125
+            },
+            "scrollHeight": 205,
+            "clientHeight": 158
+          }
+        ],
+        "headings": [
+          "مركز تحكم الرئيسية"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "visualFidelityAccepted": false
+}

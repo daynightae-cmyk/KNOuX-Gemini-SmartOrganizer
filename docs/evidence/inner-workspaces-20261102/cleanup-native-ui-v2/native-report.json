@@ -1,0 +1,72 @@
+{
+  "contractVersion": 1,
+  "capability": "cleanup.report",
+  "requestId": "8ccf80f5-bf84-423b-8236-93252f014e75",
+  "status": "complete",
+  "source": "KNOuX Clean Room read-only coordinator",
+  "observedAt": "2026-11-02T23:41:23.865Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "contract": "cleanup.v1",
+    "generatedAt": "2026-11-02T23:41:23.865Z",
+    "readOnly": true,
+    "mutation": "none",
+    "session": {
+      "id": "02cc6819-40d0-4bca-b37d-26853692c2c2",
+      "observedAt": "2026-11-02T23:40:30.470Z",
+      "categories": [
+        "temp"
+      ],
+      "coverage": {
+        "rootsScanned": 1,
+        "rootsUnavailable": 1,
+        "filesMeasured": 140,
+        "foldersMeasured": 2,
+        "bytesMeasured": 520441141,
+        "truncated": false,
+        "skippedLinks": 0,
+        "errors": 0
+      }
+    },
+    "summary": {
+      "candidates": 141,
+      "eligibleBytes": 0,
+      "reviewBytes": 520441141,
+      "blockedBytes": 0,
+      "eligibleCount": 0,
+      "reviewCount": 141,
+      "blockedCount": 0,
+      "categories": {
+        "temp": {
+          "count": 141,
+          "bytes": 520441141,
+          "eligibleBytes": 0,
+          "reviewBytes": 520441141,
+          "blockedBytes": 0
+        }
+      }
+    },
+    "recycle": {
+      "items": 0,
+      "bytes": 0
+    },
+    "vault": {
+      "entries": 0,
+      "bytes": 0,
+      "exists": false
+    },
+    "journal": {
+      "entries": 0,
+      "exists": false
+    },
+    "warnings": [
+      "Windows temporary folder: access was denied."
+    ],
+    "note": "All values are measured metadata from this session. No deletion occurred and no reclaimed bytes are claimed."
+  }
+}

@@ -1,0 +1,1686 @@
+[
+  {
+    "path": "apps/gemini-ui/electron/main.cjs",
+    "sha256": "156e604ca9150d7feb74f81e870f2c6e84355bfed597074a6b75d788d5ae2f8f"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/app-bridge.cjs",
+    "sha256": "5bd6f3b92a7d42ca7d0c93364dbc10e05d872ec21db9ea97e4b0d1a5e63510b4"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/automation-bridge.cjs",
+    "sha256": "464323588de4f472e5c01529ec243e701726ab45404f1d70418dbb9a611ff33d"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/automation-providers.cjs",
+    "sha256": "094c4c865a347f14f99fe1d38001a0d7a140d71a12a3eac947a5e35dd33d1331"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/automation-runner.cjs",
+    "sha256": "52ba77c31ff214545e7cf896bb5b70fba9bb48bb465c052f2e5eefeda8483147"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/automation-scheduler.cjs",
+    "sha256": "09a0ab52d3d6728bc3177533e080ed4c6ecc979ff581ee7b7fd64b7c19905820"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/cleanup-bridge.cjs",
+    "sha256": "06953206d5dca647f87de4b45d5a3132d777cb8e2730b7f47bd645af9fe1867a"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/clipboard-ipc.cjs",
+    "sha256": "b66ad9f490d62cc5ee23edd021cfc4ec3e04a5945a26adb7b9b029011f7b3359"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/clipboard-vault.cjs",
+    "sha256": "fbf8de0b5de77285d7514485080e4c5d58ef1335498f306453538f5259500fba"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/files-bridge.cjs",
+    "sha256": "400d9bae41dbde4f9386f034a1373aa36b2f2ba02fc129bbf33ed18dd8a8bef5"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/google-auth.cjs",
+    "sha256": "2121e26ff6d3fe7fc2c814336e462fb90ab1d457c8c66c0bca97af5e8528d1da"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/operation-engine.cjs",
+    "sha256": "a40063bfcfa02e298ac1ab0cdb6249b0fca859d1b81810a483c8406848b9cd16"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/operation-ipc.cjs",
+    "sha256": "829c77e41af8910585c00ef0c0e9c3749a00fd1857261585d5f99415586c5ce4"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/protected-action-store.cjs",
+    "sha256": "5c9716e8152cf9b87a6bb87ebc18e8cf25d8e33cc3bb02aac3db80c363dee7fc"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/provider-bridge.cjs",
+    "sha256": "8250487f0ca96a67ffb4dcc71039990fea77c95ba2365e5bdef2072bad4b6f49"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/repair-bridge.cjs",
+    "sha256": "028cc6b8a836fa41c6b8db1efe319e0dd18f7a9c7632033a774b9edc18aedec8"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/repair-providers.cjs",
+    "sha256": "32327978047990737ba5b127367601838ec2e8ea1769745ca9ea5434e913ef9d"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/scan-bridge.cjs",
+    "sha256": "766dcfd878b6db46b6b83d6cd4658dc148795b92dc92cc924ffd21a5ce698114"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/security.cjs",
+    "sha256": "f709d82e6f89913be1d30f9be12b58e7250c76493c64ee3e18a302f0a0813e7c"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/service-actions.cjs",
+    "sha256": "6e74deef8aac3d7593b02a5b2c0f5549d3082285891304660b73dfacc12a2b71"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/service-control.cjs",
+    "sha256": "56431285fbcc564cbb646a76ef7f2a9fea82135ada06bc6eadb960aed5f74d02"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/services-bridge.cjs",
+    "sha256": "4a3402fe15db8124c0beebc71987807d436a404dce5ed87a6cb3b91f06e851ec"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/services-providers.cjs",
+    "sha256": "5807d5985bbfa4181da0ecd04747fa955dbd8170c16b8bbff1a800177b8f3c10"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/startup-actions.cjs",
+    "sha256": "462100afe24217c8c832f9877161133c87ae7d4e35233e2a125c4ae696429585"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/startup-bridge.cjs",
+    "sha256": "ac70533c57a6833d0d13d7bdcb1fd6a356076b0b11db1d5645e78685c66f20de"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/startup-registry.cjs",
+    "sha256": "ca0fb1ca02b502cb99a36c7658fbd978b3ad8062710defe839c42d275b95d4b3"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/storage-bridge.cjs",
+    "sha256": "81a90b05d6a012e091552b77aca4b58d1831e217b6d9b80a23e1c747bdfe4788"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/storage-vault.cjs",
+    "sha256": "f99894b15acec46d74187b7d3f90c4e6016a0068e402d4bc22f83c1f2dfed629"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/studio-bridge.cjs",
+    "sha256": "68bb22f858d21be801deb4a14b1578089c0d3ec96b01b5efc50b8190961d8018"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/system-bridge.cjs",
+    "sha256": "f6762a55245e7929ec3dc76fe30c036b9238bdea1ee0ce98906abd8e2b46b6f7"
+  },
+  {
+    "path": "apps/gemini-ui/electron/native/system-providers.cjs",
+    "sha256": "80130a928b243f448a39e07a43e2c671612d58cd1c14ad542dad65eb3cfe4d72"
+  },
+  {
+    "path": "apps/gemini-ui/electron/preload.cjs",
+    "sha256": "d1d5174f5ee5d3a0867d054105b3ca3f46be62400c26530c51abbcfa1708f306"
+  },
+  {
+    "path": "apps/gemini-ui/package-lock.json",
+    "sha256": "ce24d4f0a2daa8512eed26591367153fb1d62398dac5a6724ab2918f66e880f6"
+  },
+  {
+    "path": "apps/gemini-ui/package.json",
+    "sha256": "59f71052391eccbfdc287a045b836a955326829f38f7a82079d15e04f217eb70"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/apply-command-canvas.py",
+    "sha256": "a1a82bd4853bcce9ae2aec5aff8dfbc3cceb4c343e509e7cf2fde64e40a1d222"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/apps-native-test.cjs",
+    "sha256": "3eb450f8a5b55ab82f9b1ca210c3305cfd521f2c79dab9222bf91219f508e26a"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/apps-owner-fullstack-capture.mjs",
+    "sha256": "5e45888b192406d091fe4422c38c67f71d225b424004c14ef76cc965f5d54fa2"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/automation-native-test.cjs",
+    "sha256": "1d16f8a8b3c58757fbbbce3179bb276a3c66b9f6f88c7c0d29b874541d812e67"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/automation-runner-test.cjs",
+    "sha256": "dff2c868cc8e93282459651e556c0dae7031edafb2abf871256aae09e64d53fb"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/automation-scheduler-test.cjs",
+    "sha256": "b95c7fd54eea589f23b078de9dcf689898e75dc3ddad4cb5c41949b721afa7aa"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/canvas-electron-preview.mjs",
+    "sha256": "28355507484154b1107c138bb2d808d984bcfbd2f98d9c96d6309d3052049b9f"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/canvas-fidelity-boards.py",
+    "sha256": "a9469118f7ffa921cb57b1b2bb6de24544bb793b5e11ff301ed5c5e91afc327c"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/canvas-preview.mjs",
+    "sha256": "974056930d0258ae83409e90878f31b31858419b52054223889cedbb6a7af2a0"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/capture-home-intro.mjs",
+    "sha256": "bf33634c24893bc4d97d5fdefd424785db85ef7cb81182dd7d3d646db0eed7c2"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/checkpoint-boards.py",
+    "sha256": "874da94e37024aad5286e41086620e1f9d1bdfaf1c62c0aaf7a38ceb7466ea0a"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/cinematic-entry-layout-probe.mjs",
+    "sha256": "6cd16104b1fddab33737d8f88073067a4275a7af3f33fa6f26a662a58c626133"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/cinematic-native-smoke.cjs",
+    "sha256": "49c5e4561ae781dcce40fc71c476e7295bb992387a2a96a2c39e89c5cb11da02"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/cinematic-owner-capture.mjs",
+    "sha256": "82471780d8e0366965eef48be14262400385ff668fe2d98159e27c2d3005dc5c"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/cinematic-portal-capture.cjs",
+    "sha256": "90f8be7b1b108753ce226b8a60fe47ce4d96fd583dd73b771b47bcc40a8d23a8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/cleanup-native-test.cjs",
+    "sha256": "8896e1eff1372a140e5519865b4c30765284b23559254a7462733c7898f002f8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/cleanup-owner-fullstack-capture.mjs",
+    "sha256": "db08389efec1f250971f7a499af3bbc590b713382659ab889f01fba8e0612c38"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/clipboard-electron-test.cjs",
+    "sha256": "8d0690b6dfc874085fce0b48164ade177c6470ab6bce2b097934fb2e38484ace"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/clipboard-native-test.cjs",
+    "sha256": "313f781c6abd80f61b97c2fbedad26d026d9b286da897a25bf26e1dec7d5ae98"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/design-recovery-capture.mjs",
+    "sha256": "1234107ea18183cd7da983c6d525e71d82f2a43233a2ca6132e7d2ed91ba200b"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/design-recovery-interactions.mjs",
+    "sha256": "32879fc14794a1146a15456bb0cb0944f7ac7b039c311768d6ee61b0d576687b"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/electron-run.cjs",
+    "sha256": "82a57cf1b0f6634ebf9d8b755c5db165313c539e322e1f0b07e96a2f05bc10ea"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/fidelity-boards.mjs",
+    "sha256": "7eeffe9cea3683530a554ae154c90789cc2f50b1b70cf17f1d9c28371ccce106"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-electron-pilot.mjs",
+    "sha256": "2ed1a6d6f60a7fbeebe9e47b67cbeaaf042fcf38208d3e90c3cadfb80eb14276"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-evidence-manifest.py",
+    "sha256": "9b065048da70f69450e38c23a9b5dd42381a46dbee7b97fe307b4e94e4fe0894"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-interaction-check.mjs",
+    "sha256": "9d39a0b608d6c4954de8bb9bbaedd545897d1c637fd77e43118e2615b3a1eee4"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-native-test.cjs",
+    "sha256": "3ff7567044e971977cc0c5831ff16d107eab4e0de1c56cca44c3e102f1d4e140"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-owner-fullstack-capture.mjs",
+    "sha256": "f2b9d89480de312f976843e326b26d40a623f0e43695b0d0ac0e4940a9bb0dc9"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-reference-comparison.py",
+    "sha256": "5eed5778e4454623760b0b071bdff15d858d11381d48b0f51ad5bcbe9d2a6409"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/files-viewport-check.mjs",
+    "sha256": "246a7e100ac56d1beeadb30cb6031f2b9d16ba2e9498d32e75780201fb2b641a"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/generate-night-material-bridge.mjs",
+    "sha256": "24a32d73aa660191c6d0edb48db47b7f9c0e154be9b5bb89e600fd009437ac2b"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/generate-service-capability-matrix.cjs",
+    "sha256": "460f546b92514c9578e76e8debcf3f828669458b5f426b4057c7f1c5472954d4"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/google-oauth-test.cjs",
+    "sha256": "5e5c163bc5d09d04fc9a27332d80b13c2c0ef57754bee13e883cc3499c7d20ed"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/home-anima-electron.mjs",
+    "sha256": "47820119e9c2982b34a0e18ebfde8902f5751ca4a17daa9a3c5e055204a83e59"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/home-integration-electron.mjs",
+    "sha256": "61ad4fd3f229fdd4fef2511f8039b1d0f6a190e6e29c8c53fb3399111b1e5b58"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/home-live-test.cjs",
+    "sha256": "38281b24bbd25c1695fb5829453dc1fceebb894b0a2f3a5dadf07a9f1849b258"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/home-provider-test.mjs",
+    "sha256": "067b3ea75df4fec7829d812384bbdbb15bc2e800c48e5ec5ce695572504a11b4"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/home-search-electron.cjs",
+    "sha256": "0a9428477d680f44ca3a55a89d9112caa703de6c63a9f3eff7b4aa66ea185e1b"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/layout-probe.mjs",
+    "sha256": "6eb30373d10be6a6329a605a5c6c0b57a577c3836175bdd0e28194fd82b324b8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/live-organization-boards.py",
+    "sha256": "98880b8827c9d5a71076dd52190c2df5a3d29e7428469bed0369a30d156e506e"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/live-organization-electron.mjs",
+    "sha256": "09996c86bcdb52ec9b6e4f80900f8a655841d5f51ee0d414205ac22852b91357"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/live-organization-fixtures.cjs",
+    "sha256": "b6a9c242462afdf215af21bea0cec9503d45fbb927bae06255d73e0227b82271"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/live-organization-negative.cjs",
+    "sha256": "7f18a1d397db8cf061cd434deab713db21343123f1a23304b434968e7acfe5b3"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/live-organization-test.cjs",
+    "sha256": "fcc79e199316003c86284d6d54da7a28c2aad3864db850e63ac4df9c9ecc142d"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/live-preview-check.cjs",
+    "sha256": "d1f98bea1a4ec51608b3b764ebca61ba76ef78f19aa400b1adc7a7d26dc5bdd8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/m0-electron-visual.mjs",
+    "sha256": "a5c46ed38ab92d7148c3f2f48bf08d6b452c6561883949531d35a31f9cfb5500"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/native-contract-test.cjs",
+    "sha256": "fb9e96e9551ef2e61ca72a266f4b52a50519d129522011cb817e4a8dd8996329"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/native-smoke.cjs",
+    "sha256": "9f168c2b66e2ae79ffd6f658a5e2c869532fb495b36289bed5be857208df4104"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/navigation-route-test.cjs",
+    "sha256": "081fddf138d96dafd5fe0f596e4e680ff61ee094d0edfd09a599b956e0fcd3bf"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/orbit-behaviour-proof.mjs",
+    "sha256": "a96d49a6a2f8c44277dd8e50ff67eab40db0c46d28c86f91534b9244b43d0c5e"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/orbit-domain-electron.mjs",
+    "sha256": "6ee8783b5c256199c1d7c8f957f85055c1b94a528f0d014b2958187bb5845dde"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/orbit-probe.mjs",
+    "sha256": "b64c9db1e17812b50731d7a6105f5329f2ca158a13c0463616cf279f88290322"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/orbit-screen-gallery.py",
+    "sha256": "3377d7679e0fe100d2775a572bf4e86a11eb4a310cb3539238c46c9ec16568cc"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/pack-to-temp.cjs",
+    "sha256": "69aedb548a37e8e846a845b98a478a62511d02b9ce088525be7c9f6b15947065"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/reconciliation-electron.cjs",
+    "sha256": "6e31b1a0feddd7a6c7aa3b6f1d9c5e078f0807b1401975af0bac364f4c06f8ac"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/reference-geometry-probe.mjs",
+    "sha256": "ca90f93275156cfd91bb8195115e9d83b7479521e5020623d69c30dce574e4db"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/reference-side-by-side.mjs",
+    "sha256": "00cd7de5e7c0c65ffd15dec1dfb1e6e6e0a998253e8c9e7dba745ff5b488043b"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/renderer-performance-probe.mjs",
+    "sha256": "011dc4962b17764171e8f3ce0d0ed7288ffcb26d81990b8d6ab7cb41d5cb9b10"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/repair-native-test.cjs",
+    "sha256": "78185c6a5ca41cb25af0550005cac79f2acc1475b77b5856b91034548fd82593"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/scan-native-test.cjs",
+    "sha256": "d597efb0cc6441fd0c856cbe0facfb372b28a26619f2edb5083e86630973ae7d"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/scan-owner-fullstack-capture.mjs",
+    "sha256": "e832fee4af936ef2fbac2cdfcdc9819ecb006a4c6d67be04b66f5dbe3ee055ae"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/scan-transfer-review-test.mjs",
+    "sha256": "08e7b60c7089fd0670543a1d6790b6e0177a3e4828a2bba033f634331c22c076"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/service-actions-test.cjs",
+    "sha256": "1818c82a47e094c8e63cfaca4bbdb9ed297408c2f6be7814b1b923f7594b743d"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/service-activation-electron.mjs",
+    "sha256": "858567c7358de1b37ebaa509c2bea9376cc2277e6eb7827c69a17f14f6180ed8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/service-workspace-capture.mjs",
+    "sha256": "fea2746c1f89c010ae0d1ed372a464523fc2dbc8b6e0bcafb8216361804009f5"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/services-native-test.cjs",
+    "sha256": "ca8f166a52bc4045498d212536dc1e61d93929240c775cfe34231739a0ea382a"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/settings-consent-test.cjs",
+    "sha256": "8648ca84f5dfaec310c27f3e2bd580cbb543ad4b6d80b8338c0ff5fc2376e393"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/startup-actions-test.cjs",
+    "sha256": "f898ea87b57c4bdc840b803e2853148870996c9b1ab381fb75877a31f72b3c25"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/startup-native-test.cjs",
+    "sha256": "d44b73c24df62457033f094ab304e9c2ffff97fa59456874289ea54f6e38e9a2"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/startup-owner-fullstack-capture.mjs",
+    "sha256": "5b66b7240319bf3db658e707a990a877e06407f2a6ab60b590b74906418c687c"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-native-test.cjs",
+    "sha256": "33dd1ad993f5b632ddc1eb0fa8bea0e9f80e9cb95fe0305482b1390f793fc8f5"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-owner-fullstack-capture.mjs",
+    "sha256": "2ae800f11000a19f8a806191a5a31895cf3b523978f71b7de3a5fcefc3ba581a"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-vault-boards.py",
+    "sha256": "0ddbff22e051d449ede7bdfc318d047cd149779b8e05b9a213c7c84704a4eaaa"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-vault-electron.mjs",
+    "sha256": "258cb779cef032907e1b339663998a037dbccc8379a07ee13940314f31d94625"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-vault-fixtures.cjs",
+    "sha256": "7f22c6c9afbb8a9234bcac153e4fb1b76e5ee5a864c44e40124065f891e0a1f4"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-vault-negative.cjs",
+    "sha256": "0a90f4eb825f070de0170a25b473b1db527b459bbd50f1fc9fb46471711c267c"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/storage-vault-test.cjs",
+    "sha256": "d1e5ba6b0204aeb655e43c46c295241d8d90ba58ff29375c7c630e7471feb903"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-attribute-reader-test.cjs",
+    "sha256": "f83119a78e33c3d8fadd6e41e4ebaad216451471014edfa2f6729f829a8809ef"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-category-destinations-test.cjs",
+    "sha256": "2c56524b2bcf0104943a0f2279923b739cf1302af5761cf4057b0bc6ec01d901"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-chrome-electron.mjs",
+    "sha256": "bae27648d48c62a23428ce274c45ba89e8e22aa9e122ac9e44b217cdb9379a91"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-domain-native-test.cjs",
+    "sha256": "6c8d946cf544f9bb1a561440e938a32a32ddac6348a390392b114e571ba52045"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-exec-test.cjs",
+    "sha256": "adc99894ac19f31070efe2c6e6dfdea465cba90bca0e1dfb215bf1f1ce07c22b"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-large-inventory-electron.mjs",
+    "sha256": "524abf0f44b356d9c48d547e6b2b5f917c03f27c60a8ab5a7be26b929d4c2dc7"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-model-test.mjs",
+    "sha256": "5dd3b245ddfc06c260d2bc8e8ab6b45d60fc7e7decf076a333a8d591fc1cd2f5"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-native-test.cjs",
+    "sha256": "864bdc69999e8c0723d5f7c5ba3a99c3c43adef66900802dae0a51401d9d3922"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-owner-fullstack-capture.mjs",
+    "sha256": "00d201cd580ad82fc80d9489507bc3a9857a45a65695a0ed440c53df4e8f63b8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-plan-performance.cjs",
+    "sha256": "a97f0f83f399f3bc586da95d21915fbf4b1d09359ad555e6a195056f399c06f6"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-reference-comparison.py",
+    "sha256": "e3c8c4860098e2d20426357e32d1b95e4eebd59674635194033c98ab88418a0d"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-selection-rule-test.mjs",
+    "sha256": "19da190ebfd197226cce1c7774be8e9b79d72bc8882b6752bf95288aa6b83800"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-transfer-names-test.cjs",
+    "sha256": "1707bc346f79fe3bbdad882694099a88a22c4cc14b38a565e8d4cabeeb7e01c2"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/studio-visual-check.mjs",
+    "sha256": "9477d4fdd7cb8022e929b5baf08962e58e7c75ba03a4f098e141f86e67ad6df0"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/system-native-test.cjs",
+    "sha256": "0240bfd334f512ad28b62e7758287d6925188295bded18adc7aae3dc97817fa3"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/system-owner-fullstack-capture.mjs",
+    "sha256": "4ec1cb65178ca120a88927f2da25e62aaa0ec79abb8d912a9638ef8042daefd7"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/theme-evidence-matrix.mjs",
+    "sha256": "e87a11e6b394ae12211519d801e4bee18b5f1d469b1c98f362930bacef6a37c8"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/visual-checkpoint.mjs",
+    "sha256": "704ed251da5f236357fa5bd591c01e36a5eff726b977d8586c07acd66f039e8e"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/visual-fidelity-capture.mjs",
+    "sha256": "df873e1b4c945e032064e72752a1cb75356bb826375b3b8a9640039499bd391c"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/visual-pass-current.mjs",
+    "sha256": "de9f21c9f7209c4ddad166505c3c60507953535ddee9f0e4a46bfb77b518e4fe"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/visual-preview.mjs",
+    "sha256": "12a9d2bca827fc45f0613ff690ed18a5fc5b922c1eedd6c0f94d88c2f94b8b78"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/workbench-host-test.cjs",
+    "sha256": "5115a276c3cddf1472c1b556e0554c57ebedecec0b7278088cf887ab78860b0c"
+  },
+  {
+    "path": "apps/gemini-ui/scripts/workspace-consent-test.cjs",
+    "sha256": "734dd4efcd019b9362cfbf74dc51aa93500b1035df1f09d67e3490c8747326ff"
+  },
+  {
+    "path": "apps/gemini-ui/shared/native-contract.json",
+    "sha256": "c1eb5e829847b6570b65bbf4a0c9ba0fcef73b0ea2df68eb41697e6651bc8a4f"
+  },
+  {
+    "path": "apps/gemini-ui/shared/native-contracts.ts",
+    "sha256": "26b32ea59013d4f2631d47003027b1175cfbf6026ce4c5b4b5c7fd15657f71d8"
+  },
+  {
+    "path": "apps/gemini-ui/shared/operation-contract.ts",
+    "sha256": "bfe8a37513126a52287ce3c155008fd199d28cd8d97eff9234ff65362565511e"
+  },
+  {
+    "path": "apps/gemini-ui/shared/storage-vault-contract.ts",
+    "sha256": "30d46cc0465c8da014283b4448dc9c96c1e2475f0956e9c42b454b077f454b69"
+  },
+  {
+    "path": "apps/gemini-ui/src/App.tsx",
+    "sha256": "7393f6e36eeb30e9417d4ea918a2d0ae4022871863d7faff1d018d79581e70b0"
+  },
+  {
+    "path": "apps/gemini-ui/src/applications.css",
+    "sha256": "28b6af8fbf449572719e2098505a479a06b027487ceb4911e0dc26c9e7747491"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/AppDossier.tsx",
+    "sha256": "e6c22d1687e4426f3a687874d9e5d5b59644db84f198e7ba4512f3a40141778c"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/AppRegister.tsx",
+    "sha256": "d9df5d0cb7590139707d8892280d54763a34a297f7cdc7f6e0400e92803ba666"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/AppServiceWorkspace.tsx",
+    "sha256": "5737cc260b3f79890abdc964dbe07cbfd86c74b5ced39b66d68c06d576b1b166"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/ApplicationServices.tsx",
+    "sha256": "f98ad32ffd20cb9ce28608abc43c7108a2fac05c93bea58085e89df182d61bf2"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/ApplicationsHero.tsx",
+    "sha256": "6ff937d9ff945da11e6a7522a5797a3a4e604d091ee262c6dc8b5b955225c8d5"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/catalog.ts",
+    "sha256": "377e0bd210de04ca3704530c65774c950cdf01a6ca9097668de9faee2ba15b0e"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/model.ts",
+    "sha256": "f9781a471d8b16e93a8e3f72c15d60fc7d9c8ea53e455ca330106b60d56d965b"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/native.ts",
+    "sha256": "bf34579c3e500876e9a035c0db62314594c15b72db6867321811ccaf4ff74368"
+  },
+  {
+    "path": "apps/gemini-ui/src/apps/useApplications.ts",
+    "sha256": "4ca335c51d825cfb40a43e88de4fe9b37df2c7ce9e4850d885003789568fa2ff"
+  },
+  {
+    "path": "apps/gemini-ui/src/assets/anima/knoux-orbital-emblem.png",
+    "sha256": "92743cd3f51403c8de04e04d5b17a81429f09391d32ff7529c3c8af9ed0c0cc6"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation.css",
+    "sha256": "ebf444a26622b2532d8c94046e7f9dd87b44cae79e1b9d546e2954bad1198802"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/AutomationCoreWorkbenches.tsx",
+    "sha256": "68964e9c8fe869455a4404fe0c22ed4d93d0ac3c68834a007cca70d0804ab0c2"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/AutomationPolicyWorkbenches.tsx",
+    "sha256": "2d10261d7d80f88567f851afb08e16804a403348d7d336e4940156303f6150bb"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/AutomationRunWorkbench.tsx",
+    "sha256": "53873fd2249c6d6b55464e1859c3ea7e1fba059564b57915e5055dd2a7cd138c"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/AutomationServiceWorkspaces.tsx",
+    "sha256": "d3a8284dbcecb4db6ecb8d50701c250f16c4a4fe7b304378b5fda7c20cfaa246"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/catalog.ts",
+    "sha256": "cb6d1f5f601380a63a0cb6737548f8773c81029dd798ed5697ae60a6f9abecc1"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/model.ts",
+    "sha256": "4a6b3ffb830b17c8875a7556b78b642943d0695543237b7e674705ac5598503b"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/native.ts",
+    "sha256": "3788e7f1f4f98ae9da60f32ecbfc7ca60ed9bbd5ebf3aa2eca8e07bc6bd0ff8e"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/ui.tsx",
+    "sha256": "4fe5f8561dfbc12bb699c7122a4a8d589a757dcc7e304283969c859fa0f7539f"
+  },
+  {
+    "path": "apps/gemini-ui/src/automation/useAutomation.ts",
+    "sha256": "21c045bf4ece4356fea5b10d66b2b3361de7b7611e2fdd14f7b196c36becccbc"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup.css",
+    "sha256": "f72d3cfcc71be211fa29609172000a33c45aedb78841b9e30e324f72fbe62849"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/CandidateInspector.tsx",
+    "sha256": "5390853238e04a4d7d6c35dabcb858f939622a8ad9c532b8b29c1ec31e24a459"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/CandidateRegister.tsx",
+    "sha256": "f3a3eb23ea2d8549a932e1c2092b036d2b0011cc778e9205a1f67f09848c4a7a"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/CleanupHero.tsx",
+    "sha256": "7bc6bd0176e27d1d8615416d655f012b49c4b525e52c4b1884beb29e4c2be66f"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/PlanGate.tsx",
+    "sha256": "7b2445fa39df2785c7b961dfe4eed9a5bba431a9f60976cef63cb8900013459e"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/ServiceRail.tsx",
+    "sha256": "e7b65a7e56078f0d1975d6f6f9854f3a037dccd3908281e9ea7e35f5326f9a2f"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/ServiceWorkspace.tsx",
+    "sha256": "3dac8d584dae69110326faf91b469a5847fa3c73e6127e69c71e0847c70efcea"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/model.ts",
+    "sha256": "d4ae147c4356f0646b3afc21de13abf6d24fc3f1d02df78ac4d0828ded5e922b"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/native.ts",
+    "sha256": "ccb316f40f6af4e944a5860743bef8e8533ccd79e2621a49fc32fc2e3b0f8af8"
+  },
+  {
+    "path": "apps/gemini-ui/src/cleanup/useCleanup.ts",
+    "sha256": "a231406fb9f3e414c133c992a266a1be94b29e9f43c75fb72459c4685bccacd8"
+  },
+  {
+    "path": "apps/gemini-ui/src/clipboard/ClipboardVault.tsx",
+    "sha256": "39ee80f9fa786a20f1c7464a76066c99d3e261ec826b459c8b45492523152ee8"
+  },
+  {
+    "path": "apps/gemini-ui/src/clipboard/clipboard-vault.css",
+    "sha256": "b8751d5b19575e5672c15bfcb241af9b8ecf2dc528f980af3a545f60eaf3ee51"
+  },
+  {
+    "path": "apps/gemini-ui/src/clipboard/native.ts",
+    "sha256": "5ae344d4eb3a6ef462a6e80d1c773f5d9b24f761448c289c35ccf7000d6a8930"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/app/AppIcon.tsx",
+    "sha256": "3366ffa9a37593259aed053fe38f8b8fc65e030d6c446b99f3396a3c886fedee"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/chat/ApiKeySetupModal.tsx",
+    "sha256": "c41685af8f5f0a6478e905ee5f3347e2ce2dfa1d2427c21099f538db7a50f92b"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/chat/KNOuXAssistantChat.tsx",
+    "sha256": "ddacb99c2d9f0eed545e39eaf54782e87da1f4e1b3f5db82acbbc79b6c46f58f"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/common/DesignPreviewModal.tsx",
+    "sha256": "76d2caaff03a932ea91dbd2da0b51046a135e9f728cf5feac1f8de55a6f7a067"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/common/ServiceWorkspaceHost.tsx",
+    "sha256": "e01b1fde5842dac031674bd9c2685ffe9cec7a9aeb7c8dcddbc0f9b0170c767c"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/files/FileIcon.tsx",
+    "sha256": "156955075ac7bb4165c2bc8754a9d35e4555f6862d5b6314711ec445b0e719e3"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/files/FileWorkspaces.tsx",
+    "sha256": "53f9298eef47d2bdcdee59d76c18ca6b5a1a5f777a1aeb46780a39bb85bd23ba"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/ApprovedHomeScreen.tsx",
+    "sha256": "2fc50daccbcd63aeae619d7c0a6995a7bdf81671286259e3f0f6944c4ca03c33"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/EarthHorizonScene.tsx",
+    "sha256": "6ae01e32ca44db839bc35aea0489e1eb05c9ddf0e60984d802760756bc1e48e8"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/HomeCommandCenter.tsx",
+    "sha256": "713b2f4a57bd8245872218de0ca486a15033ed5a4221d75bfd719d9a11697514"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/HomeDashboardPanels.tsx",
+    "sha256": "fa4376ef41da97d65f5df8750b20fb14cb82210a980be9801cba1fab61780094"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/HomeOrbit.tsx",
+    "sha256": "33ff1d13931ee953ca17bf096e0046c318213f4008a4df8acc98a8e9349a1931"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/RecoveredHomeOrbit.tsx",
+    "sha256": "532b4253023b4a91b912b66e6de0433f21ad804a1984a0bd2e664d41f714a3d4"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/approved-home.css",
+    "sha256": "002c912eea838dcf91110c7b640643a864338b6159c43171e4555ea505753a48"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/home-command.css",
+    "sha256": "0173bcd091240a72af37f8fd64a2248247a7aec0700cee0e29de0c9f5a476f09"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/home-orbit.css",
+    "sha256": "29234705e0e2a8b5514b82f42ae11d20702ba81143d047e409033defe2e7f164"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/home/recovered-home-orbit.css",
+    "sha256": "6bd79ab9fe64391d50d413a7f980cbf0d04407d7d44c1ec1cd5709a456093a25"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/renderers/FamilyRenderersOne.tsx",
+    "sha256": "950e4ef2a13217f75a2ef2d574c78180610b7698dd6573799e700cbde2b1978b"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/renderers/FamilyRenderersThree.tsx",
+    "sha256": "64679ce083c5c2eb0e0f8ba243b5c8d8268f99a8bb4b884003c3dfff8c865a44"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/renderers/FamilyRenderersTwo.tsx",
+    "sha256": "23e87d4a61310eb8e1f91fe88a4954239b65c244ecdfe9badf667731712540c0"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/shell/KNOuXShellComponents.tsx",
+    "sha256": "c6a06de8aecda4954db4fa92636946c530aa312a4cd34f21122936c7af5a31f9"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx",
+    "sha256": "6d6cc60617c857ba4769a434804d22bd53e2483cfd25ddec3d8a4c781e41b3ac"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/storage/StorageWorkspaces.tsx",
+    "sha256": "f0feff5cfc0f6f64b6e519b0576ace54bdd1f5cc9ef802d169bb633b034fca1c"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/workbench/ServiceWorkbenchHost.tsx",
+    "sha256": "3b47108669f3d1a4ca6ad8da6218ba67a8bbb8a4f5461ebf1f4330373c076e10"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/workspace/GoogleProductIcon.tsx",
+    "sha256": "768f1e7f785456beae4d58a3fbe7ee043cc56ffd27b4d60ef67b0dd03444aff3"
+  },
+  {
+    "path": "apps/gemini-ui/src/components/workspace/GoogleWorkspaceHub.tsx",
+    "sha256": "cd91163a4ae62229a47d1725db45c3f5ce6769a14caea79270b4c0bd63ad8319"
+  },
+  {
+    "path": "apps/gemini-ui/src/context/NavigationContext.tsx",
+    "sha256": "23f0c0ae274cba8b84660ff05802406d2365614746bc6ec9508769ab4fbaa7e9"
+  },
+  {
+    "path": "apps/gemini-ui/src/features/cinematic-entry/CinematicEntry.tsx",
+    "sha256": "b09d0e632ea2a72e2de0f250a328d415a90dbe5fb75be4f4afe81bb2736fbf8a"
+  },
+  {
+    "path": "apps/gemini-ui/src/features/cinematic-entry/audio.ts",
+    "sha256": "19d9eb7d1756f7f88dd2cbc91b6d740a326fccfcebd6c3217b620b6fd599fa69"
+  },
+  {
+    "path": "apps/gemini-ui/src/features/cinematic-entry/entry.css",
+    "sha256": "269477e16309041ef9a0b6e42a03858eef82fb160c5e5e258674f3984f035074"
+  },
+  {
+    "path": "apps/gemini-ui/src/features/cinematic-entry/model.ts",
+    "sha256": "0961858b5497cd340e2073cc8bd64678bd0432292b15484e54b4c08262d1d3eb"
+  },
+  {
+    "path": "apps/gemini-ui/src/features/cinematic-entry/particles.ts",
+    "sha256": "a8c049072e03b4e0eb7df3c9a8a54fad8d52278dd1049179f803e273ddddf684"
+  },
+  {
+    "path": "apps/gemini-ui/src/files.css",
+    "sha256": "9ae710037e28915db82a4900d59d192fa8ddbd17cf4d7f33a9cce60790678543"
+  },
+  {
+    "path": "apps/gemini-ui/src/files/FilesNativeBanner.tsx",
+    "sha256": "f324cd0b6573c3e2e9efa5c79f4447b778455fe2c49f9c00f249da695dc61cd2"
+  },
+  {
+    "path": "apps/gemini-ui/src/files/FilesServiceFocus.tsx",
+    "sha256": "c1e229f0f317a2bafd288a3365c131603b225cebfda84a456ce6a44e752a002f"
+  },
+  {
+    "path": "apps/gemini-ui/src/files/native.ts",
+    "sha256": "57737478ab0f5a71cfd9071d5e51e0fd3d50fe8aab5bbd77b9422594de917cb0"
+  },
+  {
+    "path": "apps/gemini-ui/src/files/useFilesNative.ts",
+    "sha256": "78657b52542a963db8a95ea9d05c41225de34767d0d04966900d3e13761ac6cc"
+  },
+  {
+    "path": "apps/gemini-ui/src/home-command-center.css",
+    "sha256": "d7bafe6e2739e904a22a66a86167567a023c27cd34ba0e1a5192360dc053b92e"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/derive.ts",
+    "sha256": "6f3bd3281a1dae45cb5ded6bd8bdd9e7d0fcf24cc2da84073d415cbc20c3f422"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/live.ts",
+    "sha256": "7bc9eeef61ceb9fca92d27cff6b72b25941da8a9dc428c07dcc014ab46a1ed1e"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/native-read.ts",
+    "sha256": "f0aa2f5eed61ca107d8936c4812b35545c822cc32f1dc6e7e5d9cc95fb8b1721"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/provider-result.ts",
+    "sha256": "e94a43661c9ec99119009082a27e4b5cf70a26148e869aa5537570fe22953c7c"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/search-history.ts",
+    "sha256": "90a3b2de2e802549a26f13ab5d09d6cf74f09f203462ccb764f13c4a3c5f9d2c"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/search.ts",
+    "sha256": "bcc355eada6665959b97e4e0e8ff322c4f4db1e801ab1ca373753563af0bdde3"
+  },
+  {
+    "path": "apps/gemini-ui/src/home/snapshot.ts",
+    "sha256": "2472ca164e71d2b830651c9417cdc1cdf880e7c2ee04f37789ec354307b3329f"
+  },
+  {
+    "path": "apps/gemini-ui/src/index.css",
+    "sha256": "546667ff6649e60c52b255e9f5404bbaa624718077ab7d93d9b88d4f1428b41c"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/ai-session.ts",
+    "sha256": "42dd969269d91764da855d4f3b24dbe5660bcdebdea62b933316f485ed0830e6"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/app-inventory.ts",
+    "sha256": "2204cc549d26a80afc3f2227eb8da6b79e21aa1bc0b152a31c9e4161f7ec9893"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/file-inventory.ts",
+    "sha256": "b66d8d171658bcb8d711d3ffa32bc4b20bbb2b9041f96690a336310e7d862124"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/fixture-thumbnail.ts",
+    "sha256": "f87c418f5f531a6b9e5d72a88f6936b9da9ac7627ae800908b51c4786c88ebca"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/home-ui.ts",
+    "sha256": "de8b8b120c219ecac6440e08875a147fdbf9b858460e238b1a0b0f1d10c7c1b6"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/service-ui-renderers.ts",
+    "sha256": "79bea70640e9d7708b74b3bc3c87ed35673f47398799c57a3bb801d5bae9ddf0"
+  },
+  {
+    "path": "apps/gemini-ui/src/lib/storage-inventory.ts",
+    "sha256": "01fdea2c048169c0749634717687d111a9c0534708c191d9893cf4a85a3b9761"
+  },
+  {
+    "path": "apps/gemini-ui/src/main.tsx",
+    "sha256": "47ae3e53e64c565ee24467e34ec314be9b42a56ba76b02ced3bd8e923675b43c"
+  },
+  {
+    "path": "apps/gemini-ui/src/native/NativeBridgePanel.tsx",
+    "sha256": "72e8e9100224c76ee33306c2798194ab037d7e96f5d4efc9fff8d5c3207492dc"
+  },
+  {
+    "path": "apps/gemini-ui/src/native/client.ts",
+    "sha256": "23c5d78ba7b9259baca71e190e55d22fb6d1e1df3151a533c448a0ac3e61f139"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/OrganizationFileViewport.tsx",
+    "sha256": "8d8c5fa610d47a02807490cd649d0dd343dfe6bc143b490bdf755bbfda3de686"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/OrganizationLiveLauncher.tsx",
+    "sha256": "da5cc0225af7bac5c06217a93658599ccab2ad43399062376a030d7f58332f27"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/OrganizationLiveWorkbench.tsx",
+    "sha256": "b82fbb77d0d2f6ce7f32e68735c9713a12aff8f968d81ca6260b6cc0e6660675"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/OrganizationStudioFocus.tsx",
+    "sha256": "53234b0c210fcea5fa846f05b48253e39743bbfc03d2e7408b24bbc538d84fc0"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/OrganizationStudioOverview.tsx",
+    "sha256": "e4ebb28b17edd5020635835e06b9f6988b905c6769df5775ddb425ccaf447ad9"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/OrganizationStudioViews.tsx",
+    "sha256": "d00d5efab0509fcd115b1b7050206eba3db8419d8980d75bd24d7840350bca4d"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/StorageCleanupLiveWorkbench.tsx",
+    "sha256": "373eb13382af37d51c83e3ce0fb67cc2876068c9f84face8d9cdf18d04a07447"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/organization-live.css",
+    "sha256": "7debec6e32838f493d2d26741821c0266e5b7fa1adbd17bc5b0316411850c103"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/organization-studio-model.ts",
+    "sha256": "ae853ec2a829804b49fab83ac615318f86d8ef93d31dfb4c323d61d7cd97c61f"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/storage-cleanup-live.css",
+    "sha256": "a196498cd1f528eb553f5106c5e421f63b868d34cc4da4330224d22f287ba3b6"
+  },
+  {
+    "path": "apps/gemini-ui/src/operations/studio-approved-overview.css",
+    "sha256": "41d024af5b09ea9bd1070de0529de8fb2990761acc010a161ffab0ddbee780d9"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/ApplicationsPage.tsx",
+    "sha256": "14b634b0fe661d28f7a1d401b342d139883ed11dab95a198ea372dd2c839d633"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/AutomationPage.tsx",
+    "sha256": "87fbb8959f38dc5239ebafd61d605ec1e7724e14f00f5b5336dec8df031b8057"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/CleanupPage.tsx",
+    "sha256": "903fb91554325ded63f5ff8f904fbf75c22c12a56b1a4e0e578e6fb7fd57c3f3"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/FilesPage.tsx",
+    "sha256": "5c9f4fc364eb47e2573b68db797b8cf6bb68941e5fdc5a285d3e3c487d5bf31d"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/HomePage.tsx",
+    "sha256": "1932e3e83a4dde8ee9ef1a1f93e77096f4ae4ae0937cd0f6848a6eb7e99b5df3"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/RepairPage.tsx",
+    "sha256": "add4809b3e0d017bd28cebe5de213a5e752feb1eee5a7f0d4b4c0260ebdbe5a2"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/ServicesPage.tsx",
+    "sha256": "21e38bb80ce72e55fefdc6073b357995dfc157d681be31ce0b842143e90e50b2"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/SettingsPage.tsx",
+    "sha256": "0d4c45605cad26f24e22d14c5fab9dc3badaac2ab7a27c5ce8e91bc3f814067b"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/SmartScanPage.tsx",
+    "sha256": "3f74df78e322cff2caaa5a47e86dacd02e279d00245bb8f21e3a8d775732fa17"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/StartupPage.tsx",
+    "sha256": "8c2f234b1f9ba74e65d892306ca6fdc15ec2e1f3a5460c797a45fad5b8f9d910"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/StoragePage.tsx",
+    "sha256": "5f8b56231a61b8e8eecc5de991ee2af21167c75b45578ae7c102807604ae9d50"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/SystemPage.tsx",
+    "sha256": "f478945322450c0c3e7c7f611341ce244333d82ff6cddbf05e051c1abcf93b49"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/AutomationPage.test.tsx",
+    "sha256": "ea8314970226c9b9718c1d3b217b89154bed7e551f1f73b9c5971b586851514b"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/CleanupPage.test.tsx",
+    "sha256": "e3c712f13e98fc916c142819c0534aa58cbc5c3cfcf7f0c416f0b09e5287b158"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/FilesPage.test.tsx",
+    "sha256": "a72b7e0d81df9650e985f79aed4b709a4a7cd86dcd16a35003473bfe9987da2c"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/RepairPage.test.tsx",
+    "sha256": "a2cd2dc287a24d3c5ebaaef93081c44a41c6a17a2d3f748d16364a11ba6891c9"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/ServicesPage.test.tsx",
+    "sha256": "53fe38a32aff37b5b3507635fba5387acdf4d52fb15d2b7712f94746dda62864"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/StartupPage.test.tsx",
+    "sha256": "8a9dfb775ecd73e2275fe86ba57a76fe1fce51d36d731fb6235a85b3435d51e3"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/StoragePage.test.tsx",
+    "sha256": "5717e8b169fd9bb49e5b40cbc1dfe58fa73e068ad482998b90df815d44497860"
+  },
+  {
+    "path": "apps/gemini-ui/src/pages/tests/SystemPage.test.tsx",
+    "sha256": "1bfd995b45cd849a4a414c783b4b02622f3cd81ae8b5497f3fa989d8288a56f0"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair.css",
+    "sha256": "25e32ea427a5215e4eecb08708df5e0d41480c6c9972a3ea53f22325ee091e45"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/RepairNetworkWorkbenches.tsx",
+    "sha256": "063554fe0a2b730bb85eca84f917c4c80298ded74da9820bfff58fa4206fd717"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/RepairServiceWorkspaces.tsx",
+    "sha256": "85bbcb6c2d65133b1265f3d78e44fc43e90d5aeeb02931b456b21c2ada3618f5"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/RepairServicingWorkbenches.tsx",
+    "sha256": "38e762162183df9bc92bde84c9cded1c48f426d80ddf71b920f9186b33db0e0c"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/RepairSystemWorkbenches.tsx",
+    "sha256": "b12b4e374715d397e3239885011906ce0ac561f3e69c241dd8f5b5566e43c5bd"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/catalog.ts",
+    "sha256": "756109a735773a84b91359219dfa2f3bfc9fb4ee0bd7e2381296521575845933"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/model.ts",
+    "sha256": "3b2d7def011d8ad55e43ab564907135685f14e841cfcb23624e1d5b92eb6f9e1"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/native.ts",
+    "sha256": "d789b6bfd1fb8fb1140c07f51988fecf09222669e86f669df6ad8e3eaa9d0ab8"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/ui.tsx",
+    "sha256": "8afd077c94728f02d54cc61c5082e4e22fd465a3c4d5703fe99518b0b5710545"
+  },
+  {
+    "path": "apps/gemini-ui/src/repair/useRepair.ts",
+    "sha256": "adf87a3aa60df562081e4ce725a61be898049a24dad97867b51b7ef0450f4391"
+  },
+  {
+    "path": "apps/gemini-ui/src/scan/native.ts",
+    "sha256": "1aec6ecb0f68a432be8129d024424e303231cde8dab69dd177cc8f1085e560a0"
+  },
+  {
+    "path": "apps/gemini-ui/src/services.css",
+    "sha256": "cb104ac7db47f0f038a432a557b3f3a6fcb87beb834cf2b83614ab4f9549d65a"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/ServiceStateWorkbench.tsx",
+    "sha256": "21b3c62beb8bee8584aea3dc13bf86599d362d7b2bd0db511464848879dbf51f"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/ServicesAnalyticsWorkbenches.tsx",
+    "sha256": "21904d98b1bf0006501f28b0b64ac841e925d73342ede4bf66e6f4018afe71be"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/ServicesCoreWorkbenches.tsx",
+    "sha256": "4a6e90b8cdcd80499727c5f07a7ccb55d9297e1f48688ceaddb401b8b8dfda74"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/ServicesRegisterWorkbenches.tsx",
+    "sha256": "f8ee779d678b8895b9a37d9cd6a80b4624421ecebc668590822f3ea0bb21edc3"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/ServicesServiceWorkspaces.tsx",
+    "sha256": "9cc2de1006121aea114683163c0f811d81ca3ad579688aa9e8b6ff90ee964f9f"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/catalog.ts",
+    "sha256": "0fc786aa8052e216f6fffe1ae2c87085b18ec8d801436560826e5c08eba48006"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/model.ts",
+    "sha256": "5051ac8102d25e7ea9dc0b8b5e2f77805e722b5483348ef2853ad8a7cdded62d"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/native.ts",
+    "sha256": "4fdb0a8405a49c82060bd30507958007b3a22561fc7588adf09e8d691387ab44"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/ui.tsx",
+    "sha256": "ecedafb5eb65380e8032d2728e8d72dd6bdff65b7675e7d9b70f7ff3b94fdc36"
+  },
+  {
+    "path": "apps/gemini-ui/src/services/useServices.ts",
+    "sha256": "04521d4c04ae6f6e849841238f33c0cdda66b39e39c9d8ee522f002d7658ddf7"
+  },
+  {
+    "path": "apps/gemini-ui/src/settings/profile.ts",
+    "sha256": "2bf49dd3de3133f1f810f9cd02fedc490655f7696d769d510e3dc0875d74e8ef"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/FindingsBreakdown.tsx",
+    "sha256": "0a54c8919437290a3e9c8dbf9d118256ccd81294387184424d0f793e0ceb8570"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/RecentScans.tsx",
+    "sha256": "0054e9cee91dcc82eb32dc7a90d468f6fdd0a87b3779cfc525217f76ca58cfb0"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanCommandBar.tsx",
+    "sha256": "223a97e75ff0306d42636eb9b02f7841a9e4e591108067212899e4dcecee072e"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanMetrics.tsx",
+    "sha256": "5be6c0a7a4693d62349ecfb2a18797bb366dec483751ae618428482af71712de"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanResults.tsx",
+    "sha256": "1985fc44e1a02d91ee6ee2e06be5d9a24daedd9e6dbc356e9ac6be7e7eb73a2a"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanReviewInspector.tsx",
+    "sha256": "2a28bbee048430b8fac5229a3c302c254848f075c0ab5a51d26ebaa8bd654b71"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanServiceWorkspace.tsx",
+    "sha256": "9d4423721fe45eec098b081d048c74a3f5579fb0c90a7dc8ade12a823e79a4aa"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanServices.tsx",
+    "sha256": "1f11c399c7f7e48750e06dc69a9e2da840f735077f5353b62164371404322547"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/ScanStageConsole.tsx",
+    "sha256": "dec51efe0bec5f2c55a291749d4965a4280b4934d9ee7b8bb4015d16eef967ce"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/SmartScanHero.tsx",
+    "sha256": "c25461e2f7aec918c0224adde13700681c98d5997c22f7734c26c8a83d119037"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/SmartScanPage.tsx",
+    "sha256": "afc6c6b87af02e76dd095a1895da2815cbaab802c4236f81ee8afaac373d7e59"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/model.ts",
+    "sha256": "b1db36c49a46982de04210a65f382f12b7254b08096ce33a305b96e6f69dd46b"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/AppHealthRenderer.tsx",
+    "sha256": "f6d65a38808a1fb2da9493c6134bbf2636813f90fe1ab216e5a8b3b9e27d5e6b"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/DeepScanRenderer.tsx",
+    "sha256": "b5f4fa1f56e9ea3c3d1fa666824088382bddd4dcaa29ac0c88b4eeada2ec0cc6"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/DuplicateFinderRenderer.tsx",
+    "sha256": "9a83478db65d18bbca5472e730dbe6142cb05a00b5158a654f3962f5a341a1d0"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/JunkCleanerRenderer.tsx",
+    "sha256": "f851720950f859f834981532dd54fbdf046556135f04260f3c5ea7877249981a"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/LargeFilesRenderer.tsx",
+    "sha256": "ae84b7609909f9135e262fb03b907b123ad9bb5ec275ff9d2b1790e284bd0a39"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/PrivacyTraceRenderer.tsx",
+    "sha256": "45be534d0be474a2e937e4e5b9e1bbcc29878c0a46de3d2cc53fa308ac26e6d4"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/QuickScanRenderer.tsx",
+    "sha256": "d672e5e46049ea540ef34eab8ca752f6aba852eee184bff8336f7be2dfe402a9"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/SmartRecommendationsRenderer.tsx",
+    "sha256": "7af735c0e28e9fa510e0c769761d02a3311b3ce92b6a4a12ae7f2492054b5995"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/StartupImpactRenderer.tsx",
+    "sha256": "66ad3dd04c7d16b4a743c9159b7c1a451f1cb4e234378f1665fb1d063a44e197"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/SystemHealthPulseRenderer.tsx",
+    "sha256": "4c7b061beff700f60eb57a5bc0b2690a64a30afae0d71410b05eee14dcd18726"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/service-renderers/shared.tsx",
+    "sha256": "152bf998886f28f073890bcdc98c7a226bd3996e9bcbade7cc28df99b0741a5a"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/smartScan.css",
+    "sha256": "ddfee18e72bbc4baa2f4685c02283e1c0e67bfd6902a3b60ff613e38da84c1a4"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/smartScan.types.ts",
+    "sha256": "2db4bd9f3d2a87460496f9f9b081da4d4ecd2bb0b90236cddd86234bfa7b7642"
+  },
+  {
+    "path": "apps/gemini-ui/src/smart-scan/useSmartScan.ts",
+    "sha256": "ab41901fd8dfde6e2e222182d871ce937f9a94b2d36446e5b4786fea143394ac"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup.css",
+    "sha256": "4bbfe754b13c6bf9491e4a7cbaf28b3d6f16d2f26f1d7f5a3356c0d8b4d01475"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/AutorunInspector.tsx",
+    "sha256": "469071ccc6a5481a6adf9ecdc8c6f13ee53fb435a500f14a56e9ebd9cde7a1ce"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/AutorunRegister.tsx",
+    "sha256": "e295da02a981917dabbe4f1f1e34f106f6dea9274138679c7afd4ab16b1710b1"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/PlanGate.tsx",
+    "sha256": "a620580d625bea82b2ef0f1264572f91d265cf05121a7474e0f85c4c65fcb489"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/ServiceRail.tsx",
+    "sha256": "00e5c478342333cbc4a5a67adfd7554603257882e8dc9d8a568bbd955a9a8645"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/ServiceWorkspace.tsx",
+    "sha256": "d7b906f51e053e33f54770437eabce2553caf27bbbd382a1982db22236ec2bf7"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/StartupActionWorkbench.tsx",
+    "sha256": "27cec298f6a79aff4d83de34859180aa419e25ad20eb8eb3b9cc0eed639a3e99"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/StartupHero.tsx",
+    "sha256": "ecc17d5dab488d344ba0a441acf0c09aa2e857fabcbc4f1e16d5ab4e67f0d400"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/model.ts",
+    "sha256": "b9e4980f8e28b565782363fe7eff77150c3d3556b802616af964b01f85953c9d"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/native.ts",
+    "sha256": "767e3f5207d6f86217f0b0ae3a658b255c1c47377c2a050bdf85bc30d2bf4d51"
+  },
+  {
+    "path": "apps/gemini-ui/src/startup/useStartup.ts",
+    "sha256": "5171de70cddfda52a54372db7edfaed18c0da99ae6acfffac153c92c95ee79c6"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage.css",
+    "sha256": "53f919fff9553a74b9df83e7787a36db98bd6163b9c038afa316cb87af91309b"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/StorageAtlasPanels.tsx",
+    "sha256": "915ad15e69f7ca47b9e33c07cd6b76e99236fd4255c57c74ce331a23d299ae6e"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/StorageBanner.tsx",
+    "sha256": "f253b437ea3a8121c591c28f4bdf838800514105553a719637a8a550033bf6ce"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/StorageServiceFocus.tsx",
+    "sha256": "37f3b9d0076465aa2b94424be656a095b5f2eb5b8452718d67c32b6b6264f028"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/StorageSpaceMap.tsx",
+    "sha256": "35ca2869ecb7000c8f17af07d9ea671fb0f00cb2fc0da040657cd9236a912052"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/StorageTabContent.tsx",
+    "sha256": "5cd996d962f6e97e08624ff920c4f0beec60b9aba692372cc2c948bbe1528890"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/atlas-panels.css",
+    "sha256": "1b02ac3b3adf8119dae072b2f3b6719ee29e8cc1396fe71a46fe915b9a1f3436"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/native.ts",
+    "sha256": "4f5126519364f2c6fffc2bdfef9fc08a8915ba400f7961e9bfa9d071d1f07bf7"
+  },
+  {
+    "path": "apps/gemini-ui/src/storage/useStorageNative.ts",
+    "sha256": "b708fd1909e342e09193e760166b6cb925c04b9a3fd5e8ba66e6a72f2101f132"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/NativeStudioBanner.tsx",
+    "sha256": "08cb90eccf904deb21cd02898e2e732d85d60b8dca18b2fe7c91f835662ea097"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/StudioCommandCenter.tsx",
+    "sha256": "df10da2c6db409699faa1965e6314ae6bb76fd89ce496451007d00b6360983c7"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/StudioPage.tsx",
+    "sha256": "c9dc872318484025ef53ae0e94f5410d4e098e3e010dc792e7903a8c09668949"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/StudioStageContextPanel.tsx",
+    "sha256": "e10e425013f8104bae63dc9dc902b2e7448584008c1fb4cd3fed04e0b4211727"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/context.tsx",
+    "sha256": "3537a5a92f0f8f1ca05a0c1c90ea64d5e2b6983fce751aa04393f13b9365713e"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/mockData.ts",
+    "sha256": "245833405b587022a569e00bb69bfcc42ddb87d27f4f6cf9d4411e2e88082b2a"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/modals.tsx",
+    "sha256": "44cfc00dfe2634d8a46531efe151e720b17723ca523f3ab392a4cb9b82fa15f9"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/native.ts",
+    "sha256": "bf90dd41c9bf934604be3a5fc8ca14f2fd136e6b823691b94c04c8c6c719cf50"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/panels.tsx",
+    "sha256": "6f09d158c291ea673856d1d3b2c75fc3de338b0b2ee39ceea7031a3f26a2935a"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/parts.tsx",
+    "sha256": "1b144d3dcf3b182b5712fa57ae4c082b060a6891cf6f48685a4dcb02bd4497fc"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/studio-integration.css",
+    "sha256": "93db11c8794bad889a0a6321b8d266526b7b473e22f8ae1c46aa3236023c7f5b"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/styles/command-center.css",
+    "sha256": "fc733e2c410e685bfcfdc277ec01a1aca42caade3ad4d7a2cdb7a87fab6a82d5"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/styles/studio.css",
+    "sha256": "bad7ec804049ad1cd26da8b32078110329e4bf7bb77f916386f2ee8239950ff6"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/tests/StudioPage.test.tsx",
+    "sha256": "0f14790723836c4c6e7236f95c5906ab45489f9fa2c8dd2dcaec88071ad5e94e"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/types.ts",
+    "sha256": "07d21eca4262d09ea8d8fdaf7edf81945a8537e9930903698c0868c6058b9598"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/CollectionComposer.tsx",
+    "sha256": "52cb6ea218a21baffaf18461d2dc8a3a0d9b8e368019d044c5a61694ae5068a0"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/DestinationInspector.tsx",
+    "sha256": "aa79fd26f67503e160c8d0f726475dac8b3c6fd8a8973e5b3a614391183c5e3e"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/ExecutionMonitor.tsx",
+    "sha256": "312fe77617a7b20095d032453ada7fa321b64ea5f6f273c942e35ec9b995b1d2"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/HistoryUndoInspector.tsx",
+    "sha256": "31483f1fd672857e4dbb3ecd764aea2140c80defeeefe67623fc5c2ebadbfdbc"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/OrganizationRuleBuilder.tsx",
+    "sha256": "cb927862638bf6602f447c45851e2b0a8f8c0f1ba77e4181e518e7985d0399ca"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/PlanReviewWorkspace.tsx",
+    "sha256": "ac4d7baf07aeefbc567477a13ba0ea75ae41418e13f9802435392df5d76aceff"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/SourceGrantWorkspace.tsx",
+    "sha256": "d019fec5cdb25188f17cd1585fe8a30cf491103788997adc89b90f6d90b5268b"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/SuggestionsReview.tsx",
+    "sha256": "eacd8599bc31a819b527552f89aeabf83e9224016611d16827d0519688641e49"
+  },
+  {
+    "path": "apps/gemini-ui/src/studio/workspaces/VisualLibraryWorkspace.tsx",
+    "sha256": "f54f501f0885ae4c62e0940ea33e8684328bd9192f09400d0989d8f0ddd4715a"
+  },
+  {
+    "path": "apps/gemini-ui/src/system.css",
+    "sha256": "c93fa43a1b0ceae9c405626cad527ce2149ec599a5ed8e00617d5f3e48d8ab1e"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/HardwareWorkbenches.tsx",
+    "sha256": "5c38bd5f0300463d38751e8d0d9287b66c3084c3c1e0cc8dc1ebccad39a7563b"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/NetworkWorkbenches.tsx",
+    "sha256": "5032e6836edb2278f457017570921614dfa008cf2f1323a45a2c523ee566ceb2"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/SystemServiceWorkspaces.tsx",
+    "sha256": "447953f75f3ac03ab905ae44d11b67ef698a4c9a30f1ec13e22b32e9de84213e"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/SystemWorkbenchesA.tsx",
+    "sha256": "f80ecb07e23281461c6dae77b5509e1f7ab0290299b3b68713f64187e26bb344"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/SystemWorkbenchesB.tsx",
+    "sha256": "6abbc6355ee490757aee72ddd8da47c15d02724720b73d29b6d3d784872d5d08"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/catalog.ts",
+    "sha256": "e2c37990179cc1cf88bc8122ebd6cddae34dc9c728ef755570c8dac7e3b6105f"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/model.ts",
+    "sha256": "c45f15daa4f652c84df7dd219d3adec8cab0cea4081e9c2c8bafd4bdc7e30a37"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/native.ts",
+    "sha256": "66ac280be8d7a3f51bba31a8cece4c0f3503f677ed9f89bf427c9df0639eecd8"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/types.ts",
+    "sha256": "ea1b249e27ba6fb49092506d7e5284ae0e122676c9e57089aaf57b4fe5960339"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/ui.tsx",
+    "sha256": "71be40f916070cfa054c909bba177cf60b3606c4d665dda4c3fa250f4d334c59"
+  },
+  {
+    "path": "apps/gemini-ui/src/system/useSystem.ts",
+    "sha256": "8947618ba57556f8d71156ae18b7eb5a9eb5eba28e1ddafd10f0da1acc62c831"
+  },
+  {
+    "path": "apps/gemini-ui/src/theme-light.css",
+    "sha256": "2b5c14a5213940231bdb0e695f659a5fcf9e7e71f61ac6dd0559469108fbb675"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/CommandCanvas.tsx",
+    "sha256": "5851ca36e14441f595c1927662264a1caafac2efdcf41b784d9777fd8fdf347b"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/HeroFeatures.tsx",
+    "sha256": "bdbc749eaab2319c970dc6a3ffb3f89c287803a3924747876ddfc3c084732e65"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/KnouxOrbit.tsx",
+    "sha256": "0b189cd92b30fc2c1255416023579257bf0b0a557fad50e8435a5c0ac2bd2342"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/OrbitParticles.tsx",
+    "sha256": "4231c1f654dd487a8a441e902be34ad08f6a66a428103710b2fe1bd218e99437"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/OrbitalControl.tsx",
+    "sha256": "5708c0f0791472686ae596dd387c4982869fac598b8f7d96a5b96ec9412884a5"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/ReferenceAtmosphere.tsx",
+    "sha256": "795864bdc382d75ae843ee12e6f2e82513d91430b32ba811a27ad489b8e5ee72"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/ServicePipeline.tsx",
+    "sha256": "df82c89adba7a8a97c8d392dcca2b75da5187b6e14e18d5e34a034461eba6ada"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/StudioReferenceOverview.tsx",
+    "sha256": "67735fd298c322ab0e6db90329699e3739c87909ec4097598a647503bbfd5869"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/StudioVisualHeader.tsx",
+    "sha256": "e8b95765b3ad6fd6743f9d683faab2a642bd567b4ace072dd187666568552c66"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/apps-reference.css",
+    "sha256": "f0c85549f7c2c004d674e22c7ebc9e61311481144b8f5da04e163cbc0b0fff5c"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/apps-visual.css",
+    "sha256": "7ff24cc580875359b67316de27102df9298e60bcd7753fa5a87fe94136830ba9"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/assets/knoux-circular-logo-day.png",
+    "sha256": "c02c3ba9e83f297dd86eba38a1ee2929685d3a105d9a9a63e726933d100d0feb"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/assets/knoux-official-logo.png",
+    "sha256": "b0c4ff253bc7b9985f9f855050c4cba7dedc544760c571804263989fb9d86d1c"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/assets/knoux-portal-mark.png",
+    "sha256": "7ac5cb51748c3c417e08fab90b9ffd9e922384c76cf8251592064215081dba45"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/cleanup-reference.css",
+    "sha256": "9407278c0a7ff39f10039c6dcc5808a58a215bac4a2395475ee6b1a416ac430f"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/command-canvas.css",
+    "sha256": "60df863a32060af877625d1eb4b16ec3e36d2964250280bd5b899088d0caea71"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/design-recovery.css",
+    "sha256": "8d47e52341f8b5357179a4534ba123b0b129f3a204584afe72d688a99dd89e2a"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/files-reference.css",
+    "sha256": "84f61a6b1a0955484d0d41981d90637d91ffebd565bb069ab7f1eaecafe55ea6"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/files-visual.css",
+    "sha256": "e9151323e501ef713f3ead1effbcbab324f4e2fb24ad37f9795b2ffbc8571fb8"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/home-reference.css",
+    "sha256": "8e496fd0d620527c3b11622abb59e1edec06a64af507ebb54722b30a0ea32da7"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/knoux-motion.css",
+    "sha256": "1f46a6ffee80d8020ad1bab42ca4b6a4d6390ffd0b5e972050d247f58246c54d"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/knoux-orbit.css",
+    "sha256": "a5f9c4b5cea062fae5bc9c29a96d5e12eebbb0acf2b9436b0c9e4c257445ebcc"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/knox-glass.css",
+    "sha256": "a8e42f94c1a9d3fe32ef5baf8758070a27e54d969bb5d34f5dcec01d5bfa7bd5"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/knox-night-bridge.css",
+    "sha256": "5440a31139189055f1a20d8c015f6543d70335d15fcf12dff563527662a7ed2d"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/knox-theme.css",
+    "sha256": "d1f686f3a20c73bf4fb95c800656a820c97cdcd43b668e075a338422ea9cb5e8"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/orbital-engine.css",
+    "sha256": "7236860fac58ec6c1ecf6a45cc07475aedbb837682930cad0beda1cdaa306d92"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/reference-controls.css",
+    "sha256": "372e6a6eb11cda8c123d240d1903db52b1a8498a6705a3d5535c1d0930a7283d"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/reference-polish.css",
+    "sha256": "8c250ab87e8ff1be28e331185fbfb59218e44d7cbc0910e06c8ecc9cce4a9b11"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/reference-restraint.css",
+    "sha256": "067ca9f3e98dba2d83e7f1e77452c03c6b4562f9360a44254791b693501efa58"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/repair-reference.css",
+    "sha256": "7c31093506c4a8608d7393656e879a62378c34567d08568d334f9fb6c596e957"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/scan-reference.css",
+    "sha256": "05658b0bcb19a421431529f6232db2b915e17f55feafa49dda32bbeb65f4b86c"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/scan-visual.css",
+    "sha256": "cbb7b7af5cc3271a19c6ba3dcae5369543b1ab8c4d36dc8175942025c9461077"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/section-fidelity.css",
+    "sha256": "caf246b7adda82e1dac24023c52c00fd1745116b08937e9c5d75eaa59859f61c"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/service-pipeline.css",
+    "sha256": "1f6d481e31c7fbebd575b885e25c340a195294ef5ca764e03d78635f9a5279c3"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/service-workspaces.css",
+    "sha256": "c0f9982c63f8d15db514106ef2ffecba97d62d8fdf902f0db3ef3ac53e7f83ca"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/startup-reference.css",
+    "sha256": "9673933402b35655a2ddbb00020914c83def7ed060dccd3f032eeb54572e64cb"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/storage-reference.css",
+    "sha256": "de7555569fe770154a531a451d595ea8263eabca6eadd16bebb5ce17b3bdf83e"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/storage-visual.css",
+    "sha256": "46136444fa9b28298a3c93e889a31e63e76d27e3bea3a14e37a6200427901409"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/studio-reference.css",
+    "sha256": "8df0790ca7781b2fa6ce58b78f26f595deff1371e74e95ba995830bec60196c1"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/system-reference.css",
+    "sha256": "170454f9c2cacb6fcf2f3d807537cc988bfbec69460b03f8098c8357739c182d"
+  },
+  {
+    "path": "apps/gemini-ui/src/visual/visual-sprint.css",
+    "sha256": "8e46b8d6a2707c6f4936f6aab9ae41c83a3f0ec2cf4890834957da52a656a761"
+  },
+  {
+    "path": "apps/gemini-ui/src/workspace/GoogleSheetsWorkbench.tsx",
+    "sha256": "00474d2efb8579bae045d51f1c0c17e41655a8f3b6261a2efc40a1bf6ee83a22"
+  },
+  {
+    "path": "apps/gemini-ui/src/workspace/google-native.ts",
+    "sha256": "9b994c337776b1efef07aab35d4eaf5a15ffe53fc3cbb34e4a4cc41cd73a754e"
+  },
+  {
+    "path": "apps/gemini-ui/src/workspace/useGoogleWorkspace.ts",
+    "sha256": "539c4b581bda261cf53883f742b3d76ad8b10d2b83f6bd099ac73ef51bae51f2"
+  },
+  {
+    "path": "electron/studio/folder-categories.cjs",
+    "sha256": "1feedbe02372898a12537d232e3a332cf06222187f3d67d97ab23d7740b01bd2"
+  },
+  {
+    "path": "electron/studio/folder-inventory.cjs",
+    "sha256": "e36a325ed12707a827e909279a87926ea843b97a6552d49b7087f2a8abb6df2a"
+  },
+  {
+    "path": "electron/studio/register-studio-ipc.cjs",
+    "sha256": "3cd862e724a5df23a4130b9447f5e476414c5de46b3eadd87b83921e84cf5eee"
+  },
+  {
+    "path": "electron/studio/studio-organization.cjs",
+    "sha256": "3805c4eade89ddfaa909d3247936b9491231ce071c52f841d96eab9ea80838e8"
+  },
+  {
+    "path": "electron/studio/studio-safety.cjs",
+    "sha256": "65c064169eaf248d4fd3b377a9591be6233f8510d7252561cb333fb7af31db2f"
+  },
+  {
+    "path": "electron/studio/studio-thumbnails.cjs",
+    "sha256": "58071b8c3bed32215da4178fcd0ca79aa844b6f6587374748595fc66999a5f83"
+  },
+  {
+    "path": "electron/studio/windows-attribute-reader.cjs",
+    "sha256": "b371198b23ebe6fdb46b480394b9a3b3ecf8c27246e651542dcedf4114beebf9"
+  },
+  {
+    "path": "electron/studio/windows-studio-native.cjs",
+    "sha256": "da6f8b4f4e65de81a72dc5d80b05b2c2a5a11b357eecd7aa4a7eb3eda743f429"
+  },
+  {
+    "path": "electron/windows-fs-metadata.cjs",
+    "sha256": "43769e8d7b6d785bf6443f96bcbc4937ed123ca9c94002a3b25047d2be0a3e69"
+  },
+  {
+    "path": "electron/windows-providers.cjs",
+    "sha256": "39ab41793ed2821f233494c356542f5f9f513d344a5311dc253ff4614115b777"
+  },
+  {
+    "path": "scripts/verify-workspace.py",
+    "sha256": "b4dbeff4f58c5c1c27695fcb17317cd8374be1e9515d21a42c2bf3300a5b2644"
+  }
+]

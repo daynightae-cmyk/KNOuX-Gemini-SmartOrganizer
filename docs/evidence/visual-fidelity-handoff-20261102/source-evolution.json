@@ -1,0 +1,15 @@
+{
+  "expectedChangesAfter56StateMatrix": [
+    {
+      "path": "apps/gemini-ui/scripts/visual-fidelity-capture.mjs",
+      "before": "df873e1b4c945e032064e72752a1cb75356bb826375b3b8a9640039499bd391c",
+      "after": "58be1937b20b5755b182763eabd7cc1f942233759803794d950cbd3d1c5ff4ec"
+    },
+    {
+      "path": "apps/gemini-ui/src/visual/knox-glass.css",
+      "before": "a8e42f94c1a9d3fe32ef5baf8758070a27e54d969bb5d34f5dcec01d5bfa7bd5",
+      "after": "b660eb548cf01d1103422e75f2cff201b1f6f6a1d24ba81dec62e5b2a659a015"
+    }
+  ],
+  "reason": "Home-only orbit sizing follow-up plus disclosure visibility correction in capture harness. Other product source unchanged; Home recaptured against final build. New focused controls harness added separately."
+}

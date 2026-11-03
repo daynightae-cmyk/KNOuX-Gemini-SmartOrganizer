@@ -1,0 +1,352 @@
+{
+  "id": "c690d6cc-e57a-48ad-bddd-fdf7ab7f3553",
+  "mode": "service",
+  "requestedServices": [
+    "duplicate_finder"
+  ],
+  "sourceId": "599ded09-d35a-4aa4-b540-467d6a11ef6c",
+  "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+  "scope": "authorized-folder",
+  "status": "complete",
+  "startedAt": "2026-11-02T18:33:19.551Z",
+  "finishedAt": "2026-11-02T18:33:19.626Z",
+  "cancelRequested": false,
+  "progressPercent": 100,
+  "progressDeterminate": true,
+  "stages": [
+    {
+      "id": "inventory",
+      "labelEn": "Authorized folder inventory",
+      "labelAr": "فهرس المجلد المصرح به",
+      "provider": "Studio/Files inventory",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T18:33:19.551Z",
+      "finishedAt": "2026-11-02T18:33:19.552Z",
+      "durationMs": 1,
+      "detail": "31 indexed file(s), 203 MB inside the authorized folder.",
+      "error": null
+    },
+    {
+      "id": "duplicates",
+      "labelEn": "Byte-exact duplicate verification",
+      "labelAr": "تحقق بايتي من المكررات",
+      "provider": "Storage SHA-256 verification",
+      "weight": 4,
+      "status": "complete",
+      "startedAt": "2026-11-02T18:33:19.552Z",
+      "finishedAt": "2026-11-02T18:33:19.625Z",
+      "durationMs": 73,
+      "detail": "1 byte-identical group(s) verified across 2 hashed file(s).",
+      "error": null
+    },
+    {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T18:33:19.625Z",
+      "finishedAt": "2026-11-02T18:33:19.626Z",
+      "durationMs": 0,
+      "detail": "2 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    }
+  ],
+  "services": [
+    {
+      "serviceId": "duplicate_finder",
+      "labelEn": "Duplicate Finder",
+      "labelAr": "مكتشف المكررات",
+      "state": "available",
+      "status": "complete",
+      "permission": "read-only",
+      "mutation": "none",
+      "source": "Studio/Files inventory + Storage SHA-256 verification",
+      "startedAt": "2026-11-02T18:33:19.551Z",
+      "finishedAt": null,
+      "stages": [
+        {
+          "id": "inventory",
+          "labelEn": "Authorized folder inventory",
+          "labelAr": "فهرس المجلد المصرح به",
+          "status": "complete"
+        },
+        {
+          "id": "duplicates",
+          "labelEn": "Byte-exact duplicate verification",
+          "labelAr": "تحقق بايتي من المكررات",
+          "status": "complete"
+        }
+      ],
+      "data": {
+        "scope": "authorized-folder",
+        "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+        "stageCount": 2,
+        "readOnly": true,
+        "candidates": [
+          {
+            "sizeBytes": 1048595,
+            "count": 2,
+            "wastedBytes": 1048595,
+            "files": [
+              {
+                "id": 2,
+                "name": "duplicate-a.bin",
+                "relative": "duplicate-a.bin",
+                "size": 1048595,
+                "modifiedAt": "2026-11-02T18:32:30.055Z"
+              },
+              {
+                "id": 3,
+                "name": "duplicate-b.bin",
+                "relative": "duplicate-b.bin",
+                "size": 1048595,
+                "modifiedAt": "2026-11-02T18:32:30.056Z"
+              }
+            ],
+            "truncatedFiles": 0
+          }
+        ],
+        "candidatePolicy": {
+          "candidatesAreSizeMatches": true,
+          "contentVerified": false,
+          "minimumBytes": 1048576,
+          "maxGroups": 20,
+          "maxVerifiedFiles": 48,
+          "maxVerifiedBytes": 268435456
+        },
+        "verified": {
+          "groups": [
+            {
+              "size": 1048595,
+              "digest": "7a6f3b6670f19c116c2f841e7066e36af3bc4782892073c08c0d112dc871c255",
+              "files": [
+                {
+                  "id": 2,
+                  "name": "duplicate-a.bin",
+                  "relative": "duplicate-a.bin",
+                  "size": 1048595,
+                  "modifiedAt": "2026-11-02T18:32:30.055Z"
+                },
+                {
+                  "id": 3,
+                  "name": "duplicate-b.bin",
+                  "relative": "duplicate-b.bin",
+                  "size": 1048595,
+                  "modifiedAt": "2026-11-02T18:32:30.056Z"
+                }
+              ],
+              "count": 2,
+              "wastedBytes": 1048595
+            }
+          ],
+          "summary": {
+            "candidates": 1,
+            "filesHashed": 2,
+            "bytesHashed": 2097190,
+            "verifiedGroups": 1,
+            "reclaimableVerifiedBytes": 1048595,
+            "budgetReached": false,
+            "maxFiles": 48,
+            "maxBytes": 268435456
+          },
+          "errors": []
+        },
+        "minimumBytes": 1048576
+      },
+      "warnings": [],
+      "limitations": [
+        "Size candidates followed by bounded SHA-256 verification of indexed files."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "stableId": "duplicate:verified:599ded09-d35a-4aa4-b540-467d6a11ef6c:7a6f3b6670f19c11:1048595",
+      "kind": "duplicate-verified",
+      "serviceId": "duplicate_finder",
+      "titleEn": "2 verified identical files",
+      "titleAr": "2 ملفات متطابقة تم التحقق منها",
+      "evidence": "1 MB each; SHA-256 match. Wasted duplicate bytes: 1 MB. Deletion is not available in this mission.",
+      "bytes": 1048595,
+      "itemCount": 2,
+      "severity": "medium",
+      "risk": "review",
+      "scope": "authorized-folder",
+      "provenance": {
+        "provider": "Storage SHA-256 verification",
+        "mode": "measured",
+        "scope": "authorized-folder"
+      },
+      "pathPreview": [
+        "duplicate-a.bin",
+        "duplicate-b.bin"
+      ]
+    },
+    {
+      "stableId": "large:599ded09-d35a-4aa4-b540-467d6a11ef6c:28",
+      "kind": "large-file",
+      "serviceId": "large_files_review",
+      "titleEn": "measured-large-fixture.bin",
+      "titleAr": "measured-large-fixture.bin",
+      "evidence": "measured-large-fixture.bin — measured 201 MB. Review only; no file was touched.",
+      "bytes": 210763776,
+      "itemCount": 1,
+      "severity": "low",
+      "risk": "review",
+      "scope": "authorized-folder",
+      "provenance": {
+        "provider": "Files/Studio inventory",
+        "mode": "measured",
+        "scope": "authorized-folder"
+      },
+      "pathPreview": [
+        "measured-large-fixture.bin"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-duplicates-verified",
+      "titleEn": "Review verified duplicate groups",
+      "titleAr": "راجع مجموعات المكررات المتحقق منها",
+      "detailEn": "1 MB is held by byte-identical copies inside the authorized folder. Deletion is intentionally unavailable; review them in Duplicate Finder or Storage Atlas first.",
+      "detailAr": "1 MB محتجزة بنسخ متطابقة بايتياً داخل المجلد المصرح به. الحذف غير متاح عمداً؛ راجعها في مكتشف المكررات أو أطلس التخزين أولاً.",
+      "evidence": "SHA-256 verified 1 group(s) across 2 hashed file(s).",
+      "serviceId": "duplicate_finder",
+      "confidence": "measured",
+      "risk": "review",
+      "target": "storage"
+    }
+  ],
+  "breakdown": [
+    {
+      "id": "large",
+      "labelEn": "Large files",
+      "labelAr": "ملفات كبيرة",
+      "colorHex": "#ec4899",
+      "count": 1,
+      "bytes": 210763776,
+      "percentage": 50
+    },
+    {
+      "id": "duplicates",
+      "labelEn": "Duplicates",
+      "labelAr": "مكررات",
+      "colorHex": "#f59e0b",
+      "count": 1,
+      "bytes": 1048595,
+      "percentage": 50
+    }
+  ],
+  "kpis": [
+    {
+      "id": "coverage",
+      "labelEn": "Stage coverage",
+      "labelAr": "تغطية المراحل",
+      "value": "100%",
+      "subtextEn": "3/3 stages returned",
+      "subtextAr": "3/3 مرحلة اكتملت",
+      "accentColor": "cyan",
+      "indicatorType": "ring",
+      "provenance": "measured"
+    },
+    {
+      "id": "files",
+      "labelEn": "Files indexed",
+      "labelAr": "الملفات المفهرسة",
+      "value": "31",
+      "subtextEn": "203 MB",
+      "subtextAr": "203 MB",
+      "accentColor": "blue",
+      "indicatorType": "stack",
+      "provenance": "measured"
+    },
+    {
+      "id": "issues",
+      "labelEn": "Findings",
+      "labelAr": "النتائج",
+      "value": "2",
+      "subtextEn": "0 high severity",
+      "subtextAr": "0 خطورة عالية",
+      "accentColor": "red",
+      "indicatorType": "alert",
+      "provenance": "measured"
+    },
+    {
+      "id": "space",
+      "labelEn": "Duplicate bytes",
+      "labelAr": "بايتات مكررة",
+      "value": "1 MB",
+      "subtextEn": "1 verified group(s)",
+      "subtextAr": "1 مجموعة متحقق منها",
+      "accentColor": "purple",
+      "indicatorType": "disk",
+      "provenance": "measured"
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Origin markers",
+      "labelAr": "علامات الأصل",
+      "value": "—",
+      "subtextEn": "privacy sample not run",
+      "subtextAr": "لم تُشغّل عينة الخصوصية",
+      "accentColor": "teal",
+      "indicatorType": "shield",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "health",
+      "labelEn": "Health score",
+      "labelAr": "درجة الصحة",
+      "value": "—",
+      "subtextEn": "No numeric signals",
+      "subtextAr": "لا توجد إشارات رقمية",
+      "accentColor": "green",
+      "indicatorType": "sparkline",
+      "provenance": "unavailable"
+    }
+  ],
+  "summary": {
+    "id": "c690d6cc-e57a-48ad-bddd-fdf7ab7f3553",
+    "mode": "service",
+    "status": "complete",
+    "sourceId": "599ded09-d35a-4aa4-b540-467d6a11ef6c",
+    "sourceLabel": "AUTHORIZED-DISPOSABLE-FIXTURE",
+    "scope": "authorized-folder",
+    "startedAt": "2026-11-02T18:33:19.551Z",
+    "finishedAt": "2026-11-02T18:33:19.626Z",
+    "progressPercent": 100,
+    "progressDeterminate": true,
+    "stagesTotal": 3,
+    "stagesCompleted": 3,
+    "stagesFailed": 0,
+    "findingsCount": 2,
+    "highSeverityCount": 0,
+    "filesIndexed": 31,
+    "bytesIndexed": 212872154,
+    "verifiedReclaimableBytes": 1048595,
+    "verifiedDuplicateGroups": 1,
+    "privacySignalCount": null,
+    "healthScore": null,
+    "healthBasis": [
+      "No numeric CPU, memory or volume signal was available."
+    ],
+    "warnings": [],
+    "limitations": [
+      "Read-only: no file, service, startup or registry value is changed.",
+      "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+    ],
+    "requestedServices": [
+      "duplicate_finder"
+    ]
+  },
+  "warnings": [],
+  "limitations": [
+    "Read-only: no file, service, startup or registry value is changed.",
+    "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+  ],
+  "error": null
+}

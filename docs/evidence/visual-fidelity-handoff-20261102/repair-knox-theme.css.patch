@@ -1,0 +1,33 @@
+diff --git "a/D:\\KNOUX-Workspace\\KNOuX_VISUAL_HANDOFF_CHECKPOINT_20261102-151606\\files\\apps\\gemini-ui\\src\\visual\\knox-theme.css" "b/D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\visual\\knox-theme.css"
+index a1ad943..eeaa46b 100644
+--- "a/D:\\KNOUX-Workspace\\KNOuX_VISUAL_HANDOFF_CHECKPOINT_20261102-151606\\files\\apps\\gemini-ui\\src\\visual\\knox-theme.css"
++++ "b/D:\\KNOUX-Workspace\\KNOuX-Gemini-SmartOrganizer\\apps\\gemini-ui\\src\\visual\\knox-theme.css"
+@@ -32,15 +32,12 @@
+   --knx-r-xl: 24px;
+   --knx-r-pill: 999px;
+ 
+-  /* One hero band, measured from the approved section references: the title
+-     block and the orbital instrument share a single band height on every route,
+-     in night and day alike. Sections may not invent their own. */
++  /* Provisional shared hero minimum, not a measurement of the approved artwork.
++     Existing headers also contain real controls and must be allowed to grow.
++     Exact shared bounds require reconciling each route's composition first. */
+   --knx-hero-h: 252px;
+   --knx-hero-pad-y: 12px;
+   --knx-hero-pad-x: 18px;
+-  --knx-hero-glow: radial-gradient(ellipse 62% 78% at 78% 50%, rgba(169, 120, 255, 0.20), transparent 62%),
+-    radial-gradient(ellipse 48% 62% at 18% 42%, rgba(70, 224, 255, 0.10), transparent 60%);
+-
+   --knx-sp-1: 4px;
+   --knx-sp-2: 8px;
+   --knx-sp-3: 12px;
+@@ -127,6 +124,9 @@ html:not([data-theme='light']) {
+     radial-gradient(ellipse 48% 38% at 4% 104%, rgba(14, 116, 144, 0.24), transparent 66%),
+     radial-gradient(ellipse 30% 24% at 46% 42%, rgba(88, 28, 135, 0.16), transparent 70%);
+ 
++  --knx-hero-glow: radial-gradient(ellipse 62% 78% at 78% 50%, rgba(169, 120, 255, 0.20), transparent 62%),
++    radial-gradient(ellipse 48% 62% at 18% 42%, rgba(70, 224, 255, 0.10), transparent 60%);
++
+   /* Historical names kept for the existing domain bridge. */
+   --knx-night-canvas: var(--knx-canvas);
+   --knx-night-surface: var(--knx-surface);

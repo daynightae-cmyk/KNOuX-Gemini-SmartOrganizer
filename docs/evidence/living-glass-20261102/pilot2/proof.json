@@ -1,0 +1,634 @@
+{
+  "capturedAt": "2026-11-02T14:04:35.079Z",
+  "head": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-jLrsjV",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "studio-day-en-1672x941",
+      "section": "studio",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "studio-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "studio",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 2,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Run OrganizationAnalyze and preview your files",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Repeated file names. Same names do not prove identical content.",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select this measured category and open the library",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "os-inspector-scroll",
+            "rect": {
+              "x": 1228,
+              "y": 493,
+              "w": 418,
+              "h": 263
+            },
+            "scrollHeight": 648,
+            "clientHeight": 263
+          }
+        ],
+        "headings": [
+          "Organization Studio",
+          "Organization Studio"
+        ]
+      }
+    },
+    {
+      "label": "home-day-en-1672x941",
+      "section": "home",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "home-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "home",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 2,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "KNOuXSmartOrganizer",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Smart Scan",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Files",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Applications",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "System",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Storage",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Automation",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "Welcome to KNOuX",
+          "Home Command Center"
+        ]
+      }
+    },
+    {
+      "label": "files-day-en-1672x941",
+      "section": "files",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "files-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "files",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 2,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Explore FilesFind, organize and manage",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Recent",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Large Files",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Focus the type filter row",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Repeated file names. Same names do not prove identical content.",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Open the location filter",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Not available: the indexed contract exposes no tags",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": true,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": {
+          "workspace": {
+            "x": 253,
+            "y": 423,
+            "w": 1406,
+            "h": 505
+          },
+          "clientHeight": 505,
+          "scrollHeight": 505,
+          "outerTools": {
+            "x": 261,
+            "y": 431,
+            "w": 1028,
+            "h": 269
+          },
+          "results": {
+            "x": 262,
+            "y": 737,
+            "w": 1026,
+            "h": 132
+          },
+          "search": {
+            "x": 305,
+            "y": 655.859375,
+            "w": 695.84375,
+            "h": 26
+          },
+          "footer": {
+            "x": 261,
+            "y": 880,
+            "w": 1390,
+            "h": 48
+          }
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "flex-1 overflow-y-auto files-scrollbar divide-y divide-[#0c1f3b]",
+            "rect": {
+              "x": 262,
+              "y": 737,
+              "w": 1026,
+              "h": 132
+            },
+            "scrollHeight": 456,
+            "clientHeight": 132
+          }
+        ],
+        "headings": [
+          "Files",
+          "Files"
+        ]
+      }
+    },
+    {
+      "label": "automation-day-en-1672x941",
+      "section": "automation",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "automation-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "automation",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 3,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Flow StudioCompose · Preview · Review",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Templates",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Schedule",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "History",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Schedule preview only; no task is installed",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Transfer",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Review-only retention preview; no deletion",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-canvas",
+            "rect": {
+              "x": 265,
+              "y": 435,
+              "w": 1382,
+              "h": 430
+            },
+            "scrollHeight": 721,
+            "clientHeight": 430
+          },
+          {
+            "class": "auto-editor-lower",
+            "rect": {
+              "x": 476,
+              "y": 1070.59375,
+              "w": 897,
+              "h": 160
+            },
+            "scrollHeight": 241,
+            "clientHeight": 160
+          }
+        ],
+        "headings": [
+          "Automation",
+          "Flow Studio"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "studio",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "home",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "files",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    },
+    {
+      "route": "automation",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "visualFidelityAccepted": false
+}

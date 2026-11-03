@@ -1,0 +1,909 @@
+{
+  "head": "ef25624bbf40a915aa38ca27e62b9263755982b3",
+  "profile": "D:\\Temp\\knoux-inner-cleanup-p2IOO5\\profile",
+  "scope": "Actual read-only CleanupBridge discovery/review and existing Safety Vault handoff. No owner-file quarantine/restore/delete, Settings launch, clipboard write or scheduled-task registration.",
+  "checks": [
+    {
+      "name": "idle-native-scope-controls",
+      "ok": true,
+      "evidence": {
+        "unmeasuredRows": 0,
+        "emptyScopeDisablesBothActions": true,
+        "configuredCategories": [
+          "temp"
+        ],
+        "configuredAge": 0
+      }
+    },
+    {
+      "name": "header-starts-the-exact-native-scope",
+      "ok": true,
+      "evidence": {
+        "session": "cdc67552-a377-44bc-814e-d4f3376686e3",
+        "candidates": 141,
+        "coverage": {
+          "rootsScanned": 1,
+          "rootsUnavailable": 1,
+          "filesMeasured": 140,
+          "foldersMeasured": 2,
+          "bytesMeasured": 645163217,
+          "truncated": false,
+          "skippedLinks": 0,
+          "errors": 0
+        },
+        "actualMutation": "none"
+      }
+    },
+    {
+      "name": "candidate-query-inspector-and-last-row",
+      "ok": true,
+      "evidence": {
+        "font": 13,
+        "visible": true
+      }
+    },
+    {
+      "name": "twelve-integrated-services-and-layouts",
+      "ok": true,
+      "evidence": [
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-temp-preview",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-temp-quarantine",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-temp-undo",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-quarantine-list",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-estimate",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-recycle",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-unused",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-update-cache",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-browser-cache",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-logs",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-schedule",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-reports",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-temp-preview",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-temp-quarantine",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-temp-undo",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-quarantine-list",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-estimate",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-recycle",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-unused",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-update-cache",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-browser-cache",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-logs",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-schedule",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "id": "cleanup-reports",
+          "dockHeight": 70,
+          "bodyHeight": 424.5,
+          "bodyWidth": 1642,
+          "footerBottom": 1061,
+          "footerRight": 1901,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-temp-preview",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-temp-quarantine",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-temp-undo",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-quarantine-list",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-estimate",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-recycle",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-unused",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-update-cache",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-browser-cache",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-logs",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-schedule",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "id": "cleanup-reports",
+          "dockHeight": 70,
+          "bodyHeight": 205,
+          "bodyWidth": 1088,
+          "footerBottom": 749,
+          "footerRight": 1107,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-temp-preview",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-temp-quarantine",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-temp-undo",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-quarantine-list",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-estimate",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-recycle",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-unused",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-update-cache",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-browser-cache",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-logs",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-schedule",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "id": "cleanup-reports",
+          "dockHeight": 70,
+          "bodyHeight": 305.5,
+          "bodyWidth": 1394,
+          "footerBottom": 922,
+          "footerRight": 1653,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "overflow": 0
+        }
+      ]
+    },
+    {
+      "name": "immutable-review-and-actual-draft-report",
+      "ok": true,
+      "evidence": {
+        "reviewGateVisible": true,
+        "draftExecution": false,
+        "reportReadOnly": true,
+        "clipboardExportInvoked": false
+      }
+    },
+    {
+      "name": "side-view-and-existing-live-vault-handoff",
+      "ok": true,
+      "evidence": {
+        "optionalSideRoundTrip": true,
+        "realVaultHandoff": true,
+        "unapprovedExecutionDisabled": true,
+        "vaultMutationInvoked": false
+      }
+    },
+    {
+      "name": "actual-native-cancellation",
+      "ok": true,
+      "evidence": {
+        "id": "ad761456-2f11-4c3a-a4ae-db0a0990dd90",
+        "nativeTerminal": "cancelled"
+      }
+    },
+    {
+      "name": "browser-unavailable-no-cleanup-fixtures",
+      "ok": true,
+      "evidence": {
+        "status": "UNAVAILABLE",
+        "rows": 0
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

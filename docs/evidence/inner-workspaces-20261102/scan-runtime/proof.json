@@ -1,0 +1,20 @@
+{
+  "profile": "D:\\Temp\\knoux-inner-scan-I4UF5L\\profile",
+  "fixture": "D:\\Temp\\knoux-inner-scan-I4UF5L\\AUTHORIZED-DISPOSABLE-FIXTURE",
+  "scope": "Disposable source only; native Windows observations remain read-only; no cleanup/mutation executed",
+  "checks": [
+    {
+      "name": "idle-geometry-keyboard-all-ten",
+      "ok": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert(dimensions.dockHeight>=56&&dimensions.dockHeight<=76)\n"
+    }
+  ],
+  "errors": [
+    "The expression evaluated to a falsy value:\n\n  assert(dimensions.dockHeight>=56&&dimensions.dockHeight<=76)\n"
+  ],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "fixtureUnchanged": true,
+  "ok": false
+}

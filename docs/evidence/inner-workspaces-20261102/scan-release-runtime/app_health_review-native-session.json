@@ -1,0 +1,375 @@
+{
+  "id": "cdd82e5a-0a66-46d4-bb69-95f45a28b647",
+  "mode": "service",
+  "requestedServices": [
+    "app_health_review"
+  ],
+  "sourceId": null,
+  "sourceLabel": null,
+  "scope": "system-providers-only",
+  "status": "complete",
+  "startedAt": "2026-11-02T19:18:53.412Z",
+  "finishedAt": "2026-11-02T19:18:54.076Z",
+  "cancelRequested": false,
+  "progressPercent": 100,
+  "progressDeterminate": true,
+  "stages": [
+    {
+      "id": "apps",
+      "labelEn": "Installed software inventory",
+      "labelAr": "جرد البرامج المثبتة",
+      "provider": "uninstall-registry",
+      "weight": 3,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:18:53.412Z",
+      "finishedAt": "2026-11-02T19:18:54.076Z",
+      "durationMs": 664,
+      "detail": "52 installed application record(s) measured from the uninstall registry.",
+      "error": null
+    },
+    {
+      "id": "analyze",
+      "labelEn": "Findings and recommendations",
+      "labelAr": "النتائج والتوصيات",
+      "provider": "Local rule engine",
+      "weight": 1,
+      "status": "complete",
+      "startedAt": "2026-11-02T19:18:54.076Z",
+      "finishedAt": "2026-11-02T19:18:54.076Z",
+      "durationMs": 0,
+      "detail": "0 finding(s), 1 recommendation(s), 1 service result(s).",
+      "error": null
+    }
+  ],
+  "services": [
+    {
+      "serviceId": "app_health_review",
+      "labelEn": "App Health Review",
+      "labelAr": "صحة البرامج والتطبيقات",
+      "state": "partial",
+      "status": "complete",
+      "permission": "read-only",
+      "mutation": "none",
+      "source": "uninstall-registry",
+      "startedAt": "2026-11-02T19:18:53.412Z",
+      "finishedAt": null,
+      "stages": [
+        {
+          "id": "apps",
+          "labelEn": "Installed software inventory",
+          "labelAr": "جرد البرامج المثبتة",
+          "status": "complete"
+        }
+      ],
+      "data": {
+        "scope": "system-providers-only",
+        "sourceLabel": null,
+        "stageCount": 1,
+        "readOnly": true,
+        "total": 52,
+        "publishers": [
+          {
+            "publisher": "Microsoft Corporation",
+            "count": 21
+          },
+          {
+            "publisher": "Python Software Foundation",
+            "count": 11
+          },
+          {
+            "publisher": "Unknown publisher",
+            "count": 3
+          },
+          {
+            "publisher": "Google LLC",
+            "count": 2
+          },
+          {
+            "publisher": "Ajeet D'Souza",
+            "count": 1
+          },
+          {
+            "publisher": "GitHub, Inc.",
+            "count": 1
+          },
+          {
+            "publisher": "Igor Pavlov",
+            "count": 1
+          },
+          {
+            "publisher": "Intel Corporation",
+            "count": 1
+          },
+          {
+            "publisher": "Junegunn Choi",
+            "count": 1
+          },
+          {
+            "publisher": "KLCP",
+            "count": 1
+          }
+        ],
+        "apps": [
+          {
+            "name": "7-Zip 26.05 (x64)",
+            "version": "26.05",
+            "publisher": "Igor Pavlov"
+          },
+          {
+            "name": "Git",
+            "version": "2.56.0.2",
+            "publisher": "The Git Development Community"
+          },
+          {
+            "name": "WinRAR 7.23 (64-bit)",
+            "version": "7.23.0",
+            "publisher": "win.rar GmbH"
+          },
+          {
+            "name": "Python 3.14.8 Add to Path (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Google Chrome",
+            "version": "156.0.8078.79",
+            "publisher": "Google LLC"
+          },
+          {
+            "name": "Microsoft Visual C++ 2022 X64 Debug Runtime - 14.51.36247",
+            "version": "14.51.36247",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Python 3.14.8 Documentation (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Microsoft Update Health Tools",
+            "version": "3.74.0.0",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Python 3.14.8 Core Interpreter (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Python 3.14.8 Executables (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "GitHub CLI",
+            "version": "2.102.0",
+            "publisher": "GitHub, Inc."
+          },
+          {
+            "name": "PowerShell 7-x64",
+            "version": "7.6.9.0",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Python 3.14.8 pip Bootstrap (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Microsoft Visual Studio Installer",
+            "version": "4.10.30.62513",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Microsoft Visual C++ 2022 X64 Additional Runtime - 14.51.36247",
+            "version": "14.51.36247",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.51.36247",
+            "version": "14.51.36247",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Update for x64-based Windows Systems (KB5001716)",
+            "version": "8.94.0.0",
+            "publisher": "Microsoft Corporation"
+          },
+          {
+            "name": "Python 3.14.8 Development Libraries (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Microsoft Build of OpenJDK 21.0.12.1+1 (x64)",
+            "version": "21.0.12.101",
+            "publisher": "Microsoft"
+          },
+          {
+            "name": "Python 3.14.8 Tcl/Tk Support (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Node.js",
+            "version": "24.21.0",
+            "publisher": "Node.js Foundation"
+          },
+          {
+            "name": "Python 3.14.8 Test Suite (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Python 3.14.8 Standard Library (64-bit)",
+            "version": "3.14.8150.0",
+            "publisher": "Python Software Foundation"
+          },
+          {
+            "name": "Visual Studio Build Tools 2026",
+            "version": "18.10.3",
+            "publisher": "Microsoft Corporation"
+          }
+        ],
+        "unusedClassification": false,
+        "uninstallAvailable": false,
+        "gatedMission": "05"
+      },
+      "warnings": [
+        "“Unused” and “orphaned” classifications are not measured. No uninstall capability is exposed."
+      ],
+      "limitations": [
+        "Reads the installed-software registry inventory. “Unused” classification and uninstall are not measured and remain gated to Mission 05.",
+        "One or more provider stages returned partial evidence; see warnings."
+      ]
+    }
+  ],
+  "findings": [],
+  "recommendations": [
+    {
+      "id": "rec-no-issues",
+      "titleEn": "No measured issue in this scope",
+      "titleAr": "لا توجد مشكلة مقيسة في هذا النطاق",
+      "detailEn": "The measured providers did not produce a finding. This is not a whole-volume clean bill of health; run Deep Scan after authorizing the folder you care about.",
+      "detailAr": "لم تنتج المزودات المقيسة أي نتيجة. هذا ليس براءة كاملة لوحدة التخزين؛ شغّل الفحص العميق بعد تصريح المجلد الذي يهمك.",
+      "evidence": "Every enabled stage returned without a finding threshold being met.",
+      "serviceId": "smart_recommendations",
+      "confidence": "derived",
+      "risk": "info",
+      "target": "none"
+    }
+  ],
+  "breakdown": [],
+  "kpis": [
+    {
+      "id": "coverage",
+      "labelEn": "Stage coverage",
+      "labelAr": "تغطية المراحل",
+      "value": "100%",
+      "subtextEn": "2/2 stages returned",
+      "subtextAr": "2/2 مرحلة اكتملت",
+      "accentColor": "cyan",
+      "indicatorType": "ring",
+      "provenance": "measured"
+    },
+    {
+      "id": "files",
+      "labelEn": "Files indexed",
+      "labelAr": "الملفات المفهرسة",
+      "value": "—",
+      "subtextEn": "No authorized folder",
+      "subtextAr": "لا يوجد مجلد مصرح",
+      "accentColor": "blue",
+      "indicatorType": "stack",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "issues",
+      "labelEn": "Findings",
+      "labelAr": "النتائج",
+      "value": "0",
+      "subtextEn": "0 high severity",
+      "subtextAr": "0 خطورة عالية",
+      "accentColor": "red",
+      "indicatorType": "alert",
+      "provenance": "measured"
+    },
+    {
+      "id": "space",
+      "labelEn": "Duplicate bytes",
+      "labelAr": "بايتات مكررة",
+      "value": "—",
+      "subtextEn": "Duplicate stage not in this scope",
+      "subtextAr": "مرحلة التكرار غير مشمولة في هذا الفحص",
+      "accentColor": "purple",
+      "indicatorType": "disk",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "privacy",
+      "labelEn": "Origin markers",
+      "labelAr": "علامات الأصل",
+      "value": "—",
+      "subtextEn": "privacy sample not run",
+      "subtextAr": "لم تُشغّل عينة الخصوصية",
+      "accentColor": "teal",
+      "indicatorType": "shield",
+      "provenance": "unavailable"
+    },
+    {
+      "id": "health",
+      "labelEn": "Health score",
+      "labelAr": "درجة الصحة",
+      "value": "—",
+      "subtextEn": "No numeric signals",
+      "subtextAr": "لا توجد إشارات رقمية",
+      "accentColor": "green",
+      "indicatorType": "sparkline",
+      "provenance": "unavailable"
+    }
+  ],
+  "summary": {
+    "id": "cdd82e5a-0a66-46d4-bb69-95f45a28b647",
+    "mode": "service",
+    "status": "complete",
+    "sourceId": null,
+    "sourceLabel": null,
+    "scope": "system-providers-only",
+    "startedAt": "2026-11-02T19:18:53.412Z",
+    "finishedAt": "2026-11-02T19:18:54.076Z",
+    "progressPercent": 100,
+    "progressDeterminate": true,
+    "stagesTotal": 2,
+    "stagesCompleted": 2,
+    "stagesFailed": 0,
+    "findingsCount": 0,
+    "highSeverityCount": 0,
+    "filesIndexed": null,
+    "bytesIndexed": null,
+    "verifiedReclaimableBytes": 0,
+    "verifiedDuplicateGroups": 0,
+    "privacySignalCount": null,
+    "healthScore": null,
+    "healthBasis": [
+      "No numeric CPU, memory or volume signal was available."
+    ],
+    "warnings": [
+      "“Unused” and “orphaned” classifications are not measured. No uninstall capability is exposed."
+    ],
+    "limitations": [
+      "Read-only: no file, service, startup or registry value is changed.",
+      "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+    ],
+    "requestedServices": [
+      "app_health_review"
+    ]
+  },
+  "warnings": [
+    "“Unused” and “orphaned” classifications are not measured. No uninstall capability is exposed."
+  ],
+  "limitations": [
+    "Read-only: no file, service, startup or registry value is changed.",
+    "File scope is the authorized folder; mounted volume capacity is measured but whole-volume content is not scanned."
+  ],
+  "error": null
+}

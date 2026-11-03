@@ -1,0 +1,1159 @@
+[
+  {
+    "section": "automation",
+    "name": "Automation",
+    "reference": "references/automation.png",
+    "gap": "Workflow artwork/composition remains open. Short screens start in focused editor; Show overview works.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/automation-day-en-1672x941.png",
+        "body": "after-day-en/automation-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 278
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/automation-day-en-1920x1080.png",
+        "body": "after-day-en/automation-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1656,
+          "h": 278
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/automation-day-ar-1366x768.png",
+        "body": "after-day-ar/automation-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": null,
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/automation-night-en-1672x941.png",
+        "body": "after-night-en/automation-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 278
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/automation-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 1408,
+      "h": 278
+    }
+  },
+  {
+    "section": "repair",
+    "name": "Repair",
+    "reference": "references/repair.png",
+    "gap": "Seven-stage arrangement and reference satellites differ; keep existing SFC/DISM/restore safeguards.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/repair-day-en-1672x941.png",
+        "body": "after-day-en/repair-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 982,
+          "h": 398.796875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/repair-day-en-1920x1080.png",
+        "body": "after-day-en/repair-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1230,
+          "h": 398.796875
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/repair-day-ar-1366x768.png",
+        "body": "after-day-ar/repair-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 365.5,
+          "y": 70,
+          "w": 748.5,
+          "h": 321.140625
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/repair-night-en-1672x941.png",
+        "body": "after-night-en/repair-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 982,
+          "h": 398.796875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/repair-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 982,
+      "h": 398.796875
+    }
+  },
+  {
+    "section": "system",
+    "name": "System",
+    "reference": "references/system.png",
+    "gap": "System Performance skyline/chart artwork differs from existing Observatory. Keep real measured charts.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/system-day-en-1672x941.png",
+        "body": "after-day-en/system-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 375.796875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/system-day-en-1920x1080.png",
+        "body": "after-day-en/system-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1656,
+          "h": 375.796875
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/system-day-ar-1366x768.png",
+        "body": "after-day-ar/system-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 295.703125
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/system-night-en-1672x941.png",
+        "body": "after-night-en/system-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 375.796875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/system-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 1408,
+      "h": 375.796875
+    }
+  },
+  {
+    "section": "services",
+    "name": "Services",
+    "reference": "references/services.png",
+    "gap": "Luminous mesh, Commander hub and orchestration composition remain absent.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/services-day-en-1672x941.png",
+        "body": "after-day-en/services-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 398.796875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/services-day-en-1920x1080.png",
+        "body": "after-day-en/services-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1656,
+          "h": 369.796875
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/services-day-ar-1366x768.png",
+        "body": "after-day-ar/services-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 314
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/services-night-en-1672x941.png",
+        "body": "after-night-en/services-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 398.796875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/services-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 1408,
+      "h": 398.796875
+    }
+  },
+  {
+    "section": "applications",
+    "name": "Applications",
+    "reference": "references/applications.png",
+    "gap": "Floating app/media artwork and distinct pipeline remain open; do not imply unimplemented deployment.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/applications-day-en-1672x941.png",
+        "body": "after-day-en/applications-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 374.1875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/applications-day-en-1920x1080.png",
+        "body": "after-day-en/applications-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1656,
+          "h": 374.1875
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/applications-day-ar-1366x768.png",
+        "body": "after-day-ar/applications-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 277.703125
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/applications-night-en-1672x941.png",
+        "body": "after-night-en/applications-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 374.1875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/applications-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 1408,
+      "h": 374.1875
+    }
+  },
+  {
+    "section": "smart_scan",
+    "name": "Smart Scan",
+    "reference": "references/smart_scan.png",
+    "gap": "Reference bilingual spacing, glass documents and three satellites need composition work.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/smart_scan-day-en-1672x941.png",
+        "body": "after-day-en/smart_scan-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 254,
+          "y": 72,
+          "w": 978,
+          "h": 335.890625
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/smart_scan-day-en-1920x1080.png",
+        "body": "after-day-en/smart_scan-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 254,
+          "y": 72,
+          "w": 1226,
+          "h": 307.09375
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/smart_scan-day-ar-1366x768.png",
+        "body": "after-day-ar/smart_scan-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 367.5,
+          "y": 72,
+          "w": 744.5,
+          "h": 310.046875
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/smart_scan-night-en-1672x941.png",
+        "body": "after-night-en/smart_scan-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 254,
+          "y": 72,
+          "w": 978,
+          "h": 335.890625
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/smart_scan-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 254,
+      "y": 72,
+      "w": 978,
+      "h": 335.890625
+    }
+  },
+  {
+    "section": "startup",
+    "name": "Startup",
+    "reference": "references/startup.png",
+    "gap": "Windows/settings glass artwork and capsule workflow remain absent. No fabricated 50% progress.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/startup-day-en-1672x941.png",
+        "body": "after-day-en/startup-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 345.5
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/startup-day-en-1920x1080.png",
+        "body": "after-day-en/startup-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1656,
+          "h": 345.5
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/startup-day-ar-1366x768.png",
+        "body": "after-day-ar/startup-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1102,
+          "h": 275.5
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/startup-night-en-1672x941.png",
+        "body": "after-night-en/startup-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 345.5
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/startup-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 1408,
+      "h": 345.5
+    }
+  },
+  {
+    "section": "workspace",
+    "name": "Google Workspace",
+    "reference": "references/workspace.png",
+    "gap": "Floating branded Google tiles and large Google hub arrangement remain absent. Preserve real OAuth/scopes.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/workspace-day-en-1672x941.png",
+        "body": "after-day-en/workspace-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 240,
+          "y": 56,
+          "w": 1416,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/workspace-day-en-1920x1080.png",
+        "body": "after-day-en/workspace-day-en-1920x1080-body-end.png",
+        "bodyExists": false,
+        "hero": {
+          "x": 240,
+          "y": 56,
+          "w": 1664,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/workspace-day-ar-1366x768.png",
+        "body": "after-day-ar/workspace-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 16,
+          "y": 56,
+          "w": 1110,
+          "h": 214
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/workspace-night-en-1672x941.png",
+        "body": "after-night-en/workspace-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 240,
+          "y": 56,
+          "w": 1416,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/workspace-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 240,
+      "y": 56,
+      "w": 1416,
+      "h": 252
+    }
+  },
+  {
+    "section": "settings",
+    "name": "Settings",
+    "reference": "references/settings.png",
+    "gap": "Floating preference panels, six-stage reference pipeline and Settings Center composition remain open.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/settings-day-en-1672x941.png",
+        "body": "after-day-en/settings-day-en-1672x941-body-end.png",
+        "bodyExists": false,
+        "hero": {
+          "x": 244,
+          "y": 60,
+          "w": 1398,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/settings-day-en-1920x1080.png",
+        "body": "after-day-en/settings-day-en-1920x1080-body-end.png",
+        "bodyExists": false,
+        "hero": {
+          "x": 244,
+          "y": 60,
+          "w": 1656,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/settings-day-ar-1366x768.png",
+        "body": "after-day-ar/settings-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 30,
+          "y": 60,
+          "w": 1092,
+          "h": 214
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/settings-night-en-1672x941.png",
+        "body": "after-night-en/settings-night-en-1672x941-body-end.png",
+        "bodyExists": false,
+        "hero": {
+          "x": 244,
+          "y": 60,
+          "w": 1398,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline-settings/settings-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 244,
+      "y": 60,
+      "w": 1398,
+      "h": 252
+    }
+  },
+  {
+    "section": "cleanup",
+    "name": "Cleanup",
+    "reference": "references/cleanup.png",
+    "gap": "Glowing bin/floating file artwork remains absent. Closed scope disclosure is intentional; expansion tested.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/cleanup-day-en-1672x941.png",
+        "body": "after-day-en/cleanup-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 982,
+          "h": 463.875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/cleanup-day-en-1920x1080.png",
+        "body": "after-day-en/cleanup-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1230,
+          "h": 463.875
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/cleanup-day-ar-1366x768.png",
+        "body": "after-day-ar/cleanup-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 365.5,
+          "y": 70,
+          "w": 748.5,
+          "h": 393.875
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/cleanup-night-en-1672x941.png",
+        "body": "after-night-en/cleanup-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 982,
+          "h": 463.875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/cleanup-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 70,
+      "w": 982,
+      "h": 463.875
+    }
+  },
+  {
+    "section": "home",
+    "name": "Home",
+    "reference": "references/home.png",
+    "gap": "New Welcome to KNOuX composition differs from existing Command Center. Keep genuine measurements and working body.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "final-home/home-day-en-1672x941.png",
+        "body": "final-home/home-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "final-home/home-day-en-1920x1080.png",
+        "body": "final-home/home-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1660,
+          "h": 370
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "final-home/home-day-ar-1366x768.png",
+        "body": "final-home/home-day-ar-1366x768-body-end.png",
+        "bodyExists": false,
+        "hero": {
+          "x": 12,
+          "y": 70,
+          "w": 1106,
+          "h": 262.484375
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "final-home/home-night-en-1672x941.png",
+        "body": "final-home/home-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 248,
+          "y": 70,
+          "w": 1412,
+          "h": 350.40625
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/home-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 248,
+      "y": 70,
+      "w": 1412,
+      "h": 350.40625
+    }
+  },
+  {
+    "section": "studio",
+    "name": "Organization Studio",
+    "reference": "references/studio.png",
+    "gap": "Floating folder stack, five-stage reference composition and shared shell reconciliation remain open.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/studio-day-en-1672x941.png",
+        "body": "after-day-en/studio-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 242,
+          "y": 85,
+          "w": 973,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/studio-day-en-1920x1080.png",
+        "body": "after-day-en/studio-day-en-1920x1080-body-end.png",
+        "bodyExists": false,
+        "hero": {
+          "x": 242,
+          "y": 85,
+          "w": 1221,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/studio-day-ar-1366x768.png",
+        "body": "after-day-ar/studio-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 349,
+          "y": 75,
+          "w": 805,
+          "h": 225
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/studio-night-en-1672x941.png",
+        "body": "after-night-en/studio-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 242,
+          "y": 85,
+          "w": 973,
+          "h": 252
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/studio-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 242,
+      "y": 85,
+      "w": 973,
+      "h": 252
+    }
+  },
+  {
+    "section": "storage",
+    "name": "Storage",
+    "reference": "references/storage.png",
+    "gap": "Server-stack artwork and reference pipeline placement differ. Keep native volume and scope controls.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/storage-day-en-1672x941.png",
+        "body": "after-day-en/storage-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 116.875,
+          "w": 982,
+          "h": 326.46875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/storage-day-en-1920x1080.png",
+        "body": "after-day-en/storage-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 116.875,
+          "w": 1230,
+          "h": 310
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/storage-day-ar-1366x768.png",
+        "body": "after-day-ar/storage-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 365.5,
+          "y": 116.875,
+          "w": 748.5,
+          "h": 345.890625
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/storage-night-en-1672x941.png",
+        "body": "after-night-en/storage-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 252,
+          "y": 116.875,
+          "w": 982,
+          "h": 326.46875
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/storage-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 252,
+      "y": 116.875,
+      "w": 982,
+      "h": 326.46875
+    }
+  },
+  {
+    "section": "files",
+    "name": "Files",
+    "reference": "references/files.png",
+    "gap": "Folder-stack artwork remains absent. Tool/table overlap repair verified through fixture search/scroll/selection.",
+    "scenarios": {
+      "Day 1672": {
+        "image": "after-day-en/files-day-en-1672x941.png",
+        "body": "after-day-en/files-day-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 265,
+          "y": 83,
+          "w": 1010,
+          "h": 357.25
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Day 1920": {
+        "image": "after-day-en/files-day-en-1920x1080.png",
+        "body": "after-day-en/files-day-en-1920x1080-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 265,
+          "y": 83,
+          "w": 1268,
+          "h": 357.25
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        }
+      },
+      "RTL 1366": {
+        "image": "after-day-ar/files-day-ar-1366x768.png",
+        "body": "after-day-ar/files-day-ar-1366x768-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 343,
+          "y": 81,
+          "w": 760,
+          "h": 215.1875
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        }
+      },
+      "Night 1672": {
+        "image": "after-night-en/files-night-en-1672x941.png",
+        "body": "after-night-en/files-night-en-1672x941-body-end.png",
+        "bodyExists": true,
+        "hero": {
+          "x": 265,
+          "y": 83,
+          "w": 1010,
+          "h": 357.25
+        },
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      },
+      "Before repair": {
+        "image": "baseline/files-day-en-1672x941.png",
+        "bodyExists": false,
+        "hero": null,
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        }
+      }
+    },
+    "geometry": {
+      "x": 265,
+      "y": 83,
+      "w": 1010,
+      "h": 357.25
+    }
+  }
+]

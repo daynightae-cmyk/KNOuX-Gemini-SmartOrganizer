@@ -1,0 +1,219 @@
+{
+  "capturedAt": "2026-11-02T11:41:24.517Z",
+  "head": "8871103c7fd2a274a70fe2a069bb435f2ccb12ac",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-aMZ2Q0",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "settings-day-en-1672x941",
+      "section": "settings",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "settings-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "settings",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 40
+        },
+        "hero": {
+          "x": 244,
+          "y": 60,
+          "w": 1398,
+          "h": 252
+        },
+        "heroCount": 1,
+        "heroClass": "shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4",
+        "heroScrollHeight": 250,
+        "heroClientHeight": 250,
+        "controls": [
+          {
+            "label": "AI keys · requires approval",
+            "rect": {
+              "x": 924.90625,
+              "y": 159.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Guards · requires approval",
+            "rect": {
+              "x": 975.109375,
+              "y": 147.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Engine · requires approval",
+            "rect": {
+              "x": 1025.3125,
+              "y": 159.3125,
+              "w": 46.21875,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Profile · pending",
+            "rect": {
+              "x": 1075.53125,
+              "y": 147.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Appearance · complete",
+            "rect": {
+              "x": 1125.734375,
+              "y": 159.3125,
+              "w": 46.203125,
+              "h": 44.875
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "SettingsLocal preferences only",
+            "rect": {
+              "x": 1279.953125,
+              "y": 136,
+              "w": 100,
+              "h": 100
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Engine",
+            "rect": {
+              "x": 1227.953125,
+              "y": 102.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "AI Session",
+            "rect": {
+              "x": 1367.953125,
+              "y": 102.7734375,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Privacy",
+            "rect": {
+              "x": 1191.546875,
+              "y": 163.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Appearance",
+            "rect": {
+              "x": 1404.34375,
+              "y": 163.9765625,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Language",
+            "rect": {
+              "x": 1227.953125,
+              "y": 221.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Profile",
+            "rect": {
+              "x": 1367.953125,
+              "y": 221.5703125,
+              "w": 64,
+              "h": 47.640625
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Save Preferences",
+            "rect": {
+              "x": 1485.953125,
+              "y": 159,
+              "w": 137.046875,
+              "h": 54
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [],
+        "headings": [
+          "KNOuX Engine & Services Control Center"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "settings",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "visualFidelityAccepted": false
+}

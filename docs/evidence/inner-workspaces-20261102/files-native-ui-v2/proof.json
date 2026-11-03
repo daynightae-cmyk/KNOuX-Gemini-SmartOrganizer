@@ -1,0 +1,154 @@
+{
+  "head": "8ff81311e0b1cfae7c80080baea4d8338512fbef",
+  "fixture": "D:\\Temp\\knoux-inner-files-fa4ePb\\AUTHORIZED-A",
+  "second": "D:\\Temp\\knoux-inner-files-fa4ePb\\AUTHORIZED-B",
+  "profile": "D:\\Temp\\knoux-inner-files-fa4ePb\\profile",
+  "checks": [
+    {
+      "name": "idle-no-fabricated-index",
+      "ok": true,
+      "evidence": {
+        "rows": 0,
+        "status": "IDLE"
+      }
+    },
+    {
+      "name": "first-authorization-displays-native-results",
+      "ok": true,
+      "evidence": {
+        "nativeCount": 44,
+        "renderedRows": 44
+      }
+    },
+    {
+      "name": "query-category-and-empty-state",
+      "ok": true,
+      "evidence": {
+        "nativeSearch": true,
+        "imageFilter": true,
+        "emptyQuery": true
+      }
+    },
+    {
+      "name": "metadata-hash-empty-folder-and-all-services",
+      "ok": true,
+      "evidence": {
+        "digest": "1d9a21c73073052b17f9aa08d8eb757c3b821242e9fc504f4f934945a21ecd70",
+        "services": [
+          "file-downloads-inventory",
+          "file-organize-preview",
+          "file-organize-apply",
+          "file-organize-undo",
+          "file-empty-folders",
+          "file-hash",
+          "file-search",
+          "file-type-map",
+          "file-recents",
+          "file-largest",
+          "file-metadata",
+          "file-provenance"
+        ],
+        "keyboard": true,
+        "mutationsExecuted": 0
+      }
+    },
+    {
+      "name": "responsive-native-ledger-and-inspector",
+      "ok": true,
+      "evidence": [
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "dockHeight": 70,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "footerBottom": 922,
+          "bodyHeight": 261.015625,
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "dockHeight": 70,
+          "hero": {
+            "w": 1656,
+            "h": 360
+          },
+          "footerBottom": 1061,
+          "bodyHeight": 380.015625,
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "dockHeight": 70,
+          "hero": {
+            "w": 1102,
+            "h": 280
+          },
+          "footerBottom": 749,
+          "bodyHeight": 163.8125,
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "dockHeight": 70,
+          "hero": {
+            "w": 1408,
+            "h": 340
+          },
+          "footerBottom": 922,
+          "bodyHeight": 261.015625,
+          "overflow": 0
+        }
+      ]
+    },
+    {
+      "name": "optional-side-view-roundtrip",
+      "ok": true,
+      "evidence": {
+        "integratedRestored": true
+      }
+    },
+    {
+      "name": "source-switch-clears-old-selection",
+      "ok": true,
+      "evidence": {
+        "sourceBRows": 1,
+        "oldSelectionCleared": true
+      }
+    },
+    {
+      "name": "real-missing-source-error",
+      "ok": true,
+      "evidence": {
+        "nativeFailureShown": true
+      }
+    },
+    {
+      "name": "browser-unavailable-no-fallback",
+      "ok": true,
+      "evidence": {
+        "rows": 0,
+        "status": "UNAVAILABLE"
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "fixtureUnchanged": true,
+  "ok": true
+}
