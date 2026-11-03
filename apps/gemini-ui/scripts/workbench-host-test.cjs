@@ -192,6 +192,21 @@ check('System/Network/Hardware integrates a pinned/expanded workbench with 36 me
   assert.match(systemPage, /knoux\.system\.workbench\.width/);
   assert.match(systemPage, /data-testid="system-workspace"/);
   assert.match(systemPage, /data-testid="system-actionbar"/);
+  // Phase II interior: the 36 registry services are selectable through the shared
+  // dock, measured native state is reported by SystemLiveStage and the selected
+  // service mounts exactly one specialized body. The floating host only mounts on
+  // explicit detach; the integrated grid and the pinned host never duplicate it.
+  assert.match(systemPage, /import \{ SystemServiceRail \}/);
+  assert.match(systemPage, /import \{ SystemLiveStage \}/);
+  assert.match(systemPage, /system\/system-inner-workspace\.css/);
+  assert.match(systemPage, /ids=\{SERVICE_CATALOG\.map\(\(entry\) => entry\.id\)\}/);
+  assert.match(systemPage, /data-testid=\{`system-catalog-\$\{entry\.id\}`\}/);
+  assert.doesNotMatch(systemPage, /import \{ CommandCanvas \}/);
+  assert.match(systemPage, /className="[^"]*system-header-bridge/);
+  assert.match(systemPage, /activeService && snapshot && !detached \? \(/);
+  assert.match(systemPage, /activeService && snapshot && detached \? \(/);
+  assert.match(systemPage, /data-testid="system-integrated-service"/);
+  assert.match(systemPage, /onClose=\{\(\) => setDetached\(false\)\}/);
   const mapped = systemBody.match(/^\s{2}'(?:system|network|hardware)-[a-z0-9-]+':\s*[A-Za-z]/gm) || [];
   assert.equal(mapped.length, 36, `expected 36 service workbench entries, found ${mapped.length}`);
   // The pinned rail is narrower than the full sheet, so the shared host needs

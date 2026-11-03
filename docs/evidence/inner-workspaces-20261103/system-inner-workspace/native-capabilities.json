@@ -1,0 +1,249 @@
+{
+  "contract": "system.v1",
+  "engine": "KNOuX Live Pulse measured observatory",
+  "readOnly": true,
+  "mutation": "none",
+  "serviceCount": 36,
+  "services": [
+    {
+      "id": "system-health-check",
+      "state": "available",
+      "provider": "Win32_OperatingSystem + Win32_PerfFormattedData + Win32_Processor"
+    },
+    {
+      "id": "system-events",
+      "state": "available",
+      "provider": "Get-WinEvent System/Application"
+    },
+    {
+      "id": "system-processes",
+      "state": "available",
+      "provider": "Win32_Process + PerfProc"
+    },
+    {
+      "id": "system-signatures",
+      "state": "available",
+      "provider": "Get-AuthenticodeSignature"
+    },
+    {
+      "id": "system-uptime",
+      "state": "available",
+      "provider": "Win32_OperatingSystem + Diagnostics-Performance"
+    },
+    {
+      "id": "system-perf",
+      "state": "available",
+      "provider": "PerfOS / PerfDisk / Tcpip counters"
+    },
+    {
+      "id": "system-drivers",
+      "state": "available",
+      "provider": "Win32_PnPSignedDriver"
+    },
+    {
+      "id": "system-logs",
+      "state": "available",
+      "provider": "Get-WinEvent -ListLog"
+    },
+    {
+      "id": "system-resources",
+      "state": "available",
+      "provider": "PerfProc + Win32_Process"
+    },
+    {
+      "id": "system-autostart",
+      "state": "partial",
+      "provider": "Win32_StartupCommand + Win32_Process + Win32_Service"
+    },
+    {
+      "id": "system-services-map",
+      "state": "available",
+      "provider": "Win32_Service + Win32_DependentService"
+    },
+    {
+      "id": "system-timeline",
+      "state": "partial",
+      "provider": "Measured Windows events + observation markers"
+    },
+    {
+      "id": "network-interfaces",
+      "state": "available",
+      "provider": "Get-NetAdapter + Get-NetIPAddress + Get-DnsClient"
+    },
+    {
+      "id": "network-dns-config",
+      "state": "available",
+      "provider": "Get-DnsClient + Get-DnsClientServerAddress"
+    },
+    {
+      "id": "network-adapters",
+      "state": "available",
+      "provider": "Get-NetAdapter + PnP identity"
+    },
+    {
+      "id": "network-connectivity",
+      "state": "available",
+      "provider": "DNS + TCP + HTTP probes"
+    },
+    {
+      "id": "network-throughput",
+      "state": "available",
+      "provider": "Tcpip network interface counters"
+    },
+    {
+      "id": "network-traceroute",
+      "state": "available",
+      "provider": "tracert -d bounded"
+    },
+    {
+      "id": "network-topology",
+      "state": "partial",
+      "provider": "Get-NetNeighbor + route table"
+    },
+    {
+      "id": "network-ports",
+      "state": "available",
+      "provider": "Get-NetTCPConnection + Get-NetUDPEndpoint"
+    },
+    {
+      "id": "network-wifi",
+      "state": "partial",
+      "provider": "netsh wlan show interfaces + Get-NetAdapter"
+    },
+    {
+      "id": "network-hosts",
+      "state": "gated",
+      "provider": "Read-only file read + immutable draft"
+    },
+    {
+      "id": "network-proxies",
+      "state": "available",
+      "provider": "Internet Settings + WinHTTP"
+    },
+    {
+      "id": "network-repair-link",
+      "state": "gated",
+      "provider": "Immutable repair plan"
+    },
+    {
+      "id": "hardware-inventory",
+      "state": "available",
+      "provider": "Win32_ComputerSystem + SMBIOS + CIM"
+    },
+    {
+      "id": "hardware-battery",
+      "state": "partial",
+      "provider": "Win32_Battery + BatteryStatus"
+    },
+    {
+      "id": "hardware-cpu",
+      "state": "available",
+      "provider": "Win32_Processor"
+    },
+    {
+      "id": "hardware-gpu",
+      "state": "partial",
+      "provider": "Win32_VideoController + PnP"
+    },
+    {
+      "id": "hardware-memory",
+      "state": "available",
+      "provider": "Win32_PhysicalMemory"
+    },
+    {
+      "id": "hardware-cycles",
+      "state": "partial",
+      "provider": "BatteryCycleCount + Storage reliability"
+    },
+    {
+      "id": "hardware-thermal",
+      "state": "partial",
+      "provider": "MSAcpi_ThermalZoneTemperature"
+    },
+    {
+      "id": "hardware-disks",
+      "state": "available",
+      "provider": "Get-PhysicalDisk + reliability counters"
+    },
+    {
+      "id": "hardware-usb",
+      "state": "available",
+      "provider": "Win32_USBController + USBHub + PnP"
+    },
+    {
+      "id": "hardware-display",
+      "state": "partial",
+      "provider": "WmiMonitorID + Win32_VideoController"
+    },
+    {
+      "id": "hardware-audio",
+      "state": "partial",
+      "provider": "PnpDevice AudioEndpoint + Win32_SoundDevice"
+    },
+    {
+      "id": "hardware-health-report",
+      "state": "available",
+      "provider": "Measured snapshot only"
+    }
+  ],
+  "coverage": [
+    {
+      "key": "system",
+      "status": "complete",
+      "provider": "Win32_OperatingSystem + CIM hardware",
+      "items": 5
+    },
+    {
+      "key": "processes",
+      "status": "complete",
+      "provider": "Win32_Process + PerfProc",
+      "items": 395
+    },
+    {
+      "key": "services",
+      "status": "complete",
+      "provider": "Win32_Service + Win32_DependentService + autoruns",
+      "items": 279
+    },
+    {
+      "key": "events",
+      "status": "complete",
+      "provider": "Get-WinEvent",
+      "items": 300
+    },
+    {
+      "key": "drivers",
+      "status": "complete",
+      "provider": "Win32_PnPSignedDriver",
+      "items": 133
+    },
+    {
+      "key": "network",
+      "status": "complete",
+      "provider": "NetTCPIP + netsh + Internet Settings",
+      "items": 244
+    },
+    {
+      "key": "sockets",
+      "status": "complete",
+      "provider": "Get-NetTCPConnection + Get-NetUDPEndpoint",
+      "items": 395
+    },
+    {
+      "key": "hardware",
+      "status": "complete",
+      "provider": "Win32 CIM + storage reliability",
+      "items": 23
+    },
+    {
+      "key": "timeline",
+      "status": "complete",
+      "provider": "Measured Windows events + observation markers",
+      "items": 82
+    }
+  ],
+  "warnings": [
+    "Windows did not expose an ACPI thermal-zone temperature to this process. No sensor value is simulated."
+  ],
+  "generatedAt": "2026-11-03T06:10:19.208Z"
+}

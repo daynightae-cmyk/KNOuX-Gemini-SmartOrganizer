@@ -1,4 +1,3 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer — System Live Pulse (Mission 10).
  *
@@ -7,6 +6,11 @@ import { CommandCanvas } from '../visual/CommandCanvas';
  * line, hardware field and coverage badge comes from the read-only SystemBridge
  * scan. No design fixture is imported and no process, service, driver, proxy,
  * hosts, adapter, repair or power mutation is exposed here.
+ *
+ * Inner-workspace composition: the 36 registry selectors live in the shared
+ * CompactServiceDock, the measured session is reported by SystemLiveStage, and
+ * the selected service renders its own specialized workbench inside the page's
+ * work grid (with an optional pinned/expanded host) instead of a generic modal.
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -87,8 +91,11 @@ import {
 } from '../system/ui';
 import { useSystem } from '../system/useSystem';
 import { SystemServiceWorkspace, hasSystemWorkbench } from '../system/SystemServiceWorkspaces';
+import { SystemServiceRail } from '../system/SystemServiceRail';
+import { SystemLiveStage } from '../system/SystemLiveStage';
 import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import '../system.css';
+import '../system/system-inner-workspace.css';
 
 export interface SystemPageProps {
   onNavigateSection?: (section: string) => void;
@@ -230,6 +237,11 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
   const snapshot = controller.snapshot;
 
   const [activeService, setActiveService] = useState<string | null>(null);
+  const [detached, setDetached] = useState(false);
+  const integratedRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (integratedRef.current) integratedRef.current.scrollTop = 0;
+  }, [activeService]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.system.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -319,6 +331,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
   );
 
   const closeService = useCallback(() => {
+    setDetached(false);
     setActiveService(null);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   }, []);
@@ -381,7 +394,7 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
         key={entry.id}
         type="button"
         className="sys-service-card"
-        data-testid={`system-service-${entry.id}`}
+        data-testid={`system-catalog-${entry.id}`}
         onClick={() => openService(entry.id)}
         title={`${entry.id} · ${live ? capability?.provider || entry.blurbEn : t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}`}
       >
@@ -490,8 +503,12 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
         <KNOuXSidebar activeSection="system" onNavigate={navigate} isArabic={locale === AR} />
 
         <div className="sys-shell-main">
-          <main className="sys-main knx-custom-scrollbar" data-testid="system-workspace">
-          <CommandCanvas locale={locale} toolPlacement="rail">
+          <main className="sys-main system-inner-workspace knx-custom-scrollbar" data-testid="system-workspace">
+          {/* The Living Glass header above already carries this domain's hero
+              identity. The original hero stays mounted (hidden) so its orbital
+              instrument keeps portalling into the shared header slot and no
+              approved artwork or motion is lost. */}
+          <div hidden className="system-header-bridge">
             <section className="sys-hero" data-testid="system-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -642,6 +659,36 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
                 </div>
               </aside>
             </section>
+          </div>
+
+          <SystemServiceRail
+            locale={locale}
+            controller={controller}
+            ids={SERVICE_CATALOG.map((entry) => entry.id)}
+            selectedService={activeService}
+            onOpenService={openService}
+          />
+
+          <div className="sys-process-row">
+            <SystemLiveStage
+              controller={controller}
+              locale={locale}
+              service={activeService}
+              title={activeService ? serviceLabel(activeService, locale) : t(locale, 'Measured observatory', 'المرصد المقيس')}
+            />
+            <div className="sys-process-tools">
+              <button type="button" aria-pressed={!activeService} onClick={closeService} disabled={!activeService}>
+                {t(locale, 'Overview', 'نظرة عامة')}
+              </button>
+              <button type="button" onClick={() => setDetached(true)} disabled={!activeService || !snapshot}>
+                {t(locale, 'Side view', 'عرض جانبي')}
+              </button>
+              <button type="button" onClick={() => openService('system-health-check')} disabled={!snapshot}>
+                <Gauge aria-hidden="true" /> {t(locale, 'Full pulse', 'النبض الكامل')}
+              </button>
+              <button type="button" onClick={() => openService('hardware-health-report')} disabled={!snapshot}>
+                <ShieldCheck aria-hidden="true" /> {t(locale, 'Hardware report', 'تقرير العتاد')}
+              </button>
 
             {!controller.nativeAvailable ? (
               <div className="sys-banner is-required" data-testid="system-native-required">
@@ -668,6 +715,9 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
               </div>
             )}
 
+            <details>
+              <summary>{t(locale, 'Sources & coverage', 'المصادر والتغطية')}</summary>
+              <div>
             {controller.scanning ? (
               <div className="sys-scan-progress" data-testid="system-scan-progress">
                 <div className="sys-scan-progress-head">
@@ -687,6 +737,41 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
               </div>
             ) : null}
 
+            <div className="sys-foot-strip">
+              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: {t(locale, 'CIM, performance counters, event log, Authenticode, Net* and bounded DNS/TCP probes', 'CIM وعدادات الأداء وسجل الأحداث وAuthenticode وNet* وفحوص DNS/TCP المحدودة')}</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'No process, service, driver, hosts, proxy, adapter, repair or power write exists in Mission 10.', 'لا توجد كتابة للعمليات أو الخدمات أو برامج التشغيل أو hosts أو الوكيل أو المحول أو الإصلاح أو الطاقة في المهمة 10.')}</span>
+              {controller.lastSampleAt ? <span><Clock aria-hidden="true" />{t(locale, 'Last sample', 'آخر عينة')}: {formatTimestamp(controller.lastSampleAt, locale)}</span> : null}
+            </div>
+              </div>
+            </details>
+            </div>
+          </div>
+
+          <div className="sys-work-grid">
+            <section
+              ref={integratedRef}
+              id="active-service-workspace"
+              role="tabpanel"
+              aria-labelledby={activeService ? `service-tab-${activeService}` : undefined}
+              className="sys-integrated-service knx-service-workspace"
+              data-testid="system-integrated-service"
+            >
+              {activeService && snapshot && !detached ? (
+                <SystemServiceWorkspace
+                  serviceId={activeService}
+                  locale={locale}
+                  controller={controller}
+                  onOpenService={openService}
+                  onClose={closeService}
+                  mode={workbenchMode}
+                  onModeChange={setWorkbenchMode}
+                  width={workbenchWidth}
+                  onResize={setWorkbenchWidth}
+                  toolSelector={systemWorkbenchToolSelector}
+                  embedded
+                />
+              ) : (
+              <div className="sys-overview-scroll" data-testid="system-overview">
             {snapshot ? (
               <>
                 <div className="sys-kpi-row" data-testid="system-kpi-row">
@@ -1002,14 +1087,10 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
                 </Panel>
               </div>
             )}
-
-            <div className="sys-foot-strip">
-              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: {t(locale, 'CIM, performance counters, event log, Authenticode, Net* and bounded DNS/TCP probes', 'CIM وعدادات الأداء وسجل الأحداث وAuthenticode وNet* وفحوص DNS/TCP المحدودة')}</span>
-              <span><Lock aria-hidden="true" />{t(locale, 'No process, service, driver, hosts, proxy, adapter, repair or power write exists in Mission 10.', 'لا توجد كتابة للعمليات أو الخدمات أو برامج التشغيل أو hosts أو الوكيل أو المحول أو الإصلاح أو الطاقة في المهمة 10.')}</span>
-              {controller.lastSampleAt ? <span><Clock aria-hidden="true" />{t(locale, 'Last sample', 'آخر عينة')}: {formatTimestamp(controller.lastSampleAt, locale)}</span> : null}
-            </div>
-
-          </CommandCanvas>
+              </div>
+              )}
+            </section>
+          </div>
           </main>
 
           <footer className="sys-actionbar" data-testid="system-actionbar">
@@ -1022,35 +1103,65 @@ export function SystemPage({ onNavigateSection }: SystemPageProps) {
               {sampleCount ? <span className="sys-chip sys-chip-good">{formatCount(sampleCount)} {t(locale, 'live samples', 'عينة حية')}</span> : null}
             </div>
             <div className="sys-actionbar-actions">
-              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openService('hardware-health-report')} disabled={!snapshot}>
-                <ShieldCheck aria-hidden="true" />
-                {t(locale, 'Hardware report', 'تقرير العتاد')}
-              </button>
-              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openService('system-health-check')} disabled={!snapshot}>
-                <Gauge aria-hidden="true" />
-                {t(locale, 'Full pulse', 'النبض الكامل')}
+              <button
+                type="button"
+                className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')}
+                onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())}
+                disabled={!controller.nativeAvailable || controller.cancelling}
+                data-testid="system-scan-action"
+              >
+                {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
+                {controller.scanning
+                  ? t(locale, 'Cancel scan', 'إلغاء المسح')
+                  : snapshot
+                    ? t(locale, 'Re-scan', 'إعادة المسح')
+                    : t(locale, 'Start measured scan', 'بدء المسح المقيس')}
               </button>
               <button
                 type="button"
-                className="sys-btn sys-btn-primary"
+                className="sys-btn sys-btn-ghost"
                 onClick={() => void controller.refreshSnapshot(true)}
                 disabled={!snapshot || controller.refreshing || controller.scanning}
               >
                 <RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />
                 {t(locale, 'Refresh data', 'تحديث البيانات')}
               </button>
+              <button
+                type="button"
+                className="sys-btn sys-btn-ghost"
+                onClick={() => void controller.sampleNow()}
+                disabled={!snapshot || controller.sampling}
+              >
+                {controller.sampling ? <Loader2 aria-hidden="true" className="sys-spin" /> : <Zap aria-hidden="true" />}
+                {t(locale, 'Sample now', 'قياس الآن')}
+              </button>
+              <button
+                type="button"
+                className="sys-btn sys-btn-quiet"
+                onClick={() => {
+                  if (!snapshot) return;
+                  const ok = downloadJson('knoux-live-pulse-snapshot.json', snapshot);
+                  controller.showNotice(ok
+                    ? t(locale, 'Measured snapshot exported as JSON.', 'صُدّرت اللقطة المقيسة بصيغة JSON.')
+                    : t(locale, 'The snapshot export could not start.', 'تعذّر بدء تصدير اللقطة.'));
+                }}
+                disabled={!snapshot}
+              >
+                <Download aria-hidden="true" />
+                {t(locale, 'Export snapshot', 'تصدير اللقطة')}
+              </button>
             </div>
           </footer>
         </div>
       </div>
 
-      {activeService && snapshot ? (
+      {activeService && snapshot && detached ? (
         <SystemServiceWorkspace
           serviceId={activeService}
           locale={locale}
           controller={controller}
           onOpenService={openService}
-          onClose={closeService}
+          onClose={() => setDetached(false)}
           mode={workbenchMode}
           onModeChange={setWorkbenchMode}
           width={workbenchWidth}

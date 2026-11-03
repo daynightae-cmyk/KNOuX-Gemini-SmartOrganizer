@@ -9,6 +9,7 @@ import React from 'react';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import type { SystemLocale } from './catalog';
 import { SERVICE_BY_ID, serviceLabel } from './catalog';
+import { serviceStateTone } from './model';
 import type { SystemController } from './useSystem';
 import type { WorkbenchProps } from './types';
 import {
@@ -112,34 +113,37 @@ export interface SystemServiceWorkspaceProps {
   width: number;
   onResize: (width: number) => void;
   toolSelector?: React.ReactNode;
+  /**
+   * Render inside the page's own work grid instead of a floating host. The
+   * integrated stage and the pinned/expanded host then show the identical
+   * specialized measured body, so a service is never a different product
+   * depending on where it was opened.
+   */
+  embedded?: boolean;
+}
+
+const LIVE_INSTRUMENTS = ['system-health-check', 'system-perf', 'system-timeline', 'network-throughput', 'hardware-cpu', 'hardware-memory'];
+
+export interface SystemServiceBodyProps {
+  serviceId: string;
+  locale: SystemLocale;
+  controller: SystemController;
+  onOpenService: (id: string) => void;
 }
 
 /**
- * Pinned or expanded service workbench. It renders on top of the measured
- * overview without unmounting it, so live samples keep flowing while a
- * workbench is open. The shared host owns chrome, resize, Escape and the rail
- * scroll; each service supplies its own specialized measured body.
+ * The specialized measured body of one registry descriptor, shared by every
+ * surface that can host it. No generic fallback exists: an unmapped id renders
+ * nothing rather than an invented panel.
  */
-export function SystemServiceWorkspace({
-  serviceId,
-  locale,
-  controller,
-  onOpenService,
-  onClose,
-  mode,
-  onModeChange,
-  width,
-  onResize,
-  toolSelector,
-}: SystemServiceWorkspaceProps) {
+export function SystemServiceBody({ serviceId, locale, controller, onOpenService }: SystemServiceBodyProps) {
   const snapshot = controller.snapshot;
   const Component = SYSTEM_WORKBENCHES[serviceId];
-  const ServiceIcon = SERVICE_BY_ID[serviceId]?.icon;
 
   if (!snapshot || !Component) return null;
 
-  const liveInstrument = ['system-health-check','system-perf','system-timeline','network-throughput','hardware-cpu','hardware-memory'].includes(serviceId);
-  const body = (
+  const liveInstrument = LIVE_INSTRUMENTS.includes(serviceId);
+  return (
     <div className="knx-system-tool">
     {controller.actionError ? <p role="alert" className="knx-tool-error"><strong>{controller.actionError.code}</strong> · {controller.actionError.message}<button type="button" className="sys-btn sys-btn-quiet" onClick={controller.clearError}>{locale === 'ar' ? 'إخفاء الرسالة' : 'Dismiss message'}</button></p> : null}
     <div className="knx-tool-context"><div><strong>{locale === 'ar' ? 'أدلة النظام الأصلية' : 'Native system evidence'}</strong>{liveInstrument ? <small>{locale === 'ar' ? 'آخر عينة' : 'Last sample'}: {controller.lastSampleAt || '—'}</small> : null}</div><button type="button" className="sys-btn sys-btn-quiet" disabled={!controller.nativeAvailable || controller.refreshing || controller.scanning} onClick={() => void controller.refreshSnapshot()}>{locale === 'ar' ? 'تحديث اللقطة' : 'Refresh snapshot'}</button>{controller.scanning ? <button type="button" className="sys-btn" disabled={controller.cancelling} onClick={() => void controller.cancelScan()}>{locale === 'ar' ? 'إلغاء الفحص' : 'Cancel scan'}</button> : null}</div>
@@ -155,6 +159,42 @@ export function SystemServiceWorkspace({
     />
     </div>
   );
+}
+
+/**
+ * Pinned, expanded or integrated service workbench. The floating modes render on
+ * top of the measured overview without unmounting it, so live samples keep
+ * flowing while a workbench is open. The shared host owns chrome, resize, Escape
+ * and the rail scroll; the integrated mode keeps the same body inside the page's
+ * own work grid. Each service always supplies its own specialized measured body.
+ */
+export function SystemServiceWorkspace({
+  serviceId,
+  locale,
+  controller,
+  onOpenService,
+  onClose,
+  mode,
+  onModeChange,
+  width,
+  onResize,
+  toolSelector,
+  embedded = false,
+}: SystemServiceWorkspaceProps) {
+  const snapshot = controller.snapshot;
+  const Component = SYSTEM_WORKBENCHES[serviceId];
+  const ServiceIcon = SERVICE_BY_ID[serviceId]?.icon;
+
+  if (!snapshot || !Component) return null;
+
+  const body = (
+    <SystemServiceBody
+      serviceId={serviceId}
+      locale={locale}
+      controller={controller}
+      onOpenService={onOpenService}
+    />
+  );
   const footer = (
     <span className="text-amber-300">
       {locale === 'ar'
@@ -162,6 +202,42 @@ export function SystemServiceWorkspace({
         : 'Read-only · no process, service, driver, log, network or power write'}
     </span>
   );
+
+  if (embedded) {
+    const entry = SERVICE_BY_ID[serviceId];
+    const capability = controller.capabilities?.services.find((service) => service.id === serviceId);
+    const state = capability?.state || entry?.state || 'gated';
+    return (
+      <div className="sys-embedded-service" data-testid="system-embedded-service">
+        <header className="sys-embedded-head">
+          <span className="sys-embedded-icon" style={entry ? { color: entry.accent } : undefined} aria-hidden="true">
+            {ServiceIcon ? <ServiceIcon /> : null}
+          </span>
+          <span className="sys-embedded-copy">
+            <strong>{serviceLabel(serviceId, locale)}</strong>
+            <small>
+              {capability?.provider || (entry ? (locale === 'ar' ? entry.blurbAr : entry.blurbEn) : serviceId)}
+            </small>
+          </span>
+          <span className={`sys-embedded-state is-${serviceStateTone(state)}`} data-testid="system-embedded-state">
+            {state === 'available'
+              ? locale === 'ar' ? 'مقيس' : 'Measured'
+              : state === 'partial'
+                ? locale === 'ar' ? 'مزود جزئي' : 'Partial provider'
+                : locale === 'ar' ? 'محمي بموافقة' : 'Consent gated'}
+          </span>
+          <button type="button" className="sys-btn sys-btn-quiet" onClick={onClose} data-testid="system-embedded-close">
+            {locale === 'ar' ? 'العودة إلى النظرة العامة' : 'Back to overview'}
+          </button>
+        </header>
+        {capability ? (
+          <p className="sys-embedded-note">{locale === 'ar' ? capability.noteAr : capability.noteEn}</p>
+        ) : null}
+        {body}
+        <footer className="sys-embedded-foot">{footer}</footer>
+      </div>
+    );
+  }
 
   if (mode === 'side') {
     return (
