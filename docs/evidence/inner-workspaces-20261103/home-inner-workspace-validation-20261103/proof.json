@@ -1,0 +1,36 @@
+{
+  "head": "6ebb28c4589fa8bfa120dfbd5ee75acc87b4bb8a",
+  "profile": "D:\\Temp\\knoux-inner-home-DBlwvs\\profile",
+  "scope": "Home Command Center Phase II verification: approved visual composition preserved (ApprovedHomeScreen), measured KPI aggregation from live bridges, deep-link command deck, system/quick-access tabs, insight, activity, pending actions, and search palette. No scan, mutation, or execution is invoked from Home.",
+  "checks": [
+    {
+      "name": "kpi-aggregation-honest-unmeasured",
+      "ok": true,
+      "evidence": {
+        "measured": 0,
+        "unmeasured": 6,
+        "nativeAvailable": true
+      }
+    },
+    {
+      "name": "eight-command-deck-deep-links",
+      "ok": true,
+      "evidence": {
+        "deckIds": 8,
+        "allNavigated": true
+      }
+    },
+    {
+      "name": "system-overview-tabs-and-live-metrics",
+      "ok": false,
+      "error": "locator.innerText: Error: strict mode violation: locator('.home-scroll') resolved to 4 elements:\n    1) <div class=\"home-scroll\">…</div> aka getByText('CPUNot measured—MemoryNot')\n    2) <div class=\"home-scroll\">…</div> aka locator('div').filter({ hasText: /^No file index is authorized\\.Open Files$/ }).first()\n    3) <div class=\"home-scroll\">…</div> aka locator('div').filter({ hasText: /^No verified activity yet\\.Refresh observations$/ }).first()\n    4) <div class=\"home-scroll\">…</div> aka locator('div').filter({ hasText: /^Nothing staged\\. Home never queues an effect on its own\\.Open Cleanup$/ }).first()\n\nCall log:\n\u001b[2m  - waiting for locator('.home-scroll')\u001b[22m\n"
+    }
+  ],
+  "errors": [
+    "locator.innerText: Error: strict mode violation: locator('.home-scroll') resolved to 4 elements:\n    1) <div class=\"home-scroll\">…</div> aka getByText('CPUNot measured—MemoryNot')\n    2) <div class=\"home-scroll\">…</div> aka locator('div').filter({ hasText: /^No file index is authorized\\.Open Files$/ }).first()\n    3) <div class=\"home-scroll\">…</div> aka locator('div').filter({ hasText: /^No verified activity yet\\.Refresh observations$/ }).first()\n    4) <div class=\"home-scroll\">…</div> aka locator('div').filter({ hasText: /^Nothing staged\\. Home never queues an effect on its own\\.Open Cleanup$/ }).first()\n\nCall log:\n\u001b[2m  - waiting for locator('.home-scroll')\u001b[22m\n"
+  ],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": false
+}

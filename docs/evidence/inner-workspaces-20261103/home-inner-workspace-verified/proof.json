@@ -1,0 +1,101 @@
+{
+  "head": "6ebb28c4589fa8bfa120dfbd5ee75acc87b4bb8a",
+  "profile": "D:\\Temp\\knoux-inner-home-P3eFR7\\profile",
+  "scope": "Home Command Center Phase II verification: approved visual composition preserved (ApprovedHomeScreen), measured KPI aggregation from live bridges, deep-link command deck, system/quick-access tabs, insight, activity, pending actions, and search palette. No scan, mutation, or execution is invoked from Home.",
+  "checks": [
+    {
+      "name": "kpi-aggregation-honest-unmeasured",
+      "ok": true,
+      "evidence": {
+        "measured": 0,
+        "unmeasured": 6,
+        "providerMeasurement": "unmeasured"
+      }
+    },
+    {
+      "name": "eight-command-deck-deep-links",
+      "ok": true,
+      "evidence": {
+        "deckIds": 8,
+        "allNavigated": true
+      }
+    },
+    {
+      "name": "system-overview-tabs-and-live-metrics",
+      "ok": true,
+      "evidence": {
+        "tabs": 2,
+        "metricRows": 4
+      }
+    },
+    {
+      "name": "quick-access-tabs-files-and-activity",
+      "ok": true,
+      "evidence": {
+        "tabs": 2
+      }
+    },
+    {
+      "name": "insight-panel-honest-measured-or-unmeasured",
+      "ok": true,
+      "evidence": {
+        "hasLead": true,
+        "hasNote": true,
+        "honest": true
+      }
+    },
+    {
+      "name": "recent-activity-and-pending-actions-review-only",
+      "ok": true,
+      "evidence": {
+        "activityItems": 0,
+        "pendingItems": 0,
+        "noExecutionClaim": true
+      }
+    },
+    {
+      "name": "search-palette-measured-inventory-and-history",
+      "ok": true,
+      "evidence": {
+        "paletteOpens": true,
+        "nonMatchEmpty": true,
+        "historyCapped": true
+      }
+    },
+    {
+      "name": "modal-dialogs-and-honest-copy",
+      "ok": true,
+      "evidence": {
+        "modals": 3,
+        "allHonest": true
+      }
+    },
+    {
+      "name": "layout-frames-four-viewports",
+      "ok": true,
+      "evidence": {
+        "frames": 4
+      }
+    },
+    {
+      "name": "browser-preview-reports-native-required",
+      "ok": true,
+      "evidence": {
+        "kpiStates": [
+          "unmeasured",
+          "unmeasured",
+          "unmeasured",
+          "unmeasured",
+          "unmeasured",
+          "unmeasured"
+        ],
+        "noFabricated": true
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}
