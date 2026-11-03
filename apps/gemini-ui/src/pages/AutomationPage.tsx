@@ -1,8 +1,12 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
-import { OrbitalControl } from '../visual/OrbitalControl';
-import { ServicePipeline } from '../visual/ServicePipeline';
 /**
  * KNOuX SmartOrganizer - Flow Studio (Mission 13).
+ *
+ * The Living Glass header above carries this domain's approved hero identity;
+ * its orbital instrument stays mounted through a hidden bridge. The measured
+ * local store, editor, templates and consent machinery are preserved inside
+ * the shared inner-workspace composition: compact dock, live stage and one of
+ * twelve specialized workbenches in the main grid (or a pinned/expanded host
+ * on explicit detach). Focus editor collapses the surround to the canvas.
  *
  * Browser previews render an explicit native-required state. In Electron every
  * workflow, template, schedule occurrence, power reading and dry-run record is
@@ -10,6 +14,8 @@ import { ServicePipeline } from '../visual/ServicePipeline';
  * schedules execute only through the operations runner behind exact-plan
  * native consent; no background Windows task or external mutation exists.
  */
+import { OrbitalControl } from '../visual/OrbitalControl';
+import { ServicePipeline } from '../visual/ServicePipeline';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
@@ -55,6 +61,8 @@ import {
 } from '../automation/model';
 import { useAutomation } from '../automation/useAutomation';
 import { AutomationServiceWorkspace, hasAutomationWorkbench } from '../automation/AutomationServiceWorkspaces';
+import { AutomationServiceRail } from '../automation/AutomationServiceRail';
+import { AutomationLiveStage } from '../automation/AutomationLiveStage';
 import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import {
   DryRunTimeline,
@@ -67,6 +75,7 @@ import {
 } from '../automation/ui';
 import { Chip, Panel, SearchBox, Seg, downloadJson, cx } from '../system/ui';
 import '../automation.css';
+import '../automation/automation-inner-workspace.css';
 
 export interface AutomationPageProps {
   onNavigateSection?: (section: string) => void;
@@ -82,6 +91,11 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
   const [draft, setDraft] = useState<AutomationWorkflow | null>(null);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [activeTool, setActiveTool] = useState<keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES'] | null>(null);
+  const [detached, setDetached] = useState(false);
+  const integratedRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (integratedRef.current) integratedRef.current.scrollTop = 0;
+  }, [activeTool]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.automation.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -219,6 +233,7 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
   };
 
   const closeTool = () => {
+    setDetached(false);
     setActiveTool(null);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   };
@@ -288,9 +303,13 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
       <div className="sys-shell">
         <KNOuXSidebar activeSection="automation" onNavigate={navigate} isArabic={locale === 'ar'} />
         <div className="sys-shell-main">
-          <main className="sys-main knx-custom-scrollbar auto-main" data-testid="automation-workspace" data-editor-focus={editorFocused}>
+          <main className="sys-main automation-inner-workspace knx-custom-scrollbar auto-main" data-testid="automation-workspace" data-editor-focus={editorFocused}>
           {editorFocused ? <div className="auto-focus-ribbon" data-testid="automation-focus-ribbon"><strong><GitBranch aria-hidden="true" />Flow Studio</strong><span>{t(locale, 'Local draft · execution requires a separate provider', 'مسودة محلية · التنفيذ يحتاج مزودًا مستقلاً')}</span><button type="button" className="sys-btn sys-btn-quiet" disabled={!controller.nativeAvailable || controller.scanning} onClick={() => void controller.startScan()}>{t(locale, 'Discover workflows', 'اكتشاف سير العمل')}</button><button type="button" className="sys-btn" onClick={() => setFocusOverride(false)} data-testid="automation-show-overview"><Minimize2 aria-hidden="true" />{t(locale, 'Show overview', 'عرض النظرة العامة')}</button></div> : null}
-          <CommandCanvas locale={locale}>
+          {/* The Living Glass header above carries this domain's hero identity.
+              The approved artwork, orbit, pipeline and handlers stay mounted
+              here — hidden — so nothing approved is lost; only its orbital
+              instrument travels to the shared header slot. */}
+          <div hidden className="automation-header-bridge">
             <section className="sys-hero auto-hero" data-testid="automation-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -378,18 +397,83 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                 <div className="sys-source-badges"><span className="sys-source-badge">{t(locale, 'Draft + native run', 'مسودة + تشغيل أصلي')}</span><span className="sys-source-badge">{t(locale, 'Foreground only', 'أمامي فقط')}</span></div>
               </aside>
             </section>
+          </div>
 
-            {!controller.nativeAvailable ? (
+          <AutomationServiceRail
+            locale={locale}
+            controller={controller}
+            selectedTool={activeTool}
+            onOpenTool={(id) => { if (hasAutomationWorkbench(id)) openTool(id as keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES']); }}
+          />
+
+          <div className="auto-process-row">
+            <AutomationLiveStage
+              controller={controller}
+              locale={locale}
+              tool={activeTool}
+              title={activeTool ? toolLabel(activeTool, locale) : t(locale, 'Local Flow Studio', 'Flow Studio المحلي')}
+            />
+            <div className="auto-process-tools">
+              <button type="button" aria-pressed={!activeTool} onClick={closeTool} disabled={!activeTool}>
+                {t(locale, 'Overview', 'نظرة عامة')}
+              </button>
+              <button type="button" onClick={() => setDetached(true)} disabled={!activeTool || !snapshot}>
+                {t(locale, 'Side view', 'عرض جانبي')}
+              </button>
+              <button type="button" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}>
+                <Download aria-hidden="true" /> {t(locale, 'Export report', 'تصدير التقرير')}
+              </button>
+              <button type="button" onClick={() => openTool('auto-run-history')} disabled={!snapshot}>
+                <History aria-hidden="true" /> {t(locale, 'Open history', 'فتح السجل')}
+              </button>
+
+              {!controller.nativeAvailable ? (
               <div className="sys-banner is-required" data-testid="automation-native-required"><Lock aria-hidden="true" /><div><strong>{t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}</strong><p>{t(locale, 'This is a browser preview. The local Flow Studio bridge is unavailable, so no workflow, template, schedule occurrence or dry-run is substituted. Open the native Electron app.', 'هذه معاينة متصفح. جسر Flow Studio المحلي غير متاح، لذلك لا يُستبدل أي سير عمل أو قالب أو موعد أو معاينة جافة. افتح تطبيق Electron الأصلي.')}</p></div></div>
             ) : (
               <div className="sys-banner is-measured" data-testid="automation-native-banner"><ShieldCheck aria-hidden="true" /><div><strong>{t(locale, 'Local Flow Studio', 'استوديو التدفق المحلي')}</strong><p>{snapshot ? `${formatCount(snapshot.workflows.length)} ${t(locale, 'saved drafts', 'مسودة محفوظة')} · ${formatCount(snapshot.journal.length)} ${t(locale, 'dry-runs', 'معاينة جافة')} · ${snapshot.runtime.timezone} · ${t(locale, 'execution', 'التنفيذ')}: not-implemented` : scanStatus}</p></div><span className="sys-banner-chip">{snapshot ? t(locale, 'LOCAL', 'محلي') : t(locale, 'MEASURING', 'جارٍ القياس')}</span></div>
             )}
 
+            <details>
+              <summary>{t(locale, 'Sources & coverage', 'المصادر والتغطية')}</summary>
+              <div>
             {controller.scanning ? (
               <div className="sys-scan-progress" data-testid="automation-scan-progress"><div className="sys-scan-progress-head"><span><Loader2 aria-hidden="true" className="sys-spin" />{t(locale, 'Bounded local discovery', 'اكتشاف محلي محدود')}</span><em>{formatCount(controller.session?.progress || 0)}%</em></div><div className="sys-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={controller.session?.progress || 0}><span style={{ width: `${Math.max(2, Math.min(100, controller.session?.progress || 0))}%` }} /></div><div className="sys-scan-stages">{(controller.session?.stages || []).map((stage) => <span key={stage.key} className={`sys-scan-stage is-${stage.status}`} title={stage.provider}>{locale === 'ar' ? stage.labelAr : stage.labelEn}</span>)}</div></div>
             ) : null}
 
-            <div className="sys-kpi-row auto-kpi-row">
+            <div className="sys-foot-strip">
+              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: local workflow store · Intl host timezone · Win32_Battery where available · Studio sources</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'No file delete, registry write, privileged action or external notification exists in Mission 13.', 'لا حذف ملفات أو كتابة تسجيل أو إجراء مرفوع أو إشعار خارجي في المهمة 13.')}</span>
+              {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
+            </div>
+              </div>
+            </details>
+            </div>
+          </div>
+
+          <div className="auto-work-grid">
+            <section
+              ref={integratedRef}
+              id="active-service-workspace"
+              role="tabpanel"
+              aria-labelledby={activeTool ? `service-tab-${activeTool}` : undefined}
+              className="auto-integrated-service knx-service-workspace"
+              data-testid="automation-integrated-service"
+            >
+              {activeTool && snapshot && !detached ? (
+                <AutomationServiceWorkspace
+                  toolId={activeTool}
+                  locale={locale}
+                  controller={controller}
+                  onClose={closeTool}
+                  embedded
+                  mode={workbenchMode}
+                  onModeChange={setWorkbenchMode}
+                  width={workbenchWidth}
+                  onResize={setWorkbenchWidth}
+                />
+              ) : (
+              <div className="auto-overview-scroll" data-testid="automation-overview">
+            <div className="sys-kpi-row auto-kpi-row auto-hidden-in-focus">
               {[
                 { key: 'workflows', label: t(locale, 'Saved drafts', 'مسودات محفوظة'), value: snapshot ? formatCount(snapshot.workflows.length) : '—', note: t(locale, 'Versioned local workflows', 'سير عمل محلي بنسخ'), icon: Save },
                 { key: 'templates', label: t(locale, 'Templates', 'القوالب'), value: snapshot ? formatCount(snapshot.templates.length) : '—', note: t(locale, 'Built-in typed flows', 'تدفقات مهيكلة مدمجة'), icon: LayoutTemplate },
@@ -482,12 +566,12 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
               </div>
             </div>
 
-            <section className="auto-tools-panel" aria-labelledby="auto-tools-title">
+            <section className="auto-tools-panel auto-hidden-in-focus" aria-labelledby="auto-tools-title">
               <div className="auto-panel-head"><div><h2 id="auto-tools-title"><Sparkles aria-hidden="true" />{t(locale, 'Flow tools', 'أدوات التدفق')} ({formatCount(AUTOMATION_TOOLS.length)})</h2><p>{t(locale, 'Each tool opens a specialised workbench. Read-only Smart Scan runs and foreground schedules require an exact plan and native consent.', 'تفتح كل أداة مساحة عمل متخصصة. تشغيل الفحص الذكي للقراءة فقط والجدولة الأمامية يتطلبان خطة محددة وموافقة أصلية.')}</p></div></div>
               <div className="auto-tool-grid" data-testid="automation-tool-grid">{AUTOMATION_TOOLS.map(renderToolCard)}</div>
             </section>
 
-            <div className="auto-lower-grid">
+            <div className="auto-lower-grid auto-hidden-in-focus">
               <Panel title={t(locale, 'Dry-run journal', 'سجل المعاينات الجافة')} sub={t(locale, 'Deterministic dry-runs only. Native run receipts live in the Smart Scan and Schedule Manager tools.', 'معاينات جافة حتمية فقط. إيصالات التشغيل الأصلي في أداتي الفحص الذكي ومدير الجدولة.')} icon={History} actions={<button type="button" className="sys-btn sys-btn-quiet" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Open history', 'فتح السجل')}</button>}>
                 {journal.length ? (
                   <div className="auto-history">
@@ -508,29 +592,25 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
                 <div className="auto-chip-row"><Chip tone="warn" icon={ShieldCheck}>{t(locale, 'Consent-gated run', 'تشغيل بموافقة')}</Chip><Chip tone="warn" icon={Clock3}>{t(locale, 'No background timer', 'لا مؤقت خلفي')}</Chip></div>
               </Panel>
             </div>
-
-            <div className="sys-foot-strip">
-              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: local workflow store · Intl host timezone · Win32_Battery where available · Studio sources</span>
-              <span><Lock aria-hidden="true" />{t(locale, 'No file delete, registry write, privileged action or external notification exists in Mission 13.', 'لا حذف ملفات أو كتابة تسجيل أو إجراء مرفوع أو إشعار خارجي في المهمة 13.')}</span>
-              {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
-            </div>
-
-          </CommandCanvas>
+              </div>
+              )}
+            </section>
+          </div>
           </main>
 
           <footer className="sys-actionbar auto-actionbar" data-testid="automation-actionbar">
             <div className="sys-actionbar-summary"><strong>{scanStatus}</strong><span className="sys-mono">{draft ? `${draft.name} · v${draft.version || 0} · ${draft.nodes.length} ${t(locale, 'nodes', 'عقدة')}` : t(locale, 'No workflow draft yet.', 'لا مسودة سير عمل بعد.')}</span><span className="sys-chip sys-chip-warn">{t(locale, 'consent-gated runs', 'تشغيل بموافقة')}</span>{snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}</div>
-            <div className="sys-actionbar-actions"><button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'History', 'السجل')}</button><button type="button" className="sys-btn sys-btn-ghost" onClick={() => void runDryRun()} disabled={!draft || controller.busy === 'dry-run'}><Play aria-hidden="true" />{t(locale, 'Dry-run', 'معاينة جافة')}</button><button type="button" className="sys-btn sys-btn-primary" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshIcon />{t(locale, 'Refresh store', 'تحديث المخزن')}</button></div>
+            <div className="sys-actionbar-actions"><button type="button" className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')} onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())} disabled={!controller.nativeAvailable || controller.cancelling} data-testid="automation-scan-action">{controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}{controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Discover workflows', 'اكتشاف سير العمل')}</button><button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('auto-run-history')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'History', 'السجل')}</button><button type="button" className="sys-btn sys-btn-ghost" onClick={() => void runDryRun()} disabled={!draft || controller.busy === 'dry-run'}><Play aria-hidden="true" />{t(locale, 'Dry-run', 'معاينة جافة')}</button><button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshIcon />{t(locale, 'Refresh store', 'تحديث المخزن')}</button></div>
           </footer>
         </div>
       </div>
 
-      {activeTool && snapshot ? (
+      {activeTool && snapshot && detached ? (
         <AutomationServiceWorkspace
           toolId={activeTool}
           locale={locale}
           controller={controller}
-          onClose={closeTool}
+          onClose={() => setDetached(false)}
           mode={workbenchMode}
           width={workbenchWidth}
           onModeChange={setWorkbenchMode}

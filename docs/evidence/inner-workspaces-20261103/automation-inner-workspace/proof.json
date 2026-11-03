@@ -1,0 +1,72 @@
+{
+  "head": "af59306d22b17a60621290fb2f16f88b52ede706",
+  "profile": "D:\\Temp\\knoux-inner-automation-eNx46D\\profile",
+  "scope": "Phase II Flow Studio interior: shared 12-tool CompactServiceDock (testIdPrefix automation), measured AutomationLiveStage, page-integrated specialized workspaces, hidden orbital header bridge. Local store evidence only; no dry-run, schedule, approval, save, export or external effect is invoked.",
+  "checks": [
+    {
+      "name": "native-measured-snapshot-and-registry",
+      "ok": true,
+      "evidence": {
+        "serviceCount": 12,
+        "stages": 5,
+        "receiptPrefix": "workflows:45"
+      }
+    },
+    {
+      "name": "twelve-tools-and-layouts",
+      "ok": true,
+      "evidence": {
+        "frames": 48,
+        "captured": 16
+      }
+    },
+    {
+      "name": "dock-keyboard-and-detached-side-view",
+      "ok": true,
+      "evidence": {
+        "keyboardHomeEnd": true,
+        "sideEscape": true,
+        "noDuplicatedBody": true,
+        "overviewReturn": true
+      }
+    },
+    {
+      "name": "embedded-state-matches-native-capabilities",
+      "ok": true,
+      "evidence": {
+        "verified": 12,
+        "mismatches": 0
+      }
+    },
+    {
+      "name": "browser-unavailable-no-fabricated-readings",
+      "ok": true,
+      "evidence": {
+        "status": "UNAVAILABLE",
+        "selectors": 12,
+        "fixtures": 0
+      }
+    },
+    {
+      "name": "overview-preserved-at-four-frames",
+      "ok": true,
+      "evidence": {
+        "frames": 4
+      }
+    },
+    {
+      "name": "back-to-overview-and-aria-association",
+      "ok": true,
+      "evidence": {
+        "embeddedBack": true,
+        "ariaLabelledby": true,
+        "ariaSelected": true
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

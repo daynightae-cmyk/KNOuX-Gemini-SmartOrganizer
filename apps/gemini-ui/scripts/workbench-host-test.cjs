@@ -40,6 +40,7 @@ const repairPage = read('src/pages/RepairPage.tsx');
 const repairBody = read('src/repair/RepairServiceWorkspaces.tsx');
 const automationPage = read('src/pages/AutomationPage.tsx');
 const automationBody = read('src/automation/AutomationServiceWorkspaces.tsx');
+const automationRail = read('src/automation/AutomationServiceRail.tsx');
 const failures = [];
 
 function check(name, run) {
@@ -276,6 +277,24 @@ check('Automation integrates the shared host and foreground scheduler', () => {
   assert.match(automationPage, /knoux\.automation\.workbench\.width/);
   assert.match(automationPage, /data-testid="automation-workspace"/);
   assert.match(automationPage, /data-testid="automation-actionbar"/);
+  // Phase II interior: all 12 tools are selectable through the shared dock, the
+  // measured local store is reported by AutomationLiveStage, and the selected
+  // tool mounts exactly one specialized body. The floating host only mounts on
+  // explicit detach; the integrated panel and the pinned host never duplicate it.
+  assert.match(automationPage, /import \{ AutomationServiceRail \}/);
+  assert.match(automationPage, /import \{ AutomationLiveStage \}/);
+  assert.match(automationPage, /automation\/automation-inner-workspace\.css/);
+  assert.match(automationPage, /activeTool && snapshot && !detached \? \(/);
+  assert.match(automationPage, /activeTool && snapshot && detached \? \(/);
+  assert.match(automationPage, /data-testid="automation-integrated-service"/);
+  assert.match(automationPage, /data-testid="automation-scan-action"/);
+  assert.match(automationPage, /className="[^"]*automation-header-bridge/);
+  assert.doesNotMatch(automationPage, /import \{ CommandCanvas \}/);
+  assert.doesNotMatch(automationBody, /window\.addEventListener\('keydown'/);
+  assert.match(automationBody, /AutomationServiceBody/);
+  assert.match(automationBody, /auto-embedded-service|embedded/);
+  assert.match(automationRail, /testIdPrefix="automation"/);
+  assert.match(automationRail, /AUTOMATION_TOOLS\.map/);
   assert.doesNotMatch(automationBody, /sys-service-overlay|auto-service-overlay|aria-modal="true"/, 'Automation must not render as a modal sheet');
   const mapped = automationBody.match(/^\s{2}'auto-[a-z0-9-]+':\s*[A-Za-z]/gm) || [];
   assert.equal(mapped.length, 12, `expected 12 automation workbench entries, found ${mapped.length}`);

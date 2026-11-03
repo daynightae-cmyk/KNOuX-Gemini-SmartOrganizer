@@ -1,0 +1,124 @@
+{
+  "contract": "automation.v1",
+  "engine": "KNOuX Flow Studio local workflow drafts and dry-runs",
+  "readOnly": true,
+  "mutation": "none",
+  "serviceCount": 12,
+  "services": [
+    {
+      "id": "auto-smart-scan",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Local workflow draft + dry-run"
+    },
+    {
+      "id": "auto-schedule-manager",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Persisted schedule metadata"
+    },
+    {
+      "id": "auto-run-history",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Local dry-run journal"
+    },
+    {
+      "id": "auto-templates",
+      "state": "available",
+      "risk": "staged-change",
+      "provider": "Built-in workflow templates"
+    },
+    {
+      "id": "auto-schedule-plan",
+      "state": "available",
+      "risk": "staged-change",
+      "provider": "Host-timezone schedule preview"
+    },
+    {
+      "id": "auto-cleanup-plan",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Preview-only pipeline draft"
+    },
+    {
+      "id": "auto-notify",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Local channel policy"
+    },
+    {
+      "id": "auto-quiet-hours",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Local quiet-hours policy"
+    },
+    {
+      "id": "auto-battery-policy",
+      "state": "partial",
+      "risk": "staged-change",
+      "provider": "Measured battery evidence"
+    },
+    {
+      "id": "auto-retention",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Local dry-run journal metadata"
+    },
+    {
+      "id": "auto-export",
+      "state": "available",
+      "risk": "staged-change",
+      "provider": "knoux.workflow.v1 schema"
+    },
+    {
+      "id": "auto-backup-plan",
+      "state": "partial",
+      "risk": "staged-change",
+      "provider": "Authorized Studio sources + destination gate"
+    }
+  ],
+  "coverage": [
+    {
+      "key": "storage",
+      "status": "complete",
+      "provider": null,
+      "items": 0
+    },
+    {
+      "key": "templates",
+      "status": "complete",
+      "provider": null,
+      "items": 8
+    },
+    {
+      "key": "runtime",
+      "status": "partial",
+      "provider": null,
+      "items": 0
+    },
+    {
+      "key": "sources",
+      "status": "partial",
+      "provider": null,
+      "items": 0
+    },
+    {
+      "key": "journal",
+      "status": "complete",
+      "provider": null,
+      "items": 0
+    }
+  ],
+  "runtime": {
+    "timezone": "Asia/Dubai",
+    "localTime": "Tue, 03 Nov 2026, 12:03",
+    "batteryAvailable": false,
+    "batteryCount": 0,
+    "batteryChargePercent": null,
+    "powerSource": null,
+    "studioSources": []
+  },
+  "warnings": [],
+  "generatedAt": "2026-11-03T08:03:23.167Z"
+}
