@@ -1,0 +1,20 @@
+
+> knoux-gemini-renderer@0.4.0-gemini.0 test:storage
+> node scripts/storage-native-test.cjs
+
+{
+  "ok": true,
+  "volumes": 2,
+  "files": 4,
+  "bytes": 6291478,
+  "folders": [
+    "alpha:4194304",
+    "beta:2097152"
+  ],
+  "candidates": 1,
+  "verifiedGroups": 1,
+  "reclaimableBytes": 2097152,
+  "history": 4,
+  "failures": []
+}
+[storage-native-test] PASS

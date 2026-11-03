@@ -69,7 +69,7 @@ export function StorageBanner({
           ? (isArabic ? 'أحجام مقيسة — نطاق التحليل غير مصرح' : 'Volumes measured — no authorized analysis scope')
           : available
           ? (isArabic ? 'جسر التخزين جاهز — مصرّح بمجلد' : 'Storage bridge ready — authorize a folder')
-          : (isArabic ? 'بيانات تصميم تجريبية — ليست لهذا الجهاز' : 'Design fixture preview — not this device')}
+          : (isArabic ? 'المزود الأصلي غير متاح — لا توجد قياسات' : 'Native provider unavailable — no measurements')}
       </span>
 
       {measuredVolumes && (

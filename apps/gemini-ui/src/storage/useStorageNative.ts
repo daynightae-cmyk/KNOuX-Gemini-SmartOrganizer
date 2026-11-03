@@ -48,15 +48,19 @@ export function useStorageNative() {
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [scanning, setScanning] = useState(false);
+  const [scanOutcome,setScanOutcome]=useState<'idle'|'complete'|'cancelled'|'failed'>('idle');
   const [progress, setProgress] = useState<{ files: number; folders: number; bytes: number } | null>(null);
   const [duplicates, setDuplicates] = useState<StorageDuplicateResult | null>(null);
   const [verifying, setVerifying] = useState(false);
   const sourceRef = useRef<StudioSource | null>(null);
 
   const setActiveSource = useCallback((next: StudioSource | null) => {
+    const changed=sourceRef.current?.id!==next?.id;
     sourceRef.current = next;
     setSource(next);
-    if (!next) {
+    if (!next || changed) {
+      setScanOutcome('idle');
+      setError(null);
       setAnalysis(null);
       setDuplicates(null);
     }
@@ -96,6 +100,7 @@ export function useStorageNative() {
     setAnalysisLoading(true);
     try {
       const envelope = await loadStorageAnalysis(nextSource.id);
+      if(sourceRef.current?.id!==nextSource.id)return;
       if (!envelope || envelope.status !== 'complete' || !envelope.data) {
         setAnalysis(null);
         setError(envelope?.error?.message || 'The storage analysis could not be read.');
@@ -105,10 +110,11 @@ export function useStorageNative() {
       setDuplicates(null);
       setError(null);
     } catch (analysisError) {
+      if(sourceRef.current?.id!==nextSource.id)return;
       setAnalysis(null);
       setError(analysisError instanceof Error ? analysisError.message : 'The storage analysis failed.');
     } finally {
-      setAnalysisLoading(false);
+      if(sourceRef.current?.id===nextSource.id)setAnalysisLoading(false);
     }
   }, []);
 
@@ -121,17 +127,21 @@ export function useStorageNative() {
       return;
     }
     const next = chosen.data;
+    setActiveSource(next);
     setSources((prev) => [next, ...prev.filter((entry) => entry.id !== next.id)]);
     setScanning(true);
+    setScanOutcome('idle');
     setProgress(null);
     try {
       const scanned = await scanFilesSource(next.id);
       if (!scanned || scanned.status !== 'complete' || !scanned.data) {
-        setError(scanned?.error?.message || 'The authorized scope could not be indexed.');
+        setScanOutcome(scanned?.status==='cancelled'?'cancelled':'failed');
+        if(scanned?.status!=='cancelled')setError(scanned?.error?.message || 'The authorized scope could not be indexed.');
         return;
       }
       setSources((prev) => prev.map((entry) => (entry.id === next.id ? scanned.data as StudioSource : entry)));
       setActiveSource(scanned.data);
+      setScanOutcome(current=>current==='cancelled'?'cancelled':'complete');
       await loadAnalysis(scanned.data);
       await loadVolumes();
     } finally {
@@ -143,16 +153,19 @@ export function useStorageNative() {
     const current = sourceRef.current;
     if (!current) return;
     setScanning(true);
+    setScanOutcome('idle');
     setError(null);
     setProgress(null);
     try {
       const scanned = await scanFilesSource(current.id);
       if (!scanned || scanned.status !== 'complete' || !scanned.data) {
-        setError(scanned?.error?.message || 'The authorized scope could not be re-indexed.');
+        setScanOutcome(scanned?.status==='cancelled'?'cancelled':'failed');
+        if(scanned?.status!=='cancelled')setError(scanned?.error?.message || 'The authorized scope could not be re-indexed.');
         return;
       }
       setSources((prev) => prev.map((entry) => (entry.id === current.id ? scanned.data as StudioSource : entry)));
       setActiveSource(scanned.data);
+      setScanOutcome(current=>current==='cancelled'?'cancelled':'complete');
       await loadAnalysis(scanned.data);
       await loadVolumes();
     } finally {
@@ -172,6 +185,7 @@ export function useStorageNative() {
     setError(null);
     try {
       const envelope = await verifyStorageDuplicates(current.id);
+      if(sourceRef.current?.id!==current.id)return;
       if (!envelope || envelope.status !== 'complete' || !envelope.data) {
         setError(envelope?.error?.message || 'Duplicate verification failed.');
         return;
@@ -202,9 +216,11 @@ export function useStorageNative() {
       setAvailable(true);
       const unsubscribe = subscribeFilesProgress((event: StudioProgressEvent) => {
         if (!active) return;
+        if(event.sourceId!==sourceRef.current?.id)return;
         if (event.type === 'scan-progress') {
           setProgress({ files: event.files || 0, folders: event.folders || 0, bytes: event.bytes || 0 });
         }
+        if(event.type==='scan-cancelled')setScanOutcome('cancelled');
         if (event.type === 'scan-failed') setError(event.message || 'The scope scan failed.');
       });
       void loadVolumes();
@@ -252,6 +268,7 @@ export function useStorageNative() {
     analysisLoading,
     error,
     scanning,
+    scanOutcome,
     progress,
     duplicates,
     verifying,

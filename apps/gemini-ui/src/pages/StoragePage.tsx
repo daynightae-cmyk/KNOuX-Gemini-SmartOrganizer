@@ -1,10 +1,9 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   HardDrive,
   Database,
@@ -70,6 +69,9 @@ import { StorageServiceFocus, storageServiceLabel } from '../storage/StorageServ
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
 import '../storage.css';
+import { CompactServiceDock } from '../components/workbench/CompactServiceDock';
+import { StorageLiveStage } from '../storage/StorageLiveStage';
+import '../storage/storage-inner-workspace.css';
 import '../storage/atlas-panels.css';
 import { StorageDrivesPanel, StorageHeroMetrics, StorageVolumeAnalysis } from '../storage/StorageAtlasPanels';
 import { OrbitalControl } from '../visual/OrbitalControl';
@@ -89,7 +91,10 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [treemapZoomNode, setTreemapZoomNode] = useState<string | null>(null);
   const [selectedTreemapItem, setSelectedTreemapItem] = useState<string>('Windows (93.6 GB)');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
-  const [activeService, setActiveService] = useState<string | null>(null);
+  const [activeService, setActiveService] = useState<string | null>('storage-disks');
+  const [detached,setDetached]=useState(false),[overview,setOverview]=useState(false);
+  const integratedRef=useRef<HTMLElement>(null);
+  useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.storage.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });
@@ -137,7 +142,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   }, [selectedVolumeId, storageNative.volumes]);
 
   const displayVolumes = useMemo<VolumeItem[]>(() => {
-    if (!nativeAvailable) return INITIAL_VOLUMES;
+    if (!nativeAvailable) return [];
     if (!measuredVolumes) return [];
     return storageNative.volumes.map((volume) => {
       const scopeMatches = Boolean(scopeVolumeLetter && volume.letter.toUpperCase() === scopeVolumeLetter);
@@ -173,7 +178,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const scopeMatchesSelected = Boolean(analysis && scopeVolumeLetter && selectedVolume && selectedVolume.letter.toUpperCase() === scopeVolumeLetter);
 
   const displayLargest = useMemo<LargestFileItem[]>(() => {
-    if (!analysis) return INITIAL_LARGEST_ITEMS;
+    if (!analysis) return [];
     return analysis.largest.map((item) => ({
       id: String(item.id),
       name: item.name,
@@ -203,7 +208,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
     setSelectedVolumeId(volume.id);
     if (!measuredVolumes) {
       setActiveTab('treemap');
-      showToast('Design fixture — use the Electron client to authorize a real scope.');
+      showToast('No measured volumes. Use the Electron client to read the native provider.');
       return;
     }
     if (!analysis || (scopeVolumeLetter && volume.letter.toUpperCase() !== scopeVolumeLetter)) {
@@ -227,7 +232,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
   const handleCopyReport = async () => {
     if (!analysis && !measuredVolumes) {
-      showToast('Design fixture — no measured report exists.');
+      showToast('No measured report exists.');
       return;
     }
     const report = {
@@ -273,7 +278,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
       working={storageNative.scanning || storageNative.analysisLoading || storageNative.volumesLoading || storageNative.verifying}
       cancelable={storageNative.scanning}
       onCancel={() => void storageNative.cancelScan()}
-      onClose={() => setActiveService(null)}
+      onClose={() => {setActiveService('storage-disks');setDetached(false);}}
       onChoose={() => void storageNative.chooseSource()}
       onRescan={() => void storageNative.rescan()}
       onRefreshVolumes={() => storageNative.refreshVolumes()}
@@ -287,7 +292,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           }
         })();
       }}
-      onTab={(tab) => { setActiveTab(tab); setActiveService(null); }}
+      onTab={(tab) => { setActiveTab(tab); setOverview(true); setDetached(false); }}
       onVerify={() => void storageNative.verifyDuplicates()}
       onNavigateFiles={() => navigateSection('files')}
       onNavigateCleanup={() => navigateSection('cleanup')}
@@ -337,8 +342,8 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         />
 
         {/* 3. Main Scrollable Canvas (Hero + Top Strip + Volume Bays + Analysis + Inspector + Services) */}
-        <main className="flex-1 overflow-y-auto storage-scrollbar p-3 pb-2 space-y-1.5" data-testid="storage-workspace">
-          {/* The shared measured tube, bound to Storage's own native reads. */}
+        <main className="storage-inner-workspace flex-1" data-testid="storage-workspace">
+          <div hidden className="storage-header-bridge">          {/* The shared measured tube, bound to Storage's own native reads. */}
           <ServicePipeline
             locale={isArabic ? 'ar' : 'en'}
             accent="violet"
@@ -362,7 +367,6 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             ]}
           />
 
-          <CommandCanvas locale={isArabic ? 'ar' : 'en'} statusTypes={[StorageBanner]}>
           {/* Hero Section */}
           <div className="knx-storage-hero atl-hero relative z-10">
             <div className="atl-hero-orbit">
@@ -373,8 +377,8 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                 { id: 'drives', label: isArabic ? 'الأقراص' : 'Drives', icon: HardDrive, position: { x: 21, y: 12 }, hint: isArabic ? 'أعد قراءة الأحجام المقيسة' : 'Re-read the measured volumes', onClick: () => void storageNative.refreshVolumes(), disabled: !nativeAvailable },
                 { id: 'used', label: isArabic ? 'المستخدم' : 'Used Space', icon: PieChart, position: { x: 79, y: 12 }, hint: isArabic ? 'اختر الوحدة الأكثر استخدامًا' : 'Select the volume using the most space', onClick: () => focusExtremeVolume((volume) => volume.usedPercent) },
                 { id: 'free', label: isArabic ? 'الحرة' : 'Free Space', icon: PieChart, position: { x: 93, y: 50 }, hint: isArabic ? 'اختر الوحدة الأكبر مساحة حرة' : 'Select the volume with the most free bytes', onClick: () => focusExtremeVolume((volume) => volume.freeBytes) },
-                { id: 'treemap', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, position: { x: 79, y: 88 }, onClick: () => { setActiveTab('treemap'); document.querySelector('[data-testid="storage-tab-treemap"]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } },
-                { id: 'folders', label: isArabic ? 'أكبر المجلدات' : 'Largest Folders', icon: FolderTree, position: { x: 21, y: 88 }, onClick: () => { setActiveTab('folders'); document.querySelector('[data-testid="storage-tab-folders"]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } },
+                { id: 'treemap', label: isArabic ? 'الخريطة' : 'Treemap', icon: Layers, position: { x: 79, y: 88 }, onClick: () => { setOverview(true);setActiveTab('treemap'); document.querySelector('[data-testid="storage-tab-treemap"]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } },
+                { id: 'folders', label: isArabic ? 'أكبر المجلدات' : 'Largest Folders', icon: FolderTree, position: { x: 21, y: 88 }, onClick: () => { setOverview(true);setActiveTab('folders'); document.querySelector('[data-testid="storage-tab-folders"]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } },
                 { id: 'reclaim', label: isArabic ? 'الاستعادة' : 'Reclaim', icon: Sparkles, position: { x: 7, y: 50 }, hint: isArabic ? 'افتح مراجعة الاستعادة' : 'Open the reclaim review', onClick: () => setActiveService('storage-reclaim') },
               ]} />
             </div>
@@ -399,6 +403,9 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             
           </div>
 
+</div>
+          <CompactServiceDock testIdPrefix="storage" isArabic={isArabic} label={isArabic?'خدمات التخزين':'Storage services'} selectedId={overview?null:activeService} onSelect={id=>{setActiveService(id);setOverview(false);setDetached(false);}} items={STORAGE_SERVICES_CATALOG.map(entry=>{const meta=storageServiceLabel(entry.serviceKey,isArabic);return{id:entry.serviceKey,label:meta.title,icon:renderServiceCatalogIcon(entry.serviceKey),hint:meta.description,capability:entry.serviceKey==='storage-smart'||entry.serviceKey==='storage-fragmentation'?(isArabic?'قدرات المزود':'Provider limits'):isArabic?'قياس أصلي':'Native measurement',result:!nativeAvailable?(isArabic?'غير متاح':'Unavailable'):['storage-disks','storage-history','storage-removable'].includes(entry.serviceKey)?`${storageNative.volumes.length} ${isArabic?'وحدات مقيسة':'measured volumes'}`:analysis?`${analysis.totals.files} ${isArabic?'ملف في النطاق':'scope files'}`:isArabic?'يلزم نطاق':'Scope required'}})}/>
+          <div className="storage-process-row"><StorageLiveStage native={storageNative} service={overview?null:activeService} isArabic={isArabic}/><div className="storage-process-tools"><button aria-pressed={overview} onClick={()=>{setOverview(v=>!v);setDetached(false);}}>{isArabic?'نظرة عامة':'Overview'}</button>{!overview&&activeService?<button onClick={()=>setDetached(true)}>{isArabic?'عرض جانبي':'Side view'}</button>:null}<details><summary>{isArabic?'مصادر وقياس':'Sources & coverage'}</summary><div>
           <StorageBanner
             isArabic={isArabic}
             available={storageNative.available}
@@ -418,6 +425,9 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
             onRefreshVolumes={() => void storageNative.refreshVolumes()}
           />
 
+</div></details></div></div>
+          <section ref={integratedRef} id="active-service-workspace" role="tabpanel" aria-labelledby={!overview&&activeService?`service-tab-${activeService}`:undefined} className="storage-integrated-service knx-service-workspace" data-testid="storage-integrated-service">
+          {!overview&&activeService?renderStorageServiceBody():<div className="storage-overview" data-testid="storage-overview">
           <div className="knx-storage-volumes atl-drives-slot">
             <StorageDrivesPanel
               ar={isArabic}
@@ -459,7 +469,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                   </button>
                   <button
                     data-testid="storage-tab-large"
-                    onClick={() => setActiveTab('large')}
+                    onClick={() => {setActiveService('storage-large-files');setOverview(false);}}
                     className={`px-2.5 py-1 rounded-lg text-xs font-medium transition ${
                       activeTab === 'large'
                         ? 'bg-blue-600 text-white'
@@ -505,16 +515,16 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
                 <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400 min-w-0">
                   <span className={`px-1.5 py-0.5 rounded border ${analysis ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : 'bg-amber-950/60 text-amber-300 border-amber-500/40'}`}>
-                    {analysis ? (isArabic ? 'نطاق مقيس' : 'MEASURED SCOPE') : (isArabic ? 'تجريبي' : 'FIXTURE')}
+                    {analysis ? (isArabic ? 'نطاق مقيس' : 'MEASURED SCOPE') : (isArabic ? 'غير مقيس' : 'UNMEASURED')}
                   </span>
-                  <span className="truncate max-w-[430px]" title={analysis?.coverage.scope || 'C: > Users > Alex > Documents (fixture)'}>
-                    {analysis?.coverage.scope || 'C: > Users > Alex > Documents (fixture)'}
+                  <span className="truncate max-w-[430px]" title={analysis?.coverage.scope || (isArabic?'لا يوجد نطاق مصرح به':'No authorised scope')}>
+                    {analysis?.coverage.scope || (isArabic?'لا يوجد نطاق مصرح به':'No authorised scope')}
                   </span>
                 </div>
               </div>
 
               {/* Main Content Split: Treemap (Left) + Largest Items in This Folder (Right) */}
-              <div className={`mt-3 ${activeTab !== 'treemap' || analysis ? 'hidden' : 'grid'} grid-cols-1 md:grid-cols-12 gap-3 flex-1 min-h-[172px]`}>
+              <div hidden style={{display:'none'}} className={`mt-3 ${'hidden'} grid-cols-1 md:grid-cols-12 gap-3 flex-1 min-h-[172px]`}>
                 {/* 1. Treemap Visualization (7 Columns) */}
                 <div className="storage-treemap md:col-span-7 flex flex-col gap-1.5 bg-[#030a16] p-2 rounded-xl border border-slate-800">
                   <div className="flex-1 flex gap-1.5 min-h-[160px]">
@@ -722,7 +732,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                     {isArabic ? 'هذه اللوحة تتطلب نطاقًا أصليًا مفهرسًا.' : 'This panel requires a measured authorized scope.'}
                   </div>
                   <div className="text-[10px] text-slate-500">
-                    {isArabic ? 'البيانات الحالية تصميم تجريبي فقط.' : 'The current design fixture has no native rows for this tab.'}
+                    {isArabic ? 'لم يُقس نطاق لهذا العرض بعد.' : 'No authorised scope has been measured for this view.'}
                   </div>
                   {storageNative.available && (
                     <button onClick={() => void storageNative.chooseSource()} className="px-2 py-1 rounded bg-[#0e274d] border border-[#2476ff]/50 text-cyan-200 text-[10px] cursor-pointer">
@@ -732,7 +742,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
                 </div>
               )}
           {/* 7. Storage Analysis Services (12 Services Strip) */}
-          <div className="space-y-1 pt-0.5">
+          <div className="storage-legacy-service-catalog space-y-1 pt-0.5">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 {isArabic ? 'خدمات تحليل واستكشاف التخزين' : 'Storage Analysis Services'}
@@ -843,26 +853,27 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
           </div>
 
 
-          </CommandCanvas>
+          </div>}</section>
           </main>
       </div>
 
       {/* 8. Sticky Action Footer */}
-      <footer className="h-14 bg-[#050f24] border-t border-slate-800/90 px-5 flex items-center justify-between z-30 shrink-0">
+      <footer data-testid="storage-actionbar" className="storage-actionbar h-14 bg-[#050f24] border-t border-slate-800/90 px-5 flex items-center justify-between z-30 shrink-0">
         <div className="flex items-center gap-2 text-xs text-slate-300">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>
             {measuredVolumes
               ? (isArabic ? 'وحدات مقيسة للقراءة فقط · لا تنظيف أو إلغاء تجزئة من هذه الصفحة.' : 'Measured volumes · read-only · no cleanup or defrag from this page.')
-              : (isArabic ? 'بيانات تصميم تجريبية · افتح عميل Electron لقياس أحجامك.' : 'Design fixture · open the Electron client to measure your volumes.')}
+              : (isArabic ? 'لا توجد وحدات مقيسة · يلزم مزود Electron الأصلي.' : 'No measured volumes · native Electron provider required.')}
           </span>
         </div>
 
         <div className="flex items-center gap-2.5">
+          <button data-testid="storage-authorize" disabled={!nativeAvailable||storageNative.scanning} onClick={()=>void storageNative.chooseSource()}>{isArabic?'تحديد مجلد':'Authorize folder'}</button><button data-testid="storage-rescan" disabled={!nativeAvailable||(!storageNative.source&&!storageNative.scanning)} onClick={()=>storageNative.scanning?void storageNative.cancelScan():void storageNative.rescan()}>{storageNative.scanning?(isArabic?'إلغاء الفحص':'Cancel scan'):(isArabic?'إعادة فحص':'Rescan')}</button>
           <button data-testid="storage-live-vault" className="knx-files-primary" onClick={() => window.dispatchEvent(new CustomEvent('knoux:storage-cleanup-live', { detail: { serviceId: 'storage-reclaim' } }))}>{isArabic?'استرداد حي آمن':'Live safe reclaim'}</button>
           <button
             data-testid="storage-inspect"
-            onClick={() => setActiveService('storage-disks')}
+            onClick={() => {setActiveService('storage-disks');setOverview(false);}}
             className="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-900/40 flex items-center gap-2 transition"
           >
             <Search className="w-4 h-4" />
@@ -880,7 +891,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
           <button
             data-testid="storage-review-duplicates"
-            onClick={() => setActiveService('storage-duplicates')}
+            onClick={() => {setActiveService('storage-duplicates');setOverview(false);}}
             className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#091838] hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-1.5 transition"
           >
             <Copy className="w-4 h-4 text-cyan-400" />
@@ -889,7 +900,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
 
           <button
             data-testid="storage-view-large"
-            onClick={() => setActiveTab('large')}
+            onClick={() => {setActiveService('storage-large-files');setOverview(false);}}
             className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#091838] hover:bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-1.5 transition"
           >
             <Scale className="w-4 h-4 text-purple-400" />
@@ -907,7 +918,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
         </div>
       </footer>
 
-      {activeService ? (
+      {activeService && detached ? (
         workbenchMode === 'side' ? (
           <div className="fixed end-3 top-14 bottom-20 z-50" style={{ width: `${workbenchWidth}px` }} data-testid="storage-workbench-side-shell">
             <ServiceWorkbenchHost
@@ -918,7 +929,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               locale={isArabic ? 'ar' : 'en'}
               mode="side"
               onModeChange={setWorkbenchMode}
-              onClose={() => setActiveService(null)}
+              onClose={() => setDetached(false)}
               onResize={(width) => setWorkbenchWidth(width)}
               minWidth={340}
               maxWidth={680}
@@ -951,7 +962,7 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               locale={isArabic ? 'ar' : 'en'}
               mode="expanded"
               onModeChange={setWorkbenchMode}
-              onClose={() => setActiveService(null)}
+              onClose={() => setDetached(false)}
               testId="storage-workbench-expanded"
               toolSelector={
                 <select

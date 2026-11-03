@@ -1,0 +1,233 @@
+{
+  "capturedAt": "2026-11-03T00:02:21.517Z",
+  "head": "11875da98b460ecc4ac28fcee1ff9ee14d0790d7",
+  "profile": "D:\\Temp\\knoux-visual-fidelity-XS8PP3",
+  "runtime": "production dist in isolated Electron Main + Preload + Renderer; current dirty sources built before capture",
+  "frames": [
+    {
+      "label": "storage-day-en-1672x941",
+      "section": "storage",
+      "theme": "day",
+      "locale": "en",
+      "width": 1672,
+      "height": 941,
+      "ok": true,
+      "screenshot": "storage-day-en-1672x941.png",
+      "state": {
+        "theme": "day",
+        "dir": "ltr",
+        "route": "storage",
+        "viewport": {
+          "width": 1672,
+          "height": 941
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1672,
+          "h": 58
+        },
+        "hero": {
+          "x": 252,
+          "y": 70,
+          "w": 1408,
+          "h": 340
+        },
+        "heroCount": 3,
+        "heroClass": "knx-section-hero",
+        "heroScrollHeight": 443,
+        "heroClientHeight": 338,
+        "controls": [
+          {
+            "label": "Analyze StorageChoose a scope. See the detail.",
+            "rect": {
+              "x": 1423.484375,
+              "y": 174.484375,
+              "w": 131.03125,
+              "h": 131.03125
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Re-read the measured volumes",
+            "rect": {
+              "x": 1452.5,
+              "y": 91.546875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select the volume using the most space",
+            "rect": {
+              "x": 1552.46875,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Select the volume with the most free bytes",
+            "rect": {
+              "x": 1552.46875,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Treemap",
+            "rect": {
+              "x": 1452.5,
+              "y": 322.4375,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Largest Folders",
+            "rect": {
+              "x": 1352.515625,
+              "y": 264.71875,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          },
+          {
+            "label": "Open the reclaim review",
+            "rect": {
+              "x": 1352.515625,
+              "y": 149.265625,
+              "w": 73,
+              "h": 66
+            },
+            "disabled": false,
+            "centerReachable": true,
+            "belowHero": false
+          }
+        ],
+        "filesGeometry": null,
+        "unified": {
+          "content": {
+            "x": 240,
+            "y": 58,
+            "w": 1432,
+            "h": 883
+          },
+          "scene": "storage",
+          "sceneKind": "bitmap",
+          "sceneReady": true,
+          "sceneCount": 1,
+          "liveOrbits": 1,
+          "chromeHeaders": 1,
+          "navigationRails": 1,
+          "particleSystems": 1
+        },
+        "horizontalOverflow": 0,
+        "documentOverflow": 0,
+        "orbitCount": 1,
+        "pipelineCount": 1,
+        "scrollRegions": [
+          {
+            "class": "knx-command-canvas has-reference-inspector",
+            "rect": {
+              "x": 265,
+              "y": 481.875,
+              "w": 1382,
+              "h": 344.53125
+            },
+            "scrollHeight": 679,
+            "clientHeight": 345
+          },
+          {
+            "class": "knx-command-panel",
+            "rect": {
+              "x": 265,
+              "y": 790.59375,
+              "w": 943,
+              "h": 212
+            },
+            "scrollHeight": 239,
+            "clientHeight": 212
+          },
+          {
+            "class": "knx-command-panel",
+            "rect": {
+              "x": 265,
+              "y": 1012.59375,
+              "w": 943,
+              "h": 148
+            },
+            "scrollHeight": 1198,
+            "clientHeight": 148
+          },
+          {
+            "class": "flex-1 overflow-y-auto storage-scrollbar mt-2 max-h-48",
+            "rect": {
+              "x": 826.40625,
+              "y": 1146.578125,
+              "w": 341.59375,
+              "h": 192
+            },
+            "scrollHeight": 358,
+            "clientHeight": 192
+          },
+          {
+            "class": "knx-storage-inspector lg:col-span-4 flex flex-col gap-3",
+            "rect": {
+              "x": 1233,
+              "y": 494.875,
+              "w": 388,
+              "h": 318.53125
+            },
+            "scrollHeight": 663,
+            "clientHeight": 319
+          }
+        ],
+        "headings": [
+          "Storage",
+          "Volume Atlas"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    {
+      "route": "storage",
+      "message": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+    }
+  ],
+  "failedRequests": [],
+  "runtimeOk": true,
+  "unifiedGeometryChecked": true,
+  "geometryTolerance": 2,
+  "geometryErrors": [],
+  "unifiedGeometryOk": true,
+  "geometryGroups": {
+    "1672x941/day/en": {
+      "x": 12,
+      "y": 12,
+      "w": 1408,
+      "h": 340
+    }
+  },
+  "visualFidelityAccepted": false
+}
