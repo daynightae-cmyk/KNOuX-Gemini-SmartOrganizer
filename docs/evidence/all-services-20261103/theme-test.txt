@@ -1,0 +1,21 @@
+✔ the canonical token layer declares both themes exactly once (1.862ms)
+✔ night and day declare the same semantic roles (7.5835ms)
+✔ every role the material layer depends on is declared (4.0071ms)
+✔ no stylesheet consumes a token the theme layer never defines (1.1478ms)
+✔ the material layer never hard-codes a colour on a real property (1.2072ms)
+✔ night and day body text clear WCAG AA over their own panels (3.9206ms)
+✔ accent hues stay legible as text on their own theme canvas (0.832ms)
+✔ the generated navy bridge still matches the source it was built from (240.1263ms)
+✔ the bridge only ever emits night-scoped, token-valued rules (1.4079ms)
+✔ the token layer is imported before every domain stylesheet (1.555ms)
+✔ no stylesheet is imported twice (1.8551ms)
+✔ the shell rail rule never targets every aside (1.5115ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 526.6079
+night material bridge OK — 613 navy surface uses mapped

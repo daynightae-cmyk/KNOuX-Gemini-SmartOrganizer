@@ -9,7 +9,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AiProviderIcon } from '../components/app/AppIcon';
 import { CinematicEntrySettings } from '../features/cinematic-entry/CinematicEntry';
-import { getAiSession, setAiSession } from '../lib/ai-session';
+import { getAiSession, refreshAiSession } from '../lib/ai-session';
+import { clearAiProvider, configureAiProvider, verifyAiProvider } from '../lib/ai-bridge';
+import type { AiProviderId } from '../../shared/native-contracts';
 import {
   exportSettingsProfile,
   loadSettingsProfile,
@@ -66,11 +68,14 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup' | 'clipboard'
   >('engine');
 
-  // API Key & Model State — session memory only, never localStorage.
-  const [apiKey, setApiKey] = useState(() => getAiSession().apiKey);
+  // API key entry is transient: the value is handed to the Main-process AI
+  // bridge and cleared from this component. The renderer never stores it.
+  const [apiKeyDraft, setApiKeyDraft] = useState('');
   const [showKey, setShowKey] = useState(false);
-  const [provider, setProvider] = useState<'openrouter' | 'openai' | 'anthropic'>(() => getAiSession().provider);
+  const [provider, setProvider] = useState<AiProviderId>(() => getAiSession().provider);
+  const [persistKey, setPersistKey] = useState(false);
   const [testStatus, setTestStatus] = useState<'idle' | 'testing' | 'success' | 'failed'>('idle');
+  const [ai, setAi] = useState(() => getAiSession());
 
   // Non-secret preferences are persisted locally. Credentials never enter it.
   const initialProfileRef = useRef<SettingsProfile | null>(null);
@@ -217,51 +222,72 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     showToastMsg(isArabic ? 'استُعيدت التفضيلات السابقة. لم يُستعد النظام أو أي بيانات حساب.' : 'Previous preferences restored. No system or account data was restored.');
   };
 
-  const handleSaveApiKey = () => {
-    setAiSession(apiKey, provider);
-    showToastMsg(
-      isArabic
-        ? 'تم الاحتفاظ بالمفتاح في ذاكرة الجلسة فقط. التخزين الآمن الأصلي غير موصول بعد.'
-        : 'Key held in session memory only. Native secure storage is not connected yet.'
-    );
-  };
+  const syncAiState = async () => setAi(await refreshAiSession());
 
-  const handleTestConnection = async () => {
-    if (!apiKey.trim()) {
+  // Pull the authoritative Main-process state whenever the AI tab is viewed.
+  useEffect(() => {
+    if (activeTab === 'ai_keys') void syncAiState();
+  }, [activeTab]);
+
+  const handleSaveApiKey = async () => {
+    const draft = apiKeyDraft.trim();
+    if (!draft) {
       showToastMsg(isArabic ? 'يرجى إدخال مفتاح API أولاً' : 'Please input an API key first.');
       return;
     }
     setTestStatus('testing');
-    const start = performance.now();
-    let isOk = false;
-    let latencyMs = 0;
-    try {
-      if (provider === 'openrouter') {
-        const res = await fetch('https://openrouter.ai/api/v1/auth/key', {
-          headers: { Authorization: `Bearer ${apiKey.trim()}` },
-        });
-        latencyMs = Math.round(performance.now() - start);
-        isOk = res.ok;
-      }
-    } catch {
-      // Network blocked or offline
-    }
-
-    if (isOk) {
+    // One-way handoff: forget the renderer copy before awaiting the bridge.
+    setApiKeyDraft('');
+    setShowKey(false);
+    const result = await configureAiProvider({ provider, apiKey: draft, persist: persistKey });
+    await syncAiState();
+    if (result.ok && result.data.configured) {
       setTestStatus('success');
       showToastMsg(
-        isArabic
-          ? `نجح الاتصال بالمزود المباشر! زمن الاستجابة ${latencyMs}ms`
-          : `Live connection verified! Response latency ${latencyMs}ms`
+        result.data.persisted
+          ? isArabic
+            ? 'تسلّم محرك Windows المفتاح وحفظه مشفراً.'
+            : 'The native engine holds the key, encrypted with Windows protection.'
+          : isArabic
+            ? 'تسلّم محرك Windows المفتاح في ذاكرة الجلسة فقط.'
+            : 'The native engine holds the key in session memory only.'
       );
     } else {
       setTestStatus('failed');
+      showToastMsg(result.ok ? 'The native engine rejected the key.' : result.error.message);
+    }
+  };
+
+  const handleTestConnection = async () => {
+    if (!ai.hasKey) {
+      showToastMsg(isArabic ? 'لا يوجد مفتاح في المحرك الأصلي. احفظ مفتاحاً أولاً.' : 'No credential is held by the native engine. Save a key first.');
+      return;
+    }
+    setTestStatus('testing');
+    const result = await verifyAiProvider();
+    await syncAiState();
+    if (result.ok && result.data.verified) {
+      setTestStatus('success');
+      showToastMsg(isArabic ? `تحقّق المزود عبر المحرك الأصلي (HTTP ${result.data.status}).` : `Provider verified through the native engine (HTTP ${result.data.status}).`);
+    } else {
+      setTestStatus('failed');
       showToastMsg(
-        isArabic
-          ? 'تعذر التحقق عبر الإنترنت حالياً. المفتاح في ذاكرة الجلسة فقط، ولا يوجد تخزين دائم.'
-          : 'Online probe inconclusive. The key remains in session memory only; nothing is persisted.'
+        result.ok
+          ? result.data.error?.message || (isArabic ? 'رفض المزود المفتاح.' : 'The provider rejected the key.')
+          : result.error.message
       );
     }
+  };
+
+  const handleDisconnectAi = async () => {
+    const result = await clearAiProvider();
+    await syncAiState();
+    setTestStatus('idle');
+    showToastMsg(
+      result.ok
+        ? isArabic ? 'مُحي المفتاح من محرك Windows وأُلغيت الطلبات الجارية.' : 'Credential erased from the native engine and in-flight requests aborted.'
+        : result.error.message
+    );
   };
 
   const handleNavigate = (sec: string) => {
@@ -398,7 +424,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       ].map((prov) => (
                         <button
                           key={prov.id}
-                          onClick={() => setProvider(prov.id as any)}
+                          onClick={() => setProvider(prov.id as AiProviderId)}
                           className={`p-2.5 rounded-xl text-xs font-bold transition border cursor-pointer ${
                             provider === prov.id
                               ? 'bg-blue-600 text-white border-cyan-400 shadow-[0_0_12px_rgba(37,99,235,0.5)]'
@@ -419,19 +445,69 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     <div className="relative flex items-center">
                       <input
                         type={showKey ? 'text' : 'password'}
-                        value={apiKey}
-                        onChange={(e) => setApiKey(e.target.value)}
+                        value={apiKeyDraft}
+                        onChange={(e) => setApiKeyDraft(e.target.value)}
                         placeholder="sk-or-v1-..."
+                        autoComplete="off"
+                        spellCheck={false}
                         className="w-full bg-[#050e1f] border border-[#183968] focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none"
                       />
                       <button
                         type="button"
                         onClick={() => setShowKey(!showKey)}
                         className="absolute right-3 text-slate-400 hover:text-white"
+                        aria-label={isArabic ? 'إظهار أو إخفاء المفتاح' : 'Show or hide the key'}
                       >
                         {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
+                  </div>
+
+                  {/* Where the credential will actually live */}
+                  <label className="flex items-start gap-2.5 p-3 rounded-xl bg-[#08152c] border border-[#15325e] cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={persistKey}
+                      onChange={(e) => setPersistKey(e.target.checked)}
+                      className="mt-0.5 w-3.5 h-3.5 accent-cyan-400 shrink-0"
+                      data-testid="settings-ai-persist"
+                    />
+                    <span className="text-[11px] leading-relaxed text-slate-300">
+                      {isArabic
+                        ? 'أبقِ المفتاح بعد إغلاق التطبيق عبر تشفير Windows DPAPI. بدون تحديد يبقى في ذاكرة المحرك الأصلي فقط.'
+                        : 'Keep the key after KNOuX closes using Windows DPAPI. Unchecked, it lives in Main-process session memory only.'}
+                    </span>
+                  </label>
+
+                  {/* Measured bridge state — never an inferred badge */}
+                  <div className="rounded-xl border border-[#15325e] bg-[#061021] p-3 text-[11px] leading-relaxed text-slate-300 space-y-1" data-testid="settings-ai-state">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-400">{isArabic ? 'حالة الجسر الأصلي' : 'Native AI bridge'}</span>
+                      <span className={`font-mono font-bold ${ai.bridgeReachable ? 'text-cyan-300' : 'text-amber-300'}`}>
+                        {ai.bridgeReachable ? (ai.hasKey ? 'ARMED' : 'READY · NO KEY') : 'UNAVAILABLE · DESKTOP ONLY'}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-400">{isArabic ? 'المزود' : 'Provider'}</span>
+                      <span className="font-mono">{ai.provider}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-400">{isArabic ? 'حدود التخزين' : 'Storage boundary'}</span>
+                      <span className="font-mono">{ai.storage}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-400">{isArabic ? 'بصمة المفتاح' : 'Key fingerprint'}</span>
+                      <span className="font-mono">{ai.fingerprint ?? '—'}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-slate-400">{isArabic ? 'آخر تحقق' : 'Last verified'}</span>
+                      <span className="font-mono">{ai.lastVerifiedAt ?? '—'}</span>
+                    </div>
+                    {ai.lastError && (
+                      <div className="pt-1 text-rose-300 break-words">
+                        {ai.lastError.code}: {ai.lastError.message}
+                      </div>
+                    )}
                   </div>
 
                   {/* Actions */}
@@ -441,23 +517,30 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md cursor-pointer flex items-center gap-1.5"
                     >
                       <Check className="w-4 h-4" />
-                      <span>{isArabic ? 'حفظ المفتاح' : 'Save Key'}</span>
+                      <span>{isArabic ? 'تسليم للمحرك' : 'Hand to Engine'}</span>
                     </button>
                     <button
                       onClick={handleTestConnection}
-                      disabled={testStatus === 'testing'}
-                      className="px-4 py-2 rounded-xl bg-[#0b1c38] hover:bg-[#122b52] border border-[#173a6e] text-cyan-300 font-bold text-xs transition cursor-pointer flex items-center gap-1.5"
+                      disabled={testStatus === 'testing' || !ai.hasKey}
+                      className="px-4 py-2 rounded-xl bg-[#0b1c38] hover:bg-[#122b52] border border-[#173a6e] text-cyan-300 font-bold text-xs transition cursor-pointer flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       <RefreshCw className={`w-3.5 h-3.5 ${testStatus === 'testing' ? 'animate-spin text-cyan-400' : ''}`} />
                       <span>{isArabic ? 'اختبار الاتصال (Ping)' : 'Test Connection'}</span>
+                    </button>
+                    <button
+                      onClick={handleDisconnectAi}
+                      disabled={!ai.hasKey}
+                      className="px-4 py-2 rounded-xl bg-[#2a0f1c] hover:bg-[#3d1526] border border-rose-500/40 text-rose-300 font-bold text-xs transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      <span>{isArabic ? 'قطع ومحو' : 'Disconnect & Erase'}</span>
                     </button>
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-amber-500/40 bg-amber-950/25 p-3 text-[11px] leading-relaxed text-amber-200" data-testid="settings-ai-security">
                   {isArabic
-                    ? 'أمان الاعتماد: المفتاح يبقى في ذاكرة الصفحة فقط ولا يُحفظ في localStorage. لا توجد خزنة أصلية آمنة بعد، ولا يوجد وكيل شبكة أصلي؛ أغلق التطبيق لإزالة المفتاح. لا تستخدم مفتاحًا دائمًا أو عالي القيمة.'
-                    : 'Credential security: the key remains in page memory only and is never written to localStorage. No native secure vault or native network proxy exists yet; close the app to discard it. Do not use a long-lived or high-value key.'}
+                    ? 'حدود الاعتماد: يُسلَّم المفتاح إلى عملية Main في التطبيق المكتبي ولا يُعاد للمعروض. لا يُكتب في localStorage ولا في ملف التفضيلات ولا في أي سجل. التحقق والشبكة يحدثان في المحرك الأصلي فقط لعناوين المزودين المعتمدين.'
+                    : 'Credential boundary: the key is handed to the desktop Main process and never returned to the renderer. It is not written to localStorage, the settings profile or any log, and provider network calls only run in Main against the reviewed provider allowlist.'}
                 </div>
               </div>
   );

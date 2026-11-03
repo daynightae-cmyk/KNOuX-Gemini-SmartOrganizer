@@ -304,6 +304,9 @@ assert(provider.fixturesEnabled({ isPackaged: false, env: {} }) === false, 'fixt
 assert(fs.existsSync(provider.PROVIDER_RELATIVE), 'reused root Windows provider exists');
 assert(Array.isArray(contract.windowActions) && contract.windowActions.length === 3, 'three fixed window actions');
 
+// Renderer credential boundary. Originally this only looked for two legacy
+// localStorage key names; it now catches any renderer path that could hold or
+// send a provider credential. scripts/ai-bridge-test.cjs owns the behaviour.
 const aiStorageHits = [];
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -311,12 +314,19 @@ function walk(dir) {
     if (entry.isDirectory()) walk(full);
     else if (/\.(tsx?|jsx?)$/.test(entry.name)) {
       const text = fs.readFileSync(full, 'utf8');
-      if (/knoux_ai_api_key|knoux_ai_provider/.test(text)) aiStorageHits.push(path.relative(appRoot, full));
+      const relative = path.relative(appRoot, full);
+      if (/knoux_ai_api_key|knoux_ai_provider/.test(text)) aiStorageHits.push(`${relative}: credential storage key name`);
+      if (/openrouter\.ai|api\.openai\.com|api\.anthropic\.com/.test(text)) aiStorageHits.push(`${relative}: provider host literal`);
+      if (/[Aa]uthorization\s*[:=]\s*[`'"]|Bearer\s*[\`${]/.test(text)) aiStorageHits.push(`${relative}: authorization header construction`);
+      if (/\bfetch\s*\(|XMLHttpRequest|navigator\.sendBeacon/.test(text)) aiStorageHits.push(`${relative}: renderer-side network primitive`);
     }
   }
 }
 walk(path.join(appRoot, 'src'));
-assert(aiStorageHits.length === 0, `no renderer API-key persistence (${aiStorageHits.join(', ')})`);
+assert(aiStorageHits.length === 0, `no renderer API-key persistence or direct provider network path (${aiStorageHits.join(', ')})`);
+assert(preload.includes("exposeInMainWorld(\n  'knouxAiV1'") || /exposeInMainWorld\(\s*'knouxAiV1'/.test(preload), 'the AI bridge is a fixed named namespace');
+assert(main.includes('new AiBridge('), 'main initializes the AI provider bridge');
+assert(fs.existsSync(path.join(appRoot, 'electron/native/ai-bridge.cjs')), 'the AI provider bridge module exists');
 
 const distIndex = path.join(appRoot, 'dist', 'index.html');
 let cspPresent = null;

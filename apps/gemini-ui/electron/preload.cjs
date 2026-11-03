@@ -153,6 +153,12 @@ const CHANNELS = Object.freeze({
   googleSheetAdd: 'knoux:google:v1:sheet-add',
   googleSheetRemove: 'knoux:google:v1:sheet-remove',
   googleSheetRead: 'knoux:google:v1:sheet-read',
+  aiStatus: 'knoux:ai:v1:status',
+  aiConfigure: 'knoux:ai:v1:configure',
+  aiClear: 'knoux:ai:v1:clear',
+  aiVerify: 'knoux:ai:v1:verify',
+  aiComplete: 'knoux:ai:v1:complete',
+  aiCancel: 'knoux:ai:v1:cancel',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -175,6 +181,40 @@ contextBridge.exposeInMainWorld(
       range: typeof request?.range === 'string' ? request.range : undefined,
       majorDimension: request?.majorDimension === 'COLUMNS' ? 'COLUMNS' : 'ROWS',
     }),
+  })
+);
+
+/* AI v1 — the only other network-capable namespace besides Google.
+   The credential is handed to Main once and never returned. This surface accepts
+   no URL, host, path or header: the destination comes from the fixed provider
+   table in electron/native/ai-bridge.cjs. `configure` is the single call that
+   may carry key material, and it is one-way. */
+contextBridge.exposeInMainWorld(
+  'knouxAiV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    status: () => ipcRenderer.invoke(CHANNELS.aiStatus),
+    configure: (request) => ipcRenderer.invoke(CHANNELS.aiConfigure, {
+      provider: String(request?.provider || ''),
+      apiKey: typeof request?.apiKey === 'string' ? request.apiKey.slice(0, 8192) : '',
+      persist: request?.persist === true,
+    }),
+    clear: () => ipcRenderer.invoke(CHANNELS.aiClear),
+    verify: (request) => ipcRenderer.invoke(CHANNELS.aiVerify, {
+      timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
+    }),
+    complete: (request) => ipcRenderer.invoke(CHANNELS.aiComplete, {
+      messages: Array.isArray(request?.messages)
+        ? request.messages.slice(0, 24).map((entry) => ({
+            role: entry?.role === 'assistant' ? 'assistant' : entry?.role === 'system' ? 'system' : 'user',
+            content: typeof entry?.content === 'string' ? entry.content.slice(0, 4000) : '',
+          }))
+        : [],
+      model: typeof request?.model === 'string' ? request.model.slice(0, 80) : undefined,
+      maxTokens: Number.isFinite(request?.maxTokens) ? request.maxTokens : undefined,
+      timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
+    }),
+    cancel: () => ipcRenderer.invoke(CHANNELS.aiCancel),
   })
 );
 

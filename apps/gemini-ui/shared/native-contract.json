@@ -141,7 +141,13 @@
     "googleSheetsList": "knoux:google:v1:sheets",
     "googleSheetAdd": "knoux:google:v1:sheet-add",
     "googleSheetRemove": "knoux:google:v1:sheet-remove",
-    "googleSheetRead": "knoux:google:v1:sheet-read"
+    "googleSheetRead": "knoux:google:v1:sheet-read",
+    "aiStatus": "knoux:ai:v1:status",
+    "aiConfigure": "knoux:ai:v1:configure",
+    "aiClear": "knoux:ai:v1:clear",
+    "aiVerify": "knoux:ai:v1:verify",
+    "aiComplete": "knoux:ai:v1:complete",
+    "aiCancel": "knoux:ai:v1:cancel"
   },
   "capabilities": {
     "clipboard.status": { "id": "clipboard.status", "title": "Read local vault status without observing the clipboard", "mode": "read-only", "channel": "knoux:clipboard:v1:status" },
@@ -925,6 +931,42 @@
       "title": "Read bounded values from a selected spreadsheet after explicit action",
       "mode": "read-only",
       "channel": "knoux:google:v1:sheet-read"
+    },
+    "ai.status": {
+      "id": "ai.status",
+      "title": "Read the minimized Main-owned AI state without any credential material",
+      "mode": "read-only",
+      "channel": "knoux:ai:v1:status"
+    },
+    "ai.configure": {
+      "id": "ai.configure",
+      "title": "Hand a provider key to the Main process for this session, with optional explicit encrypted persistence",
+      "mode": "user-initiated",
+      "channel": "knoux:ai:v1:configure"
+    },
+    "ai.clear": {
+      "id": "ai.clear",
+      "title": "Forget the Main-process AI credential and cancel its in-flight requests",
+      "mode": "user-initiated",
+      "channel": "knoux:ai:v1:clear"
+    },
+    "ai.verify": {
+      "id": "ai.verify",
+      "title": "Probe the allowlisted provider verification route held in Main",
+      "mode": "user-initiated",
+      "channel": "knoux:ai:v1:verify"
+    },
+    "ai.complete": {
+      "id": "ai.complete",
+      "title": "Send one bounded chat completion to the allowlisted provider held in Main",
+      "mode": "user-initiated",
+      "channel": "knoux:ai:v1:complete"
+    },
+    "ai.cancel": {
+      "id": "ai.cancel",
+      "title": "Abort a single in-flight AI request by opaque request id",
+      "mode": "user-initiated",
+      "channel": "knoux:ai:v1:cancel"
     }
   },
   "windowActions": [

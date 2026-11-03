@@ -64,11 +64,24 @@ check('the non-secret profile persists only typed preferences', () => {
   assert.ok(!/localStorage\.setItem\([^)]*(apiKey|secret|token)/i.test(profile), 'no secret localStorage write');
 });
 
-check('AI keys remain session-only and are labelled insecure until a native vault exists', () => {
-  assert.match(aiSession, /session-only/i);
-  assert.ok(!/localStorage\.(getItem|setItem)|sessionStorage\./.test(aiSession), 'AI session must not persist credentials');
-  assert.match(settings, /Credential security: the key remains in page memory only/);
-  assert.match(settings, /native secure vault or native network proxy exists yet/);
+check('AI credentials live in the Main process, never in the renderer', () => {
+  // The credential is no longer held by the renderer at all, so the module must
+  // say so and must not offer any persistence primitive.
+  assert.match(aiSession, /session memory/i);
+  assert.match(aiSession, /Main process/i);
+  assert.ok(!/apiKey[?]?:\s*string/.test(aiSession), 'the session mirror must not type a credential field');
+  assert.ok(!/localStorage\.(getItem|setItem)|sessionStorage\.|indexedDB/.test(aiSession), 'AI session must not persist credentials');
+  const aiBridge = fs.readFileSync(path.join(appRoot, 'src', 'lib', 'ai-bridge.ts'), 'utf8');
+  assert.ok(!/localStorage|sessionStorage|indexedDB/.test(aiBridge), 'the AI bridge client must not persist credentials');
+  assert.match(aiBridge, /AI_BRIDGE_UNAVAILABLE/, 'a browser preview must be told the bridge is absent');
+  assert.match(settings, /Credential boundary: the key is handed to the desktop Main process/);
+  assert.match(settings, /not written to localStorage, the settings profile or any log/);
+  assert.ok(!/the key remains in page memory only/.test(settings), 'the stale page-memory claim must be gone now that Main owns the key');
+  assert.ok(!/native secure vault or native network proxy exists yet/.test(settings), 'the stale no-native-proxy claim must be gone');
+  assert.match(settings, /configureAiProvider/, 'Settings hands the key to the native bridge');
+  assert.match(settings, /clearAiProvider/, 'Settings can erase the credential from Main');
+  assert.match(settings, /data-testid="settings-ai-state"/, 'Settings shows measured bridge state');
+  assert.ok(!/fetch\(/.test(settings), 'Settings performs no renderer-side network request');
 });
 
 check('unsupported engine and guard controls are explicitly disabled', () => {

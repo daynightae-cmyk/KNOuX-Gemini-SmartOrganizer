@@ -40,6 +40,9 @@ jobs:
       - run: npm run test:automation
       - run: npm run test:workspace
       - run: npm run test:google
+      # AI credential boundary: the provider key must never be held by, or a
+      # network request made from, the renderer.
+      - run: npm run test:ai
       - run: npm run test:settings
       - run: npm run test:home
       - run: npm run test:workbench

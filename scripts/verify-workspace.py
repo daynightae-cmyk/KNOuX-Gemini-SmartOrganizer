@@ -21,6 +21,13 @@ UNIFIED_BRANCH="integration/knoux-unified-20261028"
 # Exact reusable isolation authorized by the owner's Anima/v0 integration mission.
 ANIMA_WORKTREE=(EXPECTED/".worktrees"/"anima-v0-integration")
 ANIMA_BRANCH="codex/anima-v0-integration-20261030"
+# Owner-authorized isolated full-product (14 domains / 181 services) execution checkout.
+# Created by the owner-authorized assistant at 2026-11-03 04:35 +04:00 with `git worktree add -b`
+# from committed local main. Exact path, exact branch and exact base ancestry only.
+# It must never be main, never merged and never pushed by this mission.
+ALLSERVICES_WORKTREE=Path(r"C:\KNOUX-Codex-AllServices-20261103")
+ALLSERVICES_BRANCH="codex/knoux-all-services-20261103"
+ALLSERVICES_BASE="0c853c9a66fb6e39317c0c13dc22d89aec62f995"
 def git(*args):
  p=subprocess.run(["git","-C",str(ROOT),*args],capture_output=True,text=True,encoding="utf-8",errors="replace")
  if p.returncode:raise RuntimeError("git "+str(args)+": "+p.stderr)
@@ -31,15 +38,22 @@ try:
  is_live=(ROOT.resolve()==LIVE_WORKTREE.resolve())
  is_unified=(ROOT.resolve()==UNIFIED_WORKTREE.resolve())
  is_anima=(ROOT.resolve()==ANIMA_WORKTREE.resolve())
- assert is_canonical or is_visual or is_live or is_unified or is_anima,"WRONG WORKSPACE: "+str(ROOT)
+ is_allservices=(ROOT.resolve()==ALLSERVICES_WORKTREE.resolve())
+ assert is_canonical or is_visual or is_live or is_unified or is_anima or is_allservices,"WRONG WORKSPACE: "+str(ROOT)
  assert Path(git("rev-parse","--show-toplevel")).resolve()==ROOT.resolve(),"WRONG GIT TOP LEVEL"
  assert Path(git("rev-parse","--path-format=absolute","--git-common-dir")).resolve()==(EXPECTED/".git").resolve(),"WRONG GIT COMMON DIR"
  assert git("remote","get-url","origin").rstrip("/")==REMOTE,"WRONG REMOTE"
  actual_branch=git("branch","--show-current")
  if is_canonical:
   assert actual_branch in (BRANCH,SERVICE_REVIEW_BRANCH),"WRONG CANONICAL BRANCH"
- expected_branch=ANIMA_BRANCH if is_anima else UNIFIED_BRANCH if is_unified else actual_branch if is_canonical else LIVE_BRANCH if is_live else VISUAL_BRANCH
+ expected_branch=ANIMA_BRANCH if is_anima else UNIFIED_BRANCH if is_unified else actual_branch if is_canonical else LIVE_BRANCH if is_live else ALLSERVICES_BRANCH if is_allservices else VISUAL_BRANCH
  assert git("branch","--show-current")==expected_branch,"WRONG BRANCH"
+ if is_allservices:
+  # The isolated mission branch may never become, or be rewound onto, protected main.
+  assert actual_branch!=BRANCH,"ISOLATED CHECKOUT MUST NOT BE ON MAIN"
+  ancestor=subprocess.run(["git","-C",str(ROOT),"merge-base","--is-ancestor",ALLSERVICES_BASE,"HEAD"],
+   capture_output=True,text=True,encoding="utf-8",errors="replace")
+  assert ancestor.returncode==0,"AUTHORIZED BASE COMMIT "+ALLSERVICES_BASE+" IS NOT ANCESTOR OF HEAD"
  assert (ROOT/"missions"/"STANDALONE_AUTONOMOUS_ENTRY.md").is_file(),"MISSING MISSION ENTRY"
  assert (ROOT/"apps"/"gemini-ui"/"electron"/"main.cjs").is_file(),"MISSING GEMINI MAIN"
  assert (ROOT/"electron"/"studio").is_dir(),"MISSING NATIVE ENGINES"

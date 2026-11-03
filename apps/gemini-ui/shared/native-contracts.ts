@@ -3576,3 +3576,79 @@ export interface GoogleShellApi {
   removeSpreadsheet: (id: string) => Promise<NativeEnvelope<GoogleSelectionResult>>;
   readSheet: (request: { id: string; range?: string; majorDimension?: 'ROWS' | 'COLUMNS' }) => Promise<NativeEnvelope<GoogleSheetValues>>;
 }
+
+/* AI provider bridge v1. The credential is written into the Main process and is
+   never read back: only a truncated SHA-256 fingerprint and a storage label
+   cross this boundary. There is deliberately no url / host / header field — a
+   renderer cannot steer the network destination through this contract. */
+export type AiProviderId = 'openrouter' | 'openai' | 'anthropic';
+
+export type AiStorageBoundary = 'session-memory' | 'windows-dpapi-safeStorage' | 'empty';
+
+export interface AiBridgeStatus {
+  contract: string;
+  configured: boolean;
+  provider: AiProviderId;
+  providerLabel: string;
+  destination: string;
+  keyFingerprint: string | null;
+  storage: AiStorageBoundary;
+  storageAvailable: boolean;
+  models: string[];
+  defaultModel: string;
+  inFlight: number;
+  lastVerifiedAt: string | null;
+  lastError: { code: string; message: string; retryable: boolean } | null;
+  observedAt: string;
+}
+
+export interface AiConfigureResult {
+  provider: AiProviderId;
+  configured: boolean;
+  persisted: boolean;
+  storage: AiStorageBoundary;
+}
+
+export interface AiClearResult {
+  cleared: boolean;
+  provider: AiProviderId | null;
+}
+
+export interface AiVerifyResult {
+  verified: boolean;
+  status: number;
+  detail: { label: string | null; limit: number | null; usage: number | null; isFreeTier: boolean | null } | { modelCount: number } | null;
+  observedAt?: string;
+  error?: { code: string; message: string; retryable: boolean };
+}
+
+export interface AiCompletionResult {
+  ok: boolean;
+  text: string | null;
+  model: string;
+  provider?: AiProviderId;
+  status: number;
+  requestId?: string;
+  usage?: Record<string, unknown> | null;
+  observedAt?: string;
+  error?: { code: string; message: string; retryable: boolean };
+}
+
+export interface AiCancelResult {
+  cancelled: number;
+}
+
+export interface AiChatMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
+
+export interface AiShellApi {
+  contractVersion: number;
+  status: () => Promise<NativeEnvelope<AiBridgeStatus>>;
+  configure: (request: { provider: AiProviderId; apiKey: string; persist?: boolean }) => Promise<NativeEnvelope<AiConfigureResult>>;
+  clear: () => Promise<NativeEnvelope<AiClearResult>>;
+  verify: (request?: { timeoutMs?: number }) => Promise<NativeEnvelope<AiVerifyResult>>;
+  complete: (request: { messages: AiChatMessage[]; model?: string; maxTokens?: number; timeoutMs?: number }) => Promise<NativeEnvelope<AiCompletionResult>>;
+  cancel: () => Promise<NativeEnvelope<AiCancelResult>>;
+}

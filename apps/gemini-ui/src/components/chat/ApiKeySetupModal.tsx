@@ -1,38 +1,58 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * 
+ *
  * KNOuX API Key Configuration Modal
- * Credentials are session-only until native secure storage is implemented.
+ *
+ * The typed key is handed straight to the Main-process AI bridge and dropped
+ * from this component on submit. The renderer never stores it and never contacts
+ * a provider itself; verification is a bounded Main-side request.
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiProviderIcon } from '../app/AppIcon';
-import { Key, Shield, Sparkles, CheckCircle2, X, Lock, ExternalLink, Zap, AlertTriangle, Info } from 'lucide-react';
+import { Key, Shield, Sparkles, CheckCircle2, X, Lock, Zap, AlertTriangle, Info } from 'lucide-react';
+import type { AiProviderId } from '../../../shared/native-contracts';
+import { configureAiProvider, hasAiBridge } from '../../lib/ai-bridge';
 
 interface ApiKeySetupModalProps {
   isOpen: boolean;
-  onSave: (key: string, provider: 'openrouter' | 'openai' | 'anthropic') => void;
+  /** Called after Main accepted the credential. No key material is passed. */
+  onConfigured: () => void;
   onSkip: () => void;
   locale?: 'en' | 'ar';
 }
 
 export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
   isOpen,
-  onSave,
+  onConfigured,
   onSkip,
   locale = 'en',
 }) => {
   const isAr = locale === 'ar';
-  const [provider, setProvider] = useState<'openrouter' | 'openai' | 'anthropic'>('openrouter');
+  const [provider, setProvider] = useState<AiProviderId>('openrouter');
   const [keyValue, setKeyValue] = useState('');
+  const [persist, setPersist] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [testStatus, setTestStatus] = useState<'idle' | 'success' | 'warning' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState<string>('');
 
+  const bridgeAvailable = hasAiBridge();
+
+  // Never keep a typed credential in this component longer than it is needed.
+  useEffect(() => {
+    if (!isOpen) {
+      setKeyValue('');
+      setTestStatus('idle');
+      setStatusMessage('');
+      setIsTesting(false);
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSkip = () => {
+    setKeyValue('');
     onSkip();
   };
 
@@ -45,7 +65,8 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
     setTestStatus('idle');
     setStatusMessage('');
 
-    // Format validation
+    // Shape check only: it prevents an obvious paste mistake from reaching the
+    // network, and it never echoes the value back.
     let formatValid = false;
     if (provider === 'openrouter') {
       formatValid = cleanKey.startsWith('sk-or-') || cleanKey.length >= 24;
@@ -66,41 +87,36 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
       return;
     }
 
-    // Honest network verification probe
-    let verifiedLive = false;
-    try {
-      if (provider === 'openrouter') {
-        const res = await fetch('https://openrouter.ai/api/v1/auth/key', {
-          headers: { Authorization: `Bearer ${cleanKey}` },
-        });
-        if (res.ok) {
-          verifiedLive = true;
-        }
-      }
-    } catch {
-      // Offline / CORS / blocked — not an error, we report transparently
-    }
-
-    setIsTesting(false);
-    if (verifiedLive) {
-      setTestStatus('success');
+    // One-way handoff to Main, then forget it here immediately.
+    const result = await configureAiProvider({ provider, apiKey: cleanKey, persist });
+    setKeyValue('');
+    if (result.ok && result.data.configured) {
+      const persistedOk = result.data.persisted;
+      setTestStatus(persistedOk || !persist ? 'success' : 'warning');
       setStatusMessage(
-        isAr
-          ? 'تم التحقق من المفتاح وتأكيد صلاحيته عبر الاتصال المباشر!'
-          : 'Key verified and confirmed active via provider API!'
+        persistedOk
+          ? isAr
+            ? 'تم تسليم المفتاح للمحرك الأصلي وحفظه مشفراً عبر حماية Windows.'
+            : 'Credential handed to the native engine and stored encrypted under Windows protection.'
+          : persist
+            ? isAr
+              ? 'تم تسليم المفتاح للذاكرة المؤقتة للمحرك الأصلي فقط: تشفير Windows غير متاح في هذا التشغيل.'
+              : 'Credential held in Main-process session memory only: Windows credential encryption is unavailable in this runtime.'
+            : isAr
+              ? 'تم تسليم المفتاح لذاكرة الجلسة في المحرك الأصلي. لن يبقى بعد إغلاق التطبيق.'
+              : 'Credential held in Main-process session memory. It is gone when KNOuX closes.'
       );
+      // The assistant reads its state from the bridge, not from this component.
+      onConfigured();
     } else {
-      setTestStatus('warning');
+      setTestStatus('error');
       setStatusMessage(
-        isAr
-          ? 'سيُحتفظ بالمفتاح في ذاكرة الجلسة فقط. لا يوجد تخزين دائم آمن بعد، والتحقق الفعلي يعتمد على مزود غير موصول حالياً.'
-          : 'The key will be held in session memory only. No secure persistence exists yet, and live verification depends on a provider that is not connected in this phase.'
+        result.ok
+          ? isAr ? 'رفض المحرك الأصلي المفتاح.' : 'The native engine rejected the credential.'
+          : result.error.message
       );
     }
-
-    setTimeout(() => {
-      onSave(cleanKey, provider);
-    }, 1000);
+    setIsTesting(false);
   };
 
   return (
@@ -205,7 +221,7 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
                     ? 'sk-or-v1-...'
                     : provider === 'openai'
                     ? 'sk-proj-...'
-                    : 'oc_sk_9319a6b122ca_...'
+                    : 'sk-ant-...'
                 }
                 className="w-full bg-[#071328] border border-[#1b3f70] rounded-xl px-3.5 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 font-mono text-xs shadow-inner"
               />
@@ -234,12 +250,38 @@ export const ApiKeySetupModal: React.FC<ApiKeySetupModalProps> = ({
             </div>
           )}
 
-          {/* Security storage boundary note */}
+          {!bridgeAvailable && (
+            <div className="flex items-start gap-2.5 px-3 py-2 rounded-xl bg-rose-950/70 border border-rose-500/50 text-rose-200 text-[11px] leading-relaxed">
+              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <span>
+                {isAr
+                  ? 'جسر المفاتيح الأصلي غير متاح في معاينة المتصفح. شغّل تطبيق سطح المكتب لتسليم المفتاح لعملية Main.'
+                  : 'The native credential bridge is unavailable in a browser preview. Run the KNOuX desktop app so the key can be handed to the Main process.'}
+              </span>
+            </div>
+          )}
+
+          <label className="flex items-start gap-2.5 p-3 rounded-xl bg-[#08152c] border border-[#15325e] cursor-pointer">
+            <input
+              type="checkbox"
+              checked={persist}
+              onChange={(event) => setPersist(event.target.checked)}
+              className="mt-0.5 w-3.5 h-3.5 accent-cyan-400 shrink-0"
+              data-testid="ai-persist-optin"
+            />
+            <span className="text-[11px] leading-relaxed text-slate-300">
+              {isAr
+                ? 'أبقِ المفتاح بعد إغلاق التطبيق (مشفر بحماية Windows DPAPI). إن لم تحدده، يبقى في ذاكرة جلسة المحرك الأصلي فقط ويُمسح عند الإغلاق.'
+                : 'Keep this key after KNOuX closes (encrypted with Windows DPAPI). Left unchecked, it stays in Main-process session memory only and is erased on quit.'}
+            </span>
+          </label>
+
+          {/* Security storage boundary note — the actual, measured boundary. */}
           <div className="text-[10px] text-slate-400 leading-normal bg-[#061021] p-2.5 rounded-lg border border-[#0d213d]">
             <span className="text-cyan-400 font-bold">{isAr ? 'بيئة التخزين: ' : 'Storage Boundary: '}</span>
             {isAr
-              ? 'يتم حفظ المفتاح محلياً في ذاكرة التخزين المؤقت للمتصفح. عند تشغيل المحرك المكتبي الأصلي، يتم الترحيل تلقائياً لمستودع تشفير Windows DPAPI.'
-              : 'Keys are stored locally in the browser runtime session. Native workstation execution bridges directly to Windows DPAPI encryption.'}
+              ? 'يُسلَّم المفتاح إلى عملية Main في التطبيق المكتبي ولا يُعاد للمعروض. لا يُخزَّن في localStorage ولا في ملف التفضيلات. يبقى في الذاكرة افتراضياً.'
+              : 'The key is handed to the desktop Main process and is never returned to the renderer. It is not written to localStorage or the settings profile, and by default it lives in memory only.'}
           </div>
 
           <div className="flex items-center justify-between pt-2 border-t border-[#0f2444]">

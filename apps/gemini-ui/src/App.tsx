@@ -31,7 +31,6 @@ import { GoogleWorkspaceHub } from './components/workspace/GoogleWorkspaceHub';
 
 import { KNOuXAssistantChat } from './components/chat/KNOuXAssistantChat';
 import { ApiKeySetupModal } from './components/chat/ApiKeySetupModal';
-import { setAiSession } from './lib/ai-session';
 
 // Night material bridge: re-maps the renderer's hard-coded navy literals onto
 // the canonical obsidian tokens. Generated — see
@@ -113,11 +112,9 @@ function AppContent() {
     }
   }, []);
 
-  const handleSaveApiKey = (key: string, provider: 'openrouter' | 'openai' | 'anthropic') => {
-    // Session memory only. Persistent credentials require the native
-    // safeStorage capability scheduled for Mission 14; localStorage is not a
-    // credential store.
-    setAiSession(key, provider);
+  const handleApiKeyConfigured = () => {
+    // The credential was handed to the Main-process AI bridge by the modal.
+    // Nothing is stored in the renderer, so there is nothing to save here.
     setIsApiKeyModalOpen(false);
   };
 
@@ -172,7 +169,7 @@ function AppContent() {
       <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}
-        onSave={handleSaveApiKey}
+        onConfigured={handleApiKeyConfigured}
         onSkip={() => setIsApiKeyModalOpen(false)}
         locale={isAr ? 'ar' : 'en'}
       />
