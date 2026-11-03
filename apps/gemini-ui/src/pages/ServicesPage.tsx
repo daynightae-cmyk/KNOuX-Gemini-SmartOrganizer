@@ -1,6 +1,12 @@
-import { CommandCanvas } from '../visual/CommandCanvas';
 /**
  * KNOuX SmartOrganizer - Service Commander (Mission 12).
+ *
+ * The Living Glass header above carries this domain's approved hero identity;
+ * its orbital instrument stays mounted through a hidden bridge. The measured
+ * register, operation dock, dossiers and dependency network are preserved
+ * inside the shared inner-workspace composition: compact dock, live stage and
+ * one of twelve specialized workspaces in the main grid (or a pinned/expanded
+ * host on explicit detach).
  *
  * Browser previews render an explicit native-required state. In Electron every
  * service, edge, event, host and operation preview comes from the read-only
@@ -47,6 +53,8 @@ import {
 } from '../services/model';
 import { useServices } from '../services/useServices';
 import { ServicesServiceWorkspace, hasServicesWorkbench } from '../services/ServicesServiceWorkspaces';
+import { ServicesServiceRail } from '../services/ServicesServiceRail';
+import { ServicesLiveStage } from '../services/ServicesLiveStage';
 import {
   DependencyGraph,
   OperationDock,
@@ -59,6 +67,7 @@ import { OrbitalControl } from '../visual/OrbitalControl';
 import { ServicePipeline } from '../visual/ServicePipeline';
 import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import '../services.css';
+import '../services/services-inner-workspace.css';
 
 export interface ServicesPageProps {
   onNavigateSection?: (section: string) => void;
@@ -75,6 +84,11 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
 
   const [selectedName, setSelectedName] = useState<string | null>(null);
   const [activeTool, setActiveTool] = useState<ServicesToolId | null>(null);
+  const [detached, setDetached] = useState(false);
+  const integratedRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (integratedRef.current) integratedRef.current.scrollTop = 0;
+  }, [activeTool]);
   const triggerRef = useRef<HTMLElement | null>(null);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.services.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
@@ -121,6 +135,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
   }, [controller, locale]);
 
   const closeTool = useCallback(() => {
+    setDetached(false);
     setActiveTool(null);
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   }, []);
@@ -223,8 +238,12 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
       <div className="sys-shell">
         <KNOuXSidebar activeSection="services" onNavigate={navigate} isArabic={locale === AR} />
         <div className="sys-shell-main">
-          <main className="sys-main knx-custom-scrollbar svc-main" data-testid="services-workspace">
-          <CommandCanvas locale={locale} toolPlacement="rail">
+          <main className="sys-main services-inner-workspace knx-custom-scrollbar svc-main" data-testid="services-workspace">
+          {/* The Living Glass header above carries this domain's hero identity.
+              The approved hero (artwork, orbit, pipeline and handlers) stays
+              mounted here — hidden — so nothing approved is lost; only its
+              orbital instrument travels to the shared header slot. */}
+          <div hidden className="services-header-bridge">
             <section className="sys-hero svc-hero" data-testid="services-hero">
               <div className="sys-hero-arc" aria-hidden="true">
                 <svg viewBox="0 0 620 120" fill="none">
@@ -337,8 +356,37 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 </div>
               </aside>
             </section>
+          </div>
 
-            {!controller.nativeAvailable ? (
+          <ServicesServiceRail
+            locale={locale}
+            controller={controller}
+            selectedTool={activeTool}
+            onOpenTool={(id) => { if (hasServicesWorkbench(id)) openTool(id as ServicesToolId); }}
+          />
+
+          <div className="svc-process-row">
+            <ServicesLiveStage
+              controller={controller}
+              locale={locale}
+              tool={activeTool}
+              title={activeTool ? toolLabel(activeTool, locale) : t(locale, 'Measured SCM register', 'سجل SCM المقيس')}
+            />
+            <div className="svc-process-tools">
+              <button type="button" aria-pressed={!activeTool} onClick={closeTool} disabled={!activeTool}>
+                {t(locale, 'Overview', 'نظرة عامة')}
+              </button>
+              <button type="button" onClick={() => setDetached(true)} disabled={!activeTool || !snapshot}>
+                {t(locale, 'Side view', 'عرض جانبي')}
+              </button>
+              <button type="button" onClick={() => void exportReport()} disabled={!snapshot || controller.busy === 'report'}>
+                <Download aria-hidden="true" /> {t(locale, 'Export report', 'تصدير التقرير')}
+              </button>
+              <button type="button" onClick={() => openTool('services-control')} disabled={!snapshot}>
+                <FileText aria-hidden="true" /> {t(locale, 'Review selected', 'مراجعة المحدد')}
+              </button>
+
+              {!controller.nativeAvailable ? (
               <div className="sys-banner is-required" data-testid="services-native-required">
                 <Lock aria-hidden="true" />
                 <div><strong>{t(locale, 'Native measurement required', 'القياس الأصلي مطلوب')}</strong><p>{t(locale, 'This is a browser preview. The read-only ServicesBridge is unavailable, so no service, edge, event, host or plan is substituted. Open the native Electron app to measure this machine.', 'هذه معاينة متصفح. جسر ServicesBridge للقراءة فقط غير متاح، لذلك لا تُستبدل أي خدمة أو حافة أو حدث أو مضيف أو خطة. افتح تطبيق Electron الأصلي لقياس هذا الجهاز.')}</p></div>
@@ -351,6 +399,9 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
               </div>
             )}
 
+            <details>
+              <summary>{t(locale, 'Sources & coverage', 'المصادر والتغطية')}</summary>
+              <div>
             {controller.scanning ? (
               <div className="sys-scan-progress" data-testid="services-scan-progress">
                 <div className="sys-scan-progress-head"><span><Loader2 aria-hidden="true" className="sys-spin" />{t(locale, 'Bounded SCM discovery in progress', 'اكتشاف SCM المحدود قيد التنفيذ')}</span><em>{formatCount(controller.session?.progress || 0)}%</em></div>
@@ -359,6 +410,39 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
               </div>
             ) : null}
 
+            <div className="sys-foot-strip">
+              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: Win32_Service · Win32_Process · System event log · local preview journal</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'Signed third-party start/stop uses an exact plan, protected receipt and native consent. Restart, force, cascade, startup-policy and sc.exe remain gated.', 'بدء/إيقاف طرف ثالث موقّع يستخدم خطة محددة وإيصالًا محميًا وموافقة أصلية. إعادة التشغيل والفرض والتتالي وسياسة البدء وsc.exe تبقى مقيدة.')}</span>
+              {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
+            </div>
+              </div>
+            </details>
+            </div>
+          </div>
+
+          <div className="svc-work-grid">
+            <section
+              ref={integratedRef}
+              id="active-service-workspace"
+              role="tabpanel"
+              aria-labelledby={activeTool ? `service-tab-${activeTool}` : undefined}
+              className="svc-integrated-service knx-service-workspace"
+              data-testid="services-integrated-service"
+            >
+              {activeTool && snapshot && !detached ? (
+                <ServicesServiceWorkspace
+                  toolId={activeTool}
+                  locale={locale}
+                  controller={controller}
+                  onClose={closeTool}
+                  embedded
+                  mode={workbenchMode}
+                  onModeChange={setWorkbenchMode}
+                  width={workbenchWidth}
+                  onResize={setWorkbenchWidth}
+                />
+              ) : (
+              <div className="svc-overview-scroll" data-testid="services-overview">
             <div className="sys-kpi-row svc-kpi-row">
               {[
                 { key: 'total', label: t(locale, 'Services', 'الخدمات'), value: snapshot ? formatCount(snapshot.summary.total) : '—', note: t(locale, 'Measured SCM rows', 'صفوف SCM مقيسة'), icon: List, tone: '' },
@@ -463,14 +547,10 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
                 </div>
               </Panel>
             </div>
-
-            <div className="sys-foot-strip">
-              <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: Win32_Service · Win32_Process · System event log · local preview journal</span>
-              <span><Lock aria-hidden="true" />{t(locale, 'Signed third-party start/stop uses an exact plan, protected receipt and native consent. Restart, force, cascade, startup-policy and sc.exe remain gated.', 'بدء/إيقاف طرف ثالث موقّع يستخدم خطة محددة وإيصالًا محميًا وموافقة أصلية. إعادة التشغيل والفرض والتتالي وسياسة البدء وsc.exe تبقى مقيدة.')}</span>
-              {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
-            </div>
-
-          </CommandCanvas>
+              </div>
+              )}
+            </section>
+          </div>
           </main>
 
           <footer className="sys-actionbar svc-actionbar" data-testid="services-actionbar">
@@ -481,20 +561,24 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
               {snapshot?.warnings.length ? <span className="sys-chip sys-chip-warn">{formatCount(snapshot.warnings.length)} {t(locale, 'warnings', 'تحذيرات')}</span> : null}
             </div>
             <div className="sys-actionbar-actions">
+              <button type="button" className={cx('sys-btn', controller.scanning ? 'sys-btn-danger' : 'sys-btn-primary')} onClick={() => (controller.scanning ? void controller.cancelScan() : void controller.startScan())} disabled={!controller.nativeAvailable || controller.cancelling} data-testid="services-scan-action">
+                {controller.scanning ? <X aria-hidden="true" /> : <Sparkles aria-hidden="true" />}
+                {controller.scanning ? t(locale, 'Cancel discovery', 'إلغاء الاكتشاف') : snapshot ? t(locale, 'Re-discover', 'إعادة الاكتشاف') : t(locale, 'Start discovery', 'بدء الاكتشاف')}
+              </button>
               <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('services-undo')} disabled={!snapshot}><History aria-hidden="true" />{t(locale, 'Journal', 'السجل')}</button>
               <button type="button" className="sys-btn sys-btn-ghost" onClick={() => openTool('services-control')} disabled={!snapshot}><FileText aria-hidden="true" />{t(locale, 'Review selected', 'مراجعة المحدد')}</button>
-              <button type="button" className="sys-btn sys-btn-primary" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh evidence', 'تحديث الأدلة')}</button>
+              <button type="button" className="sys-btn sys-btn-ghost" onClick={() => void controller.refreshSnapshot(true)} disabled={!snapshot || controller.refreshing || controller.scanning}><RefreshCw aria-hidden="true" className={controller.refreshing ? 'sys-spin' : undefined} />{t(locale, 'Refresh evidence', 'تحديث الأدلة')}</button>
             </div>
           </footer>
         </div>
       </div>
 
-      {activeTool && snapshot ? (
+      {activeTool && snapshot && detached ? (
         <ServicesServiceWorkspace
           toolId={activeTool}
           locale={locale}
           controller={controller}
-          onClose={closeTool}
+          onClose={() => setDetached(false)}
           mode={workbenchMode}
           width={workbenchWidth}
           onModeChange={setWorkbenchMode}

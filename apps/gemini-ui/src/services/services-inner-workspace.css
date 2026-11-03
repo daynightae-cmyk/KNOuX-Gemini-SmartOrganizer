@@ -1,0 +1,133 @@
+/*
+ * Service Commander inner workspace (Mission 12, Phase II).
+ *
+ * The measured Service Commander keeps its own read-only contract, specialized
+ * workbenches and OperationDock/consent machinery. This sheet only re-lays the
+ * existing content into the shared Codex inner-workspace composition — compact
+ * dock, live process stage and one large integrated tool area — and raises the
+ * dense register typography to a readable size. No colour, artwork or motion is
+ * redefined here.
+ */
+
+/* --- shell: keep the route inside the Living Glass frame ------------------- */
+.knx-living-shell[data-visual-section=services] .svc-viewport{display:flex;flex-direction:column;min-width:0;max-width:100%}
+.knx-living-shell[data-visual-section=services] .sys-shell{min-width:0;max-width:100%}
+.knx-living-shell[data-visual-section=services] .sys-shell-main{min-width:0;width:0}
+.knx-living-shell[data-visual-section=services] .svc-main.services-inner-workspace{display:flex!important;flex-direction:column;gap:7px;min-height:0;min-width:0;overflow:hidden!important;padding:6px!important;background:var(--knx-atmosphere)}
+.services-inner-workspace>.sys-toast{position:static;inset:auto;transform:none;width:auto;max-width:none;flex:none;max-height:65px;overflow:auto;padding:6px 9px;font-size:12px}
+
+/* --- compact service dock: 12 measured tools -------------------------------- */
+.svc-compact-dock{flex:none;min-width:0}
+.svc-compact-dock .knx-compact-service-dock{height:70px;overflow:hidden}
+.svc-compact-dock .knx-compact-service-strip>[role=tab]{height:48px;min-height:48px;overflow:hidden}
+.svc-compact-dock .knx-dock-copy strong{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:11.5px;line-height:1.1}
+.svc-compact-dock .knx-dock-copy small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;font-size:9.5px}
+
+/* --- live process stage + domain tools ------------------------------------- */
+.svc-process-row{display:flex;gap:7px;align-items:start;flex:none;min-width:0;max-height:30%;overflow:auto;scrollbar-width:thin}
+.svc-process-row>.knx-live-service-stage{flex:1;min-width:0;padding:6px 9px}
+.svc-process-tools{display:flex;gap:5px;flex-wrap:wrap;justify-content:end;max-width:43%;flex:none}
+.svc-process-tools>button,.svc-process-tools summary{padding:6px 8px;border:1px solid var(--knx-line);border-radius:var(--knx-r-sm);background:var(--knx-surface);color:var(--knx-ink);min-height:31px;font-size:11px;cursor:pointer}
+.svc-process-tools>button[aria-pressed=true]{border-color:var(--knx-accent);box-shadow:var(--knx-glow-accent)}
+.svc-process-tools>details[open]{flex-basis:100%}
+.svc-process-tools>details>div{max-height:210px;overflow:auto;display:flex;flex-direction:column;gap:6px}
+.svc-process-tools .sys-banner,.svc-process-tools .sys-foot-strip,.svc-process-tools .sys-scan-progress{font-size:11px;padding:7px;flex-wrap:wrap}
+.svc-process-tools .sys-banner p,.svc-process-tools .sys-foot-strip>span{font-size:11px}
+.svc-process-tools .sys-banner-chip,.svc-process-tools .sys-chip{font-size:10px}
+
+.svc-live-facts{display:flex;gap:10px;flex-wrap:wrap;color:var(--knx-ink-2);font-size:11px}
+.svc-live-facts code{font-family:var(--knx-font-mono);font-size:10px;overflow-wrap:anywhere}
+.svc-native-stages{padding:0;margin:5px 0;display:flex;gap:5px;flex-wrap:wrap;list-style:none}
+.svc-native-stages li{display:flex;gap:5px;align-items:center;padding:5px 8px;border:1px solid var(--knx-line);border-radius:var(--knx-r-sm);font-size:11px;min-width:0}
+.svc-native-stages li[data-state=running]{border-color:var(--knx-accent);box-shadow:var(--knx-glow-accent)}
+.svc-native-stages li[data-state=failed],.svc-native-stages li[data-state=cancelled]{border-color:var(--knx-rose,#fb7185)}
+.svc-native-stages li strong{font-size:11px}
+.svc-native-stages li span{font-size:10px;color:var(--knx-ink-2)}
+.svc-stage-warning{overflow-wrap:anywhere}
+.svc-live-warning{margin:4px 0 0;font-size:11px;line-height:1.45;color:var(--knx-ink-2);overflow-wrap:anywhere}
+
+/* --- work grid: measured register overview or one integrated tool ----------- */
+.knx-living-shell[data-visual-section=services] .services-inner-workspace>.svc-work-grid{display:flex!important;flex:1;min-height:0;min-width:0;gap:7px;overflow:hidden;margin:0}
+.svc-overview-scroll{flex:1;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;display:flex;flex-direction:column;gap:8px;padding-inline-end:2px}
+.svc-integrated-service{flex:1;min-width:0;min-height:0;overflow:auto;padding:12px;overscroll-behavior:contain;scrollbar-width:thin;border:1px solid var(--knx-line);border-radius:var(--knx-r-lg);background:var(--knx-surface)}
+
+/* --- integrated tool chrome -------------------------------------------------- */
+.svc-embedded-service{display:flex;flex-direction:column;gap:9px;min-width:0}
+.svc-embedded-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;min-width:0;padding-bottom:8px;border-bottom:1px solid var(--knx-line)}
+.svc-embedded-icon{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:11px;background:var(--knx-inset)}
+.svc-embedded-icon svg{width:21px;height:21px}
+.svc-embedded-copy{display:flex;flex-direction:column;min-width:0;flex:1}
+.svc-embedded-copy strong{font-size:17px;line-height:1.2;color:var(--knx-ink)}
+.svc-embedded-copy small{font-size:11px;line-height:1.4;color:var(--knx-ink-2);overflow-wrap:anywhere}
+.svc-embedded-state{flex:none;font-size:10px;padding:4px 9px;border-radius:var(--knx-r-pill);border:1px solid var(--knx-line);background:var(--knx-inset);color:var(--knx-ink-2)}
+.svc-embedded-state.is-good{border-color:var(--knx-accent);color:var(--knx-accent)}
+.svc-embedded-state.is-warn{border-color:var(--knx-amber,#fbbf24);color:var(--knx-amber,#fbbf24)}
+.svc-embedded-state.is-bad{border-color:var(--knx-rose,#fb7185);color:var(--knx-rose,#fb7185)}
+.svc-embedded-note{margin:0;font-size:11px;line-height:1.5;color:var(--knx-ink-2)}
+.svc-embedded-foot{display:flex;flex-wrap:wrap;gap:8px;padding-top:8px;border-top:1px solid var(--knx-line);font-size:11px}
+
+/* --- integrated tool bodies --------------------------------------------------- */
+.svc-integrated-service :is(p,label,input,select,button,td,th){font-size:12px}
+.svc-integrated-service :is(h2,h3,h4){font-size:16px}
+.svc-integrated-service :is(small,dt,dd,figcaption){font-size:11px}
+.svc-integrated-service .knx-tool-context{position:static;inset:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 9px;border:1px solid var(--knx-line);border-radius:var(--knx-r-md);background:var(--knx-inset)}
+.svc-integrated-service .knx-tool-context strong{font-size:12.5px}
+.svc-integrated-service .knx-tool-context small{font-size:11px}
+.svc-integrated-service .knx-tool-context progress{width:140px}
+.svc-integrated-service .knx-tool-actions{position:static;inset:auto;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.svc-integrated-service .knx-tool-actions button{min-height:31px;padding:6px 10px;border:1px solid var(--knx-line);border-radius:var(--knx-r-sm);background:var(--knx-surface);color:var(--knx-ink);font-size:11px;font-weight:600;cursor:pointer}
+.svc-integrated-service .knx-tool-actions button:disabled{opacity:.5;cursor:not-allowed}
+.svc-integrated-service .knx-tool-error{margin:0;padding:7px 9px;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+.svc-integrated-service :is(.sys-mono){font-size:11.5px}
+
+/* --- action bar: primary actions always visible ------------------------------ */
+.knx-living-shell[data-visual-section=services] .svc-actionbar{position:static;flex:none;min-height:45px;max-height:92px;overflow:auto;margin:0 6px 6px;padding:6px 9px;border:1px solid var(--knx-line);border-radius:var(--knx-r-md);background:var(--knx-raised);gap:7px}
+.svc-actionbar .sys-actionbar-summary{font-size:12px;min-width:0}
+.svc-actionbar .sys-actionbar-summary strong{font-size:12.5px}
+.svc-actionbar .sys-actionbar-actions{gap:5px;flex-wrap:wrap;justify-content:end}
+.svc-actionbar .sys-btn{min-height:31px;font-size:11px;padding:5px 9px}
+.svc-actionbar .sys-chip{font-size:10px}
+
+/* --- measured register density inside the inner workspace --------------------- */
+.services-inner-workspace .svc-kpi-row{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.services-inner-workspace .svc-kpi{padding:7px 9px}
+.services-inner-workspace .svc-main-grid{gap:7px}
+.services-inner-workspace .svc-tool-grid{grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:6px}
+.services-inner-workspace .svc-tool-card{padding:7px 9px}
+.services-inner-workspace .svc-tool-card strong{font-size:12.5px;line-height:1.25}
+.services-inner-workspace .svc-tool-card em{font-size:11px;line-height:1.35}
+.services-inner-workspace .svc-tool-index{font-size:10px}
+.services-inner-workspace .svc-panel-head h2{font-size:16px}
+.services-inner-workspace .svc-panel-head p{font-size:11px;line-height:1.45}
+.services-inner-workspace .svc-lower-grid{gap:7px}
+.services-inner-workspace .svc-mini-journal .svc-mini-row,.services-inner-workspace .svc-history-row{font-size:12px}
+.services-inner-workspace .svc-op-hint{font-size:11px;line-height:1.5}
+.services-inner-workspace .sys-panel-head{padding:8px 10px;gap:6px;flex-wrap:wrap}
+.services-inner-workspace .sys-panel-title{font-size:15px}
+.services-inner-workspace .sys-panel-sub{font-size:11px}
+
+/* --- short viewports --------------------------------------------------------- */
+@media(max-height:820px){
+  .svc-process-row .knx-stage-line small{display:none}
+  .svc-process-tools{max-width:53%}
+  .svc-process-tools>button,.svc-process-tools summary{font-size:10px;padding:5px;min-height:28px}
+  .services-inner-workspace .sys-panel-head{padding:6px 9px}
+  .services-inner-workspace .sys-panel-title{font-size:14px}
+}
+@media(max-width:1050px){
+  .svc-process-row{flex-wrap:wrap}
+  .svc-process-row>.knx-live-service-stage{flex-basis:100%}
+  .svc-process-tools{max-width:100%;justify-content:start}
+  .services-inner-workspace .svc-kpi-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .services-inner-workspace .svc-main-grid,.services-inner-workspace .svc-lower-grid,.services-inner-workspace .svc-graph-panel{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:700px){
+  .services-inner-workspace .svc-kpi-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .services-inner-workspace .svc-tool-grid{grid-template-columns:minmax(0,1fr)}
+}
+
+/* --- reduced motion ---------------------------------------------------------- */
+@media(prefers-reduced-motion:reduce){
+  .svc-process-row,.svc-overview-scroll,.svc-integrated-service{scroll-behavior:auto}
+  .svc-compact-dock .knx-compact-service-strip{scroll-behavior:auto}
+}

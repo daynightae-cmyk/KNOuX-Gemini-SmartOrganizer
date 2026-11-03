@@ -35,6 +35,7 @@ const systemBody = read('src/system/SystemServiceWorkspaces.tsx');
 const systemCss = read('src/system.css');
 const servicesPage = read('src/pages/ServicesPage.tsx');
 const servicesBody = read('src/services/ServicesServiceWorkspaces.tsx');
+const servicesRail = read('src/services/ServicesServiceRail.tsx');
 const repairPage = read('src/pages/RepairPage.tsx');
 const repairBody = read('src/repair/RepairServiceWorkspaces.tsx');
 const automationPage = read('src/pages/AutomationPage.tsx');
@@ -227,8 +228,27 @@ check('Services integrates the shared host with pinned/expanded modes', () => {
   assert.match(servicesPage, /knoux\.services\.workbench\.width/);
   assert.match(servicesPage, /data-testid="services-workspace"/);
   assert.match(servicesPage, /data-testid="services-actionbar"/);
+  // Phase II interior: all 12 tools are selectable through the shared dock, the
+  // measured SCM register is reported by ServicesLiveStage, and the selected
+  // tool mounts exactly one specialized body. The floating host only mounts on
+  // explicit detach; the integrated panel and the pinned host never duplicate it.
+  assert.match(servicesPage, /import \{ ServicesServiceRail \}/);
+  assert.match(servicesPage, /import \{ ServicesLiveStage \}/);
+  assert.match(servicesPage, /services\/services-inner-workspace\.css/);
+  assert.match(servicesRail, /testIdPrefix="services"/);
+  assert.match(servicesRail, /SERVICES_TOOLS\.map/);
+  assert.match(servicesPage, /activeTool && snapshot && !detached \? \(/);
+  assert.match(servicesPage, /activeTool && snapshot && detached \? \(/);
+  assert.match(servicesPage, /data-testid="services-integrated-service"/);
+  assert.match(servicesPage, /data-testid="services-scan-action"/);
+  assert.match(servicesPage, /className="[^"]*services-header-bridge/);
+  assert.doesNotMatch(servicesPage, /import \{ CommandCanvas \}/);
+  // The integrated tool owns no focus trap; Escape and chrome belong to the shared host.
+  assert.doesNotMatch(servicesBody, /window\.addEventListener\('keydown'/);
   assert.doesNotMatch(servicesBody, /sys-service-overlay|aria-modal="true"/, 'Services must not render as a modal sheet');
   assert.match(servicesBody, /ServiceStateWorkbench|signed third-party start\/stop only/);
+  assert.match(servicesBody, /ServicesServiceBody/);
+  assert.match(servicesBody, /svc-embedded-service|embedded/);
 });
 
 check('Repair integrates the shared host with pinned/expanded modes', () => {

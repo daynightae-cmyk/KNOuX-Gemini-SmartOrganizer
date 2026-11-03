@@ -1,0 +1,72 @@
+{
+  "head": "427fae3c8e08876a6017fa7cdbfffbd8ad3dfd36",
+  "profile": "D:\\Temp\\knoux-inner-services-vVMJx2\\profile",
+  "scope": "Phase II Service Commander interior: shared 12-tool CompactServiceDock (testIdPrefix services), measured ServicesLiveStage, page-integrated specialized workspaces, hidden orbital header bridge. Bounded read-only SCM evidence only. No service, cascade, force, startup-policy or sc.exe write and no OperationDock approval is invoked.",
+  "checks": [
+    {
+      "name": "native-measured-snapshot-and-registry",
+      "ok": true,
+      "evidence": {
+        "serviceCount": 12,
+        "stages": 6,
+        "receiptPrefix": "services:119"
+      }
+    },
+    {
+      "name": "twelve-tools-and-layouts",
+      "ok": true,
+      "evidence": {
+        "frames": 48,
+        "captured": 16
+      }
+    },
+    {
+      "name": "dock-keyboard-and-detached-side-view",
+      "ok": true,
+      "evidence": {
+        "keyboardHomeEnd": true,
+        "sideEscape": true,
+        "noDuplicatedBody": true,
+        "overviewReturn": true
+      }
+    },
+    {
+      "name": "embedded-state-matches-native-capabilities",
+      "ok": true,
+      "evidence": {
+        "verified": 12,
+        "mismatches": 0
+      }
+    },
+    {
+      "name": "browser-unavailable-no-fabricated-readings",
+      "ok": true,
+      "evidence": {
+        "status": "UNAVAILABLE",
+        "selectors": 12,
+        "fixtures": 0
+      }
+    },
+    {
+      "name": "overview-preserved-at-four-frames",
+      "ok": true,
+      "evidence": {
+        "frames": 4
+      }
+    },
+    {
+      "name": "back-to-register-and-aria-association",
+      "ok": true,
+      "evidence": {
+        "embeddedBack": true,
+        "ariaLabelledby": true,
+        "ariaSelected": true
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

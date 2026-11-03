@@ -1,0 +1,133 @@
+{
+  "contract": "services.v1",
+  "engine": "KNOuX Service Commander read-only SCM evidence",
+  "readOnly": true,
+  "mutation": "none",
+  "serviceCount": 12,
+  "elevation": {
+    "isAdmin": false,
+    "method": "user-initiated UAC only",
+    "automaticElevation": false
+  },
+  "services": [
+    {
+      "id": "services-inventory",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Win32_Service"
+    },
+    {
+      "id": "services-control",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Win32_Service + dependency graph"
+    },
+    {
+      "id": "services-undo",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Local preview journal"
+    },
+    {
+      "id": "services-dependencies",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Win32_Service.Dependencies"
+    },
+    {
+      "id": "services-protected",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Capability protection policy"
+    },
+    {
+      "id": "services-search",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Win32_Service"
+    },
+    {
+      "id": "services-startup-report",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Win32_Service.StartMode"
+    },
+    {
+      "id": "services-state-history",
+      "state": "partial",
+      "risk": "read-only",
+      "provider": "Service Control Manager event log"
+    },
+    {
+      "id": "services-dependents",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Computed reverse dependency edges"
+    },
+    {
+      "id": "services-diagnose",
+      "state": "partial",
+      "risk": "read-only",
+      "provider": "Service Control Manager event log"
+    },
+    {
+      "id": "services-config",
+      "state": "gated",
+      "risk": "staged-change",
+      "provider": "Win32_Service.StartMode"
+    },
+    {
+      "id": "services-perf",
+      "state": "available",
+      "risk": "read-only",
+      "provider": "Win32_Service.ProcessId + Win32_Process"
+    }
+  ],
+  "coverage": [
+    {
+      "key": "inventory",
+      "status": "complete",
+      "items": 272
+    },
+    {
+      "key": "graph",
+      "status": "complete",
+      "items": 224
+    },
+    {
+      "key": "protected",
+      "status": "complete",
+      "items": 185
+    },
+    {
+      "key": "events",
+      "status": "complete",
+      "items": 200
+    },
+    {
+      "key": "processes",
+      "status": "complete",
+      "items": 107
+    },
+    {
+      "key": "journal",
+      "status": "complete",
+      "items": 0
+    }
+  ],
+  "summary": {
+    "total": 272,
+    "running": 118,
+    "stopped": 154,
+    "automatic": 53,
+    "manual": 195,
+    "disabled": 11,
+    "delayed": 17,
+    "protected": 185,
+    "thirdParty": 17
+  },
+  "warnings": [
+    "The application is not elevated. Service operations are immutable previews only."
+  ],
+  "generatedAt": "2026-11-03T06:49:17.001Z"
+}
