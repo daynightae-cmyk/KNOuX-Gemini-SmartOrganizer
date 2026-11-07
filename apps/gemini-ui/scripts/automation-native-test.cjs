@@ -205,6 +205,16 @@ async function main() {
     }
   });
 
+  check('draft capability disclosure distinguishes native observation from unsupported execution', () => {
+    const gate = GATED_OPERATIONS.find((operation) => operation.id === 'automation.execute');
+    assert.ok(gate, 'execution gate is present');
+    assert.match(gate.reason, /separate consent-gated native runner/i);
+    assert.match(gate.reason, /foreground schedules/i);
+    assert.match(gate.reason, /arbitrary action and background execution remain unavailable/i);
+    const history = AUTOMATION_TOOLS.find((tool) => tool.id === 'auto-run-history');
+    assert.match(history.noteEn, /separate receipts/i);
+  });
+
   const secondBridge = createBridge();
   const secondStart = secondBridge.start();
   await settle(secondBridge, secondStart.id);
@@ -261,6 +271,50 @@ async function main() {
     assert.match(workbenchBodySource, /Failure log/, 'the dry-run history labels the absence of a failure log');
     assert.match(styleSource, /\.auto-editor-grid/);
     assert.match(styleSource, /html\[data-theme='light'\] \.auto-tools-panel/);
+  });
+
+  check('run history wires protected native receipts without merging them into dry-run journal', () => {
+    assert.match(workbenchBodySource, /api\.automationRunReceipts\(\)/);
+    assert.match(workbenchBodySource, /automation-native-history/);
+    assert.match(workbenchBodySource, /Native observation receipts/);
+    assert.match(workbenchBodySource, /Dry-runs above are not executions/);
+    assert.match(workbenchBodySource, /result\.error\s*\|\|\s*!Array\.isArray\(result\.data\)/);
+    assert.match(workbenchBodySource, /nativeStatus === 'error'/);
+    assert.match(workbenchBodySource, /nativeStatus === 'unavailable'/);
+    assert.match(workbenchBodySource, /setNativeRefresh\(\(previous\) => previous \+ 1\)/);
+  });
+
+  await checkAsync('validated import round-trip creates a disabled NEW local workflow without overwriting existing IDs', async () => {
+    const inbound = JSON.stringify({ ...workflowDraft(), id: saved.id, name: 'Imported Fixture', enabled: true });
+    const accepted = await bridge.validateImport(inbound);
+    assert.equal(accepted.valid, true);
+    const payload = JSON.parse(inbound);
+    const imported = await bridge.save({
+      ...payload,
+      id: '',
+      version: 0,
+      createdAt: '',
+      updatedAt: '',
+      enabled: false,
+      mutation: 'none',
+      execution: 'not-implemented',
+    });
+    assert.notEqual(imported.id, saved.id);
+    assert.equal(imported.version, 1);
+    assert.equal(imported.enabled, false);
+    assert.equal(imported.execution, 'not-implemented');
+    const reloaded = await bridge.workflows();
+    assert.equal(reloaded.length, 2);
+    assert.equal(reloaded.find((entry) => entry.id === saved.id)?.version, 2);
+    assert.equal(reloaded.find((entry) => entry.id === imported.id)?.name, 'Imported Fixture');
+  });
+
+  check('import UI demands exact validated JSON before saving a new disabled draft', () => {
+    assert.match(workbenchBodySource, /automation-save-imported-draft/);
+    assert.match(workbenchBodySource, /validatedText !== importText\.trim\(\)/);
+    assert.match(workbenchBodySource, /id: ''/);
+    assert.match(workbenchBodySource, /enabled: false/);
+    assert.match(workbenchBodySource, /controller\.saveWorkflow\(safeDraft\)/);
   });
 
   await bridge.close();

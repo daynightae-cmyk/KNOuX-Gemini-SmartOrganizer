@@ -224,7 +224,44 @@ export function ExportWorkbench({ locale, snapshot, controller }: AutomationWork
   const draft = initialWorkflow(snapshot);
   const json = draft ? JSON.stringify(draft, null, 2) : '';
   const [importText, setImportText] = useState('');
+  const [validatedText, setValidatedText] = useState<string | null>(null);
+  const [saveBusy, setSaveBusy] = useState(false);
+  const [importSaveMessage, setImportSaveMessage] = useState('');
   const validation = controller.importValidation;
+  const reviewImport = async () => {
+    const current = importText.trim();
+    setValidatedText(null);
+    setImportSaveMessage('');
+    const result = await controller.validateImport(current);
+    if (result?.valid) setValidatedText(current);
+  };
+  const saveImportedDraft = async () => {
+    if (!validation?.valid || validatedText !== importText.trim() || !validatedText || saveBusy) return;
+    setSaveBusy(true);
+    setImportSaveMessage('');
+    try {
+      const parsed = JSON.parse(validatedText) as AutomationWorkflow;
+      const safeDraft: AutomationWorkflow = {
+        ...parsed,
+        id: '',
+        version: 0,
+        createdAt: '',
+        updatedAt: '',
+        enabled: false,
+        mutation: 'none',
+        execution: 'not-implemented',
+      };
+      const saved = await controller.saveWorkflow(safeDraft);
+      if (!saved) throw new Error(t(locale, 'Could not save imported draft.', 'تعذّر حفظ المسودة المستوردة.'));
+      setImportSaveMessage(t(locale, 'Saved as disabled draft:', 'حُفظ كمسودة معطلة:') + ' ' + saved.name + ' · v' + saved.version);
+      setValidatedText(null);
+      controller.clearValidation();
+    } catch (error) {
+      setImportSaveMessage(error instanceof Error ? error.message : String(error));
+    } finally {
+      setSaveBusy(false);
+    }
+  };
   return (
     <AutomationToolFrame
       toolId="auto-export"
@@ -251,8 +288,13 @@ export function ExportWorkbench({ locale, snapshot, controller }: AutomationWork
           ) : <p className="auto-op-hint">{t(locale, 'No workflow is available to export.', 'لا سير عمل متاح للتصدير.')}</p>}
         </Panel>
         <Panel title={t(locale, 'Import validation', 'التحقق من الاستيراد')} icon={ShieldCheck}>
-          <textarea className="auto-import-text" value={importText} onChange={(event) => setImportText(event.target.value)} placeholder={t(locale, 'Paste a knoux.workflow.v1 JSON object…', 'ألصق كائن JSON بصيغة knoux.workflow.v1…')} aria-label={t(locale, 'Workflow JSON import', 'استيراد JSON سير العمل')} />
-          <button type="button" className="sys-btn sys-btn-primary" onClick={() => void controller.validateImport(importText)} disabled={!importText.trim() || controller.busy === 'import'}><ShieldCheck aria-hidden="true" />{t(locale, 'Validate import', 'تحقق من الاستيراد')}</button>
+          <textarea className="auto-import-text" maxLength={64000} value={importText} onChange={(event) => { setImportText(event.target.value); setValidatedText(null); setImportSaveMessage(''); controller.clearValidation(); }} placeholder={t(locale, 'Paste a knoux.workflow.v1 JSON object…', 'ألصق كائن JSON بصيغة knoux.workflow.v1…')} aria-label={t(locale, 'Workflow JSON import', 'استيراد JSON سير العمل')} />
+          <button type="button" className="sys-btn sys-btn-primary" onClick={() => void reviewImport()} disabled={!importText.trim() || controller.busy === 'import' || saveBusy}><ShieldCheck aria-hidden="true" />{t(locale, 'Validate import', 'تحقق من الاستيراد')}</button>
+          {validation?.valid && validatedText === importText.trim() ? <div className="sys-stack">
+            <p className="auto-op-hint">{t(locale, 'Import creates a NEW disabled local draft. It will not arm schedules, execute nodes, or replace an existing workflow.', 'الاستيراد ينشئ مسودة محلية جديدة ومعطلة. لن يفعّل جدولة أو ينفّذ عقدًا أو يستبدل سير عمل موجودًا.')}</p>
+            <button type="button" data-testid="automation-save-imported-draft" className="sys-btn sys-btn-primary" disabled={saveBusy || controller.busy === 'save'} onClick={() => void saveImportedDraft()}><Save aria-hidden="true" />{t(locale, 'Save as new disabled draft', 'حفظ كمسودة جديدة ومعطلة')}</button>
+          </div> : null}
+          {importSaveMessage ? <p role="status" data-testid="automation-import-save-result">{importSaveMessage}</p> : null}
           {validation ? (
             <div className={`auto-validation ${validation.valid ? 'is-valid' : 'is-invalid'}`} data-testid="automation-import-validation">
               <Chip tone={validation.valid ? 'good' : 'bad'}>{validation.valid ? t(locale, 'Valid schema', 'مخطط صحيح') : t(locale, 'Invalid', 'غير صحيح')}</Chip>
@@ -265,7 +307,7 @@ export function ExportWorkbench({ locale, snapshot, controller }: AutomationWork
               {validation.warnings.map((warning) => <p key={warning} className="auto-op-hint">{warning}</p>)}
             </div>
           ) : null}
-          <p className="auto-op-hint">{t(locale, 'Validation never saves or runs the imported workflow. Save requires a separate editor action.', 'التحقق لا يحفظ أو يشغل سير العمل المستورد. الحفظ يتطلب إجراء محرر منفصلًا.')}</p>
+          <p className="auto-op-hint">{t(locale, 'Validation alone never saves or runs anything. Saving a new disabled draft requires a separate explicit click.', 'التحقق وحده لا يحفظ أو يشغل أي شيء. حفظ مسودة جديدة ومعطلة يتطلب ضغطًا صريحًا منفصلًا.')}</p>
         </Panel>
       </div>
     </AutomationToolFrame>

@@ -2,7 +2,7 @@
  * Flow Studio - core workbenches (01-06).
  * Drafts are local. Dry-runs are deterministic and block execution.
  */
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Bell,
   CalendarDays,
@@ -21,6 +21,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import type { AutomationDryRunResult, AutomationTemplate, AutomationWorkflow } from '../../shared/native-contracts';
+import type { AutomationRunReceipt } from '../../shared/operation-contract';
 import type { AutomationWorkbenchProps } from './ui';
 import {
   AutomationToolFrame,
@@ -246,6 +247,42 @@ export function RunHistoryWorkbench({ locale, snapshot, controller }: Automation
   const [query, setQuery] = useState('');
   const [range, setRange] = useState<'all' | '24h' | '7d' | '30d'>('all');
   const [selectedId, setSelectedId] = useState<string | null>(entries[0]?.id || null);
+  const [nativeReceipts, setNativeReceipts] = useState<AutomationRunReceipt[]>([]);
+  const [nativeStatus, setNativeStatus] = useState<'loading' | 'ready' | 'unavailable' | 'error'>('loading');
+  const [nativeError, setNativeError] = useState('');
+  const [nativeRefresh, setNativeRefresh] = useState(0);
+  useEffect(() => {
+    const api = window.knouxOperationsV1;
+    if (!api) {
+      setNativeStatus('unavailable');
+      return;
+    }
+    let active = true;
+    setNativeStatus('loading');
+    setNativeError('');
+    void api.automationRunReceipts().then((result) => {
+      if (!active) return;
+      if (result.error || !Array.isArray(result.data)) {
+        throw new Error(result.error?.message || 'Native run receipts were not returned.');
+      }
+      setNativeReceipts(result.data);
+      setNativeStatus('ready');
+    }).catch((error: unknown) => {
+      if (!active) return;
+      setNativeStatus('error');
+      setNativeError(error instanceof Error ? error.message : String(error));
+    });
+    return () => { active = false; };
+  }, [nativeRefresh]);
+  useEffect(() => {
+    const api = window.knouxOperationsV1;
+    return api?.onEvent((event) => {
+      if (event.serviceId === 'auto-smart-scan' &&
+        ['completed', 'partial', 'cancelled', 'failed'].includes(event.phase)) {
+        setNativeRefresh((previous) => previous + 1);
+      }
+    });
+  }, []);
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     const windows: Record<typeof range, number> = { all: Number.POSITIVE_INFINITY, '24h': 86400000, '7d': 604800000, '30d': 2592000000 };
@@ -262,7 +299,7 @@ export function RunHistoryWorkbench({ locale, snapshot, controller }: Automation
       toolId="auto-run-history"
       locale={locale}
       provider="Local dry-run journal"
-      foot={<><span><History aria-hidden="true" />{entries.length} {t(locale, 'dry-runs', 'معاينة جافة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Dry-run ledger only; native run receipts are separate', 'سجل معاينات فقط؛ إيصالات التشغيل الأصلي منفصلة')}</span></>}
+      foot={<><span><History aria-hidden="true" />{entries.length} {t(locale, 'dry-runs', 'معاينة جافة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Preview history and native observation receipts remain distinct', 'سجل المعاينات وإيصالات القياس الأصلي منفصلان')}</span></>}
     >
       <div className="sys-toolbar-row">
         <Seg<'all' | '24h' | '7d' | '30d'>
@@ -311,9 +348,38 @@ export function RunHistoryWorkbench({ locale, snapshot, controller }: Automation
               { label: t(locale, 'Receipt', 'الإيصال'), value: selected.receipt, mono: true },
             ]} /> : <p className="auto-op-hint">{t(locale, 'Select a dry-run.', 'اختر معاينة جافة.')}</p>}
           </Panel>
+          <Panel title={t(locale, 'Native observation receipts', 'إيصالات القياس الأصلي')} sub={`${nativeReceipts.length} ${t(locale, 'protected receipts', 'إيصالات محمية')}`} icon={History}>
+            <div className="sys-toolbar-row">
+              <span className="sys-toolbar-spacer" />
+              <button type="button" className="sys-btn sys-btn-ghost" data-testid="automation-native-history-refresh" disabled={nativeStatus === 'loading' || nativeStatus === 'unavailable'} onClick={() => setNativeRefresh((previous) => previous + 1)}>
+                {t(locale, 'Refresh native receipts', 'تحديث الإيصالات الأصلية')}
+              </button>
+            </div>
+            {nativeStatus === 'loading' ? <p role="status">{t(locale, 'Reading protected native receipts…', 'جارٍ قراءة الإيصالات الأصلية المحمية…')}</p> : null}
+            {nativeStatus === 'unavailable' ? <p role="status">{t(locale, 'Native operation bridge is unavailable in this environment.', 'جسر العمليات الأصلي غير متاح في هذه البيئة.')}</p> : null}
+            {nativeStatus === 'error' ? <p role="alert">{t(locale, 'Could not read native run history:', 'تعذرت قراءة سجل التشغيل الأصلي:')} {nativeError}</p> : null}
+            {nativeStatus === 'ready' && !nativeReceipts.length ? <p>{t(locale, 'No native run receipt yet. Dry-runs above are not executions.', 'لا يوجد إيصال تشغيل أصلي حتى الآن. المعاينات بالأعلى ليست تنفيذًا.')}</p> : null}
+            {nativeStatus === 'ready' ? <div data-testid="automation-native-history" className="sys-stack">
+              {nativeReceipts.map((receipt) => <article key={receipt.id} className="knx-tool-evidence">
+                <strong>{receipt.name} · {receipt.status === 'complete' ? t(locale, 'Complete', 'مكتمل') : receipt.status}</strong>
+                <DataRows rows={[
+                  { label: t(locale, 'Run ID', 'معرّف التشغيل'), value: receipt.id, mono: true },
+                  { label: t(locale, 'Mode', 'الوضع'), value: receipt.mode || t(locale, 'Unknown', 'غير معروف') },
+                  { label: t(locale, 'Started', 'بدأ'), value: receipt.createdAt || '—' },
+                  { label: t(locale, 'Finished', 'انتهى'), value: receipt.finishedAt || '—' },
+                  { label: t(locale, 'Measured steps', 'خطوات القياس'), value: String(receipt.steps?.length || 0), mono: true },
+                  { label: t(locale, 'Result', 'النتيجة'), value: receipt.status, tone: receipt.status === 'complete' ? 'good' : 'warn' },
+                ]} />
+                {receipt.error ? <p role="alert">{receipt.error}</p> : null}
+                {receipt.steps?.length ? <details><summary>{t(locale, 'Step outcomes', 'نتائج الخطوات')}</summary>
+                  <ul>{receipt.steps.map((step) => <li key={step.id}>{step.label} · {step.status}</li>)}</ul>
+                </details> : null}
+              </article>)}
+            </div> : null}
+          </Panel>
           <Panel title={t(locale, 'History integrity', 'سلامة السجل')} icon={Lock}>
             <DataRows rows={[
-              { label: t(locale, 'Execution engine', 'محرك التنفيذ'), value: t(locale, 'Not implemented', 'غير منفذ'), tone: 'bad' },
+              { label: t(locale, 'Dry-run journal execution', 'تنفيذ سجل المعاينات'), value: t(locale, 'Preview only · native observation runs are separate', 'معاينة فقط · تشغيل القياس الأصلي منفصل'), tone: 'info' },
               { label: t(locale, 'Background scheduler', 'جدولة خلفية'), value: t(locale, 'None', 'لا يوجد'), tone: 'bad' },
               { label: t(locale, 'Machine changes', 'تغييرات الجهاز'), value: t(locale, 'None', 'لا شيء'), tone: 'good' },
             ]} />

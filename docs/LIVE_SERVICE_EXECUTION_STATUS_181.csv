@@ -160,18 +160,18 @@ mission,service_id,name,class,baseline_status,current_slice_status,implementatio
 12,services-diagnose,SCM Fault Investigation & Diagnostics,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
 12,services-config,Startup Policy Configuration Diff,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
 12,services-perf,Shared-Process svchost.exe Monitor,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-smart-scan,Smart Scan Automated Workflow Flow,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-schedule-manager,Weekly Automation Calendar & Task Manager,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-run-history,Automation Run History Timeline,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-templates,Workflow Template Gallery & Library,A,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-schedule-plan,Recurrence Composer & Cron Preview,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-cleanup-plan,Safe Automated Cleanup Pipeline,C,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-notify,Notification Channel Routing Board,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-quiet-hours,Quiet Hours 24-Hour Dial,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-battery-policy,Power-Aware Scheduler & Battery Gating,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-retention,Artifact Retention Policy Timeline,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-export,Workflow Export & Schema Transfer,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
-13,auto-backup-plan,Backup Flow & Verification Designer,B,AUDIT_REQUIRED,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
+13,auto-smart-scan,Smart Scan Automated Workflow Flow,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; native owned-file runner and consent tests,Read-only observations only; arbitrary mutations and background OS jobs unsupported
+13,auto-schedule-manager,Weekly Automation Calendar & Task Manager,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; foreground scheduler virtual-clock tests,Foreground scheduling only; consent each occurrence; no OS task
+13,auto-run-history,Automation Run History Timeline,A,AUDIT_REQUIRED,IMPLEMENTED-NOT-VERIFIED,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; dry-run journal plus native receipt UI; runtime pending,Current protected receipt UI needs real Electron acceptance
+13,auto-templates,Workflow Template Gallery & Library,A,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; eight typed templates and local save tests,Templates work as drafts; action execution separately gated
+13,auto-schedule-plan,Recurrence Composer & Cron Preview,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; five-occurrence preview tests,Typed local timezone preview only; no arbitrary cron or OS job
+13,auto-cleanup-plan,Safe Automated Cleanup Pipeline,C,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; dry-run provider,No approved cleanup executor with testable effects and undo
+13,auto-notify,Notification Channel Routing Board,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; in-app journal policy,No external provider or delivery receipt
+13,auto-quiet-hours,Quiet Hours 24-Hour Dial,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; virtual-clock quiet-hour gate,Foreground observation schedule only; no global quiet mode
+13,auto-battery-policy,Power-Aware Scheduler & Battery Gating,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; virtual-clock power guard,Physical battery device acceptance unavailable
+13,auto-retention,Artifact Retention Policy Timeline,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; journal aging preview,No consented pruning with postconditions and recovery
+13,auto-export,Workflow Export & Schema Transfer,B,AUDIT_REQUIRED,IMPLEMENTED-NOT-VERIFIED,,docs/D13_AUTOMATION_TRACE_20261105.md; native import save reload fixture exit 0; UI screenshot pending,Uncommitted implementation; full Electron and packaged UI acceptance pending
+13,auto-backup-plan,Backup Flow & Verification Designer,B,AUDIT_REQUIRED,PARTIAL,,docs/D13_AUTOMATION_TRACE_20261105.md; D13 trace; draft source/destination,No native copy with hash postcondition and rollback
 14,mission-14-01,Engine & Turbo Hardware,B,PARTIAL — preferences only; no engine executor,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
 14,mission-14-02,AI Copilot & Provider Keys,D,BLOCKED — session-only key; no native vault/proxy,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec
 14,mission-14-03,Google Workspace Hub,D,BLOCKED_REQUIRES_USER_ACTION — no OAuth connection,NOT_REASSESSED_IN_THIS_SLICE,,,Continue domain activation against original spec

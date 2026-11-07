@@ -4,14 +4,16 @@
  * KNOuX Gemini - Flow Studio automation providers (Mission 13).
  *
  * Local workflow schema, typed DAG validation, built-in templates, schedule
- * occurrence preview (host timezone + DST-aware) and import validation. No
- * workflow step is executed; there is no scheduler timer or action executor.
+ * occurrence preview (host timezone + DST-aware) and import validation.
+ * This draft/dry-run provider does not execute steps or schedule background
+ * work. A separate, consent-gated native runner supports bounded read-only
+ * observations and foreground-only schedules (automation-runner.cjs).
  */
 
 const AUTOMATION_TOOLS = Object.freeze([
   { id: 'auto-smart-scan', world: 'automation', labelEn: 'Scheduled Smart Scan', labelAr: 'فحص ذكي مجدول', state: 'gated', risk: 'staged-change', provider: 'Local workflow draft + dry-run', noteEn: 'A scheduled scan chain can be drafted and dry-run; no background execution exists.', noteAr: 'يمكن تهيئة سلسلة فحص مجدولة وتشغيل معاينة جافة؛ لا يوجد تنفيذ خلفي.' },
   { id: 'auto-schedule-manager', world: 'automation', labelEn: 'Schedule Manager', labelAr: 'مدير الجدولة', state: 'gated', risk: 'staged-change', provider: 'Persisted schedule metadata', noteEn: 'Weekly schedule metadata and next occurrences. No timer runs in the background.', noteAr: 'بيانات جدولة أسبوعية والمواعيد التالية. لا يعمل مؤقت في الخلفية.' },
-  { id: 'auto-run-history', world: 'automation', labelEn: 'Dry-run History', labelAr: 'سجل المعاينات الجافة', state: 'available', risk: 'read-only', provider: 'Local dry-run journal', noteEn: 'Only deterministic dry-runs are recorded. No workflow run has executed.', noteAr: 'تُسجل المعاينات الجافة الحتمية فقط. لم يُنفذ أي تشغيل سير عمل.' },
+  { id: 'auto-run-history', world: 'automation', labelEn: 'Dry-run History', labelAr: 'سجل المعاينات الجافة', state: 'available', risk: 'read-only', provider: 'Local dry-run journal', noteEn: 'This journal records draft dry-runs only. Consent-gated native observation runs have separate receipts.', noteAr: 'يسجل هذا السجل المعاينات الجافة فقط. لتشغيل القياس الأصلي المصرّح به إيصالات منفصلة.' },
   { id: 'auto-templates', world: 'automation', labelEn: 'Template Gallery', labelAr: 'معرض القوالب', state: 'available', risk: 'staged-change', provider: 'Built-in workflow templates', noteEn: 'Built-in templates instantiate into local drafts after validation.', noteAr: 'تُنشأ القوالب المدمجة كمسودات محلية بعد التحقق.' },
   { id: 'auto-schedule-plan', world: 'automation', labelEn: 'Recurrence Composer', labelAr: 'منشئ التكرار', state: 'available', risk: 'staged-change', provider: 'Host-timezone schedule preview', noteEn: 'Computes the next five occurrences with local-time DST handling. No job is scheduled.', noteAr: 'يحسب المواعيد الخمسة التالية مع معالجة التوقيت الصيفي المحلي. لا تُجدول أي مهمة.' },
   { id: 'auto-cleanup-plan', world: 'automation', labelEn: 'Cleanup Pipeline', labelAr: 'مسار التنظيف', state: 'gated', risk: 'staged-change', provider: 'Preview-only pipeline draft', noteEn: 'Scan, classify, approval and report nodes. Cleanup execution belongs to Mission 08 and is absent.', noteAr: 'عقد فحص وتصنيف وموافقة وتقرير. تنفيذ التنظيف يخص المهمة 08 وهو غير متاح.' },
@@ -24,7 +26,7 @@ const AUTOMATION_TOOLS = Object.freeze([
 ]);
 
 const GATED_OPERATIONS = Object.freeze([
-  { id: 'automation.execute', mission: '13', title: 'Execute a workflow', reason: 'No workflow executor or background scheduler is shipped. Dry-runs are preview-only.' },
+  { id: 'automation.execute', mission: '13', title: 'Execute a workflow', reason: 'The draft/dry-run bridge cannot execute steps. A separate consent-gated native runner supports limited read-only observations and foreground schedules; arbitrary action and background execution remain unavailable.' },
   { id: 'automation.cleanup', mission: '08', title: 'Run a cleanup action', reason: 'Cleanup execution belongs to the approved Mission 08 executor and is not connected.' },
   { id: 'automation.backup', mission: '06', title: 'Copy a backup', reason: 'File copy requires authorized source and destination grants, verification and rollback; none is exposed.' },
   { id: 'automation.notify.external', mission: '13', title: 'Send an external notification', reason: 'Only in-app/journal events exist. No email, webhook, SMS or cloud channel is configured.' },
