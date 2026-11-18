@@ -21,6 +21,8 @@ interface Props {
   query: string;
   onQueryChange: (value: string) => void;
   onOpenCommands: () => void;
+  /** Live locale switch. Home must not route the language control to Settings. */
+  onToggleLocale: () => void;
 }
 
 /**
@@ -49,7 +51,7 @@ const deck = [
   { id: 'repair', icon: Wrench, en: 'Repair Lab', ar: 'معمل الإصلاح', subEn: 'Diagnose and fix', subAr: 'تشخيص وإصلاح' },
 ] as const;
 
-export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live, query, onQueryChange, onOpenCommands }: Props) {
+export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live, query, onQueryChange, onOpenCommands, onToggleLocale }: Props) {
   const resolvedTheme = theme;
   const [modal, setModal] = useState<'notifications' | 'customize' | 'scan' | null>(null);
   const [overviewTab, setOverviewTab] = useState<'health' | 'storage'>('health');
@@ -216,7 +218,7 @@ export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live, query, o
         searchQuery={query}
         onSearchChange={onQueryChange}
         isArabic={isArabic}
-        onToggleArabic={() => go('settings')}
+        onToggleArabic={onToggleLocale}
         onOpenNotifications={() => setModal('notifications')}
       />
 

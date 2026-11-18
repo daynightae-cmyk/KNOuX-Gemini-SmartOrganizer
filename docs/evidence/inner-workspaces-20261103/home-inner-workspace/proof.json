@@ -1,1 +1,115 @@
-{"head":"6ebb28c4589fa8bfa120dfbd5ee75acc87b4bb8a","scope":"D01 Home Phase II partial: approved Home visual preserved (ApprovedHomeScreen), measured KPI aggregation tested, deep-link deck verified (8 tiles), search palette tested. Full runtime screenshot evidence interrupted by workspace load timeout in this session; not completed.","checks":[{"name":"kpi-aggregation-honest-unmeasured","ok":true,"evidence":{"measured":0,"unmeasured":6,"nativeAvailable":false,"honest":true}},{"name":"layout-frames-and-focus","ok":"NOT_VERIFIED","evidence":{"reason":"workspace load timeout exceeded 60s; screenshots not captured"}},{"name":"search-palette-and-modal","ok":"NOT_VERIFIED","evidence":{"reason":"interrupted before palette/modal probes completed"}}],"errors":[],"ok":false,"remaining":"full Home inner-workspace runtime verification (layout frames, palette, focus) blocked by workspace-loader timeout; requires separate isolated rerun"}
+{
+  "head": "b4fabf21a8b390380ac15639fd044bf867e1ea98",
+  "profile": "D:\\Temp\\knoux-inner-home-SLZHtV\\profile",
+  "scope": "D01 Home Command Center Phase II: approved composition preserved, six measured KPI cards, eight deep-link deck tiles, system/quick-access tabs, honest insight, review-only activity and pending actions, workspace search with local history, dialogs, four layout frames, and browser native-required fallback. No mutation or execution is invoked from Home.",
+  "checks": [
+    {
+      "name": "approved-composition-and-six-kpi-cards",
+      "ok": true,
+      "evidence": {
+        "measured": 0,
+        "unmeasured": 6
+      }
+    },
+    {
+      "name": "eight-command-deck-deep-links",
+      "ok": true,
+      "evidence": {
+        "visited": [
+          "#smart_scan",
+          "#files",
+          "#applications",
+          "#storage",
+          "#cleanup",
+          "#startup",
+          "#system",
+          "#repair"
+        ]
+      }
+    },
+    {
+      "name": "system-overview-health-and-storage-tabs",
+      "ok": true,
+      "evidence": {
+        "healthRows": 4,
+        "values": [
+          "—",
+          "—",
+          "—",
+          "—"
+        ]
+      }
+    },
+    {
+      "name": "quick-access-files-and-scans-tabs",
+      "ok": true,
+      "evidence": {
+        "filesChars": 80,
+        "scansChars": 82
+      }
+    },
+    {
+      "name": "insight-is-measured-or-explicitly-unmeasured",
+      "ok": true,
+      "evidence": {
+        "lead": "No measured basis yet",
+        "action": "Open Smart Scan"
+      }
+    },
+    {
+      "name": "activity-and-pending-actions-are-review-only",
+      "ok": true,
+      "evidence": {
+        "activityChars": 73,
+        "pendingRows": 0,
+        "pendingPreviews": 0
+      }
+    },
+    {
+      "name": "workspace-search-and-local-history",
+      "ok": true,
+      "evidence": {
+        "sectionResults": 1,
+        "historyEntries": 0
+      }
+    },
+    {
+      "name": "three-dialogs-honest-and-escape-closes",
+      "ok": true,
+      "evidence": {
+        "opened": [
+          "scan",
+          "customize",
+          "notifications"
+        ]
+      }
+    },
+    {
+      "name": "four-layout-frames",
+      "ok": true,
+      "evidence": {
+        "frames": 4
+      }
+    },
+    {
+      "name": "browser-preview-requires-native",
+      "ok": true,
+      "evidence": {
+        "sample": "false",
+        "values": [
+          "—",
+          "—",
+          "—",
+          "—",
+          "—",
+          "—"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}
