@@ -44,7 +44,9 @@
     "test:theme": "node --test tests/theme/tokens.test.mjs && node scripts/generate-night-material-bridge.mjs --check",
     "test:i18n": "node --test tests/home/i18n-slots.test.mjs",
     "visual:matrix": "node scripts/theme-evidence-matrix.mjs",
-    "test:google-workspace": "node scripts/google-workspace-test.cjs"
+    "test:google-workspace": "node scripts/google-workspace-test.cjs",
+    "test:identity": "node --import tsx scripts/identity-page-test.cjs",
+    "evidence:identity": "node scripts/identity-inner-evidence.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

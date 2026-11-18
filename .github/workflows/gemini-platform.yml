@@ -45,5 +45,8 @@ jobs:
       - run: npm run test:ai
       - run: npm run test:settings
       - run: npm run test:home
+      # The identity surface is the only place that hands a destination to the
+      # OS; the allowlist, preload mirror and contract must never drift.
+      - run: npm run test:identity
       - run: npm run test:workbench
       - run: npm run test:navigation

@@ -151,7 +151,9 @@
     "aiClear": "knoux:ai:v1:clear",
     "aiVerify": "knoux:ai:v1:verify",
     "aiComplete": "knoux:ai:v1:complete",
-    "aiCancel": "knoux:ai:v1:cancel"
+    "aiCancel": "knoux:ai:v1:cancel",
+    "identityLinks": "knoux:identity:v1:links",
+    "identityOpen": "knoux:identity:v1:open"
   },
   "capabilities": {
     "clipboard.status": {
@@ -1035,6 +1037,18 @@
       "title": "Abort a single in-flight AI request by opaque request id",
       "mode": "user-initiated",
       "channel": "knoux:ai:v1:cancel"
+    },
+    "identity.links": {
+      "id": "identity.links",
+      "title": "List the fixed KNOUX identity destinations",
+      "mode": "read-only",
+      "channel": "knoux:identity:v1:links"
+    },
+    "identity.open": {
+      "id": "identity.open",
+      "title": "Open one fixed KNOUX identity destination in the operating system",
+      "mode": "user-initiated",
+      "channel": "knoux:identity:v1:open"
     }
   },
   "windowActions": [

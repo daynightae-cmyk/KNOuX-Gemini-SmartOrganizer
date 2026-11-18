@@ -28,6 +28,7 @@ import { AutomationPage } from './pages/AutomationPage';
 import { SmartScanPage } from './pages/SmartScanPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { GoogleWorkspaceHub } from './components/workspace/GoogleWorkspaceHub';
+import { IdentityPage } from './identity/IdentityPage';
 
 import { KNOuXAssistantChat } from './components/chat/KNOuXAssistantChat';
 import { ApiKeySetupModal } from './components/chat/ApiKeySetupModal';
@@ -161,12 +162,18 @@ function AppContent() {
 
   return (
     <>
-      <UnifiedSectionLayout>
-        {renderActiveWorkspace()}
-        <OrganizationLiveWorkbench />
-        <StorageCleanupLiveWorkbench />
-      </UnifiedSectionLayout>
-      <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
+      {currentSection === 'identity' ? (
+        <IdentityPage onClose={() => navigateTo('home')} />
+      ) : (
+        <UnifiedSectionLayout>
+          {renderActiveWorkspace()}
+          <OrganizationLiveWorkbench />
+          <StorageCleanupLiveWorkbench />
+        </UnifiedSectionLayout>
+      )}
+      {currentSection !== 'identity' && (
+        <KNOuXAssistantChat currentSection={currentSection} locale={isAr ? 'ar' : 'en'} />
+      )}
       <ApiKeySetupModal
         isOpen={isApiKeyModalOpen}
         onConfigured={handleApiKeyConfigured}

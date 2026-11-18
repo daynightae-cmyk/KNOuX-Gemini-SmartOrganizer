@@ -1,14 +1,14 @@
 import {memo, useId, useState, type ReactNode} from 'react';
 import {Activity, AppWindow, Bell, CalendarDays, Check, Code, FileText, Folder, Gauge, Image, Layers, LockKeyhole, Mail, Play, Settings, ShieldCheck, SlidersHorizontal, Users, Workflow, Wrench, type LucideIcon} from 'lucide-react';
-import type {AppSection} from '../context/NavigationContext';
+import type {DomainSection} from '../context/NavigationContext';
 import {LIVING_GLASS_ARTWORK} from './living-glass-artwork';
 const officialMark = new URL('./assets/knoux-official-logo.png', import.meta.url).href;
 
 /** Original vector artwork reconstructed from the owner's mapped compositions.
  * This decorative SVG contains no measured values, controls or provider state. */
-export const SectionGlassScene = memo(function SectionGlassScene({section}:{section:AppSection}) {
+export const SectionGlassScene = memo(function SectionGlassScene({section}:{section:DomainSection}) {
  const id='glass-scene-'+useId().replace(/[^a-zA-Z0-9]/g,'');
- const [failed,setFailed]=useState<Set<AppSection>>(()=>new Set());
+ const [failed,setFailed]=useState<Set<DomainSection>>(()=>new Set());
  const artworkUrl=LIVING_GLASS_ARTWORK[section];
  if(artworkUrl&&!failed.has(section))return <img className="knx-section-scene" data-scene-artwork={section} data-art-kind="bitmap" src={artworkUrl} alt="" aria-hidden="true" draggable={false} decoding="async" onError={()=>setFailed(old=>new Set([...old,section]))}/>;
  const paint=(name:string)=>`url(#${id}-${name})`;

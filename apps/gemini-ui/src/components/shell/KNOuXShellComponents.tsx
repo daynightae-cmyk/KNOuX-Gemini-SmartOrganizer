@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * KNOuX SmartOrganizer — Unified Windows Desktop Shell Components
- * Authoritative Logo, Header Chrome, and 13-Section Sidebar
+ * Authoritative Logo, Header Chrome, and 14-Section Sidebar
  */
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -38,6 +38,8 @@ import {
   Sparkles,
   Sun,
   Moon,
+  UserRound,
+  ArrowUpRight,
 } from 'lucide-react';
 
 /**
@@ -228,7 +230,7 @@ export interface KNOuXSidebarProps {
 
 /**
  * Standard Left Navigation Sidebar
- * Enforces unified 13 sections with glowing active pill, top brand card, and bottom status
+ * Enforces unified 14 sections with glowing active pill, top brand card, and bottom status
  */
 const KNOuXSidebarContent: React.FC<KNOuXSidebarProps> = ({
   activeSection,
@@ -324,6 +326,24 @@ const KNOuXSidebarContent: React.FC<KNOuXSidebarProps> = ({
             );
           })}
         </nav>
+
+        {/* Founder & Developer — an about surface, deliberately outside the
+            fourteen service domains and their count badges. */}
+        <div className="px-2 pb-1.5">
+          <button
+            type="button"
+            data-testid="sidebar-identity"
+            onClick={() => onNavigate('identity')}
+            title={isArabic ? 'المؤسس والمطوّر — م. صادق الجزار' : 'Founder & Developer — Eng. Sadek Elgazar'}
+            className="w-full text-start flex items-center gap-2.5 px-3 py-2 rounded-xl border border-[#0e223d]/70 bg-[#07152b]/60 text-slate-300 hover:text-white hover:border-cyan-400/40 hover:bg-[#0a182d] text-xs font-medium transition-colors cursor-pointer group"
+          >
+            <UserRound className="w-4 h-4 text-cyan-300 shrink-0" />
+            <span className="truncate flex-1">
+              {isArabic ? 'المؤسس والمطوّر' : 'Founder & Developer'}
+            </span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-300 transition-colors" />
+          </button>
+        </div>
 
         {/* Bottom Engine Health / Status Card */}
         <div className="p-2.5 border-t border-[#0e223d]/70 bg-[#040b18]">

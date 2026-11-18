@@ -1,10 +1,10 @@
 import {createContext, useContext, type ReactNode} from 'react';
 import {createPortal} from 'react-dom';
-import type {AppSection} from '../context/NavigationContext';
+import type {DomainSection} from '../context/NavigationContext';
 
 /** Relocate the existing React controls, rather than copying DOM or callbacks.
  * Native/renderer state remains owned by the original page and providers. */
-export interface LivingSlots {chrome: HTMLElement|null; navigation: HTMLElement|null; orbit: HTMLElement|null;section:AppSection}
+export interface LivingSlots {chrome: HTMLElement|null; navigation: HTMLElement|null; orbit: HTMLElement|null;section:DomainSection}
 export const LivingLayoutContext = createContext<LivingSlots|null>(null);
 export function LivingChromeMount({slot, children}:{slot:'chrome'|'navigation';children:ReactNode}) {
   const slots = useContext(LivingLayoutContext);

@@ -40,10 +40,23 @@ export type AppSection =
   | 'repair'
   | 'services'
   | 'automation'
-  | 'settings';
+  | 'settings'
+  /**
+   * The founder/developer identity surface. It is deliberately NOT a fifteenth
+   * domain: it has no service registry, no measurement and no domain header, so
+   * the fourteen Living Glass headers stay exactly fourteen.
+   */
+  | 'identity';
+
+/**
+ * The fourteen product domains. `identity` is a surface, not a domain, so every
+ * per-domain map (artwork, hero configuration, layout slots) is keyed by this
+ * narrower type and cannot silently grow a fifteenth entry.
+ */
+export type DomainSection = Exclude<AppSection, 'identity'>;
 
 export interface SectionMeta {
-  id: AppSection;
+  id: DomainSection;
   labelEn: string;
   labelAr: string;
   category: 'core' | 'storage_files' | 'performance_system' | 'maintenance_ops';
@@ -71,6 +84,10 @@ export const SECTIONS_DIRECTORY: SectionMeta[] = [
 export function tryNormalizeSection(raw: string | undefined | null): AppSection | null {
   if (!raw) return null;
   const s = raw.toLowerCase().trim();
+
+  // Founder & Developer identity. Kept ahead of the alias table so "about"
+  // never falls into a workspace and never becomes a fifteenth domain.
+  if (s === 'identity' || s === 'about' || s === 'founder' || s === 'developer') return 'identity';
 
   // Exact canonical matches
   if (s === 'home') return 'home';

@@ -47,6 +47,10 @@ const { GoogleOAuthService, TokenVault } = require('./native/google-auth.cjs');
 const { GoogleWorkspaceService } = require('./native/google-workspace.cjs');
 const { AiBridge, PROVIDER_IDS: AI_PROVIDER_IDS } = require('./native/ai-bridge.cjs');
 const {
+  resolveIdentityLink,
+  publicIdentityLinks,
+} = require('./native/identity-links.cjs');
+const {
   ok,
   fail,
   assertTrustedSender,
@@ -738,6 +742,45 @@ function registerIpc() {
       const target = appBridge.settingsTarget(request.target);
       await shell.openExternal(target.uri);
       return { opened: true, target: target.target };
+    })
+  );
+
+  // Identity v1: the renderer names one of the fixed KNOUX destinations; main
+  // owns every URI. Nothing here can mutate owner data, so the only gate is the
+  // trusted-sender check plus the immutable allowlist in identity-links.cjs.
+  ipcMain.handle(contract.channels.identityLinks, (event) =>
+    guard(event, 'identity.links', [], async () =>
+      ok({
+        capability: 'identity.links',
+        status: 'complete',
+        source: 'KNOuX fixed identity destinations',
+        permission: 'read-only',
+        provenance: { mode: 'configured', mutation: 'none' },
+        data: { links: publicIdentityLinks() },
+      })
+    )
+  );
+
+  ipcMain.handle(contract.channels.identityOpen, (event, ...args) =>
+    guard(event, 'identity.open', args, async (callArgs) => {
+      const request = callArgs?.[0];
+      if (!request || typeof request !== 'object' || Array.isArray(request)) {
+        throw Object.assign(new Error('An identity destination id is required.'), { code: 'IDENTITY_TARGET_INVALID' });
+      }
+      const allowedKeys = Object.keys(request);
+      if (allowedKeys.some((key) => key !== 'target')) {
+        throw Object.assign(new Error('Identity requests accept only a destination id.'), { code: 'IDENTITY_REQUEST_INVALID' });
+      }
+      const entry = resolveIdentityLink(request.target);
+      await shell.openExternal(entry.uri);
+      return ok({
+        capability: 'identity.open',
+        status: 'complete',
+        source: 'KNOuX fixed identity destinations',
+        permission: 'user-initiated',
+        provenance: { mode: 'configured', mutation: 'none' },
+        data: { target: entry.id, scheme: entry.scheme },
+      });
     })
   );
 

@@ -33,6 +33,8 @@
     "test:navigation": "npm run test:navigation --prefix apps/gemini-ui",
     "test:theme": "npm run test:theme --prefix apps/gemini-ui",
     "test:i18n": "npm run test:i18n --prefix apps/gemini-ui",
+    "test:identity": "npm run test:identity --prefix apps/gemini-ui",
+    "evidence:identity": "npm run evidence:identity --prefix apps/gemini-ui",
     "ledger:check": "python scripts/verify-mission-ledger.py"
   }
 }

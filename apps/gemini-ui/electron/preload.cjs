@@ -3,7 +3,7 @@
 /**
  * KNOuX Gemini — minimal preload.
  *
- * The renderer receives four fixed read-only capabilities plus window chrome
+ * The renderer receives a fixed set of read-only capabilities plus window chrome
  * controls. There is no raw ipcRenderer, no generic invoke, no Node, no path or
  * environment access. Channel names mirror shared/native-contract.json; the
  * native contract test checks the mirror.
@@ -163,6 +163,8 @@ const CHANNELS = Object.freeze({
   aiVerify: 'knoux:ai:v1:verify',
   aiComplete: 'knoux:ai:v1:complete',
   aiCancel: 'knoux:ai:v1:cancel',
+  identityLinks: 'knoux:identity:v1:links',
+  identityOpen: 'knoux:identity:v1:open',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -235,6 +237,18 @@ contextBridge.exposeInMainWorld(
       timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
     }),
     cancel: () => ipcRenderer.invoke(CHANNELS.aiCancel),
+  })
+);
+
+/* Identity v1 opens one of a fixed set of KNOUX-owned destinations. The
+   renderer names an id only; no URL, scheme, host, path or header crosses the
+   bridge, and main resolves the real URI from its own immutable table. */
+contextBridge.exposeInMainWorld(
+  'knouxIdentityV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    links: () => ipcRenderer.invoke(CHANNELS.identityLinks),
+    open: (target) => ipcRenderer.invoke(CHANNELS.identityOpen, { target: String(target || '') }),
   })
 );
 

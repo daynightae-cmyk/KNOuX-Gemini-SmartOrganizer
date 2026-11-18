@@ -1,6 +1,6 @@
-import type {AppSection} from '../context/NavigationContext';
+import type {DomainSection} from '../context/NavigationContext';
 /** Decorative reference-guided cutouts only: real controls stay in React. */
-export const LIVING_GLASS_ARTWORK:Record<AppSection,string>={
+export const LIVING_GLASS_ARTWORK:Record<DomainSection,string>={
  studio:new URL('./assets/living-glass/studio-scene.png',import.meta.url).href,
  home:new URL('./assets/living-glass/home-scene.png',import.meta.url).href,
  workspace:new URL('./assets/living-glass/workspace-scene.png',import.meta.url).href,

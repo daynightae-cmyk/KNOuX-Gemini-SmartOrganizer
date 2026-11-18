@@ -3486,6 +3486,38 @@ export interface AutomationShellApi {
 }
 
 
+/* -------------------------------------------------------------------------- */
+/* Identity v1 - Founder & Developer fixed destinations                       */
+/* -------------------------------------------------------------------------- */
+
+export type IdentityLinkKind = 'web' | 'mail' | 'tel';
+export type IdentityLinkScheme = 'https' | 'mailto' | 'tel';
+
+export interface IdentityLinkEntry {
+  id: string;
+  uri: string;
+  scheme: IdentityLinkScheme;
+  kind: IdentityLinkKind;
+  labelEn: string;
+  labelAr: string;
+}
+
+export interface IdentityLinksData {
+  links: IdentityLinkEntry[];
+}
+
+export interface IdentityOpenData {
+  target: string;
+  scheme: IdentityLinkScheme;
+}
+
+export interface IdentityShellApi {
+  contractVersion: number;
+  links: () => Promise<NativeEnvelope<IdentityLinksData>>;
+  open: (target: string) => Promise<NativeEnvelope<IdentityOpenData>>;
+}
+
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

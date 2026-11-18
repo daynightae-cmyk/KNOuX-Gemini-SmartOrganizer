@@ -1,0 +1,89 @@
+{
+  "head": "baefac82ce4d4ea698ada5b4f5572e63c8ea38f6",
+  "profile": "D:\\Temp\\knoux-inner-identity-0R6wCK\\profile",
+  "scope": "Founder & Developer identity surface: real native destination table (10 fixed KNOUX contacts), copy-to-clipboard, refusal of unknown destinations, bilingual Day/Night layout at four desktop frames, Escape-to-Home, sidebar and command-palette discovery, and honest browser-preview fallback. No external destination is opened during the run.",
+  "checks": [
+    {
+      "name": "entry-points-sidebar-and-command-palette",
+      "ok": true,
+      "evidence": {
+        "sidebar": true,
+        "palette": true
+      }
+    },
+    {
+      "name": "native-bridge-exposes-exactly-the-reviewed-table",
+      "ok": true,
+      "evidence": {
+        "mode": "native",
+        "destinations": 10
+      }
+    },
+    {
+      "name": "surface-composition-roles-pillars-facts-and-channels",
+      "ok": true,
+      "evidence": {
+        "roles": 4,
+        "pillars": 4,
+        "facts": 4,
+        "channels": 10
+      }
+    },
+    {
+      "name": "copy-corporate-email-writes-the-real-clipboard",
+      "ok": true,
+      "evidence": {
+        "toastText": "Copied Corporate email",
+        "copied": "admin@knoux.store"
+      }
+    },
+    {
+      "name": "unknown-destination-is-refused-and-opens-nothing",
+      "ok": true,
+      "evidence": {
+        "codes": [
+          "IDENTITY_TARGET_INVALID",
+          "IDENTITY_TARGET_INVALID",
+          "IDENTITY_TARGET_INVALID"
+        ]
+      }
+    },
+    {
+      "name": "locale-and-theme-toggles-are-real",
+      "ok": true,
+      "evidence": {
+        "arabicDir": "rtl",
+        "darkTheme": "dark"
+      }
+    },
+    {
+      "name": "four-layout-frames-bilingual-day-night",
+      "ok": true,
+      "evidence": {
+        "frames": 4
+      }
+    },
+    {
+      "name": "escape-returns-to-the-workspace",
+      "ok": true,
+      "evidence": {
+        "hash": "#home",
+        "identity": false
+      }
+    },
+    {
+      "name": "browser-preview-degrades-honestly",
+      "ok": true,
+      "evidence": {
+        "mode": "browser",
+        "channels": 10,
+        "footer": "Browser preview — destinations use the browser handler"
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

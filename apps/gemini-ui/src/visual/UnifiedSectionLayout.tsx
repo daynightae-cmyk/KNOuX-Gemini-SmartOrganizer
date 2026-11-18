@@ -3,13 +3,17 @@ import {LivingLayoutContext} from './LivingLayoutContext';
 import {SECTION_VISUALS} from './section-visual-configuration';
 import {SectionGlassScene} from './SectionGlassScene';
 import {OrbitalParticleSystem} from './OrbitalParticleSystem';
-import {useNavigation} from '../context/NavigationContext';
+import {useNavigation, type DomainSection} from '../context/NavigationContext';
 
 export function UnifiedSectionLayout({children}:{children:ReactNode}) {
  const {currentSection,isArabic,theme}=useNavigation();
- const config=SECTION_VISUALS[currentSection];
+ /* Founder identity renders its own surface in App.tsx and never reaches this
+    layout. The narrow fallback keeps the fourteen-domain maps total without
+    inventing a fifteenth artwork or hero configuration entry. */
+ const section:DomainSection=currentSection==='identity'?'home':currentSection;
+ const config=SECTION_VISUALS[section];
  const [chrome,setChrome]=useState<HTMLElement|null>(null),[navigation,setNavigation]=useState<HTMLElement|null>(null),[orbit,setOrbit]=useState<HTMLElement|null>(null);
- const slots=useMemo(()=>({chrome,navigation,orbit,section:currentSection}),[chrome,navigation,orbit,currentSection]);
+ const slots=useMemo(()=>({chrome,navigation,orbit,section}),[chrome,navigation,orbit,section]);
  const lightId='knx-workflow-light-'+useId().replace(/[^a-zA-Z0-9]/g,'');
  const Icon=config.icon;
  return <LivingLayoutContext.Provider value={slots}>
