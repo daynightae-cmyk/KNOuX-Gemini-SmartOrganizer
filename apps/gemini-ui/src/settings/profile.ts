@@ -107,6 +107,29 @@ export interface SettingsImportPreview {
   secretsExcluded: boolean;
 }
 
+/** Preference keys a file import may change; schema and updatedAt are excluded. */
+export function diffSettingsProfile(incoming: SettingsProfile, current: SettingsProfile): SettingsDiffEntry[] {
+  const normalizedIncoming = normalizeSettingsProfile(incoming);
+  const normalizedCurrent = normalizeSettingsProfile(current);
+  const diff: SettingsDiffEntry[] = [];
+  const keys: Array<keyof SettingsProfile> = ['accent', 'density', 'engineMode', 'ramLimitGB', 'cpuThreads'];
+  for (const key of keys) {
+    const from = String(normalizedCurrent[key]);
+    const to = String(normalizedIncoming[key]);
+    if (from !== to) diff.push({ key, from, to });
+  }
+  return diff;
+}
+
+/**
+ * Native import already normalized and validated its document in Main. The
+ * renderer still shows the same diff before applying, so no import is silent.
+ */
+export function previewSettingsProfile(incoming: SettingsProfile, current: SettingsProfile): SettingsImportPreview {
+  const profile = normalizeSettingsProfile(incoming);
+  return { valid: true, errors: [], profile, diff: diffSettingsProfile(profile, current), secretsExcluded: true };
+}
+
 export function previewSettingsImport(payload: string, current: SettingsProfile): SettingsImportPreview {
   let parsed: unknown;
   try {
@@ -122,13 +145,5 @@ export function previewSettingsImport(payload: string, current: SettingsProfile)
     return { valid: false, errors: ['Only knoux.settings.export.v1 or knoux.settings.profile.v1 is accepted.'], profile: null, diff: [], secretsExcluded: true };
   }
   const incoming = normalizeSettingsProfile(value.profile ?? value);
-  const normalizedCurrent = normalizeSettingsProfile(current);
-  const diff: SettingsDiffEntry[] = [];
-  const keys: Array<keyof SettingsProfile> = ['accent', 'density', 'engineMode', 'ramLimitGB', 'cpuThreads'];
-  for (const key of keys) {
-    const from = String(normalizedCurrent[key]);
-    const to = String(incoming[key]);
-    if (from !== to) diff.push({ key, from, to });
-  }
-  return { valid: true, errors: [], profile: incoming, diff, secretsExcluded: true };
+  return { valid: true, errors: [], profile: incoming, diff: diffSettingsProfile(incoming, current), secretsExcluded: true };
 }

@@ -44,6 +44,9 @@ jobs:
       # network request made from, the renderer.
       - run: npm run test:ai
       - run: npm run test:settings
+      # Native profile files: the desktop shell cancels every download, so this
+      # pair is the only export/import path and must stay bounded and typed.
+      - run: npm run test:settings-profile
       - run: npm run test:home
       # The identity surface is the only place that hands a destination to the
       # OS; the allowlist, preload mirror and contract must never drift.

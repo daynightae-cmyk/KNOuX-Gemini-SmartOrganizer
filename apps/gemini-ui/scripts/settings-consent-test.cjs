@@ -46,7 +46,10 @@ check('settings save is real and not a toast-only success', () => {
 });
 
 check('export is credential-free and import is a typed preview', () => {
-  assert.match(settings, /exportSettingsProfile\(currentProfile\(\)\)/);
+  assert.match(settings, /const payload = exportSettingsProfile\(profile\);/);
+  assert.match(settings, /exportProfileNative\(profile\)/);
+  assert.match(settings, /importProfileNative\(\)/);
+  assert.match(settings, /data-export-mode=\{getSettingsBridge\(\) \? 'native' : 'download'\}/);
   assert.match(settings, /previewSettingsImport\(text, currentProfile\(\)\)/);
   assert.match(settings, /data-testid="settings-export"/);
   assert.match(settings, /data-testid="settings-import-preview"/);

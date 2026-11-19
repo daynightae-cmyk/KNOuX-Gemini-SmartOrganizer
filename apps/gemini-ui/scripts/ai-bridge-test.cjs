@@ -430,7 +430,10 @@ async function run() {
     assert(/exposeInMainWorld\(\s*'knouxAiV1'/.test(preload), 'preload exposes the fixed AI namespace');
     assert((preload.match(/exposeInMainWorld\(\s*'knouxAiV1'/g) || []).length === 1,
       'the AI namespace is exposed once after integration; duplicate exposure breaks Electron preload');
-    const aiBlock = preload.slice(preload.indexOf("'knouxAiV1'"), preload.indexOf("'knouxShell'"));
+    const aiStart = preload.indexOf("'knouxAiV1'");
+    const aiEnd = preload.indexOf('\n);', aiStart);
+    assert(aiStart > 0 && aiEnd > aiStart, 'the AI namespace has a measured end boundary');
+    const aiBlock = preload.slice(aiStart, aiEnd);
     assert(!/ipcRenderer\.on\(/.test(aiBlock), 'the AI namespace opens no event stream');
     assert(!aiBlock.includes('ipcRenderer.invoke(' + '"' ) && (aiBlock.match(/ipcRenderer\.invoke\(CHANNELS\./g) || []).length === 6, 'the AI namespace only invokes the six fixed channels');
     assert(!/\burl\b|\bhost\b|\bendpoint\b|\bheaders\b/.test(aiBlock), 'the AI preload surface accepts no destination field');

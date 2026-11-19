@@ -3518,6 +3518,41 @@ export interface IdentityShellApi {
 }
 
 
+/* -------------------------------------------------------------------------- */
+/* Settings profile files v1 - non-secret preferences only                    */
+/* -------------------------------------------------------------------------- */
+
+export interface SettingsProfileDocument {
+  schema: 'knoux.settings.profile.v1';
+  accent: 'neon_cyan' | 'obsidian' | 'cyber_purple' | 'emerald_shield';
+  density: 'comfortable' | 'compact';
+  engineMode: 'turbo' | 'balanced' | 'silent';
+  ramLimitGB: number;
+  cpuThreads: '4' | '8' | '16' | '32';
+  updatedAt: string;
+}
+
+export interface SettingsExportData {
+  canceled: boolean;
+  fileName?: string;
+  bytes?: number;
+  writtenAt?: string;
+}
+
+export interface SettingsImportData {
+  canceled: boolean;
+  profile?: SettingsProfileDocument;
+  fileName?: string;
+  bytes?: number;
+}
+
+export interface SettingsShellApi {
+  contractVersion: number;
+  exportProfile: (request: { profile: SettingsProfileDocument }) => Promise<NativeEnvelope<SettingsExportData>>;
+  importProfile: () => Promise<NativeEnvelope<SettingsImportData>>;
+}
+
+
 export interface AppsShellApi {
   contractVersion: number;
   capabilities: () => Promise<NativeEnvelope<AppsCapabilities>>;

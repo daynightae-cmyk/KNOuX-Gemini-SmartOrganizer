@@ -28,6 +28,7 @@ const systemProviderSource = read('electron/native/system-providers.cjs');
 const pkg = JSON.parse(read('package.json'));
 const googleAuth = require('../electron/native/google-auth.cjs');
 const googleSource = read('electron/native/google-auth.cjs');
+const settingsProfile = require('../electron/native/settings-profile.cjs');
 
 const failures = [];
 const assert = (condition, label) => {
@@ -385,6 +386,25 @@ assert(!preload.includes('refresh_token') && !preload.includes('access_token') &
 assert(!contract.namespace.includes('token'), 'contract namespace carries no token');
 assert(!fs.existsSync(path.join(appRoot, 'google-desktop-client.json')), 'no OAuth client JSON is bundled in the app root');
 assert(read('electron-builder.config.cjs').includes('!**/google-desktop-client*.json'), 'packaging excludes local OAuth client JSON');
+
+/* Settings profile files: the only export path, because downloads are cancelled. */
+assert(/exposeInMainWorld\(\s*'knouxSettingsV1'/.test(preload), 'preload exposes the fixed settings file bridge');
+assert(!preload.includes('ipcRenderer.on(CHANNELS.settings'), 'settings files expose no event stream');
+assert(contract.channels.settingsExport === settingsProfile.CHANNELS.settingsExport, 'settings export channel mirrors the native module');
+assert(contract.channels.settingsImport === settingsProfile.CHANNELS.settingsImport, 'settings import channel mirrors the native module');
+for (const name of ['settingsExport', 'settingsImport']) {
+  assert(preload.includes(`CHANNELS.${name}`), `settings ${name} crosses the preload bridge`);
+}
+assert(main.includes("require('./native/settings-profile.cjs')") && main.includes('registerSettingsProfileIpc({'), 'main owns both settings file channels');
+assert(contract.capabilities['settings.export'].mode === 'user-initiated', 'settings export is user-initiated');
+assert(contract.capabilities['settings.import'].mode === 'user-initiated', 'settings import is user-initiated');
+assert(contract.capabilities['settings.export'].channel === settingsProfile.CHANNELS.settingsExport, 'settings export capability names its channel');
+assert(contract.capabilities['settings.import'].channel === settingsProfile.CHANNELS.settingsImport, 'settings import capability names its channel');
+assert(!Object.keys(contract.capabilities).some((id) => /settings\.(path|raw|write|read-directory|delete)/i.test(id)), 'settings contract exposes no path, raw or generic file capability');
+assert(main.includes('dialog.showSaveDialog(mainWindow, options)') && main.includes('dialog.showOpenDialog(mainWindow, options)'), 'settings files use real native dialogs');
+assert(main.includes('registerSettingsProfileIpc({'), 'main wires the settings profile capability');
+assert(!/require\(['"](?:node:)?(fs|path|os)['"]\)/.test(preload), 'preload keeps no filesystem module for settings');
+assert(settingsProfile.MAX_PROFILE_BYTES === 64 * 1024 && settingsProfile.PROFILE_KEYS.length === 7, 'settings files stay bounded to seven typed fields');
 
 const result = {
   ok: failures.length === 0,

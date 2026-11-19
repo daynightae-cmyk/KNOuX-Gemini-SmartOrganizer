@@ -17,11 +17,13 @@ import {
   loadSettingsProfile,
   normalizeSettingsProfile,
   previewSettingsImport,
+  previewSettingsProfile,
   resetSettingsProfile,
   saveSettingsProfile,
   type SettingsImportPreview,
   type SettingsProfile,
 } from '../settings/profile';
+import { exportProfileNative, getSettingsBridge, importProfileNative } from '../settings/native';
 import {
   Settings,
   Sliders,
@@ -62,11 +64,38 @@ const ACCENT_PREVIEW: Record<string, string> = {
   emerald_shield: '#34d399',
 };
 
+type SettingsTabId = 'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup' | 'clipboard';
+
+/** One reviewed tab registry: the ribbon, the panel and keyboard order agree. */
+const SETTINGS_TABS: ReadonlyArray<{
+  id: SettingsTabId;
+  labelEn: string;
+  labelAr: string;
+  icon: typeof Settings;
+}> = [
+  { id: 'engine', labelEn: 'Engine & Turbo Hardware', labelAr: 'الأداء والعتاد', icon: Cpu },
+  { id: 'ai_keys', labelEn: 'AI Copilot & OpenRouter Keys', labelAr: 'مفاتيح الذكاء الاصطناعي', icon: Key },
+  { id: 'workspace', labelEn: 'Google Workspace Hub (10 APIs)', labelAr: 'خدمات Google', icon: Globe },
+  { id: 'guard', labelEn: 'Automated Protection & Guards', labelAr: 'الحماية التلقائية', icon: Shield },
+  { id: 'clipboard', labelEn: 'Clipboard Vault', labelAr: 'خزنة الحافظة', icon: Database },
+  { id: 'appearance', labelEn: 'Neon Glass Customization', labelAr: 'المظهر والسمات', icon: Palette },
+  { id: 'language', labelEn: 'Language & Locale', labelAr: 'اللغة والتوجيه', icon: Languages },
+  { id: 'backup', labelEn: 'Profile Preferences Backup', labelAr: 'نسخ التفضيلات واستعادتها', icon: Database },
+];
+
+/** The measured pipeline names its stages; every stage opens its real tab. */
+const PIPELINE_TAB: Record<string, SettingsTabId> = {
+  appearance: 'appearance',
+  profile: 'backup',
+  engine: 'engine',
+  guard: 'guard',
+  ai_keys: 'ai_keys',
+};
+
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection }) => {
   const { navigateTo, isArabic, toggleLocale, setLocale, themePreference, setThemePreference } = useNavigation();
-  const [activeTab, setActiveTab] = useState<
-    'engine' | 'ai_keys' | 'workspace' | 'guard' | 'appearance' | 'language' | 'backup' | 'clipboard'
-  >('engine');
+  const [activeTab, setActiveTab] = useState<SettingsTabId>('engine');
+  const tabRefs = useRef<Partial<Record<SettingsTabId, HTMLButtonElement | null>>>({});
 
   // API key entry is transient: the value is handed to the Main-process AI
   // bridge and cleared from this component. The renderer never stores it.
@@ -145,8 +174,27 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
       : 'Non-secret preferences saved locally. No engine/guard provider is connected and no Windows setting was changed.');
   };
 
-  const handleExportProfile = () => {
-    const payload = exportSettingsProfile(currentProfile());
+  const handleExportProfile = async () => {
+    const profile = currentProfile();
+    const payload = exportSettingsProfile(profile);
+    // Electron cancels browser downloads, so the desktop path is a real native
+    // dialog and a real file. Main rebuilds the document from typed fields and
+    // refuses credential-like keys.
+    if (getSettingsBridge()) {
+      const result = await exportProfileNative(profile);
+      if (!result.ok) {
+        showToastMsg(isArabic ? `تعذر تصدير التفضيلات: ${result.error.message}` : `The preferences export failed: ${result.error.message}`);
+        return;
+      }
+      if (result.data.canceled) {
+        showToastMsg(isArabic ? 'أُلغي التصدير؛ لم يُكتب أي ملف.' : 'Export cancelled; no file was written.');
+        return;
+      }
+      showToastMsg(isArabic
+        ? `صُدّرت التفضيلات إلى ${result.data.fileName} (${result.data.bytes} بايت). بدون مفاتيح أو رموز.`
+        : `Preferences exported to ${result.data.fileName} (${result.data.bytes} bytes). No keys or tokens.`);
+      return;
+    }
     try {
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -161,6 +209,27 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     } catch {
       showToastMsg(isArabic ? 'تعذر بدء تصدير ملف التفضيلات.' : 'The settings profile export could not start.');
     }
+  };
+
+  /**
+   * Desktop import opens the native file dialog; the browser keeps its file
+   * input. Both routes end in the same diff preview, and neither applies
+   * anything before the owner confirms.
+   */
+  const handleImportRequest = async () => {
+    setImportError(null);
+    setImportPreview(null);
+    if (!getSettingsBridge()) {
+      fileInputRef.current?.click();
+      return;
+    }
+    const result = await importProfileNative();
+    if (!result.ok) {
+      setImportError(isArabic ? `تعذر استيراد الملف: ${result.error.message}` : `The file could not be imported: ${result.error.message}`);
+      return;
+    }
+    if (result.data.canceled || !result.data.profile) return;
+    setImportPreview(previewSettingsProfile(result.data.profile, currentProfile()));
   };
 
   const handleImportFile = async (file: File | null) => {
@@ -295,6 +364,20 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
     else navigateTo(sec);
   };
 
+  /** RTL-aware roving tabindex: arrow keys follow the reading direction. */
+  const handleTabKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let next = index;
+    if (event.key === 'ArrowRight') next = (index + (isArabic ? -1 : 1) + SETTINGS_TABS.length) % SETTINGS_TABS.length;
+    else if (event.key === 'ArrowLeft') next = (index + (isArabic ? 1 : -1) + SETTINGS_TABS.length) % SETTINGS_TABS.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = SETTINGS_TABS.length - 1;
+    else return;
+    event.preventDefault();
+    const id = SETTINGS_TABS[next].id;
+    setActiveTab(id);
+    tabRefs.current[id]?.focus();
+  };
+
   const renderEngineTab = () => (
               <div className="space-y-5 animate-fadeIn">
                 <div className="border-b border-[#0f274a] pb-3">
@@ -324,6 +407,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     <button
                       type="button"
                       aria-pressed={engineMode === mode.id}
+                      data-testid={`settings-engine-${mode.id}`}
                       key={mode.id}
                       onClick={() => {
                         setEngineMode(mode.id as any);
@@ -455,7 +539,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       <button
                         type="button"
                         onClick={() => setShowKey(!showKey)}
-                        className="absolute right-3 text-slate-400 hover:text-white"
+                        className="absolute end-3 text-slate-400 hover:text-white"
                         aria-label={isArabic ? 'إظهار أو إخفاء المفتاح' : 'Show or hide the key'}
                       >
                         {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -483,7 +567,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                   <div className="rounded-xl border border-[#15325e] bg-[#061021] p-3 text-[11px] leading-relaxed text-slate-300 space-y-1" data-testid="settings-ai-state">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-slate-400">{isArabic ? 'حالة الجسر الأصلي' : 'Native AI bridge'}</span>
-                      <span className={`font-mono font-bold ${ai.bridgeReachable ? 'text-cyan-300' : 'text-amber-300'}`}>
+                      <span data-testid="settings-ai-bridge-mode" className={`font-mono font-bold ${ai.bridgeReachable ? 'text-cyan-300' : 'text-amber-300'}`}>
                         {ai.bridgeReachable ? (ai.hasKey ? 'ARMED' : 'READY · NO KEY') : 'UNAVAILABLE · DESKTOP ONLY'}
                       </span>
                     </div>
@@ -665,6 +749,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       <button
                         type="button"
                         aria-pressed={colorTheme === theme.id}
+                        data-testid={`settings-accent-${theme.id}`}
                         key={theme.id}
                         onClick={() => {
                           setColorTheme(theme.id as any);
@@ -780,7 +865,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                       ) : <p className="text-[10.5px] text-slate-400">{isArabic ? 'لا فروق في التفضيلات.' : 'No preference differences.'}</p>
                     ) : null}
                     <div className="flex items-center gap-2 pt-1">
-                      <button type="button" onClick={applyImportedProfile} disabled={!importPreview.valid} className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-[11px] font-bold">{isArabic ? 'تطبيق التفضيلات المستوردة' : 'Apply imported preferences'}</button>
+                      <button type="button" data-testid="settings-import-apply" onClick={applyImportedProfile} disabled={!importPreview.valid} className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-500 text-white text-[11px] font-bold">{isArabic ? 'تطبيق التفضيلات المستوردة' : 'Apply imported preferences'}</button>
                       <button type="button" onClick={() => setImportPreview(null)} className="px-3 py-1.5 rounded-lg bg-[#081329] border border-[#1b3f70] text-slate-300 text-[11px]">{isArabic ? 'إلغاء' : 'Cancel'}</button>
                     </div>
                   </div>
@@ -804,15 +889,18 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
                 <div className="flex flex-wrap items-center gap-3">
                   <button
-                    onClick={handleExportProfile}
+                    type="button"
+                    onClick={() => { void handleExportProfile(); }}
                     data-testid="settings-export"
+                    data-export-mode={getSettingsBridge() ? 'native' : 'download'}
                     className="px-4 py-2.5 rounded-xl bg-[#091e3e] hover:bg-[#122e5a] border border-cyan-500/40 text-cyan-300 text-xs font-bold transition cursor-pointer flex items-center gap-2"
                   >
                     <Download className="w-4 h-4" />
                     <span>{isArabic ? 'تصدير التفضيلات (JSON)' : 'Export Preferences (JSON)'}</span>
                   </button>
                   <button
-                    onClick={() => fileInputRef.current?.click()}
+                    type="button"
+                    onClick={() => { void handleImportRequest(); }}
                     data-testid="settings-import"
                     className="px-4 py-2.5 rounded-xl bg-[#091e3e] hover:bg-[#122e5a] border border-[#1b3f70] text-slate-200 text-xs font-bold transition cursor-pointer flex items-center gap-2"
                   >
@@ -844,7 +932,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     : 'Export includes non-secret preferences only. API keys, OAuth tokens and credentials are never exported. Import previews the diff before applying.'}
                 </p>
 
-                {importError ? <div className="rounded-xl border border-rose-500/40 bg-rose-950/40 p-3 text-[11px] text-rose-200" role="alert">{importError}</div> : null}
+                {importError ? <div className="rounded-xl border border-rose-500/40 bg-rose-950/40 p-3 text-[11px] text-rose-200" role="alert" data-testid="settings-import-error">{importError}</div> : null}
                 {renderImportPreview()}
 
               </div>
@@ -885,7 +973,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
           {/* Toast Notification */}
           {toast && (
-            <div className="fixed top-14 right-6 z-50 bg-gradient-to-r from-cyan-900 to-blue-900 border border-cyan-400/60 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 animate-fadeIn" data-testid="settings-toast">
+            <div role="status" aria-live="polite" className="fixed top-14 end-6 z-50 bg-gradient-to-r from-cyan-900 to-blue-900 border border-cyan-400/60 text-white text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 animate-fadeIn" data-testid="settings-toast">
               <CheckCircle2 className="w-4 h-4 text-cyan-300" />
               <span className="font-semibold">{toast}</span>
             </div>
@@ -893,7 +981,11 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
           {/* Ultra-Sleek HUD Header Banner */}
           <div data-knx-tools className="knx-settings-tools shrink-0 min-h-fit relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#061833] via-[#0b264e] to-[#06142a] border border-cyan-400/40 p-4 sm:p-5 shadow-[0_0_25px_rgba(14,165,233,0.22)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse" />
+            {/* The living-glass sheet forces this banner to overflow:visible, so
+                the decorative glow is clipped by a local, non-overridable box. */}
+            <div className="absolute inset-0 pointer-events-none" style={{ overflow: 'hidden' }} aria-hidden="true">
+              <div className="absolute -top-10 -right-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" />
+            </div>
 
             <div className="z-10 flex items-start gap-4">
               <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#1e40af] via-[#2563eb] to-[#38bdf8] flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.6)] border border-cyan-300/60 shrink-0">
@@ -932,7 +1024,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
               dense
               testId="settings-pipeline"
               caption={isArabic ? 'تفضيلات محلية فقط' : 'Local preferences only'}
-              onSelect={(id) => setActiveTab(id === 'profile' ? 'backup' : id === 'appearance' ? 'appearance' : 'guard')}
+              onSelect={(id) => setActiveTab(PIPELINE_TAB[id] ?? 'guard')}
               stages={[
                 { id: 'appearance', label: isArabic ? 'المظهر' : 'Appearance', state: themePreference ? 'complete' : 'pending' },
                 { id: 'profile', label: isArabic ? 'الملف' : 'Profile', state: profileSavedAt ? 'complete' : 'pending' },
@@ -958,24 +1050,29 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
           </div>
 
           {/* Navigation Category Tabs Ribbon */}
-          <div className="bg-[#071429]/90 border border-[#112a4e] rounded-2xl p-2 flex flex-wrap items-center gap-1.5 shadow-md">
-            {[
-              { id: 'engine', labelEn: 'Engine & Turbo Hardware', labelAr: 'الأداء والعتاد', icon: Cpu },
-              { id: 'ai_keys', labelEn: 'AI Copilot & OpenRouter Keys', labelAr: 'مفاتيح الذكاء الاصطناعي', icon: Key },
-              { id: 'workspace', labelEn: 'Google Workspace Hub (10 APIs)', labelAr: 'خدمات Google', icon: Globe },
-              { id: 'guard', labelEn: 'Automated Protection & Guards', labelAr: 'الحماية التلقائية', icon: Shield },
-              { id: 'clipboard', labelEn: 'Clipboard Vault', labelAr: 'خزنة الحافظة', icon: Database },
-              { id: 'appearance', labelEn: 'Neon Glass Customization', labelAr: 'المظهر والسمات', icon: Palette },
-              { id: 'language', labelEn: 'Language & Locale', labelAr: 'اللغة والتوجيه', icon: Languages },
-              { id: 'backup', labelEn: 'Profile Preferences Backup', labelAr: 'نسخ التفضيلات واستعادتها', icon: Database },
-            ].map((tab) => {
+          <div
+            role="tablist"
+            aria-label={isArabic ? 'أقسام الإعدادات' : 'Settings sections'}
+            aria-orientation="horizontal"
+            data-testid="settings-tablist"
+            className="bg-[#071429]/90 border border-[#112a4e] rounded-2xl p-2 flex flex-wrap items-center gap-1.5 shadow-md"
+          >
+            {SETTINGS_TABS.map((tab, index) => {
               const IconComp = tab.icon;
               const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
+                  type="button"
+                  role="tab"
+                  id={`settings-tab-${tab.id}`}
+                  ref={(node) => { tabRefs.current[tab.id] = node; }}
                   data-testid={`settings-tab-${tab.id}`}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  aria-selected={isActive}
+                  aria-controls="settings-panel"
+                  tabIndex={isActive ? 0 : -1}
+                  onKeyDown={(event) => handleTabKeyDown(event, index)}
+                  onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.6)] border border-cyan-400/50'
@@ -989,31 +1086,35 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
             })}
           </div>
 
-          {/* Active Tab Panel Body */}
-          <div className="bg-[#071329]/90 border border-[#11294a] rounded-2xl p-5 shadow-xl space-y-6">
-
-            {/* TAB 1: Engine Performance & Hardware */}
+          {/* Panel card. The intro strip is page-level chrome, not tab content,
+              so it stays reachable without pretending to belong to a panel. */}
+          <div className="bg-[#071329]/90 border border-[#11294a] rounded-2xl p-5 shadow-xl">
             <CinematicEntrySettings />
-            {activeTab === 'engine' && renderEngineTab()}
 
-            {/* TAB 2: AI Copilot & API Keys */}
-            {activeTab === 'ai_keys' && renderAiKeysTab()}
+            <div
+              role="tabpanel"
+              id="settings-panel"
+              aria-labelledby={`settings-tab-${activeTab}`}
+              tabIndex={0}
+              data-testid="settings-panel"
+              data-active-tab={activeTab}
+              className="mt-4 space-y-6 outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+            >
+              {activeTab === 'engine' && renderEngineTab()}
 
-            {/* TAB 3: Google Workspace Hub */}
-            {activeTab === 'workspace' && renderWorkspaceTab()}
+              {activeTab === 'ai_keys' && renderAiKeysTab()}
 
-            {/* TAB 4: Automated Guards */}
-            {activeTab === 'guard' && renderGuardTab()}
-            {activeTab === 'clipboard' && <ClipboardVault isArabic={isArabic} />}
+              {activeTab === 'workspace' && renderWorkspaceTab()}
 
-            {/* TAB 5: Appearance & Neon Glass */}
-            {activeTab === 'appearance' && renderAppearanceTab()}
+              {activeTab === 'guard' && renderGuardTab()}
+              {activeTab === 'clipboard' && <ClipboardVault isArabic={isArabic} />}
 
-            {/* TAB 6: Language & Locale */}
-            {activeTab === 'language' && renderLanguageTab()}
+              {activeTab === 'appearance' && renderAppearanceTab()}
 
-            {/* TAB 7: Backup & System Restore */}
-            {activeTab === 'backup' && renderBackupTab()}
+              {activeTab === 'language' && renderLanguageTab()}
+
+              {activeTab === 'backup' && renderBackupTab()}
+            </div>
           </div>
 
         </main>

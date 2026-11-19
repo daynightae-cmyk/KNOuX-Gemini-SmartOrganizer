@@ -165,6 +165,8 @@ const CHANNELS = Object.freeze({
   aiCancel: 'knoux:ai:v1:cancel',
   identityLinks: 'knoux:identity:v1:links',
   identityOpen: 'knoux:identity:v1:open',
+  settingsExport: 'knoux:settings:v1:export',
+  settingsImport: 'knoux:settings:v1:import',
 });
 const WINDOW_ACTIONS = Object.freeze(['minimize', 'maximize', 'close']);
 
@@ -249,6 +251,29 @@ contextBridge.exposeInMainWorld(
     contractVersion: CONTRACT_VERSION,
     links: () => ipcRenderer.invoke(CHANNELS.identityLinks),
     open: (target) => ipcRenderer.invoke(CHANNELS.identityOpen, { target: String(target || '') }),
+  })
+);
+
+/* Settings v1 moves a non-secret preferences profile through an owner-selected
+   native file dialog. The renderer supplies typed preferences only: no path,
+   no raw JSON, no credential field and no generic file access. Downloads stay
+   cancelled by the hardened shell, so this is the only export path. */
+contextBridge.exposeInMainWorld(
+  'knouxSettingsV1',
+  Object.freeze({
+    contractVersion: CONTRACT_VERSION,
+    exportProfile: (request) => ipcRenderer.invoke(CHANNELS.settingsExport, {
+      profile: {
+        schema: 'knoux.settings.profile.v1',
+        accent: String(request?.profile?.accent || ''),
+        density: String(request?.profile?.density || ''),
+        engineMode: String(request?.profile?.engineMode || ''),
+        ramLimitGB: Number(request?.profile?.ramLimitGB),
+        cpuThreads: String(request?.profile?.cpuThreads || ''),
+        updatedAt: typeof request?.profile?.updatedAt === 'string' ? request.profile.updatedAt.slice(0, 40) : '',
+      },
+    }),
+    importProfile: () => ipcRenderer.invoke(CHANNELS.settingsImport),
   })
 );
 

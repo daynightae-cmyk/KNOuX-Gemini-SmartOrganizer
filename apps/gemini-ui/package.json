@@ -35,6 +35,7 @@
     "test:automation": "node scripts/automation-native-test.cjs",
     "test:workspace": "node scripts/workspace-consent-test.cjs",
     "test:settings": "node scripts/settings-consent-test.cjs",
+    "test:settings-profile": "node scripts/settings-profile-test.cjs",
     "test:entry": "node --import tsx --test tests/entry/model.test.ts && playwright test --config tests/entry/playwright.config.ts",
     "test:home": "node scripts/home-live-test.cjs && node --import tsx --test tests/home/search.test.ts tests/home/search-history.test.ts",
     "test:workbench": "node scripts/workbench-host-test.cjs",
@@ -46,7 +47,8 @@
     "visual:matrix": "node scripts/theme-evidence-matrix.mjs",
     "test:google-workspace": "node scripts/google-workspace-test.cjs",
     "test:identity": "node --import tsx scripts/identity-page-test.cjs",
-    "evidence:identity": "node scripts/identity-inner-evidence.mjs"
+    "evidence:identity": "node scripts/identity-inner-evidence.mjs",
+    "evidence:settings": "node scripts/settings-inner-evidence.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

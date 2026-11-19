@@ -1,0 +1,136 @@
+{
+  "head": "457f121a2b7837938c4c20c31bef0734f6155bad",
+  "profile": "D:\\Temp\\knoux-inner-settings-QKd6uV\\profile",
+  "scope": "Settings inner workspace: eight real sections behind one ARIA tablist with RTL-aware keyboard navigation, persisted non-secret preferences, native dialog export to a credential-free file, native import with a diff preview and fail-closed refusals, honest AI/engine states, bilingual Day/Night screenshots at four desktop frames, and an honest browser-preview fallback. No credential is written, read or exported in this run.",
+  "checks": [
+    {
+      "name": "eight-sections-are-one-real-tablist",
+      "ok": true,
+      "evidence": {
+        "tabs": 8,
+        "labels": [
+          "Engine & Turbo Hardware",
+          "AI Copilot & OpenRouter Keys",
+          "Google Workspace Hub (10 APIs)",
+          "Automated Protection & Guards",
+          "Clipboard Vault",
+          "Neon Glass Customization",
+          "Language & Locale",
+          "Profile Preferences Backup"
+        ]
+      }
+    },
+    {
+      "name": "keyboard-navigation-follows-the-reading-direction",
+      "ok": true,
+      "evidence": {
+        "ltr": "engine>ai_keys",
+        "rtl": "engine>backup"
+      }
+    },
+    {
+      "name": "native-bridge-exposes-only-the-two-fixed-calls",
+      "ok": true,
+      "evidence": {
+        "keys": [
+          "contractVersion",
+          "exportProfile",
+          "importProfile"
+        ],
+        "version": 1,
+        "fs": "undefined",
+        "require": "undefined",
+        "process": "undefined",
+        "ipc": "undefined",
+        "exportMode": "native",
+        "notice": "Export includes non-secret preferences only. API keys, OAuth tokens and credentials are never exported. Import previews the diff before applying."
+      }
+    },
+    {
+      "name": "preferences-survive-a-real-reload",
+      "ok": true,
+      "evidence": {
+        "toast": "Non-secret preferences saved locally. No engine/guard provider is connected and no Windows setting was changed.",
+        "stored": {
+          "engineMode": "silent",
+          "accent": "emerald_shield",
+          "density": "compact"
+        }
+      }
+    },
+    {
+      "name": "native-export-writes-a-credential-free-file",
+      "ok": true,
+      "evidence": {
+        "fileName": "native-export.json",
+        "accent": "emerald_shield",
+        "engineMode": "silent",
+        "toast": "Preferences exported to native-export.json (481 bytes). No keys or tokens."
+      }
+    },
+    {
+      "name": "native-import-previews-and-applies-only-on-confirmation",
+      "ok": true,
+      "evidence": {
+        "diffRows": 4,
+        "toast": "Imported preferences applied. No keys or tokens were imported."
+      }
+    },
+    {
+      "name": "a-secret-bearing-import-fails-closed",
+      "ok": true,
+      "evidence": {
+        "error": "The file could not be imported: A settings profile can never contain a credential field.",
+        "previewCount": 0
+      }
+    },
+    {
+      "name": "ai-and-engine-states-stay-honest",
+      "ok": true,
+      "evidence": {
+        "aiBridge": "READY · NO KEY",
+        "enginePressed": [
+          "true",
+          "false",
+          "false"
+        ]
+      }
+    },
+    {
+      "name": "a-renderer-supplied-path-is-never-accepted",
+      "ok": true,
+      "evidence": {
+        "clean": {
+          "canceled": false,
+          "fileName": "typed-only.json",
+          "bytes": 482,
+          "writtenAt": "2026-11-19T01:33:34.744Z"
+        },
+        "typedRefusal": "SETTINGS_REQUEST_INVALID",
+        "importCanceled": true
+      }
+    },
+    {
+      "name": "four-layout-frames-bilingual-day-night",
+      "ok": true,
+      "evidence": {
+        "frames": 4
+      }
+    },
+    {
+      "name": "browser-preview-degrades-honestly",
+      "ok": true,
+      "evidence": {
+        "bridge": "undefined",
+        "exportMode": "download",
+        "tabs": 8,
+        "notice": "Export includes non-secret preferences only. API keys, OAuth tokens and credentials are never exported. Import previews the diff before applying."
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "ok": true
+}

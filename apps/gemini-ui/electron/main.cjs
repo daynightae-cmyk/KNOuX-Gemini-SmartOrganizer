@@ -50,6 +50,7 @@ const {
   resolveIdentityLink,
   publicIdentityLinks,
 } = require('./native/identity-links.cjs');
+const { registerSettingsProfileIpc } = require('./native/settings-profile.cjs');
 const {
   ok,
   fail,
@@ -783,6 +784,18 @@ function registerIpc() {
       });
     })
   );
+
+  // Settings profile file capability: the owner picks every path in a real
+  // native dialog, the renderer supplies typed preferences only, and downloads
+  // remain cancelled globally. This pair is therefore the only way a profile
+  // can leave or enter the application.
+  registerSettingsProfileIpc({
+    ipcMain,
+    assertSender: (event) => assertTrustedSender(event, { mainWindow, isDev, distRoot, devOrigin }),
+    saveDialog: (options) => dialog.showSaveDialog(mainWindow, options),
+    openDialog: (options) => dialog.showOpenDialog(mainWindow, options),
+    now: () => new Date().toISOString(),
+  });
 
   const CLEANUP_ID = /^cln:[a-f0-9]{24}$/;
   const CLEANUP_SESSION = /^[a-f0-9-]{8,64}$/i;

@@ -1,0 +1,20 @@
+{
+  "fileName": "native-export.json",
+  "bytes": 481,
+  "document": {
+    "schema": "knoux.settings.export.v1",
+    "exportedAt": "2026-11-19T01:33:27.508Z",
+    "secretsExcluded": true,
+    "aiProvidersExcluded": true,
+    "profile": {
+      "schema": "knoux.settings.profile.v1",
+      "accent": "emerald_shield",
+      "density": "compact",
+      "engineMode": "silent",
+      "ramLimitGB": 4,
+      "cpuThreads": "8",
+      "updatedAt": "2026-11-19T01:33:24.701Z"
+    },
+    "notice": "Non-secret preferences only. API keys and tokens are never included in this export."
+  }
+}

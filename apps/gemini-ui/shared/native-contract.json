@@ -153,7 +153,9 @@
     "aiComplete": "knoux:ai:v1:complete",
     "aiCancel": "knoux:ai:v1:cancel",
     "identityLinks": "knoux:identity:v1:links",
-    "identityOpen": "knoux:identity:v1:open"
+    "identityOpen": "knoux:identity:v1:open",
+    "settingsExport": "knoux:settings:v1:export",
+    "settingsImport": "knoux:settings:v1:import"
   },
   "capabilities": {
     "clipboard.status": {
@@ -1049,6 +1051,18 @@
       "title": "Open one fixed KNOUX identity destination in the operating system",
       "mode": "user-initiated",
       "channel": "knoux:identity:v1:open"
+    },
+    "settings.export": {
+      "id": "settings.export",
+      "title": "Write a credential-free preferences profile to an owner-selected file",
+      "mode": "user-initiated",
+      "channel": "knoux:settings:v1:export"
+    },
+    "settings.import": {
+      "id": "settings.import",
+      "title": "Read a credential-free preferences profile from an owner-selected file",
+      "mode": "user-initiated",
+      "channel": "knoux:settings:v1:import"
     }
   },
   "windowActions": [
