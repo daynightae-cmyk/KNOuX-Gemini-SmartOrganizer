@@ -10,12 +10,14 @@ import { KNOuXSidebar, KNOuXTitleBar, KNOUX_ASSISTANT_TOGGLE_EVENT } from '../sh
 import type { AppTheme } from '../../context/NavigationContext';
 import type { HomeSnapshot } from '../../home/snapshot';
 import { deriveActivities, deriveVolumes, formatBytes } from '../../home/derive';
+import type { DeepLink } from '../../context/NavigationContext';
 import './home-command.css';
 
 interface Props {
   isArabic: boolean;
   theme: AppTheme;
-  onNavigate: (page: string) => void;
+  /** Deep navigation that can open a specific workbench within a section. */
+  navigateDeep: (section: string, workbenchId?: string, mode?: 'side' | 'expanded', params?: Record<string, unknown>) => void;
   live: HomeSnapshot & { refresh: () => Promise<void> };
   /** The real federated workspace + measured-inventory palette owned by HomePage. */
   query: string;
@@ -51,16 +53,46 @@ const deck = [
   { id: 'repair', icon: Wrench, en: 'Repair Lab', ar: 'معمل الإصلاح', subEn: 'Diagnose and fix', subAr: 'تشخيص وإصلاح' },
 ] as const;
 
-export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live, query, onQueryChange, onOpenCommands, onToggleLocale }: Props) {
+/**
+ * Maps Home targets to their default workbench IDs for deep linking.
+ * When a user clicks a card/tile on Home, we open the section with the relevant workbench pre-selected.
+ */
+const HOME_DEEP_LINKS: Record<string, { workbenchId?: string; mode?: 'side' | 'expanded' }> = {
+  // KPI card targets
+  smart_scan: { workbenchId: 'quick_scan', mode: 'side' },
+  files: { workbenchId: 'file-downloads-inventory', mode: 'side' },
+  cleanup: { workbenchId: 'cleanup-temp-preview', mode: 'side' },
+  automation: { workbenchId: 'auto-smart-scan', mode: 'side' },
+  applications: { workbenchId: 'app-inventory', mode: 'side' },
+  services: { workbenchId: 'services-inventory', mode: 'side' },
+  system: { workbenchId: 'system-health-check', mode: 'side' },
+  // Deck targets
+  storage: { workbenchId: 'storage-disks', mode: 'side' },
+  startup: { workbenchId: 'startup-overview', mode: 'side' },
+  repair: { workbenchId: 'repair-component-scan', mode: 'side' },
+  // Insight/Activity targets
+  studio: { workbenchId: undefined, mode: 'side' }, // Studio uses stage-based navigation
+};
+
+export function ApprovedHomeScreen({ isArabic, theme, navigateDeep, live, query, onQueryChange, onOpenCommands, onToggleLocale }: Props) {
   const resolvedTheme = theme;
   const [modal, setModal] = useState<'notifications' | 'customize' | 'scan' | null>(null);
   const [overviewTab, setOverviewTab] = useState<'health' | 'storage'>('health');
   const [accessTab, setAccessTab] = useState<'files' | 'activity'>('files');
 
-  const go = (target: string) => {
-    if (target === 'intro') window.dispatchEvent(new Event('knoux:replay-entry'));
-    else if (target === 'assistant') window.dispatchEvent(new Event(KNOUX_ASSISTANT_TOGGLE_EVENT));
-    else onNavigate(target);
+  const go = (target: string, customWorkbenchId?: string, customMode?: 'side' | 'expanded') => {
+    if (target === 'intro') {
+      window.dispatchEvent(new Event('knoux:replay-entry'));
+      return;
+    }
+    if (target === 'assistant') {
+      window.dispatchEvent(new Event(KNOUX_ASSISTANT_TOGGLE_EVENT));
+      return;
+    }
+    const deepLinkConfig = HOME_DEEP_LINKS[target] || {};
+    const workbenchId = customWorkbenchId ?? deepLinkConfig.workbenchId;
+    const mode = customMode ?? deepLinkConfig.mode ?? 'side';
+    navigateDeep(target, workbenchId, mode);
   };
 
   const observed = (domain: keyof HomeSnapshot['observations']) => live.observations[domain];

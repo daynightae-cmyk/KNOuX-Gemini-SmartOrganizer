@@ -20,7 +20,7 @@ import {
   X,
 } from 'lucide-react';
 import type { ScanServiceResult } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { SmartScanHero, SmartScanSourceBar } from './SmartScanHero';
 import { ScanMetrics } from './ScanMetrics';
@@ -55,6 +55,7 @@ export interface SmartScanPageProps {
 
 export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection }) => {
   const { isArabic: globalArabic, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localArabic, setLocalArabic] = useState<boolean | null>(null);
   const isArabic = localArabic !== null ? localArabic : globalArabic;
   const scan = useSmartScan();
@@ -62,6 +63,17 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedResultId, setSelectedResultId] = useState<string | null>(null);
   const [activeServiceId, setActiveServiceId] = useState<string | null>('quick_scan');
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId) {
+      // Check if the workbenchId is a valid scan service
+      const services = scan.capabilities?.services || [];
+      if (services.some(s => s.id === deepLink.workbenchId)) {
+        setActiveServiceId(deepLink.workbenchId);
+      }
+    }
+  }, [deepLink, scan.capabilities]);
   const [detached,setDetached]=useState(false);
   const [inspectorOpen,setInspectorOpen]=useState(false);
   const [customOpen, setCustomOpen] = useState(false);

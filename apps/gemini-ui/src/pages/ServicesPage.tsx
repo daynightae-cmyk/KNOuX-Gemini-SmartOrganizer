@@ -40,7 +40,7 @@ import {
   X,
 } from 'lucide-react';
 import type { ServicesJournalEntry, ServicesToolId } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { RISK_META, SERVICES_TOOLS, STATE_META, TOOL_BY_ID, toolLabel, type ServicesLocale } from '../services/catalog';
 import {
@@ -77,6 +77,7 @@ const AR = 'ar';
 
 export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<ServicesLocale | null>(null);
   const locale: ServicesLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useServices();
@@ -85,6 +86,13 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
   const [selectedName, setSelectedName] = useState<string | null>(null);
   const [activeTool, setActiveTool] = useState<ServicesToolId | null>(null);
   const [detached, setDetached] = useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && hasServicesWorkbench(deepLink.workbenchId)) {
+      setActiveTool(deepLink.workbenchId);
+    }
+  }, [deepLink]);
   const integratedRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (integratedRef.current) integratedRef.current.scrollTop = 0;

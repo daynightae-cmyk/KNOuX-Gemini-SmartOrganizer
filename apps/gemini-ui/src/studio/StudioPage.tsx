@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Search, X, ChevronRight } from 'lucide-react';
 import { useStudio } from './context';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { STUDIO_STAGES } from '../operations/organization-studio-model';
 import { CompactServiceDock } from '../components/workbench/CompactServiceDock';
@@ -16,6 +16,7 @@ export interface StudioPageProps {
 /** Shared approved chrome around the existing native operation portal with full ServiceWorkbenchHost integration. */
 export function StudioPage({ onNavigate }: StudioPageProps) {
   const navigation = useNavigation();
+  const deepLink = useDeepLink();
   const studio = useStudio();
   const ar = navigation.isArabic;
   const locale = ar ? 'ar' : 'en';
@@ -26,6 +27,17 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
   const [activeStage, setActiveStage] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9>(2);
   const [detached, setDetached] = useState(false);
   const [overview, setOverview] = useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId) {
+      const stageId = Number(deepLink.workbenchId);
+      if (hasStudioWorkbench(stageId)) {
+        setActiveStage(stageId);
+        setOverview(false);
+      }
+    }
+  }, [deepLink]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.studio.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });

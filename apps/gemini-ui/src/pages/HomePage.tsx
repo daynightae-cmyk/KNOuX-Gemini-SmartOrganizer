@@ -5,6 +5,7 @@ import {SECTIONS_DIRECTORY,useNavigation} from '../context/NavigationContext';
 import {useHomeLive} from '../home/live';
 import {searchHomeInventory,publishSearchIntent,type InventoryHit,type SourceOutcome} from '../home/search';
 import {readSearchHistory,pushSearchHistory,clearSearchHistory,type SearchHistoryEntry} from '../home/search-history';
+import type {DeepLink} from '../context/NavigationContext';
 
 interface HomePageProps {onNavigateSection?:(section:string)=>void;onNavigate?:(section:string)=>void}
 /** One existing route and local native aggregator; only the visual composition changes. */
@@ -14,8 +15,15 @@ export function HomePage({onNavigateSection,onNavigate}:HomePageProps){
  const [inventoryHits,setInventoryHits]=useState<InventoryHit[]>([]),[searchBusy,setSearchBusy]=useState(false),[searchPartial,setSearchPartial]=useState(false);
  const [sourceOutcomes,setSourceOutcomes]=useState<SourceOutcome[]>([]),[history,setHistory]=useState<SearchHistoryEntry[]>(()=>readSearchHistory());
  const dialog=useRef<HTMLDialogElement>(null);
- const navigate=(section:string)=>(onNavigateSection??onNavigate??navigation.navigateTo)(section);
- const sections=SECTIONS_DIRECTORY.filter(section=>(section.id+' '+section.labelEn+' '+section.labelAr).toLowerCase().includes(query.trim().toLowerCase()));
+
+  const navigateDeep = (section: string, workbenchId?: string, mode?: 'side' | 'expanded', params?: Record<string, unknown>) => {
+    const deepLink: DeepLink = { section: section as any, workbenchId, mode, params };
+    navigation.navigateDeep(deepLink);
+  };
+
+  const navigate = (section: string) => navigateDeep(section);
+
+  const sections=SECTIONS_DIRECTORY.filter(section=>(section.id+' '+section.labelEn+' '+section.labelAr).toLowerCase().includes(query.trim().toLowerCase()));
  /* Identity is a real destination but not a fifteenth domain, so it is offered
     by the palette without entering SECTIONS_DIRECTORY or the domain count. */
  const identityKeywords='founder developer about contact identity sadek elgazar صادق الجزار المؤسس المطوّر';
@@ -47,7 +55,7 @@ export function HomePage({onNavigateSection,onNavigate}:HomePageProps){
  },[paletteOpen,query,homeLive.sources,homeLive.apps,homeLive.observations]);
  const chooseInventory=(hit:InventoryHit)=>{publishSearchIntent(hit);choose(hit.kind==='file'?'files':'applications');};
  return <>
-  <ApprovedHomeScreen isArabic={navigation.isArabic} theme={navigation.theme} onNavigate={navigate} live={{...homeLive,observations:homeLive.observations??{}}} query={query} onQueryChange={(value)=>{setQuery(value);if(value.trim().length>=2)setPaletteOpen(true);}} onOpenCommands={()=>setPaletteOpen(true)} onToggleLocale={navigation.toggleLocale}/>
+  <ApprovedHomeScreen isArabic={navigation.isArabic} theme={navigation.theme} navigateDeep={navigateDeep} live={{...homeLive,observations:homeLive.observations??{}}} query={query} onQueryChange={(value)=>{setQuery(value);if(value.trim().length>=2)setPaletteOpen(true);}} onOpenCommands={()=>setPaletteOpen(true)} onToggleLocale={navigation.toggleLocale}/>
   {paletteOpen&&<dialog ref={dialog} className="home-workspace-palette" aria-label={navigation.isArabic?'البحث في مساحات العمل':'Workspace tools'} onCancel={()=>setPaletteOpen(false)} onClick={event=>{if(event.target===dialog.current)setPaletteOpen(false);}}>
    <header><Search aria-hidden="true"/><input autoFocus aria-label="Search workspaces" maxLength={200} value={query} placeholder={navigation.isArabic?'ابحث عن قسم أو تطبيق أو ملف مفهرس…':'Search workspaces, measured apps or indexed files…'} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();if(sections[0])choose(sections[0].id);else if(identityHit)choose('identity');else if(inventoryHits[0])chooseInventory(inventoryHits[0]);}}}/><button aria-label="Close workspace search" onClick={()=>setPaletteOpen(false)}><X/></button></header>
    <nav aria-label="Workspace search results">{sections.length||identityHit?<>{sections.map(section=><button key={section.id} onClick={()=>choose(section.id)}><span>{navigation.isArabic?section.labelAr:section.labelEn}</span><ChevronRight/></button>)}{identityHit&&<button data-testid="home-search-identity" onClick={()=>choose('identity')}><span>{navigation.isArabic?'المؤسس والمطوّر':'Founder & Developer'}<small style={{display:'block'}}>{navigation.isArabic?'م. صادق الجزار · KNOUX':'Eng. Sadek Elgazar · KNOUX'}</small></span><ChevronRight/></button>}</>:<p role="status">{navigation.isArabic?'لا توجد أقسام مطابقة':'No matching workspace'}</p>}</nav>

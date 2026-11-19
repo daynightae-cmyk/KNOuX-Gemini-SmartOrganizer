@@ -60,7 +60,7 @@ import {
   TreemapNode,
   LargestFileItem
 } from '../lib/storage-inventory';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { StorageBanner } from '../storage/StorageBanner';
 import { StorageSpaceMap } from '../storage/StorageSpaceMap';
@@ -84,6 +84,7 @@ interface StoragePageProps {
 
 export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const { navigateTo, isActive, isArabic, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   // State
   const [selectedVolumeId, setSelectedVolumeId] = useState<string>('vol-c');
   const [activeTab, setActiveTab] = useState<StorageTabKey>('treemap');
@@ -93,6 +94,13 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
   const [activeService, setActiveService] = useState<string | null>('storage-disks');
   const [detached,setDetached]=useState(false),[overview,setOverview]=useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && STORAGE_SERVICES_CATALOG.some(s => s.serviceKey === deepLink.workbenchId)) {
+      setActiveService(deepLink.workbenchId);
+    }
+  }, [deepLink]);
   const integratedRef=useRef<HTMLElement>(null);
   useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {

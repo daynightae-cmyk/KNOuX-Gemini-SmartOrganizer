@@ -33,7 +33,7 @@ import {
 import { OrbitalControl } from '../visual/OrbitalControl';
 import { ServicePipeline } from '../visual/ServicePipeline';
 import type { RepairJournalEntry, RepairToolId } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { GUIDED_STEPS, REPAIR_TOOLS, RISK_META, STATE_META, TOOL_BY_ID, isRepairToolId, toolLabel, type RepairLocale } from '../repair/catalog';
 import {
@@ -64,6 +64,7 @@ const AR = 'ar';
 
 export function RepairPage({ onNavigateSection }: RepairPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<RepairLocale | null>(null);
   const locale: RepairLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useRepair();
@@ -75,6 +76,14 @@ export function RepairPage({ onNavigateSection }: RepairPageProps) {
   const integratedRef=useRef<HTMLElement>(null);
   useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[selectedToolId]);
   const [activeWorkbench, setActiveWorkbench] = useState<RepairToolId | null>(null);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && hasRepairWorkbench(deepLink.workbenchId)) {
+      setActiveWorkbench(deepLink.workbenchId);
+      setSelectedToolId(deepLink.workbenchId);
+    }
+  }, [deepLink]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.repair.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });

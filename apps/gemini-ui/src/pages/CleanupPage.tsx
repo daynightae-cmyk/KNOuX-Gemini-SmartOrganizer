@@ -20,7 +20,7 @@ import {
   X,
 } from 'lucide-react';
 import type { CleanupCandidate, CleanupCategory } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { CleanupHero, CleanupMetrics } from '../cleanup/CleanupHero';
 import { CandidateRegister } from '../cleanup/CandidateRegister';
@@ -53,6 +53,7 @@ export interface CleanupPageProps {
 
 export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<CleanupLocale | null>(null);
   const locale: CleanupLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useCleanup();
@@ -63,6 +64,13 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
   const [activeService, setActiveService] = useState<CleanupServiceId | null>(null);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && SERVICE_IDS.includes(deepLink.workbenchId as CleanupServiceId)) {
+      setActiveService(deepLink.workbenchId as CleanupServiceId);
+    }
+  }, [deepLink]);
   /**
    * Every one of the twelve services keeps its own measured scene. Quarantine
    * execution still belongs to the proven Safety Vault, so the review scenes

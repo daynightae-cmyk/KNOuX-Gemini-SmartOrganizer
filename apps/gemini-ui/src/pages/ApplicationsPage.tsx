@@ -17,7 +17,7 @@ import {
   X,
 } from 'lucide-react';
 import type { AppRecord } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { ApplicationsHero, ApplicationsMetrics } from '../apps/ApplicationsHero';
 import { AppRegister } from '../apps/AppRegister';
@@ -46,6 +46,7 @@ function appsErrorMessage(error: { code: string; message: string } | null, local
 
 export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<AppsLocale | null>(null);
   const locale: AppsLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useApplications();
@@ -61,6 +62,13 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
   const integratedRef=useRef<HTMLElement>(null);
   useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
   const [detached,setDetached]=useState(false),[inspectorOpen,setInspectorOpen]=useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && DOMAIN_SERVICES_META.some(s => s.key === deepLink.workbenchId)) {
+      setActiveService(deepLink.workbenchId as DomainServiceKey);
+    }
+  }, [deepLink]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.apps.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });

@@ -41,7 +41,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { SystemCoverageStage, SystemMetrics } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { OrbitalControl } from '../visual/OrbitalControl';
 import { ServicePipeline } from '../visual/ServicePipeline';
@@ -231,12 +231,23 @@ function processSearchMatches(entry: { name: string; pid: number; owner: string 
 
 export function SystemPage({ onNavigateSection }: SystemPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<SystemLocale | null>(null);
   const locale: SystemLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useSystem(locale);
   const snapshot = controller.snapshot;
 
   const [activeService, setActiveService] = useState<string | null>(null);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && hasSystemWorkbench(deepLink.workbenchId)) {
+      setActiveService(deepLink.workbenchId);
+      if (deepLink.mode) {
+        // The workbench mode will be picked up by the workbench component
+      }
+    }
+  }, [deepLink]);
   const [detached, setDetached] = useState(false);
   const integratedRef = useRef<HTMLElement>(null);
   useEffect(() => {

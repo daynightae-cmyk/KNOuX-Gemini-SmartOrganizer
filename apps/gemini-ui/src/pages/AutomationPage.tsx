@@ -42,7 +42,7 @@ import {
   X,
 } from 'lucide-react';
 import type { AutomationNode, AutomationNodeType, AutomationWorkflow } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { AUTOMATION_TOOLS, RISK_META, STATE_META, TOOL_BY_ID, toolLabel, type AutomationLocale } from '../automation/catalog';
 import {
@@ -83,6 +83,7 @@ export interface AutomationPageProps {
 
 export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<AutomationLocale | null>(null);
   const locale: AutomationLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useAutomation();
@@ -92,6 +93,13 @@ export function AutomationPage({ onNavigateSection }: AutomationPageProps) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [activeTool, setActiveTool] = useState<keyof typeof import('../automation/AutomationServiceWorkspaces')['AUTOMATION_WORKBENCHES'] | null>(null);
   const [detached, setDetached] = useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && hasAutomationWorkbench(deepLink.workbenchId)) {
+      setActiveTool(deepLink.workbenchId);
+    }
+  }, [deepLink]);
   const integratedRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (integratedRef.current) integratedRef.current.scrollTop = 0;

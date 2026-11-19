@@ -63,7 +63,7 @@ import { useFilesNative, formatBytes } from '../files/useFilesNative';
 import { FilesNativeBanner } from '../files/FilesNativeBanner';
 import { FilesServiceFocus, type FilesToolDraft } from '../files/FilesServiceFocus';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import '../files.css';
 import { OrbitalControl } from '../visual/OrbitalControl';
@@ -79,6 +79,7 @@ interface FilesPageProps {
 const EMPTY_SELECTION:FileResultItem={id:'',name:'',parentFolder:'',type:'',category:'other',sizeBytes:0,sizeFormatted:'',dateModifiedFormatted:'',dateModifiedRaw:'',source:''};
 export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const { navigateTo, isActive, locale, isArabic, toggleLocale, setLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [selectedFile, setSelectedFile] = useState<FileResultItem>(EMPTY_SELECTION);
   const [checkedFileIds, setCheckedFileIds] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<FileCategoryFilter>('all');
@@ -94,6 +95,13 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const [activeService, setActiveService] = useState<FilesServiceKey | null>(null);
   const [detached,setDetached]=useState(false);
   const [inspectorVisible,setInspectorVisible]=useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && FILES_DOMAIN_SERVICES.some(s => s.key === deepLink.workbenchId)) {
+      setActiveService(deepLink.workbenchId as FilesServiceKey);
+    }
+  }, [deepLink]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
     try { return localStorage.getItem('knoux.files.workbench.mode') === 'expanded' ? 'expanded' : 'side'; } catch { return 'side'; }
   });

@@ -49,6 +49,17 @@ export type AppSection =
   | 'identity';
 
 /**
+ * Deep link for opening a specific workbench within a section.
+ * Used by Home and other entry points to launch directly into a tool.
+ */
+export interface DeepLink {
+  section: AppSection;
+  workbenchId?: string;
+  mode?: 'side' | 'expanded';
+  params?: Record<string, unknown>;
+}
+
+/**
  * The fourteen product domains. `identity` is a surface, not a domain, so every
  * per-domain map (artwork, hero configuration, layout slots) is keyed by this
  * narrower type and cannot silently grow a fifteenth entry.
@@ -182,6 +193,7 @@ export function normalizeSection(raw: string | undefined | null): AppSection {
 export interface NavigationContextValue {
   currentSection: AppSection;
   navigateTo: (section: string) => void;
+  navigateDeep: (deepLink: DeepLink) => void;
   isActive: (section: string) => boolean;
   history: AppSection[];
   goBack: () => void;
@@ -195,6 +207,8 @@ export interface NavigationContextValue {
   setThemePreference: (preference: ThemePreference) => void;
   setTheme: (theme: AppTheme) => void;
   toggleTheme: () => void;
+  pendingDeepLink: DeepLink | null;
+  consumeDeepLink: () => DeepLink | null;
 }
 
 const NavigationContext = createContext<NavigationContextValue | null>(null);
@@ -222,6 +236,8 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     }
     return normalizeSection(initialSection);
   });
+
+  const [pendingDeepLink, setPendingDeepLink] = useState<DeepLink | null>(null);
 
   const currentSectionRef = useRef<AppSection>(currentSection);
   useEffect(() => {
@@ -348,6 +364,36 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     [onSectionChange]
   );
 
+  const navigateDeep = useCallback(
+    (deepLink: DeepLink) => {
+      const normalized = normalizeSection(deepLink.section);
+      currentSectionRef.current = normalized;
+      setCurrentSection((prev) => {
+        if (prev === normalized) return prev;
+        return normalized;
+      });
+      if (typeof window !== 'undefined') {
+        window.location.hash = normalized;
+      }
+      setHistory((prev) => {
+        if (prev[prev.length - 1] === normalized) return prev;
+        return [...prev, normalized];
+      });
+      if (onSectionChange) {
+        onSectionChange(normalized);
+      }
+      // Set the pending deep link for the target page to consume
+      setPendingDeepLink(deepLink);
+    },
+    [onSectionChange]
+  );
+
+  const consumeDeepLink = useCallback(() => {
+    const link = pendingDeepLink;
+    setPendingDeepLink(null);
+    return link;
+  }, [pendingDeepLink]);
+
   const goBack = useCallback(() => {
     setHistory((prev) => {
       if (prev.length <= 1) {
@@ -384,6 +430,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     () => ({
       currentSection,
       navigateTo,
+      navigateDeep,
       isActive,
       history,
       goBack,
@@ -397,10 +444,13 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
       setThemePreference,
       setTheme,
       toggleTheme,
+      pendingDeepLink,
+      consumeDeepLink,
     }),
     [
       currentSection,
       navigateTo,
+      navigateDeep,
       isActive,
       history,
       goBack,
@@ -413,6 +463,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
       themePreference,
       setTheme,
       toggleTheme,
+      pendingDeepLink,
     ]
   );
 
@@ -425,4 +476,13 @@ export function useNavigation(): NavigationContextValue {
     throw new Error('useNavigation must be used within a <NavigationProvider>');
   }
   return context;
+}
+
+/**
+ * Hook for consuming a pending deep link. Returns the deep link and clears it.
+ * Should be called once in the target page's effect on mount.
+ */
+export function useDeepLink(): DeepLink | null {
+  const { consumeDeepLink } = useNavigation();
+  return consumeDeepLink();
 }

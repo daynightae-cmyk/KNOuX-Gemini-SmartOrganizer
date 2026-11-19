@@ -22,7 +22,7 @@ import {
   X,
 } from 'lucide-react';
 import type { StartupEntry, StartupPlan } from '../../shared/native-contracts';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
 import { StartupBootline, StartupHero, StartupMetrics } from '../startup/StartupHero';
 import { AutorunRegister } from '../startup/AutorunRegister';
@@ -52,6 +52,7 @@ export interface StartupPageProps {
 
 export function StartupPage({ onNavigateSection }: StartupPageProps) {
   const { navigateTo, locale: globalLocale, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const [localLocale, setLocalLocale] = useState<StartupLocale | null>(null);
   const locale: StartupLocale = localLocale || (globalLocale === 'ar' ? 'ar' : 'en');
   const controller = useStartup();
@@ -64,6 +65,13 @@ export function StartupPage({ onNavigateSection }: StartupPageProps) {
   const [activeService, setActiveService] = useState<StartupServiceId | null>(null);
   const [planOpen, setPlanOpen] = useState(false);
   const [detached,setDetached]=useState(false),[inspectorOpen,setInspectorOpen]=useState(false);
+
+  // Consume deep link from Home/other entry points to auto-open a workbench
+  useEffect(() => {
+    if (deepLink?.workbenchId && SERVICE_IDS.includes(deepLink.workbenchId as StartupServiceId)) {
+      setActiveService(deepLink.workbenchId as StartupServiceId);
+    }
+  }, [deepLink]);
   const integratedRef=useRef<HTMLElement>(null);
   useEffect(()=>{if(integratedRef.current)integratedRef.current.scrollTop=0;},[activeService]);
   const [workbenchMode, setWorkbenchMode] = useState<WorkbenchMode>(() => {
