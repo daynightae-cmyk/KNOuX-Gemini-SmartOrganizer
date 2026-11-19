@@ -104,8 +104,8 @@ export interface ServicesServiceWorkspaceProps {
   embedded?: boolean;
 }
 
-const EMBEDDED_FOOTER = 'signed third-party start/stop only · restart, force, cascade, policy and sc.exe remain gated';
-const EMBEDDED_FOOTER_AR = 'بدء/إيقاف موقع لطرف ثالث فقط · إعادة التشغيل والفرض والتتالي والسياسة وsc.exe تبقى مقيدة';
+const EMBEDDED_FOOTER = 'signed third-party start/stop/restart & startup-type · force, cascade, policy and sc.exe remain gated';
+const EMBEDDED_FOOTER_AR = '???/????? ????/????? ???? ???? ??? · ????? ??????? ?????? ???????? ?sc.exe ???? ?????';
 
 export function ServicesServiceWorkspace({ toolId, locale, controller, onClose, mode, width, onModeChange, onResize, toolSelector, embedded = false }: ServicesServiceWorkspaceProps) {
   const snapshot = controller.snapshot;

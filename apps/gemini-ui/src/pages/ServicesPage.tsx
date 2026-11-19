@@ -420,7 +420,7 @@ export function ServicesPage({ onNavigateSection }: ServicesPageProps) {
 
             <div className="sys-foot-strip">
               <span><Database aria-hidden="true" />{t(locale, 'Source', 'المصدر')}: Win32_Service · Win32_Process · System event log · local preview journal</span>
-              <span><Lock aria-hidden="true" />{t(locale, 'Signed third-party start/stop uses an exact plan, protected receipt and native consent. Restart, force, cascade, startup-policy and sc.exe remain gated.', 'بدء/إيقاف طرف ثالث موقّع يستخدم خطة محددة وإيصالًا محميًا وموافقة أصلية. إعادة التشغيل والفرض والتتالي وسياسة البدء وsc.exe تبقى مقيدة.')}</span>
+              <span><Lock aria-hidden="true" />{t(locale, 'Signed third-party start/stop/restart & startup-type use an exact plan, protected receipt and native consent. Force, cascade, policy and sc.exe remain gated.', '???/????? ???/????? ??????? ????? ????? ????? ????? ???????? ??????? ?????. ????? ????? ??????? ??????? ?sc.exe ???? ?????.')}</span>
               {snapshot?.warnings.length ? <span><AlertTriangle aria-hidden="true" />{formatCount(snapshot.warnings.length)} {t(locale, 'measured warning(s)', 'تحذير مقيس')}</span> : null}
             </div>
               </div>
@@ -620,3 +620,6 @@ const emptySnapshot = {
   sources: [],
   receipt: '',
 } as never;
+
+
+

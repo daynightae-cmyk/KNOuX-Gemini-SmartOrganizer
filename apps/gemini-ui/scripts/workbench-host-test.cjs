@@ -246,7 +246,7 @@ check('Services integrates the shared host with pinned/expanded modes', () => {
   // The integrated tool owns no focus trap; Escape and chrome belong to the shared host.
   assert.doesNotMatch(servicesBody, /window\.addEventListener\('keydown'/);
   assert.doesNotMatch(servicesBody, /sys-service-overlay|aria-modal="true"/, 'Services must not render as a modal sheet');
-  assert.match(servicesBody, /ServiceStateWorkbench|signed third-party start\/stop only/);
+  assert.match(servicesBody, /ServiceStateWorkbench|signed third-party start\/stop\/restart/);
   assert.match(servicesBody, /ServicesServiceBody/);
   assert.match(servicesBody, /svc-embedded-service|embedded/);
 });
@@ -323,3 +323,5 @@ const result = { ok: failures.length === 0, checks: 16, failures };
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exit(1);
 console.log('[workbench-host-test] PASS');
+
+

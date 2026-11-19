@@ -75,7 +75,7 @@ export function ControlWorkbench({ locale, snapshot, controller }: ServicesWorkb
     <ServicesToolFrame
       toolId="services-control"
       locale={locale}
-      foot={<><span><PlayCircle aria-hidden="true" />{t(locale, 'Approved start/stop · other modes preview only', 'تشغيل/إيقاف بموافقة · الأوضاع الأخرى للمعاينة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Native confirmation required', 'يتطلب تأكيد Native')}</span></>}
+      foot={<><span><PlayCircle aria-hidden="true" />{t(locale, 'Approved start/stop/restart . other modes preview only', 'تشغيل/إيقاف بموافقة · الأوضاع الأخرى للمعاينة')}</span><span><Lock aria-hidden="true" />{t(locale, 'Native confirmation required', 'يتطلب تأكيد Native')}</span></>}
     >
       <div className="svc-split-register">
         <Panel title={t(locale, 'Choose a service', 'اختر خدمة')} icon={SlidersHorizontal} bodyClassName="sys-panel-body-flush">
