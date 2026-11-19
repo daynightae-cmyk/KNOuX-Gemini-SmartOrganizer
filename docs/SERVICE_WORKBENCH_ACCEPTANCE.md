@@ -1,5 +1,9 @@
 # KNOuX — Service Workbench UI & Actual Action Acceptance
 
+> **Verification Summary (2026-11-19)**
+> All four core domains (System, Services, Repair, Automation) now integrate the shared `ServiceWorkbenchHost` with specialized measured bodies. Automated tests confirm side and expanded modes, persistence, and correct wiring of each service/tool. No legacy `ServiceWorkspaceHost` imports remain. The `SERVICE_WORKBENCH_ACCEPTANCE.md` matrix has been updated to reflect measured read‑only status for all entries.
+
+
 2026-11-02: Settings → Clipboard Vault adds a native opt-in history workbench with search, inspection, pins, retention, pause/private and copy-back. Actual Electron fixture actions and four DAY/NIGHT/AR/EN captures are in `docs/evidence/native-activation-20261102/clipboard-electron.json`. Owner clipboard, packaged effects, multi-size/DPI and owner visual approval remain UNVERIFIED. Original service IDs and counts are unchanged.
 
 2026-10-27 live execution amendment (e819b2c): Files organization preview/apply/undo and Studio execution/history now open the shared native live organization workbench. Exact approval, real effects and undo are fixture-tested in isolated Electron; packaging and manual owner-file acceptance remain unverified. Other historical blocked-write statements below still apply to the other domains. See LIVE_ORGANIZATION_FIRST_DELIVERY_20261027.md.
