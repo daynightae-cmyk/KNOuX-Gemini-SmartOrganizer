@@ -435,7 +435,7 @@ async function run() {
     assert(aiStart > 0 && aiEnd > aiStart, 'the AI namespace has a measured end boundary');
     const aiBlock = preload.slice(aiStart, aiEnd);
     assert(!/ipcRenderer\.on\(/.test(aiBlock), 'the AI namespace opens no event stream');
-    assert(!aiBlock.includes('ipcRenderer.invoke(' + '"' ) && (aiBlock.match(/ipcRenderer\.invoke\(CHANNELS\./g) || []).length === 6, 'the AI namespace only invokes the six fixed channels');
+    assert(!aiBlock.includes('ipcRenderer.invoke(' + '"' ) && (aiBlock.match(/ipcRenderer\.invoke\(CHANNELS\./g) || []).length === 7, 'the AI namespace only invokes the seven fixed channels (including streaming)');
     assert(!/\burl\b|\bhost\b|\bendpoint\b|\bheaders\b/.test(aiBlock), 'the AI preload surface accepts no destination field');
     assert(main.includes('AI_DESTINATION_OVERRIDE_FORBIDDEN'), 'main refuses a payload that names a destination');
     assert(main.includes('FORBIDDEN_AI_KEYS'), 'main keeps an explicit destination-override denylist');

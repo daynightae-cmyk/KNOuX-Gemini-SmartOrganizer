@@ -3792,5 +3792,6 @@ export interface AiShellApi {
   clear: () => Promise<NativeEnvelope<AiClearResult>>;
   verify: (request?: { timeoutMs?: number }) => Promise<NativeEnvelope<AiVerifyResult>>;
   complete: (request: { messages: AiChatMessage[]; model?: string; maxTokens?: number; timeoutMs?: number }) => Promise<NativeEnvelope<AiCompletionResult>>;
+  completeStream: (request: { messages: AiChatMessage[]; model?: string; maxTokens?: number; timeoutMs?: number }) => Promise<NativeEnvelope<{ ok: boolean; requestId: string; model: string; provider: AiProviderId; iterate: () => AsyncGenerator<string> } | { ok: false; model: string; status: number; requestId: string; error: { code: string; message: string; retryable: boolean } }>>;
   cancel: () => Promise<NativeEnvelope<AiCancelResult>>;
 }

@@ -150,6 +150,7 @@ const CHANNELS = Object.freeze({
   automationDisableBackground: 'knoux:operations:v1:automationScheduleDisableBackground',
   automationUnregisterBackground: 'knoux:operations:v1:automationScheduleUnregisterBackground',
   automationSchedulesBackground: 'knoux:operations:v1:automationSchedulesBackground',
+  aiCompleteStream: 'knoux:ai:v1:complete-stream',
   googleStatus: 'knoux:google:v1:status',
   googleConnect: 'knoux:google:v1:connect',
   googleCancel: 'knoux:google:v1:cancel',
@@ -233,6 +234,17 @@ contextBridge.exposeInMainWorld(
       timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
     }),
     complete: (request) => ipcRenderer.invoke(CHANNELS.aiComplete, {
+      messages: Array.isArray(request?.messages)
+        ? request.messages.slice(0, 24).map((entry) => ({
+            role: entry?.role === 'assistant' ? 'assistant' : entry?.role === 'system' ? 'system' : 'user',
+            content: typeof entry?.content === 'string' ? entry.content.slice(0, 4000) : '',
+          }))
+        : [],
+      model: typeof request?.model === 'string' ? request.model.slice(0, 80) : undefined,
+      maxTokens: Number.isFinite(request?.maxTokens) ? request.maxTokens : undefined,
+      timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
+    }),
+    completeStream: (request) => ipcRenderer.invoke(CHANNELS.aiCompleteStream, {
       messages: Array.isArray(request?.messages)
         ? request.messages.slice(0, 24).map((entry) => ({
             role: entry?.role === 'assistant' ? 'assistant' : entry?.role === 'system' ? 'system' : 'user',

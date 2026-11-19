@@ -124,6 +124,25 @@ export function requestAiCompletion(request: {
   return call(() => api.complete(request), 'ai.complete');
 }
 
+export async function requestAiCompletionStream(request: {
+  messages: AiChatMessage[];
+  model?: string;
+  maxTokens?: number;
+  timeoutMs?: number;
+}): Promise<AsyncIterable<string> | { ok: false; error: AiBridgeFailure }> {
+  const api = getAiBridge();
+  if (!api) return { ok: false, error: UNAVAILABLE };
+  try {
+    const envelope = await api.completeStream(request);
+    const stream = envelope?.data;
+    if (!stream) return { ok: false, error: { code: 'AI_STREAM_FAILED', message: 'Stream creation failed', retryable: true } };
+    if ('error' in stream) return { ok: false, error: stream.error as AiBridgeFailure };
+    return stream.iterate();
+  } catch (error) {
+    return { ok: false, error: { code: 'AI_BRIDGE_CALL_FAILED', message: `The streaming request did not reach the AI bridge.`, retryable: true } };
+  }
+}
+
 export function cancelAiRequests(): Promise<AiBridgeResult<{ cancelled: number }>> {
   const api = getAiBridge();
   if (!api) return Promise.resolve({ ok: false, error: UNAVAILABLE });

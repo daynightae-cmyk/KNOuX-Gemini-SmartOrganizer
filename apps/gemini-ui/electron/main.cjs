@@ -2026,6 +2026,12 @@ function registerIpc() {
     return aiBridge.complete(payload || {});
   });
 
+  aiGuard(contract.channels.aiCompleteStream, 'ai.complete-stream', 'user-initiated', async (callArgs) => {
+    const payload = callArgs[0];
+    assertNoDestinationOverride(payload, 'ai.complete-stream');
+    return aiBridge.completeStream(payload || {});
+  });
+
   aiGuard(contract.channels.aiCancel, 'ai.cancel', 'user-initiated', async (callArgs) => {
     assertNoArguments(callArgs, 'ai.cancel');
     return aiBridge.cancelAll();

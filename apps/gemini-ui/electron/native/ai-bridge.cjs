@@ -511,6 +511,76 @@ class AiBridge {
     };
   }
 
+  /** Streaming chat completion. Yields incremental chunks via callback. */
+  async completeStream(request = {}) {
+    if (!this.secret) throw aiError('AI_NOT_CONFIGURED', 'Connect an AI provider key first.', false);
+    const provider = resolveProvider(this.providerId);
+    const { system, messages } = normalizeMessages(request);
+    const model = resolveModel(provider, request.model);
+    const maxTokens = Math.min(LIMITS.MAX_MAX_TOKENS, Math.max(1, Number(request.maxTokens) || LIMITS.DEFAULT_MAX_TOKENS));
+    const url = buildUrl(provider, provider.complete);
+
+    const body =
+      provider.complete.shape === 'anthropic'
+        ? { model, max_tokens: maxTokens, system, messages: toAnthropicTurns(messages), stream: true }
+        : { model, max_tokens: maxTokens, temperature: 0.7, messages: [{ role: 'system', content: system }, ...messages], stream: true };
+
+    const init = this.requestInit(provider.complete.method, { ...authHeaders(provider, this.secret), ...provider.staticHeaders }, JSON.stringify(body));
+    const { response, requestId } = await this.runRequest(url, init, request.timeoutMs);
+    if (!response.ok) {
+      const parsed = await readBounded(response, LIMITS.MAX_RESPONSE_BYTES);
+      const message = redact(extractProviderError(provider.complete.shape, parsed.body, parsed.status), [this.secret]);
+      this.lastError = { code: 'AI_PROVIDER_ERROR', message, retryable: parsed.status >= 500 };
+      return { ok: false, model, status: parsed.status, requestId, error: this.lastError };
+    }
+
+    return {
+      ok: true,
+      requestId,
+      model,
+      provider: provider.id,
+      async *iterate() {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (!trimmed || !trimmed.startsWith('data: ')) continue;
+              const data = trimmed.slice(6);
+              if (data === '[DONE]') return;
+              try {
+                const chunk = JSON.parse(data);
+                let text = null;
+                if (provider.complete.shape === 'anthropic') {
+                  if (chunk.type === 'content_block_delta' && chunk.delta?.type === 'text_delta') {
+                    text = chunk.delta.text;
+                  }
+                } else {
+                  const delta = chunk.choices?.[0]?.delta?.content;
+                  if (delta) text = delta;
+                }
+                if (text) {
+                  yield redact(text, [this.secret]);
+                }
+              } catch {
+                // Ignore malformed chunks
+              }
+            }
+          }
+        } finally {
+          reader.releaseLock();
+        }
+      }
+    };
+  }
+
   cancel(requestId) {
     const controller = typeof requestId === 'string' ? this.inFlight.get(requestId) : null;
     if (!controller) return { cancelled: false, reason: 'unknown-request' };
