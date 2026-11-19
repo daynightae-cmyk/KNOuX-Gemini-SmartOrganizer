@@ -97,6 +97,7 @@ import './components/app/workspace-fault.css';
 import {UnifiedSectionLayout} from './visual/UnifiedSectionLayout';
 import './visual/living-glass-layout.css';
 import './visual/knox-glass.css';
+import { loadAndApplyGlobalAccent } from './theme/global-accent';
 
 export type { AppSection } from './context/NavigationContext';
 
@@ -112,6 +113,8 @@ function AppContent() {
       }
       const handleOpen = () => setIsApiKeyModalOpen(true);
       window.addEventListener('knoux:open-api-key-modal', handleOpen);
+      // Apply global accent from persisted settings profile
+      loadAndApplyGlobalAccent();
       return () => window.removeEventListener('knoux:open-api-key-modal', handleOpen);
     }
   }, []);

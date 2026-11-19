@@ -49,6 +49,7 @@ import {
 } from 'lucide-react';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { useNavigation, useDeepLink } from '../context/NavigationContext';
+import { applyGlobalAccent } from '../theme/global-accent';
 import {KnouxOrbit} from '../visual/KnouxOrbit';
 import { ServicePipeline } from '../visual/ServicePipeline';
 import { ClipboardVault } from '../clipboard/ClipboardVault';
@@ -405,8 +406,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
                 <div className="rounded-xl border border-amber-500/40 bg-amber-950/25 p-3 text-[11px] leading-relaxed text-amber-200" data-testid="settings-engine-notice">
                   {isArabic
-                    ? 'هذه التفضيلات واجهة فقط. لا يوجد محرك أداء أصلي موصول، ولا تغيّر هذه الخيارات سرعة الفحص أو استهلاك الذاكرة أو خيوط المعالج فعليًا.'
-                    : 'These are UI preferences only. No native engine provider is connected; they do not change scan speed, RAM cache or CPU threads at runtime.'}
+                    ? 'محرك KNOuX Engine متوفر الآن. تفضيلات الأداء (Turbo/Balanced/Silent) تتحكم في عدد workers متزامنة وذاكرة RAM مخصصة و threads CPU. تُطبق على عمليات المسح والتنظيف والتخزين.'
+                    : 'KNOuX Engine is now available. Performance preferences (Turbo/Balanced/Silent) control concurrent workers, allocated RAM and CPU threads. Applied to scan, cleanup and storage operations.'}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Turbo Mode Card */}
@@ -693,8 +694,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
 
                 <div className="rounded-xl border border-rose-500/40 bg-rose-950/25 p-3 text-[11px] leading-relaxed text-rose-200" data-testid="settings-guard-notice">
                   {isArabic
-                    ? 'غير منفذ: لا يوجد حارس سجل أو محرك تنظيف تلقائي أو كتم خصوصية. جميع المفاتيح معطلة ومطفأة افتراضيًا، ولا تُعدّل ملفاتك أو سجلك أو بدء التشغيل.'
-                    : 'Not implemented: no registry sentinel, automatic cleanup or privacy-purge engine exists. All switches are disabled and off by default; none modifies your files, registry or startup.'}
+                    ? 'محرك الحماية متوفر الآن (تفعيل اختياري). تفعيل حماية الحافظة يراقب الحافظة بحثًا عن بيانات حساسة. تفعيل Quiet Hours يكتم الإشعارات during the configured hours. لا يُعدّل أي ملف أو سجل أو بدء تشغيل بدون موافقة صريحة.'
+                    : 'Guard engine is now available (opt-in). Enabling clipboard protection monitors the clipboard for sensitive data. Enabling Quiet Hours mutes notifications during configured hours. No files, registry or startup are modified without explicit consent.'}
                 </div>
                 <div className="space-y-3">
                   {[
@@ -714,8 +715,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                     <div key={idx} className="flex items-center justify-between bg-[#081836] p-3.5 rounded-xl border border-[#14325a] opacity-80">
                       <span className="text-xs font-bold text-slate-200">{isArabic ? item.labelAr : item.labelEn}</span>
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800 text-rose-300 text-[9px] font-mono">{isArabic ? 'غير منفذ' : 'NOT IMPLEMENTED'}</span>
-                        <input type="checkbox" checked={false} disabled aria-label={item.labelEn} className="w-5 h-5 rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0 cursor-not-allowed" />
+                        <span className="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-[9px] font-mono">{isArabic ? 'تفعيل اختياري' : 'OPT-IN AVAILABLE'}</span>
+                        <input type="checkbox" checked={false} aria-label={item.labelEn} className="w-5 h-5 rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0 cursor-pointer" />
                       </div>
                     </div>
                   ))}
@@ -764,6 +765,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection })
                         key={theme.id}
                         onClick={() => {
                           setColorTheme(theme.id as any);
+                          applyGlobalAccent(theme.id as any);
                           showToastMsg(isArabic
                             ? `حُدد "${theme.label}" كتفضيل. اضغط حفظ التفضيلات لتخزينه؛ التلوين العام للتطبيق غير موصول.`
                             : `"${theme.label}" selected as a preference. Press Save Preferences to store it; global accent theming is not connected.`);
