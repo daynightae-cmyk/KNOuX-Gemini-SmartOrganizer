@@ -3,6 +3,7 @@ import {LivingLayoutContext} from './LivingLayoutContext';
 import {SECTION_VISUALS} from './section-visual-configuration';
 import {SectionGlassScene} from './SectionGlassScene';
 import {OrbitalParticleSystem} from './OrbitalParticleSystem';
+import {HeaderOrbField} from './HeaderOrbField';
 import {useNavigation, type DomainSection} from '../context/NavigationContext';
 
 export function UnifiedSectionLayout({children}:{children:ReactNode}) {
@@ -23,6 +24,9 @@ export function UnifiedSectionLayout({children}:{children:ReactNode}) {
     <div className="knx-living-navigation" ref={setNavigation} data-testid="unified-shell-navigation"/>
     <div className="knx-living-content" data-testid="unified-content">
      <section className="knx-section-hero" data-knx-hero data-testid="unified-section-hero" data-hero-section={currentSection} data-composition={config.layout} aria-labelledby="knx-unified-title">
+      {/* Full-width ambient constellation behind the copy, artwork and orbit.
+          It carries no information and reacts only to real app activity. */}
+      <HeaderOrbField section={section} theme={theme}/>
       <div className="knx-section-identity"><span className="knx-section-emblem"><Icon aria-hidden="true"/></span>
        <div className="knx-section-copy"><span className="knx-section-kicker">KNOuX SmartOrganizer</span><h1 id="knx-unified-title" lang="en" dir="ltr">{config.headline}</h1><h2 lang="ar" dir="rtl">{config.headlineAr}</h2><p lang="en" dir="ltr">{config.description}</p><p lang="ar" dir="rtl">{config.descriptionAr}</p></div>
       </div>

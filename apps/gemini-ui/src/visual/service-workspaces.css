@@ -17,7 +17,7 @@ html[data-theme=light] :is(.knx-service-workspace,.sys-workbench,.sys-service-sh
 .knx-workbench-actions {display:flex;align-items:center;gap:5px;flex-wrap:wrap;max-inline-size:45%;}
 .knx-workbench-action {display:grid;place-items:center;inline-size:30px;block-size:30px;flex-shrink:0;border:1px solid var(--wb-line);border-radius:8px;background:var(--wb-surface);color:var(--wb-muted);cursor:pointer;}
 .knx-workbench-action:hover {color:var(--wb-ink);background:var(--wb-raised);}
-.knx-service-workspace .knx-workbench-content {padding:16px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--wb-line) transparent;}
+.knx-service-workspace .knx-workbench-content {padding:16px;overscroll-behavior:contain;scrollbar-color:var(--wb-line) transparent;}
 .knx-workbench-footer {flex-shrink:0;padding:10px 16px;border-block-start:1px solid var(--wb-line);color:var(--wb-muted);font-size:11px;background:var(--wb-surface);}
 .knx-workbench-resizer {touch-action:none;background:transparent;}
 .knx-workbench-resizer:hover,.knx-workbench-resizer:focus-visible {background:var(--wb-accent);outline:none;}
@@ -161,7 +161,7 @@ html:not([data-theme=light]) .visual-sprint[data-visual-section=automation] {--k
 .knx-system-tool>.knx-tool-actions label {display:flex;gap:8px;align-items:center;font-size:11px;color:var(--wb-muted);}
 
 .knx-sheet-result {display:flex;flex-direction:column;gap:12px;margin-block-start:16px;color:var(--wb-ink);}
-.knx-sheet-grid {max-block-size:320px;overflow:auto;border:1px solid var(--wb-line);border-radius:10px;scrollbar-width:thin;}
+.knx-sheet-grid {max-block-size:320px;overflow:auto;border:1px solid var(--wb-line);border-radius:10px;}
 .knx-sheet-grid table {border-collapse:collapse;inline-size:100%;font-size:12px;}
 .knx-sheet-grid :is(th,td) {border:1px solid var(--wb-line);padding:0;min-inline-size:60px;}
 .knx-sheet-grid th {padding:6px 8px;color:var(--wb-muted);background:var(--wb-raised);}

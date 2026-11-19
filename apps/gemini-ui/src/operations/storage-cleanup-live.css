@@ -21,7 +21,7 @@
 .vault-decision {display:flex;flex-direction:column;align-items:stretch;gap:10px;}
 .vault-content h3 {font-size:16px;margin:0;}
 .vault-content code {font-size:12px;overflow-wrap:anywhere;}
-.vault-result-scroll {max-height:260px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;white-space:pre-wrap;overflow-wrap:anywhere;}
+.vault-result-scroll {max-height:260px;overflow:auto;overscroll-behavior:contain;white-space:pre-wrap;overflow-wrap:anywhere;}
 .vault-group {border:1px solid var(--ops-line);padding:10px;margin-bottom:10px;border-radius:10px;}
 .vault-group > label {display:flex;flex-direction:column;gap:6px;}
 .vault-group label.vault-file,.vault-file {display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--ops-line);}

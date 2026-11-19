@@ -7,6 +7,7 @@
 // the module graph: every domain stylesheet — including the ones pulled in by
 // the page components below — resolves its surface, edge, state and type roles
 // against this file, so nothing can define a palette before it.
+import './visual/knox-fonts.css';
 import './visual/knox-theme.css';
 import { StorageCleanupLiveWorkbench } from './operations/StorageCleanupLiveWorkbench';
 import { OrganizationLiveWorkbench } from './operations/OrganizationLiveWorkbench';
@@ -87,6 +88,8 @@ import './visual/knoux-motion.css';
 import './visual/design-recovery.css';
 import './visual/service-workspaces.css';
 import { CinematicEntry } from './features/cinematic-entry/CinematicEntry';
+import { WorkspaceErrorBoundary } from './components/app/WorkspaceErrorBoundary';
+import './components/app/workspace-fault.css';
 // Glass material pass loads after absolutely everything, including the
 // cinematic entry stylesheet, because it is the layer that decides what a
 // surface physically is: fill, edge, elevation, blur and focus. Material only —
@@ -166,7 +169,13 @@ function AppContent() {
         <IdentityPage onClose={() => navigateTo('home')} />
       ) : (
         <UnifiedSectionLayout>
-          {renderActiveWorkspace()}
+          <WorkspaceErrorBoundary
+            section={currentSection}
+            locale={isAr ? 'ar' : 'en'}
+            onHome={() => navigateTo('home')}
+          >
+            {renderActiveWorkspace()}
+          </WorkspaceErrorBoundary>
           <OrganizationLiveWorkbench />
           <StorageCleanupLiveWorkbench />
         </UnifiedSectionLayout>

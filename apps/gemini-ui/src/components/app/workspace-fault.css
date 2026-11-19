@@ -1,0 +1,84 @@
+/* Workspace fault containment — calm, honest and visually native to the shell. */
+/* The boundary is a transparent host: the healthy child keeps the full height
+   of the unified workspace, exactly as if it were the direct child. */
+.knx-workspace-boundary,
+.knx-workspace-attempt {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.knx-workspace-boundary { display: flex; flex-direction: column; }
+.knx-workspace-attempt { flex: 1 1 auto; }
+.knx-workspace-attempt > * {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+.knx-workspace-fault {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin: 8px;
+  padding: 26px 24px;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--knx-warning, #f4b860) 38%, var(--knx-edge, #3a3d6b));
+  background:
+    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--knx-warning, #f4b860) 12%, transparent), transparent 60%),
+    var(--knx-surface-1, #111226);
+  color: var(--knx-text, #ecebff);
+  box-shadow: 0 22px 60px -34px rgba(0, 0, 0, .75);
+}
+.knx-workspace-fault__glyph {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  color: var(--knx-warning, #f4b860);
+  background: color-mix(in srgb, var(--knx-warning, #f4b860) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--knx-warning, #f4b860) 30%, transparent);
+}
+.knx-workspace-fault__glyph svg { width: 26px; height: 26px; }
+.knx-workspace-fault__eyebrow {
+  margin: 0 0 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--knx-warning, #f4b860) 82%, var(--knx-text, #ecebff));
+}
+.knx-workspace-fault h2 { margin: 0 0 6px; font-size: 21px; line-height: 1.2; }
+.knx-workspace-fault p { margin: 0 0 12px; max-width: 68ch; font-size: 12.5px; line-height: 1.6; color: var(--knx-text-muted, #b9b7d6); }
+.knx-workspace-fault__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.knx-workspace-fault__actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--knx-accent, #8b6cff) 55%, transparent);
+  background: var(--knx-accent, #8b6cff);
+  color: var(--knx-on-accent, #fff);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .18s ease, filter .18s ease;
+}
+.knx-workspace-fault__actions button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.knx-workspace-fault__actions button:focus-visible { outline: 2px solid var(--knx-cyan, #6ee7ff); outline-offset: 2px; }
+.knx-workspace-fault__actions button.is-quiet {
+  background: color-mix(in srgb, var(--knx-surface-2, #191a33) 88%, transparent);
+  color: var(--knx-text, #ecebff);
+  border-color: var(--knx-edge-strong, #4a4d86);
+}
+.knx-workspace-fault__actions svg { width: 15px; height: 15px; }
+.knx-workspace-fault small { display: block; margin-top: 10px; font-size: 10.5px; color: var(--knx-text-faint, #8b89ad); }
+@media (prefers-reduced-motion: reduce) {
+  .knx-workspace-fault__actions button { transition: none; }
+  .knx-workspace-fault__actions button:hover { transform: none; }
+}

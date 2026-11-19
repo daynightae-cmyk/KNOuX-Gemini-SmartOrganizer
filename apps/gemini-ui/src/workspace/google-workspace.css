@@ -68,5 +68,5 @@
 .knx-google-workspace .bg-blue-600 { background-color: var(--knx-accent-deep) !important; border-color: var(--knx-line-strong) !important; }
 
 /* --- scroll surfaces ---------------------------------------------------------- */
-.knx-google-workspace .knx-custom-scrollbar { scrollbar-width: thin; scrollbar-color: var(--knx-line-strong) transparent; }
+.knx-google-workspace .knx-custom-scrollbar {  scrollbar-color: var(--knx-line-strong) transparent; }
 @media (prefers-reduced-motion: reduce) { .knx-google-workspace * { animation: none !important; transition: none !important; } }

@@ -25,6 +25,11 @@
 .knx-section-copy p[lang=ar]{font-family:'Tajawal',var(--knx-font-ui);font-size:14px}
 .knx-section-scene{position:absolute;z-index:1;left:26%;top:0;width:49%;height:83%;overflow:visible;pointer-events:none;opacity:.92}
 .knx-living-shell .knx-section-hero .knx-section-scene[data-art-kind=bitmap]{object-fit:contain;opacity:1;filter:none}
+/* Ambient AI constellation. It spans the whole header behind the copy, the
+   scene artwork and the orbit, and never intercepts a pointer. The mask keeps
+   the reading column calm while the instrument side stays fully alive. */
+.knx-hero-orb-field{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;pointer-events:none;opacity:.98;-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.07) 0%,rgba(0,0,0,.42) 12%,#000 31%,#000 100%);mask-image:linear-gradient(90deg,rgba(0,0,0,.07) 0%,rgba(0,0,0,.42) 12%,#000 31%,#000 100%)}
+html[data-theme=light] .knx-hero-orb-field{opacity:.8}
 .knx-section-hero[data-hero-section=studio] .knx-section-scene{left:22%;width:52%}
 .knx-section-hero[data-hero-section=files] .knx-section-scene{left:24%;width:52%;top:-5px}
 .knx-section-hero[data-hero-section=files] .knx-section-scene[data-art-kind=bitmap]{left:29.5%;width:46.5%}
@@ -107,6 +112,12 @@
 .knx-living-workspace .home-deck-grid{grid-auto-rows:minmax(62px,auto)}
 .knx-living-workspace .home-command-body{height:100%!important;grid-template-columns:minmax(0,1fr)!important;padding:0!important}
 .knx-living-workspace .home-command{grid-template-rows:minmax(0,1fr)!important}
+/* Home authors its own 100dvh dashboard. Inside the unified frame that would
+   be 941px tall in a ~505px workspace, so the lower rail (insight, activity,
+   pending actions) was clipped with no reachable scroll on laptop heights.
+   Fill the workspace and let the command main own the scroll instead. */
+.knx-living-workspace .home-command{height:100%!important;min-height:0!important}
+.knx-living-workspace .home-command-main{overscroll-behavior:contain;scrollbar-gutter:stable}
 .knx-living-workspace .knx-files-header{height:auto!important;min-height:0!important;max-height:none!important;gap:6px!important;padding:8px!important}
 .knx-living-workspace [data-testid=files-workspace]{padding:8px 8px 0!important;grid-template-rows:auto minmax(180px,1fr) 48px!important;overflow:auto!important}
 .knx-living-workspace .studio-integration-body{height:100%!important;min-height:0!important;grid-template-columns:minmax(0,1fr)!important;padding:0!important}
@@ -126,7 +137,7 @@
 @media(max-width:1050px){.knx-living-shell{--knx-shell-rail:190px;--knx-section-orbit-size:238px}.knx-section-scene{opacity:.58;width:44%;left:28%}.knx-section-identity{width:64%}.knx-section-copy p{max-width:320px}.knx-section-emblem{display:none}.knx-reference-workflow{right:32%}}
 @media(max-width:750px){.knx-living-shell{--knx-shell-rail:160px;--knx-section-hero-h:440px;--knx-section-orbit-size:210px;--knx-section-gap:7px}.knx-section-identity{width:100%!important}.knx-section-copy h1{font-size:22px!important}.knx-section-copy h2{font-size:19px}.knx-section-copy p{font-size:10px;max-width:100%}.knx-section-instrument{top:58%;right:6px}.knx-section-scene{left:-17%!important;top:31%!important;width:85%!important;height:45%!important;opacity:.7}.knx-reference-workflow{left:5px!important;right:5px!important;bottom:10px;gap:2px}.knx-workflow-glyph{width:28px;height:28px}.knx-workflow-glyph svg{width:17px;height:17px}.knx-reference-workflow li:not(.knx-workflow-connections){font-size:8px}.knx-reference-workflow small{font-size:9px}.knx-reference-workflow:before{top:14px}}
 @media(prefers-reduced-motion:reduce){.knx-living-revolution,.knx-scene-float,.knx-scan-beam{animation:none!important;will-change:auto}.knx-living-revolution.track-1{transform:rotate(30deg)}.knx-living-revolution.track-2{transform:rotate(65deg)}}
-@media(prefers-reduced-transparency:reduce){.knx-section-hero,.knx-living-workspace{background:var(--knx-canvas-lit)!important;backdrop-filter:none!important}.knx-section-scene{opacity:.65}.knx-living-star{filter:none}}
-@media(forced-colors:active){.knx-section-scene,.knx-living-orbital-light{display:none}.knx-section-hero{border:1px solid CanvasText!important}}
+@media(prefers-reduced-transparency:reduce){.knx-section-hero,.knx-living-workspace{background:var(--knx-canvas-lit)!important;backdrop-filter:none!important}.knx-section-scene{opacity:.65}.knx-living-star{filter:none}.knx-hero-orb-field{opacity:.62}}
+@media(forced-colors:active){.knx-section-scene,.knx-living-orbital-light,.knx-hero-orb-field{display:none}.knx-section-hero{border:1px solid CanvasText!important}}
 
 @media(max-height:820px){.knx-reference-workflow .knx-workflow-connections{height:37px}}

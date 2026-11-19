@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function KnouxMark({ className = '' }: { className?: string }) {
-  return <img className={`knx-official-mark ${className}`} src={new URL('./assets/knoux-official-logo.png', import.meta.url).href} alt="" aria-hidden="true" draggable={false} />;
+  return <img className={`knx-official-mark ${className}`} src={new URL('./assets/knoux-official-logo.webp', import.meta.url).href} alt="" aria-hidden="true" draggable={false} />;
 }
 
 /**
@@ -23,7 +23,7 @@ export function KnouxCircularEmblem({
   return (
     <img
       className={`knx-circular-emblem ${className}`}
-      src={new URL('./assets/knoux-circular-logo-day.png', import.meta.url).href}
+      src={new URL('./assets/knoux-circular-logo-day.webp', import.meta.url).href}
       alt={label ? label : ''}
       aria-hidden={label ? undefined : true}
       draggable={false}

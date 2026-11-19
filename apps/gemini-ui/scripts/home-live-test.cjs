@@ -14,8 +14,7 @@ const assert = require('node:assert/strict');
 const appRoot = path.join(__dirname, '..');
 const read = (relative) => fs.readFileSync(path.join(appRoot, relative), 'utf8');
 const homePage = read('src/pages/HomePage.tsx');
-const commandCenter = read('src/components/home/HomeCommandCenter.tsx');
-const dashboard = read('src/components/home/HomeDashboardPanels.tsx');
+const screen = read('src/components/home/ApprovedHomeScreen.tsx');
 const homeUi = read('src/lib/home-ui.ts');
 const live = read('src/home/live.ts');
 const derive = read('src/home/derive.ts');
@@ -75,53 +74,59 @@ check('the live hook reads only existing measured bridges', () => {
 check('all obsolete Home fixture totals are removed', () => {
   for (const fixture of ['INITIAL_KPIS', 'INITIAL_INSIGHT', 'INITIAL_ACTIVITIES', 'INITIAL_QUICK_ACCESS', 'INITIAL_STORAGE_VOLUMES', 'INITIAL_SAFE_ACTIONS']) {
     assert.ok(!homeUi.includes(fixture), `${fixture} must be deleted`);
-    assert.ok(!dashboard.includes(fixture), `${fixture} must not be imported`);
+    assert.ok(!screen.includes(fixture), `${fixture} must not be imported`);
   }
   for (const fake of ['1,248,632', '48.6 GB', 'C:\\\\Users\\\\Alex', 'Microsoft Edge updated', 'Organized 842 files', 'Windows Update Cache:', 'Orphaned Application Residue', '241 / 271']) {
-    assert.ok(!homePage.includes(fake) && !dashboard.includes(fake) && !homeUi.includes(fake), `fake Home value remains: ${fake}`);
+    assert.ok(!homePage.includes(fake) && !screen.includes(fake) && !homeUi.includes(fake), `fake Home value remains: ${fake}`);
   }
+  // The unmounted duplicate compositions were deleted in the 2026-11 consolidation;
+  // Home must not quietly re-import them.
+  assert.doesNotMatch(homePage, /HomeCommandCenter|HomeDashboardPanels|RecoveredHomeOrbit/);
 });
 
 check('KPI cards expose measured values and no decorative fake trend', () => {
-  assert.match(commandCenter, /kpis\?: KpiMetric\[\]/);
-  assert.match(commandCenter, /data-testid={`home-kpi-\$\{kpi.id\}`}/);
-  assert.match(commandCenter, /data-testid={`home-kpi-\$\{kpi.id\}-value`}/);
-  assert.ok(!/Sparkline curve or 7 vertical microbars/.test(commandCenter), 'decorative sparkline block must be gone');
-  assert.match(commandCenter, /No fabricated trend/);
-  assert.match(commandCenter, /home-live-status/);
+  assert.match(screen, /data-testid={`home-kpi-\$\{kpi\.id\}`}/);
+  assert.match(screen, /home-kpi-value/);
+  assert.match(screen, /kpi\.unit \? <small>\{kpi\.unit\}<\/small> : null/);
+  assert.match(screen, /state: score == null \? 'unmeasured' : 'ready'/, 'an unmeasured KPI must say so');
+  assert.match(screen, /kpi\.state/);
+  assert.doesNotMatch(screen, /Sparkline|microbars/i, 'decorative sparkline trend must stay gone');
+  assert.match(screen, /data-home-sample=\{false\}/, 'the QA sample switch must stay removed');
 });
 
 check('system overview uses current native samples, not a fake timeline', () => {
-  assert.match(dashboard, /home-system-live/);
-  assert.match(dashboard, /systemMetrics\.cpuPercent|systemMetrics\?\.cpuPercent/);
-  assert.match(dashboard, /No unmeasured historical series/);
-  assert.ok(!/Apr 2[0-9]|32\.4 GB|16\.2 GB/.test(dashboard), 'fake chart/tooltip values must be gone');
-  assert.match(dashboard, /home-system-storage/);
-  assert.match(dashboard, /home-system-apps/);
+  assert.match(screen, /live\.system\?\.cpuLoadPercent/);
+  assert.match(screen, /live\.system\?\.memoryUsedPercent/);
+  assert.match(screen, /home-metric-row/);
+  assert.match(screen, /stamp\('system'\)/);
+  assert.doesNotMatch(screen, /Apr 2[0-9]|32\.4 GB|16\.2 GB/, 'fake chart/tooltip values must be gone');
 });
 
 check('storage, quick access and activity render only measured props', () => {
-  assert.match(dashboard, /volumes: volumesProp = \[\]/);
-  assert.match(dashboard, /data-testid={`home-volume-\$\{index\}`}/);
-  assert.match(dashboard, /quickAccess: quickAccessProp = \[\]/);
-  assert.match(dashboard, /data-testid="home-quick-row"/);
-  assert.match(dashboard, /activities: activitiesProp = \[\]/);
-  assert.match(dashboard, /data-testid="home-activity-row"/);
-  assert.match(dashboard, /No verified activity yet/);
+  assert.match(screen, /deriveVolumes\(live\)/);
+  assert.match(screen, /volumes\.length \? volumes\.map/);
+  assert.match(screen, /No volume measured\./);
+  assert.match(screen, /deriveActivities\(live\)/);
+  assert.match(screen, /No verified activity yet\./);
+  assert.match(screen, /Authorized, but no file has been indexed in this read\./);
+  assert.match(screen, /live\.scans\.length/);
 });
 
 check('pending actions are review-only and never claim execution from Home', () => {
-  assert.match(dashboard, /Review selected in Cleanup/);
-  assert.match(dashboard, /execution requires approval inside the owning service/);
-  assert.ok(!/Apply Selected Actions/.test(dashboard), 'Apply from Home must be removed');
-  assert.match(derive, /Review only · no automatic deletion/);
+  assert.match(screen, /Nothing staged\. Home never queues an effect on its own\./);
+  assert.match(screen, /Preview only\. Home does not start a scan, delete files, or execute device changes\./);
+  assert.match(screen, /each effect requires its own approval/);
+  assert.ok(!/Apply Selected Actions/.test(screen), 'Apply from Home must be removed');
+  assert.match(derive, /Review only/);
+  assert.match(derive, /no automatic deletion/);
 });
 
 check('Home insight is measured or explicitly unmeasured', () => {
   assert.match(derive, /No verified cleanup estimate yet/);
   assert.match(derive, /Verified reclaimable candidates/);
-  assert.match(dashboard, /No unmeasured category breakdown/);
-  assert.ok(!/Safety check passed|Zero risk/.test(dashboard), 'fake safety guarantee must be gone');
+  assert.match(screen, /insight\.lead/);
+  assert.match(screen, /insight\.note/);
+  assert.ok(!/Safety check passed|Zero risk/.test(screen), 'fake safety guarantee must be gone');
 });
 
 check('the command palette distinguishes measured inventory search from command execution', () => {
@@ -129,7 +134,7 @@ check('the command palette distinguishes measured inventory search from command 
   assert.match(homePage, /searchHomeInventory/);
   assert.match(homePage, /No files opened or apps launched/);
   assert.match(homePage, /setQuery\(e.target.value\)/);
-  assert.ok(!/Search for files, applications, settings, or run a command/.test(homePage + commandCenter), 'misleading global file search must be gone');
+  assert.ok(!/Search for files, applications, settings, or run a command/.test(homePage + screen), 'misleading global file search must be gone');
 });
 
 const result = { ok: failures.length === 0, checks: 10, failures };

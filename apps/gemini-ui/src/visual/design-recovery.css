@@ -365,7 +365,7 @@ html[dir=rtl] .approved-home.home-corrective .approved-welcome { direction:rtl; 
 
 .knx-orbit-core-mark>.knx-provider-mark {width:32px;height:32px;object-fit:contain;}
 
-.visual-sprint[data-visual-section=automation] .auto-editor-toolbar { flex-wrap:nowrap;align-items:center;min-height:40px;flex:0 0 40px;overflow-x:auto;scrollbar-width:thin; }
+.visual-sprint[data-visual-section=automation] .auto-editor-toolbar { flex-wrap:nowrap;align-items:center;min-height:40px;flex:0 0 40px;overflow-x:auto; }
 .visual-sprint[data-visual-section=automation] .auto-editor-toolbar>.sys-btn { flex-shrink:0; }
 .visual-sprint[data-visual-section=automation] .auto-name-field { min-width:150px;max-width:225px; }
 .visual-sprint[data-visual-section=automation] .auto-canvas-toolbar { min-height:24px;flex-shrink:0; }
@@ -382,7 +382,7 @@ html[dir=rtl] .approved-home.home-corrective .approved-welcome { direction:rtl; 
 }
 
 .visual-sprint[data-visual-section=automation] .auto-hero .knx-orbit {height:150px;}
-.visual-sprint[data-visual-section=automation] .auto-hero .sys-hero-chips {flex-wrap:nowrap;max-width:100%;overflow-x:auto;scrollbar-width:thin;min-height:24px;}
+.visual-sprint[data-visual-section=automation] .auto-hero .sys-hero-chips {flex-wrap:nowrap;max-width:100%;overflow-x:auto;min-height:24px;}
 .visual-sprint[data-visual-section=automation] .auto-hero .sys-hero-chips>.sys-chip {flex-shrink:0;}
 @media(max-height:820px) and (min-width:1000px){.visual-sprint[data-visual-section=automation] .auto-hero .sys-hero-copy>p {display:none!important;}}
 @media(max-height:820px) and (min-width:1000px){

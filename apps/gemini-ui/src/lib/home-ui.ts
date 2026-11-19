@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * KNOuX SmartOrganizer — REF-00 Home Command Center UI Models & Fixtures
- * Matches the canonical Home Command Center reference image (image_9afc3816.png)
+ * Matches the canonical Home Command Center reference image
+ * (docs/references/aistudio-reference/image_9afc3816.png)
  */
 
 export type PageId =

@@ -297,6 +297,9 @@ export function ApprovedHomeScreen({ isArabic, theme, onNavigate, live, query, o
                   {kpi.value}
                   {kpi.unit ? <small>{kpi.unit}</small> : null}
                 </span>
+                {kpi.state === 'unmeasured' ? (
+                  <span className="home-kpi-detail">{kpi.detail}</span>
+                ) : null}
               </button>
             ))}
           </section>

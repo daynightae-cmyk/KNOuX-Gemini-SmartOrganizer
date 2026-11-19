@@ -1,6 +1,6 @@
 /* Shared dock and live-stage materials; native state remains domain-owned. */
 .visual-sprint .knx-compact-service-dock{display:flex;align-items:center;gap:4px;min-width:0;min-height:66px;padding:3px;background:var(--knx-surface);border:1px solid var(--knx-line);border-radius:var(--knx-r-lg)}
-.knx-compact-service-strip{display:flex;flex:1;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:thin;padding:2px}
+.knx-compact-service-strip{display:flex;flex:1;gap:6px;min-width:0;overflow-x:auto;padding:2px}
 .visual-sprint .knx-compact-service-dock>button{display:flex;align-items:center;justify-content:center;gap:3px;flex:none;border:0;background:var(--knx-inset);color:var(--knx-accent);border-radius:var(--knx-r-sm);padding:5px;min-width:24px}
 .knx-compact-service-dock>button svg{width:16px;height:16px}
 .visual-sprint .knx-compact-service-strip>[role=tab]{display:flex;align-items:center;gap:8px;flex:0 0 153px;min-height:48px;text-align:start;padding:4px 8px;border:1px solid var(--knx-line-soft);border-radius:var(--knx-r-md);background:var(--knx-surface);color:var(--knx-ink)}

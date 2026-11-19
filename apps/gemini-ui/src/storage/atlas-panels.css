@@ -138,7 +138,7 @@ html[data-theme=light] .visual-sprint[data-visual-section='storage'] .atl-status
 /* The shared canvas sizes the hero as 1fr/44% and the overview pane as a fixed
    first row; both were tuned for the retired volume bays. */
 .visual-sprint[data-visual-section='storage'] .has-reference-inspector .knx-command-hero .knx-storage-hero.atl-hero{grid-template-columns:396px minmax(0,1fr);gap:8px 14px}
-.visual-sprint[data-visual-section='storage'] .knx-command-body .pane-overview{grid-template-rows:212px minmax(0,1fr);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.visual-sprint[data-visual-section='storage'] .knx-command-body .pane-overview{grid-template-rows:212px minmax(0,1fr);overflow:auto;overscroll-behavior:contain;}
 
 /* Narrow layouts squeeze four measured tiles into ~68px each, truncating the
    real figures to "2…". Below 1400px the tiles stack 2x2 so every measured

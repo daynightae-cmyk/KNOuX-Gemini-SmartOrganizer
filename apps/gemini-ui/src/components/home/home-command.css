@@ -168,6 +168,18 @@
   color: var(--knx-muted-2);
 }
 .home-kpi[data-state='unmeasured'] .home-kpi-value { color: var(--knx-muted-2); }
+.home-kpi[data-state='unmeasured'] > svg { grid-row: span 3; }
+.home-kpi-detail {
+  grid-column: 2;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--knx-muted-2);
+}
 .home-kpi[data-state='ready'] .home-kpi-value small { color: var(--knx-success); }
 
 /* ---- row 3: deck + lower pair, and the right rail --------------------- */
@@ -187,16 +199,22 @@
 }
 .home-rail {
   display: grid;
-  /* Three cards that must all survive at 941px content height. An `auto` first
-     row let the insight card grow and squeeze activity and pending actions down
-     to their headers, which hid real content. */
-  grid-template-rows: minmax(0, 0.9fr) minmax(0, 1.05fr) minmax(0, 1fr);
+  /* Natural card heights in one scrolling rail. The old proportional rows kept
+     all three headers visible, but at laptop heights they clipped the insight
+     card's own CTA. A single rail scroll keeps every control reachable while
+     the lists inside each card stay individually bounded. */
+  grid-template-rows: none;
+  grid-auto-rows: max-content;
+  align-content: start;
   gap: var(--knx-sp-3);
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-inline-end: 2px;
 }
-.home-rail > .home-panel { overflow: hidden; }
+.home-rail > .home-panel { overflow: visible; }
+.home-rail .home-scroll { max-height: 172px; }
 
 .home-panel {
   display: flex;
@@ -303,7 +321,7 @@
 
 .home-lower { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--knx-sp-3); min-height: 0; }
 .home-lower .home-panel { overflow: hidden; }
-.home-scroll { flex: 1; min-height: 0; overflow: auto; scrollbar-width: thin; }
+.home-scroll { flex: 1; min-height: 0; overflow: auto;  }
 
 .home-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
 .home-tabs button {

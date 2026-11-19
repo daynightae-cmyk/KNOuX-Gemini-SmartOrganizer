@@ -18,7 +18,6 @@ const host = read('src/components/workbench/ServiceWorkbenchHost.tsx');
 const filesPage = read('src/pages/FilesPage.tsx');
 const filesBody = read('src/files/FilesServiceFocus.tsx');
 const studioPage = read('src/studio/StudioPage.tsx');
-const studioContext = read('src/studio/StudioStageContextPanel.tsx');
 const studioParts = read('src/studio/parts.tsx');
 const storagePage = read('src/pages/StoragePage.tsx');
 const storageFocus = read('src/storage/StorageServiceFocus.tsx');

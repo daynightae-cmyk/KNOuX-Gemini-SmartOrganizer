@@ -2,7 +2,7 @@ import {memo, useId, useState, type ReactNode} from 'react';
 import {Activity, AppWindow, Bell, CalendarDays, Check, Code, FileText, Folder, Gauge, Image, Layers, LockKeyhole, Mail, Play, Settings, ShieldCheck, SlidersHorizontal, Users, Workflow, Wrench, type LucideIcon} from 'lucide-react';
 import type {DomainSection} from '../context/NavigationContext';
 import {LIVING_GLASS_ARTWORK} from './living-glass-artwork';
-const officialMark = new URL('./assets/knoux-official-logo.png', import.meta.url).href;
+const officialMark = new URL('./assets/knoux-official-logo.webp', import.meta.url).href;
 
 /** Original vector artwork reconstructed from the owner's mapped compositions.
  * This decorative SVG contains no measured values, controls or provider state. */

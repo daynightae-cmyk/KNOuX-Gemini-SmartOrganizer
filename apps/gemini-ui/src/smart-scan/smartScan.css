@@ -258,7 +258,7 @@
    cards snapping so the remaining services stay discoverable with the arrows. */
 .scan-services > .grid {
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
+  
   scrollbar-color: rgba(100, 116, 139, 0.55) transparent;
 }
 .scan-services > .grid::-webkit-scrollbar {

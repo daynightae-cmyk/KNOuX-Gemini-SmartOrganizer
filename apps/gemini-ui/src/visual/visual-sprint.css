@@ -36,7 +36,7 @@ html[data-theme='light'] .visual-sprint {
 .visual-sprint .knx-hero-assurance { display: flex; align-items: center; gap: 8px; color: var(--v-accent); margin-top: 14px; font-size: 13px; }
 .visual-sprint .knx-source-pill { display: inline-block; font-size: 12px; color: var(--v-muted); margin-top: 8px; }
 .visual-sprint button:focus-visible, .visual-sprint input:focus-visible, .visual-sprint select:focus-visible { outline: 2px solid var(--v-accent); outline-offset: 3px; }
-.visual-sprint[data-visual-section='studio'] .knx-studio-library > div { overflow-y: auto; min-height: 0; scrollbar-width: thin; }
+.visual-sprint[data-visual-section='studio'] .knx-studio-library > div { overflow-y: auto; min-height: 0;  }
 .visual-sprint[data-visual-section='studio'] .knx-studio-library [class*='bg-[#071'],
 .visual-sprint[data-visual-section='studio'] .knx-studio-library [class*='bg-[#081'],
 .visual-sprint[data-visual-section='studio'] .knx-studio-library [class*='bg-[#0a1'] { background: var(--v-panel-soft) !important; border-color: var(--v-line) !important; }
