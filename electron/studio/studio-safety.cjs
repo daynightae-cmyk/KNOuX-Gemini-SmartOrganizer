@@ -162,6 +162,9 @@ async function assertRealDirectory(rootReal, label = 'Destination') {
   await assertSafeRoute(root);
   const plain = await assertPlainEntry(root);
   if (!plain.ok) {
+    if (plain.code === 'STUDIO_METADATA_UNAVAILABLE') {
+      throw Object.assign(new Error(`Windows could not verify the ${label.toLowerCase()} folder because its read-only metadata helper was unavailable. Choose it again.`), { code: 'STUDIO_VERIFICATION_UNAVAILABLE', retryable: true });
+    }
     throw Object.assign(new Error(`${label} is a link, a cloud placeholder, or could not be confirmed as a local folder.`), { code: plain.code === 'STUDIO_REPARSE_BUDGET' ? 'STUDIO_REPARSE_BUDGET' : 'DESTINATION_LINK_REFUSED' });
   }
   if (!plain.record.exists || !plain.record.directory) {

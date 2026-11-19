@@ -138,8 +138,17 @@ function createProbeService({ platform = process.platform, maxProbes = 100000, e
     used += 1;
     // Query Windows on every fast-path call: no path/mtime-only safety cache.
     if (attributes) {
-      const result = await attributes.read(resolved);
-      if (!result.ok) return {name:'query-failed',tag:null,available:false,queried:true,refused:true};
+      let result = await attributes.read(resolved);
+      // A crashed or stopped helper is a transport failure, not evidence that
+      // the entry is unsafe. Re-run the same Win32 attribute query on a fresh
+      // helper exactly once; a second failure still refuses the entry.
+      if (!result.ok && result.error === 'METADATA_PROVIDER_UNAVAILABLE') {
+        result = await attributes.read(resolved);
+      }
+      if (!result.ok) {
+        const unavailable = result.error === 'METADATA_PROVIDER_UNAVAILABLE';
+        return {name:unavailable?'metadata-unavailable':'query-failed',tag:null,available:false,queried:true,refused:true};
+      }
       const refused = Boolean(result.attributes & (0x400 | 0x1000 | 0x400000));
       return {name:refused?'reparse-or-recall-refused':'not-a-reparse-point',tag:null,attributes:result.attributes,available:true,queried:true,refused};
     }
@@ -182,6 +191,9 @@ function createWindowsStudioNative(options = {}) {
     const reparse = await probes.probe(target, { size: record.size, modifiedMs: record.modifiedMs });
     if (reparse.name === 'not-a-reparse-point') return { ok: true, record, reparse };
     if (reparse.name === 'query-budget-exhausted') return { ok: false, code: 'STUDIO_REPARSE_BUDGET', record, reparse };
+    // The helper could not be reached twice. Say so honestly instead of
+    // claiming that a valid folder is a link; the caller still refuses it.
+    if (reparse.name === 'metadata-unavailable') return { ok: false, code: 'STUDIO_METADATA_UNAVAILABLE', record, reparse };
     return { ok: false, code: 'STUDIO_REPARSE_REFUSED', record, reparse };
   }
 

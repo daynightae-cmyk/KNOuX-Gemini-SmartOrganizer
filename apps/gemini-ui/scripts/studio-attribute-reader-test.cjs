@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 const {EventEmitter}=require('node:events'),{PassThrough,Writable}=require('node:stream');
 const {createAttributeReader}=require('../../../electron/studio/windows-attribute-reader.cjs');
-const {createProbeService}=require('../../../electron/studio/windows-studio-native.cjs');
+const {createProbeService,createWindowsStudioNative}=require('../../../electron/studio/windows-studio-native.cjs');
 const checks=[];
 function fakeSpawn(reply){return()=>{const child=new EventEmitter();child.unref=()=>{};child.kill=()=>{};child.stdout=new PassThrough();child.stderr=new PassThrough();child.stdin=new Writable({write(data,_enc,done){const request=JSON.parse(String(data));queueMicrotask(()=>reply(child,request));done();}});return child;};}
 (async()=>{
@@ -33,5 +33,11 @@ function fakeSpawn(reply){return()=>{const child=new EventEmitter();child.unref=
  let calls=0;const attrs=[0x20,0x400,0x1000,0x400000];const probe=createProbeService({platform:'win32',maxProbes:4,attributeReader:{read:async()=>({ok:true,attributes:attrs[calls++]}),stats:()=>({calls})}});
  assert.equal((await probe.probe(root)).name,'not-a-reparse-point');for(let i=0;i<3;i++)assert.equal((await probe.probe(root)).refused,true);assert.equal(calls,4);assert.equal((await probe.probe(root)).name,'query-budget-exhausted');checks.push('fresh attribute reads reject reparse, offline, recall and exhausted budget');
  const unavailable=createProbeService({platform:'win32',attributeReader:{read:async()=>({ok:false}),stats:()=>({})}});assert.equal((await unavailable.probe(root)).refused,true);checks.push('unavailable Windows metadata never assumes a safe file');
+ let flakyCalls=0;const flaky=createProbeService({platform:'win32',attributeReader:{read:async()=>{flakyCalls++;return flakyCalls===1?{ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'}:{ok:true,attributes:0x20};},stats:()=>({flakyCalls})}});
+ assert.equal((await flaky.probe(root)).name,'not-a-reparse-point');assert.equal(flakyCalls,2);checks.push('a crashed metadata helper is retried once with the same Win32 query');
+ let downCalls=0;const down=createProbeService({platform:'win32',attributeReader:{read:async()=>{downCalls++;return {ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'};},stats:()=>({downCalls})}});
+ assert.equal((await down.probe(root)).name,'metadata-unavailable');assert.equal(downCalls,2);checks.push('a persistently unavailable helper still fails closed');
+ const downNative=createWindowsStudioNative({platform:'win32',attributeReader:{read:async()=>({ok:false,error:'METADATA_PROVIDER_UNAVAILABLE'}),stats:()=>({})}});
+ const downPlain=await downNative.assertPlainEntry(root);assert.equal(downPlain.ok,false);assert.equal(downPlain.code,'STUDIO_METADATA_UNAVAILABLE');checks.push('unverifiable metadata is named honestly instead of being called a link');
  console.log(JSON.stringify({status:'PASS',checks,fixture:root},null,2));
 })().catch(error=>{console.error(error);process.exitCode=1;});
