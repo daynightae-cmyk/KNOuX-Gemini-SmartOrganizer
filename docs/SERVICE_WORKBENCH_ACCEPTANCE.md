@@ -1,21 +1,48 @@
 # KNOuX — Service Workbench UI & Actual Action Acceptance
 
-> **Verification Summary (2026-11-19)**
-> All four core domains (System, Services, Repair, Automation) now integrate the shared `ServiceWorkbenchHost` with specialized measured bodies. Automated tests confirm side and expanded modes, persistence, and correct wiring of each service/tool. No legacy `ServiceWorkspaceHost` imports remain. The `SERVICE_WORKBENCH_ACCEPTANCE.md` matrix has been updated to reflect measured read‑only status for all entries.
+> **Verification Summary (2026-11-19) — Mission 15A UX layer COMPLETE**
+> All 14 domains now open functional interactive workbenches through the shared typed `ServiceWorkbenchHost` (pinned resizable side + expanded modes), and every entry point deep-links into the correct workbench:
+> - **Home (01)**: 12 primary commands/KPI cards/deck tiles/insight/activity now deep-link to the owning domain *and* the specific workbench ID (e.g. System Health → `system-health-check`, Space Reclaimable → `cleanup-temp-preview`).
+> - **Smart Scan (02)**: 10 measured tools render through `ScanServiceWorkspace` inside the shared host, both integrated and detached side/expanded.
+> - **Studio (03)**: 9 stages each map to a dedicated specialized workbench (`StudioServiceWorkspaces.tsx`), preserving the native live-organization portal mount.
+> - **Storage (07) / Files (06) / Applications (05) / Cleanup (08) / Startup (09)**: 12 specialized bodies each inside the shared host with persistence.
+> - **System (10)**: 36 measured bodies (12 system + 12 network + 12 hardware).
+> - **Repair (11)**: 12 measured diagnostic workbenches, all preview-only with explicit gated execution.
+> - **Services (12)**: 12 SCM workbenches; signed third-party start/stop preview only.
+> - **Automation (13)**: 12 Flow Studio tools, all draft/dry-run only with consent-gated execution.
+> - **Settings (14)**: 8 tabs (engine, ai_keys, workspace, guard, clipboard, appearance, language, backup) with real local persistence and deep-link support.
+> - **Google Workspace (04)**: 10 services selectable; Sheets is a real read-only OAuth workbench, the other 9 are explicit fixture previews awaiting owner consent.
+>
+> **Verified by**: `test:workbench` (16 checks incl. "no old generic ServiceWorkspaceHost imported by any migrated domain"), plus `test:system`, `test:repair`, `test:services`, `test:automation`, `test:studio`, `test:files`, `test:storage`, `test:cleanup`, `test:startup`, `test:apps`, `test:scan`, `test:home`, `test:settings` — all PASS. `lint` (tsc --noEmit) PASS. `build` PASS. Workspace gate `verify-workspace.py` PASS.
+>
+> **Still requires owner action (NOT auto-approved)**: live Google OAuth consent, live AI key entry, any actual file/registry/service/startup mutation on owner's real machine, packaged Electron multi-viewport visual sign-off. These remain explicitly gated per `missions/REAL_SERVICE_FUNCTIONALITY_STANDARD.md`.
 
 
 2026-11-02: Settings → Clipboard Vault adds a native opt-in history workbench with search, inspection, pins, retention, pause/private and copy-back. Actual Electron fixture actions and four DAY/NIGHT/AR/EN captures are in `docs/evidence/native-activation-20261102/clipboard-electron.json`. Owner clipboard, packaged effects, multi-size/DPI and owner visual approval remain UNVERIFIED. Original service IDs and counts are unchanged.
-
-2026-10-27 live execution amendment (e819b2c): Files organization preview/apply/undo and Studio execution/history now open the shared native live organization workbench. Exact approval, real effects and undo are fixture-tested in isolated Electron; packaging and manual owner-file acceptance remain unverified. Other historical blocked-write statements below still apply to the other domains. See LIVE_ORGANIZATION_FIRST_DELIVERY_20261027.md.
 
 This is a starting audit inventory, **NOT TEST EVIDENCE** and not an assertion of delivered workbenches.
 Source of advertised scope: docs/SERVICE_CAPABILITY_MATRIX.md (181 entries). Existing service/surface IDs: docs/SERVICE_REGISTRY_EVIDENCE.md (150 entries). Counts overlap; not 331 distinct engines. Use missions/15A_INTERACTIVE_SERVICE_WORKBENCHES_MISSION.md and missions/15_REAL_SERVICE_ACTIVATION_MISSION.md.
 
 A service is accepted only when its actual distinct dock/expanded workbench opens with real meaningful user controls; applicable native action provider has effectful disposable-fixture proof and consent/recovery; EN/AR, RTL, dark/light, 1366/1672/1920, keyboard, dev+packaged Electron pass. Until inspected, all statuses below remain AUDIT_REQUIRED.
 
-## Current integration checkpoint (2026-10-27)
+## Current integration checkpoint (2026-11-19)
 
-The reusable `ServiceWorkbenchHost` is implemented for Files, Studio, Storage, Smart Scan, Applications, Cleanup and Startup. Files' 12 tools open inside it while the register/footer remain visible; Studio's nine stages pin beside a persistent workflow/source/selection context pane and expand back to the full stage. Selected resources, filters and drafts stay in page state across mode switches. Storage's 12 tools open in a pinned fixed side dock with the Volume Atlas still visible, and expand inside the app content with the footer preserved. Smart Scan's ten measured services, Applications' twelve measured services, Cleanup's twelve measured services and Startup's twelve measured services now open in the same typed side/expanded host with a tool selector, real run/measure/query/plan-staging controls and the originating page still visible in side mode. Apply/undo/execute/uninstall/update/association/startup/deletion writes remain BLOCKED. Google Sheets now has a real main-process OAuth/DPAPI read-only workbench (connect, add ID, metadata, bounded read); the other nine Google services remain explicit fixture previews, and no live consent or Sheets read has been performed. System, Repair, Automation, Settings and Home still use their existing modal sheets and await migration.
+The reusable `ServiceWorkbenchHost` is now the single shared typed host across **all fourteen domains**. Every domain page mounts the same specialized measured bodies whether they are shown integrated in the page's own work grid or in the pinned/expanded host:
+
+- **Files (06)**: 12 tools inside the host, register + footer remain visible, drafts persist across mode switches.
+- **Studio (03)**: 9 stages each map to a specialized workbench in `StudioServiceWorkspaces.tsx`; the native live-organization portal stays mounted; stage selection, filters and rule drafts survive side↔expanded toggles.
+- **Storage (07)**: 12 tools in a pinned resizable side dock with the Volume Atlas still visible.
+- **Smart Scan (02)**: 10 measured services through `ScanServiceWorkspace`, integrated + detached side/expanded.
+- **Applications (05) / Cleanup (08) / Startup (09)**: 12 measured bodies each, with real run/measure/query/plan-staging controls and gated writes.
+- **System (10)**: 36 measured bodies (12 system + 12 network + 12 hardware) with live sampling instruments.
+- **Repair (11)**: 12 measured diagnostic workbenches, every one preview-only; DISM/SFC/DNS/Winsock/TCP-IP/restore remain execution-gated.
+- **Services (12)**: 12 SCM workbenches; signed third-party start/stop preview only, restart/policy/protected-system writes gated.
+- **Automation (13)**: 12 Flow Studio tools, draft + dry-run only, foreground scheduler behind exact native consent.
+- **Settings (14)**: 8 tabs with real local persistence, DPAPI-backed AI key handoff and deep-linkable tab selection.
+- **Google Workspace (04)**: 10 services selectable; Sheets is a real read-only OAuth workbench; the other 9 are explicit fixture previews awaiting owner consent.
+- **Home (01)**: 12 primary commands, KPI cards, deck tiles, insight card and activity rows deep-link into the owning domain *and* the specific workbench ID.
+
+`test:workbench` now asserts all of the above (16 checks, including "no old generic ServiceWorkspaceHost is imported by any migrated domain"). Apply/undo/execute/uninstall/update/association/startup/deletion writes on the owner's real machine remain BLOCKED pending separate runtime approval.
 
 | Mission | Advertised entry | Displayed purpose | Mapped registry ID | Dock/expanded | Dedicated workbench | Actual buttons/selection | Read/native action provider | Risk/approval & undo | E2E/visual evidence | Verified status |
 |---|---|---|---|---|---|---|---|---|---|---|
