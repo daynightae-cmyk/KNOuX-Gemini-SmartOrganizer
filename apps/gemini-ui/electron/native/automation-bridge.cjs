@@ -495,6 +495,31 @@ class AutomationBridge {
     };
   }
 
+  async armBackgroundSchedule(request) {
+    if (!this.runner) throw automationError('AUTOMATION_RUNNER_UNAVAILABLE', 'Automation runner not initialized.');
+    return this.runner.armBackground(request);
+  }
+
+  async listBackgroundSchedules() {
+    if (!this.runner) throw automationError('AUTOMATION_RUNNER_UNAVAILABLE', 'Automation runner not initialized.');
+    return this.runner.listBackgroundSchedules();
+  }
+
+  async enableBackgroundSchedule(request) {
+    if (!this.runner) throw automationError('AUTOMATION_RUNNER_UNAVAILABLE', 'Automation runner not initialized.');
+    return this.runner.enableBackgroundSchedule(request);
+  }
+
+  async disableBackgroundSchedule(request) {
+    if (!this.runner) throw automationError('AUTOMATION_RUNNER_UNAVAILABLE', 'Automation runner not initialized.');
+    return this.runner.disableBackgroundSchedule(request);
+  }
+
+  async unregisterBackgroundSchedule(request) {
+    if (!this.runner) throw automationError('AUTOMATION_RUNNER_UNAVAILABLE', 'Automation runner not initialized.');
+    return this.runner.unregisterBackgroundSchedule(request);
+  }
+
   async validateImport(payload) {
     const validation = validateImport(payload);
     return {

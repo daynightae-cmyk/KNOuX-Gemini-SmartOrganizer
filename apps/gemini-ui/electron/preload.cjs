@@ -145,6 +145,11 @@ const CHANNELS = Object.freeze({
   automationValidateImport: 'knoux:automation:v1:validate-import',
   automationJournal: 'knoux:automation:v1:journal',
   automationReport: 'knoux:automation:v1:report',
+  automationArmBackground: 'knoux:operations:v1:automationScheduleArmBackground',
+  automationEnableBackground: 'knoux:operations:v1:automationScheduleEnableBackground',
+  automationDisableBackground: 'knoux:operations:v1:automationScheduleDisableBackground',
+  automationUnregisterBackground: 'knoux:operations:v1:automationScheduleUnregisterBackground',
+  automationSchedulesBackground: 'knoux:operations:v1:automationSchedulesBackground',
   googleStatus: 'knoux:google:v1:status',
   googleConnect: 'knoux:google:v1:connect',
   googleCancel: 'knoux:google:v1:cancel',
@@ -532,6 +537,11 @@ contextBridge.exposeInMainWorld(
     validateImport: (payload) => ipcRenderer.invoke(CHANNELS.automationValidateImport, payload),
     journal: () => ipcRenderer.invoke(CHANNELS.automationJournal),
     report: (options) => ipcRenderer.invoke(CHANNELS.automationReport, options || {}),
+    armBackgroundSchedule: (request) => ipcRenderer.invoke(CHANNELS.automationArmBackground, request),
+    enableBackgroundSchedule: (request) => ipcRenderer.invoke(CHANNELS.automationEnableBackground, request),
+    disableBackgroundSchedule: (request) => ipcRenderer.invoke(CHANNELS.automationDisableBackground, request),
+    unregisterBackgroundSchedule: (request) => ipcRenderer.invoke(CHANNELS.automationUnregisterBackground, request),
+    listBackgroundSchedules: () => ipcRenderer.invoke(CHANNELS.automationSchedulesBackground),
   })
 );
 
@@ -584,5 +594,10 @@ contextBridge.exposeInMainWorld('knouxOperationsV1', Object.freeze({
   automationScheduleArm: request => ipcRenderer.invoke('knoux:operations:v1:automationScheduleArm', request),
   automationSchedulePause: request => ipcRenderer.invoke('knoux:operations:v1:automationSchedulePause', request),
   automationSchedules: () => ipcRenderer.invoke('knoux:operations:v1:automationSchedules'),
+  automationScheduleArmBackground: request => ipcRenderer.invoke('knoux:operations:v1:automationScheduleArmBackground', request),
+  automationScheduleEnableBackground: request => ipcRenderer.invoke('knoux:operations:v1:automationScheduleEnableBackground', request),
+  automationScheduleDisableBackground: request => ipcRenderer.invoke('knoux:operations:v1:automationScheduleDisableBackground', request),
+  automationScheduleUnregisterBackground: request => ipcRenderer.invoke('knoux:operations:v1:automationScheduleUnregisterBackground', request),
+  automationSchedulesBackground: () => ipcRenderer.invoke('knoux:operations:v1:automationSchedulesBackground'),
   onEvent: callback => { const listener=(_event,payload)=>callback(payload); ipcRenderer.on('knoux:operations:v1:event',listener); return ()=>ipcRenderer.removeListener('knoux:operations:v1:event',listener); },
 }));

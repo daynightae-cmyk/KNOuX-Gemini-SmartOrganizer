@@ -1,8 +1,9 @@
 'use strict';
-const crypto=require('node:crypto');
-const {ProtectedActionStore}=require('./protected-action-store.cjs');
-const err=(code,message)=>Object.assign(Error(message),{code});
-const hash=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
+const crypto = require('node:crypto');
+const { ProtectedActionStore } = require('./protected-action-store.cjs');
+const { TaskScheduler } = require('./automation-task-scheduler.cjs');
+const err = (code, message) => Object.assign(Error(message), { code });
+const hash = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 function conditionSpec(node,workflow){
  const c=node.config||{},allowed=c.predicate==='inventory-bytes-at-least'?['predicate','inputNodeId','thresholdBytes']:c.predicate==='volume-free-below'?['predicate','inputNodeId','deviceId','thresholdPercent']:null;
  if(!allowed||Object.keys(c).some(k=>!allowed.includes(k)))throw err('AUTOMATION_CONDITION_GATED','Choose an explicit supported measured condition; legacy classification and unconfigured conditions remain preview-only.');
@@ -31,7 +32,7 @@ function evaluateCondition(node,sessions){
  return {status:passed?'complete':'gated',evidence:{...base,actual,threshold,unit:c.predicate==='inventory-bytes-at-least'?'bytes':'percent',operator:c.predicate==='inventory-bytes-at-least'?'>=':'<',...(c.deviceId?{deviceId:c.deviceId}:{}),passed}};
 }
 class AutomationRunner {
- constructor({operations,automation,scan,studio,userDataPath,safeStorage,now=Date.now}){this.operations=operations;this.automation=automation;this.scan=scan;this.studio=studio;this.store=new ProtectedActionStore({userDataPath,namespace:'automation-run-receipts',safeStorage});this.now=now;this.plans=new Map();}
+ constructor({operations,automation,scan,studio,userDataPath,safeStorage,now=Date.now}){this.operations=operations;this.automation=automation;this.scan=scan;this.studio=studio;this.store=new ProtectedActionStore({userDataPath,namespace:'automation-run-receipts',safeStorage});this.now=now;this.plans=new Map();this.taskScheduler=new TaskScheduler({userDataPath});}
  async saved(id){const workflow=(await this.automation.workflows()).find(w=>w.id===id);if(!workflow)throw err('AUTOMATION_WORKFLOW_MISSING','Save this workflow before native review.');return workflow;}
  validate(workflow){
   const order=this.automation.topologicalOrder(workflow);if(order.length!==workflow.nodes.length||new Set(order).size!==order.length)throw err('AUTOMATION_INVALID_GRAPH','Every saved node must belong to a valid acyclic graph.');
@@ -95,5 +96,83 @@ class AutomationRunner {
  pauseSchedule(request){if(!this.scheduler)throw err('AUTOMATION_SCHEDULE_UNAVAILABLE','Foreground scheduler unavailable.');return this.scheduler.pause(request);}
  schedules(){if(!this.scheduler)throw err('AUTOMATION_SCHEDULE_UNAVAILABLE','Foreground scheduler unavailable.');return this.scheduler.list();}
  dispose(){this.scheduler?.dispose();this.cancel();}
+
+  async armBackground({ planId, planHash, approved }) {
+    if (!this.taskScheduler) throw err('AUTOMATION_BACKGROUND_UNAVAILABLE', 'Windows Task Scheduler integration unavailable.');
+    if (approved !== true) throw err('AUTOMATION_BACKGROUND_APPROVAL_REQUIRED', 'Approve the exact background schedule.');
+    const plan = this.plans.get(planId);
+    if (!plan || plan.planHash !== planHash || plan.expiresAt <= this.now()) throw err('AUTOMATION_PLAN_MISMATCH', 'Review a current workflow plan before arming background schedule.');
+
+    const workflow = await this.saved(plan.workflowId);
+    this.validate(workflow);
+    if (!workflow.enabled || hash(workflow) !== plan.workflowHash) throw err('AUTOMATION_WORKFLOW_CHANGED', 'Enable and save the workflow, then review its current version.');
+
+    const consent = await this.operations.confirm({
+      kind: 'automation-background-schedule',
+      plan: { name: workflow.name, workflowId: workflow.id, trigger: workflow.trigger, planHash: plan.planHash }
+    });
+    if (!consent) throw err('AUTOMATION_CONSENT_DENIED', 'Background schedule confirmation was declined.');
+
+    const taskResult = await this.taskScheduler.registerTask(workflow);
+    const record = {
+      id: crypto.randomUUID(),
+      kind: 'background-automation-schedule-v1',
+      workflowId: workflow.id,
+      workflowHash: plan.workflowHash,
+      name: workflow.name,
+      sourceId: plan.sourceId,
+      status: 'armed',
+      armedAt: new Date(this.now()).toISOString(),
+      taskName: taskResult.taskName,
+      rule: 'Windows Task Scheduler; runs independently of app window; per-run native consent required'
+    };
+    await this.store.save(record);
+    this.plans.delete(planId);
+    return record;
+  }
+
+  async listBackgroundSchedules() {
+    if (!this.taskScheduler) return [];
+    const tasks = await this.taskScheduler.listAllTasks();
+    return tasks.filter(t => t.TaskName?.startsWith('KNOuX-Automation-')).map(task => ({
+      taskName: task.TaskName,
+      workflowId: task.TaskName?.slice('KNOuX-Automation-'.length),
+      status: task.Status,
+      nextRun: task['Next Run Time'],
+      lastRun: task['Last Run Time'],
+      taskPath: task['Task Path']
+    }));
+  }
+
+  async enableBackgroundSchedule({ scheduleId }) {
+    if (!this.taskScheduler) throw err('AUTOMATION_BACKGROUND_UNAVAILABLE', 'Windows Task Scheduler integration unavailable.');
+    // Find the workflow ID from scheduleId
+    const tasks = await this.taskScheduler.listAllTasks();
+    const task = tasks.find(t => t.TaskName === scheduleId);
+    if (!task) throw err('AUTOMATION_BACKGROUND_NOT_FOUND', 'Background schedule not found.');
+    const workflowId = task.TaskName?.slice('KNOuX-Automation-'.length);
+    await this.taskScheduler.enableTask(workflowId);
+    return { success: true, workflowId };
+  }
+
+  async disableBackgroundSchedule({ scheduleId }) {
+    if (!this.taskScheduler) throw err('AUTOMATION_BACKGROUND_UNAVAILABLE', 'Windows Task Scheduler integration unavailable.');
+    const tasks = await this.taskScheduler.listAllTasks();
+    const task = tasks.find(t => t.TaskName === scheduleId);
+    if (!task) throw err('AUTOMATION_BACKGROUND_NOT_FOUND', 'Background schedule not found.');
+    const workflowId = task.TaskName?.slice('KNOuX-Automation-'.length);
+    await this.taskScheduler.disableTask(workflowId);
+    return { success: true, workflowId };
+  }
+
+  async unregisterBackgroundSchedule({ scheduleId }) {
+    if (!this.taskScheduler) throw err('AUTOMATION_BACKGROUND_UNAVAILABLE', 'Windows Task Scheduler integration unavailable.');
+    const tasks = await this.taskScheduler.listAllTasks();
+    const task = tasks.find(t => t.TaskName === scheduleId);
+    if (!task) throw err('AUTOMATION_BACKGROUND_NOT_FOUND', 'Background schedule not found.');
+    const workflowId = task.TaskName?.slice('KNOuX-Automation-'.length);
+    await this.taskScheduler.unregisterTask(workflowId);
+    return { success: true, workflowId };
+  }
 }
 module.exports={AutomationRunner};
