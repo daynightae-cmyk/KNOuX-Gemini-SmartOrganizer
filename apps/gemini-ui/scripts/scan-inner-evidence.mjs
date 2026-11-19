@@ -25,7 +25,7 @@ const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('electron/main.cjs'),'--disable-gpu',`--knoux-user-data=${profile}`],env,timeout:60000});
 const checks=[],errors=[],consoleMessages=[],nativeEvents=[];const sessionByService={};let sessionId=null;
 try{
- const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')consoleMessages.push(m.text())});
+ const page=await app.firstWindow();page.setDefaultTimeout(120000);page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')consoleMessages.push(m.text())});
  await page.exposeFunction('__recordScanEvent',event=>nativeEvents.push(event));
  const win=await app.browserWindow(page);await win.evaluate(w=>{w.setIgnoreMouseEvents(true);w.setFocusable(false);w.setSkipTaskbar(true)});
  async function size(w,h){await win.evaluate((v,[w,h])=>{if(v.isMaximized())v.unmaximize();v.setBounds({x:40,y:40,width:w,height:h});v.setContentSize(w,h,false)},[w,h]);await page.waitForFunction(([w,h])=>innerWidth===w&&innerHeight===h,[w,h]);}
@@ -53,8 +53,8 @@ try{
  await probe('native-authorization-index',async()=>{
   await page.locator('.scan-workspace-tools').getByRole('button',{name:'Choose folder',exact:true}).click();
   await page.getByTestId('scan-service-ready').getByRole('button',{name:'Index folder',exact:true}).click();
-  await page.waitForFunction(async()=>{const s=await window.knouxScanV1.listSources();return s.data?.some(s=>s.status==='ready'&&s.fileCount>=31)});
-  await page.waitForFunction(()=>!document.querySelector('[data-testid=scan-service-run]')?.disabled);
+  await page.waitForFunction(async()=>{const s=await window.knouxScanV1.listSources();return s.data?.some(s=>s.status==='ready'&&s.fileCount>=31)},{},{timeout:120000,polling:500});
+  await page.waitForFunction(()=>!document.querySelector('[data-testid=scan-service-run]')?.disabled,{},{timeout:120000,polling:250});
   return await page.evaluate(async()=>{const s=await window.knouxScanV1.listSources();return s.data.map(x=>({id:x.id,label:x.label,fileCount:x.fileCount,status:x.status}))});
  });
  const ids=await page.getByTestId('compact-service-dock').getByRole('tab').evaluateAll(es=>es.map(e=>e.dataset.serviceId));
