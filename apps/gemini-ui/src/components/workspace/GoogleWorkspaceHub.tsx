@@ -43,7 +43,7 @@ import {
 } from 'lucide-react';
 
 import { KNOuXTitleBar, KNOuXSidebar } from '../shell/KNOuXShellComponents';
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../../context/NavigationContext';
 import { GoogleSheetsWorkbench, SCOPE_ROWS } from '../../workspace/GoogleSheetsWorkbench';
 import { useGoogleWorkspace } from '../../workspace/useGoogleWorkspace';
 import type { GoogleProductId, GoogleWorkspaceItem } from '../../../shared/native-contracts';
@@ -981,11 +981,22 @@ const TONE_FIELD: Record<FieldTone, string> = {
 
 export const GoogleWorkspaceHub: React.FC<GoogleWorkspaceHubProps> = ({ locale = 'en' }) => {
   const { navigateTo, locale: navLocale, isArabic, toggleLocale } = useNavigation();
+  const deepLink = useDeepLink();
   const isAr = navLocale ? isArabic : locale === 'ar';
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isOAuthModalOpen, setIsOAuthModalOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [activeService, setActiveService] = useState<HubServiceId>('sheets');
+
+  // Consume deep link from Home/other entry points to auto-select a service
+  useEffect(() => {
+    if (deepLink?.workbenchId) {
+      const serviceId = deepLink.workbenchId as HubServiceId;
+      if (HUB_SERVICES.some(s => s.id === serviceId)) {
+        setActiveService(serviceId);
+      }
+    }
+  }, [deepLink]);
   const [selectedItemId, setSelectedItemId] = useState<string>('sheet-1');
   const [newInput, setNewInput] = useState('');
   const [documentInput, setDocumentInput] = useState('');

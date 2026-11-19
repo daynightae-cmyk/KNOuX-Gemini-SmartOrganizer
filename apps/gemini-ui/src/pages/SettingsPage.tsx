@@ -48,7 +48,7 @@ import {
   Info,
 } from 'lucide-react';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import {KnouxOrbit} from '../visual/KnouxOrbit';
 import { ServicePipeline } from '../visual/ServicePipeline';
 import { ClipboardVault } from '../clipboard/ClipboardVault';
@@ -94,8 +94,19 @@ const PIPELINE_TAB: Record<string, SettingsTabId> = {
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigateSection }) => {
   const { navigateTo, isArabic, toggleLocale, setLocale, themePreference, setThemePreference } = useNavigation();
+  const deepLink = useDeepLink();
   const [activeTab, setActiveTab] = useState<SettingsTabId>('engine');
   const tabRefs = useRef<Partial<Record<SettingsTabId, HTMLButtonElement | null>>>({});
+
+  // Consume deep link from Home/other entry points to auto-open a tab
+  useEffect(() => {
+    if (deepLink?.workbenchId) {
+      const tabId = deepLink.workbenchId as SettingsTabId;
+      if (SETTINGS_TABS.some(t => t.id === tabId)) {
+        setActiveTab(tabId);
+      }
+    }
+  }, [deepLink]);
 
   // API key entry is transient: the value is handed to the Main-process AI
   // bridge and cleared from this component. The renderer never stores it.

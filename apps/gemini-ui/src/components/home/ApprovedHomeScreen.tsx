@@ -72,6 +72,10 @@ const HOME_DEEP_LINKS: Record<string, { workbenchId?: string; mode?: 'side' | 'e
   repair: { workbenchId: 'repair-component-scan', mode: 'side' },
   // Insight/Activity targets
   studio: { workbenchId: undefined, mode: 'side' }, // Studio uses stage-based navigation
+  // Settings tabs (via deep link to specific tab)
+  settings: { workbenchId: 'engine', mode: 'side' },
+  // Workspace (Google) deep links to specific services
+  workspace: { workbenchId: 'sheets', mode: 'side' },
 };
 
 export function ApprovedHomeScreen({ isArabic, theme, navigateDeep, live, query, onQueryChange, onOpenCommands, onToggleLocale }: Props) {
