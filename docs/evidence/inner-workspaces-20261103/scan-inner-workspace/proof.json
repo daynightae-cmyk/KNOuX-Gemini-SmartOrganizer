@@ -1,0 +1,99 @@
+{
+  "head": "1b08b2149c57a053d599b7eea62af26fa8cca39c",
+  "profile": "D:\\Temp\\knoux-inner-scan-8yHfKK\\profile",
+  "fixture": "D:\\Temp\\knoux-inner-scan-8yHfKK\\AUTHORIZED-DISPOSABLE-FIXTURE",
+  "scope": "Disposable source only; native Windows observations remain read-only; no cleanup/mutation executed",
+  "checks": [
+    {
+      "name": "idle-geometry-keyboard-all-ten",
+      "ok": true,
+      "evidence": [
+        {
+          "dockHeight": 70,
+          "dockRight": 1653,
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1408,
+            "h": 340
+          },
+          "body": {
+            "w": 1406,
+            "h": 505
+          },
+          "horizontalOverflow": 0
+        },
+        {
+          "dockHeight": 70,
+          "dockRight": 1901,
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1656,
+            "h": 360
+          },
+          "body": {
+            "w": 1654,
+            "h": 624
+          },
+          "horizontalOverflow": 0
+        },
+        {
+          "dockHeight": 70,
+          "dockRight": 1107,
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1102,
+            "h": 280
+          },
+          "body": {
+            "w": 1100,
+            "h": 392
+          },
+          "horizontalOverflow": 0
+        },
+        {
+          "dockHeight": 70,
+          "dockRight": 1653,
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1408,
+            "h": 340
+          },
+          "body": {
+            "w": 1406,
+            "h": 505
+          },
+          "horizontalOverflow": 0
+        }
+      ]
+    },
+    {
+      "name": "native-authorization-index",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "caac736c-5d53-470d-b34b-de006781dbb2",
+          "label": "AUTHORIZED-DISPOSABLE-FIXTURE",
+          "fileCount": 31,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "name": "native-service-quick_scan",
+      "ok": false,
+      "error": "page.waitForFunction: Timeout 180000ms exceeded."
+    }
+  ],
+  "errors": [
+    "page.waitForFunction: Timeout 180000ms exceeded."
+  ],
+  "consoleMessages": [
+    "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element."
+  ],
+  "fixtureUnchanged": true,
+  "ok": false
+}
