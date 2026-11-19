@@ -1,10 +1,10 @@
 'use strict';
-const {execFile}=require('node:child_process'),{promisify}=require('node:util'),path=require('node:path');
-const SCRIPT=String.raw`
+const { execFile } = require('node:child_process'), { promisify } = require('node:util'), path = require('node:path');
+const SCRIPT = String.raw`
 $ErrorActionPreference='Stop';$ProgressPreference='SilentlyContinue'
 Add-Type -AssemblyName System.ServiceProcess
 $p=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('__PAYLOAD__'))|ConvertFrom-Json
-if($p.name -notmatch '^[A-Za-z0-9_.-]{1,128}$' -or $p.action -notin @('read','start','stop')){throw 'Service request refused'}
+if($p.name -notmatch '^[A-Za-z0-9_.-]{1,128}$' -or $p.action -notin @('read','start','stop','restart','startup-type')){throw 'Service request refused'}
 function Snapshot {
  $w=Get-CimInstance Win32_Service -Filter ("Name='"+$p.name+"'") -ErrorAction Stop
  if(-not $w){throw 'Service no longer exists'}
@@ -28,23 +28,38 @@ if($p.action -ne 'read'){
  foreach($field in @('dependencies','dependents')){if(($before.$field|ConvertTo-Json -Compress) -cne ($p.expected.$field|ConvertTo-Json -Compress)){throw 'SERVICE_CHANGED: dependency evidence changed'}}
  if($p.action -eq 'start' -and ($before.state -ne 'Stopped' -or $before.startMode -eq 'Disabled' -or @($before.dependencies|Where-Object state -ne 'Running').Count)){throw 'Start preflight failed'}
  if($p.action -eq 'stop' -and ($before.state -ne 'Running' -or -not $before.canStop -or @($before.dependents|Where-Object state -ne 'Stopped').Count)){throw 'Stop preflight failed'}
+ if($p.action -eq 'restart'){
+  if($before.state -ne 'Running' -or -not $before.canStop -or @($before.dependents|Where-Object state -ne 'Stopped').Count -or $before.startMode -eq 'Disabled' -or @($before.dependencies|Where-Object state -ne 'Running').Count){throw 'Restart preflight failed'}
+ }
+ if($p.action -eq 'startup-type'){
+  if(-not @('automatic','manual','disabled','delayed').Contains($p.startupType)){throw 'Invalid startup type'}
+  if($before.startMode -eq $p.startupType){throw 'Startup type unchanged'}
+ }
  $control=New-Object System.ServiceProcess.ServiceController ([string]$p.name)
- try{if($p.action -eq 'start'){$control.Start();$wanted=[System.ServiceProcess.ServiceControllerStatus]::Running}else{$control.Stop();$wanted=[System.ServiceProcess.ServiceControllerStatus]::Stopped};$control.WaitForStatus($wanted,[TimeSpan]::FromSeconds(10))}finally{$control.Dispose()}
+ try{
+  if($p.action -eq 'start'){$control.Start();$wanted=[System.ServiceProcess.ServiceControllerStatus]::Running}
+  elseif($p.action -eq 'stop'){$control.Stop();$wanted=[System.ServiceProcess.ServiceControllerStatus]::Stopped}
+  elseif($p.action -eq 'restart'){$control.Stop();$control.WaitForStatus([System.ServiceProcess.ServiceControllerStatus]::Stopped,[TimeSpan]::FromSeconds(10));$control.Start();$wanted=[System.ServiceProcess.ServiceControllerStatus]::Running}
+  elseif($p.action -eq 'startup-type'){$control.ServiceStartMode=$p.startupType;$wanted=$control.Status}
+  $control.WaitForStatus($wanted,[TimeSpan]::FromSeconds(10))
+ }finally{$control.Dispose()}
 }
 Snapshot|ConvertTo-Json -Depth 6 -Compress
 `;
-function createServiceControl({runner=promisify(execFile),platform=process.platform}={}){
- return async(action,name,expected)=>{
-  if(platform!=='win32')throw Object.assign(Error('SCM requires Windows.'),{code:'SCM_UNSUPPORTED'});
-  if(!['read','start','stop'].includes(action)||typeof name!=='string'||!/^[A-Za-z0-9_.-]{1,128}$/.test(name))throw Error('Service request refused.');
-  const payload=Buffer.from(JSON.stringify({action,name,expected})).toString('base64');const encoded=Buffer.from(SCRIPT.replace('__PAYLOAD__',payload),'utf16le').toString('base64');if(encoded.length>28000)throw Error('Service evidence exceeds bounded command budget.');
-  const psRoot=path.join(process.env.SystemRoot||'C:\\Windows','System32','WindowsPowerShell','v1.0');
-  // Match the existing AppBridge fix: a pwsh 7 parent can export incompatible
-  // module roots to Windows PowerShell 5. Resolve built-in Windows modules only.
-  let result;
-  try{result=await runner(path.join(psRoot,'powershell.exe'),['-NoLogo','-NoProfile','-NonInteractive','-EncodedCommand',encoded],{windowsHide:true,timeout:20000,maxBuffer:256*1024,encoding:'utf8',env:{...process.env,PSModulePath:path.join(psRoot,'Modules')}});}
-  catch(e){const denied=/UnauthorizedAccess|Access is denied|PermissionDenied/i.test(String(e.stderr||''));const reason=e.killed||e.code==='ETIMEDOUT'?'SCM_PROVIDER_TIMEOUT':denied?'SCM_OWNER_ACTION_REQUIRED':'SCM_PROVIDER_FAILED';throw Object.assign(Error(denied?'Windows denied SCM access in the current account. No elevation was attempted; inspect the protected receipt before retrying.':'The bounded Windows SCM request did not complete. Inspect the protected receipt before retrying; no success is inferred.'),{code:reason});}
-  return JSON.parse(String(result.stdout).replace(/^\uFEFF/, '').trim());
- };
+function createServiceControl({ runner = promisify(execFile), platform = process.platform } = {}) {
+  return async (action, name, expected) => {
+    if (platform !== 'win32') throw Object.assign(Error('SCM requires Windows.'), { code: 'SCM_UNSUPPORTED' });
+    if (!['read', 'start', 'stop', 'restart', 'startup-type'].includes(action) || typeof name !== 'string' || !/^[A-Za-z0-9_.-]{1,128}$/.test(name)) throw Error('Service request refused.');
+    const payload = Buffer.from(JSON.stringify({ action, name, expected, startupType: expected.startMode })).toString('base64');
+    const encoded = Buffer.from(SCRIPT.replace('__PAYLOAD__', payload), 'utf16le').toString('base64');
+    if (encoded.length > 28000) throw Error('Service evidence exceeds bounded command budget.');
+    const psRoot = path.join(process.env.SystemRoot || 'C:\\Windows', 'System32', 'WindowsPowerShell', 'v1.0');
+    // Match the existing AppBridge fix: a pwsh 7 parent can export incompatible
+    // module roots to Windows PowerShell 5. Resolve built-in Windows modules only.
+    let result;
+    try { result = await runner(path.join(psRoot, 'powershell.exe'), ['-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand', encoded], { windowsHide: true, timeout: 20000, maxBuffer: 256 * 1024, encoding: 'utf8', env: { ...process.env, PSModulePath: path.join(psRoot, 'Modules') } }); }
+    catch (e) { const denied = /UnauthorizedAccess|Access is denied|PermissionDenied/i.test(String(e.stderr || '')); const reason = e.killed || e.code === 'ETIMEDOUT' ? 'SCM_PROVIDER_TIMEOUT' : denied ? 'SCM_OWNER_ACTION_REQUIRED' : 'SCM_PROVIDER_FAILED'; throw Object.assign(Error(denied ? 'Windows denied SCM access in the current account. No elevation was attempted; inspect the protected receipt before retrying.' : 'The bounded Windows SCM request did not complete. Inspect the protected receipt before retrying; no success is inferred.'), { code: reason }); }
+    return JSON.parse(String(result.stdout).replace(/^\uFEFF/, '').trim());
+  };
 }
-module.exports={SCRIPT,createServiceControl};
+module.exports = { SCRIPT, createServiceControl };
