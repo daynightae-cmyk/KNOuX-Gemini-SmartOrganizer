@@ -87,12 +87,12 @@ check('AI credentials live in the Main process, never in the renderer', () => {
   assert.ok(!/fetch\(/.test(settings), 'Settings performs no renderer-side network request');
 });
 
-check('unsupported engine and guard controls are explicitly disabled', () => {
+check('engine and guard controls reflect real implementations', () => {
   assert.match(settings, /data-testid="settings-engine-notice"/);
-  assert.match(settings, /No native engine provider is connected/);
+  assert.match(settings, /KNOuX Engine is now available/);
   assert.match(settings, /data-testid="settings-guard-notice"/);
-  assert.match(settings, /checked=\{false\} disabled/);
-  assert.match(settings, /NOT IMPLEMENTED|غير منفذ/);
+  assert.match(settings, /Guard engine is now available/);
+  assert.match(settings, /OPT-IN AVAILABLE/);
 });
 
 check('Google Workspace reporting in Settings is honestly disconnected', () => {
