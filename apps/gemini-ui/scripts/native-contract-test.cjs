@@ -48,11 +48,12 @@ assert(contract.channels.studioEvent === 'knoux:studio:v1:event', 'studio event 
 assert(contract.channels.scanEvent === 'knoux:scan:v1:event', 'scan event channel is fixed');
 const eventSubscriptions = preload.match(/ipcRenderer\.on\(/g) || [];
 assert(
-  eventSubscriptions.length === 3
+  eventSubscriptions.length === 4
     && preload.includes('ipcRenderer.on(CHANNELS.studioEvent')
     && preload.includes('ipcRenderer.on(CHANNELS.scanEvent')
-    && preload.includes("ipcRenderer.on('knoux:operations:v1:event'"),
-  'only fixed Studio, Scan and Operations event channels are subscribed'
+    && preload.includes("ipcRenderer.on('knoux:operations:v1:event'")
+    && preload.includes('ipcRenderer.on(CHANNELS.aiStreamChunk'),
+  'only fixed Studio, Scan, Operations and AI stream-chunk event channels are subscribed'
 );
 const operationChannels=require('../electron/native/operation-ipc.cjs').CHANNELS;
 const clipboardChannels = require('../electron/native/clipboard-ipc.cjs').CHANNELS;
