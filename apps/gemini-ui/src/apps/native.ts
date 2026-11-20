@@ -12,6 +12,8 @@ import {
   type AppPlan,
   type AppSignatureResult,
   type AppSizesResult,
+  type AppUninstallPlan,
+  type AppUninstallReceipt,
   type AppUpdatesResult,
   type AppsCapabilities,
   type AppsInventory,
@@ -22,12 +24,31 @@ import {
 declare global {
   interface Window {
     knouxAppsV1?: AppsShellApi;
+    // knouxOperationsV1 is exposed by preload - do not declare here to avoid conflict with inferred type
+    // Use (window as any).knouxOperationsV1 when accessing
   }
 }
 
 export function getAppsShell(): AppsShellApi | null {
   if (typeof window === 'undefined') return null;
   const candidate = window.knouxAppsV1;
+  if (!candidate || candidate.contractVersion !== NATIVE_CONTRACT_VERSION) return null;
+  return candidate;
+}
+
+function getOperationsShell(): {
+  appUninstallPlan: (request: { appId: string }) => Promise<any>;
+  appUninstallApply: (request: { planId: string; planHash: string; approved: boolean }) => Promise<any>;
+  appUninstallReceipts: () => Promise<any>;
+  contractVersion: number;
+} | null {
+  if (typeof window === 'undefined') return null;
+  const candidate = (window as unknown as { knouxOperationsV1?: {
+    appUninstallPlan: (request: { appId: string }) => Promise<any>;
+    appUninstallApply: (request: { planId: string; planHash: string; approved: boolean }) => Promise<any>;
+    appUninstallReceipts: () => Promise<any>;
+    contractVersion: number;
+  } }).knouxOperationsV1;
   if (!candidate || candidate.contractVersion !== NATIVE_CONTRACT_VERSION) return null;
   return candidate;
 }
@@ -112,4 +133,35 @@ export async function openWindowsSettings(
   const api = getAppsShell();
   if (!api) return null;
   return assertEnvelope(await api.openSettings(target), 'apps.settings.open');
+}
+
+/**
+ * Stage an immutable uninstall plan for a measured application.
+ */
+export async function stageAppUninstallPlan(appId: string): Promise<NativeEnvelope<any> | null> {
+  const api = getOperationsShell();
+  if (!api) return null;
+  return assertEnvelope(await api.appUninstallPlan({ appId }), 'operations.appUninstallPlan');
+}
+
+/**
+ * Execute an approved uninstall plan with native consent.
+ */
+export async function applyAppUninstallPlan(
+  planId: string,
+  planHash: string,
+  approved: boolean
+): Promise<NativeEnvelope<any> | null> {
+  const api = getOperationsShell();
+  if (!api) return null;
+  return assertEnvelope(await api.appUninstallApply({ planId, planHash, approved }), 'operations.appUninstallApply');
+}
+
+/**
+ * List all protected uninstall receipts.
+ */
+export async function loadAppUninstallReceipts(): Promise<NativeEnvelope<any> | null> {
+  const api = getOperationsShell();
+  if (!api) return null;
+  return assertEnvelope(await api.appUninstallReceipts(), 'operations.appUninstallReceipts');
 }

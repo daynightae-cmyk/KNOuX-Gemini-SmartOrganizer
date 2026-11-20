@@ -31,6 +31,7 @@ const { StartupActions } = require('./native/startup-actions.cjs');
 const { ServiceActions } = require('./native/service-actions.cjs');
 const { AutomationRunner } = require('./native/automation-runner.cjs');
 const { AutomationScheduler } = require('./native/automation-scheduler.cjs');
+const { AppActions } = require('./native/app-actions.cjs');
 const { CHANNELS: operationChannels, registerOperationIpc } = require('./native/operation-ipc.cjs');
 const { StudioBridge } = require('./native/studio-bridge.cjs');
 const { FilesBridge } = require('./native/files-bridge.cjs');
@@ -6713,7 +6714,7 @@ app.whenReady().then(async () => {
   });
   try {
     await studioBridge.init();
-    operationBridge = new OperationEngine({studio:studioBridge,
+    operationBridge = new OperationEngine({studio:studioBridge, appActions,
       emit:payload=>{if(mainWindow&&!mainWindow.isDestroyed())mainWindow.webContents.send(operationChannels.event,payload);},
       confirm:async action=>{
         if(action.kind==='automation-schedule'){
@@ -6778,6 +6779,22 @@ app.whenReady().then(async () => {
       trace(`applications bridge init failed: ${error?.message || error}`);
       console.error('[gemini-shell] Applications coordinator unavailable:', error?.message || error);
       appBridge = null;
+    }
+    let appActions = null;
+    if (appBridge) {
+      try {
+        const { AppActions } = require('./native/app-actions.cjs');
+        appActions = new AppActions({
+          appBridge,
+          getSnapshot: () => appBridge.inventory(),
+          userDataPath: app.getPath('userData'),
+          safeStorage,
+        });
+        trace('app actions initialized');
+      } catch (error) {
+        trace(`app actions init failed: ${error?.message || error}`);
+        console.error('[gemini-shell] App Actions unavailable:', error?.message || error);
+      }
     }
     try {
       cleanupBridge = new CleanupBridge({

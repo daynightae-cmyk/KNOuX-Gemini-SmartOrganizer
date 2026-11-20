@@ -506,6 +506,24 @@
       "mode": "user-initiated",
       "channel": "knoux:apps:v1:open-settings"
     },
+    "apps.uninstall.plan": {
+      "id": "apps.uninstall.plan",
+      "title": "Stage an immutable single-application uninstall plan",
+      "mode": "user-initiated",
+      "channel": "knoux:operations:v1:appUninstallPlan"
+    },
+    "apps.uninstall.apply": {
+      "id": "apps.uninstall.apply",
+      "title": "Execute an approved single-application uninstall with native consent",
+      "mode": "user-initiated",
+      "channel": "knoux:operations:v1:appUninstallApply"
+    },
+    "apps.uninstall.receipts": {
+      "id": "apps.uninstall.receipts",
+      "title": "List all protected uninstall receipts",
+      "mode": "read-only",
+      "channel": "knoux:operations:v1:appUninstallReceipts"
+    },
     "cleanup.capabilities": {
       "id": "cleanup.capabilities",
       "title": "Read-only Clean Room capabilities and safety policy",

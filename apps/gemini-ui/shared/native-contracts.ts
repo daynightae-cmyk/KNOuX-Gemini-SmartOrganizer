@@ -1282,6 +1282,42 @@ export interface AppPlan {
   mutation: 'none';
 }
 
+/**
+ * App Uninstall Plan - immutable preview for a single application uninstall.
+ */
+export interface AppUninstallPlan {
+  id: string;
+  planHash: string;
+  appId: string;
+  appName: string;
+  method: AppRemovalMethod;
+  before: 'installed';
+  after: 'uninstalled';
+  identityHash: string;
+  receiptId: string | null;
+  expiresAt: string;
+}
+
+/**
+ * App Uninstall Receipt - durable record of an executed uninstall.
+ */
+export interface AppUninstallReceipt {
+  id: string;
+  name: string;
+  method: AppRemovalMethod;
+  status: 'prepared' | 'changed' | 'uncertain' | 'restored';
+  before: 'installed';
+  after: 'uninstalled';
+  createdAt: string;
+  updatedAt: string;
+  error: string | null;
+  recoveryAvailable: boolean;
+  verification?: {
+    success: boolean;
+    reason: string;
+  };
+}
+
 export interface AppPackageEntry {
   name: string;
   id: string;
@@ -3567,6 +3603,58 @@ export interface AppsShellApi {
   plan: (request: { appIds: string[] }) => Promise<NativeEnvelope<AppPlan>>;
   packages: (request: { tab: 'installed' | 'discover'; query?: string }) => Promise<NativeEnvelope<AppPackagesResult>>;
   openSettings: (target: 'defaultapps' | 'appsfeatures') => Promise<NativeEnvelope<{ opened: boolean; target: string }>>;
+  appUninstallPlan: (request: { appId: string }) => Promise<NativeEnvelope<AppUninstallPlan>>;
+  appUninstallApply: (request: { planId: string; planHash: string; approved: boolean }) => Promise<NativeEnvelope<AppUninstallReceipt>>;
+  appUninstallReceipts: () => Promise<NativeEnvelope<AppUninstallReceipt[]>>;
+}
+
+/**
+ * Operations v1 - fixed live-operation endpoints.
+ * Exposes cross-domain operations: vault, startup, services, automation, and app-uninstall.
+ */
+export interface OperationsShellApi {
+  contractVersion: number;
+  chooseSource: (request: any) => Promise<NativeEnvelope<any>>;
+  chooseDestination: (request: any) => Promise<NativeEnvelope<any>>;
+  scan: (request: any) => Promise<NativeEnvelope<any>>;
+  plan: (request: any) => Promise<NativeEnvelope<any>>;
+  execute: (request: any) => Promise<NativeEnvelope<any>>;
+  cancel: (request: any) => Promise<NativeEnvelope<any>>;
+  history: (request: any) => Promise<NativeEnvelope<any>>;
+  undoPreview: (request: any) => Promise<NativeEnvelope<any>>;
+  undo: (request: any) => Promise<NativeEnvelope<any>>;
+  revoke: (request: any) => Promise<NativeEnvelope<any>>;
+  storageScan: (request: any) => Promise<NativeEnvelope<any>>;
+  vaultPlan: (request: any) => Promise<NativeEnvelope<any>>;
+  vaultExecute: (request: any) => Promise<NativeEnvelope<any>>;
+  vaultList: (request: any) => Promise<NativeEnvelope<any>>;
+  vaultRestorePreview: (request: any) => Promise<NativeEnvelope<any>>;
+  vaultRestore: (request: any) => Promise<NativeEnvelope<any>>;
+  vaultReport: (request: any) => Promise<NativeEnvelope<any>>;
+  startupDisablePlan: (request: any) => Promise<NativeEnvelope<any>>;
+  startupRestorePlan: (request: any) => Promise<NativeEnvelope<any>>;
+  startupApply: (request: any) => Promise<NativeEnvelope<any>>;
+  startupReceipts: () => Promise<NativeEnvelope<any>>;
+  serviceStatePlan: (request: any) => Promise<NativeEnvelope<any>>;
+  serviceRestorePlan: (request: any) => Promise<NativeEnvelope<any>>;
+  serviceStateApply: (request: any) => Promise<NativeEnvelope<any>>;
+  serviceReceipts: () => Promise<NativeEnvelope<any>>;
+  automationRunPlan: (request: any) => Promise<NativeEnvelope<any>>;
+  automationRun: (request: any) => Promise<NativeEnvelope<any>>;
+  automationRunReceipts: () => Promise<NativeEnvelope<any>>;
+  automationRunCancel: () => Promise<NativeEnvelope<any>>;
+  appUninstallPlan: (request: { appId: string }) => Promise<NativeEnvelope<any>>;
+  appUninstallApply: (request: { planId: string; planHash: string; approved: boolean }) => Promise<NativeEnvelope<any>>;
+  appUninstallReceipts: () => Promise<NativeEnvelope<any>>;
+  automationScheduleArm: (request: any) => Promise<NativeEnvelope<any>>;
+  automationSchedulePause: (request: any) => Promise<NativeEnvelope<any>>;
+  automationSchedules: () => Promise<NativeEnvelope<any>>;
+  automationScheduleArmBackground: (request: any) => Promise<NativeEnvelope<any>>;
+  automationScheduleEnableBackground: (request: any) => Promise<NativeEnvelope<any>>;
+  automationScheduleDisableBackground: (request: any) => Promise<NativeEnvelope<any>>;
+  automationScheduleUnregisterBackground: (request: any) => Promise<NativeEnvelope<any>>;
+  automationSchedulesBackground: () => Promise<NativeEnvelope<any>>;
+  onEvent: (callback: (event: any) => void) => () => void;
 }
 
 /* Google Workspace desktop OAuth v1. Token and client-secret material never
