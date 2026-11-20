@@ -17,6 +17,7 @@ import {
   type AiConfigureResult,
   type AiProviderId,
   type AiShellApi,
+  type AiStreamChunk,
   type AiVerifyResult,
   type NativeEnvelope,
 } from '../../shared/native-contracts';
@@ -129,18 +130,29 @@ export async function requestAiCompletionStream(request: {
   model?: string;
   maxTokens?: number;
   timeoutMs?: number;
-}): Promise<AsyncIterable<string> | { ok: false; error: AiBridgeFailure }> {
+}): Promise<{ ok: true; requestId: string; model: string; provider: AiProviderId } | { ok: false; error: AiBridgeFailure }> {
   const api = getAiBridge();
   if (!api) return { ok: false, error: UNAVAILABLE };
   try {
     const envelope = await api.completeStream(request);
     const stream = envelope?.data;
     if (!stream) return { ok: false, error: { code: 'AI_STREAM_FAILED', message: 'Stream creation failed', retryable: true } };
-    if ('error' in stream) return { ok: false, error: stream.error as AiBridgeFailure };
-    return stream.iterate();
+    if (!stream.ok) return { ok: false, error: (stream as { error: AiBridgeFailure }).error };
+    return { ok: true, requestId: stream.requestId, model: stream.model, provider: stream.provider };
   } catch (error) {
     return { ok: false, error: { code: 'AI_BRIDGE_CALL_FAILED', message: `The streaming request did not reach the AI bridge.`, retryable: true } };
   }
+}
+
+/**
+ * Subscribe to AI streaming chunks. The callback receives { requestId, chunk, done, error? }
+ * objects as the stream produces them.
+ */
+export function onAiStreamChunk(callback: (chunk: AiStreamChunk) => void): () => void {
+  const api = getAiBridge();
+  if (!api) return () => {};
+  api.aiStreamChunk((chunk: AiStreamChunk) => callback(chunk));
+  return () => {};
 }
 
 export function cancelAiRequests(): Promise<AiBridgeResult<{ cancelled: number }>> {

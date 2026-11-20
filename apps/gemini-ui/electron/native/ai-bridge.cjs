@@ -1,5 +1,7 @@
 'use strict';
 
+const { EventEmitter } = require('node:events');
+
 /**
  * KNOuX Gemini — Main-process AI provider bridge.
  *
@@ -271,8 +273,9 @@ function summarizeKeyProbe(shape, body) {
   return null;
 }
 
-class AiBridge {
+class AiBridge extends EventEmitter {
   constructor(options = {}) {
+    super();
     this.fetchImpl = options.fetchImpl || globalThis.fetch;
     this.safeStorage = options.safeStorage || null;
     this.now = options.now || (() => Date.now());
@@ -511,7 +514,9 @@ class AiBridge {
     };
   }
 
-  /** Streaming chat completion. Yields incremental chunks via callback. */
+  /** Streaming chat completion. Starts a streaming request and returns a requestId.
+   * Chunks are delivered via 'stream-chunk' events emitted on this bridge instance.
+   * Renderers listen via knouxAiV1.completeStream() which sets up the event listener. */
   async completeStream(request = {}) {
     if (!this.secret) throw aiError('AI_NOT_CONFIGURED', 'Connect an AI provider key first.', false);
     const provider = resolveProvider(this.providerId);
@@ -526,58 +531,92 @@ class AiBridge {
         : { model, max_tokens: maxTokens, temperature: 0.7, messages: [{ role: 'system', content: system }, ...messages], stream: true };
 
     const init = this.requestInit(provider.complete.method, { ...authHeaders(provider, this.secret), ...provider.staticHeaders }, JSON.stringify(body));
-    const { response, requestId } = await this.runRequest(url, init, request.timeoutMs);
-    if (!response.ok) {
-      const parsed = await readBounded(response, LIMITS.MAX_RESPONSE_BYTES);
-      const message = redact(extractProviderError(provider.complete.shape, parsed.body, parsed.status), [this.secret]);
-      this.lastError = { code: 'AI_PROVIDER_ERROR', message, retryable: parsed.status >= 500 };
-      return { ok: false, model, status: parsed.status, requestId, error: this.lastError };
+    const requestId = `ai-${Date.now().toString(36)}-${(this.requestSeq += 1)}`;
+    if (this.inFlight.size >= LIMITS.MAX_IN_FLIGHT) {
+      throw aiError('AI_BUSY', 'Too many AI requests are already in flight. Wait for one to finish.', true);
     }
+    const controller = new AbortController();
+    this.inFlight.set(requestId, controller);
+
+    // Start streaming in the background; chunks are emitted via this.emit('stream-chunk', ...)
+    const timer = setTimeout(() => controller.abort(), request.timeoutMs || LIMITS.DEFAULT_TIMEOUT_MS);
+    this.runRequest(url, { ...init, signal: controller.signal }, request.timeoutMs).then(async ({ response }) => {
+      if (!response.ok) {
+        const parsed = await readBounded(response, LIMITS.MAX_RESPONSE_BYTES);
+        const message = redact(extractProviderError(provider.complete.shape, parsed.body, parsed.status), [this.secret]);
+        this.lastError = { code: 'AI_PROVIDER_ERROR', message, retryable: parsed.status >= 500 };
+        this.emit('stream-chunk', { requestId, chunk: null, done: true, error: { code: 'AI_PROVIDER_ERROR', message, retryable: parsed.status >= 500 } });
+        this.inFlight.delete(requestId);
+        clearTimeout(timer);
+        return;
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      try {
+        while (true) {
+          if (controller.signal.aborted) {
+            reader.releaseLock();
+            this.emit('stream-chunk', { requestId, chunk: null, done: true, error: { code: 'AI_CANCELLED', message: 'Stream cancelled by caller.', retryable: false } });
+            return;
+          }
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed || !trimmed.startsWith('data: ')) continue;
+            const data = trimmed.slice(6);
+            if (data === '[DONE]') {
+              this.emit('stream-chunk', { requestId, chunk: null, done: true });
+              this.inFlight.delete(requestId);
+              clearTimeout(timer);
+              return;
+            }
+            try {
+              const chunk = JSON.parse(data);
+              let text = null;
+              if (provider.complete.shape === 'anthropic') {
+                if (chunk.type === 'content_block_delta' && chunk.delta?.type === 'text_delta') {
+                  text = chunk.delta.text;
+                }
+              } else {
+                const delta = chunk.choices?.[0]?.delta?.content;
+                if (delta) text = delta;
+              }
+              if (text) {
+                this.emit('stream-chunk', { requestId, chunk: redact(text, [this.secret]), done: false });
+              }
+            } catch {
+              // Ignore malformed chunks
+            }
+          }
+        }
+      } catch (err) {
+        if (controller.signal.aborted) {
+          this.emit('stream-chunk', { requestId, chunk: null, done: true, error: { code: 'AI_CANCELLED', message: 'Stream cancelled by caller.', retryable: false } });
+        } else {
+          this.emit('stream-chunk', { requestId, chunk: null, done: true, error: { code: 'AI_STREAM_ERROR', message: String(err?.message || 'Stream error.'), retryable: true } });
+        }
+      } finally {
+        reader.releaseLock();
+        this.inFlight.delete(requestId);
+        clearTimeout(timer);
+      }
+    }).catch((err) => {
+      this.emit('stream-chunk', { requestId, chunk: null, done: true, error: { code: 'AI_STREAM_ERROR', message: String(err?.message || 'Stream request failed.'), retryable: true } });
+      this.inFlight.delete(requestId);
+      clearTimeout(timer);
+    });
 
     return {
       ok: true,
       requestId,
       model,
       provider: provider.id,
-      async *iterate() {
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-        try {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop() || '';
-            for (const line of lines) {
-              const trimmed = line.trim();
-              if (!trimmed || !trimmed.startsWith('data: ')) continue;
-              const data = trimmed.slice(6);
-              if (data === '[DONE]') return;
-              try {
-                const chunk = JSON.parse(data);
-                let text = null;
-                if (provider.complete.shape === 'anthropic') {
-                  if (chunk.type === 'content_block_delta' && chunk.delta?.type === 'text_delta') {
-                    text = chunk.delta.text;
-                  }
-                } else {
-                  const delta = chunk.choices?.[0]?.delta?.content;
-                  if (delta) text = delta;
-                }
-                if (text) {
-                  yield redact(text, [this.secret]);
-                }
-              } catch {
-                // Ignore malformed chunks
-              }
-            }
-          }
-        } finally {
-          reader.releaseLock();
-        }
-      }
     };
   }
 

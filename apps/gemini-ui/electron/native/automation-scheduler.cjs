@@ -32,6 +32,10 @@ class AutomationScheduler {
     this.timer = null;
     this.ticking = false;
     this.taskScheduler = new TaskScheduler({ userDataPath });
+    // Load persisted background schedules on startup
+    this.loadBackgroundSchedules().catch(() => {
+      // Background schedule loading failure is non-fatal
+    });
   }
 
   next(workflow) {

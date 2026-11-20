@@ -12,7 +12,7 @@ const APP_METHODS={appUninstallPlan:'plan',appUninstallApply:'apply',appUninstal
 const CHANNELS=Object.freeze(Object.fromEntries(['chooseSource','chooseDestination','scan','plan','execute','cancel','history','undoPreview','undo','revoke',...Object.keys(VAULT_FIELDS),...Object.keys(STARTUP_FIELDS),...Object.keys(SERVICE_FIELDS),...Object.keys(AUTO_FIELDS),...Object.keys(APP_FIELDS),'event'].map(key=>[key,`knoux:operations:v1:${key}`])));
 const fields={chooseSource:[],chooseDestination:[],scan:['sourceId'],plan:['sourceId','destinationId','fileIds','operation','structure','collisionPolicy','categoryFolderNames','categoryDestinations','fileNames'],execute:['planId','planHash','approved'],cancel:[],history:[],undoPreview:['journalId'],undo:['journalId','previewId','previewHash','approved','resolution'],revoke:[]};
 function registerOperationIpc({ipcMain,getBridge,assertSender}) {
-  for(const [method,allowed] of Object.entries({...fields,...VAULT_FIELDS,...STARTUP_FIELDS,...SERVICE_FIELDS,...AUTO_FIELDS})) ipcMain.handle(CHANNELS[method],async(event,...args)=>{
+  for(const [method,allowed] of Object.entries({...fields,...VAULT_FIELDS,...STARTUP_FIELDS,...SERVICE_FIELDS,...AUTO_FIELDS,...APP_FIELDS})) ipcMain.handle(CHANNELS[method],async(event,...args)=>{
     const capability=`operations.${method}`;
     try {
       assertSender(event);

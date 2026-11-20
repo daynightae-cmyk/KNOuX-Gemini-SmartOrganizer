@@ -3880,6 +3880,18 @@ export interface AiShellApi {
   clear: () => Promise<NativeEnvelope<AiClearResult>>;
   verify: (request?: { timeoutMs?: number }) => Promise<NativeEnvelope<AiVerifyResult>>;
   complete: (request: { messages: AiChatMessage[]; model?: string; maxTokens?: number; timeoutMs?: number }) => Promise<NativeEnvelope<AiCompletionResult>>;
-  completeStream: (request: { messages: AiChatMessage[]; model?: string; maxTokens?: number; timeoutMs?: number }) => Promise<NativeEnvelope<{ ok: boolean; requestId: string; model: string; provider: AiProviderId; iterate: () => AsyncGenerator<string> } | { ok: false; model: string; status: number; requestId: string; error: { code: string; message: string; retryable: boolean } }>>;
+  completeStream: (request: { messages: AiChatMessage[]; model?: string; maxTokens?: number; timeoutMs?: number }) => Promise<NativeEnvelope<{ ok: boolean; requestId: string; model: string; provider: AiProviderId } | { ok: false; model: string; status: number; requestId: string; error: { code: string; message: string; retryable: boolean } }>>;
   cancel: () => Promise<NativeEnvelope<AiCancelResult>>;
+  aiStreamChunk: (callback: (chunk: AiStreamChunk) => void) => void;
+}
+
+/**
+ * Streaming chunk delivered from a completed AI completion request.
+ * Renderers listen for knoux:ai:v1:stream-chunk events via the preload bridge.
+ */
+export interface AiStreamChunk {
+  requestId: string;
+  chunk: string;
+  done: boolean;
+  error?: { code: string; message: string; retryable: boolean };
 }

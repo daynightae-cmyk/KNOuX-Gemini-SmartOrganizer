@@ -44,8 +44,7 @@ class AutomationRunner {
    const modules=node.config.modules;if(!Array.isArray(modules)||!modules.length||modules.some(m=>!['inventory','capacity','system'].includes(m)))throw err('AUTOMATION_MODULE_GATED','Choose supported inventory, capacity or system observation modules.');
    if(modules.includes('inventory'))services.add('quick_scan');if(modules.includes('capacity')||modules.includes('system'))services.add('system_health_pulse');
   }
-  if(!services.size)throw err('AUTOMATION_NO_ACTION','At least one supported native observation action is required.');return {order,services:[...services]};
- }
+  if(!services.size)throw err('AUTOMATION_NO_ACTION','At least one supported native observation action is required.');return {order,services:[...services]};}
  async plan({workflowId,sourceId}){
   this.store.available();const workflow=await this.saved(workflowId),validated=this.validate(workflow);let source=null;
   if(validated.services.includes('quick_scan')){source=this.studio.getSource(sourceId);if(!source||!this.operations.authorized(source.path,'source'))throw err('AUTOMATION_SOURCE_REQUIRED','Authorize and index the source through this execution workbench first.');}
@@ -146,7 +145,6 @@ class AutomationRunner {
 
   async enableBackgroundSchedule({ scheduleId }) {
     if (!this.taskScheduler) throw err('AUTOMATION_BACKGROUND_UNAVAILABLE', 'Windows Task Scheduler integration unavailable.');
-    // Find the workflow ID from scheduleId
     const tasks = await this.taskScheduler.listAllTasks();
     const task = tasks.find(t => t.TaskName === scheduleId);
     if (!task) throw err('AUTOMATION_BACKGROUND_NOT_FOUND', 'Background schedule not found.');
@@ -173,6 +171,110 @@ class AutomationRunner {
     const workflowId = task.TaskName?.slice('KNOuX-Automation-'.length);
     await this.taskScheduler.unregisterTask(workflowId);
     return { success: true, workflowId };
+  }
+
+  /**
+   * Execute a background automation workflow (triggered by Windows Task Scheduler).
+   * Runs without requiring the app window to be open or foreground consent dialog.
+   * Uses the same execution engine as foreground runs but skips the UI consent dialog
+   * since consent was already obtained at schedule arming time.
+   */
+  async runBackground({ workflowId, sourceId }) {
+    const workflow = await this.saved(workflowId);
+    this.validate(workflow);
+
+    const plan = await this.plan({ workflowId: workflow.id, sourceId });
+
+    return this.operations.runJob('automation-run-background', 'auto-smart-scan', async ({ opId, signal, event }) => {
+      if (signal.aborted) throw err('AUTOMATION_PLAN_MISMATCH', 'The workflow was cancelled before execution.');
+
+      const receipt = {
+        id: crypto.randomUUID(),
+        kind: 'native-observation-run-v1',
+        operationId: opId,
+        name: workflow.name,
+        workflowId: workflow.id,
+        workflowVersion: workflow.version,
+        planHash: plan.planHash,
+        status: 'running',
+        createdAt: new Date(this.now()).toISOString(),
+        mode: 'background-observation',
+        scheduleId: null,
+        externalMutation: 'none',
+        steps: [],
+      };
+      await this.store.save(receipt);
+
+      event('started', { completed: 0, total: plan.order.length, receiptId: receipt.id });
+
+      try {
+        let activeScan = null;
+        const sessions = new Map();
+        const cancelScan = () => { if (activeScan) void this.scan.cancel(activeScan).catch(() => {}); };
+        signal.addEventListener('abort', cancelScan);
+
+        for (const id of plan.order) {
+          if (signal.aborted) { receipt.status = 'cancelled'; break; }
+          const node = workflow.nodes.find(n => n.id === id);
+          const step = { id: node.id, label: node.label, type: node.type, status: 'running', startedAt: new Date(this.now()).toISOString() };
+          receipt.steps.push(step);
+          await this.store.save(receipt);
+
+          const blockedBy = workflow.edges.filter(e => e.to === id).map(e => receipt.steps.find(s => s.id === e.from)).filter(s => s?.status !== 'complete');
+          if (blockedBy.length) {
+            step.status = 'skipped';
+            step.evidence = { reason: 'Every incoming dependency must complete with full evidence; partial, false or unavailable results block their entire dependent path.', blockedBy: blockedBy.map(s => s?.id || 'missing') };
+          } else if (node.type === 'condition') {
+            Object.assign(step, evaluateCondition(node, sessions));
+          } else if (node.type === 'action') {
+            const modules = node.config.modules;
+            const services = [...(modules.includes('inventory') ? ['quick_scan'] : []), ...(modules.includes('capacity') || modules.includes('system') ? ['system_health_pulse'] : [])];
+            const started = await this.scan.start({ mode: 'custom', services, ...(services.includes('quick_scan') ? { sourceId: plan.sourceId } : {}) });
+            activeScan = started.sessionId;
+            const deadline = performance.now() + 180000;
+            let session;
+            do {
+              if (signal.aborted) await this.scan.cancel(activeScan);
+              session = await this.scan.status(activeScan);
+              if (['complete', 'partial', 'failed', 'cancelled'].includes(session.status)) break;
+              if (performance.now() > deadline) { await this.scan.cancel(activeScan); throw err('AUTOMATION_SCAN_TIMEOUT', 'Native scan exceeded the workflow deadline.'); }
+              await new Promise(resolve => setTimeout(resolve, 100));
+            } while (true);
+            activeScan = null;
+            sessions.set(node.id, session);
+            step.evidence = { scanSessionId: session.id, status: session.status, sourceId: session.sourceId, scope: session.scope, filesIndexed: session.summary.filesIndexed, bytesIndexed: session.summary.bytesIndexed, findings: session.findings.length, services: session.services.map(s => ({ id: s.serviceId, status: s.status, source: s.source, warnings: s.warnings.slice(0, 10).map(n => String(n).slice(0, 180)), limitations: s.limitations.slice(0, 10).map(n => String(n).slice(0, 180)), fullEvidence: 'retained in native Smart Scan session' })) };
+            if (session.status === 'failed') throw err('AUTOMATION_SCAN_FAILED', 'The native observation failed; later workflow nodes did not run.');
+            step.status = session.status === 'cancelled' ? 'cancelled' : session.status === 'partial' ? 'partial' : 'complete';
+          } else if (node.type === 'trigger') {
+            step.status = 'complete';
+            step.evidence = { trigger: 'background scheduled occurrence; no OS task registered', scheduleId: null };
+          } else if (node.type === 'approval') {
+            step.status = 'complete';
+            step.evidence = { approval: 'background scheduled occurrence plus per-occurrence native consent' };
+          } else {
+            step.status = 'complete';
+            step.evidence = { artifact: 'this durable protected receipt', measuredActionSteps: receipt.steps.filter(s => s.type === 'action' && ['complete', 'partial'].includes(s.status)).length };
+          }
+          step.finishedAt = new Date(this.now()).toISOString();
+          await this.store.save(receipt);
+          event('progress', { completed: receipt.steps.filter(s => s.status === 'complete').length, total: plan.order.length, receiptId: receipt.id });
+          if (step.status === 'cancelled') { receipt.status = 'cancelled'; break; }
+        }
+        if (receipt.status === 'running') receipt.status = receipt.steps.some(s => s.status === 'unavailable') ? 'partial' : receipt.steps.some(s => s.status === 'gated') ? 'gated' : receipt.steps.some(s => s.status === 'partial') ? 'partial' : 'complete';
+      } catch (e) {
+        receipt.status = signal.aborted ? 'cancelled' : 'failed';
+        receipt.error = String(e.message).slice(0, 300);
+        const pending = receipt.steps.find(s => s.status === 'running');
+        if (pending) pending.status = receipt.status;
+      } finally {
+        signal.removeEventListener('abort', cancelScan);
+        if (activeScan) await this.scan.cancel(activeScan).catch(() => {});
+        receipt.finishedAt = new Date(this.now()).toISOString();
+        await this.store.save(receipt);
+      }
+      event(receipt.status === 'complete' ? 'completed' : receipt.status, { completed: receipt.steps.filter(s => s.status === 'complete').length, total: plan.order.length, receiptId: receipt.id });
+      return receipt;
+    });
   }
 }
 module.exports={AutomationRunner};

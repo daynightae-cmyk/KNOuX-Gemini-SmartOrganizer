@@ -49,9 +49,11 @@ class ServiceActions {
 }
  async restorePlan({receiptId}){
   const receipt=await this.load(receiptId);if(!this.publicReceipt(receipt).recoveryAvailable)throw err('SCM_RESTORE_UNAVAILABLE','This service receipt has no pending recovery.');
-  const evidence=await this.control('read',receipt.original.name),action=receipt.original.state==='Running'?'start':'stop';eligible(evidence,action);
+  const evidence=await this.control('read',receipt.original.name);
+  const action = receipt.action === 'startup-type' ? 'startup-type' : (receipt.original.state === 'Running' ? 'start' : 'stop');
+  eligible(evidence, action, receipt.action === 'startup-type' ? receipt.original.startMode : null);
   if(hash(config(evidence))!==hash(config(receipt.original))||evidence.state!==receipt.afterState)throw err('SCM_RESTORE_CONFLICT','Service identity or current state differs from the receipt. Nothing was forced.');
-  return this.remember({action,expected:evidence,original:receipt.original,receiptId,receiptHash:hash(receipt)});
+  return this.remember({action,expected:evidence,original:receipt.original,startupType: receipt.action === 'startup-type' ? receipt.original.startMode : null,receiptId,receiptHash:hash(receipt)});
  }
  async apply({ planId, planHash, approved }) {
   if (approved !== true) throw err('SCM_APPROVAL_REQUIRED', 'Approve this exact service-state change.');
@@ -77,8 +79,11 @@ class ServiceActions {
     try {
       let after;
       if (plan.action === 'restart') {
+        // Stop first, then re-read evidence to avoid passing stale state to start
         await this.control('stop', plan.expected.name, plan.expected);
-        after = await this.control('start', plan.expected.name, plan.expected);
+        const stopped = await this.control('read', plan.expected.name);
+        eligible(stopped, 'start');
+        after = await this.control('start', plan.expected.name, stopped);
       } else if (plan.action === 'startup-type') {
         after = await this.control('startup-type', plan.expected.name, { ...plan.expected, startMode: plan.startupType });
       } else {

@@ -6,6 +6,8 @@
  * Registers, modifies, disables, and removes app-owned scheduled tasks.
  * Uses least-privilege approach: tasks run the KNOuX Electron app with
  * specific arguments. No credentials embedded. No arbitrary command execution.
+ * Task ownership is verified before modification to prevent hijacking.
+ * All parsing is locale-independent (uses /FO CSV with explicit headers).
  */
 
 const { execFile } = require('node:child_process');
@@ -19,6 +21,7 @@ const TASK_FOLDER = '\\KNOuX';
 const TASK_PREFIX = 'KNOuX-Automation-';
 const MAX_TASKS = 20;
 const MAX_TASK_NAME_LENGTH = 200;
+const SCHTASKS_TIMEOUT_MS = 30000;
 
 function taskError(code, message, retryable = false) {
   const error = new Error(message);
@@ -70,6 +73,7 @@ function getElectronPath() {
     path.join(base, 'electron.exe'),
     path.join(base, '..', 'electron.exe'),
     path.join(base, '..', '..', 'electron.exe'),
+    path.join(base, '..', '..', '..', 'electron.exe'),
   ];
   for (const candidate of candidates) {
     try {
@@ -86,6 +90,18 @@ function getAppEntryPoint() {
   return path.join(__dirname, '..', 'main.cjs');
 }
 
+function quoteArg(arg) {
+  // Quote an argument for safe passing on the command line
+  if (arg.includes('"')) {
+    arg = arg.replace(/"/g, '""');
+  }
+  return `"${arg}"`;
+}
+
+function buildCommandLine(program, args) {
+  return args.map((a) => (a.includes(' ') || a.includes('"') ? `"${a.replace(/"/g, '""')}"` : a)).join(' ');
+}
+
 class TaskScheduler {
   constructor(options = {}) {
     this.userDataPath = options.userDataPath || path.join(require('node:os').tmpdir(), 'knoux-automation-tasks');
@@ -94,21 +110,63 @@ class TaskScheduler {
     this.now = options.now || (() => Date.now());
   }
 
-  async ensureFolder() {
-    try {
-      await this.runSchTasks(['/Create', '/TN', TASK_FOLDER, '/F', '/RL', 'HIGHEST']);
-    } catch (e) {
-      // Folder might already exist, ignore
-    }
-  }
-
   async runSchTasks(args) {
     const result = await execFileAsync('schtasks.exe', args, {
       windowsHide: true,
-      timeout: 30000,
+      timeout: SCHTASKS_TIMEOUT_MS,
       maxBuffer: 1024 * 1024,
+      encoding: 'utf8',
     });
     return { stdout: String(result?.stdout || ''), stderr: String(result?.stderr || '') };
+  }
+
+  async ensureFolder() {
+    try {
+      // /F forces creation even if folder exists (idempotent)
+      await this.runSchTasks(['/Create', '/TN', TASK_FOLDER, '/F', '/RL', 'LIMITED']);
+    } catch (e) {
+      // Folder might already exist or access denied - check if we can list tasks
+      try {
+        await this.runSchTasks(['/Query', '/TN', TASK_FOLDER, '/FO', 'CSV']);
+      } catch (e2) {
+        throw taskError('TASK_FOLDER_UNAVAILABLE', 'Cannot create or access the KNOuX task folder. Run KNOuX as Administrator to enable background scheduling.', false);
+      }
+    }
+  }
+
+  async taskExists(taskName) {
+    try {
+      await this.runSchTasks(['/Query', '/TN', `"${taskName}"`, '/FO', 'CSV']);
+      return true;
+    } catch (e) {
+      const stderr = e?.stderr || String(e);
+      if (/not found|cannot find|system cannot find/i.test(stderr)) {
+        return false;
+      }
+      throw e;
+    }
+  }
+
+  async getExistingTaskOwner(taskName) {
+    try {
+      const result = await this.runSchTasks(['/Query', '/TN', `"${taskName}"`, '/FO', 'CSV', '/V']);
+      const stdout = result.stdout;
+      // Parse the "Author" field from CSV output (locale-independent column header)
+      const lines = stdout.split('\n');
+      if (lines.length < 2) return null;
+      const headers = lines[0].split(',').map((h) => h.replace(/"/g, '').trim());
+      const authorIdx = headers.indexOf('Author');
+      if (authorIdx === -1) return null;
+      for (let i = 1; i < lines.length; i++) {
+        const values = this.parseCsvLine(lines[i]);
+        if (values.length > authorIdx) {
+          return values[authorIdx]?.replace(/"/g, '').trim();
+        }
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
   }
 
   async registerTask(workflow) {
@@ -136,12 +194,21 @@ class TaskScheduler {
       throw taskError('TASK_TRIGGER_INVALID', 'Unsupported trigger type.');
     }
 
+    // Check if task already exists and verify ownership before overwriting
+    if (await this.taskExists(taskName)) {
+      const existingOwner = await this.getExistingTaskOwner(taskName);
+      const currentUser = require('node:os').userInfo().username;
+      if (existingOwner && existingOwner !== currentUser && existingOwner !== `S-${process.env.USERDOMAIN}\\${currentUser}`) {
+        throw taskError('TASK_OWNERSHIP_CONFLICT', `Task "${taskName}" is owned by another user. Cannot overwrite.`, false);
+      }
+    }
+
     const schArgs = [
       '/Create',
       '/TN', `"${TASK_FOLDER}\\${taskName}"`,
       '/TR', fullCommand,
-      '/RL', 'HIGHEST',  // Run with highest privileges (UAC prompt if needed)
-      '/F',              // Force overwrite if exists
+      '/RL', 'LIMITED',  // Least privilege - limited user token
+      '/F',              // Force overwrite only after ownership check
       ...triggerArgs,
     ];
 
@@ -161,6 +228,15 @@ class TaskScheduler {
     const taskName = `${TASK_PREFIX}${workflowId}`;
     validateTaskName(taskName);
 
+    // Verify ownership before deletion
+    if (await this.taskExists(taskName)) {
+      const existingOwner = await this.getExistingTaskOwner(taskName);
+      const currentUser = require('node:os').userInfo().username;
+      if (existingOwner && existingOwner !== currentUser && existingOwner !== `S-${process.env.USERDOMAIN}\\${currentUser}`) {
+        throw taskError('TASK_OWNERSHIP_CONFLICT', `Task "${taskName}" is owned by another user. Cannot delete.`, false);
+      }
+    }
+
     try {
       await this.runSchTasks(['/Delete', '/TN', `"${TASK_FOLDER}\\${taskName}"`, '/F']);
       return { success: true, taskName };
@@ -177,6 +253,14 @@ class TaskScheduler {
     const taskName = `${TASK_PREFIX}${workflowId}`;
     validateTaskName(taskName);
 
+    if (await this.taskExists(taskName)) {
+      const existingOwner = await this.getExistingTaskOwner(taskName);
+      const currentUser = require('node:os').userInfo().username;
+      if (existingOwner && existingOwner !== currentUser && existingOwner !== `S-${process.env.USERDOMAIN}\\${currentUser}`) {
+        throw taskError('TASK_OWNERSHIP_CONFLICT', `Task "${taskName}" is owned by another user. Cannot disable.`, false);
+      }
+    }
+
     try {
       await this.runSchTasks(['/Change', '/TN', `"${TASK_FOLDER}\\${taskName}"`, '/DISABLE']);
       return { success: true, taskName, disabled: true };
@@ -188,6 +272,14 @@ class TaskScheduler {
   async enableTask(workflowId) {
     const taskName = `${TASK_PREFIX}${workflowId}`;
     validateTaskName(taskName);
+
+    if (await this.taskExists(taskName)) {
+      const existingOwner = await this.getExistingTaskOwner(taskName);
+      const currentUser = require('node:os').userInfo().username;
+      if (existingOwner && existingOwner !== currentUser && existingOwner !== `S-${process.env.USERDOMAIN}\\${currentUser}`) {
+        throw taskError('TASK_OWNERSHIP_CONFLICT', `Task "${taskName}" is owned by another user. Cannot enable.`, false);
+      }
+    }
 
     try {
       await this.runSchTasks(['/Change', '/TN', `"${TASK_FOLDER}\\${taskName}"`, '/ENABLE']);
@@ -202,7 +294,7 @@ class TaskScheduler {
     validateTaskName(taskName);
 
     try {
-      const result = await this.runSchTasks(['/Query', '/TN', `"${TASK_FOLDER}\\${taskName}"`, '/V', '/FO', 'LIST']);
+      const result = await this.runSchTasks(['/Query', '/TN', `"${taskName}"`, '/FO', 'CSV', '/V']);
       return { success: true, taskName, output: result.stdout };
     } catch (error) {
       const stderr = error?.stderr || String(error);
@@ -229,7 +321,7 @@ class TaskScheduler {
   parseTaskList(csvOutput) {
     const lines = csvOutput.trim().split('\n');
     if (lines.length < 2) return [];
-    const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim());
+    const headers = lines[0].split(',').map((h) => h.replace(/"/g, '').trim());
     const tasks = [];
     for (let i = 1; i < lines.length; i++) {
       const values = this.parseCsvLine(lines[i]);
@@ -274,12 +366,20 @@ class TaskScheduler {
     const query = await this.queryTask(workflowId);
     if (!query.success) return null;
 
-    // Parse Next Run Time from output
+    // Parse Next Run Time from CSV output - find the "Next Run Time" column
     const lines = query.output.split('\n');
-    for (const line of lines) {
-      if (line.includes('Next Run Time') || line.includes('Next Run')) {
-        const match = line.match(/:\s*(.+)$/);
-        if (match) return match[1].trim();
+    if (lines.length < 2) return null;
+    const headers = lines[0].split(',').map((h) => h.replace(/"/g, '').trim());
+    const nextRunIdx = headers.indexOf('Next Run Time');
+    if (nextRunIdx === -1) return null;
+
+    for (let i = 1; i < lines.length; i++) {
+      const values = this.parseCsvLine(lines[i]);
+      if (values.length > nextRunIdx) {
+        const nextRun = values[nextRunIdx]?.replace(/"/g, '').trim();
+        if (nextRun && nextRun !== 'Never' && nextRun !== 'Disabled') {
+          return nextRun;
+        }
       }
     }
     return null;
@@ -289,16 +389,20 @@ class TaskScheduler {
     const query = await this.queryTask(workflowId);
     if (!query.success) return 'not-found';
 
+    // Parse Status from CSV output - find the "Status" column
     const lines = query.output.split('\n');
-    for (const line of lines) {
-      if (line.includes('Status') || line.includes('State')) {
-        const match = line.match(/:\s*(.+)$/);
-        if (match) {
-          const status = match[1].trim().toLowerCase();
-          if (status.includes('running')) return 'running';
-          if (status.includes('ready') || status.includes('enabled')) return 'enabled';
-          if (status.includes('disabled')) return 'disabled';
-        }
+    if (lines.length < 2) return 'unknown';
+    const headers = lines[0].split(',').map((h) => h.replace(/"/g, '').trim());
+    const statusIdx = headers.indexOf('Status');
+    if (statusIdx === -1) return 'unknown';
+
+    for (let i = 1; i < lines.length; i++) {
+      const values = this.parseCsvLine(lines[i]);
+      if (values.length > statusIdx) {
+        const status = values[statusIdx]?.replace(/"/g, '').trim().toLowerCase();
+        if (status.includes('running')) return 'running';
+        if (status.includes('ready') || status.includes('enabled')) return 'enabled';
+        if (status.includes('disabled')) return 'disabled';
       }
     }
     return 'unknown';

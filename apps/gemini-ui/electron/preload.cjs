@@ -172,6 +172,7 @@ const CHANNELS = Object.freeze({
   aiVerify: 'knoux:ai:v1:verify',
   aiComplete: 'knoux:ai:v1:complete',
   aiCancel: 'knoux:ai:v1:cancel',
+  aiStreamChunk: 'knoux:ai:v1:stream-chunk',
   identityLinks: 'knoux:identity:v1:links',
   identityOpen: 'knoux:identity:v1:open',
   settingsExport: 'knoux:settings:v1:export',
@@ -247,7 +248,7 @@ contextBridge.exposeInMainWorld(
       maxTokens: Number.isFinite(request?.maxTokens) ? request.maxTokens : undefined,
       timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
     }),
-    completeStream: (request) => ipcRenderer.invoke(CHANNELS.aiCompleteStream, {
+    aiCompleteStream: (request) => ipcRenderer.invoke(CHANNELS.aiCompleteStream, {
       messages: Array.isArray(request?.messages)
         ? request.messages.slice(0, 24).map((entry) => ({
             role: entry?.role === 'assistant' ? 'assistant' : entry?.role === 'system' ? 'system' : 'user',
@@ -258,6 +259,7 @@ contextBridge.exposeInMainWorld(
       maxTokens: Number.isFinite(request?.maxTokens) ? request.maxTokens : undefined,
       timeoutMs: Number.isFinite(request?.timeoutMs) ? request.timeoutMs : undefined,
     }),
+    aiStreamChunk: (callback) => ipcRenderer.on(CHANNELS.aiStreamChunk, callback),
     cancel: () => ipcRenderer.invoke(CHANNELS.aiCancel),
   })
 );

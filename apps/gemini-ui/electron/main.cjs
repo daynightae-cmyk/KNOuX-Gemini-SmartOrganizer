@@ -2033,6 +2033,13 @@ function registerIpc() {
     return aiBridge.completeStream(payload || {});
   });
 
+  // Forward streaming chunks from the AI bridge to the renderer via IPC events.
+  aiBridge.on('stream-chunk', (payload) => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('knoux:ai:v1:stream-chunk', payload);
+    }
+  });
+
   aiGuard(contract.channels.aiCancel, 'ai.cancel', 'user-initiated', async (callArgs) => {
     assertNoArguments(callArgs, 'ai.cancel');
     return aiBridge.cancelAll();

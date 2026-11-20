@@ -414,13 +414,15 @@ async function run() {
    * 14. IPC contract mirror
    * ------------------------------------------------------------------ */
   {
-    const aiChannels = ['aiStatus', 'aiConfigure', 'aiClear', 'aiVerify', 'aiComplete', 'aiCancel'];
+    const aiChannels = ['aiStatus', 'aiConfigure', 'aiClear', 'aiVerify', 'aiComplete', 'aiCancel', 'aiCompleteStream'];
     for (const name of aiChannels) {
       assert(typeof contract.channels[name] === 'string' && contract.channels[name].startsWith('knoux:ai:v1:'), `contract declares ${name}`);
       assert(preload.includes(contract.channels[name]), `preload mirrors ${name}`);
       assert(main.includes(`contract.channels.${name}`), `main registers a handler for ${name}`);
     }
-    for (const id of ['ai.status', 'ai.configure', 'ai.clear', 'ai.verify', 'ai.complete', 'ai.cancel']) {
+    assert(typeof contract.channels.aiStreamChunk === 'string' && contract.channels.aiStreamChunk.startsWith('knoux:ai:v1:'), 'contract declares aiStreamChunk');
+    assert(preload.includes(contract.channels.aiStreamChunk), 'preload mirrors aiStreamChunk');
+    for (const id of ['ai.status', 'ai.configure', 'ai.clear', 'ai.verify', 'ai.complete', 'ai.complete-stream', 'ai.cancel', 'ai.stream-chunk']) {
       assert(contract.capabilities[id], `capability ${id} is declared`);
       assert(['read-only', 'user-initiated'].includes(contract.capabilities[id]?.mode), `capability ${id} has a reviewed permission mode`);
     }
@@ -434,7 +436,7 @@ async function run() {
     const aiEnd = preload.indexOf('\n);', aiStart);
     assert(aiStart > 0 && aiEnd > aiStart, 'the AI namespace has a measured end boundary');
     const aiBlock = preload.slice(aiStart, aiEnd);
-    assert(!/ipcRenderer\.on\(/.test(aiBlock), 'the AI namespace opens no event stream');
+    assert(!/ipcRenderer\.on\((?!(?:'knoux:ai:v1:stream-chunk'|CHANNELS\.aiStreamChunk))/.test(aiBlock), 'the AI namespace opens no event stream except ai.stream-chunk');
     assert(!aiBlock.includes('ipcRenderer.invoke(' + '"' ) && (aiBlock.match(/ipcRenderer\.invoke\(CHANNELS\./g) || []).length === 7, 'the AI namespace only invokes the seven fixed channels (including streaming)');
     assert(!/\burl\b|\bhost\b|\bendpoint\b|\bheaders\b/.test(aiBlock), 'the AI preload surface accepts no destination field');
     assert(main.includes('AI_DESTINATION_OVERRIDE_FORBIDDEN'), 'main refuses a payload that names a destination');
