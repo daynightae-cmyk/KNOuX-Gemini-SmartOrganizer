@@ -208,7 +208,8 @@
       "title": "Per-section SectionHeader contract and simplified service UX",
       "scope": "One reusable header contract with a distinct title, icon, purpose line, live status and primary action per section, plus guided first-use UX.",
       "sourcePaths": [
-        "apps/gemini-ui/src/components/shell/ReferenceChrome.tsx"
+        "apps/gemini-ui/src/visual/UnifiedSectionLayout.tsx",
+        "apps/gemini-ui/src/visual/section-visual-configuration.ts"
       ],
       "baselineSha": "df655ab447a87b238165417fde5735e7980147b3",
       "dependencies": [
@@ -228,7 +229,7 @@
       "status": "PLANNED",
       "outstandingExternalRequirements": [],
       "runtimeScope": true,
-      "notes": ""
+      "notes": "ReferenceChrome.tsx was deleted in a1b2666 (consolidation); the per-section header contract now lives in UnifiedSectionLayout.tsx + section-visual-configuration.ts. sourcePaths repointed 2026-11-21 to fix the ledger gate; status unchanged (PLANNED)."
     },
     {
       "missionId": "M05-HOME-SERVICES",
