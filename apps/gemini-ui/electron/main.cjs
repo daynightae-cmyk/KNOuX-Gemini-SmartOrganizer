@@ -6721,7 +6721,7 @@ app.whenReady().then(async () => {
   });
   try {
     await studioBridge.init();
-    operationBridge = new OperationEngine({studio:studioBridge, appActions,
+    operationBridge = new OperationEngine({studio:studioBridge,
       emit:payload=>{if(mainWindow&&!mainWindow.isDestroyed())mainWindow.webContents.send(operationChannels.event,payload);},
       confirm:async action=>{
         if(action.kind==='automation-schedule'){
@@ -6797,6 +6797,11 @@ app.whenReady().then(async () => {
           userDataPath: app.getPath('userData'),
           safeStorage,
         });
+        /* Lazy provider, like startupActions/serviceActions: the operation IPC
+           reads bridge.appActions at call time. Passing appActions into the
+           OperationEngine constructor above read this binding before its
+           declaration and killed the whole native engine (TDZ). */
+        if (operationBridge) operationBridge.appActions = appActions;
         trace('app actions initialized');
       } catch (error) {
         trace(`app actions init failed: ${error?.message || error}`);

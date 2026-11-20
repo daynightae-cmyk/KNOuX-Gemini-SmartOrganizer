@@ -1,21 +1,137 @@
-/* Phase II interior only. Existing approved header portals and native tools survive. */
-.knx-living-shell[data-visual-section=studio] .knx-living-workspace .os-studio.studio-inner-workspace{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:70px auto minmax(0,1fr) auto!important;gap:7px;padding:6px!important;overflow:hidden!important;min-width:0;--os-surface:var(--knx-surface);--os-raised:var(--knx-raised);--os-ink:var(--knx-ink);--os-muted:var(--knx-ink-2);--os-line:var(--knx-line);--os-accent:var(--knx-accent)}
+/* Phase II interior only. Existing approved header portals and native tools survive.
+   Board geometry: overview stacks the measured pipeline strip, the reference tab
+   strip with the category/suggestion body, and the consent dock in column one;
+   the service view adds the nine-service dock and focus bar above the stage.
+   The preview inspector owns column two for the full workspace height. */
+.knx-living-shell[data-visual-section=studio] .knx-living-workspace .os-studio.studio-inner-workspace{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto minmax(0,1fr) auto!important;gap:7px;padding:6px!important;overflow:hidden!important;min-width:0;--os-surface:var(--knx-surface);--os-raised:var(--knx-raised);--os-ink:var(--knx-ink);--os-muted:var(--knx-ink-2);--os-line:var(--knx-line);--os-accent:var(--knx-accent)}
 .knx-living-shell[data-visual-section=studio] .studio-inner-workspace[data-inspector-open=false]{grid-template-columns:minmax(0,1fr)!important}
-.studio-inner-workspace>.studio-compact-dock{grid-row:1;grid-column:1/-1;min-width:0}.studio-inner-workspace .knx-compact-service-dock{height:70px}
-.studio-inner-workspace>.studio-process-row{grid-row:2;grid-column:1/-1;display:flex;gap:7px;min-width:0;max-height:160px;overflow:auto;}
+/* Row budgets per mode: overview = measured strip / board tab strip / body /
+   consent dock (4 placed rows); service = dock / facts / focus / stage /
+   consent dock (5 placed rows). The body owns the 1fr track in both modes or
+   the dock row collapses. */
+.knx-living-shell[data-visual-section=studio] .knx-living-workspace .os-studio.studio-inner-workspace.is-overview{grid-template-rows:auto auto minmax(0,1fr) auto!important}
+.knx-living-shell[data-visual-section=studio] .knx-living-workspace .os-studio.studio-inner-workspace.is-service{grid-template-rows:auto auto auto minmax(0,1fr) auto!important}
+.studio-inner-workspace.is-service>.studio-compact-dock{grid-row:1;grid-column:1;min-width:0}.studio-inner-workspace .knx-compact-service-dock{height:70px}
+.studio-inner-workspace.is-service>.studio-process-row{grid-row:2;grid-column:1}
+.studio-inner-workspace>.studio-process-row{display:flex;gap:7px;min-width:0;max-height:160px;overflow:auto;}
+/* Overview: the live status line joins the measured pipeline in one slim board
+   strip inside the hero. The board's tab strip is the nine-service dock itself
+   (Overview pill + real stage tabs + the live view controls), so the duplicate
+   osa-tabs strip retires in both themes. */
+.studio-inner-workspace.is-overview>.studio-compact-dock{grid-row:2;grid-column:1;display:flex;align-items:center;gap:6px;min-width:0}
+.studio-inner-workspace.is-overview .knx-compact-service-dock{height:44px;min-height:44px;flex:1;min-width:0;border:1px solid var(--os-line);border-radius:13px;background:var(--os-surface);padding:3px;gap:2px}
+.studio-inner-workspace.is-overview .knx-compact-service-dock>button{display:none}
+.studio-inner-workspace.is-overview .knx-compact-service-strip{gap:2px;padding:0;overflow-x:auto;scrollbar-width:none}
+.studio-inner-workspace.is-overview .knx-compact-service-strip::-webkit-scrollbar{display:none}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab]{flex:1 0 auto;min-height:36px;justify-content:center;border:0;border-radius:9px;background:transparent;padding:5px 6px;gap:5px}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab]:hover{background:var(--os-wash)}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab] .knx-dock-icon{width:16px;height:16px;background:transparent;border-radius:0}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab] .knx-dock-icon svg{width:13px;height:13px}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab] .knx-dock-copy small{display:none}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab] .knx-dock-copy strong{font-size:10.5px;white-space:nowrap}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[aria-selected=true]{background:linear-gradient(135deg,#a374e6,#7444bc);color:#fff;box-shadow:0 4px 14px #7b3fe03d}
+.studio-inner-workspace.is-overview .knx-compact-service-strip>[aria-selected=true] .knx-dock-icon{color:#fff}
+.studio-overview-pill{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:36px;padding:5px 10px;border:0;border-radius:9px;font-size:11px;font-weight:650;color:#fff;background:linear-gradient(135deg,#a374e6,#7444bc);box-shadow:0 4px 14px #7b3fe03d;cursor:pointer}
+.studio-overview-pill svg{width:14px;height:14px}
+.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools{max-width:none;flex:none;flex-wrap:nowrap;gap:4px}
+/* The board's strip is tabs only: the view controls shrink to labelled icon
+   buttons (aria-label keeps the native name; testids unchanged for the gate). */
+.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools button{display:inline-flex;align-items:center;justify-content:center;width:30px;min-height:30px;padding:0;font-size:10px;white-space:nowrap}
+.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools button>span{display:none}
+.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools button>svg{width:15px;height:15px}
+/* The Overview pill already owns the return-to-overview action in the strip, so
+   the duplicate tool button retires there; the service view keeps all four.
+   NIGHT's board has no strip, but the compact dock stays in both themes: all
+   nine live stages and the source/inspector controls must remain reachable
+   from overview (disclosed deviation, required by the reachability contract). */
+.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools [data-testid=studio-overview]{display:none}
+.studio-inner-workspace>.osa-hero>.studio-process-row{display:flex;flex:0 0 235px;max-height:none;overflow:hidden;align-self:stretch;align-items:center}
+.studio-inner-workspace>.osa-hero>.studio-process-row>.knx-live-service-stage{flex:1;min-width:0}
+.studio-inner-workspace>.osa-hero .knx-live-service-stage{padding:4px 8px}
+.studio-inner-workspace>.osa-hero .knx-stage-line{gap:6px}
+.studio-inner-workspace>.osa-hero .knx-stage-line>svg{width:18px;height:18px}
+.studio-inner-workspace>.osa-hero .knx-stage-line strong{font-size:11px}
+.studio-inner-workspace>.osa-hero .knx-stage-line small{display:none}
+.studio-inner-workspace>.osa-hero .knx-stage-state{font-size:9px;padding:2px 5px}
 .studio-process-row>.knx-live-service-stage{flex:1;min-width:0;padding:6px 9px}.studio-process-tools{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:end;max-width:42%;flex:none}.studio-inner-workspace .studio-process-tools button{font-size:11px;padding:6px 8px;min-height:31px}
+
 .studio-live-facts{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--knx-ink-2);overflow-wrap:anywhere}.studio-native-events{padding:0;margin:5px 0;list-style:none;display:flex;flex-direction:column;gap:3px}.studio-native-events li{display:flex;gap:8px;font-size:11px}.studio-native-events time{color:var(--knx-ink-2)}
-.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-workspace{grid-column:1;grid-row:3;display:grid;grid-template-columns:minmax(0,1fr);min-width:0;min-height:0;gap:7px;overflow:hidden}
+/* The measured workflow strip owns overview row one; the stage focus header
+   owns service row three. The orbit itself portals into the unified hero. */
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.osa-hero{grid-row:1;grid-column:1;min-width:0;min-height:0}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-focus-header{grid-row:3;grid-column:1;min-width:0;min-height:0}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.osa-hero{display:flex!important;align-items:center;gap:10px;padding:8px 10px!important}
+.studio-inner-workspace>.osa-hero .knx-pipe{flex:1;min-width:0;margin-top:0}
+.studio-inner-workspace>.osa-hero .knx-pipe-track{padding-block:6px 0}
+.studio-inner-workspace>.osa-hero .knx-pipe-item:nth-of-type(odd){transform:translateY(-2px)}
+.studio-inner-workspace>.osa-hero .knx-pipe-item:nth-of-type(even){transform:translateY(2px)}
+.studio-inner-workspace>.osa-hero .knx-pipe-dot{width:26px;height:26px}
+.studio-inner-workspace>.osa-hero .knx-pipe-dot>svg{width:12px;height:12px}
+.studio-inner-workspace>.osa-hero .knx-pipe-tube{top:15px;height:6px}
+.studio-inner-workspace>.osa-hero .knx-pipe-label{font-size:9.5px}
+.studio-inner-workspace>.osa-hero .knx-pipe-meter{margin-top:4px}
+.studio-inner-workspace>.osa-hero .knx-pipe-caption{display:none}
+.studio-inner-workspace>.osa-hero .knx-pipe-flashbacks{display:none}
+.studio-inner-workspace>.osa-hero .knx-pipe svg.knx-pipe-glass{height:56px}
+.studio-inner-workspace>.osa-hero .osa-duplicates{flex:0 0 215px;min-width:0;padding:5px 8px}
+.studio-inner-workspace>.osa-hero .osa-duplicates strong{font-size:10px}
+.studio-inner-workspace>.osa-hero .osa-duplicates small{font-size:8.5px}
+.studio-inner-workspace>.osa-hero .osa-receipt-line{flex:0 0 auto}
+.studio-inner-workspace .os-focus-orbit{display:none}
+/* Service view: one slim focus bar; the stage keeps the operating height. The
+   orbit portals into the unified hero, so the local wrapper stays empty. */
+.studio-inner-workspace .os-focus-header{display:flex;align-items:center;gap:10px;padding:6px 12px}
+.studio-inner-workspace .os-focus-heading{display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap}
+.studio-inner-workspace .os-focus-heading h1{font-size:18px;margin:0;display:flex;align-items:center;gap:7px}
+.studio-inner-workspace .os-focus-heading>p,.studio-inner-workspace .os-focus-heading>.os-focus-source{display:none}
+.studio-inner-workspace .os-focus-measurements{margin-top:0;font-size:11px}
+.studio-inner-workspace .os-focus-navigation{flex:none}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace.is-service>.os-workspace{grid-column:1;grid-row:4;display:grid;grid-template-columns:minmax(0,1fr);min-width:0;min-height:0;gap:7px;overflow:hidden}
 .knx-living-shell[data-visual-section=studio] .studio-inner-workspace[data-source-open=true]>.os-workspace{grid-template-columns:180px minmax(0,1fr)}
 .studio-inner-workspace[data-source-open=false] .os-source-rail{display:none!important}
-.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-inspector{grid-column:2;grid-row:3;min-height:0;overflow:hidden;margin:0}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-inspector{grid-column:2;grid-row:1/-1;min-height:0;overflow:hidden;margin:0;padding-bottom:0}
 .studio-inner-workspace[data-inspector-open=false]>.os-inspector{display:none!important}
-.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.osa-left{grid-column:1;grid-row:3;min-width:0;min-height:0;overflow:auto}.studio-inner-workspace>.osa-left>.osa-tabs{display:none}.studio-inner-workspace .osa-body{min-height:350px}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace.is-overview>.osa-left{grid-column:1;grid-row:3;min-width:0;min-height:0;overflow:auto}
+/* The body must never exceed its grid track — an internal scrollbar would clip
+   the board's category cards. Content stays reachable through each card's own
+   overflow and the Visual Library stage. */
+.studio-inner-workspace .osa-body{min-height:0}
+/* The board's overview strip is the compact dock row above (Overview pill +
+   real stage tabs), so the duplicate osa-tabs strip retires in both themes.
+   The dock and its view controls stay mounted and visible in NIGHT too: the
+   native evidence gate drives dock keyboard navigation and the source/inspector
+   toggles from overview in either theme. */
+.studio-inner-workspace.is-overview .osa-tabs{display:none}
+/* Board card headers: the descriptive subtitle retires in the overview body so
+   the measured category grid owns the row height (DAY's file table below keeps
+   the same compact header). The full copy stays in the unified hero lede.
+   NIGHT keeps the board's taller card proportions; DAY trades header height
+   for the reference's roomy category tiles above the file table. */
+.studio-inner-workspace.is-overview .osa-card>header{padding-bottom:4px}
+.studio-inner-workspace.is-overview .osa-card>header p{display:none}
+.studio-inner-workspace.is-overview .osa-card h2{font-size:13px}
+.studio-inner-workspace.is-overview .osa-card header>button,.studio-inner-workspace.is-overview .osa-card-actions>button{font-size:10px;padding:3px 7px;min-height:24px}
+/* DAY board: categories + suggestions own the taller top row, the measured file
+   table the shorter one — matching the reference's category-first reading. */
+html[data-theme=light] .studio-inner-workspace.is-overview .osa-body{grid-template-rows:minmax(0,1.9fr) minmax(0,1fr)}
+html[data-theme=light] .studio-inner-workspace.is-overview .osa-card{padding:8px 10px}
+html[data-theme=light] .studio-inner-workspace.is-overview .osa-card>header{padding-bottom:2px}
+html[data-theme=light] .studio-inner-workspace.is-overview .osa-card h2{font-size:12.5px}
+html[data-theme=light] .studio-inner-workspace.is-overview .osa-card header>button,html[data-theme=light] .studio-inner-workspace.is-overview .osa-card-actions>button{font-size:9.5px;padding:2px 6px;min-height:22px}
+html[data-theme=light] .studio-inner-workspace.is-overview .osa-category-grid{gap:6px}
+/* The compact overview cards keep the 3D folder icon, sized to fit the row. */
+.studio-inner-workspace.is-overview .osa-category{padding:6px 9px;gap:8px}
+.studio-inner-workspace.is-overview .osa-category-icon{width:30px;height:34px;border-radius:9px}
+.studio-inner-workspace.is-overview .osa-category-icon svg{width:17px;height:19px}
+.studio-inner-workspace.is-overview .osa-category-copy strong{font-size:11.5px}
+.studio-inner-workspace.is-overview .osa-category-copy>span{font-size:10px}
 .studio-inner-workspace .os-stage{padding:10px;min-width:0;min-height:0}.studio-inner-workspace .os-stage-title{display:none}.studio-inner-workspace .os-scene{overflow:auto;overscroll-behavior:contain;gap:8px}.studio-inner-workspace .os-scene>*{flex-shrink:0}.studio-inner-workspace .os-scene>.os-library{flex:1;min-height:0;overflow:hidden}.studio-inner-workspace .os-scene>.os-two-pane{flex:1;min-height:150px}.studio-inner-workspace .os-scene>.os-inner-scroll{flex:1;min-height:120px}.studio-inner-workspace .os-library-grid{min-height:80px;overscroll-behavior:contain}
 .studio-inner-workspace .os-source-summary h2{font-size:21px}.studio-inner-workspace .os-source-summary p{font-size:12px;overflow-wrap:anywhere}.studio-inner-workspace .os-source-summary>svg{flex:none}.studio-inner-workspace .os-source-summary>button{flex:none;font-size:12px}.studio-inner-workspace .os-stage :is(p,label,select,input){font-size:12px}.studio-inner-workspace .os-source-access{overflow:auto}.studio-inner-workspace .os-source-access>div{overflow-wrap:anywhere}
-.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-action-dock{grid-row:4;grid-column:1/-1;position:static;display:flex;flex-wrap:wrap;gap:6px;padding:5px 8px;min-height:43px;max-height:100px;overflow:auto;border:1px solid var(--knx-line);border-radius:var(--knx-r-md);background:var(--knx-raised)}
-.studio-inner-workspace .os-dock-context{flex:1;min-width:150px}.studio-inner-workspace .os-dock-context>label{display:none}.studio-inner-workspace .os-dock-context small{white-space:normal;font-size:11px}.studio-inner-workspace .os-action-dock>button{min-height:31px;font-size:12px;padding:5px 9px}.studio-inner-workspace .os-action-dock>label{font-size:11px}.studio-inner-workspace .os-inspector-scroll{padding:10px}.studio-inner-workspace .os-context-inspector{font-size:12px}
-@media(max-height:820px){.studio-inner-workspace .knx-stage-line small{display:none}.studio-inner-workspace>.studio-process-row{max-height:95px}.studio-inner-workspace .studio-process-tools{max-width:52%}.studio-inner-workspace .studio-process-tools button{font-size:10px;padding:5px}.studio-inner-workspace .os-action-dock>button{font-size:11px}.studio-inner-workspace .os-source-summary h2{font-size:17px}.studio-inner-workspace .os-source-summary{padding:5px}.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-inspector{width:280px}.knx-living-shell[data-visual-section=studio] .knx-living-workspace .studio-inner-workspace[data-inspector-open=true]{grid-template-columns:minmax(0,1fr) 280px!important}}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace.is-overview>.os-action-dock{grid-row:4;grid-column:1}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace.is-service>.os-action-dock{grid-row:5;grid-column:1}
+.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-action-dock{position:static;display:flex;flex-wrap:wrap;gap:6px;padding:5px 8px;min-height:43px;max-height:100px;overflow:auto;border:1px solid var(--knx-line);border-radius:var(--knx-r-md);background:var(--knx-raised)}
+.studio-inner-workspace .os-dock-context{flex:1;min-width:150px;flex-direction:row;align-items:center;gap:8px}.studio-inner-workspace .os-dock-context>label{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--os-muted);white-space:nowrap}.studio-inner-workspace .os-dock-context select{font-size:11px;padding:3px 5px;max-width:190px}.studio-inner-workspace .os-dock-context small{white-space:normal;font-size:10px;line-height:1.25;max-height:26px;overflow:auto;flex:1;min-width:0}.studio-inner-workspace .os-action-dock>button{min-height:31px;font-size:12px;padding:5px 9px}.studio-inner-workspace .os-action-dock>label{font-size:11px}.studio-inner-workspace .os-inspector-scroll{padding:10px}.studio-inner-workspace .os-context-inspector{font-size:12px}
+@media(max-height:820px){.studio-inner-workspace .knx-stage-line small{display:none}.studio-inner-workspace>.studio-process-row{max-height:95px}.studio-inner-workspace .studio-process-tools{max-width:52%}.studio-inner-workspace .studio-process-tools button{font-size:10px;padding:5px}.studio-inner-workspace .os-action-dock>button{font-size:11px}.studio-inner-workspace .os-source-summary h2{font-size:17px}.studio-inner-workspace .os-source-summary{padding:5px}.knx-living-shell[data-visual-section=studio] .studio-inner-workspace>.os-inspector{width:280px}.knx-living-shell[data-visual-section=studio] .knx-living-workspace .studio-inner-workspace[data-inspector-open=true]{grid-template-columns:minmax(0,1fr) 280px!important}.studio-inner-workspace>.osa-hero .osa-duplicates{flex-basis:210px}.studio-inner-workspace>.osa-hero>.studio-process-row{flex-basis:205px}.studio-inner-workspace.is-overview .knx-compact-service-strip>[role=tab] .knx-dock-copy strong{font-size:10px}.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools button{width:26px;min-height:26px}.studio-inner-workspace.is-overview>.studio-compact-dock>.studio-process-tools button>svg{width:13px;height:13px}}
 @media(max-width:1050px){.studio-process-tools{max-width:100%;justify-content:start}.studio-inner-workspace>.studio-process-row{flex-wrap:wrap}.studio-process-row>.knx-live-service-stage{flex-basis:100%}.knx-living-shell[data-visual-section=studio] .studio-inner-workspace[data-source-open=true]>.os-workspace{grid-template-columns:135px minmax(0,1fr)}}
 
 .knx-living-shell[data-visual-section=studio] .knx-living-workspace .os-studio.studio-inner-workspace[data-inspector-open=true]{grid-template-columns:minmax(0,1fr) 330px!important}

@@ -57,41 +57,53 @@ html[data-theme='light'] .knx-pipe .is-gated .knx-pipe-state { background:#fff1c
 .approved-home .approved-inspector .storage-drive { margin-top:8px; }
 .approved-home .approved-inspector .storage-chart { margin-top:8px; }
 
-/* Studio: seven legible stages leading into the orbital category selector;
-   tall category tiles and a file workspace alongside them, as in the new art. */
-.os-studio.is-overview { grid-template-rows:300px minmax(0,1fr); }
-.os-studio .osa-hero { position:relative; grid-template-columns:minmax(0,1.6fr) minmax(260px,.85fr); gap:8px; padding:16px; }
+/* Studio: the DAY reference keeps categories (3×2) and Smart Suggestions on
+   the top row with the measured file table below; NIGHT shows the full-width
+   3×2 category grid with the horizontal Smart Suggestions row beneath it (the
+   board has no file table; the measured inventory stays one click away in the
+   Visual Library). The hero identity, feature plates and KPI tiles portal into
+   the unified hero (see living-glass-layout.css); only the measured pipeline
+   and review strip remain in the page-local hero. */
+.os-studio .osa-hero { position:relative; }
 .os-studio .osa-hero-copy { justify-content:flex-start; gap:6px; }
-.os-studio .osa-hero h1 { font-size:clamp(25px,2.1vw,35px); }
-.os-studio .osa-lede { max-width:640px; font-size:12px; }
 .os-studio .osa-hero .knx-pipe { margin-top:8px; flex-shrink:0; }
 .os-studio .osa-hero .knx-pipe-label { font-size:11px; }
 .os-studio .osa-hero .knx-pipe-dot { width:40px; height:40px; }
 .os-studio .osa-hero .knx-pipe-tube { top:18px; }
 .os-studio .osa-hero .knx-pipe-caption { text-align:start; white-space:normal; }
-.os-studio .osa-metrics { margin-top:auto; gap:8px; }
 .os-studio .osa-duplicates { flex-shrink:0; }
-.os-studio .osa-hero .osa-duplicates { position:absolute; inset-inline-end:auto; right:16px; bottom:8px; width:27%; height:28px; padding:4px 8px; }
-.os-studio .osa-hero .osa-duplicates small { display:none; }
-.os-studio .osa-hero-orbit { padding-bottom:28px; }
-.os-studio .osa-hero-orbit .knx-orbit { width:100%; height:100%; max-height:240px; aspect-ratio:1.1; }
-.os-studio .osa-orbit-note { display:none; }
-.os-studio .osa-body { grid-template-columns:minmax(245px,.85fr) minmax(0,1.4fr); grid-template-rows:minmax(0,1fr) minmax(110px,.4fr); }
-.os-studio .osa-categories { grid-area:1/1; }
-.os-studio .osa-suggestions { grid-area:2/1; }
-.os-studio .osa-files { grid-area:1/2/3/3; }
-.os-studio .osa-category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(3,minmax(74px,1fr)); flex:1; grid-auto-rows:minmax(74px,1fr); }
+.os-studio .osa-tabs { overflow-x:auto; flex-shrink:0; }
+.os-studio .osa-tabs > button { flex-shrink:0; font-size:11px; padding:8px; }
+.os-studio .osa-hero { direction:ltr; }
+.os-studio[dir=rtl] .osa-hero-copy { direction:rtl; }
+html:not([data-theme='light']) .os-studio .osa-body { grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) auto; }
+html:not([data-theme='light']) .os-studio .osa-categories { grid-area:1/1; }
+html:not([data-theme='light']) .os-studio .osa-suggestions { grid-area:2/1; }
+html:not([data-theme='light']) .os-studio .osa-files { display:none; }
+html:not([data-theme='light']) .os-studio .osa-category-grid { grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); flex:1; }
+/* NIGHT suggestions read as the board's horizontal recommendation row — one
+   compact row per recommendation (icon, measured label, Review). The row keeps
+   its own scroll so every recommendation stays reachable in short windows. */
+html:not([data-theme='light']) .os-studio .osa-body { grid-template-rows:minmax(0,1fr) minmax(76px,auto); }
+html:not([data-theme='light']) .os-studio .osa-suggestion-list { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; overflow:auto; overscroll-behavior:contain; }
+html:not([data-theme='light']) .os-studio .osa-suggestion-list article { flex-direction:row; align-items:center; gap:6px; padding:4px 6px; }
+html:not([data-theme='light']) .os-studio .osa-suggestion-list article>button { flex-shrink:0; padding:2px 7px; font-size:9px; min-height:22px; }
+html:not([data-theme='light']) .os-studio .osa-suggestion-list strong { font-size:10px; }
+html:not([data-theme='light']) .os-studio .osa-suggestion-list small { font-size:8.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; }
+html:not([data-theme='light']) .os-studio .osa-suggestion-icon { width:20px; height:20px; border-radius:6px; }
+html:not([data-theme='light']) .os-studio .osa-suggestion-icon svg { width:11px; height:11px; }
+html:not([data-theme='light']) .os-studio .osa-suggestions { padding:7px 10px; }
+html:not([data-theme='light']) .os-studio .osa-suggestions>header { padding-bottom:4px; }
+html:not([data-theme='light']) .os-studio .osa-suggestions>header p { display:none; }
+html:not([data-theme='light']) .os-studio .osa-suggestions .osa-empty { grid-column:1/-1; padding:7px 9px; }
+@media(max-width:1200px){ html:not([data-theme='light']) .os-studio .osa-suggestion-list { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .os-studio .osa-category-copy strong { font-size:12px; }
-.os-studio .osa-categories header { flex-wrap:wrap; gap:6px; }
+.os-studio .osa-categories header { flex-wrap:nowrap; gap:6px; }
 .os-studio .osa-card header p { font-size:11px; }
 .os-studio .osa-category-copy > span { font-size:11px; }
 .os-studio .osa-kpi-copy > strong { font-size:17px; }
 .os-studio .osa-kpi-copy > span { font-size:11px; }
 .os-studio .osa-kpi-copy > small { font-size:10px; }
-.os-studio .osa-tabs { overflow-x:auto; flex-shrink:0; }
-.os-studio .osa-tabs > button { flex-shrink:0; font-size:11px; padding:8px; }
-.os-studio .osa-hero { direction:ltr; }
-.os-studio[dir=rtl] .osa-hero-copy { direction:rtl; }
 
 /* The full-width reference heroes for Windows sections free the overview
    below, instead of squeezing their measurements into a 100px slot. */
@@ -144,8 +156,9 @@ html[data-theme='light'] .knx-pipe .is-gated .knx-pipe-state { background:#fff1c
  .os-studio .osa-hero { padding:10px; }
  .os-studio .osa-hero-copy { gap:5px; }
  .os-studio .osa-hero .knx-pipe { margin-top:8px; }
- .os-studio .osa-category-grid { grid-template-rows:repeat(3,minmax(64px,1fr)); grid-auto-rows:minmax(64px,1fr); }
- .os-studio .osa-body { grid-template-rows:minmax(0,1fr) 94px; }
+ html[data-theme='light'] .os-studio .osa-category-grid { grid-template-rows:repeat(2,minmax(64px,1fr)); grid-auto-rows:minmax(64px,1fr); }
+ html[data-theme='light'] .os-studio .osa-body { grid-template-rows:minmax(0,1fr) 94px; }
+ html:not([data-theme='light']) .os-studio .osa-body { grid-template-rows:minmax(0,1fr) auto; }
  .os-studio .osa-category-copy small { display:none; }
  .approved-home.home-corrective .approved-hero { padding-bottom:60px; }
  .approved-home.home-corrective .approved-kpis { bottom:7px; }
@@ -220,17 +233,18 @@ html[data-theme='light'] .knx-pipe .is-gated .knx-pipe-state { background:#fff1c
 .visual-sprint .knx-command-hero { isolation:isolate; }
 .visual-sprint :is(.sys-panel,.knx-command-inspector,.knx-command-tool-dock),.osa-card { box-shadow:inset 0 1px #bfa2ff12,0 5px 20px #09051d12; }
 .visual-sprint :is(.sys-btn,.knx-orbit-tool),.osa-tabs button { transition:background 160ms ease,border-color 160ms ease,box-shadow 160ms ease; }
-.os-studio.is-overview { grid-template-rows:250px minmax(0,1fr); }
 .os-studio .osa-hero .knx-pipe { margin-top:3px; }
 .os-studio .osa-hero .knx-pipe-meter { margin-top:4px; }
-.os-studio .osa-hero-orbit .knx-orbit { max-height:200px; }
-.os-studio .osa-body { grid-template-rows:minmax(0,1fr) 100px; }
 .os-studio .osa-categories { overflow:hidden; }
-.os-studio .osa-category-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(3,minmax(74px,1fr)); }
+/* NIGHT reference stacks suggestions under a 2×3 category column with the file
+   workspace beside them; DAY keeps the approved 3×2 + suggestions row and the
+   full-width measured table below. */
+html:not([data-theme='light']) .os-studio .osa-body { grid-template-rows:minmax(0,1fr) auto; }
+html:not([data-theme='light']) .os-studio .osa-category-grid { grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); }
 .os-studio .osa-category-copy strong { white-space:normal; line-height:1.2; }
 .os-studio .osa-hero .osa-lede { font-size:11px; }
 
-@media(max-height:820px){ .os-studio.is-overview{grid-template-rows:225px minmax(0,1fr)} .os-studio .osa-body{grid-template-rows:minmax(0,1fr) 90px} .approved-home.home-corrective .approved-body{grid-template-columns:170px minmax(0,1fr) 330px} .approved-home.home-corrective .approved-inspector{grid-template-rows:minmax(155px,1fr) minmax(200px,1.1fr) minmax(130px,.7fr) minmax(75px,.5fr)} }
+@media(max-height:820px){ html:not([data-theme='light']) .os-studio .osa-body{grid-template-rows:minmax(0,1fr) 90px} .approved-home.home-corrective .approved-body{grid-template-columns:170px minmax(0,1fr) 330px} .approved-home.home-corrective .approved-inspector{grid-template-rows:minmax(155px,1fr) minmax(200px,1.1fr) minmax(130px,.7fr) minmax(75px,.5fr)} }
 .approved-home.home-corrective .approved-orbit .knoux-orbit{min-height:0;max-height:210px;max-width:360px}
 .approved-home.home-corrective .approved-welcome { position:static; }
 .approved-home.home-corrective .approved-hero .knx-pipe-detail { display:none; }
@@ -247,7 +261,6 @@ html[data-theme='light'] .knx-pipe .is-gated .knx-pipe-state { background:#fff1c
 .os-studio .osa-metrics { flex-shrink:0; }
 .os-studio .osa-metrics > div { min-height:40px; padding:5px; }
 .os-studio .osa-kpi-copy > small { display:none; }
-.os-studio .osa-hero-orbit { padding-bottom:25px; }
 .knx-workspace-hero { position:relative; isolation:isolate; }
 .knx-workspace-hero .knx-pipe { z-index:1; }
 .knx-command-hero,.knx-workspace-hero { direction:ltr; }

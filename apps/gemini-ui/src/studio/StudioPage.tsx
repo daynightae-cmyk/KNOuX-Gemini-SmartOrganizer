@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
-import { Search, X, ChevronRight } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useStudio } from './context';
 import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { STUDIO_STAGES } from '../operations/organization-studio-model';
-import { CompactServiceDock } from '../components/workbench/CompactServiceDock';
-import { StudioServiceWorkspace, hasStudioWorkbench, STUDIO_WORKBENCH_IDS, STAGE_LABELS, STAGE_ICONS, STAGE_DESCRIPTIONS, STAGE_STATES } from './StudioServiceWorkspaces';
-import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
+import { StudioServiceWorkspace, hasStudioWorkbench, STUDIO_WORKBENCH_IDS, STAGE_LABELS } from './StudioServiceWorkspaces';
+import type { WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import './studio-integration.css';
 
 export interface StudioPageProps {
   onNavigate?: (section: string) => void;
 }
 
-/** Shared approved chrome around the existing native operation portal with full ServiceWorkbenchHost integration. */
+/** Shared approved chrome around the existing native operation portal. The
+ *  approved Organization Studio overview/stage surface is owned entirely by
+ *  OrganizationLiveWorkbench, which portals into #knoux-studio-operation-stage.
+ *  Deep links and Home entry points may still open a detached typed workbench;
+ *  that path keeps the existing ServiceWorkbenchHost integration. */
 export function StudioPage({ onNavigate }: StudioPageProps) {
   const navigation = useNavigation();
   const deepLink = useDeepLink();
@@ -26,7 +29,6 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
   const [notice, setNotice] = useState(false);
   const [activeStage, setActiveStage] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9>(2);
   const [detached, setDetached] = useState(false);
-  const [overview, setOverview] = useState(false);
 
   // Consume deep link from Home/other entry points to auto-open a workbench
   useEffect(() => {
@@ -34,7 +36,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
       const stageId = Number(deepLink.workbenchId);
       if (hasStudioWorkbench(stageId)) {
         setActiveStage(stageId);
-        setOverview(false);
+        setDetached(true);
       }
     }
   }, [deepLink]);
@@ -44,9 +46,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
   const [workbenchWidth, setWorkbenchWidth] = useState<number>(() => {
     try { const value = Number(localStorage.getItem('knoux.studio.workbench.width')); return Number.isFinite(value) && value >= 380 ? Math.min(900, value) : 520; } catch { return 520; }
   });
-  const integratedRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
-  useEffect(() => { if (integratedRef.current) integratedRef.current.scrollTop = 0; }, [activeStage]);
   useEffect(() => {
     try {
       localStorage.setItem('knoux.studio.workbench.mode', workbenchMode);
@@ -73,7 +73,6 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
     if (hasStudioWorkbench(stageId)) {
       triggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setActiveStage(stageId as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9);
-      setOverview(false);
       setDetached(false);
     }
     window.dispatchEvent(new CustomEvent('knoux:live-organization', { detail: { stageId } }));
@@ -81,12 +80,11 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
 
   const closeWorkbench = () => {
     setDetached(false);
-    setActiveStage(2);
-    setOverview(true);
+    window.dispatchEvent(new Event('knoux:studio-overview'));
     window.setTimeout(() => triggerRef.current?.focus(), 30);
   };
 
-  const stageSelector = activeStage ? (
+  const stageSelector = detached ? (
     <select
       data-testid="studio-workbench-tool-select"
       aria-label={ar ? 'تبديل مرحلة الاستوديو' : 'Switch studio stage'}
@@ -94,7 +92,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
       value={activeStage}
       onChange={(event) => {
         const id = Number(event.target.value);
-        if (hasStudioWorkbench(id)) setActiveStage(id);
+        if (hasStudioWorkbench(id)) { setActiveStage(id); choose(id); setDetached(true); }
       }}
       className="max-w-[170px] rounded border border-[#173866] bg-[#08162b] px-1.5 py-1 text-[10px] text-slate-200"
     >
@@ -103,26 +101,6 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
       ))}
     </select>
   ) : null;
-
-  const renderStageCard = (entry: { id: number; en: string; arabic: string }) => {
-    const state = STAGE_STATES[entry.id as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9];
-    const StageIcon = STAGE_ICONS[entry.id as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9];
-    const isActive = activeStage === entry.id;
-    return (
-      <button
-        key={entry.id}
-        type="button"
-        className={`studio-stage-card ${isActive ? 'is-active' : ''}`}
-        data-testid={`studio-stage-${entry.id}`}
-        onClick={() => choose(entry.id)}
-      >
-        <span className="studio-stage-index">{String(entry.id).padStart(2, '0')}</span>
-        <span className="studio-stage-icon" aria-hidden="true"><StageIcon className="w-4 h-4" /></span>
-        <span className="studio-stage-copy"><strong>{ar ? entry.arabic : entry.en}</strong></span>
-        <span className={`studio-stage-state is-${state}`}>{state === 'completed' ? (ar ? 'مكتمل' : 'Completed') : state === 'active' ? (ar ? 'نشط' : 'Active') : state === 'available' ? (ar ? 'متاح' : 'Available') : (ar ? 'محظور' : 'Blocked')}</span>
-      </button>
-    );
-  };
 
   const dialog = useRef<HTMLDialogElement>(null);
 
@@ -159,104 +137,16 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
       <div className="studio-integration-body">
         <KNOuXSidebar activeSection="studio" onNavigate={navigation.navigateTo} isArabic={ar} />
         <main className="os-studio-frame flex flex-col min-h-0">
-          <div className="studio-compact-dock" data-testid="studio-stages">
-            <CompactServiceDock
-              testIdPrefix="studio"
-              isArabic={ar}
-              label={ar ? 'مراحل الاستوديو' : 'Studio stages'}
-              selectedId={overview ? null : String(activeStage)}
-              onSelect={id => { if (hasStudioWorkbench(Number(id))) choose(Number(id)); }}
-              items={STUDIO_WORKBENCH_IDS.map((id) => {
-                const StageIcon = STAGE_ICONS[id];
-                const state = STAGE_STATES[id];
-                return {
-                  id: String(id),
-                  label: locale === 'ar' ? STAGE_LABELS[id].ar : STAGE_LABELS[id].en,
-                  icon: <StageIcon className="w-4 h-4" aria-hidden="true" />,
-                  capability: state === 'completed' ? (ar ? 'مكتمل' : 'Completed') : state === 'active' ? (ar ? 'نشط' : 'Active') : state === 'available' ? (ar ? 'متاح' : 'Available') : (ar ? 'محظور' : 'Blocked'),
-                  hint: STAGE_DESCRIPTIONS[id][locale],
-                };
-              })}
-              actions={overview ? null : (
-                <>
-                  <button type="button" onClick={() => setOverview(true)} className="compact-dock-action" aria-pressed={overview} title={ar ? 'النظرة العامة' : 'Overview'}><ChevronRight className="w-3.5 h-3.5" /></button>
-                  <button type="button" onClick={() => setDetached(true)} disabled={!studio.native.available} className="compact-dock-action" title={ar ? 'عرض جانبي' : 'Side view'}><ChevronRight className="w-3.5 h-3.5 rotate-90" /></button>
-                </>
-              )}
-            />
-          </div>
-
-          <div className="studio-inner-workspace flex-1 flex flex-col min-h-0" data-testid="studio-inner-workspace">
-            <div id="knoux-studio-operation-stage" className="os-studio-mount" data-testid="studio-live-mount" />
-            <section
-              ref={integratedRef}
-              id="active-service-workspace"
-              role="tabpanel"
-              aria-labelledby={overview ? undefined : activeStage ? `service-tab-${activeStage}` : undefined}
-              className="studio-integrated-service knx-service-workspace"
-              data-testid="studio-integrated-service"
-            >
-              {overview ? (
-                <div className="studio-overview-scroll" data-testid="studio-overview">
-                  <div className="studio-overview-header">
-                    <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center"><ChevronRight className="w-5 h-5 text-white" /></div>
-                      <div>
-                        <h2 className="text-lg font-bold text-white">{ar ? 'استوديو التنظيم' : 'Organization Studio'}</h2>
-                        <p className="text-sm text-slate-400">{ar ? '9 مراحل متخصصة للفهرسة والتنظيم المقيس' : '9 specialized stages for measured indexing & organization'}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${studio.native.mode === 'measured' ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : 'bg-amber-950/60 text-amber-300 border-amber-500/40'}`}>
-                        {studio.native.mode === 'measured' ? (ar ? 'مقيس' : 'MEASURED') : (ar ? 'تجريبي' : 'FIXTURE')}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="studio-stage-grid" data-testid="studio-stage-grid">
-                    {STUDIO_WORKBENCH_IDS.map((id) => {
-                      const StageIcon = STAGE_ICONS[id];
-                      const state = STAGE_STATES[id];
-                      return (
-                        <button key={id} type="button" className={`studio-overview-stage-card ${state === 'blocked' ? 'is-blocked' : ''}`} onClick={() => choose(id)} data-testid={`studio-overview-stage-${id}`}>
-                          <div className="studio-overview-stage-icon" aria-hidden="true"><StageIcon className="w-6 h-6" /></div>
-                          <div className="studio-overview-stage-info">
-                            <strong>{locale === 'ar' ? STAGE_LABELS[id].ar : STAGE_LABELS[id].en}</strong>
-                            <span className={`studio-overview-stage-state is-${state}`}>{state === 'completed' ? (ar ? 'مكتمل' : 'Completed') : state === 'active' ? (ar ? 'نشط' : 'Active') : state === 'available' ? (ar ? 'متاح' : 'Available') : (ar ? 'محظور' : 'Blocked')}</span>
-                          </div>
-                          <p className="studio-overview-stage-desc">{STAGE_DESCRIPTIONS[id][locale]}</p>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <div className="studio-overview-footer">
-                    <button type="button" className="studio-overview-primary" onClick={() => choose(1)}><ChevronRight className="w-3.5 h-3.5" />{ar ? 'بدء من المصادر' : 'Start from Sources'}</button>
-                    <button type="button" className="studio-overview-secondary" onClick={() => navigation.navigateTo('files')}>{ar ? 'فتح الملفات' : 'Open Files'}</button>
-                  </div>
-                </div>
-              ) : (
-                <StudioServiceWorkspace
-                  stageId={activeStage}
-                  studio={studio}
-                  locale={locale}
-                  onClose={closeWorkbench}
-                  embedded
-                  mode={workbenchMode}
-                  onModeChange={setWorkbenchMode}
-                  width={workbenchWidth}
-                  onResize={setWorkbenchWidth}
-                />
-              )}
-            </section>
-          </div>
+          <div id="knoux-studio-operation-stage" className="os-studio-mount flex-1 min-h-0" data-testid="studio-live-mount" />
         </main>
       </div>
 
-      {activeStage && !overview && detached ? (
+      {detached ? (
         <StudioServiceWorkspace
           stageId={activeStage}
           studio={studio}
           locale={locale}
-          onClose={() => setDetached(false)}
+          onClose={closeWorkbench}
           mode={workbenchMode}
           width={workbenchWidth}
           onModeChange={setWorkbenchMode}

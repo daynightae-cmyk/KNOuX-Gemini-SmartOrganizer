@@ -127,10 +127,61 @@ html[data-theme=light] .knx-hero-orb-field{opacity:.8}
 .knx-living-shell .knx-living-workspace .knx-command-canvas{overflow-y:auto!important;overscroll-behavior:contain;padding-inline-end:3px}
 .knx-living-shell .knx-living-workspace .knx-command-body{flex:1 0 370px!important;min-height:370px!important}
 .knx-living-shell .knx-living-workspace .knx-command-status{flex-shrink:0}
-.knx-living-shell .knx-living-workspace .os-studio.is-overview{grid-template-rows:auto minmax(350px,1fr)!important;overflow-y:auto!important;overscroll-behavior:contain}
-.knx-living-workspace .osa-hero-copy{display:block!important}
+/* Studio's interior grid is owned by studio-inner-workspace.css (overview:
+   strip / tabs+body / consent dock; service: dock / facts / focus / stage /
+   dock). No stale row template or internal scroll may override it here. */
+.knx-living-workspace .osa-hero>.osa-hero-copy{display:flex!important;flex-direction:row;align-items:center;gap:10px;flex:1;min-width:0;padding:0}
 .knx-living-workspace :is(main,.knx-command-canvas){background-image:radial-gradient(ellipse at 65% 0%,color-mix(in srgb,var(--knx-section-accent) 7%,transparent),transparent 60%)}
 .knx-living-workspace :is(.sys-panel,.apps-panel,.stp-panel,.cln-panel,.svc-panel,.rep-panel,.auto-panel,.knx-ref-card,.home-panel){border-color:color-mix(in srgb,var(--knx-section-accent) 21%,var(--knx-line-soft));box-shadow:var(--knx-elev-1)}
+
+/* Studio board composition (DAY reference): the orbital category wheel owns the
+   reading-start side, the identity/features/KPI column sits beside it, and the
+   reference workflow map is replaced below by the measured seven-stage pipeline.
+   NIGHT keeps the shared shell geometry with the wheel on the far side. */
+.knx-section-hero[data-hero-section=studio] .knx-section-identity{width:56%;max-width:760px}
+.knx-section-hero[data-hero-section=studio] .knx-section-copy p{max-width:520px}
+/* DAY replaces the generic configuration description with the measured domain
+   tagline inside the extra mount; NIGHT keeps the board's descriptive lede. */
+html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-copy>p{display:none}
+html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-section-copy>p{font-size:12px;line-height:1.5;margin:2px 0 0}
+html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-instrument{left:14px;right:auto}
+html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-identity{margin-inline-start:calc(var(--knx-section-orbit-size) + 26px)}
+html[data-theme=light] .knx-living-shell[dir=rtl] .knx-section-hero[data-hero-section=studio] .knx-section-instrument{left:auto;right:14px}
+html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-scene{left:52%;width:46%;opacity:.55}
+.knx-section-hero[data-hero-section=studio] .knx-reference-workflow{display:none}
+html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-section-scene{left:46%;width:42%;opacity:.5}
+/* The domain hero extra: measured tagline, three feature plates and four KPI
+   tiles, portaled from the approved overview. Interactive, so it restores
+   pointer events inside the otherwise presentational identity column. */
+.knx-hero-extra-mount{pointer-events:auto;display:flex;flex-direction:column;gap:8px;margin-top:8px;min-width:0}
+.knx-hero-extra-mount .osa-tagline{margin:0;font-size:12px;font-weight:600;color:var(--knx-accent-strong);letter-spacing:.1px}
+.knx-hero-extra-mount .osa-features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.knx-hero-extra-mount .osa-features>button{display:flex;align-items:center;gap:7px;text-align:start;padding:7px 8px;border:1px solid var(--knx-line);border-radius:11px;background:var(--knx-raised);color:var(--knx-ink);min-width:0}
+.knx-hero-extra-mount .osa-features>button:hover{border-color:var(--knx-accent);box-shadow:var(--knx-glow-accent)}
+.knx-hero-extra-mount .osa-features>button:focus-visible{outline:2px solid var(--knx-focus);outline-offset:2px}
+.knx-hero-extra-mount .osa-feature-icon{display:grid;place-items:center;width:28px;height:28px;flex-shrink:0;border-radius:50%;color:var(--knx-accent-strong);background:color-mix(in srgb,var(--knx-accent) 16%,var(--knx-surface));border:1px solid color-mix(in srgb,var(--knx-accent) 30%,transparent)}
+.knx-hero-extra-mount .osa-feature-icon svg{width:16px;height:16px}
+.knx-hero-extra-mount .osa-features strong{display:block;font-size:11.5px;font-weight:650;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.knx-hero-extra-mount .osa-features small{display:block;font-size:9.5px;line-height:1.3;color:var(--knx-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.knx-hero-extra-mount .osa-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.knx-hero-extra-mount .osa-metrics>div{display:flex;align-items:center;gap:6px;padding:6px 7px;border:1px solid var(--knx-line);border-radius:11px;background:var(--knx-surface);box-shadow:var(--knx-elev-1);min-width:0}
+.knx-hero-extra-mount .osa-kpi-icon{display:grid;place-items:center;width:24px;height:28px;flex-shrink:0;border-radius:8px;color:var(--knx-accent-strong);background:color-mix(in srgb,var(--knx-accent) 14%,var(--knx-surface))}
+.knx-hero-extra-mount .osa-kpi-icon svg{width:16px;height:16px}
+.knx-hero-extra-mount .osa-kpi-copy{min-width:0;flex:1}
+.knx-hero-extra-mount .osa-kpi-copy>strong{display:block;font-size:15px;line-height:1.15;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--knx-ink)}
+.knx-hero-extra-mount .osa-kpi-copy>span{display:block;font-size:9px;color:var(--knx-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.knx-hero-extra-mount .osa-kpi-copy small{display:flex;align-items:center;gap:4px;margin-top:1px;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--knx-ink-2)}
+.knx-hero-extra-mount .osa-kpi-copy small i{width:5px;height:5px;flex-shrink:0;border-radius:50%;background:var(--knx-success);box-shadow:0 0 6px var(--knx-success)}
+/* NIGHT board: the three capabilities read as stacked icon rows under the lede,
+   not the DAY horizontal plates. */
+html:not([data-theme=light]) .knx-hero-extra-mount .osa-features{grid-template-columns:minmax(0,1fr);gap:5px}
+html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button{border:0;background:transparent;padding:2px 0;gap:10px;border-radius:8px}
+html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button:hover{background:color-mix(in srgb,var(--knx-accent) 9%,transparent);box-shadow:none}
+html:not([data-theme=light]) .knx-hero-extra-mount .osa-feature-icon{width:30px;height:30px;border-radius:9px}
+html:not([data-theme=light]) .knx-hero-extra-mount .osa-features strong{font-size:12.5px}
+html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{font-size:10px}
+@media(max-height:820px){.knx-hero-extra-mount{gap:6px;margin-top:6px}.knx-hero-extra-mount .osa-tagline{font-size:11px}html[data-theme=light] .knx-hero-extra-mount .osa-features>button{padding:5px 6px;gap:5px}.knx-hero-extra-mount .osa-feature-icon{width:23px;height:23px}.knx-hero-extra-mount .osa-feature-icon svg{width:13px;height:13px}.knx-hero-extra-mount .osa-features strong{font-size:10.5px}html[data-theme=light] .knx-hero-extra-mount .osa-features small{display:none}.knx-hero-extra-mount .osa-metrics>div{padding:5px 6px}.knx-hero-extra-mount .osa-kpi-copy>strong{font-size:13.5px}.knx-hero-extra-mount .osa-kpi-copy small{display:none}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features{gap:3px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button{padding:1px 0;gap:8px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-feature-icon{width:24px;height:24px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features strong{font-size:11.5px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{font-size:9px}html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-section-copy>p{font-size:11px;line-height:1.4}}
+@media(max-width:1050px){.knx-section-hero[data-hero-section=studio] .knx-section-identity{width:64%}html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-identity{margin-inline-start:calc(var(--knx-section-orbit-size) + 14px)}}
 
 @media(min-width:1800px){.knx-living-shell{--knx-section-hero-h:360px;--knx-section-orbit-size:330px}}
 @media(max-height:820px){.knx-living-shell{--knx-section-hero-h:280px;--knx-section-orbit-size:252px}.knx-section-copy h1{font-size:28px!important}.knx-section-copy h2{font-size:22px;margin-bottom:5px}.knx-section-copy p{font-size:11px}.knx-section-copy p[lang=ar]{font-size:12px}.knx-section-hero{padding:16px 18px!important}.knx-section-identity{gap:10px}.knx-section-emblem{width:52px;height:52px;flex-basis:52px;border-radius:16px}.knx-section-emblem svg{width:32px;height:32px}.knx-reference-workflow{bottom:13px;left:15px;right:29%}.knx-reference-workflow li:not(.knx-workflow-connections){font-size:10px}.knx-reference-workflow small{font-size:11px}.knx-workflow-glyph{width:37px;height:37px}.knx-workflow-glyph svg{width:21px;height:21px}.knx-reference-workflow:before{top:18px}.knx-living-shell .knx-section-orbit-mount :is(.knx-orbit-tool,.knoux-orbit__tool){width:61px!important;height:59px!important}.knx-section-orbit-mount :is(.knx-orbit-label,.knoux-orbit__capsule span){font-size:9.5px!important}.knx-section-orbit-mount :is(.knx-orbit-core strong,.knoux-orbit__core strong){font-size:12px!important}.knx-section-orbit-mount .knx-orbit-core-sub{display:none!important}.knx-section-instrument{right:8px}}

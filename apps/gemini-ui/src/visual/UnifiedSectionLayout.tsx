@@ -13,8 +13,8 @@ export function UnifiedSectionLayout({children}:{children:ReactNode}) {
     inventing a fifteenth artwork or hero configuration entry. */
  const section:DomainSection=currentSection==='identity'?'home':currentSection;
  const config=SECTION_VISUALS[section];
- const [chrome,setChrome]=useState<HTMLElement|null>(null),[navigation,setNavigation]=useState<HTMLElement|null>(null),[orbit,setOrbit]=useState<HTMLElement|null>(null);
- const slots=useMemo(()=>({chrome,navigation,orbit,section}),[chrome,navigation,orbit,section]);
+ const [chrome,setChrome]=useState<HTMLElement|null>(null),[navigation,setNavigation]=useState<HTMLElement|null>(null),[orbit,setOrbit]=useState<HTMLElement|null>(null),[heroExtra,setHeroExtra]=useState<HTMLElement|null>(null);
+ const slots=useMemo(()=>({chrome,navigation,orbit,heroExtra,section}),[chrome,navigation,orbit,heroExtra,section]);
  const lightId='knx-workflow-light-'+useId().replace(/[^a-zA-Z0-9]/g,'');
  const Icon=config.icon;
  return <LivingLayoutContext.Provider value={slots}>
@@ -28,7 +28,7 @@ export function UnifiedSectionLayout({children}:{children:ReactNode}) {
           It carries no information and reacts only to real app activity. */}
       <HeaderOrbField section={section} theme={theme}/>
       <div className="knx-section-identity"><span className="knx-section-emblem"><Icon aria-hidden="true"/></span>
-       <div className="knx-section-copy"><span className="knx-section-kicker">KNOuX SmartOrganizer</span><h1 id="knx-unified-title" lang="en" dir="ltr">{config.headline}</h1><h2 lang="ar" dir="rtl">{config.headlineAr}</h2><p lang="en" dir="ltr">{config.description}</p><p lang="ar" dir="rtl">{config.descriptionAr}</p></div>
+       <div className="knx-section-copy"><span className="knx-section-kicker">KNOuX SmartOrganizer</span>{isArabic?<h1 id="knx-unified-title" lang="ar" dir="rtl">{config.headlineAr}</h1>:<h1 id="knx-unified-title" lang="en" dir="ltr">{config.headline}</h1>}<p lang={isArabic?'ar':'en'} dir={isArabic?'rtl':'ltr'}>{isArabic?config.descriptionAr:config.description}</p><div className="knx-hero-extra-mount" ref={setHeroExtra} data-testid="unified-hero-extra"/></div>
       </div>
       <SectionGlassScene section={config.scene}/>
       <div className="knx-section-instrument"><OrbitalParticleSystem/><div className="knx-section-orbit-mount" ref={setOrbit} data-testid="unified-live-orbit"/></div>

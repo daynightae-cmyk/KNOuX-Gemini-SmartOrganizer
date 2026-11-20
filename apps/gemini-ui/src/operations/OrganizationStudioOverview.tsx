@@ -1,10 +1,25 @@
-import {useMemo,useState,type CSSProperties} from 'react';
+import {useMemo,useState,type CSSProperties,type ReactNode} from 'react';
 import {Archive,ArrowRight,Check,ChevronRight,Copy,FileCode,FileText,FolderOpen,FolderTree,History,Images,Layers3,ListChecks,Play,Search,ShieldCheck,SlidersHorizontal,Sparkles,Video,Workflow} from 'lucide-react';
 import type {OperationFile,OperationReceipt} from '../../shared/operation-contract';
 import {OrbitalControl} from '../visual/OrbitalControl';
 import {ServicePipeline} from '../visual/ServicePipeline';
+import {LivingHeroExtraMount} from '../visual/LivingLayoutContext';
 import type {OrbitTone} from '../visual/KnouxOrbit';
 import {facetOf,formatBytes,organizationSuggestions,overviewGroups} from './organization-studio-model';
+import {useNavigation} from '../context/NavigationContext';
+
+/** Honest one-line purposes for the NIGHT wheel's six review stages. */
+const STUDIO_STAGE_HINTS:[string,string][]=[
+ ['Authorize a source and inspect its measured inventory.','صرّح بمصدر وراجع فهرس ملفاته المقيس.'],
+ ['Explore, filter and select the files for your next plan.','استكشف الملفات وصفّيها وحدد ملفات خطتك.'],
+ ['Build reusable collections from your selected files.','كوّن مجموعات محفوظة من الملفات المحددة.'],
+ ['Shape your organization rules and collision policy.','اضبط قواعد التنظيم وسياسة تعارض الملفات.'],
+ ['Map each category to its destination folder.','حدد مجلد الوجهة المناسب لكل فئة.'],
+ ['Review exact paths, conflicts and the immutable plan.','راجع المسارات والتعارضات والخطة قبل التنفيذ.'],
+ ['Follow native events and verified transfer receipts.','تابع أحداث التنفيذ وإيصالات النقل المتحققة.'],
+ ['Inspect receipts and review eligible undo operations.','راجع الإيصالات وعمليات التراجع المؤهلة.'],
+ ['Explore suggestions grounded in this file inventory.','استكشف اقتراحات مبنية على فهرس ملفاتك.'],
+];
 
 interface CategorySpec{id:string;labelEn:string;labelAr:string;color:string;icon:typeof FileText;facets:string[]}
 const CATEGORY_SPECS:CategorySpec[]=[
@@ -15,19 +30,26 @@ const CATEGORY_SPECS:CategorySpec[]=[
  {id:'code',labelEn:'Code',labelAr:'الكود',color:'#8b5cf6',icon:FileCode,facets:['code']},
  {id:'other',labelEn:'Audio & Other',labelAr:'الصوت وأنواع أخرى',color:'#10b981',icon:Workflow,facets:['audio','other']},
 ];
-const TABS:[string,string,typeof Layers3][]=[
+export const TABS:[string,string,typeof Layers3][]=[
  ['Overview','نظرة عامة',Layers3],['Sources','المصادر',FolderOpen],['Visual Library','المكتبة المرئية',Images],
  ['Collections','المجموعات',Copy],['Builder','القواعد',SlidersHorizontal],['Destinations','الوجهات',FolderTree],
  ['Plan Review','مراجعة الخطة',ListChecks],['Execution','التنفيذ',Play],['History','السجل والتراجع',History],
 ];
 interface OrbitNode{id:string;labelEn:string;labelAr:string;icon:typeof FileText;tone:OrbitTone;x:number;y:number;facets:string[]}
 const ORBIT_NODES:OrbitNode[]=[
- {id:'document',labelEn:'Documents',labelAr:'المستندات',icon:FileText,tone:'blue',x:21,y:14,facets:['document','pdf']},
- {id:'image',labelEn:'Images',labelAr:'الصور',icon:Images,tone:'rose',x:79,y:14,facets:['image']},
- {id:'archive',labelEn:'Archives',labelAr:'الأرشيف',icon:Archive,tone:'amber',x:92,y:50,facets:['archive']},
- {id:'duplicate',labelEn:'Duplicates',labelAr:'المكرر',icon:Copy,tone:'emerald',x:79,y:84,facets:[]},
- {id:'code',labelEn:'Code',labelAr:'الكود',icon:FileCode,tone:'violet',x:21,y:84,facets:['code']},
- {id:'video',labelEn:'Videos',labelAr:'الفيديو',icon:Video,tone:'red',x:8,y:50,facets:['video']},
+ {id:'document',labelEn:'Documents',labelAr:'المستندات',icon:FileText,tone:'blue',x:25,y:18,facets:['document','pdf']},
+ {id:'image',labelEn:'Images',labelAr:'الصور',icon:Images,tone:'rose',x:75,y:18,facets:['image']},
+ {id:'archive',labelEn:'Archives',labelAr:'الأرشيف',icon:Archive,tone:'amber',x:88,y:50,facets:['archive']},
+ {id:'duplicate',labelEn:'Duplicates',labelAr:'المكرر',icon:Copy,tone:'emerald',x:75,y:82,facets:[]},
+ {id:'code',labelEn:'Code',labelAr:'الكود',icon:FileCode,tone:'violet',x:25,y:82,facets:['code']},
+ {id:'video',labelEn:'Videos',labelAr:'الفيديو',icon:Video,tone:'red',x:12,y:50,facets:['video']},
+];
+/** NIGHT reference: the orbital wheel selects the six review stages instead of
+ *  measured categories. Positions stay on the shared circular instrument. */
+const NIGHT_ORBIT_STAGES:[number,string,string,typeof FileText][]=[
+ [1,'Sources','المصادر',FolderOpen],[2,'Visual Library','المكتبة المرئية',Images],
+ [4,'Collections','المجموعات',Layers3],[5,'Builder','القواعد',SlidersHorizontal],
+ [6,'Destinations','الوجهات',FolderTree],[7,'Plan Review','مراجعة الخطة',ListChecks],
 ];
 
 export type StudioOverviewProps={
@@ -47,10 +69,11 @@ function suggestionLabel(id:string,ar:boolean){
 
 /** Approved hero: the orbit sits left, identity and measurements right. Each
  * node selects a measured category; the core opens plan review. */
-export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,onCategory,onSuggestion}:StudioOverviewProps){
+export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,onCategory,onSuggestion,processRow}:StudioOverviewProps&{processRow?:ReactNode}){
+ const {theme}=useNavigation();
  const t=(en:string,a:string)=>ar?a:en;
  const duplicates=useMemo(()=>organizationSuggestions(files).find(entry=>entry.id==='name-collisions'),[files]);
- const tools=ORBIT_NODES.map(node=>({
+ const tools=theme==='light'?ORBIT_NODES.map(node=>({
   id:node.id,label:ar?node.labelAr:node.labelEn,icon:node.icon,tone:node.tone,
   position:{x:node.x,y:node.y},testId:'studio-orbit-'+node.id,
   hint:node.id==='duplicate'
@@ -60,6 +83,11 @@ export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,on
    const ids=node.id==='duplicate'?(duplicates?.ids??[]):membersOf(files,node.facets).map(file=>file.id);
    if(ids.length)onCategory(ids);else onStage(node.id==='duplicate'?9:1);
   },
+ })):NIGHT_ORBIT_STAGES.map(([id,en,arabic,Icon],i)=>({
+  id:'stage-'+id,label:t(en,arabic),icon:Icon,tone:'violet' as OrbitTone,
+  position:{x:ORBIT_NODES[i].x,y:ORBIT_NODES[i].y},testId:'studio-orbit-stage-'+id,
+  hint:STUDIO_STAGE_HINTS[id-1]?t(STUDIO_STAGE_HINTS[id-1][0],STUDIO_STAGE_HINTS[id-1][1]):t('Open this stage','فتح هذه المرحلة'),
+  onClick:()=>onStage(id),
  }));
  const totalBytes=files.reduce((sum,file)=>sum+file.size,0);
  const metrics=[
@@ -75,7 +103,16 @@ export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,on
   </div>
   <div className="osa-hero-copy">
    <div className="osa-identity"><span className="osa-emblem" aria-hidden="true"><FolderOpen/></span><div><h1>{t('Organization Studio','استوديو التنظيم')}</h1><p className="osa-tagline">{t('Organize • Categorize • Structure • Find Everything','نظّم • صنّف • هيكل • اعثر على كل شيء')}</p></div></div>
-   <p className="osa-lede">{t('Turn your measured files into a clean, previewed structure. Nothing moves without an exact plan and Native confirmation.','حوّل ملفاتك المقيسة إلى هيكل واضح ومعاين. لا شيء ينتقل دون خطة دقيقة وتأكيد Native.')}</p>
+   {/* The descriptive lede lives in the unified hero copy (section config); the
+       page-local hero keeps only the measured pipeline and review strip. */}
+   <LivingHeroExtraMount enabled>
+    {theme==='light'&&<p className="osa-tagline">{t('Organize • Categorize • Structure • Find Everything','نظّم • صنّف • هيكل • اعثر على كل شيء')}</p>}
+    <div className="osa-features">     <button type="button" onClick={()=>onStage(scanned?2:1)} data-testid="studio-feature-organize"><span className="osa-feature-icon"><Sparkles aria-hidden="true"/></span><span><strong>{t('Smart Organization','تنظيم ذكي')}</strong><small>{t('Auto-categorize your files','تصنيف تلقائي لملفاتك')}</small></span></button>
+     <button type="button" onClick={()=>onStage(4)} data-testid="studio-feature-structure"><span className="osa-feature-icon"><FolderTree aria-hidden="true"/></span><span><strong>{t('Clean Structure','هيكل واضح')}</strong><small>{t('Keep everything in place','كل شيء في مكانه')}</small></span></button>
+     <button type="button" onClick={()=>onStage(2)} data-testid="studio-feature-find"><span className="osa-feature-icon"><Search aria-hidden="true"/></span><span><strong>{t('Find Anything','اعثر على أي شيء')}</strong><small>{t('Instant file discovery','اكتشاف فوري للملفات')}</small></span></button>
+    </div>
+    <div className="osa-metrics">{metrics.map(({icon:Icon,label,value,note,detail})=><div key={label} title={detail}><span className="osa-kpi-icon"><Icon aria-hidden="true"/></span><span className="osa-kpi-copy"><strong>{value}</strong><span>{label}</span><small><i aria-hidden="true"/>{note}</small></span></div>)}</div>
+   </LivingHeroExtraMount>
    <ServicePipeline
     locale={ar?'ar':'en'}
     accent="violet"
@@ -96,10 +133,12 @@ export function OrganizationStudioHero({ar,files,scanned,busy,receipt,onStage,on
     ]}
     onSelect={(id)=>{const stage={source:1,classify:2,plan:4,review:6,execute:7,verify:8,undo:8}[id as 'source'|'classify'|'plan'|'review'|'execute'|'verify'|'undo'];if(stage)onStage(stage);}}
    />
-   <div className="osa-metrics">{metrics.map(({icon:Icon,label,value,note,detail})=><div key={label} title={detail}><span className="osa-kpi-icon"><Icon aria-hidden="true"/></span><span className="osa-kpi-copy"><strong>{value}</strong><span>{label}</span><small><i aria-hidden="true"/>{note}</small></span></div>)}</div>
    <button type="button" className="osa-duplicates" disabled={!duplicates} onClick={()=>onSuggestion(duplicates?.ids??[])} data-testid="studio-review-duplicates"><Copy aria-hidden="true"/><span><strong>{t('Review repeated names','مراجعة الأسماء المتكررة')}</strong><small>{duplicates?duplicates.count.toLocaleString()+' '+t('files share a name','ملفًا بأسماء متطابقة'):t('No repeated names in this inventory','لا أسماء متكررة في هذا الفهرس')}</small></span><ChevronRight aria-hidden="true"/></button>
    {receipt&&<p className="osa-receipt-line"><ShieldCheck aria-hidden="true"/>{t('Last Native receipt','آخر إيصال Native')}: {receipt.completedFiles} {t('verified','متحقق')} · {receipt.status}</p>}
   </div>
+  {/* Overview merges the live stage facts and the measured pipeline into one
+      board strip; the consent dock below owns every execution action. */}
+  {processRow}
  </header>;
 }
 
