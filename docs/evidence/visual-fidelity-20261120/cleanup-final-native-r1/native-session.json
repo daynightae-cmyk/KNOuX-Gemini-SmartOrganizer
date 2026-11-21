@@ -1,0 +1,4003 @@
+{
+  "contractVersion": 1,
+  "capability": "cleanup.status",
+  "requestId": "2768a485-bef9-4ffb-802e-62cf20118159",
+  "status": "complete",
+  "source": "KNOuX Clean Room read-only coordinator",
+  "observedAt": "2026-11-21T04:10:50.034Z",
+  "permission": "read-only",
+  "warnings": [],
+  "provenance": {
+    "mode": "measured",
+    "mutation": "none"
+  },
+  "data": {
+    "id": "41b3a26e-26a3-4015-a013-65996b800581",
+    "status": "complete",
+    "mode": "measured-read-only",
+    "requestedCategories": [
+      "temp"
+    ],
+    "ageDays": 0,
+    "startedAt": "2026-11-21T04:10:28.143Z",
+    "finishedAt": "2026-11-21T04:10:48.146Z",
+    "progressPercent": 100,
+    "cancelRequested": false,
+    "categories": [
+      {
+        "key": "temp",
+        "status": "complete",
+        "candidates": 141,
+        "warnings": [],
+        "startedAt": "2026-11-21T04:10:28.171Z",
+        "finishedAt": "2026-11-21T04:10:48.131Z"
+      }
+    ],
+    "warnings": [],
+    "coverage": {
+      "rootsScanned": 1,
+      "rootsUnavailable": 0,
+      "filesMeasured": 140,
+      "foldersMeasured": 0,
+      "bytesMeasured": 258674921,
+      "truncated": false,
+      "skippedLinks": 0,
+      "errors": 0
+    },
+    "candidates": [
+      {
+        "id": "cln:8e9e7c3e177ffd9c753193ec",
+        "name": "8d1c5a80-1c67-4862-845a-fb26f04bb909.tmp",
+        "path": "%TEMP%\\8d1c5a80-1c67-4862-845a-fb26f04bb909.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 115547554,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-21T00:11:59.704Z",
+        "ageDays": 0.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a18cca95248b395f105551e0",
+        "name": ".bun-1747889258-10d2d8a346f4eb6e.dll",
+        "path": "%TEMP%\\.bun-1747889258-10d2d8a346f4eb6e.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 8898440,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:18:52.292Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a4985ecd757fb4ecdc5c5d16",
+        "name": ".bun-1747889258-eb880eeb01e175aa.dll",
+        "path": "%TEMP%\\.bun-1747889258-eb880eeb01e175aa.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 8886664,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-11T16:20:14.833Z",
+        "ageDays": 9.5,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 9.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:bb80cb7f5f78566f03cf4d3e",
+        "name": ".bun-1747889258-5c23d2bbe2a2cdfb.dll",
+        "path": "%TEMP%\\.bun-1747889258-5c23d2bbe2a2cdfb.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 3765640,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-20T00:57:18.440Z",
+        "ageDays": 1.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9b90b240a3c4f7030d471da7",
+        "name": "codex-clipboard-5b7e854f-d6df-46dd-9696-cef624b0cee7.png",
+        "path": "%TEMP%\\codex-clipboard-5b7e854f-d6df-46dd-9696-cef624b0cee7.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 2937985,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-20T00:43:47.115Z",
+        "ageDays": 1.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f9a67d2128434785ed36c3ec",
+        "name": "codex-clipboard-193f62c8-2d5b-4367-bcc5-1abab5905462.png",
+        "path": "%TEMP%\\codex-clipboard-193f62c8-2d5b-4367-bcc5-1abab5905462.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 2799891,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-20T00:43:49.041Z",
+        "ageDays": 1.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e6c25b01dee75156930f511d",
+        "name": "conscrypt_openjdk_jni-windows-x86_6417940938441480000.dll",
+        "path": "%TEMP%\\conscrypt_openjdk_jni-windows-x86_6417940938441480000.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 2744832,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-07T23:24:04.194Z",
+        "ageDays": 13.2,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 13.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:4276afa539605dea2b19dcd5",
+        "name": "Setup Log 2026-11-15 #001.txt",
+        "path": "%TEMP%\\Setup Log 2026-11-15 #001.txt",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 2315571,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T15:35:14.415Z",
+        "ageDays": 5.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:75c37c157fc976ff528c2058",
+        "name": ".bun-1747889258-45b807af133cc17f.node",
+        "path": "%TEMP%\\.bun-1747889258-45b807af133cc17f.node",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1865216,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T11:55:11.342Z",
+        "ageDays": 3.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:55acb3d8c2834f9470e38fce",
+        "name": "fe476aee-ed1c-426d-9b21-4af8e393a636.tmp.js",
+        "path": "%TEMP%\\fe476aee-ed1c-426d-9b21-4af8e393a636.tmp.js",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1822175,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-16T00:17:57.604Z",
+        "ageDays": 5.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:259fe8c908e61f9e0381dc22",
+        "name": "knoux-living-raw-339303bc-d3d6-4f0c-8275-e72465232a97.webm",
+        "path": "%TEMP%\\knoux-living-raw-339303bc-d3d6-4f0c-8275-e72465232a97.webm",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1639037,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-18T16:32:37.021Z",
+        "ageDays": 2.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5cc950f109b248b90634240e",
+        "name": "page@17cac54eb471fce37e3002d4b2f24543.webm",
+        "path": "%TEMP%\\page@17cac54eb471fce37e3002d4b2f24543.webm",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1318967,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-18T22:28:11.971Z",
+        "ageDays": 2.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e2e6d4ce64fa7d097ddca2f1",
+        "name": "exthost-072c21.cpuprofile",
+        "path": "%TEMP%\\exthost-072c21.cpuprofile",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1185211,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T15:01:31.719Z",
+        "ageDays": 5.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6d145cf3b562cbc6833e8539",
+        "name": "40681c05-2ae7-4c0a-a262-6e0cbe692de0.tmp",
+        "path": "%TEMP%\\40681c05-2ae7-4c0a-a262-6e0cbe692de0.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1097532,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-21T04:03:29.408Z",
+        "ageDays": 0,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:70802a7269878ced070c4cd1",
+        "name": "exthost-b9e1f5.cpuprofile",
+        "path": "%TEMP%\\exthost-b9e1f5.cpuprofile",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 1086626,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T08:55:36.429Z",
+        "ageDays": 5.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6fad75113962bbeb37e812bd",
+        "name": "knoux-ai-pro-samsung-after-splash-20261115.png",
+        "path": "%TEMP%\\knoux-ai-pro-samsung-after-splash-20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 950272,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T15:55:49.556Z",
+        "ageDays": 5.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0946597d0e956ceaa150ebf8",
+        "name": "knoux_ai_debug_home_delayed_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_home_delayed_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 949786,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:48:34.932Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e23776af3095267877d787e7",
+        "name": "sqlite-3.41.2.2-007f6c15-5c8c-47ee-bbde-3d8048e361ac-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-007f6c15-5c8c-47ee-bbde-3d8048e361ac-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:04:36.431Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:bffd0c2680ec5a7d53690b70",
+        "name": "sqlite-3.41.2.2-008a73ff-02e9-4490-a325-4da093d09004-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-008a73ff-02e9-4490-a325-4da093d09004-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:48:31.437Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1571af297b06191113a78443",
+        "name": "sqlite-3.41.2.2-0215b5fa-792c-4be8-b6c8-c8ea6b0312e6-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-0215b5fa-792c-4be8-b6c8-c8ea6b0312e6-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T10:34:24.826Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:07ad6e4916eccc4c67f0a8ad",
+        "name": "sqlite-3.41.2.2-090fafba-8af6-4101-87c6-6a284961b498-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-090fafba-8af6-4101-87c6-6a284961b498-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T10:28:18.815Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b1d190e49860130ae53dacfb",
+        "name": "sqlite-3.41.2.2-0920e751-8487-41ad-8349-75b779f55cec-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-0920e751-8487-41ad-8349-75b779f55cec-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:36:54.959Z",
+        "ageDays": 6.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:7cb8d48da9946825c3f25f15",
+        "name": "sqlite-3.41.2.2-0d735996-597c-4f58-8dfc-de5a734eb22a-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-0d735996-597c-4f58-8dfc-de5a734eb22a-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:11:05.060Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ab2a595ce35c2876be8049c4",
+        "name": "sqlite-3.41.2.2-0eb8b8d5-01b8-43a4-bd28-6983951f04eb-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-0eb8b8d5-01b8-43a4-bd28-6983951f04eb-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:14:20.929Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fb136c9a64e19beb87009fb3",
+        "name": "sqlite-3.41.2.2-10fdcad0-a8fa-47b1-8931-7747a15d5e51-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-10fdcad0-a8fa-47b1-8931-7747a15d5e51-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T01:55:46.643Z",
+        "ageDays": 4.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ef6aeff185e7937f03ac2d64",
+        "name": "sqlite-3.41.2.2-11260227-ce01-44fe-bd66-ecac85c92b04-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-11260227-ce01-44fe-bd66-ecac85c92b04-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T10:27:06.294Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9219d6dfe7e31ea949f5c64e",
+        "name": "sqlite-3.41.2.2-13b2f9e6-cbe6-4d32-a678-8d9b9d54505c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-13b2f9e6-cbe6-4d32-a678-8d9b9d54505c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T20:39:33.532Z",
+        "ageDays": 3.3,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:478add7b3e4435d70f472ae2",
+        "name": "sqlite-3.41.2.2-1421698e-4c59-451d-acc7-e8ffa56cf2f1-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-1421698e-4c59-451d-acc7-e8ffa56cf2f1-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T11:45:13.372Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:681eb3087ce735c985b6ecc6",
+        "name": "sqlite-3.41.2.2-17475632-d7f3-435c-a195-15d61b27a1ec-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-17475632-d7f3-435c-a195-15d61b27a1ec-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:25:24.627Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a07c4185d86c8c930834df21",
+        "name": "sqlite-3.41.2.2-18330bb0-a642-45a4-9339-15a0038baf14-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-18330bb0-a642-45a4-9339-15a0038baf14-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T11:03:36.739Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:491fda8b22ae4857e4cd1f29",
+        "name": "sqlite-3.41.2.2-1843e994-651c-4f24-bfdb-5b6cdbf88183-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-1843e994-651c-4f24-bfdb-5b6cdbf88183-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:09:12.530Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:dba7f5db1c83c4769e8b9324",
+        "name": "sqlite-3.41.2.2-18492607-a726-445c-a9e1-6bd7fa11af49-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-18492607-a726-445c-a9e1-6bd7fa11af49-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-18T13:25:57.072Z",
+        "ageDays": 2.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:13267e0c21002fada8c2abd8",
+        "name": "sqlite-3.41.2.2-19de515d-90d0-4c48-9336-99d6bbc989d8-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-19de515d-90d0-4c48-9336-99d6bbc989d8-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:58:01.511Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a1a72203b327f7d930843e0a",
+        "name": "sqlite-3.41.2.2-30f130b7-1955-4d67-9601-1e31aadaf2bc-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-30f130b7-1955-4d67-9601-1e31aadaf2bc-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T03:55:31.581Z",
+        "ageDays": 7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:cea85bd0e79698552b544590",
+        "name": "sqlite-3.41.2.2-32be7f10-009f-493d-b8c5-ff2a5af438e1-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-32be7f10-009f-493d-b8c5-ff2a5af438e1-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:11:49.827Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:eda96fa3a5563ab783307c84",
+        "name": "sqlite-3.41.2.2-33277ecd-f7d9-436d-ac27-6c751d2c6b9c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-33277ecd-f7d9-436d-ac27-6c751d2c6b9c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:50:23.111Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:717858dcd068ea5e818a2a96",
+        "name": "sqlite-3.41.2.2-340d029c-de7a-4da4-bee5-006e53587cd6-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-340d029c-de7a-4da4-bee5-006e53587cd6-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T11:05:34.988Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:7c65dfd7126fbf3530d06a31",
+        "name": "sqlite-3.41.2.2-36dd2639-54b2-4417-bc82-fcbbdff186e3-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-36dd2639-54b2-4417-bc82-fcbbdff186e3-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-18T13:23:45.271Z",
+        "ageDays": 2.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:88ae99f2f5ba1c62c91dd3b6",
+        "name": "sqlite-3.41.2.2-3c1397c3-2182-4c54-8f0f-81ab986f9f37-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-3c1397c3-2182-4c54-8f0f-81ab986f9f37-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T08:02:51.844Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ff52b631498955a6afbf43fb",
+        "name": "sqlite-3.41.2.2-4006c01c-975b-4606-b039-305383c5e1e2-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-4006c01c-975b-4606-b039-305383c5e1e2-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T03:09:46.479Z",
+        "ageDays": 4,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fed455903f825434fec8bce5",
+        "name": "sqlite-3.41.2.2-40a76104-7017-4802-a29f-95954e95456b-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-40a76104-7017-4802-a29f-95954e95456b-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T00:57:41.072Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b42283edaa67622981bf70f7",
+        "name": "sqlite-3.41.2.2-461568b0-204c-4938-a16e-a587fd1cdb7c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-461568b0-204c-4938-a16e-a587fd1cdb7c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T04:56:33.551Z",
+        "ageDays": 6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ee283664f45b2857068001d0",
+        "name": "sqlite-3.41.2.2-4765c3e5-e178-4854-aa0d-ff66563130dd-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-4765c3e5-e178-4854-aa0d-ff66563130dd-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T02:04:56.242Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ae5dae52cb043273a6ada2d1",
+        "name": "sqlite-3.41.2.2-4cb65ee1-1418-4ba0-a5de-9d12efe80703-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-4cb65ee1-1418-4ba0-a5de-9d12efe80703-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:54:32.411Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9c9b090311f57729049e6925",
+        "name": "sqlite-3.41.2.2-4d652cd1-265b-4c5e-a69e-dfc3c3c8ba4e-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-4d652cd1-265b-4c5e-a69e-dfc3c3c8ba4e-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T02:14:41.428Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6df50e67a58da3194dbc1e09",
+        "name": "sqlite-3.41.2.2-4edbba3f-fbab-4487-b128-2d3b377f4c5e-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-4edbba3f-fbab-4487-b128-2d3b377f4c5e-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T10:17:33.328Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5c6e1e6db59a2c01d0bf5511",
+        "name": "sqlite-3.41.2.2-5057582c-0b65-49fd-90c3-fc1d2d770160-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-5057582c-0b65-49fd-90c3-fc1d2d770160-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-20T10:23:16.317Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ebbd1a157237e5deb9f1d6f9",
+        "name": "sqlite-3.41.2.2-52e79c51-f834-4080-ac80-be8b7a2aa1ca-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-52e79c51-f834-4080-ac80-be8b7a2aa1ca-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T00:46:52.528Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1a353bd66a6765496e3349a9",
+        "name": "sqlite-3.41.2.2-53fabd20-103c-4cbf-b9fd-ddc34495f2e4-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-53fabd20-103c-4cbf-b9fd-ddc34495f2e4-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T04:01:59.184Z",
+        "ageDays": 4,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9570f076b2ca4ae18aec263b",
+        "name": "sqlite-3.41.2.2-59dd7901-5834-4892-8e82-cde72d5d131b-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-59dd7901-5834-4892-8e82-cde72d5d131b-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:19:37.552Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:535089b858e99ecf3ba0d1fb",
+        "name": "sqlite-3.41.2.2-5cdf8bce-0f04-4d0d-9422-5bafe04f2847-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-5cdf8bce-0f04-4d0d-9422-5bafe04f2847-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T19:54:09.799Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0d044ed872a3758b8ac22cce",
+        "name": "sqlite-3.41.2.2-5d9641c3-8ed3-4fed-a734-1c034921d9d9-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-5d9641c3-8ed3-4fed-a734-1c034921d9d9-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:11:31.613Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:81151628984bf9eac72a955a",
+        "name": "sqlite-3.41.2.2-60ca0bc0-005a-4620-86c9-d04e5377b659-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-60ca0bc0-005a-4620-86c9-d04e5377b659-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T04:45:01.279Z",
+        "ageDays": 6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c5eb4e41eb13710bcc52f135",
+        "name": "sqlite-3.41.2.2-6221a0bb-634b-47f8-aa94-26098a2cbefd-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-6221a0bb-634b-47f8-aa94-26098a2cbefd-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T05:32:09.589Z",
+        "ageDays": 5.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:765e33e8d2595bf37dbb3892",
+        "name": "sqlite-3.41.2.2-62710c77-a7f5-43d5-963e-c5ccc0356844-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-62710c77-a7f5-43d5-963e-c5ccc0356844-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T08:51:34.187Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e82f010278c9d6e48b969d68",
+        "name": "sqlite-3.41.2.2-6689f1a3-544e-4050-bb9c-b727c3401d4a-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-6689f1a3-544e-4050-bb9c-b727c3401d4a-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-19T13:12:23.054Z",
+        "ageDays": 1.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:76e794859eab6e875f3fdc98",
+        "name": "sqlite-3.41.2.2-671f5472-c62f-4361-aa52-42d3b02c985a-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-671f5472-c62f-4361-aa52-42d3b02c985a-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T08:49:33.911Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5cb53a4ab2b0085776894342",
+        "name": "sqlite-3.41.2.2-7197d4a5-616a-42c5-89e5-a7d0aef279c2-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-7197d4a5-616a-42c5-89e5-a7d0aef279c2-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T11:02:30.636Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e59d75875600ceb00ac153dc",
+        "name": "sqlite-3.41.2.2-76217fde-dc20-4ec2-a4d6-41861f983b91-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-76217fde-dc20-4ec2-a4d6-41861f983b91-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T02:50:27.110Z",
+        "ageDays": 4.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0fbeec40e1d357778e151893",
+        "name": "sqlite-3.41.2.2-7677224c-93f5-400e-b62a-0011fe700753-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-7677224c-93f5-400e-b62a-0011fe700753-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:01:07.968Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:dd231664119ca84f38833353",
+        "name": "sqlite-3.41.2.2-7f44e418-8e1a-4e10-be30-3e41d177486d-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-7f44e418-8e1a-4e10-be30-3e41d177486d-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T10:20:40.675Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:cf170d54be62da130ec7768c",
+        "name": "sqlite-3.41.2.2-810a8823-2c93-4135-8be8-c9001d3624ed-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-810a8823-2c93-4135-8be8-c9001d3624ed-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T04:05:22.927Z",
+        "ageDays": 4,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9b4c05544f24fcc6786b7e54",
+        "name": "sqlite-3.41.2.2-81cc4299-4f5a-4c39-bdc1-ee66ba33cb22-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-81cc4299-4f5a-4c39-bdc1-ee66ba33cb22-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T11:47:25.640Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b227a530712e64fa8bc5bb72",
+        "name": "sqlite-3.41.2.2-82b04b7e-f026-460f-a620-e1d8cacef948-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-82b04b7e-f026-460f-a620-e1d8cacef948-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:12:16.239Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:dc63558f58be54a5f3f269a1",
+        "name": "sqlite-3.41.2.2-888fb19a-cb15-43dc-8f2e-794d163a7d89-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-888fb19a-cb15-43dc-8f2e-794d163a7d89-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:52:00.117Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a8c77c925211b7030c2e5a38",
+        "name": "sqlite-3.41.2.2-8a86f2c8-a3b1-4912-bf49-2540084be567-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-8a86f2c8-a3b1-4912-bf49-2540084be567-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T10:24:09.674Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:75d205bb173d9f9af881691c",
+        "name": "sqlite-3.41.2.2-8e4a7f5e-6f72-4cd8-94e9-6b4bd8710c6f-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-8e4a7f5e-6f72-4cd8-94e9-6b4bd8710c6f-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:30:40.258Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e529d61c7d6adae19936e8d7",
+        "name": "sqlite-3.41.2.2-8fa35083-e82a-4ec6-a8e1-cd052bc0e618-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-8fa35083-e82a-4ec6-a8e1-cd052bc0e618-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:16:32.258Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a7182a4e874ec0a54d04c895",
+        "name": "sqlite-3.41.2.2-90533c63-2b75-4d70-b50b-1af84832b64c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-90533c63-2b75-4d70-b50b-1af84832b64c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:09:12.237Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9c261afb72c9fcaa082afd4e",
+        "name": "sqlite-3.41.2.2-91edab45-30cc-4e61-ad26-014b6b648d3c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-91edab45-30cc-4e61-ad26-014b6b648d3c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T01:54:13.459Z",
+        "ageDays": 4.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:83b6600ec8fea0b1b128d995",
+        "name": "sqlite-3.41.2.2-94420678-8fb8-4c96-8d78-ee18b663864e-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-94420678-8fb8-4c96-8d78-ee18b663864e-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:50:16.287Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3d8b06458ef3a30005a163e6",
+        "name": "sqlite-3.41.2.2-9450fe4e-2ffb-4b02-a084-7abe77a4b5f0-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-9450fe4e-2ffb-4b02-a084-7abe77a4b5f0-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:33:02.841Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c1aea6aa693a7177b7b534a5",
+        "name": "sqlite-3.41.2.2-98acfea3-a6c4-4f1e-b3f4-aaab669b885c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-98acfea3-a6c4-4f1e-b3f4-aaab669b885c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:53:59.809Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:007a7f4b43dbca76fd00dd25",
+        "name": "sqlite-3.41.2.2-9de4653b-c957-417a-b783-3c40d24e5b25-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-9de4653b-c957-417a-b783-3c40d24e5b25-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T00:44:55.549Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9b46e9107838a19644137b00",
+        "name": "sqlite-3.41.2.2-a1b43f73-5374-4eaa-915e-54b433d3e9ab-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-a1b43f73-5374-4eaa-915e-54b433d3e9ab-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T02:02:36.979Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:408e3e98f482ca9d8d7fe3b4",
+        "name": "sqlite-3.41.2.2-a250afd0-c128-432a-acb0-a6060034dccd-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-a250afd0-c128-432a-acb0-a6060034dccd-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-19T03:51:26.852Z",
+        "ageDays": 2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c2a39308f097b399a9c1b537",
+        "name": "sqlite-3.41.2.2-a7959501-c6fb-402a-9a5a-dccab8efeb34-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-a7959501-c6fb-402a-9a5a-dccab8efeb34-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T10:22:09.894Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:eee5733f11c89d42cd286446",
+        "name": "sqlite-3.41.2.2-a8390d55-b77d-4f57-9347-c880f0e1297e-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-a8390d55-b77d-4f57-9347-c880f0e1297e-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:55:50.976Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c342f44345f4f677b152a423",
+        "name": "sqlite-3.41.2.2-ac571195-3532-4d2d-b999-ba8f0ea3bbcb-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-ac571195-3532-4d2d-b999-ba8f0ea3bbcb-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T10:59:37.214Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a9168e6a2f9b4ec3bc238250",
+        "name": "sqlite-3.41.2.2-acc92567-ce1f-44d2-a4d8-cedd0319ae72-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-acc92567-ce1f-44d2-a4d8-cedd0319ae72-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:15:54.584Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9ad6bd8f3faffc8fdc28d3cd",
+        "name": "sqlite-3.41.2.2-ad9bc218-2e69-49d3-a2fc-f1c970801dac-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-ad9bc218-2e69-49d3-a2fc-f1c970801dac-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T04:31:03.821Z",
+        "ageDays": 6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:699260ff4af86ba40248463c",
+        "name": "sqlite-3.41.2.2-b2077ad6-9d52-41e3-bf69-053f07cf3912-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-b2077ad6-9d52-41e3-bf69-053f07cf3912-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-21T02:34:34.474Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f3cd6710ec5783480651b5cd",
+        "name": "sqlite-3.41.2.2-bb39527b-1c4b-49c0-97e4-eac004b52340-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-bb39527b-1c4b-49c0-97e4-eac004b52340-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T23:56:22.091Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ed42b1c7a3b3b055c2422f8a",
+        "name": "sqlite-3.41.2.2-bbcd38d5-2b18-405a-89de-4d68d4327097-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-bbcd38d5-2b18-405a-89de-4d68d4327097-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:19:14.567Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:844c545a1c899c31dc2ea248",
+        "name": "sqlite-3.41.2.2-c7271b8b-813d-4d8c-9eaa-c28f945c61f1-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-c7271b8b-813d-4d8c-9eaa-c28f945c61f1-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:49:20.605Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0f14538bea38e4ac63819919",
+        "name": "sqlite-3.41.2.2-c7eb8421-6635-4600-ac3d-7016d8ced09c-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-c7eb8421-6635-4600-ac3d-7016d8ced09c-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T03:07:31.742Z",
+        "ageDays": 4,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8f53d0229a6ee8533f2f32df",
+        "name": "sqlite-3.41.2.2-cd6aa940-c658-4777-a300-bf3fa8b13e42-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-cd6aa940-c658-4777-a300-bf3fa8b13e42-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T08:50:51.047Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:4b9ecb089db6d332837352e8",
+        "name": "sqlite-3.41.2.2-d1da360a-472a-47ab-89ac-a18551b489e7-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-d1da360a-472a-47ab-89ac-a18551b489e7-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:20:55.074Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:78ac2a471b6740462d3dc38d",
+        "name": "sqlite-3.41.2.2-d2456ac1-fa92-49a5-9d7a-c53c748b1965-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-d2456ac1-fa92-49a5-9d7a-c53c748b1965-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T09:54:47.376Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:2ad0b5ec7284bdc1a82ef0a4",
+        "name": "sqlite-3.41.2.2-d24b4d4c-e5b3-4c5f-8dfc-3b4c498d3c88-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-d24b4d4c-e5b3-4c5f-8dfc-3b4c498d3c88-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T10:31:47.076Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3b01e4a35a9189d0a6dafd10",
+        "name": "sqlite-3.41.2.2-d74d1f55-770f-4487-8ed6-217e687b51d5-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-d74d1f55-770f-4487-8ed6-217e687b51d5-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T08:53:54.228Z",
+        "ageDays": 7.8,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:0da0cdced805c85ba37c9f38",
+        "name": "sqlite-3.41.2.2-de30b04e-9eaa-4d00-9f90-f401da9b98d0-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-de30b04e-9eaa-4d00-9f90-f401da9b98d0-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:42:49.072Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:aa5b1392623ff6e629e81742",
+        "name": "sqlite-3.41.2.2-de32832b-e7c0-4c80-b29e-c82e54fdb9e1-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-de32832b-e7c0-4c80-b29e-c82e54fdb9e1-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T10:22:10.855Z",
+        "ageDays": 7.7,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f3b6b21a35c7d9af5b00999b",
+        "name": "sqlite-3.41.2.2-df8835bb-9a5e-4c28-b896-b897ee24789a-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-df8835bb-9a5e-4c28-b896-b897ee24789a-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T11:01:13.000Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:bbbf2a0fc1f7df3b1dcb4419",
+        "name": "sqlite-3.41.2.2-e026d9b5-d1fb-4746-a424-6439ab6cb606-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-e026d9b5-d1fb-4746-a424-6439ab6cb606-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:52:39.808Z",
+        "ageDays": 6.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9cce86b5ab726e0e8dc54efb",
+        "name": "sqlite-3.41.2.2-e0331ee7-7329-4400-b9c6-13d17ca61e86-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-e0331ee7-7329-4400-b9c6-13d17ca61e86-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:28:24.202Z",
+        "ageDays": 6.2,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:83ea1885830c879bf1447e95",
+        "name": "sqlite-3.41.2.2-e185fc4b-65be-4d45-8cf9-e14f459f1661-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-e185fc4b-65be-4d45-8cf9-e14f459f1661-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:17:32.320Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c8768cad6667e5450b4e2da2",
+        "name": "sqlite-3.41.2.2-e1a96d02-9fc0-463e-82b6-0df213843d90-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-e1a96d02-9fc0-463e-82b6-0df213843d90-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T11:28:41.810Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d3c77f4840f3b87d8b858ac1",
+        "name": "sqlite-3.41.2.2-e5aed04a-6b99-40b8-87e6-573ba76ba1ae-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-e5aed04a-6b99-40b8-87e6-573ba76ba1ae-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:56:11.130Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:9f491d0e916c39acd8b23eb2",
+        "name": "sqlite-3.41.2.2-e9984e00-7bc4-441f-9d71-b4f9be293519-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-e9984e00-7bc4-441f-9d71-b4f9be293519-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T01:46:34.228Z",
+        "ageDays": 7.1,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d98e4c3bd41e3e40dbd9db4f",
+        "name": "sqlite-3.41.2.2-ee4872a3-26ac-4f48-93e5-b041bfa42a86-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-ee4872a3-26ac-4f48-93e5-b041bfa42a86-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T20:03:14.223Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b12e112b9d9a6749450e6e08",
+        "name": "sqlite-3.41.2.2-ee54d511-9358-4e9d-9de7-e54cc5863d0f-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-ee54d511-9358-4e9d-9de7-e54cc5863d0f-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-13T19:51:50.436Z",
+        "ageDays": 7.3,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 7.3 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:437488128787027131adc495",
+        "name": "sqlite-3.41.2.2-fcfb4e54-b563-4b7d-97c1-fd93e6abcba7-sqlitejdbc.dll",
+        "path": "%TEMP%\\sqlite-3.41.2.2-fcfb4e54-b563-4b7d-97c1-fd93e6abcba7-sqlitejdbc.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 923136,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T11:04:50.258Z",
+        "ageDays": 5.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:af1f6baee91d85bb09836789",
+        "name": "real_launch.png",
+        "path": "%TEMP%\\real_launch.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 869082,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T05:34:15.348Z",
+        "ageDays": 3.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:58d21793320066fa9da42d93",
+        "name": "knoux_ai_detail_appmanager_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_appmanager_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 753344,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:55:32.850Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:5d76c166de8035bfc4c8a1c5",
+        "name": "knoux_ai_detail_smartclean_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_smartclean_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 735828,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:57:54.629Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:ab28ba24ed39359ee6f0a746",
+        "name": "merged_launch.png",
+        "path": "%TEMP%\\merged_launch.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 698147,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-17T05:31:28.781Z",
+        "ageDays": 3.9,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 3.9 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:be38b96a022739e8133a7031",
+        "name": "knoux_ai_samsung_after_back_20261115.png",
+        "path": "%TEMP%\\knoux_ai_samsung_after_back_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 653842,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:45:50.493Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a4c82c4ea7446ef2c8732657",
+        "name": "knoux_ai_detail_privacy_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_privacy_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 642550,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:55:37.803Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:da087d3e50ade30817763a87",
+        "name": "kiro_fresh_profile_foreground_20261112.png",
+        "path": "%TEMP%\\kiro_fresh_profile_foreground_20261112.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 640722,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-12T19:28:23.325Z",
+        "ageDays": 8.4,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 8.4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:da3ac879ea1477bd37e62bb4",
+        "name": "knoux_ai_debug_tab_tools_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_tab_tools_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 596106,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:49:47.893Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:32a8e5fa748b35d180505cbd",
+        "name": "knoux_ai_debug_tab_clean_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_tab_clean_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 569323,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:49:52.485Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:baf085f79ddb699225b83408",
+        "name": "knoux_ai_detail_residue_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_residue_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 560188,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:57:49.305Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1dc451688a57ce9f6914105b",
+        "name": "knoux_ai_deepscan_pause_20261115.png",
+        "path": "%TEMP%\\knoux_ai_deepscan_pause_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 554926,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:53:09.059Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:68b18e66ad7059a0fce36219",
+        "name": "knoux_ai_detail_battery_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_battery_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 553607,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:55:47.815Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3350bf7b79476428bbf2c257",
+        "name": "knoux_ai_deepscan_after5s_20261115.png",
+        "path": "%TEMP%\\knoux_ai_deepscan_after5s_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 553161,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:52:07.162Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e6dd08b693f6fac61375f6c7",
+        "name": "knoux_ai_debug_deepscan_entry_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_deepscan_entry_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 553017,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:51:00.900Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3c8d0641886a8255db8b2640",
+        "name": "knoux_ai_detail_duplicates_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_duplicates_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 546106,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:57:44.106Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a29c9dda035ac3caf7ea82fc",
+        "name": "knoux_ai_debug_home_tab_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_home_tab_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 531530,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:47:58.112Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:e501658b27146cd8ab94cf7c",
+        "name": "knoux_ai_deepscan_details_20261115.png",
+        "path": "%TEMP%\\knoux_ai_deepscan_details_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 522540,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:53:54.084Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1ddba4ad9398ace15ab41934",
+        "name": "knoux_ai_detail_ai_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_ai_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 520854,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:55:52.602Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:8d0fd2e69be9cbfc3ffb1e2d",
+        "name": ".bun-1747889258-3cba9b8dc4fa4e45.node",
+        "path": "%TEMP%\\.bun-1747889258-3cba9b8dc4fa4e45.node",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 518144,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-07T23:36:19.898Z",
+        "ageDays": 13.2,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 13.2 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:07bc5af4507c38dec94f64c8",
+        "name": "knoux_ai_detail_performance_report_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_performance_report_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 512473,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:57:59.820Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:37581e517e9597863fb44785",
+        "name": "knoux_ai_detail_storage_20261115.png",
+        "path": "%TEMP%\\knoux_ai_detail_storage_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 500185,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:55:42.864Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:3f6696211512dd8a433199ac",
+        "name": "adb.log",
+        "path": "%TEMP%\\adb.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 498403,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-21T02:35:48.894Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:09733db6160e96f8391e85ea",
+        "name": "knoux_ai_debug_tab_reports_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_tab_reports_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 496980,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:49:57.090Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:72cac97a30c336f0ce45281b",
+        "name": ".bun-1747889258-3c77ac92a35af691.dll",
+        "path": "%TEMP%\\.bun-1747889258-3c77ac92a35af691.dll",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 484864,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-20T12:28:47.214Z",
+        "ageDays": 0.7,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.7 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:f2fcff9df38756c96d77b71d",
+        "name": "knoux_ai_debug_home_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_home_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 478713,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:47:28.597Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6c5130963aaf7b3f8b410dd5",
+        "name": "knoux_ai_samsung_live_20261115.png",
+        "path": "%TEMP%\\knoux_ai_samsung_live_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 473157,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:44:07.762Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a1089fcf98e48337681e56a6",
+        "name": "knoux_ai_debug_return_20261115.png",
+        "path": "%TEMP%\\knoux_ai_debug_return_20261115.png",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 473134,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T14:46:59.984Z",
+        "ageDays": 5.6,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 5.6 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:74e218d9f58e7247d62dbdf9",
+        "name": "6827a775-37ad-4c52-8cd5-b7a763d77228.tmp",
+        "path": "%TEMP%\\6827a775-37ad-4c52-8cd5-b7a763d77228.tmp",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 472941,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-21T01:17:04.162Z",
+        "ageDays": 0.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 0.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:72a38451eae0b73a5075dcb1",
+        "name": "exthost-29fd42.cpuprofile",
+        "path": "%TEMP%\\exthost-29fd42.cpuprofile",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "eligible",
+        "risk": "low",
+        "sizeBytes": 470145,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-12T19:27:35.091Z",
+        "ageDays": 8.4,
+        "reasons": [
+          "Temporary file is older than 7 days.",
+          "No active process ownership was verified, so this stays a review step."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 8.4 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:6e1611bbb1212f8fe88a427a",
+        "name": "proj.json",
+        "path": "%TEMP%\\proj.json",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 434397,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-19T00:41:46.489Z",
+        "ageDays": 2.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:62c6bb620cfb6563719734e7",
+        "name": "project-new2.json",
+        "path": "%TEMP%\\project-new2.json",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 434340,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-19T01:35:03.386Z",
+        "ageDays": 2.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:dfec768df9c078ac6f33c81d",
+        "name": "project-new.json",
+        "path": "%TEMP%\\project-new.json",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 434316,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-19T01:27:12.766Z",
+        "ageDays": 2.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 2.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:a0a19dee396d9a1aac4c5d0e",
+        "name": "kotlin-daemon.2026-11-19.11-43-13-260.00.log",
+        "path": "%TEMP%\\kotlin-daemon.2026-11-19.11-43-13-260.00.log",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 426041,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-19T07:50:17.482Z",
+        "ageDays": 1.8,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 1.8 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:fbdc40e2df17577f0cffa7d1",
+        "name": "63FFA364-392C-4363-B53E-6CF73A806810.Diagnose.0.etl",
+        "path": "%TEMP%\\63FFA364-392C-4363-B53E-6CF73A806810.Diagnose.0.etl",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 327680,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-15T00:44:40.675Z",
+        "ageDays": 6.1,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.1 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:b3c04757b3d10cc3ecba62b8",
+        "name": "97BD8577-2479-466F-AF86-ED4CE6367E92.Diagnose.0.etl",
+        "path": "%TEMP%\\97BD8577-2479-466F-AF86-ED4CE6367E92.Diagnose.0.etl",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 327680,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T17:05:21.039Z",
+        "ageDays": 6.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:c3b6a5e1d4dd025b67d6b2b4",
+        "name": "97BD8577-2479-466F-AF86-ED4CE6367E92.Repair.1.etl",
+        "path": "%TEMP%\\97BD8577-2479-466F-AF86-ED4CE6367E92.Repair.1.etl",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 327680,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T17:05:49.381Z",
+        "ageDays": 6.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:1f61a4bb73761b0890197234",
+        "name": "97BD8577-2479-466F-AF86-ED4CE6367E92.Verify.2.etl",
+        "path": "%TEMP%\\97BD8577-2479-466F-AF86-ED4CE6367E92.Verify.2.etl",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 327680,
+        "fileCount": 1,
+        "folderCount": 0,
+        "modifiedAt": "2026-11-14T17:06:08.948Z",
+        "ageDays": 6.5,
+        "reasons": [
+          "Temporary file is newer than the safety threshold.",
+          "It may still be open by an application."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Quarantine can preserve the file before any deletion.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "Modified 6.5 day(s) ago.",
+          "Metadata only; content was not read."
+        ]
+      },
+      {
+        "id": "cln:d3a68cd99f4d61c8fcc125c4",
+        "name": "36 temporary folder(s)",
+        "path": "%TEMP%",
+        "category": "temp",
+        "source": "User temporary folder",
+        "safety": "review",
+        "risk": "medium",
+        "sizeBytes": 0,
+        "fileCount": 0,
+        "folderCount": 0,
+        "modifiedAt": null,
+        "ageDays": null,
+        "reasons": [
+          "Aggregated temporary subfolders; contents were not opened.",
+          "Some folders may belong to active applications."
+        ],
+        "action": "quarantine",
+        "permission": "Standard user",
+        "recoverable": "Folder contents are not individually enumerated; review is mandatory.",
+        "provider": "Bounded filesystem metadata",
+        "active": false,
+        "virtual": false,
+        "evidence": [
+          "0 file(s) measured.",
+          "Measurement hit its hard budget; reported bytes are a lower bound."
+        ]
+      }
+    ],
+    "candidateCount": 141,
+    "estimatedEligibleBytes": 67392611,
+    "estimatedReviewBytes": 191282310,
+    "estimatedBlockedBytes": 0,
+    "error": null
+  }
+}

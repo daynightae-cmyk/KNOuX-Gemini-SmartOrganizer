@@ -1,0 +1,944 @@
+{
+  "capturedAt": "2026-11-21T04:07:08.261Z",
+  "sizes": [
+    {
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "themes": [
+    "day",
+    "night"
+  ],
+  "locales": [
+    "en",
+    "ar"
+  ],
+  "frames": [
+    {
+      "label": "cleanup-day-en-1366x768",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1366,
+        "height": 768
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1366,
+        "innerHeight": 768,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1366,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 694
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1102,
+            "h": 262
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-en-1366x768.png"
+    },
+    {
+      "label": "cleanup-night-en-1366x768",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "en",
+      "size": {
+        "width": 1366,
+        "height": 768
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1366,
+        "innerHeight": 768,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1366,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 694
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1102,
+            "h": 262
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-en-1366x768.png"
+    },
+    {
+      "label": "cleanup-day-ar-1366x768",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "ar",
+      "size": {
+        "width": 1366,
+        "height": 768
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1366,
+        "innerHeight": 768,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1366,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1126,
+            "y": 66,
+            "w": 232,
+            "h": 694
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1102,
+            "h": 262
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-ar-1366x768.png"
+    },
+    {
+      "label": "cleanup-night-ar-1366x768",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "ar",
+      "size": {
+        "width": 1366,
+        "height": 768
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1366,
+        "innerHeight": 768,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1366,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1126,
+            "y": 66,
+            "w": 232,
+            "h": 694
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1102,
+            "h": 262
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-ar-1366x768.png"
+    },
+    {
+      "label": "cleanup-day-en-1600x900",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1600,
+        "height": 900
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1600,
+        "innerHeight": 900,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 826
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1336,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-en-1600x900.png"
+    },
+    {
+      "label": "cleanup-night-en-1600x900",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "en",
+      "size": {
+        "width": 1600,
+        "height": 900
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1600,
+        "innerHeight": 900,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 826
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1336,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-en-1600x900.png"
+    },
+    {
+      "label": "cleanup-day-ar-1600x900",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "ar",
+      "size": {
+        "width": 1600,
+        "height": 900
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1600,
+        "innerHeight": 900,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1360,
+            "y": 66,
+            "w": 232,
+            "h": 826
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1336,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-ar-1600x900.png"
+    },
+    {
+      "label": "cleanup-night-ar-1600x900",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "ar",
+      "size": {
+        "width": 1600,
+        "height": 900
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1600,
+        "innerHeight": 900,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1600,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1360,
+            "y": 66,
+            "w": 232,
+            "h": 826
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1336,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-ar-1600x900.png"
+    },
+    {
+      "label": "cleanup-day-en-1672x941",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 867
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1408,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-en-1672x941.png"
+    },
+    {
+      "label": "cleanup-night-en-1672x941",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "en",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 867
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1408,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-en-1672x941.png"
+    },
+    {
+      "label": "cleanup-day-ar-1672x941",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "ar",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1432,
+            "y": 66,
+            "w": 232,
+            "h": 867
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1408,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-ar-1672x941.png"
+    },
+    {
+      "label": "cleanup-night-ar-1672x941",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "ar",
+      "size": {
+        "width": 1672,
+        "height": 941
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1672,
+        "innerHeight": 941,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1672,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1432,
+            "y": 66,
+            "w": 232,
+            "h": 867
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1408,
+            "h": 330
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-ar-1672x941.png"
+    },
+    {
+      "label": "cleanup-day-en-1920x1080",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "en",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1920,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 1006
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1656,
+            "h": 350
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-en-1920x1080.png"
+    },
+    {
+      "label": "cleanup-night-en-1920x1080",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "en",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "ltr",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1920,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 8,
+            "y": 66,
+            "w": 232,
+            "h": 1006
+          },
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1656,
+            "h": 350
+          },
+          "primaryCta": null,
+          "headings": [
+            "Smart Cleanup",
+            "Smart Cleanup"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-en-1920x1080.png"
+    },
+    {
+      "label": "cleanup-day-ar-1920x1080",
+      "section": "cleanup",
+      "theme": "day",
+      "locale": "ar",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "day",
+        "storedPreference": "light",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#f1f0fa",
+        "accent": "#6d28d9",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1920,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1680,
+            "y": 66,
+            "w": 232,
+            "h": 1006
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1656,
+            "h": 350
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-day-ar-1920x1080.png"
+    },
+    {
+      "label": "cleanup-night-ar-1920x1080",
+      "section": "cleanup",
+      "theme": "night",
+      "locale": "ar",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "ok": true,
+      "state": {
+        "themeAttr": "night",
+        "storedPreference": "dark",
+        "dir": "rtl",
+        "visualSection": "cleanup",
+        "canvas": "#07060f",
+        "accent": "#a978ff",
+        "panelBackground": "rgba(0, 0, 0, 0)",
+        "panelBackdrop": "none",
+        "overflowY": 0,
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "geometry": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 1920,
+            "h": 58
+          },
+          "sidebar": {
+            "x": 1680,
+            "y": 66,
+            "w": 232,
+            "h": 1006
+          },
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1656,
+            "h": 350
+          },
+          "primaryCta": null,
+          "headings": [
+            "التنظيف الذكي",
+            "التنظيف الذكي"
+          ]
+        },
+        "orbit": {
+          "dial": 1,
+          "pipes": 0,
+          "nodes": 0
+        },
+        "inertButtons": 12
+      },
+      "file": "cleanup-night-ar-1920x1080.png"
+    }
+  ],
+  "orbitCoverage": [
+    {
+      "section": "cleanup",
+      "frames": 16,
+      "dial": 16,
+      "pipes": 0,
+      "complete": false
+    }
+  ],
+  "failures": [],
+  "pageErrors": [],
+  "consoleIssues": [],
+  "orbitComplete": [],
+  "orbitMissing": [
+    "cleanup"
+  ],
+  "ok": true
+}

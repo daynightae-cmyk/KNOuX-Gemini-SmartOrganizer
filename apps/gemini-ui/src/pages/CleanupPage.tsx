@@ -9,9 +9,13 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
+  Clock3,
   Database,
   FileSpreadsheet,
+  FileText,
   FolderLock,
+  Gauge,
+  HardDrive,
   Lock,
   Save,
   ShieldCheck,
@@ -22,7 +26,9 @@ import {
 import type { CleanupCandidate, CleanupCategory } from '../../shared/native-contracts';
 import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { CleanupHero, CleanupMetrics } from '../cleanup/CleanupHero';
+import { CleanupHero, CleanupHeroTiles, CleanupMetrics } from '../cleanup/CleanupHero';
+import { LivingHeroExtraMount } from '../visual/LivingLayoutContext';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import { CandidateRegister } from '../cleanup/CandidateRegister';
 import { CandidateInspector } from '../cleanup/CandidateInspector';
 import { ServiceRail, serviceIcon } from '../cleanup/ServiceRail';
@@ -59,6 +65,17 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
   const controller = useCleanup();
   const { inventory } = controller;
   const candidates = useMemo<CleanupCandidate[]>(() => inventory?.candidates || [], [inventory]);
+
+  // The board's "Last Cleanup" tile needs the native quarantine journal. This
+  // is the same read-only vault read the Safety Vault handoff performs; it
+  // never mutates the vault, journal or any owner file.
+  const journalRequested = useRef(false);
+  useEffect(() => {
+    if (controller.nativeAvailable && !journalRequested.current) {
+      journalRequested.current = true;
+      void controller.loadQuarantine();
+    }
+  }, [controller.nativeAvailable, controller.loadQuarantine]);
 
   const [filters, setFilters] = useState<CleanupFilters>(DEFAULT_FILTERS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -303,6 +320,20 @@ export function CleanupPage({ onNavigateSection }: CleanupPageProps) {
             />
 
           </div>
+          {/* Board anatomy: the three capability rows and four measured KPI tiles
+              live in the unified hero copy column; the category orbit already
+              portals into the hero instrument. Every figure stays native-measured
+              or an explicit unmeasured state — no fabricated freshness metric. */}
+          <LivingHeroExtraMount enabled>
+            <HeroFeatures
+              items={[
+                { icon: <ShieldCheck className="w-4 h-4" />, title: t(locale, 'Safe & Secure', 'آمن ومحمي'), detail: t(locale, 'Only removes safe files', 'يزيل الملفات الآمنة فقط'), tone: '#7c5cff' },
+                { icon: <HardDrive className="w-4 h-4" />, title: t(locale, 'Frees Up Space', 'يوفّر المساحة'), detail: t(locale, 'Improves system performance', 'يحسّن أداء النظام'), tone: '#f59e0b' },
+                { icon: <FileText className="w-4 h-4" />, title: t(locale, 'Keeps You Private', 'يحفظ خصوصيتك'), detail: t(locale, 'Clears browsing traces', 'يزيل آثار التصفح'), tone: '#10b981' },
+              ]}
+            />
+            <CleanupHeroTiles locale={locale} controller={controller} />
+          </LivingHeroExtraMount>
           <ServiceRail locale={locale} controller={controller} selectedCount={checkedIds.size} selectedService={activeService} onOpenService={setActiveService}/>
           <div className="cleanup-process-row"><CleanupLiveStage controller={controller} locale={locale} service={activeService} title={activeService?cleanupServiceLabel(activeService):t(locale,'Cleanup candidates','مرشحات التنظيف')} selected={checkedIds.size}/><div className="cleanup-process-tools"><button onClick={()=>{setActiveService(null);setDetached(false);}}>{t(locale,'Candidates','المرشحات')}</button><button aria-pressed={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>{t(locale,'Inspector','المفتش')}</button>{activeService?<button onClick={()=>setDetached(true)}>{t(locale,'Side view','عرض جانبي')}</button>:null}<details className="cleanup-page-scope"><summary>{t(locale,'Discovery scope','نطاق الاكتشاف')}</summary><div><fieldset disabled={controller.scanning}><label>{t(locale,'Minimum age (days)','أقل عمر (أيام)')}<input data-testid="cleanup-discovery-age" type="number" min={0} max={3650} value={discoveryAgeDays} onChange={e=>setDiscoveryAgeDays(Number.isFinite(e.target.valueAsNumber)?Math.min(3650,Math.max(0,Math.floor(e.target.valueAsNumber))):1)}/></label>{SCAN_CATEGORIES.map(category=><label key={category}><input type="checkbox" data-testid={'cleanup-discovery-category-'+category} checked={discoveryCategories.includes(category)} onChange={e=>setDiscoveryCategories(current=>e.target.checked?[...current,category]:current.filter(value=>value!==category))}/>{categoryLabel(category,locale)}</label>)}</fieldset></div></details><details><summary>{t(locale,'Coverage & metrics','التغطية والمؤشرات')}</summary><div><CleanupMetrics locale={locale} controller={controller}/>
 

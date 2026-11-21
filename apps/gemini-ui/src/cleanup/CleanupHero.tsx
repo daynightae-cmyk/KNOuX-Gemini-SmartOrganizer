@@ -7,9 +7,11 @@ import {
   AlertTriangle,
   ArrowRight,
   Clock3,
+  Database,
   Download,
   FileText,
   FlaskConical,
+  Gauge,
   Globe,
   HardDrive,
   Play,
@@ -28,6 +30,7 @@ import {
   formatBytes,
   formatCount,
   formatPercent,
+  formatTimestamp,
   t,
 } from './model';
 import type { CleanupLocale } from './model';
@@ -43,7 +46,8 @@ export interface CleanupHeroProps {
   scope?:{categories:CleanupCategory[];ageDays:number;onCategoriesChange:(categories:CleanupCategory[])=>void;onAgeDaysChange:(days:number)=>void};
 }
 
-function coveragePercent(controller: CleanupController): number | null {
+/** Measured root coverage, or null until a native discovery reports it. */
+export function cleanupCoveragePercent(controller: CleanupController): number | null {
   const coverage = controller.inventory?.coverage;
   if (coverage) {
     const total = coverage.rootsScanned + coverage.rootsUnavailable;
@@ -264,9 +268,75 @@ export function CleanupHero({ locale, controller, selectedCount, onReviewSelecti
 }
 
 /** Reference metrics row below the intro card. Values stay measured or empty. */
+/**
+ * The board's four hero KPI tiles. Every value is native-measured or an
+ * explicit unmeasured state: recoverable bytes come from the measured
+ * inventory, safety level from review/blocked counts, last cleanup from the
+ * read-only quarantine journal, and coverage from measured roots. The board's
+ * "System Freshness" has no real provider metric, so the fourth tile shows
+ * measured Scan Coverage instead of a fabricated percentage.
+ */
+export function CleanupHeroTiles({ locale, controller }: { locale: CleanupLocale; controller: CleanupController }) {
+  const summary = controller.inventory?.summary;
+  const coverage = cleanupCoveragePercent(controller);
+  const journal = controller.quarantine?.journal.entries ?? [];
+  const lastCleanup = journal.length
+    ? [...journal].sort((a, b) => String(b.createdAt ?? '').localeCompare(String(a.createdAt ?? '')))[0]
+    : null;
+  const safety = !summary ? null : summary.reviewCount === 0 && summary.blockedCount === 0 ? 'high' : 'review';
+  const tiles = [
+    {
+      icon: Database,
+      value: summary ? formatBytes(summary.eligibleBytes) : '—',
+      label: t(locale, 'Recoverable Space', 'المساحة القابلة للاستعادة'),
+      note: summary ? t(locale, 'Measured eligible candidates', 'مرشحات مؤهلة مقيسة') : t(locale, 'Not measured', 'غير مقيس'),
+    },
+    {
+      icon: ShieldCheck,
+      value: safety === 'high' ? t(locale, 'High', 'مرتفع') : safety === 'review' ? t(locale, 'Review', 'مراجعة') : '—',
+      label: t(locale, 'Safety Level', 'مستوى الأمان'),
+      note: safety === 'high'
+        ? t(locale, 'No risky files detected', 'لا ملفات خطرة مكتشفة')
+        : safety === 'review'
+          ? `${formatCount(summary?.reviewCount ?? 0)} ${t(locale, 'need review', 'تحتاج مراجعة')}`
+          : t(locale, 'Not measured', 'غير مقيس'),
+    },
+    {
+      icon: Clock3,
+      value: lastCleanup?.createdAt ? formatTimestamp(lastCleanup.createdAt, locale) : t(locale, 'No record', 'لا سجل'),
+      label: t(locale, 'Last Cleanup', 'آخر تنظيف'),
+      note: lastCleanup
+        ? `${formatCount(lastCleanup.itemCount ?? 0)} ${t(locale, 'items journaled', 'عنصرًا في السجل')}`
+        : t(locale, 'Native journal has no entry', 'لا يوجد إدخال في السجل الأصلي'),
+    },
+    {
+      icon: Gauge,
+      value: coverage == null ? '—' : formatPercent(coverage),
+      label: t(locale, 'Scan Coverage', 'تغطية الفحص'),
+      note: controller.inventory?.coverage
+        ? `${formatCount(controller.inventory.coverage.rootsScanned)} ${t(locale, 'roots measured', 'جذرًا مقيسًا')}`
+        : t(locale, 'Not measured', 'غير مقيس'),
+    },
+  ];
+  return (
+    <div className="cln-hero-tiles" data-testid="cleanup-hero-tiles">
+      {tiles.map(({ icon: Icon, value, label, note }) => (
+        <div key={label} className="cln-hero-tile">
+          <span className="cln-hero-tile-icon"><Icon aria-hidden="true" /></span>
+          <span className="cln-hero-tile-copy" title={note}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+            <small>{note}</small>
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function CleanupMetrics({ locale, controller }: { locale: CleanupLocale; controller: CleanupController }) {
   const summary = controller.inventory?.summary;
-  const coverage = coveragePercent(controller);
+  const coverage = cleanupCoveragePercent(controller);
   return (
     <div className="cln-kpis">
       <div className="cln-kpi cln-kpi-coverage">
