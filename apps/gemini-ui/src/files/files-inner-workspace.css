@@ -1,26 +1,172 @@
-/* Files Phase II: preserve the hero, promote the real index and existing tools. */
-.knx-living-shell[data-visual-section=files] .knx-living-workspace [data-testid=files-workspace].files-inner-workspace{display:flex!important;flex-direction:column;gap:6px;padding:6px!important;min-width:0;min-height:0;overflow:hidden!important;background:var(--knx-atmosphere)}
+/* Files board pass (2026-11-21): the measured index owns the board geometry.
+   DAY  = search row / pills + inline filters / results table + Selected File rail.
+   NIGHT= same composition, stacked filter row + search beside pills, shared
+   midnight-violet material. The service dock, every disclosure and the consent
+   footer stay mounted and operable; the native evidence gate drives them unchanged. */
+/* Small windows scroll this workspace (never the document); the ledger keeps a
+   guaranteed 180px body and the consent footer stays pinned at the lower edge. */
+.knx-living-shell[data-visual-section=files] .knx-living-workspace [data-testid=files-workspace].files-inner-workspace{display:flex!important;flex-direction:column;gap:6px;padding:8px!important;min-width:0;min-height:0;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;background:var(--knx-atmosphere)}
+
+/* Service dock: real twelve services, keyboard contract intact (56-76px). */
 .files-compact-dock{flex:none;min-width:0}
-.knx-living-shell[data-visual-section=files] .files-operational-toolbar>.knx-files-searchbar{grid-column:1;grid-row:1;margin:0}
-.knx-living-shell[data-visual-section=files] .files-tool-disclosures :is(.knx-files-distribution,.knx-files-advanced){position:static!important;inset:auto!important;width:auto;max-width:100%;z-index:auto;font-size:10px}.knx-living-shell[data-visual-section=files] .files-tool-disclosures :is(.knx-files-distribution,.knx-files-advanced)>div{position:static!important;inset:auto!important;width:auto!important;max-width:100%!important;max-height:180px;overflow:auto;margin:4px 0!important}
-.files-operational-toolbar{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,38%);gap:5px;flex:none;min-width:0;max-height:45%;overflow:auto;}
-.files-operational-toolbar>.knx-files-searchbar{grid-column:1;grid-row:1;margin:0}.files-operational-toolbar>.knx-files-searchbar>div{height:100%;min-height:44px;padding:6px 10px;background:var(--knx-surface);border-color:var(--knx-line)}.files-operational-toolbar .knx-files-searchbar input{font-size:13px}
-.files-operational-toolbar>.knx-live-service-stage{grid-column:2;grid-row:1;padding:5px 8px}
-.files-operational-toolbar .knx-files-categories{grid-column:1;grid-row:2;display:flex;flex-wrap:nowrap;overflow-x:auto;margin:0;padding:0;gap:4px;min-width:0}.files-operational-toolbar .knx-files-categories button{font-size:11px;padding:4px 8px;flex:none;min-height:29px}
-.files-tool-disclosures{grid-column:2;grid-row:2;display:flex;align-items:start;justify-content:end;gap:4px;flex-wrap:wrap;min-width:0;font-size:10px}.files-tool-disclosures>button,.files-tool-disclosures summary{padding:4px 6px;border:1px solid var(--knx-line);border-radius:var(--knx-r-sm);background:var(--knx-surface);color:var(--knx-ink);cursor:pointer;white-space:nowrap}
-.files-tool-disclosures>details[open]{flex-basis:100%}.files-tool-disclosures>details[open]>div,.files-tool-disclosures>details[open]>[data-testid=files-pipeline]{margin:5px 0;min-width:0;max-width:100%;overflow:auto}.files-live-facts{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--knx-ink-2);overflow-wrap:anywhere}
-.files-tool-disclosures .knx-files-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.files-tool-disclosures .knx-files-metrics>div{padding:7px;min-width:0}.files-tool-disclosures .knx-files-metrics strong{font-size:17px}.files-tool-disclosures .knx-files-metrics small{font-size:10px}.files-tool-disclosures [data-testid=files-native-banner]{margin:0;font-size:11px}
-.knx-living-shell[data-visual-section=files] .files-inner-workspace>.knx-files-split{display:flex;flex:1;min-height:0;min-width:0;padding:0;gap:7px;overflow:hidden}
+.files-compact-dock .knx-compact-service-strip{overflow-x:auto;scrollbar-width:thin}
+.files-compact-dock .knx-compact-service-strip>[role=tab]{flex:0 0 auto;min-width:118px;max-width:170px}
+.files-compact-dock .knx-compact-service-strip>[role=tab] .knx-dock-copy strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Operational toolbar: DAY = search row above pills+filters; NIGHT = pills with
+   the search beside them, then the filter selects row (board geometry). */
+.files-operational-toolbar{display:flex;flex-direction:column;gap:5px;flex:none;min-width:0}
+.files-filter-row{display:flex;flex-direction:column;gap:5px;min-width:0}
+.files-filter-row>.knx-files-searchbar{margin:0}
+.files-inner-workspace .files-filter-row>.knx-files-searchbar>div{min-height:36px;padding:4px 10px!important;background:var(--knx-surface);border-color:var(--knx-line)}
+.files-inner-workspace .files-filter-row .knx-files-searchbar input{font-size:13px!important}
+.files-inner-workspace .files-filter-row>.knx-files-searchbar .border-l{line-height:1.2}
+.files-inner-workspace .files-filter-row>.knx-files-searchbar .border-l>div{font-size:10px}
+.files-inner-workspace>.knx-live-service-stage{padding:2px 8px!important;flex:none}
+.files-inner-workspace>.knx-live-service-stage .knx-stage-line{gap:6px}
+.files-inner-workspace>.knx-live-service-stage .knx-stage-line small{display:none}
+.files-inner-workspace>.knx-live-service-stage .knx-stage-line strong{font-size:12px!important}
+.files-inner-workspace>.knx-live-service-stage .knx-stage-line>svg{width:16px!important;height:16px!important}
+.files-inner-workspace>.knx-live-service-stage .knx-stage-state{font-size:9px;padding:2px 6px}
+.files-operational-toolbar .knx-files-categories{display:flex;flex-wrap:nowrap;overflow-x:auto;margin:0;padding:0;gap:4px;min-width:0;flex:1;scrollbar-width:thin}
+.files-operational-toolbar .knx-files-categories button{font-size:11px;padding:4px 9px;flex:none;min-height:28px;border-radius:999px}
+
+/* Inline board filters: location / date / size are always visible; More Filters
+   is a real <details> (default closed) owning extension + the native gate's
+   grid/list round-trip target stays in the results header. */
+.files-inline-filters{display:flex;align-items:center;gap:6px;min-width:0;flex-wrap:wrap}
+.files-inline-filters select{min-height:28px;font-size:11px;max-width:200px}
+.files-inline-filters .knx-files-advanced{position:relative}
+.files-inner-workspace .files-inline-filters .knx-files-advanced>summary{display:flex;align-items:center;gap:5px;padding:4px 10px;border:1px solid var(--knx-accent);border-radius:999px;background:color-mix(in srgb,var(--knx-accent) 12%,var(--knx-surface));color:var(--knx-accent-strong);font-size:11px;font-weight:650;cursor:pointer;white-space:nowrap;list-style:none}
+.files-inner-workspace .files-inline-filters .knx-files-advanced>summary::-webkit-details-marker{display:none}
+.files-inner-workspace .files-inline-filters .knx-files-advanced[open]>div{position:absolute;inset-inline-end:0;top:calc(100% + 5px);z-index:35;display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;padding:8px;min-width:220px;max-width:min(420px,70vw);max-height:240px;overflow:auto;border:1px solid var(--knx-line);border-radius:12px;background:var(--knx-raised);box-shadow:var(--knx-elev-2)}
+.files-inner-workspace .files-inline-filters .knx-files-advanced[open] select{min-height:28px;font-size:11px;max-width:220px}
+
+/* NIGHT board: pills left, search right on the first row; filters on the second. */
+html:not([data-theme='light']) .files-filter-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,430px);gap:5px;align-items:center}
+html:not([data-theme='light']) .files-filter-row>.knx-files-categories{grid-column:1;grid-row:1}
+html:not([data-theme='light']) .files-filter-row>.knx-files-searchbar{grid-column:2;grid-row:1;max-width:none}
+html:not([data-theme='light']) .files-filter-row>.knx-files-searchbar kbd{display:none}
+html:not([data-theme='light']) .files-filter-row>.files-inline-filters{grid-column:1/-1;grid-row:2}
+
+/* Disclosures keep their real <details> semantics (the gate clicks summaries).
+   Scope / Types & age / Stages read as compact chips and open floating panels. */
+.files-tool-disclosures{position:relative;display:flex;align-items:center;gap:4px;flex:none;min-width:0;font-size:10px}
+/* The legacy reference sheet absolutely positioned the closed distribution
+   gauge over the toolbar; here every closed disclosure is an inline chip. */
+.files-inner-workspace .files-operational-toolbar .knx-files-distribution{position:static!important;inset:auto!important;width:auto!important;max-width:none!important;z-index:auto!important}
+.files-inner-workspace .files-operational-toolbar .files-tool-disclosures>button,.files-inner-workspace .files-operational-toolbar .files-tool-disclosures summary{padding:4px 8px;border:1px solid var(--knx-line);border-radius:999px;background:var(--knx-surface);color:var(--knx-ink);cursor:pointer;white-space:nowrap;list-style:none}
+.files-inner-workspace .files-operational-toolbar .files-tool-disclosures summary::-webkit-details-marker{display:none}
+.files-inner-workspace .files-operational-toolbar .files-tool-disclosures>button[aria-pressed=true]{border-color:var(--knx-accent);color:var(--knx-accent-strong)}
+.files-inner-workspace .files-operational-toolbar .files-tool-disclosures>details[open]{position:absolute;inset-inline-end:0;top:calc(100% + 4px);z-index:30;padding:8px;border:1px solid var(--knx-line);border-radius:12px;background:var(--knx-raised);box-shadow:var(--knx-elev-2);max-width:min(560px,80vw)}
+.files-inner-workspace .files-operational-toolbar .files-tool-disclosures>details[open]>summary{margin-bottom:6px}
+.files-inner-workspace .files-tool-disclosures :is(.knx-files-distribution,.files-scope-controls)>div{position:static!important;inset:auto!important;width:auto!important;max-width:100%!important;max-height:220px;overflow:auto;margin:4px 0!important}
+.files-tool-disclosures>details[open]>[data-testid=files-pipeline]{margin:5px 0;min-width:0;max-width:100%;overflow:auto}
+.files-live-facts{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--knx-ink-2);overflow-wrap:anywhere}
+.files-tool-disclosures .knx-files-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.files-tool-disclosures .knx-files-metrics>div{padding:7px;min-width:0}
+.files-tool-disclosures .knx-files-metrics strong{font-size:17px}
+.files-tool-disclosures .knx-files-metrics small{font-size:10px}
+.files-tool-disclosures [data-testid=files-native-banner]{margin:0;font-size:11px}
+
+/* Body: measured ledger + Selected File rail, side by side in BOTH themes
+   (both boards keep the dossier present; the Inspector toggle still hides it). */
+.knx-living-shell[data-visual-section=files] .files-inner-workspace>.knx-files-split{display:flex;flex:1 0 180px;min-height:180px;min-width:0;padding:0;gap:7px;overflow:hidden}
 .files-inner-workspace .knx-files-results{min-height:0;min-width:0;background:var(--knx-surface);border-color:var(--knx-line);border-radius:var(--knx-r-lg)}
+.files-results-head{display:flex;align-items:center;gap:8px;padding:7px 10px 5px;flex:none;flex-wrap:wrap}
+.files-results-head h2{margin:0;font-size:14px;font-weight:750;color:var(--knx-ink)}
+.files-results-count{font-size:10.5px;color:var(--knx-ink-2);font-family:var(--knx-font-mono,monospace)}
+.files-results-tools{margin-inline-start:auto;display:flex;align-items:center;gap:6px}
+.files-results-tools select{min-height:26px;font-size:10.5px;max-width:190px}
+.files-view-all{display:flex;align-items:center;gap:2px;font-size:11px;font-weight:650;color:var(--knx-accent-strong);white-space:nowrap;cursor:pointer}
 .files-inner-workspace [data-testid=files-results-scroll]{flex:1;min-height:0;overscroll-behavior:contain}
-.files-inner-workspace [data-testid^=files-row-]{min-height:48px;font-size:12px;padding-top:6px!important;padding-bottom:6px!important}.files-inner-workspace [data-testid^=files-row-] :is(.w-4.h-4,.w-5.h-5){width:28px;height:30px}.files-inner-workspace [data-testid^=files-row-] .text-xs{font-size:12px}.files-inner-workspace [data-testid^=files-row-] .text-\[10px\]{font-size:11px}
-.files-inner-workspace .knx-files-inspector{flex:0 0 340px!important;width:340px!important;min-width:0;min-height:0;padding:8px;border:1px solid var(--knx-line);border-radius:var(--knx-r-lg);background:var(--knx-surface);overflow:auto}.files-inner-workspace .knx-files-inspector-head h2{font-size:15px}.files-inner-workspace .knx-files-dossier{padding:10px!important}.files-inner-workspace .knx-files-dossier :is(p,span,button){font-size:11px}.files-inner-workspace .knx-files-dossier [role=tab]{font-size:11px}
-.files-integrated-service{flex:1;min-width:0;min-height:0;overflow:auto;padding:14px;overscroll-behavior:contain}.files-integrated-service .knx-file-tool{font-size:13px}.files-integrated-service :is(p,li,label){font-size:12px;line-height:1.5}.files-integrated-service h3{font-size:18px}.files-integrated-service .knx-file-result-list{max-height:none}.files-integrated-service .knx-file-result-list>button{font-size:13px;min-height:48px;padding:9px}.files-integrated-service .knx-file-result-list strong{font-size:13px}.files-integrated-service .knx-file-result-list small{font-size:11px}.files-integrated-service button{font-size:12px;min-height:30px}.files-integrated-service input,.files-integrated-service select{font-size:12px;min-height:32px}.files-integrated-service .knx-tool-actions{position:sticky;bottom:-14px;background:var(--knx-raised);border-color:var(--knx-line)}
-.files-inner-workspace .files-authorize-primary{padding:10px 16px;border:1px solid var(--knx-accent);border-radius:var(--knx-r-md);background:var(--knx-accent);color:var(--knx-on-accent);font-weight:700;font-size:13px;min-height:38px}.files-inner-workspace .files-authorize-primary:disabled{opacity:.5}
-.files-inner-workspace .files-ready-intelligence{padding:20px;text-align:start;align-items:start;background:radial-gradient(ellipse at 80% 20%,var(--knx-accent-soft),transparent 65%)}.files-ready-intelligence h2{font-size:23px;margin:0}.files-ready-intelligence p{font-size:13px;max-width:700px;color:var(--knx-ink-2)}.files-ready-intelligence>svg{width:44px;height:44px;color:var(--knx-accent)}
-.files-inner-workspace>[data-testid=files-footer]{position:static!important;height:auto;min-height:40px;flex:none;padding:5px 8px;gap:8px;border:1px solid var(--knx-line);border-radius:var(--knx-r-md);background:var(--knx-raised);font-size:11px}.files-inner-workspace [data-testid=files-footer] button{font-size:11px;padding:5px 9px}.files-inner-workspace [data-testid=files-footer] button:disabled{opacity:.45;cursor:not-allowed}.files-inner-workspace [data-testid=files-footer]>.hidden.md\:block{font-size:10px}
+.files-inner-workspace [data-testid^=files-row-]{min-height:40px;font-size:12px;padding-top:5px!important;padding-bottom:5px!important}
+.files-inner-workspace [data-testid^=files-row-] :is(.w-4.h-4,.w-5.h-5){width:26px;height:28px}
+.files-inner-workspace [data-testid^=files-row-] .text-xs{font-size:12px}
+.files-inner-workspace [data-testid^=files-row-] .text-\[10px\]{font-size:11px}
+/* Status column: every rendered row is a measured, indexed file. */
+.files-status-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:999px;font-size:9.5px;font-weight:650;color:var(--knx-success);background:color-mix(in srgb,var(--knx-success) 12%,transparent);border:1px solid color-mix(in srgb,var(--knx-success) 30%,transparent);white-space:nowrap}
+.files-status-pill i{width:5px;height:5px;border-radius:50%;background:var(--knx-success);box-shadow:0 0 5px var(--knx-success)}
+
+/* Selected File rail: board dossier + Quick Actions + Recommended. */
+.files-inner-workspace .knx-files-inspector{flex:0 0 320px!important;width:320px!important;min-width:0;min-height:0;padding:8px;border:1px solid var(--knx-line);border-radius:var(--knx-r-lg);background:var(--knx-surface);overflow:auto}
+.files-inner-workspace .knx-files-inspector-head h2{font-size:15px}
+.files-inner-workspace .knx-files-dossier{padding:10px!important}
+.files-inner-workspace .knx-files-dossier :is(p,span,button){font-size:11px}
+.files-inner-workspace .knx-files-dossier [role=tab]{font-size:11px}
+.knx-files-quick-actions{flex-shrink:0;border:1px solid var(--knx-line);background:var(--knx-raised);border-radius:12px;padding:10px}
+.knx-files-quick-actions h3{margin:0 0 6px;font-size:13px;font-weight:750;color:var(--knx-ink)}
+.knx-files-quick-actions>button{display:flex;align-items:center;gap:8px;width:100%;min-height:32px;border-top:1px solid var(--knx-line-soft);text-align:start;font-size:12px;color:var(--knx-ink);cursor:pointer}
+.knx-files-quick-actions>button:first-of-type{border-top:0}
+.knx-files-quick-actions>button>svg{width:15px;height:15px;flex-shrink:0;color:var(--knx-accent-strong)}
+.knx-files-quick-actions>button>span{flex:1}
+.knx-files-quick-actions>button>small{font-size:9px;color:var(--knx-ink-2)}
+.knx-files-quick-actions>button:disabled{opacity:.55;cursor:not-allowed}
+.knx-files-quick-actions>button.is-danger:not(:disabled){color:var(--knx-error)}
+.knx-files-quick-actions>button.is-danger>svg{color:var(--knx-error)}
+.files-inner-workspace .knx-files-recommended>button>span{display:flex;flex-direction:column;gap:1px;min-width:0}
+.files-inner-workspace .knx-files-recommended>button strong{font-size:12px;font-weight:650;color:var(--knx-ink)}
+.files-inner-workspace .knx-files-recommended>button small{font-size:10px;color:var(--knx-ink-2)}
+
+/* Integrated service view keeps its own scroll and sticky consent actions. */
+.files-integrated-service{flex:1;min-width:0;min-height:0;overflow:auto;padding:14px;overscroll-behavior:contain}
+.files-integrated-service .knx-file-tool{font-size:13px}
+.files-integrated-service :is(p,li,label){font-size:12px;line-height:1.5}
+.files-integrated-service h3{font-size:18px}
+.files-integrated-service .knx-file-result-list{max-height:none}
+.files-integrated-service .knx-file-result-list>button{font-size:13px;min-height:48px;padding:9px}
+.files-integrated-service .knx-file-result-list strong{font-size:13px}
+.files-integrated-service .knx-file-result-list small{font-size:11px}
+.files-integrated-service button{font-size:12px;min-height:30px}
+.files-integrated-service input,.files-integrated-service select{font-size:12px;min-height:32px}
+.files-integrated-service .knx-tool-actions{position:sticky;bottom:-14px;background:var(--knx-raised);border-color:var(--knx-line)}
+.files-inner-workspace .files-authorize-primary{padding:10px 16px;border:1px solid var(--knx-accent);border-radius:var(--knx-r-md);background:var(--knx-accent);color:var(--knx-on-accent);font-weight:700;font-size:13px;min-height:38px}
+.files-inner-workspace .files-authorize-primary:disabled{opacity:.5}
+.files-inner-workspace .files-ready-intelligence{padding:12px 16px;text-align:start;align-items:start;gap:6px;background:radial-gradient(ellipse at 80% 20%,var(--knx-accent-soft),transparent 65%)}
+.files-ready-intelligence h2{font-size:23px;margin:0}
+.files-ready-intelligence p{font-size:13px;max-width:700px;color:var(--knx-ink-2)}
+.files-ready-intelligence>svg{width:44px;height:44px;color:var(--knx-accent)}
+
+/* Consent footer: selection stat, readiness, live organization + plan CTA. */
+.files-inner-workspace>[data-testid=files-footer]{position:sticky!important;bottom:0;z-index:20;height:auto;min-height:40px;flex:none;padding:5px 8px;gap:8px;border:1px solid var(--knx-line);border-radius:var(--knx-r-md);background:var(--knx-raised);font-size:11px}
+.files-inner-workspace [data-testid=files-footer] button{font-size:11px;padding:5px 9px}
+.files-inner-workspace [data-testid=files-footer] button:disabled{opacity:.45;cursor:not-allowed}
+.files-inner-workspace [data-testid=files-footer]>.hidden.md\:block{font-size:10px}
 .files-inner-workspace .files-inline-feedback{flex:none;font-size:12px;padding:5px 9px;display:flex;gap:6px;align-items:center;border:1px solid var(--knx-line);background:var(--knx-surface);color:var(--knx-ink)}
-.knx-living-shell[data-visual-section=files] .files-inner-workspace [data-testid^=files-row-]{height:auto;min-height:48px;font-size:12px}.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-inspector{overflow-y:auto!important;max-height:100%;margin:0}.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-results{margin:0;min-width:0}
-.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-inspector>*{flex-shrink:0;max-height:none}.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-dossier{overflow:visible;min-height:min-content}
-@media(max-height:820px){.files-operational-toolbar>.knx-live-service-stage .knx-stage-line small{display:none}.files-operational-toolbar>.knx-files-searchbar>div{min-height:35px}.files-operational-toolbar>.knx-live-service-stage .knx-stage-line>svg{width:21px;height:21px}.files-inner-workspace [data-testid^=files-row-]{min-height:43px}.files-inner-workspace [data-testid=files-footer]>.hidden.md\:block{display:none}.files-inner-workspace .knx-files-inspector{flex-basis:300px!important;width:300px!important}.files-operational-toolbar{grid-template-columns:minmax(0,1fr) minmax(270px,36%)}}
-@media(max-width:1050px){.files-operational-toolbar{grid-template-columns:minmax(0,1fr)}.files-operational-toolbar>.knx-live-service-stage{grid-column:1;grid-row:2}.files-operational-toolbar .knx-files-categories{grid-row:3}.files-tool-disclosures{grid-column:1;grid-row:4;justify-content:start}.files-inner-workspace>.knx-files-split{overflow:auto!important}.files-inner-workspace .knx-files-results,.files-inner-workspace .files-integrated-service{min-height:220px}.files-inner-workspace .knx-files-inspector{flex-basis:280px!important;width:280px!important}}
+.knx-living-shell[data-visual-section=files] .files-inner-workspace [data-testid^=files-row-]{height:auto;min-height:40px;font-size:12px}
+.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-inspector{overflow-y:auto!important;max-height:100%;margin:0}
+.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-results{margin:0;min-width:0}
+.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-inspector>*{flex-shrink:0;max-height:none}
+.knx-living-shell[data-visual-section=files] .files-inner-workspace .knx-files-dossier{overflow:visible;min-height:min-content}
+
+@media(max-height:820px){
+ .files-inner-workspace .files-filter-row>.knx-files-searchbar>div{min-height:32px}
+ .files-inner-workspace [data-testid^=files-row-]{min-height:36px}
+ .files-inner-workspace [data-testid=files-footer]>.hidden.md\:block{display:none}
+ .files-inner-workspace .knx-files-inspector{flex-basis:290px!important;width:290px!important}
+ .files-results-head{padding:4px 10px 2px;flex-wrap:nowrap}
+ .files-results-head h2{font-size:12.5px}
+ .files-results-tools{gap:4px}
+ .files-results-tools select{max-width:150px;font-size:10px}
+ .files-status-col{display:none}
+ /* Vertical budget: dock, filter band and stage compress so the consent CTA
+    stays above the sticky footer without internal scrolling. */
+ .files-compact-dock .knx-compact-service-dock{min-height:56px;height:56px;padding:2px}
+ .files-compact-dock .knx-compact-service-strip>[role=tab]{min-width:104px;min-height:44px;height:44px;padding:3px 7px}
+ .files-compact-dock .knx-compact-service-strip>[role=tab] .knx-dock-copy small{display:none}
+ .files-compact-dock .knx-dock-icon svg{width:18px;height:18px}
+ .files-inner-workspace .knx-files-searchbar{margin-bottom:6px!important}
+ .files-inner-workspace>.knx-live-service-stage,.files-operational-toolbar>.knx-live-service-stage{padding:1px 8px!important}
+ /* Empty state becomes one measured row: icon, reason + consent note, CTA. */
+ .files-inner-workspace .files-ready-intelligence{flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;padding:8px 12px}
+ .files-ready-intelligence>svg{width:26px;height:26px;flex:none}
+ .files-ready-intelligence>div.text-xs{flex:1;min-width:0}
+ .files-ready-intelligence>div.text-\[10px\]{display:none}
+ .files-inner-workspace .files-authorize-primary{min-height:32px;padding:6px 12px;font-size:12px;flex:none}
+}
+@media(max-width:1050px){
+ .files-filter-row{flex-wrap:wrap}
+ .files-inner-workspace>.knx-files-split{overflow:auto!important}
+ .files-inner-workspace .knx-files-results,.files-inner-workspace .files-integrated-service{min-height:220px}
+ .files-inner-workspace .knx-files-inspector{flex-basis:280px!important;width:280px!important}
+}

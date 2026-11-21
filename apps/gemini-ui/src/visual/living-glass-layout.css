@@ -149,6 +149,18 @@ html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-
 html[data-theme=light] .knx-living-shell[dir=rtl] .knx-section-hero[data-hero-section=studio] .knx-section-instrument{left:auto;right:14px}
 html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-scene{left:52%;width:46%;opacity:.55}
 .knx-section-hero[data-hero-section=studio] .knx-reference-workflow{display:none}
+/* Files boards carry no 7-step workflow strip; the live stages disclosure below
+   keeps the same measured pipeline operable. The boards give Files ~31% of the
+   frame to the hero, leaving the measured ledger the larger share. */
+.knx-section-hero[data-hero-section=files] .knx-reference-workflow{display:none}
+.knx-living-shell[data-visual-section=files]{--knx-section-hero-h:300px;--knx-section-orbit-size:264px}
+@media(max-height:820px){.knx-living-shell[data-visual-section=files]{--knx-section-hero-h:200px;--knx-section-orbit-size:180px}}
+/* NIGHT stacks three feature rows plus the KPI band; give that hero the extra
+   height so nothing clips, and keep the scene art clear of the copy column. */
+html:not([data-theme=light]) .knx-living-shell[data-visual-section=files]{--knx-section-hero-h:340px}
+@media(max-height:820px){html:not([data-theme=light]) .knx-living-shell[data-visual-section=files]{--knx-section-hero-h:230px}}
+html[data-theme=light] .knx-section-hero[data-hero-section=files] .knx-section-scene{left:48%;width:36%;opacity:.8}
+@media(min-width:1800px){.knx-living-shell[data-visual-section=files]{--knx-section-hero-h:330px;--knx-section-orbit-size:290px}}
 html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-section-scene{left:46%;width:42%;opacity:.5}
 /* The domain hero extra: measured tagline, three feature plates and four KPI
    tiles, portaled from the approved overview. Interactive, so it restores
@@ -172,6 +184,8 @@ html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-se
 .knx-hero-extra-mount .osa-kpi-copy>span{display:block;font-size:9px;color:var(--knx-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .knx-hero-extra-mount .osa-kpi-copy small{display:flex;align-items:center;gap:4px;margin-top:1px;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--knx-ink-2)}
 .knx-hero-extra-mount .osa-kpi-copy small i{width:5px;height:5px;flex-shrink:0;border-radius:50%;background:var(--knx-success);box-shadow:0 0 6px var(--knx-success)}
+/* Files KPI tiles stay honest before authorization: amber dot, no green claim. */
+.knx-hero-extra-mount .osa-metrics[data-measured=false] .osa-kpi-copy small i{background:var(--knx-warning,#f59e0b);box-shadow:0 0 6px var(--knx-warning,#f59e0b)}
 /* NIGHT board: the three capabilities read as stacked icon rows under the lede,
    not the DAY horizontal plates. */
 html:not([data-theme=light]) .knx-hero-extra-mount .osa-features{grid-template-columns:minmax(0,1fr);gap:5px}
@@ -180,7 +194,29 @@ html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button:hover{ba
 html:not([data-theme=light]) .knx-hero-extra-mount .osa-feature-icon{width:30px;height:30px;border-radius:9px}
 html:not([data-theme=light]) .knx-hero-extra-mount .osa-features strong{font-size:12.5px}
 html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{font-size:10px}
-@media(max-height:820px){.knx-hero-extra-mount{gap:6px;margin-top:6px}.knx-hero-extra-mount .osa-tagline{font-size:11px}html[data-theme=light] .knx-hero-extra-mount .osa-features>button{padding:5px 6px;gap:5px}.knx-hero-extra-mount .osa-feature-icon{width:23px;height:23px}.knx-hero-extra-mount .osa-feature-icon svg{width:13px;height:13px}.knx-hero-extra-mount .osa-features strong{font-size:10.5px}html[data-theme=light] .knx-hero-extra-mount .osa-features small{display:none}.knx-hero-extra-mount .osa-metrics>div{padding:5px 6px}.knx-hero-extra-mount .osa-kpi-copy>strong{font-size:13.5px}.knx-hero-extra-mount .osa-kpi-copy small{display:none}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features{gap:3px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button{padding:1px 0;gap:8px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-feature-icon{width:24px;height:24px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features strong{font-size:11.5px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{font-size:9px}html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-section-copy>p{font-size:11px;line-height:1.4}}
+/* Files feature plates: board copy wraps inside the plate instead of clipping
+   mid-word; scoped after the shared .osa rules so it wins the cascade. */
+.knx-hero-extra-mount .files-hero-features>button>span:last-child{min-width:0}
+.knx-hero-extra-mount .files-hero-features strong{white-space:normal;font-size:11px}
+.knx-hero-extra-mount .files-hero-features small{white-space:normal;font-size:9px;line-height:1.25}
+/* Short viewports: KPI labels wrap to two lines rather than truncate. */
+@media(max-height:820px){.knx-hero-extra-mount .osa-kpi-copy>span{white-space:normal;line-height:1.15}}
+/* Compact-height Files copy column: the wrapped KPI band must still fit inside
+   the overflow-hidden hero, so lede, feature rows and tiles tighten together. */
+@media(max-height:820px){
+ .knx-living-shell[data-visual-section=files] .knx-section-copy>p{font-size:10px;line-height:1.3}
+ .knx-living-shell[data-visual-section=files] .knx-hero-extra-mount{gap:4px;margin-top:4px}
+ .knx-living-shell[data-visual-section=files] .osa-kpi-icon{width:20px;height:24px}
+ .knx-living-shell[data-visual-section=files] .osa-kpi-icon svg{width:13px;height:13px}
+ .knx-living-shell[data-visual-section=files] .osa-metrics>div{padding:4px 5px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=files] .osa-features{gap:2px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=files] .osa-feature-icon{width:20px;height:20px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=files] .osa-feature-icon svg{width:12px;height:12px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=files] .osa-features>button{gap:6px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=files] .osa-features strong{font-size:10.5px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=files] .osa-features small{font-size:8.5px}
+}
+@media(max-height:820px){.knx-hero-extra-mount{gap:6px;margin-top:6px}.knx-hero-extra-mount .osa-tagline{font-size:11px}html[data-theme=light] .knx-hero-extra-mount .osa-features>button{padding:5px 6px;gap:5px}.knx-hero-extra-mount .osa-feature-icon{width:23px;height:23px}.knx-hero-extra-mount .osa-feature-icon svg{width:13px;height:13px}.knx-hero-extra-mount .osa-features strong{font-size:10.5px}html[data-theme=light] .knx-hero-extra-mount .osa-features small{display:none}.knx-hero-extra-mount .osa-metrics>div{padding:5px 6px}.knx-hero-extra-mount .osa-kpi-copy>strong{font-size:13.5px}.knx-hero-extra-mount .osa-kpi-copy small{display:none}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features{gap:3px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button{padding:1px 0;gap:8px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-feature-icon{width:24px;height:24px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features strong{font-size:11.5px}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{font-size:9px}html:not([data-theme=light]) .knx-section-hero[data-hero-section=studio] .knx-section-copy>p{font-size:11px;line-height:1.4}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features>button{padding:0}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features strong{line-height:1.2}html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{line-height:1.2}}
 @media(max-width:1050px){.knx-section-hero[data-hero-section=studio] .knx-section-identity{width:64%}html[data-theme=light] .knx-section-hero[data-hero-section=studio] .knx-section-identity{margin-inline-start:calc(var(--knx-section-orbit-size) + 14px)}}
 
 @media(min-width:1800px){.knx-living-shell{--knx-section-hero-h:360px;--knx-section-orbit-size:330px}}

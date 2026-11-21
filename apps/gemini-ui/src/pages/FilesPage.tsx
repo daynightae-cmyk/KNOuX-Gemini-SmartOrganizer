@@ -47,6 +47,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Lightbulb,
+  Pencil,
 } from 'lucide-react';
 
 import {
@@ -56,6 +57,7 @@ import {
   FilesServiceKey,
 } from '../lib/file-inventory';
 import {CompactServiceDock} from '../components/workbench/CompactServiceDock';
+import {LivingHeroExtraMount} from '../visual/LivingLayoutContext';
 import {FilesLiveStage} from '../files/FilesLiveStage';
 import '../files/files-inner-workspace.css';
 import { FileIcon } from '../components/files/FileIcon';
@@ -224,6 +226,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
     if(!match)setCheckedFileIds(current=>current.size?new Set():current);
   }, [measured, filteredFiles, selectedFile.id]);
 
+
   useEffect(() => {
     if (!searchIntent || !readSearchIntent('file') || filesNative.source?.id !== searchIntent.sourceId) return;
     const found = filteredFiles.find(file => file.nativeFileId === searchIntent.fileId);
@@ -251,6 +254,14 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         fileTypes: 'توزيع أنواع الملفات', ageDistribution: 'توزيع أعمار التعديل',
         ageDay: 'آخر 24 ساعة', ageWeek: 'آخر 7 أيام', ageMonth: 'آخر 30 يومًا', ageYear: 'آخر سنة', ageOlder: 'أقدم / غير معروف',
         open: 'فتح', reveal: 'إظهار في المستكشف', copyPath: 'نسخ المسار',
+        status: 'الحالة', indexed: 'مفهرس', searchResults: 'نتائج البحث',
+        filesFound: 'ملف موجود', viewAll: 'عرض الكل', moreFilters: 'مزيد من الفلاتر',
+        quickActions: 'إجراءات سريعة', rename: 'إعادة تسمية', moveTo: 'نقل إلى…', deleteAction: 'حذف',
+        renameHint: 'غير متاح: فهرس القراءة فقط لا يوفر مزود إعادة تسمية', moveHint: 'غير متاح: فهرس القراءة فقط لا يوفر مزود نقل', deleteHint: 'غير متاح: فهرس القراءة فقط لا يوفر مزود حذف',
+        findDuplicates: 'البحث عن المكرر', findDuplicatesSub: 'أسماء متكررة فقط — ليس دليل تطابق المحتوى',
+        recommended: 'إجراءات مقترحة', analyzeFile: 'تحليل الملف', analyzeFileSub: 'عرض بيانات الملف المقيسة',
+        verifyHash: 'التحقق من البصمة', verifyHashSub: 'قراءة SHA-256 أصلية للقراءة فقط',
+        addToPlan: 'إضافة إلى خطة التنظيم', addToPlanSub: 'مراجعة في استوديو التنظيم',
         calculateHash: 'حساب SHA-256', planStudio: 'خطة في استوديو التنظيم',
         livePreview: 'معاينة الخدمة الحية', services: 'خدمات KNOuX', measured: 'مقيس', fixture: 'غير مقيس',
         selected: 'ملف محدد', selectedPlural: 'ملفات محددة', first: 'أول', of: 'من',
@@ -271,6 +282,14 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
         fileTypes: 'File Types Distribution', ageDistribution: 'Modification Age Distribution',
         ageDay: 'Last 24 hours', ageWeek: 'Last 7 days', ageMonth: 'Last 30 days', ageYear: 'Last year', ageOlder: 'Older / unknown',
         open: 'Open', reveal: 'Reveal in Explorer', copyPath: 'Copy Path',
+        status: 'Status', indexed: 'Indexed', searchResults: 'Search Results',
+        filesFound: 'files found', viewAll: 'View All', moreFilters: 'More Filters',
+        quickActions: 'Quick Actions', rename: 'Rename', moveTo: 'Move To…', deleteAction: 'Delete',
+        renameHint: 'Not available: the read-only index exposes no rename provider', moveHint: 'Not available: the read-only index exposes no move provider', deleteHint: 'Not available: the read-only index exposes no delete provider',
+        findDuplicates: 'Find Duplicates', findDuplicatesSub: 'Repeated names only — not proof of identical content',
+        recommended: 'Recommended Actions', analyzeFile: 'Analyze File', analyzeFileSub: 'View measured file metadata',
+        verifyHash: 'Verify Hash', verifyHashSub: 'Read-only SHA-256 of the actual bytes',
+        addToPlan: 'Add to Organization Plan', addToPlanSub: 'Review in Organization Studio',
         calculateHash: 'Calculate SHA-256', planStudio: 'Plan in Organization Studio',
         livePreview: 'Live Service Preview', services: 'KNOuX Services', measured: 'MEASURED', fixture: 'Not measured',
         selected: 'file selected', selectedPlural: 'files selected', first: 'first', of: 'of',
@@ -303,6 +322,15 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 
   const countLabel = (key: keyof typeof measuredCategoryTotals, fixtureLabel: string) =>
     measured ? `${measuredCategoryTotals[key].toLocaleString()}${key === 'folders' ? '*' : ''}` : fixtureLabel;
+
+  // Board KPI row: measured values only, honest "Not measured" until a source
+  // is authorized. Portaled into the unified hero (never duplicated).
+  const heroMetrics = [
+    { icon: FileText, value: measured ? indexedItemCount.toLocaleString() : '—', label: locale === 'en' ? 'Indexed Files' : 'الملفات المفهرسة', note: measured ? (locale === 'en' ? 'Authorized index' : 'فهرس مصرّح') : (locale === 'en' ? 'Not measured' : 'غير مقيس') },
+    { icon: Folder, value: measured ? (measuredOverview?.totals.folders.toLocaleString() ?? '—') : '—', label: locale === 'en' ? 'Indexed Folders' : 'المجلدات المفهرسة', note: locale === 'en' ? 'Within selected source' : 'داخل المصدر المحدد' },
+    { icon: Clock, value: measured ? (measuredOverview?.ages[0]?.count.toLocaleString() ?? '—') : '—', label: locale === 'en' ? 'Recent Changes' : 'التغييرات الحديثة', note: L.ageDay },
+    { icon: HardDrive, value: measured && measuredOverview ? formatBytes(measuredOverview.totals.bytes) : '—', label: locale === 'en' ? 'Indexed Volume' : 'حجم الفهرس', note: locale === 'en' ? 'Metadata inventory' : 'جرد البيانات الوصفية' },
+  ];
 
   const categoryPills = [
     { id: 'all' as FileCategoryFilter, label: `${L.all} (${measured ? countLabel('all', '') : '—'})`, icon: null },
@@ -426,6 +454,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
   const renderServiceIcon = (iconName: string) => {
     switch (iconName) {
       case 'Download': return <Download className="w-3.5 h-3.5" />;
+      case 'Copy': return <Copy className="w-3.5 h-3.5" />;
       case 'LayoutGrid': return <LayoutGrid className="w-3.5 h-3.5" />;
       case 'CheckCheck': return <CheckCheck className="w-3.5 h-3.5" />;
       case 'RotateCcw': return <RotateCcw className="w-3.5 h-3.5" />;
@@ -547,21 +576,27 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   ? 'Find, organize, and manage your files with intelligent tools. Explore, filter, and take control of your digital content.'
                   : 'ابحث عن ملفاتك ونظّمها وأدرها بأدوات ذكية. استكشف، وصفّي، وتحكّم في محتواك الرقمي.'}
               </p>
-              <div className="knx-files-values">
-                <span><Search/><span><strong>{locale === 'en' ? 'Quick Search' : 'بحث سريع'}</strong><small>{locale === 'en' ? 'Find files in your authorized index' : 'اعثر على الملفات في الفهرس المصرّح'}</small></span></span>
-                <span><Layers/><span><strong>{locale === 'en' ? 'Smart Organization' : 'تنظيم ذكي'}</strong><small>{locale === 'en' ? 'Explore by type, location, or category' : 'استكشف حسب النوع أو الموقع أو الفئة'}</small></span></span>
-                <span><CheckCircle/><span><strong>{locale === 'en' ? 'Keep It Organized' : 'حافظ على التنظيم'}</strong><small>{locale === 'en' ? 'Inspect first. Review every proposed action.' : 'افحص أولًا وراجع كل إجراء مقترح.'}</small></span></span>
-              </div>
+              {/* The board's feature rows + measured KPI tiles live in the unified
+                  hero copy column. The hidden bridge keeps owning the data; the
+                  portal relocates these real controls, it never copies them. */}
+              <LivingHeroExtraMount enabled>
+                <div className="osa-features files-hero-features">
+                  <button type="button" data-testid="files-feature-search" onClick={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()}><span className="osa-feature-icon"><Search aria-hidden="true"/></span><span><strong>{locale === 'en' ? 'Instant Search' : 'بحث فوري'}</strong><small>{locale === 'en' ? 'Find files in seconds' : 'اعثر على ملفاتك في ثوانٍ'}</small></span></button>
+                  <button type="button" data-testid="files-feature-filters" onClick={() => { const panel = document.querySelector<HTMLDetailsElement>('.knx-files-advanced'); if (panel) panel.open = true; }}><span className="osa-feature-icon"><Sliders aria-hidden="true"/></span><span><strong>{locale === 'en' ? 'Smart Filters' : 'تصفية ذكية'}</strong><small>{locale === 'en' ? 'Narrow your results' : 'ضيّق نتائجك'}</small></span></button>
+                  <button type="button" data-testid="files-feature-preview" onClick={() => { setInspectorVisible(true); document.querySelector<HTMLElement>('.knx-files-inspector')?.scrollIntoView({ block: 'nearest' }); }}><span className="osa-feature-icon"><FileText aria-hidden="true"/></span><span><strong>{locale === 'en' ? 'Rich Preview' : 'معاينة غنية'}</strong><small>{locale === 'en' ? 'View files before opening' : 'اعرض الملفات قبل فتحها'}</small></span></button>
+                </div>
+                <div className="osa-metrics files-hero-metrics" data-measured={measured}>{heroMetrics.map(({ icon: Icon, value, label, note }) => <div key={label} title={note}><span className="osa-kpi-icon"><Icon aria-hidden="true"/></span><span className="osa-kpi-copy"><strong>{value}</strong><span>{label}</span><small><i aria-hidden="true"/>{note}</small></span></div>)}</div>
+              </LivingHeroExtraMount>
               </div>
               <div className="knx-files-orbit">
-                <OrbitalControl hero coreIcon={FolderOpen} title={locale === 'en' ? 'Explore Files' : 'استكشف الملفات'} subtitle={locale === 'en' ? 'Find, organize and manage' : 'ابحث ونظّم وأدر ملفاتك'}
+                <OrbitalControl hero coreIcon={FolderOpen} title={locale === 'en' ? 'Explore Files' : 'استكشف الملفات'} subtitle={locale === 'en' ? 'Find, organize and manage your files' : 'ابحث ونظّم وأدر ملفاتك'}
                   onActivate={() => document.querySelector<HTMLInputElement>('[data-testid="files-search"]')?.focus()}
                   tools={[
                     { id: 'recent', label: locale === 'en' ? 'Recent' : 'الأحدث', icon: Clock, onClick: () => setSortBy('date_desc'), active: sortBy === 'date_desc' },
                     { id: 'large', label: locale === 'en' ? 'Large Files' : 'ملفات كبيرة', icon: HardDrive, onClick: () => setSortBy('size_desc'), active: sortBy === 'size_desc' },
                     { id: 'categories', label: locale === 'en' ? 'Categories' : 'الفئات', icon: Layers, onClick: () => document.querySelector<HTMLElement>('[data-testid="files-categories"]')?.focus(), hint: locale === 'en' ? 'Focus the type filter row' : 'الانتقال إلى صف تصفية النوع' },
                     { id: 'duplicates', label: locale === 'en' ? 'Duplicates' : 'المكرر', icon: Copy, onClick: () => setDuplicateOnly(v => !v), active: duplicateOnly, hint: locale === 'en' ? 'Repeated file names. Same names do not prove identical content.' : 'أسماء ملفات مكررة. تشابه الأسماء لا يثبت تطابق المحتوى.' },
-                    { id: 'locations', label: locale === 'en' ? 'Locations' : 'المواقع', icon: FolderTree, onClick: () => { const panel = document.querySelector<HTMLDetailsElement>('.knx-files-advanced'); if (panel) panel.open = true; requestAnimationFrame(() => document.querySelector<HTMLSelectElement>('[data-testid="files-location"]')?.focus()); }, hint: locale === 'en' ? 'Open the location filter' : 'فتح تصفية الموقع' },
+                    { id: 'locations', label: locale === 'en' ? 'Locations' : 'المواقع', icon: FolderTree, onClick: () => document.querySelector<HTMLSelectElement>('[data-testid="files-location"]')?.focus(), hint: locale === 'en' ? 'Focus the location filter' : 'الانتقال إلى تصفية الموقع' },
                     { id: 'tags', label: locale === 'en' ? 'Tags' : 'الوسوم', icon: Tag, onClick: () => undefined, disabled: true, hint: locale === 'en' ? 'Not available: the indexed contract exposes no tags' : 'غير متاح: عقد الفهرس لا يوفر وسومًا' },
                   ]} />
               </div>
@@ -570,6 +605,9 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
 </div>
           <div className="files-compact-dock"><CompactServiceDock testIdPrefix="files" selectedId={activeService} onSelect={id=>{setActiveService(id as FilesServiceKey);setDetached(false);}} isArabic={isArabic} label={isArabic?'خدمات الملفات':'File services'} items={FILES_DOMAIN_SERVICES.map(service=>({id:service.key,label:isArabic?service.labelAr:service.labelEn,icon:renderServiceIcon(service.iconName),capability:!filesNative.available?(isArabic?'يتطلب جسرًا أصليًا':'Native required'):service.key.startsWith('file-organize-')?(isArabic?'مراجعة في Studio':'Studio review'):measured?(isArabic?'فهرس أصلي':'Native index'):(isArabic?'يتطلب تصريحًا':'Authorization required'),hint:isArabic?service.descAr:service.descEn}))}/></div>
           <div className="files-operational-toolbar">
+            {/* Board filter band: DAY = search row then pills+filters; NIGHT =
+                pills+search row then the filter selects row. One owner per control. */}
+            <div className="files-filter-row">
             {/* Wide Search Bar with Live Index Status */}
             <div className="knx-files-searchbar relative mb-2.5">
               <div className="flex items-center bg-[#07152b] border border-[#173766] rounded-xl px-3.5 py-2 shadow-inner focus-within:border-[#2476ff] transition-all">
@@ -614,7 +652,6 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             </div>
 
 
-            <FilesLiveStage native={filesNative} locale={locale} query={searchQuery} returned={filteredFiles.length} title={activeServiceMeta?(isArabic?activeServiceMeta.labelAr:activeServiceMeta.labelEn):(isArabic?'ذكاء الملفات':'File intelligence')}/>
             {/* Category Filter Pills (9 categories) */}
             <div className="knx-files-categories flex flex-wrap items-center gap-1.5 pb-1 mb-2" data-testid="files-categories" tabIndex={-1} role="group" aria-label={locale === 'en' ? 'File type filters' : 'تصفية نوع الملف'}>
               {categoryPills.map((tab) => {
@@ -644,28 +681,67 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
               })}
             </div>
 
-
-            <div className="files-tool-disclosures"><button type="button" onClick={()=>{setActiveService(null);setDetached(false);}}>{isArabic?'النتائج':'Results'}</button>
-              <details className="files-scope-controls"><summary>{isArabic?'النطاق':'Scope'}</summary>            <FilesNativeBanner
-              locale={locale}
-              available={filesNative.available}
-              mode={filesNative.mode}
-              overview={filesNative.overview}
-              scanning={filesNative.scanning}
-              progress={filesNative.progress}
-              error={filesNative.error}
-              warnings={filesNative.warnings}
-              onAdd={() => void filesNative.addSource()}
-              onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
-              onCancel={() => void filesNative.cancelScan()}
-            />
-
-</details>
-            {/* Sub-Filters Menus (Extension, Size, Date, Location, Sort) */}
-            <details className="knx-files-advanced"><summary>{locale === 'en' ? 'Filters' : 'الفلاتر'}</summary>
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-              <div className="flex flex-wrap items-center gap-2">
-                {/* Extension */}
+            {/* Board inline filters: the same real selects the disclosure used to
+                own, promoted to an always-visible row. More Filters still toggles
+                sort & density (the native evidence gate drives that round-trip). */}
+            <div className="files-inline-filters">
+              <div className="relative">
+                <select
+                  value={measured ? (filesNative.source?.label || 'authorized') : locationFilter}
+                  data-testid="files-location"
+                  aria-label={measured ? (locale === 'en' ? 'Authorized source' : 'المصدر المصرّح') : (locale === 'en' ? 'Location filter' : 'تصفية الموقع')}
+                  onChange={(e) => setLocationFilter(e.target.value)}
+                  disabled={measured}
+                  title={measured ? 'Measured mode queries one authorized source at a time.' : undefined}
+                  className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {measured ? (
+                    <option value={filesNative.source?.label || 'authorized'}>
+                      {L.sourcePrefix} {filesNative.source?.label || 'authorized folder'}
+                    </option>
+                  ) : (
+                    <>
+                      <option value="all">{L.locationAll}</option>
+                      <option>Local Disk (C:)</option>
+                      <option>OneDrive</option>
+                      <option>GitHub</option>
+                    </>
+                  )}
+                </select>
+                <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
+              </div>
+              <div className="relative">
+                <select
+                  value={dateFilter}
+                  data-testid="files-date"
+                  aria-label={locale === 'ar' ? 'تصفية حسب تاريخ التعديل' : 'Filter by modification date'}
+                  onChange={(e) => setDateFilter(e.target.value as 'any' | 'today' | 'week' | 'month')}
+                  className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none"
+                >
+                  <option value="any">{L.dateAny}</option>
+                  <option value="today">{L.dateToday}</option>
+                  <option value="week">{L.dateWeek}</option>
+                  <option value="month">{L.dateMonth}</option>
+                </select>
+                <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
+              </div>
+              <div className="relative">
+                <select
+                  value={selectedSizeFilter}
+                  data-testid="files-size"
+                  aria-label={locale === 'ar' ? 'تصفية حسب الحجم' : 'Filter by file size'}
+                  onChange={(e) => setSelectedSizeFilter(e.target.value)}
+                  className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none"
+                >
+                  <option value="Any">{L.fileSizeAny}</option>
+                  <option value="large">{L.fileSizeLarge}</option>
+                  <option value="medium">{L.fileSizeMedium}</option>
+                  <option value="small">{L.fileSizeSmall}</option>
+                </select>
+                <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
+              </div>
+              <details className="knx-files-advanced"><summary><Sliders className="w-3 h-3" aria-hidden="true"/>{L.moreFilters}</summary>
+              <div className="flex flex-wrap items-center gap-2 text-xs">
                 <div className="relative">
                   <select
                     value={selectedExtension}
@@ -691,117 +767,31 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                   </select>
                   <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
                 </div>
-
-                {/* File Size */}
-                <div className="relative">
-                  <select
-                    value={selectedSizeFilter}
-                    data-testid="files-size"
-                    aria-label={locale === 'ar' ? 'تصفية حسب الحجم' : 'Filter by file size'}
-                    onChange={(e) => setSelectedSizeFilter(e.target.value)}
-                    className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none"
-                  >
-                    <option value="Any">{L.fileSizeAny}</option>
-                    <option value="large">{L.fileSizeLarge}</option>
-                    <option value="medium">{L.fileSizeMedium}</option>
-                    <option value="small">{L.fileSizeSmall}</option>
-                  </select>
-                  <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
-                </div>
-
-                {/* Date Modified */}
-                <div className="relative">
-                  <select
-                    value={dateFilter}
-                    data-testid="files-date"
-                    aria-label={locale === 'ar' ? 'تصفية حسب تاريخ التعديل' : 'Filter by modification date'}
-                    onChange={(e) => setDateFilter(e.target.value as 'any' | 'today' | 'week' | 'month')}
-                    className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none"
-                  >
-                    <option value="any">{L.dateAny}</option>
-                    <option value="today">{L.dateToday}</option>
-                    <option value="week">{L.dateWeek}</option>
-                    <option value="month">{L.dateMonth}</option>
-                  </select>
-                  <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
-                </div>
-
-                {/* Location */}
-                <div className="relative">
-                  <select
-                    value={measured ? (filesNative.source?.label || 'authorized') : locationFilter}
-                    data-testid="files-location"
-                    aria-label={measured ? (locale === 'en' ? 'Authorized source' : 'المصدر المصرّح') : (locale === 'en' ? 'Location filter' : 'تصفية الموقع')}
-                    onChange={(e) => setLocationFilter(e.target.value)}
-                    disabled={measured}
-                    title={measured ? 'Measured mode queries one authorized source at a time.' : undefined}
-                    className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none disabled:opacity-70 disabled:cursor-not-allowed"
-                  >
-                    {measured ? (
-                      <option value={filesNative.source?.label || 'authorized'}>
-                        {L.sourcePrefix} {filesNative.source?.label || 'authorized folder'}
-                      </option>
-                    ) : (
-                      <>
-                        <option value="all">{L.locationAll}</option>
-                        <option>Local Disk (C:)</option>
-                        <option>OneDrive</option>
-                        <option>GitHub</option>
-                      </>
-                    )}
-                  </select>
-                  <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
-                </div>
               </div>
-
-              {/* Sort & View Density Toggle */}
-              <div className="flex items-center gap-2">
-                <div className="relative">
-                  <select
-                    value={sortBy}
-                    data-testid="files-sort"
-                    aria-label={locale === 'ar' ? 'ترتيب الملفات' : 'Sort files'}
-                    onChange={(e) => setSortBy(e.target.value as any)}
-                    className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none"
-                  >
-                    <option value="date_desc">{L.sortDate}</option>
-                    <option value="name_asc">{L.sortName}</option>
-                    <option value="size_desc">{L.sortSize}</option>
-                  </select>
-                  <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
-                </div>
-
-                <div className="flex items-center bg-[#071529] p-0.5 rounded-md border border-[#142e56]">
-                  <button
-                    data-testid="files-view-list"
-                    title={locale === 'en' ? 'List view' : 'عرض القائمة'}
-                    aria-label={locale === 'en' ? 'List view' : 'عرض القائمة'}
-                    aria-pressed={viewMode === 'list'}
-                    onClick={() => setViewMode('list')}
-                    className={`p-1 rounded text-xs transition-colors cursor-pointer ${
-                      viewMode === 'list' ? 'bg-[#173866] text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
-                    }`}
-                  >
-                    <LayoutGrid className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    data-testid="files-view-grid"
-                    title={locale === 'en' ? 'Grid view' : 'عرض الشبكة'}
-                    aria-label={locale === 'en' ? 'Grid view' : 'عرض الشبكة'}
-                    aria-pressed={viewMode === 'grid'}
-                    onClick={() => setViewMode('grid')}
-                    className={`p-1 rounded text-xs transition-colors cursor-pointer ${
-                      viewMode === 'grid' ? 'bg-[#173866] text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
-                    }`}
-                  >
-                    <LayoutGrid className="w-3.5 h-3.5 rotate-45" />
-                  </button>
-                </div>
-              </div>
+              </details>
+            </div>
             </div>
 
-            {/* 2. Data Composition Band (Two Horizontal Distribution Gauges) */}
-            </details>
+            {/* Live measured stage below the filter band (board keeps the status
+                line out of the pills row); cancel stays reachable while indexing. */}
+            <FilesLiveStage native={filesNative} locale={locale} query={searchQuery} returned={filteredFiles.length} title={activeServiceMeta?(isArabic?activeServiceMeta.labelAr:activeServiceMeta.labelEn):(isArabic?'ذكاء الملفات':'File intelligence')}/>
+
+            <div className="files-tool-disclosures"><button type="button" onClick={()=>{setActiveService(null);setDetached(false);}}>{isArabic?'النتائج':'Results'}</button>
+              <details className="files-scope-controls"><summary>{isArabic?'النطاق':'Scope'}</summary>            <FilesNativeBanner
+              locale={locale}
+              available={filesNative.available}
+              mode={filesNative.mode}
+              overview={filesNative.overview}
+              scanning={filesNative.scanning}
+              progress={filesNative.progress}
+              error={filesNative.error}
+              warnings={filesNative.warnings}
+              onAdd={() => void filesNative.addSource()}
+              onRescan={() => filesNative.source && void filesNative.scanSource(filesNative.source.id)}
+              onCancel={() => void filesNative.cancelScan()}
+            />
+
+</details>
             <details className="knx-files-distribution"><summary>{locale === 'en' ? 'Types & age' : 'الأنواع والعمر'}</summary>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3 pt-2.5 border-t border-[#0e223d]">
               {/* Distribution 1: File Types */}
@@ -906,6 +896,55 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             {(!activeService||detached)?<>            {/* Left-Center Results Table */}
             <div className="knx-files-results flex-1 bg-[#061226] rounded-xl border border-[#132c52] overflow-hidden flex flex-col min-h-0 select-none shadow-inner">
               {duplicateOnly && <div className="flex items-center gap-2 px-3 py-1.5 text-[10px] text-amber-200 bg-amber-500/10 border-b border-amber-400/30" role="status" data-testid="files-duplicate-notice"><Copy className="w-3 h-3 shrink-0" aria-hidden="true"/><span className="flex-1">{locale === 'en' ? 'Repeated names only. Same names do not prove identical content.' : 'أسماء متكررة فقط. تشابه الأسماء لا يثبت تطابق المحتوى.'}</span><button type="button" onClick={() => setDuplicateOnly(false)} className="underline shrink-0">{locale === 'en' ? 'Clear' : 'مسح'}</button></div>}
+              {/* Board results header: title + measured count left, view density,
+                  sort and the full-ledger disclosure right (single owner each). */}
+              <div className="files-results-head">
+                <h2>{L.searchResults}</h2>
+                <span className="files-results-count" data-testid="files-result-count">{measured ? `${filteredFiles.length.toLocaleString()} ${L.filesFound}` : (locale === 'en' ? 'No authorized index' : 'لا يوجد فهرس مصرح')}</span>
+                <div className="files-results-tools">
+                  <div className="flex items-center bg-[#071529] p-0.5 rounded-md border border-[#142e56]">
+                    <button
+                      data-testid="files-view-list"
+                      title={locale === 'en' ? 'List view' : 'عرض القائمة'}
+                      aria-label={locale === 'en' ? 'List view' : 'عرض القائمة'}
+                      aria-pressed={viewMode === 'list'}
+                      onClick={() => setViewMode('list')}
+                      className={`p-1 rounded text-xs transition-colors cursor-pointer ${
+                        viewMode === 'list' ? 'bg-[#173866] text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      data-testid="files-view-grid"
+                      title={locale === 'en' ? 'Grid view' : 'عرض الشبكة'}
+                      aria-label={locale === 'en' ? 'Grid view' : 'عرض الشبكة'}
+                      aria-pressed={viewMode === 'grid'}
+                      onClick={() => setViewMode('grid')}
+                      className={`p-1 rounded text-xs transition-colors cursor-pointer ${
+                        viewMode === 'grid' ? 'bg-[#173866] text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      <LayoutGrid className="w-3.5 h-3.5 rotate-45" />
+                    </button>
+                  </div>
+                  <div className="relative">
+                    <select
+                      value={sortBy}
+                      data-testid="files-sort"
+                      aria-label={locale === 'ar' ? 'ترتيب الملفات' : 'Sort files'}
+                      onChange={(e) => setSortBy(e.target.value as any)}
+                      className="bg-[#08172c] text-slate-300 hover:text-white border border-[#142e56] rounded-md px-2.5 py-1 text-xs font-medium cursor-pointer appearance-none pr-6 outline-none"
+                    >
+                      <option value="date_desc">{L.sortDate}</option>
+                      <option value="name_asc">{L.sortName}</option>
+                      <option value="size_desc">{L.sortSize}</option>
+                    </select>
+                    <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
+                  </div>
+                  <button type="button" className="files-view-all" onClick={() => { const panel = document.querySelector<HTMLDetailsElement>('.files-scope-controls'); if (panel) panel.open = true; }}>{L.viewAll} <ChevronRight className="w-3.5 h-3.5" aria-hidden="true"/></button>
+                </div>
+              </div>
               {/* Table Header */}
               <div className="h-8 bg-[#091a33] border-b border-[#132c52] px-3 flex items-center text-[11px] font-semibold text-slate-400">
                 <div className="w-8 shrink-0 flex items-center">
@@ -938,6 +977,7 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 <div className="w-20 text-right px-2">{L.size}</div>
                 <div className="w-36 hidden lg:block px-2">{L.dateModified} ↓</div>
                 <div className="w-24 hidden min-[1800px]:block">{L.source}</div>
+                <div className="files-status-col w-20 px-2">{L.status}</div>
                 <div className="w-10 text-center">•••</div>
                 {measured && (
                   <div className="ml-2 text-[9px] font-mono text-emerald-300/80 normal-case">
@@ -1046,6 +1086,11 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                       {/* Source */}
                       <div className="w-24 text-slate-400 text-[11px] truncate hidden min-[1800px]:block px-2">
                         {file.source}
+                      </div>
+
+                      {/* Status: every rendered row comes from the measured index. */}
+                      <div className="files-status-col w-20 px-2">
+                        <span className="files-status-pill"><i aria-hidden="true"/>{L.indexed}</span>
                       </div>
 
                       {/* Action Menu */}
@@ -1353,11 +1398,32 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
                 </button>
               </div>
 
+              {/* NIGHT board Quick Actions: real providers stay enabled; rename,
+                  move and delete have no native provider in the read-only index,
+                  so they render disabled with an honest reason, never faked. */}
+              {inspectorTab === 'details' && !activeService && typeof selectedFile.nativeFileId==='number' ? <section className="knx-files-quick-actions">
+                <h3>{L.quickActions}</h3>
+                <button onClick={() => void handleOpenFile()}><Play aria-hidden="true"/><span>{L.open}</span></button>
+                <button onClick={() => void handleRevealFile()}><FolderOpen aria-hidden="true"/><span>{L.reveal}</span></button>
+                <button onClick={() => void handleCopyPath()} disabled={measured && !selectedMetadata}><Copy aria-hidden="true"/><span>{L.copyPath}</span></button>
+                <button disabled title={L.renameHint}><Pencil aria-hidden="true"/><span>{L.rename}</span><small>{locale==='en'?'No provider':'لا مزود'}</small></button>
+                <button disabled title={L.moveHint}><ArrowRight aria-hidden="true"/><span>{L.moveTo}</span><small>{locale==='en'?'No provider':'لا مزود'}</small></button>
+                <button disabled title={L.deleteHint} className="is-danger"><Trash2 aria-hidden="true"/><span>{L.deleteAction}</span><small>{locale==='en'?'No provider':'لا مزود'}</small></button>
+              </section> : null}
               {inspectorTab === 'details' && !activeService && typeof selectedFile.nativeFileId==='number' ? <section className="knx-files-recommended">
-                <div><h3>{locale === 'en' ? 'Explore & inspect' : 'استكشف وافحص'}</h3><button onClick={() => document.querySelector<HTMLElement>('.files-compact-dock [role=tab]')?.focus()}>{locale === 'en' ? 'All tools' : 'كل الأدوات'} <ChevronRight size={14}/></button></div>
-                {FILES_DOMAIN_SERVICES.filter(service => ['file-recents','file-largest','file-metadata','file-hash'].includes(service.key)).map(service => <button key={service.key} onClick={() => setActiveService(service.key)}>
-                  {renderServiceIcon(service.iconName)}<span>{locale === 'en' ? service.labelEn : service.labelAr}</span><ChevronRight size={16}/>
-                </button>)}
+                <div><h3>{L.recommended}</h3><button onClick={() => document.querySelector<HTMLElement>('.files-compact-dock [role=tab]')?.focus()}>{locale === 'en' ? 'All tools' : 'كل الأدوات'} <ChevronRight size={14}/></button></div>
+                <button onClick={() => setDuplicateOnly(true)}>
+                  {renderServiceIcon('Copy')}<span><strong>{L.findDuplicates}</strong><small>{L.findDuplicatesSub}</small></span><ChevronRight size={16}/>
+                </button>
+                <button onClick={() => setActiveService('file-metadata')}>
+                  {renderServiceIcon('Search')}<span><strong>{L.analyzeFile}</strong><small>{L.analyzeFileSub}</small></span><ChevronRight size={16}/>
+                </button>
+                <button onClick={() => void handleHashFile()}>
+                  {renderServiceIcon('Hash')}<span><strong>{L.verifyHash}</strong><small>{L.verifyHashSub}</small></span><ChevronRight size={16}/>
+                </button>
+                <button onClick={() => handleOpenStudio(6)}>
+                  {renderServiceIcon('LayoutGrid')}<span><strong>{L.addToPlan}</strong><small>{L.addToPlanSub}</small></span><ChevronRight size={16}/>
+                </button>
               </section> : null}
 
               {/* Sub-Card 1: Live Service Preview */}
@@ -1468,7 +1534,8 @@ export function FilesPage({ onNavigateSection }: FilesPageProps) {
             </div>
 
             {/* Opt-in native live workflow; the approved overview stays intact. */}
-            {filesNative.scanning?<button type="button" data-testid="files-cancel-index" onClick={()=>void filesNative.cancelScan()}>{locale==='ar'?'إلغاء الفهرسة':'Cancel indexing'}</button>:null}
+            {/* Cancel lives in the always-visible live stage strip above; the
+                footer keeps the consent actions only. */}
             <button data-testid="files-live-organization" disabled={!measured||!indexedItemCount} className="knx-files-primary" onClick={() => openLiveOrganization(1)}>{locale==='en'?'Live organization':'التنظيم الحي'}</button>
             {/* Right Action Button */}
             <button
