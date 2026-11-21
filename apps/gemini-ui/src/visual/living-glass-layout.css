@@ -411,3 +411,62 @@ html:not([data-theme=light]) .knx-section-hero[data-hero-section=smart_scan] .kn
  .visual-sprint.knx-living-shell[data-visual-section=smart_scan] .knx-hero-extra-mount .scan-hero-tile-copy>strong{font-size:12.5px}
  .visual-sprint.knx-living-shell[data-visual-section=smart_scan] .knx-hero-extra-mount .scan-hero-tile-copy small{display:none}
 }
+
+/* Applications boards: DAY and NIGHT share one composition — identity + three
+   capability rows + four measured KPI tiles in the copy column, app-scope orbit
+   right. Tiles reuse the native inventory KPIs; unmeasured renders dash/notes.
+   The board's "+3 this month" and disk-share sub-lines have no provider metric
+   and are honestly replaced by measured packaged/protected and app counts. */
+.knx-section-hero[data-hero-section=applications] .knx-reference-workflow{display:none}
+.knx-section-hero[data-hero-section=applications] .knx-section-scene{display:none}
+.knx-section-hero[data-hero-section=applications] .knx-section-identity{width:56%;max-width:760px}
+.knx-section-hero[data-hero-section=applications] .knx-section-copy{flex:1}
+.knx-living-shell[data-visual-section=applications]{--knx-section-hero-h:330px;--knx-section-orbit-size:264px}
+@media(min-width:1800px){.knx-living-shell[data-visual-section=applications]{--knx-section-hero-h:350px;--knx-section-orbit-size:290px}}
+@media(max-height:820px){.knx-living-shell[data-visual-section=applications]{--knx-section-hero-h:262px;--knx-section-orbit-size:185px}.knx-section-hero[data-hero-section=applications] .knx-section-identity{width:62%;max-width:none}.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount{gap:5px;margin-top:5px}.knx-living-shell[data-visual-section=applications] .knx-section-copy>p{font-size:10.5px;line-height:1.3}}
+/* Compact orbit: the board's longer core title ("Manage Applications") needs a
+   slightly wider core and smaller type so it never collides with the play hub.
+   The hero orbit portals into the living shell's orbit slot, so scope to
+   .knx-orbit (not .knx-section-orbit-mount, which this board does not use). */
+@media(max-height:820px){
+ /* The compact core is width/height/padding-locked with !important by the living-shell
+    orbit rules, so match that weight. Widen slightly and tighten the title so the
+    board copy ("Manage Applications" + subtitle) fits the circle without clipping. */
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-orbit .knx-orbit-core{width:46%!important;min-width:118px!important;padding-left:6px!important;padding-right:6px!important}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-orbit .knx-orbit-core strong{font-size:10.5px!important;line-height:1.14!important;letter-spacing:-.01em!important}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-orbit .knx-orbit-core-mark :is(svg,img){width:22px!important;height:auto!important;max-width:22px!important}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-orbit .knx-orbit-play{width:19px;height:19px;bottom:3%}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-orbit .knx-orbit-play svg{width:10px;height:10px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-orbit .knx-orbit-label{font-size:8.5px!important;line-height:1.1!important}
+}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-features{display:flex;flex-direction:column;gap:6px;margin:0;max-width:none}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature{align-items:center;gap:9px}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature-copy strong{font-size:12.5px;line-height:1.25;color:var(--knx-ink)}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature-copy span{display:block;font-size:10px;line-height:1.3;color:var(--knx-ink-2)}
+@media(max-height:820px){
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-features{gap:3px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature{gap:7px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature-icon{width:21px;height:21px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature-icon svg{width:12px;height:12px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature-copy strong{font-size:11px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .knx-hero-feature-copy span{font-size:8.5px;line-height:1.2}
+}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile{display:flex;align-items:center;gap:7px;min-width:0;padding:8px 9px;border:1px solid var(--knx-line);border-radius:12px;background:var(--knx-surface);box-shadow:var(--knx-elev-1)}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-icon{display:grid;place-items:center;width:26px;height:30px;flex-shrink:0;border-radius:9px;color:var(--knx-accent-strong);background:color-mix(in srgb,var(--knx-accent) 14%,var(--knx-surface))}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile.is-cyan .apps-hero-tile-icon{color:#26c6ff;background:color-mix(in srgb,#26c6ff 13%,var(--knx-surface))}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile.is-green .apps-hero-tile-icon{color:var(--knx-success);background:color-mix(in srgb,var(--knx-success) 13%,var(--knx-surface))}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile.is-purple .apps-hero-tile-icon{color:#a855f7;background:color-mix(in srgb,#a855f7 13%,var(--knx-surface))}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-icon svg{width:16px;height:16px}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-copy{min-width:0;flex:1}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-copy>strong{display:block;font-size:15px;line-height:1.15;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--knx-ink)}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-copy>span{display:block;font-size:9.5px;color:var(--knx-ink-2);white-space:normal;overflow:visible;text-overflow:clip;line-height:1.2}
+.visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-copy small{display:block;margin-top:1px;font-size:8.5px;color:var(--knx-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-height:820px){
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tiles{gap:5px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile{padding:5px 6px;gap:5px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-icon{width:20px;height:24px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-icon svg{width:13px;height:13px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-copy>strong{font-size:12.5px}
+ .visual-sprint.knx-living-shell[data-visual-section=applications] .knx-hero-extra-mount .apps-hero-tile-copy small{display:none}
+}

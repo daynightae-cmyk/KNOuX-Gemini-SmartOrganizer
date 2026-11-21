@@ -14,12 +14,16 @@ import {
   FolderLock,
   Lock,
   ShieldCheck,
+  Smile,
   X,
+  Zap,
 } from 'lucide-react';
 import type { AppRecord } from '../../shared/native-contracts';
 import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXSidebar, KNOuXTitleBar } from '../components/shell/KNOuXShellComponents';
-import { ApplicationsHero, ApplicationsMetrics } from '../apps/ApplicationsHero';
+import { ApplicationsHero, ApplicationsHeroTiles, ApplicationsMetrics } from '../apps/ApplicationsHero';
+import { LivingHeroExtraMount } from '../visual/LivingLayoutContext';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import { AppRegister } from '../apps/AppRegister';
 import { AppDossier } from '../apps/AppDossier';
 import { ApplicationServices, serviceIcon } from '../apps/ApplicationServices';
@@ -260,6 +264,20 @@ export function ApplicationsPage({ onNavigateSection }: ApplicationsPageProps) {
             />
 
           </div>
+          {/* Board anatomy: three capability rows plus four measured KPI tiles
+              live in the unified hero copy column in BOTH themes; the app-scope
+              orbit portals into the hero instrument. Every figure stays
+              native-measured or an explicit unmeasured state. */}
+          <LivingHeroExtraMount enabled>
+            <HeroFeatures
+              items={[
+                { icon: <ShieldCheck className="w-4 h-4" />, title: t(locale, 'Safe & Secure', 'آمن ومحمي'), detail: t(locale, 'Scan for outdated or potentially unwanted apps', 'افحص التطبيقات القديمة أو غير المرغوبة'), tone: '#7c5cff' },
+                { icon: <Zap className="w-4 h-4" />, title: t(locale, 'Better Performance', 'أداء أفضل'), detail: t(locale, 'Manage startup apps and system resources', 'أدر تطبيقات الإقلاع وموارد النظام'), tone: '#f59e0b' },
+                { icon: <Smile className="w-4 h-4" />, title: t(locale, 'More Control', 'تحكم أكبر'), detail: t(locale, 'View app permissions and usage details', 'اطّلع على أذونات التطبيقات وتفاصيل الاستخدام'), tone: '#10b981' },
+              ]}
+            />
+            <ApplicationsHeroTiles locale={locale} controller={controller} />
+          </LivingHeroExtraMount>
           <ApplicationServices locale={locale} controller={controller} selectedCount={checkedIds.size} selectedService={activeService} onOpenService={setActiveService}/>
           <div className="apps-inner-process"><ApplicationsLiveStage controller={controller} locale={locale} service={activeService} title={activeService?serviceTitle(activeService,locale):t(locale,'Application register','سجل التطبيقات')} selected={checkedIds.size} selectedAppId={selectedAppId}/><div className="apps-inner-tools"><button onClick={()=>{setActiveService(null);setDetached(false);}}>{t(locale,'Register','السجل')}</button><button aria-pressed={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>{t(locale,'Dossier','ملف التطبيق')}</button>{activeService?<button onClick={()=>setDetached(true)}>{t(locale,'Side view','عرض جانبي')}</button>:null}<details><summary>{t(locale,'Coverage & metrics','التغطية والمؤشرات')}</summary><ApplicationsMetrics locale={locale} controller={controller}/>
 

@@ -4,12 +4,14 @@
  */
 import React from 'react';
 import {
+  Activity,
   Building2,
   Database,
   Download,
   LayoutGrid,
   Lock,
   RefreshCw,
+  Rocket,
   Search,
   ShieldCheck,
   Zap,
@@ -156,16 +158,16 @@ export const ApplicationsHero: React.FC<ApplicationsHeroProps> = ({
           />
         </div>
 
-        <OrbitalControl hero title={t(locale, 'Analyze Applications', 'تحليل التطبيقات')} subtitle={t(locale, 'Inventory · Inspect · Review', 'جرد · فحص · مراجعة')}
+        <OrbitalControl hero title={t(locale, 'Manage Applications', 'إدارة التطبيقات')} subtitle={t(locale, 'Keep your apps secure and optimized', 'أبقِ تطبيقاتك آمنة ومحسّنة')}
           eyebrow={t(locale, 'Application scopes', 'نطاقات التطبيقات')}
           onActivate={() => void controller.refreshInventory(true)} disabled={refreshing || !controller.nativeAvailable} running={refreshing}
           tools={[
-            { id: 'inventory', label: t(locale, 'Inventory', 'الجرد'), icon: LayoutGrid, onClick: () => void controller.refreshInventory(true), disabled: refreshing || !controller.nativeAvailable },
+            { id: 'inventory', label: t(locale, 'Installed Apps', 'التطبيقات المثبتة'), icon: LayoutGrid, onClick: () => void controller.refreshInventory(true), disabled: refreshing || !controller.nativeAvailable },
             { id: 'updates', label: t(locale, 'Updates', 'التحديثات'), icon: RefreshCw, onClick: () => void controller.checkUpdates(), disabled: !controller.nativeAvailable },
-            { id: 'export', label: t(locale, 'Export', 'تصدير'), icon: Download, onClick: controller.exportInventory, disabled: !inventory },
-            { id: 'publishers', label: t(locale, 'Publishers', 'الناشرون'), icon: Building2, onClick: () => onOpenService('app-publisher') },
-            { id: 'footprint', label: t(locale, 'Footprint', 'المساحة'), icon: Database, onClick: () => onOpenService('app-size') },
-            { id: 'startup', label: t(locale, 'Startup links', 'روابط الإقلاع'), icon: Zap, onClick: () => onOpenService('app-startup-impact') },
+            { id: 'health', label: t(locale, 'App Health', 'صحة التطبيقات'), icon: Activity, onClick: () => onOpenService('app-leftovers') },
+            { id: 'permissions', label: t(locale, 'Permissions', 'الأذونات'), icon: ShieldCheck, onClick: () => onOpenService('app-associations') },
+            { id: 'footprint', label: t(locale, 'Disk Usage', 'استخدام القرص'), icon: Database, onClick: () => onOpenService('app-size') },
+            { id: 'startup', label: t(locale, 'Startup Apps', 'تطبيقات الإقلاع'), icon: Zap, onClick: () => onOpenService('app-startup-impact') },
           ]} />
         <div className="knx-apps-hero-actions flex flex-wrap items-center justify-end gap-2">
           {selectedCount > 0 ? (
@@ -292,3 +294,72 @@ export const ApplicationsMetrics: React.FC<{ locale: AppsLocale; controller: App
     </div>
   );
 };
+
+/**
+ * The board's four hero KPI tiles, shown in the unified hero copy column in
+ * both themes (the DAY and NIGHT boards share this composition). Every value
+ * is native-measured or an explicit unmeasured state: installed/startup counts
+ * from the read-only inventory, updates only after an actual WinGet query,
+ * footprint from the bounded size measurement. The board's "+3 this month"
+ * and "% of disk space" sub-lines have no provider metric, so the tiles show
+ * measured packaged/protected counts and measured-app counts instead.
+ */
+export function ApplicationsHeroTiles({ locale, controller }: { locale: AppsLocale; controller: ApplicationsController }) {
+  const { inventory, updates } = controller;
+  const kpis = inventory?.kpis;
+  const updatesMeasured = updates && updates.status === 'available' ? updates.items.length : null;
+  const tiles = [
+    {
+      id: 'installed',
+      icon: LayoutGrid,
+      value: kpis ? formatCount(kpis.installed) : '—',
+      label: t(locale, 'Installed Applications', 'التطبيقات المثبتة'),
+      note: kpis
+        ? `${formatCount(kpis.packaged)} ${t(locale, 'packaged', 'حزمة')} · ${formatCount(kpis.protectedCount)} ${t(locale, 'protected', 'محمي')}`
+        : t(locale, 'Not measured', 'غير مقيس'),
+      tone: 'blue',
+    },
+    {
+      id: 'updates',
+      icon: RefreshCw,
+      value: updatesMeasured == null ? '—' : formatCount(updatesMeasured),
+      label: t(locale, 'Available Updates', 'التحديثات المتاحة'),
+      note: updates ? updateStatusLabel(updates, locale) : t(locale, 'Not measured', 'غير مقيس'),
+      tone: 'cyan',
+    },
+    {
+      id: 'startup',
+      icon: Rocket,
+      value: kpis ? formatCount(kpis.startupLinked) : '—',
+      label: t(locale, 'Startup-Linked Apps', 'مرتبطة بالإقلاع'),
+      note: kpis
+        ? `${formatCount(kpis.startupEntries)} ${t(locale, 'measured startup entries', 'مدخل إقلاع مقيس')}`
+        : t(locale, 'Not measured', 'غير مقيس'),
+      tone: 'green',
+    },
+    {
+      id: 'footprint',
+      icon: Database,
+      value: formatBytes(kpis?.measuredFootprintBytes),
+      label: t(locale, 'Storage Used by Apps', 'مساحة التطبيقات'),
+      note: kpis
+        ? `${formatCount(kpis.measuredFootprintApps)} ${t(locale, 'app(s) measured', 'تطبيقًا مقيسًا')}`
+        : t(locale, 'Not measured', 'غير مقيس'),
+      tone: 'purple',
+    },
+  ];
+  return (
+    <div className="apps-hero-tiles" data-testid="apps-hero-tiles">
+      {tiles.map(({ id, icon: Icon, value, label, note, tone }) => (
+        <div key={id} className={`apps-hero-tile is-${tone}`} data-testid={`apps-hero-tile-${id}`}>
+          <span className="apps-hero-tile-icon" aria-hidden="true"><Icon className="w-4 h-4" /></span>
+          <span className="apps-hero-tile-copy" title={note}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+            <small>{note}</small>
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
