@@ -1,0 +1,472 @@
+{
+  "head": "76c21a02088fe3faa02fb1d93bc4b5844ef9a170",
+  "profile": "D:\\Temp\\knoux-inner-scan-Ob7yXs\\profile",
+  "fixture": "D:\\Temp\\knoux-inner-scan-Ob7yXs\\AUTHORIZED-DISPOSABLE-FIXTURE",
+  "scope": "Disposable source only; native Windows observations remain read-only; no cleanup/mutation executed",
+  "checks": [
+    {
+      "name": "idle-geometry-keyboard-all-ten",
+      "ok": true,
+      "evidence": [
+        {
+          "dockHeight": 70,
+          "dockRight": 1653,
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1408,
+            "h": 400
+          },
+          "body": {
+            "w": 1406,
+            "h": 445
+          },
+          "horizontalOverflow": 0
+        },
+        {
+          "dockHeight": 70,
+          "dockRight": 1901,
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1656,
+            "h": 416
+          },
+          "body": {
+            "w": 1654,
+            "h": 568
+          },
+          "horizontalOverflow": 0
+        },
+        {
+          "dockHeight": 70,
+          "dockRight": 1107,
+          "hero": {
+            "x": 12,
+            "y": 70,
+            "w": 1102,
+            "h": 300
+          },
+          "body": {
+            "w": 1100,
+            "h": 372
+          },
+          "horizontalOverflow": 0
+        },
+        {
+          "dockHeight": 70,
+          "dockRight": 1653,
+          "hero": {
+            "x": 252,
+            "y": 70,
+            "w": 1408,
+            "h": 296
+          },
+          "body": {
+            "w": 1406,
+            "h": 549
+          },
+          "horizontalOverflow": 0
+        }
+      ]
+    },
+    {
+      "name": "native-authorization-index",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "156f7cb3-9dad-4e2e-ae5c-03db47812e32",
+          "label": "AUTHORIZED-DISPOSABLE-FIXTURE",
+          "fileCount": 31,
+          "status": "ready"
+        }
+      ]
+    },
+    {
+      "name": "native-service-quick_scan",
+      "ok": true,
+      "evidence": {
+        "sessionId": "11736feb-cdd0-4b71-98fa-bb88b6eeae1b",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 5,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "capacity",
+            "status": "complete"
+          },
+          {
+            "id": "system",
+            "status": "complete"
+          },
+          {
+            "id": "services",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-deep_scan",
+      "ok": true,
+      "evidence": {
+        "sessionId": "a2d81bdd-8460-43bd-bf23-c667e33eb209",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 17,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "capacity",
+            "status": "complete"
+          },
+          {
+            "id": "system",
+            "status": "complete"
+          },
+          {
+            "id": "services",
+            "status": "complete"
+          },
+          {
+            "id": "startup",
+            "status": "complete"
+          },
+          {
+            "id": "apps",
+            "status": "complete"
+          },
+          {
+            "id": "emptyFolders",
+            "status": "complete"
+          },
+          {
+            "id": "privacy",
+            "status": "complete"
+          },
+          {
+            "id": "duplicates",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-duplicate_finder",
+      "ok": true,
+      "evidence": {
+        "sessionId": "edb4e0c5-b78c-4f69-bb67-de21948cb94d",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 2,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "duplicates",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-large_files_review",
+      "ok": true,
+      "evidence": {
+        "sessionId": "dd333ee8-7244-4573-98a5-a985f368de4a",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 2,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-junk_cleaner",
+      "ok": true,
+      "evidence": {
+        "sessionId": "590244f8-85a8-4639-97ab-02b31e32b545",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 3,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "emptyFolders",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-privacy_trace_check",
+      "ok": true,
+      "evidence": {
+        "sessionId": "8efd112b-ba61-4c5a-91e4-311c5d54c47c",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 2,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "privacy",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-startup_impact_check",
+      "ok": true,
+      "evidence": {
+        "sessionId": "3e277010-da51-4c20-9e77-e58b88f84e2c",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 11,
+        "stages": [
+          {
+            "id": "startup",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-app_health_review",
+      "ok": true,
+      "evidence": {
+        "sessionId": "f15d977e-3809-4a13-a2b8-2a7657c137c3",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 0,
+        "stages": [
+          {
+            "id": "apps",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-system_health_pulse",
+      "ok": true,
+      "evidence": {
+        "sessionId": "c979fee4-d61b-4861-a6d1-c89a35a01e42",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 3,
+        "stages": [
+          {
+            "id": "capacity",
+            "status": "complete"
+          },
+          {
+            "id": "system",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "native-service-smart_recommendations",
+      "ok": true,
+      "evidence": {
+        "sessionId": "79f838b8-c9b5-4cd4-a00d-9654863f5a5f",
+        "status": "complete",
+        "serviceStatus": "complete",
+        "findings": 5,
+        "stages": [
+          {
+            "id": "inventory",
+            "status": "complete"
+          },
+          {
+            "id": "capacity",
+            "status": "complete"
+          },
+          {
+            "id": "system",
+            "status": "complete"
+          },
+          {
+            "id": "services",
+            "status": "complete"
+          },
+          {
+            "id": "analyze",
+            "status": "complete"
+          }
+        ],
+        "dataSource": "Real native providers; file observations restricted to disposable fixture"
+      }
+    },
+    {
+      "name": "history-populated-responsive-matrix",
+      "ok": true,
+      "evidence": [
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1672,
+          "h": 941,
+          "firstRowCenterVisible": true,
+          "runReachable": true,
+          "runBottom": 907,
+          "bodyHeight": 162.703125,
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "day",
+          "w": 1920,
+          "h": 1080,
+          "firstRowCenterVisible": true,
+          "runReachable": true,
+          "runBottom": 1046,
+          "bodyHeight": 285.703125,
+          "overflow": 0
+        },
+        {
+          "locale": "ar",
+          "theme": "day",
+          "w": 1366,
+          "h": 768,
+          "firstRowCenterVisible": true,
+          "runReachable": true,
+          "runBottom": 734,
+          "bodyHeight": 139.703125,
+          "overflow": 0
+        },
+        {
+          "locale": "en",
+          "theme": "night",
+          "w": 1672,
+          "h": 941,
+          "firstRowCenterVisible": true,
+          "runReachable": true,
+          "runBottom": 907,
+          "bodyHeight": 266.703125,
+          "overflow": 0
+        }
+      ]
+    },
+    {
+      "name": "export-actual-session-report",
+      "ok": true,
+      "evidence": {
+        "target": "D:\\Temp\\knoux-inner-scan-Ob7yXs\\exported-scan.json",
+        "sessionId": "79f838b8-c9b5-4cd4-a00d-9654863f5a5f",
+        "readOnly": true,
+        "actualReportBytes": 15767
+      }
+    },
+    {
+      "name": "native-cancellation-events",
+      "ok": true,
+      "evidence": {
+        "types": [
+          "scan-started",
+          "scan-stage",
+          "scan-complete",
+          "scan-cancelled-requested",
+          "scan-cancelled"
+        ],
+        "count": 105
+      }
+    },
+    {
+      "name": "real-missing-scope-error-recovery",
+      "ok": true,
+      "evidence": {
+        "code": "STUDIO_PATH_UNSAFE",
+        "status": "failed"
+      }
+    },
+    {
+      "name": "gallery-side-view-reduced-motion",
+      "ok": true,
+      "evidence": {
+        "galleryServices": 10,
+        "sideViewRoundTrip": true,
+        "reducedMotion": "none"
+      }
+    },
+    {
+      "name": "unavailable-browser-has-no-fake-native",
+      "ok": true,
+      "evidence": {
+        "nativeAPI": "undefined",
+        "status": "UNAVAILABLE",
+        "fixtureFallback": false
+      }
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [],
+  "fixtureUnchanged": true,
+  "ok": true
+}

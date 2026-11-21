@@ -6,7 +6,9 @@
  * "awaiting measured scan" note instead of a design number.
  */
 import React from 'react';
-import { Activity, AlertTriangle, FileStack, HardDrive, Shield, Target } from 'lucide-react';
+import { Activity, AlertTriangle, Clock3, FileStack, HardDrive, Shield, ShieldCheck, Target } from 'lucide-react';
+import type { ScanSession } from '../../shared/native-contracts';
+import { formatBytes, formatDateTime, modeLabel, sessionStatusLabel } from './model';
 import type { KpiMetric } from './smartScan.types';
 
 export interface ScanMetricsProps {
@@ -103,3 +105,100 @@ export const ScanMetrics: React.FC<ScanMetricsProps> = ({ metrics, isArabic = fa
     </div>
   );
 };
+
+/**
+ * The board's five hero KPI tiles (DAY column / NIGHT band share the same
+ * measured set). Every figure comes from the selected native session summary
+ * — never a design number. The DAY board's "Security Status: Safe" is derived
+ * from measured high-severity findings, and the NIGHT board's "Critical
+ * Issues" maps to the same measured high-severity count (the contract has no
+ * separate critical tier). Unmeasured values render an explicit dash with a
+ * Not-measured note.
+ */
+export interface ScanHeroTileSpec {
+  id: string;
+  icon: React.ComponentType<{ className?: string }>;
+  value: string;
+  labelEn: string;
+  labelAr: string;
+  noteEn: string;
+  noteAr: string;
+  tone: 'blue' | 'red' | 'green' | 'purple' | 'cyan';
+}
+
+export function scanHeroTiles(session: ScanSession | null, isArabic: boolean): ScanHeroTileSpec[] {
+  const summary = session?.summary ?? null;
+  const duplicateMeasured = Boolean(session?.services.some(
+    (service) => service.serviceId === 'duplicate_finder' || service.serviceId === 'deep_scan',
+  ));
+  const high = summary?.highSeverityCount ?? 0;
+  const lastAt = session?.finishedAt || session?.startedAt || null;
+  const dash = '—';
+  return [
+    {
+      id: 'scanned',
+      icon: FileStack,
+      value: summary?.filesIndexed == null ? dash : summary.filesIndexed.toLocaleString(isArabic ? 'ar' : 'en'),
+      labelEn: 'Items Scanned',
+      labelAr: 'عناصر مفحوصة',
+      noteEn: summary?.filesIndexed == null || !session ? 'Not measured' : `${sessionStatusLabel(session.status, false)} · ${modeLabel(session.mode, false)}`,
+      noteAr: summary?.filesIndexed == null || !session ? 'غير مقيس' : `${sessionStatusLabel(session.status, true)} · ${modeLabel(session.mode, true)}`,
+      tone: 'blue',
+    },
+    {
+      id: 'issues',
+      icon: AlertTriangle,
+      value: summary ? String(summary.findingsCount || 0) : dash,
+      labelEn: 'Issues Found',
+      labelAr: 'مشكلات مكتشفة',
+      noteEn: summary ? (high > 0 ? `${high} high severity` : 'No high severity') : 'Not measured',
+      noteAr: summary ? (high > 0 ? `${high} خطورة عالية` : 'لا خطورة عالية') : 'غير مقيس',
+      tone: 'red',
+    },
+    {
+      id: 'security',
+      icon: ShieldCheck,
+      value: !summary ? dash : high === 0 ? (isArabic ? 'آمن' : 'Safe') : (isArabic ? 'مراجعة' : 'Review'),
+      labelEn: 'Security Status',
+      labelAr: 'حالة الأمان',
+      noteEn: !summary ? 'Not measured' : high === 0 ? 'No critical threats' : `${high} need attention`,
+      noteAr: !summary ? 'غير مقيس' : high === 0 ? 'لا تهديدات حرجة' : `${high} تحتاج انتباهًا`,
+      tone: 'green',
+    },
+    {
+      id: 'reclaimable',
+      icon: HardDrive,
+      value: summary && duplicateMeasured ? formatBytes(summary.verifiedReclaimableBytes, isArabic) : dash,
+      labelEn: 'Reclaimable Space',
+      labelAr: 'مساحة قابلة للاستعادة',
+      noteEn: !summary || !duplicateMeasured ? 'Not measured' : `${summary.verifiedDuplicateGroups || 0} verified group(s)`,
+      noteAr: !summary || !duplicateMeasured ? 'غير مقيس' : `${summary.verifiedDuplicateGroups || 0} مجموعة متحقق منها`,
+      tone: 'purple',
+    },
+    {
+      id: 'last-scan',
+      icon: Clock3,
+      value: lastAt ? formatDateTime(lastAt, isArabic) : (isArabic ? 'لا سجل' : 'No record'),
+      labelEn: 'Last Scan',
+      labelAr: 'آخر فحص',
+      noteEn: session ? `${modeLabel(session.mode, false)} · ${sessionStatusLabel(session.status, false)}` : 'No scan history yet',
+      noteAr: session ? `${modeLabel(session.mode, true)} · ${sessionStatusLabel(session.status, true)}` : 'لا يوجد سجل فحص بعد',
+      tone: 'cyan',
+    },
+  ];
+}
+
+export const ScanHeroTiles: React.FC<{ session: ScanSession | null; isArabic?: boolean }> = ({ session, isArabic = false }) => (
+  <div className="scan-hero-tiles" data-testid="scan-hero-tiles">
+    {scanHeroTiles(session, isArabic).map(({ id, icon: Icon, value, labelEn, labelAr, noteEn, noteAr, tone }) => (
+      <div key={id} className={`scan-hero-tile is-${tone}`} data-testid={`scan-hero-tile-${id}`}>
+        <span className="scan-hero-tile-icon" aria-hidden="true"><Icon className="w-4 h-4" /></span>
+        <span className="scan-hero-tile-copy" title={isArabic ? noteAr : noteEn}>
+          <strong>{value}</strong>
+          <span>{isArabic ? labelAr : labelEn}</span>
+          <small>{isArabic ? noteAr : noteEn}</small>
+        </span>
+      </div>
+    ))}
+  </div>
+);

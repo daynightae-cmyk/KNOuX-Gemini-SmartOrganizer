@@ -18,12 +18,15 @@ import {
   ShieldCheck,
   Sparkles,
   X,
+  Zap,
 } from 'lucide-react';
 import type { ScanServiceResult } from '../../shared/native-contracts';
 import { useNavigation, useDeepLink } from '../context/NavigationContext';
 import { KNOuXTitleBar, KNOuXSidebar } from '../components/shell/KNOuXShellComponents';
 import { SmartScanHero, SmartScanSourceBar } from './SmartScanHero';
-import { ScanMetrics } from './ScanMetrics';
+import { ScanHeroTiles, ScanMetrics } from './ScanMetrics';
+import { LivingHeroExtraMount } from '../visual/LivingLayoutContext';
+import { HeroFeatures } from '../visual/HeroFeatures';
 import { ScanServices, scanServiceIcon } from './ScanServices';
 import { ScanResults } from './ScanResults';
 import { FindingsBreakdown } from './FindingsBreakdown';
@@ -357,6 +360,20 @@ export const SmartScanPage: React.FC<SmartScanPageProps> = ({ onNavigateSection 
               onOpenService={scan.capabilities ? (serviceId) => setActiveServiceId(serviceId) : undefined}
             />
 </div>
+            {/* Board anatomy: DAY shows three capability rows plus five measured
+                KPI tiles in the hero copy column; NIGHT hides the rows and the
+                same five tiles span the full hero width under the copy. All
+                values come from the selected native session — no fixtures. */}
+            <LivingHeroExtraMount enabled>
+              <HeroFeatures
+                items={[
+                  { icon: <ShieldCheck className="w-4 h-4" />, title: isArabic ? 'فحص شامل' : 'Comprehensive Scanning', detail: isArabic ? 'يفحص عدة مجالات في فحص واحد' : 'Checks multiple areas in one scan', tone: '#7c5cff' },
+                  { icon: <Zap className="w-4 h-4" />, title: isArabic ? 'يكتشف المشكلات مبكرًا' : 'Finds Issues Early', detail: isArabic ? 'يحافظ على سرعة جهازك وأمانه' : 'Helps keep your system fast and secure', tone: '#f59e0b' },
+                  { icon: <Sparkles className="w-4 h-4" />, title: isArabic ? 'توصيات قابلة للتنفيذ' : 'Actionable Recommendations', detail: isArabic ? 'نتائج واضحة بخطوات تالية سهلة' : 'Clear results with easy next steps', tone: '#10b981' },
+                ]}
+              />
+              <ScanHeroTiles session={scan.session} isArabic={isArabic} />
+            </LivingHeroExtraMount>
             <ScanServices services={services} results={serviceResults} activeServiceId={activeServiceId} onSelectService={service=>{setActiveServiceId(service.id);setDetached(false);}} onOpenCustomScan={openCustomScan} isArabic={isArabic} nativeAvailable={scan.nativeAvailable}/>
             <section id="active-service-workspace" className="scan-integrated-stage" role="tabpanel" aria-labelledby={activeService?`service-tab-${activeService.id}`:undefined} data-testid="scan-integrated-workspace">
               <div className="scan-workspace-tools"><button type="button" onClick={()=>{setActiveServiceId(null);setDetached(false);}}>{isArabic?'كل الخدمات':'All services'}</button>
