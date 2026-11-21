@@ -8,6 +8,7 @@ import {useNavigation, type DomainSection} from '../context/NavigationContext';
 
 export function UnifiedSectionLayout({children}:{children:ReactNode}) {
  const {currentSection,isArabic,theme}=useNavigation();
+ const night=theme!=='light';
  /* Founder identity renders its own surface in App.tsx and never reaches this
     layout. The narrow fallback keeps the fourteen-domain maps total without
     inventing a fifteenth artwork or hero configuration entry. */
@@ -28,7 +29,7 @@ export function UnifiedSectionLayout({children}:{children:ReactNode}) {
           It carries no information and reacts only to real app activity. */}
       <HeaderOrbField section={section} theme={theme}/>
       <div className="knx-section-identity"><span className="knx-section-emblem"><Icon aria-hidden="true"/></span>
-       <div className="knx-section-copy"><span className="knx-section-kicker">KNOuX SmartOrganizer</span>{isArabic?<h1 id="knx-unified-title" lang="ar" dir="rtl">{config.headlineAr}</h1>:<h1 id="knx-unified-title" lang="en" dir="ltr">{config.headline}</h1>}<p lang={isArabic?'ar':'en'} dir={isArabic?'rtl':'ltr'}>{isArabic?config.descriptionAr:config.description}</p><div className="knx-hero-extra-mount" ref={setHeroExtra} data-testid="unified-hero-extra"/></div>
+       <div className="knx-section-copy"><span className="knx-section-kicker">KNOuX SmartOrganizer</span>{isArabic?<h1 id="knx-unified-title" lang="ar" dir="rtl">{night&&config.headlineNightAr?config.headlineNightAr:config.headlineAr}</h1>:<h1 id="knx-unified-title" lang="en" dir="ltr">{night&&config.headlineNight?config.headlineNight:config.headline}</h1>}<p lang={isArabic?'ar':'en'} dir={isArabic?'rtl':'ltr'}>{isArabic?(night&&config.descriptionNightAr?config.descriptionNightAr:config.descriptionAr):(night&&config.descriptionNight?config.descriptionNight:config.description)}</p><div className="knx-hero-extra-mount" ref={setHeroExtra} data-testid="unified-hero-extra"/></div>
       </div>
       <SectionGlassScene section={config.scene}/>
       <div className="knx-section-instrument"><OrbitalParticleSystem/><div className="knx-section-orbit-mount" ref={setOrbit} data-testid="unified-live-orbit"/></div>

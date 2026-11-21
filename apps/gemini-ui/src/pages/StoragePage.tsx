@@ -68,6 +68,7 @@ import { StorageTabContent, type StorageTabKey } from '../storage/StorageTabCont
 import { StorageServiceFocus, storageServiceLabel } from '../storage/StorageServiceFocus';
 import { ServiceWorkbenchHost, type WorkbenchMode } from '../components/workbench/ServiceWorkbenchHost';
 import { formatStorageBytes, useStorageNative } from '../storage/useStorageNative';
+import { LivingHeroExtraMount } from '../visual/LivingLayoutContext';
 import '../storage.css';
 import { CompactServiceDock } from '../components/workbench/CompactServiceDock';
 import { StorageLiveStage } from '../storage/StorageLiveStage';
@@ -93,7 +94,9 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
   const [selectedTreemapItem, setSelectedTreemapItem] = useState<string>('Windows (93.6 GB)');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState<string | null>(null);
   const [activeService, setActiveService] = useState<string | null>('storage-disks');
-  const [detached,setDetached]=useState(false),[overview,setOverview]=useState(false);
+  // Boards land on the measured overview dashboard (drives register + space map +
+  // inspector), matching the Files precedent; dock tabs open the focused services.
+  const [detached,setDetached]=useState(false),[overview,setOverview]=useState(true);
 
   // Consume deep link from Home/other entry points to auto-open a workbench
   useEffect(() => {
@@ -398,14 +401,24 @@ export function StoragePage({ onNavigateSection }: StoragePageProps) {
               <p className="text-xs text-slate-300 mt-0.5">
                 {isArabic ? 'تصوّر تخزينك واعرف ما يستهلك المساحة، ثم راجع توصيات الاستعادة الآمنة.' : 'Visualize your storage, find what is taking space, and review safe reclamation opportunities.'}
               </p>
-              <StorageHeroMetrics
-                  ar={isArabic}
-                  volumes={displayVolumes}
-                  pending={volumesPending}
-                  error={storageNative.volumesError}
-                  scanning={storageNative.scanning}
-                  onExplore={() => void storageNative.chooseSource()}
-                />
+              {/* The board's NIGHT feature rows + measured capacity tiles + Explore
+                  CTA live in the unified hero copy column. The portal relocates
+                  these real controls; the page keeps owning the native state. */}
+              <LivingHeroExtraMount enabled>
+                <div className="osa-features storage-hero-features">
+                  <button type="button" data-testid="storage-feature-explore" onClick={() => void storageNative.chooseSource()}><span className="osa-feature-icon"><Search aria-hidden="true"/></span><span><strong>{isArabic ? 'استكشف تخزينك' : 'Explore Your Storage'}</strong><small>{isArabic ? 'شاهد توزيع المساحة عبر الأقراص والمجلدات' : 'See how space is used across drives and folders'}</small></span></button>
+                  <button type="button" data-testid="storage-feature-hogs" onClick={() => { setActiveService('storage-large-files'); setOverview(false); setDetached(false); }}><span className="osa-feature-icon"><BarChart3 aria-hidden="true"/></span><span><strong>{isArabic ? 'اعثر على مستهلكي المساحة' : 'Find Space Hogs'}</strong><small>{isArabic ? 'حدّد الملفات والمجلدات الكبيرة فورًا' : 'Identify large files and folders instantly'}</small></span></button>
+                  <button type="button" data-testid="storage-feature-reclaim" onClick={() => { setActiveService('storage-reclaim'); setOverview(false); setDetached(false); }}><span className="osa-feature-icon"><Sparkles aria-hidden="true"/></span><span><strong>{isArabic ? 'استعد المساحة' : 'Reclaim Space'}</strong><small>{isArabic ? 'فرص تنظيف آمنة وموصى بها' : 'Get safe, recommended cleanup opportunities'}</small></span></button>
+                </div>
+                <StorageHeroMetrics
+                    ar={isArabic}
+                    volumes={displayVolumes}
+                    pending={volumesPending}
+                    error={storageNative.volumesError}
+                    scanning={storageNative.scanning}
+                    onExplore={() => void storageNative.chooseSource()}
+                  />
+              </LivingHeroExtraMount>
             </div>
 
             

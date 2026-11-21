@@ -228,3 +228,83 @@ html:not([data-theme=light]) .knx-hero-extra-mount .osa-features small{font-size
 @media(forced-colors:active){.knx-section-scene,.knx-living-orbital-light,.knx-hero-orb-field{display:none}.knx-section-hero{border:1px solid CanvasText!important}}
 
 @media(max-height:820px){.knx-reference-workflow .knx-workflow-connections{height:37px}}
+
+/* Storage boards: DAY = orbital wheel left + identity/4 KPI tiles/Explore right
+   (no feature plates, no workflow strip); NIGHT = identity + three feature rows
+   + capacity tiles left, wheel right. Both heroes keep every control real. */
+.knx-section-hero[data-hero-section=storage] .knx-reference-workflow{display:none}
+html[data-theme=light] .knx-section-hero[data-hero-section=storage] .knx-section-instrument{left:14px;right:auto}
+html[data-theme=light] .knx-section-hero[data-hero-section=storage] .knx-section-identity{margin-inline-start:calc(var(--knx-section-orbit-size) + 26px);width:52%}
+html[data-theme=light] .knx-living-shell[dir=rtl] .knx-section-hero[data-hero-section=storage] .knx-section-instrument{left:auto;right:14px}
+html[data-theme=light] .knx-section-hero[data-hero-section=storage] .knx-section-scene{display:none}
+html[data-theme=light] .knx-hero-extra-mount .storage-hero-features{display:none}
+html[data-theme=light] .knx-hero-extra-mount .atl-kpi-health{display:none}
+html:not([data-theme=light]) .knx-hero-extra-mount .atl-explore{display:none}
+html:not([data-theme=light]) .knx-section-hero[data-hero-section=storage] .knx-section-identity{width:56%;max-width:760px}
+html:not([data-theme=light]) .knx-section-hero[data-hero-section=storage] .knx-section-scene{left:50%;width:34%;opacity:.85}
+@media(max-height:820px){html:not([data-theme=light]) .knx-section-hero[data-hero-section=storage] .knx-section-instrument{right:30px}html:not([data-theme=light]) .knx-section-hero[data-hero-section=storage] .knx-section-identity{width:62%;max-width:none}}
+.knx-living-shell[data-visual-section=storage]{--knx-section-hero-h:300px;--knx-section-orbit-size:264px}
+html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage]{--knx-section-hero-h:340px}
+@media(max-height:820px){.knx-living-shell[data-visual-section=storage]{--knx-section-hero-h:240px;--knx-section-orbit-size:190px}html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage]{--knx-section-hero-h:250px;--knx-section-orbit-size:170px}}
+@media(min-width:1800px){.knx-living-shell[data-visual-section=storage]{--knx-section-hero-h:330px;--knx-section-orbit-size:290px}}
+/* Board tile anatomy: label on top, measured value under it, note line below. */
+.knx-hero-extra-mount .atl-hero-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+html:not([data-theme=light]) .knx-hero-extra-mount .atl-hero-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}
+.knx-hero-extra-mount .atl-hero-metrics>div{display:flex;align-items:center;gap:7px;min-width:0;padding:8px 9px;border:1px solid var(--knx-line);border-radius:12px;background:var(--knx-surface);box-shadow:var(--knx-elev-1)}
+.knx-hero-extra-mount .atl-kpi-icon{display:grid;place-items:center;width:26px;height:30px;flex-shrink:0;border-radius:9px;color:var(--knx-accent-strong);background:color-mix(in srgb,var(--knx-accent) 14%,var(--knx-surface))}
+.knx-hero-extra-mount .atl-kpi-icon svg{width:16px;height:16px}
+.knx-hero-extra-mount .atl-kpi-copy{min-width:0;flex:1}
+.knx-hero-extra-mount .atl-kpi-copy>span{display:block;font-size:9.5px;color:var(--knx-ink-2);white-space:normal;line-height:1.2}
+.knx-hero-extra-mount .atl-kpi-copy>strong{display:block;font-size:15px;line-height:1.15;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--knx-ink)}
+.knx-hero-extra-mount .atl-kpi-copy small{display:block;margin-top:1px;font-size:8.5px;color:var(--knx-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.knx-hero-extra-mount .atl-explore{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--knx-edge-strong);color:var(--knx-on-accent);font-size:13px;font-weight:650;background:linear-gradient(135deg,var(--knx-accent),var(--knx-accent-strong));box-shadow:var(--knx-glow-accent);cursor:pointer}
+.knx-hero-extra-mount .atl-explore svg{width:16px;height:16px}
+.knx-hero-extra-mount .atl-explore:disabled{opacity:.55;cursor:not-allowed}
+.knx-hero-extra-mount .atl-hero-error{margin:0;font-size:10px;color:var(--knx-error)}
+/* The living shell still carries .visual-sprint, whose legacy atlas-panels rules
+   share specificity and import later; re-assert the board tile anatomy at higher
+   specificity so labels wrap and values stay measured-first in both themes. */
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-hero-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+html:not([data-theme=light]) .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-hero-metrics{grid-template-columns:repeat(5,minmax(0,1fr))}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-hero-metrics>div{display:flex;align-items:center;gap:7px;min-width:0;padding:8px 9px;border:1px solid var(--knx-line);border-radius:12px;background:var(--knx-surface);box-shadow:var(--knx-elev-1)}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-icon{display:grid;place-items:center;width:26px;height:30px;flex-shrink:0;border-radius:9px;color:var(--knx-accent-strong);background:color-mix(in srgb,var(--knx-accent) 14%,var(--knx-surface));box-shadow:none}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-icon svg{width:16px;height:16px}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-copy{min-width:0;flex:1}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-copy>span{display:block;font-size:9.5px;color:var(--knx-ink-2);white-space:normal;overflow:visible;text-overflow:clip;line-height:1.2}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-copy>strong{display:block;font-size:15px;line-height:1.15;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--knx-ink)}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-copy small{display:block;margin-top:1px;font-size:8.5px;color:var(--knx-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-explore{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--knx-edge-strong);color:var(--knx-on-accent);font-size:13px;font-weight:650;background:linear-gradient(135deg,var(--knx-accent),var(--knx-accent-strong));box-shadow:var(--knx-glow-accent);cursor:pointer}
+.visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-explore:disabled{opacity:.55;cursor:not-allowed}
+html[data-theme=light] .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .storage-hero-features{display:none}
+html[data-theme=light] .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-health{display:none}
+html:not([data-theme=light]) .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-explore{display:none}
+@media(max-height:820px){
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-hero-metrics{gap:5px}
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-hero-metrics>div{padding:5px 6px;gap:5px}
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-icon{width:20px;height:24px}
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-icon svg{width:13px;height:13px}
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-copy>strong{font-size:12.5px}
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-kpi-copy small{display:none}
+ .visual-sprint.knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount .atl-explore{padding:7px 10px;font-size:11.5px}
+}
+.knx-hero-extra-mount .storage-hero-features>button>span:last-child{min-width:0}
+.knx-hero-extra-mount .storage-hero-features strong{white-space:normal;font-size:11px}
+.knx-hero-extra-mount .storage-hero-features small{white-space:normal;font-size:9px;line-height:1.25}
+@media(max-height:820px){
+ .knx-living-shell[data-visual-section=storage] .knx-section-copy>p{font-size:10px;line-height:1.3}
+ .knx-living-shell[data-visual-section=storage] .knx-hero-extra-mount{gap:4px;margin-top:4px}
+ .knx-hero-extra-mount .atl-hero-metrics{gap:5px}
+ .knx-hero-extra-mount .atl-hero-metrics>div{padding:5px 6px;gap:5px}
+ .knx-hero-extra-mount .atl-kpi-icon{width:20px;height:24px}
+ .knx-hero-extra-mount .atl-kpi-icon svg{width:13px;height:13px}
+ .knx-hero-extra-mount .atl-kpi-copy>strong{font-size:12.5px}
+ .knx-hero-extra-mount .atl-kpi-copy>span{white-space:normal;line-height:1.15}
+ .knx-hero-extra-mount .atl-kpi-copy small{display:none}
+ .knx-hero-extra-mount .atl-explore{padding:7px 10px;font-size:11.5px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage] .osa-features{gap:2px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage] .osa-feature-icon{width:20px;height:20px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage] .osa-feature-icon svg{width:12px;height:12px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage] .osa-features>button{gap:6px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage] .osa-features strong{font-size:10.5px}
+ html:not([data-theme=light]) .knx-living-shell[data-visual-section=storage] .osa-features small{font-size:8.5px}
+}

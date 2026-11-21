@@ -17,9 +17,10 @@ export function StorageHeroMetrics({ar,volumes,pending,error,scanning,onExplore}
   {icon:Database,label:t(ar,'Total Capacity','السعة الكلية'),value:ready?formatStorageBytes(total):'—',note:t(ar,'Sum of measured volumes','مجموع الأحجام المقيسة')},
   {icon:PieChart,label:t(ar,'Used Space','المساحة المستخدمة'),value:ready?formatStorageBytes(used):'—',note:ready?t(ar,'Reported by Windows','حسب ويندوز'):t(ar,'Not measured','غير مقيس')},
   {icon:TrendingDown,label:t(ar,'Free Space','المساحة الحرة'),value:ready?formatStorageBytes(free):'—',note:volumes.some(volume=>volume.isLowSpace)?t(ar,'A volume is low on space','وحدة منخفضة السعة'):ready?t(ar,'No low-space volume','لا وحدات منخفضة'):t(ar,'Not measured','غير مقيس')},
+  {icon:ShieldCheck,label:t(ar,'Storage Health','صحة التخزين'),value:ready?(volumes.some(volume=>volume.isLowSpace)?t(ar,'Low space','سعة منخفضة'):t(ar,'Good','جيدة')):'—',note:ready?t(ar,'No issues detected','لا مشكلات مكتشفة'):pending?t(ar,'Reading…','جارٍ القراءة'):t(ar,'Not measured','غير مقيس')},
  ];
  return <div className="atl-hero-side">
-  <div className="atl-hero-metrics" data-testid="storage-hero-metrics">{tiles.map(({icon:Icon,label,value,note})=><div key={label}><span className="atl-kpi-icon"><Icon aria-hidden="true"/></span><span className="atl-kpi-copy" title={note}><strong>{value}</strong><span>{label}</span></span></div>)}</div>
+  <div className="atl-hero-metrics" data-testid="storage-hero-metrics">{tiles.map(({icon:Icon,label,value,note},index)=><div key={label} className={index===4?'atl-kpi-health':undefined}><span className="atl-kpi-icon"><Icon aria-hidden="true"/></span><span className="atl-kpi-copy" title={note}><span>{label}</span><strong>{value}</strong><small>{note}</small></span></div>)}</div>
   <button type="button" className="atl-explore" data-testid="storage-explore" onClick={onExplore} disabled={scanning}><span>{t(ar,'Explore Storage','استكشف التخزين')}</span><ArrowRight aria-hidden="true"/></button>
   {error&&<p className="atl-hero-error" role="alert">{error}</p>}
  </div>;
